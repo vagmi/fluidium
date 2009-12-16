@@ -51,7 +51,7 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
 
     BOOL lastLoadFailed;
     
-    BOOL isProcessing;
+    BOOL isProcessing; // the 'is' is necessary here to match PSMTabBarControl
     BOOL canReload;
     BOOL didReceiveTitle;
 }

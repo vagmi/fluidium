@@ -636,7 +636,7 @@ typedef enum {
                        modalForWindow:[self.view window]
                         modalDelegate:self
                        didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:) 
-                          contextInfo:[listener retain]];
+                          contextInfo:[listener retain]]; // retained
 }
 
 
