@@ -42,7 +42,6 @@ extern NSString *const FUStatusBarShownDidChangeNotification;
 
 - (IBAction)addNewTabInForeground:(id)sender;
 
-
 - (FUDocument *)openDocumentWithRequest:(NSURLRequest *)req makeKey:(BOOL)makeKey;
 
 - (FUTabController *)loadRequest:(NSURLRequest *)req; // prefers tabs
