@@ -324,9 +324,6 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)createPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap {
     NSString *identifier = wrap.identifier;
     NSString *title = wrap.localizedTitle;
-    if ([title hasPrefix:@"BrowsaBrowsa"]) {
-        title = @"Browsa";
-    }
     
     [self copyIconImageNamed:wrap.toolbarIconImageName forPlugInWrapper:wrap];
     [self copyIconImageNamed:wrap.preferencesIconImageName forPlugInWrapper:wrap];
@@ -341,17 +338,17 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     [description setObject:[NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), title] forKey:@"title"];
 
     // hardcode ordering for mulitple BrowsaBrowsa plugins. ensures they show up in prefpane in order we want. otherwise the get jumbled. :0[
-    if ([identifier hasPrefix:@"com.fluidapp.BrowsaBrowsaPlugIn"]) {
+    if ([identifier hasPrefix:@"com.fluidapp.BrowsaPlugIn"]) {
         NSInteger ordering = 0;
-        if ([identifier isEqualToString:@"com.fluidapp.BrowsaBrowsaPlugIn0"]) {
+        if ([identifier isEqualToString:@"com.fluidapp.BrowsaPlugIn0"]) {
             ordering = 200;
-        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaBrowsaPlugIn1"]) {
+        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaPlugIn1"]) {
             ordering = 210;
-        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaBrowsaPlugIn2"]) {
+        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaPlugIn2"]) {
             ordering = 220;
-        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaBrowsaPlugIn3"]) {
+        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaPlugIn3"]) {
             ordering = 230;
-        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaBrowsaPlugIn4"]) {
+        } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaPlugIn4"]) {
             ordering = 240;
         }
         [description setObject:[NSNumber numberWithInteger:ordering] forKey:@"ordering"];
