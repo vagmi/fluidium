@@ -76,17 +76,17 @@ static CRTwitterPlugIn *instance = nil;
 		self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
 		self.toolbarIconImageName = @"toolbar_button_twitter";
 		self.preferencesIconImageName = @"toolbar_button_twitter";
-		self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawerMask|
-										 FUPlugInViewPlacementUtilityPanelMask|
-										 FUPlugInViewPlacementFloatingUtilityPanelMask|
-										 FUPlugInViewPlacementHUDPanelMask|
-										 FUPlugInViewPlacementFloatingHUDPanelMask|
-										 FUPlugInViewPlacementSplitViewLeftMask|
-										 FUPlugInViewPlacementSplitViewRightMask|
-										 FUPlugInViewPlacementSplitViewTopMask|
-										 FUPlugInViewPlacementSplitViewBottomMask);
+		self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
+										 FUPlugInViewPlacementUtilityPanel|
+										 FUPlugInViewPlacementFloatingUtilityPanel|
+										 FUPlugInViewPlacementHUDPanel|
+										 FUPlugInViewPlacementFloatingHUDPanel|
+										 FUPlugInViewPlacementSplitViewLeft|
+										 FUPlugInViewPlacementSplitViewRight|
+										 FUPlugInViewPlacementSplitViewTop|
+										 FUPlugInViewPlacementSplitViewBottom);
         
-		self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewLeftMask;
+		self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewLeft;
 		
 		self.preferencesViewController = [[[CRTwitterPlugInPrefsViewController alloc] init] autorelease];
         

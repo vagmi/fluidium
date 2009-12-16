@@ -26,22 +26,22 @@ extern NSString *const FUPlugInKey;                         // id <FUPlugIn>
 extern NSString *const FUPlugInViewControllerKey;           // NSViewController
 extern NSString *const FUPlugInViewControllerDrawerKey;     // NSDrawer -- this is only sent for view controllers currently in a drawer position
 
-#define FUPlugInViewPlacementIsSplitView(mask)  ((mask) == FUPlugInViewPlacementSplitViewBottomMask || (mask) == FUPlugInViewPlacementSplitViewLeftMask || (mask) == FUPlugInViewPlacementSplitViewRightMask || (mask) == FUPlugInViewPlacementSplitViewTopMask)
-#define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanelMask || (mask) == FUPlugInViewPlacementFloatingUtilityPanelMask || (mask) == FUPlugInViewPlacementHUDPanelMask || (mask) == FUPlugInViewPlacementFloatingHUDPanelMask)
-#define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawerMask)
+#define FUPlugInViewPlacementIsSplitView(mask)  ((mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight || (mask) == FUPlugInViewPlacementSplitViewTop)
+#define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)
+#define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawer)
 
 @protocol FUPlugInAPI;
 
 typedef enum {
-    FUPlugInViewPlacementDrawerMask = 1 << 1,
-    FUPlugInViewPlacementUtilityPanelMask = 1 << 2,
-    FUPlugInViewPlacementFloatingUtilityPanelMask = 1 << 3,
-    FUPlugInViewPlacementHUDPanelMask = 1 << 4,
-    FUPlugInViewPlacementFloatingHUDPanelMask = 1 << 5,
-    FUPlugInViewPlacementSplitViewBottomMask = 1 << 6,
-    FUPlugInViewPlacementSplitViewLeftMask = 1 << 7,
-    FUPlugInViewPlacementSplitViewRightMask = 1 << 8,
-    FUPlugInViewPlacementSplitViewTopMask = 1 << 9,
+    FUPlugInViewPlacementDrawer = 1 << 1,
+    FUPlugInViewPlacementUtilityPanel = 1 << 2,
+    FUPlugInViewPlacementFloatingUtilityPanel = 1 << 3,
+    FUPlugInViewPlacementHUDPanel = 1 << 4,
+    FUPlugInViewPlacementFloatingHUDPanel = 1 << 5,
+    FUPlugInViewPlacementSplitViewBottom = 1 << 6,
+    FUPlugInViewPlacementSplitViewLeft = 1 << 7,
+    FUPlugInViewPlacementSplitViewRight = 1 << 8,
+    FUPlugInViewPlacementSplitViewTop = 1 << 9,
 } FUPlugInViewPlacementMask;
 
 // note that your impl of this protocol will be registered (by the Fluid SSB) for the four PlugInViewController notifications below

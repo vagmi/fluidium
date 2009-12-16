@@ -516,33 +516,35 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     }
     
     switch (mask) {
-        case FUPlugInViewPlacementUtilityPanelMask:
+        case FUPlugInViewPlacementUtilityPanel:
             [self toggleUtilityPanelPlugInWrapper:wrap];
             break;
-        case FUPlugInViewPlacementFloatingUtilityPanelMask:
+        case FUPlugInViewPlacementFloatingUtilityPanel:
             [self toggleFloatingUtilityPanelPlugInWrapper:wrap];
             break;
-        case FUPlugInViewPlacementHUDPanelMask:
+        case FUPlugInViewPlacementHUDPanel:
             [self toggleHUDPanelPlugInWrapper:wrap];
             break;
-        case FUPlugInViewPlacementFloatingHUDPanelMask:
+        case FUPlugInViewPlacementFloatingHUDPanel:
             [self toggleFloatingHUDPanelPlugInWrapper:wrap];
             break;
-        case FUPlugInViewPlacementSplitViewBottomMask:
+        case FUPlugInViewPlacementSplitViewBottom:
             [self toggleSplitViewBottomPlugInWrapper:wrap inWindow:win];
             break;
-        case FUPlugInViewPlacementSplitViewLeftMask:
+        case FUPlugInViewPlacementSplitViewLeft:
             [self toggleSplitViewLeftPlugInWrapper:wrap inWindow:win];
             break;
-        case FUPlugInViewPlacementSplitViewRightMask:
+        case FUPlugInViewPlacementSplitViewRight:
             [self toggleSplitViewRightPlugInWrapper:wrap inWindow:win];
             break;
-        case FUPlugInViewPlacementSplitViewTopMask:
+        case FUPlugInViewPlacementSplitViewTop:
             [self toggleSplitViewTopPlugInWrapper:wrap inWindow:win];
             break;
-        default:
-            //case FUPlugInViewPlacementDrawerMask:
+        case FUPlugInViewPlacementDrawer:
             [self toggleDrawerPlugInWrapper:wrap inWindow:win];
+            break;
+        default:
+            NSAssert(0, @"unknown view placement mask");
             break;
     }
 }
