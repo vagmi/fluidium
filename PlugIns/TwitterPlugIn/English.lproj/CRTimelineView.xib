@@ -225,7 +225,7 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.WebKitIBPlugin</string>
-					<string>{{148, 23}, {381, 833}}</string>
+					<string>{{339, 23}, {381, 833}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{628, 654}</string>
 					<string>{{217, 442}, {480, 272}}</string>
@@ -295,7 +295,7 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../../FluidApp/src/FUPlugIn.h</string>
+						<string key="minorKey">../../Fluidium/src/FUPlugIn.h</string>
 					</object>
 				</object>
 			</object>
@@ -310,7 +310,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBDocumentRelativeSource</string>
-						<string key="minorKey">../../../FluidApp/lib/UMEKit/include/UMEKit/UMEViewController.h</string>
+						<string key="minorKey">../../../Fluidium/lib/UMEKit/include/UMEKit/UMEViewController.h</string>
 					</object>
 				</object>
 			</object>
