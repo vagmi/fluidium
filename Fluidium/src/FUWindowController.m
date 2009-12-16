@@ -52,7 +52,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 - (void)noop:(id)sender;
 @end
 
-@interface FUWindowController (FUTabBarDragging) // Don't use these for anything else
+@interface FUWindowController (FUTabBarDragging) // Don't use this method for anything else
 - (void)tabControllerWasDroppedOnTabBar:(FUTabController *)tc;
 @end
 
@@ -361,9 +361,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     
     NSTabViewItem *tabItem = [tabView selectedTabViewItem];
 
-    if (![self removeTabViewItem:tabItem]) {
-        return;
-    }
+    [self removeTabViewItem:tabItem];
 }
     
     
@@ -853,7 +851,6 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
-
 #pragma mark -
 #pragma mark NSTabViewDelegate
 
@@ -1080,9 +1077,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     }
     
     [tabView removeTabViewItem:tabItem];
-    
-    [[tc retain] autorelease];
-    [tabControllers removeObject:tc];
+    [tabControllers removeObject:[[tc retain] autorelease]];
     
     return YES;
 }
@@ -1102,7 +1097,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 - (void)performWindowClose:(id)sender {
     BOOL onlyHide = [[FUUserDefaults instance] hideLastClosedWindow];
-    BOOL onlyOneWin = 1 == [[[FUDocumentController instance] documents] count];
+    BOOL onlyOneWin = (1 == [[[FUDocumentController instance] documents] count]);
     if (onlyHide && onlyOneWin) {
         [[FUDocumentController instance] setHiddenWindow:[self window]];
         [[self window] orderOut:self];
@@ -1181,7 +1176,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     if (inTab) {
         [self loadRequest:req inNewTabInForeground:inForeground];
     } else {
-        [[FUDocumentController instance] openDocumentWithRequest:req makeKey:YES];
+        [[FUDocumentController instance] openDocumentWithRequest:req makeKey:inForeground];
     }
 }
 
