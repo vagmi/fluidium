@@ -10,7 +10,7 @@
 
 @implementation NSImage (FUAdditions)
 
-- (NSImage *)FU_scaledImageOfSize:(NSSize)size {
+- (NSImage *)scaledImageOfSize:(NSSize)size {
     NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
     [result lockFocus];
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];

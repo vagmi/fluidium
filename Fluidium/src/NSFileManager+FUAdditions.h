@@ -9,5 +9,5 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSFileManager (FUAdditions)
-- (NSArray *)FU_directoryContentsAtPath:(NSString *)path havingExtension:(NSString *)extension error:(NSError **)outError;
+- (NSArray *)directoryContentsAtPath:(NSString *)path havingExtension:(NSString *)extension error:(NSError **)outError;
 @end

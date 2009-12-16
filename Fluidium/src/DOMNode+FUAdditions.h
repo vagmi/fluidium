@@ -9,7 +9,7 @@
 #import <WebKit/WebKit.h>
 
 @interface DOMNode (FUAdditions)
-- (DOMElement *)FU_firstAncestorOrSelfByTagName:(NSString *)tagName;
-- (CGFloat)FU_totalOffsetTop;
-- (CGFloat)FU_totalOffsetLeft;
+- (DOMElement *)firstAncestorOrSelfByTagName:(NSString *)tagName;
+- (CGFloat)totalOffsetTop;
+- (CGFloat)totalOffsetLeft;
 @end

@@ -9,12 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSEvent (FUAdditions)
-- (BOOL)FU_isKeyUpOrDown;
-- (BOOL)FU_is3rdButtonClick;
-- (BOOL)FU_isCommandKeyPressed;
-- (BOOL)FU_isShiftKeyPressed;
-- (BOOL)FU_isOptionKeyPressed;
-- (BOOL)FU_isEscKeyPressed;
-- (BOOL)FU_isReturnKeyPressed;
-- (BOOL)FU_isEnterKeyPressed;
+- (BOOL)isKeyUpOrDown;
+- (BOOL)is3rdButtonClick;
+- (BOOL)isCommandKeyPressed;
+- (BOOL)isShiftKeyPressed;
+- (BOOL)isOptionKeyPressed;
+- (BOOL)isEscKeyPressed;
+- (BOOL)isReturnKeyPressed;
+- (BOOL)isEnterKeyPressed;
 @end

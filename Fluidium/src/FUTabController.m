@@ -149,7 +149,7 @@ typedef enum {
     }
     
     self.title = NSLocalizedString(@"Loading...", @"");
-    self.URLString = [URLString FU_stringByEnsuringURLSchemePrefix];
+    self.URLString = [URLString stringByEnsuringURLSchemePrefix];
     [webView setMainFrameURL:URLString];
 }
 
@@ -704,7 +704,7 @@ typedef enum {
         WebFrame *sourceFrame = [info valueForKey:WebElementFrameKey];
         WebFrame *targetFrame = [info valueForKey:WebElementLinkTargetFrameKey];
         DOMNode  *targetNode  = [info valueForKey:WebElementDOMNodeKey];
-        DOMElement *anchorEl  = [targetNode FU_firstAncestorOrSelfByTagName:@"a"];
+        DOMElement *anchorEl  = [targetNode firstAncestorOrSelfByTagName:@"a"];
         NSString *targetStr   = [anchorEl getAttribute:@"target"];
         NSString *format = nil;
         
@@ -824,7 +824,7 @@ typedef enum {
 
 
 - (NSImage *)defaultFavicon {
-    return [[WebIconDatabase sharedIconDatabase] FU_defaultFavicon];
+    return [[WebIconDatabase sharedIconDatabase] defaultFavicon];
 }
 
                  

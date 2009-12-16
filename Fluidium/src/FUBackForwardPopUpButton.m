@@ -110,7 +110,7 @@
     
     BOOL isBackButton = (@selector(goBack:) == [self action]);
     if (isBackButton) {
-        historyItems = [[list backListWithLimit:BACK_FWD_ITEM_LIMIT] FU_reversedArray];
+        historyItems = [[list backListWithLimit:BACK_FWD_ITEM_LIMIT] reversedArray];
     } else {
         historyItems = [list forwardListWithLimit:BACK_FWD_ITEM_LIMIT];
     }
@@ -118,7 +118,7 @@
     NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 
     for (WebHistoryItem *historyItem in historyItems) {
-        NSImage *icon = [[WebIconDatabase sharedIconDatabase] FU_faviconForURL:[historyItem URLString]];
+        NSImage *icon = [[WebIconDatabase sharedIconDatabase] faviconForURL:[historyItem URLString]];
 
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:[historyItem title]
                                                            action:@selector(menuItemClick:)

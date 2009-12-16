@@ -10,7 +10,7 @@
 
 @implementation NSArray (FUAdditions)
 
-- (NSMutableArray *)FU_reversedMutableArray {
+- (NSMutableArray *)reversedMutableArray {
     NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
     for (id obj in [self reverseObjectEnumerator]) {
         [tmp addObject:obj];
@@ -19,8 +19,8 @@
 }
 
 
-- (NSArray *)FU_reversedArray {
-    return [[[self FU_reversedMutableArray] copy] autorelease];
+- (NSArray *)reversedArray {
+    return [[[self reversedMutableArray] copy] autorelease];
 }
 
 @end

@@ -9,6 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSArray (FUAdditions)
-- (NSMutableArray *)FU_reversedMutableArray;
-- (NSArray *)FU_reversedArray;
+- (NSMutableArray *)reversedMutableArray;
+- (NSArray *)reversedArray;
 @end

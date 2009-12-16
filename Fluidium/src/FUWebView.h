@@ -18,5 +18,5 @@
 
 }
 
-- (NSImage *)FU_imageRepresentation;
+- (NSImage *)imageRepresentation;
 @end

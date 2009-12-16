@@ -220,7 +220,7 @@
             if ([URL length]) {
                 NSString *title = URL;
                 
-                title = [title FU_stringByTrimmingURLSchemePrefix];
+                title = [title stringByTrimmingURLSchemePrefix];
                 NSString *prefix = @"www.";
                 if ([title hasPrefix:prefix]) title = [title substringFromIndex:[prefix length]];
 

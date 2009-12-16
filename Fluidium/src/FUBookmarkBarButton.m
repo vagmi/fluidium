@@ -40,7 +40,7 @@
         self.item = anItem;
         //if ([[FUUserDefaults instance] showIconsInBookmarkBar]) {
         //    [self setImagePosition:NSImageLeft];
-        //    [self setImage:[[WebIconDatabase sharedIconDatabase] FU_faviconForURL:item.content]];
+        //    [self setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:item.content]];
         //}
         [self setTitle:[item valueForKey:@"title"]];
         [self setBezelStyle:NSRecessedBezelStyle];
@@ -99,7 +99,7 @@
                        andTitles:[NSArray arrayWithObject:item.title]
                     toPasteboard:pboard];
         
-    NSImage *dragImage = [[WebIconDatabase sharedIconDatabase] FU_defaultFavicon];
+    NSImage *dragImage = [[WebIconDatabase sharedIconDatabase] defaultFavicon];
     NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];
 
     CGFloat delta = ICON_SIDE / 2;

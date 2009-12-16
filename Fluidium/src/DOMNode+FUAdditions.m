@@ -10,7 +10,7 @@
 
 @implementation DOMNode (FUAdditions)
 
-- (DOMElement *)FU_firstAncestorOrSelfByTagName:(NSString *)tagName {
+- (DOMElement *)firstAncestorOrSelfByTagName:(NSString *)tagName {
     DOMNode *curr = self;
     do {
         if (DOM_ELEMENT_NODE == [curr nodeType] && [[[curr nodeName] lowercaseString] isEqualToString:tagName]) {
@@ -22,7 +22,7 @@
 }
 
 
-- (CGFloat)FU_totalOffsetTop {
+- (CGFloat)totalOffsetTop {
     DOMElement *curr = (DOMElement *)self;
     CGFloat result = 0;
     do {
@@ -33,7 +33,7 @@
 }
 
 
-- (CGFloat)FU_totalOffsetLeft {
+- (CGFloat)totalOffsetLeft {
     DOMElement *curr = (DOMElement *)self;
     CGFloat result = 0;
     do {

@@ -91,7 +91,7 @@
 
 
 - (void)showDefaultIcon {
-    [self setImage:[[WebIconDatabase sharedIconDatabase] FU_defaultFavicon]];
+    [self setImage:[[WebIconDatabase sharedIconDatabase] defaultFavicon]];
 }
 
 

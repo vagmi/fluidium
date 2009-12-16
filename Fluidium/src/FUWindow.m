@@ -24,8 +24,8 @@ NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidCha
 
 @interface FUWindow ()
 - (void)spacesBehaviorDidChange:(NSNotification *)n;
-- (BOOL)FU_handleCloseSearchPanel:(NSEvent *)evt;
-- (BOOL)FU_handleNextPrevTab:(NSEvent *)evt;
+- (BOOL)handleCloseSearchPanel:(NSEvent *)evt;
+- (BOOL)handleNextPrevTab:(NSEvent *)evt;
 @end
 
 @implementation FUWindow
@@ -57,14 +57,14 @@ NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidCha
 
 - (void)sendEvent:(NSEvent *)evt {
 
-    if ([evt FU_isKeyUpOrDown]) {
+    if ([evt isKeyUpOrDown]) {
         // handle closing the search panel via <ESC> key
-        if ([self FU_handleCloseSearchPanel:evt]) {
+        if ([self handleCloseSearchPanel:evt]) {
             return;
         }
                                                    
         // also handle ⌘-{ and ⌘-} tab switching
-        else if ([self FU_handleNextPrevTab:evt]) {
+        else if ([self handleNextPrevTab:evt]) {
             return;
         }
     }
@@ -81,7 +81,7 @@ NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidCha
 }
 
 
-- (IBAction)FU_forcePerformClose:(id)sender {
+- (IBAction)forcePerformClose:(id)sender {
     [super performClose:sender];
 }
 
@@ -106,8 +106,8 @@ NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidCha
 #pragma mark -
 #pragma mark Private
 
-- (BOOL)FU_handleCloseSearchPanel:(NSEvent *)evt {
-    if ([evt FU_isEscKeyPressed]) {
+- (BOOL)handleCloseSearchPanel:(NSEvent *)evt {
+    if ([evt isEscKeyPressed]) {
         FUWindowController *wc = (FUWindowController *)[self windowController];
         if ([wc isFindPanelVisible]) {
             [wc hideFindPanel:self];
@@ -118,8 +118,8 @@ NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidCha
 }
 
 
-- (BOOL)FU_handleNextPrevTab:(NSEvent *)evt {
-    if ([evt FU_isCommandKeyPressed]) {
+- (BOOL)handleNextPrevTab:(NSEvent *)evt {
+    if ([evt isCommandKeyPressed]) {
         NSInteger keyCode = [evt keyCode];
         if (CLOSE_CURLY == keyCode || OPEN_CURLY == keyCode) {
             FUWindowController *wc = (FUWindowController *)[self windowController];

@@ -10,7 +10,7 @@
 
 @implementation NSFileManager (FUAdditions)
 
-- (NSArray *)FU_directoryContentsAtPath:(NSString *)path havingExtension:(NSString *)extension error:(NSError **)outError {
+- (NSArray *)directoryContentsAtPath:(NSString *)path havingExtension:(NSString *)extension error:(NSError **)outError {
     NSError *error = nil;
     NSArray *children = [self contentsOfDirectoryAtPath:path error:&error];
     if (!children) {

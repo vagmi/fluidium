@@ -140,7 +140,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
     [item setAction:@selector(bookmarkClicked:)];
     [item setTitle:bookmark.title];
     
-    [item setImage:[[WebIconDatabase sharedIconDatabase] FU_faviconForURL:bookmark.content]];
+    [item setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:bookmark.content]];
     [item setRepresentedObject:bookmark];
     
     return YES;

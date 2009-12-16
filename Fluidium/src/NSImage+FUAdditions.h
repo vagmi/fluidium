@@ -9,5 +9,5 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSImage (FUAdditions)
-- (NSImage *)FU_scaledImageOfSize:(NSSize)size;
+- (NSImage *)scaledImageOfSize:(NSSize)size;
 @end

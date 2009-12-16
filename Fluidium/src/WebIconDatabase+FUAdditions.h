@@ -9,6 +9,6 @@
 #import "WebKitPrivate.h"
 
 @interface WebIconDatabase (FUAdditions)
-- (NSImage *)FU_defaultFavicon;
-- (NSImage *)FU_faviconForURL:(NSString *)s;
+- (NSImage *)defaultFavicon;
+- (NSImage *)faviconForURL:(NSString *)s;
 @end

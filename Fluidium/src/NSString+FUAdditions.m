@@ -11,15 +11,15 @@
 
 @implementation NSString (FUAdditions)
 
-- (NSString *)FU_stringByEnsuringURLSchemePrefix {
-    if (![self FU_hasSupportedSchemePrefix]) {
+- (NSString *)stringByEnsuringURLSchemePrefix {
+    if (![self hasSupportedSchemePrefix]) {
         return [NSString stringWithFormat:@"%@%@", kFUHTTPSchemePrefix, self];
     }
     return self;
 }
 
 
-- (NSString *)FU_stringByTrimmingURLSchemePrefix {
+- (NSString *)stringByTrimmingURLSchemePrefix {
     NSString *s = [[self copy] autorelease];
     
     if ([s hasPrefix:kFUHTTPSchemePrefix]) {
@@ -34,13 +34,13 @@
 }
 
 
-- (BOOL)FU_hasHTTPSchemePrefix {
+- (BOOL)hasHTTPSchemePrefix {
     return [self hasPrefix:kFUHTTPSchemePrefix] || [self hasPrefix:kFUHTTPSSchemePrefix];
 }
 
 
-- (BOOL)FU_hasSupportedSchemePrefix {
-    return [self FU_hasHTTPSchemePrefix] 
+- (BOOL)hasSupportedSchemePrefix {
+    return [self hasHTTPSchemePrefix] 
         || [self hasPrefix:kFUFileSchemePrefix] 
         || [self hasPrefix:@"about:"] 
         || [self hasPrefix:@"data:"] 

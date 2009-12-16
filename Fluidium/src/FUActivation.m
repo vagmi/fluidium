@@ -28,9 +28,9 @@
 + (id)activationFromEvent:(NSEvent *)evt {
     FUActivation *a = [[[self alloc] init] autorelease];
     
-    a.isCommandKeyPressed = [evt FU_isCommandKeyPressed] || [evt FU_is3rdButtonClick];
-    a.isShiftKeyPressed   = [evt FU_isShiftKeyPressed];
-    a.isOptionKeyPressed  = [evt FU_isOptionKeyPressed];
+    a.isCommandKeyPressed = [evt isCommandKeyPressed] || [evt is3rdButtonClick];
+    a.isShiftKeyPressed   = [evt isShiftKeyPressed];
+    a.isOptionKeyPressed  = [evt isOptionKeyPressed];
     
     return a;
 }

@@ -15,43 +15,43 @@
 
 @implementation NSEvent (FUAdditions)
 
-- (BOOL)FU_isKeyUpOrDown {
+- (BOOL)isKeyUpOrDown {
     return (NSKeyUp == [self type] || NSKeyDown == [self type]);
 }
 
 
-- (BOOL)FU_is3rdButtonClick {
+- (BOOL)is3rdButtonClick {
     return 2 == [self buttonNumber];
 }
 
 
-- (BOOL)FU_isCommandKeyPressed {
+- (BOOL)isCommandKeyPressed {
     return FUIsCommandKeyPressed([self modifierFlags]);
 }
 
 
-- (BOOL)FU_isShiftKeyPressed {
+- (BOOL)isShiftKeyPressed {
     return FUIsShiftKeyPressed([self modifierFlags]);
 }
 
 
-- (BOOL)FU_isOptionKeyPressed {
+- (BOOL)isOptionKeyPressed {
     return FUIsOptionKeyPressed([self modifierFlags]);
 }
 
 
-- (BOOL)FU_isEscKeyPressed {
-    return [self FU_isKeyUpOrDown] && ESC == [self keyCode];
+- (BOOL)isEscKeyPressed {
+    return [self isKeyUpOrDown] && ESC == [self keyCode];
 }
 
 
-- (BOOL)FU_isReturnKeyPressed {
-    return [self FU_isKeyUpOrDown] && RETURN == [self keyCode];
+- (BOOL)isReturnKeyPressed {
+    return [self isKeyUpOrDown] && RETURN == [self keyCode];
 }
 
 
-- (BOOL)FU_isEnterKeyPressed {
-    return [self FU_isKeyUpOrDown] && ENTER == [self keyCode];
+- (BOOL)isEnterKeyPressed {
+    return [self isKeyUpOrDown] && ENTER == [self keyCode];
 }
 
 @end

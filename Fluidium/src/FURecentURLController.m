@@ -90,7 +90,7 @@
         }
         
         // remove leading http:// or https://
-        URLString = [URLString FU_stringByTrimmingURLSchemePrefix];
+        URLString = [URLString stringByTrimmingURLSchemePrefix];
         
         // remove leading www.
         NSString *prefix = @"www.";

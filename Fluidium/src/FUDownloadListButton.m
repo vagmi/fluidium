@@ -33,7 +33,7 @@
 - (void)awakeFromNib {
     if (STOP_PROGRESS_BUTTON_TAG == [self tag]) { // stop progress button needs to be resized. its too big.
         NSImage *img = [NSImage imageNamed:NSImageNameStopProgressFreestandingTemplate];
-        [self setImage:[img FU_scaledImageOfSize:NSMakeSize(14, 14)]];
+        [self setImage:[img scaledImageOfSize:NSMakeSize(14, 14)]];
     }
     [self setShowsBorderOnlyWhileMouseInside:YES];
 }

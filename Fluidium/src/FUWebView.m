@@ -18,8 +18,8 @@
 #import "FUUserAgentWindowController.h"
 
 @interface FUWebView ()
-- (void)FU_webPreferencesDidChange:(NSNotification *)n;
-- (void)FU_userAgentStringDidChange:(NSNotification *)n;
+- (void)webPreferencesDidChange:(NSNotification *)n;
+- (void)userAgentStringDidChange:(NSNotification *)n;
 @end
 
 @implementation FUWebView
@@ -27,10 +27,10 @@
 - (id)initWithFrame:(NSRect)frame frameName:(NSString *)frameName groupName:(NSString *)groupName {
     if (self = [super initWithFrame:frame frameName:frameName groupName:groupName]) {
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self selector:@selector(FU_webPreferencesDidChange:) name:FUWebPreferencesDidChangeNotification object:[FUWebPreferences instance]];
-        [nc addObserver:self selector:@selector(FU_userAgentStringDidChange:) name:FUUserAgentStringDidChangeNotification object:nil];
+        [nc addObserver:self selector:@selector(webPreferencesDidChange:) name:FUWebPreferencesDidChangeNotification object:[FUWebPreferences instance]];
+        [nc addObserver:self selector:@selector(userAgentStringDidChange:) name:FUUserAgentStringDidChangeNotification object:nil];
         
-        [self FU_userAgentStringDidChange:nil];
+        [self userAgentStringDidChange:nil];
     }
     return self;
 }
@@ -55,13 +55,13 @@
 #pragma mark -
 #pragma mark Notifications
 
-- (void)FU_webPreferencesDidChange:(NSNotification *)n {
+- (void)webPreferencesDidChange:(NSNotification *)n {
     [self setPreferences:[FUWebPreferences instance]];
     [self reload:self];
 }
 
 
-- (void)FU_userAgentStringDidChange:(NSNotification *)n {
+- (void)userAgentStringDidChange:(NSNotification *)n {
     [self setCustomUserAgent:[[FUUserAgentWindowController instance] userAgentString]];
 }
 
@@ -69,7 +69,7 @@
 #pragma mark -
 #pragma mark Public
 
-- (NSImage *)FU_imageRepresentation {
+- (NSImage *)imageRepresentation {
     NSRect webViewBounds = [self bounds];
     NSImage *image = [[[NSImage alloc] initWithSize:webViewBounds.size] autorelease];
     [self lockFocus];

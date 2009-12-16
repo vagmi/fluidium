@@ -10,12 +10,12 @@
 
 @implementation WebIconDatabase (FUAdditions)
 
-- (NSImage *)FU_defaultFavicon {
+- (NSImage *)defaultFavicon {
     return [self defaultIconWithSize:NSMakeSize(16, 16)];
 }
 
 
-- (NSImage *)FU_faviconForURL:(NSString *)s {
+- (NSImage *)faviconForURL:(NSString *)s {
     return [self iconForURL:s withSize:NSMakeSize(16, 16)];
 }
 

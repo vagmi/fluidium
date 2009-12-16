@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSString (FUAdditions)
-- (NSString *)FU_stringByEnsuringURLSchemePrefix;
-- (NSString *)FU_stringByTrimmingURLSchemePrefix;
-- (BOOL)FU_hasHTTPSchemePrefix;
-- (BOOL)FU_hasSupportedSchemePrefix;
+- (NSString *)stringByEnsuringURLSchemePrefix;
+- (NSString *)stringByTrimmingURLSchemePrefix;
+- (BOOL)hasHTTPSchemePrefix;
+- (BOOL)hasSupportedSchemePrefix;
 @end

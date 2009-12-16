@@ -20,5 +20,5 @@ extern NSString *const FUSpacesBehaviorDidChangeNotification;
 
 }
 
-- (IBAction)FU_forcePerformClose:(id)sender;
+- (IBAction)forcePerformClose:(id)sender;
 @end

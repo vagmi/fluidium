@@ -448,7 +448,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     
     NSString *title = [[self selectedTabController] title];
     if (![title length]) {
-        title = [URLString FU_stringByTrimmingURLSchemePrefix];
+        title = [URLString stringByTrimmingURLSchemePrefix];
     }
     
     FUBookmark *b = [[[FUBookmark alloc] init] autorelease];
@@ -469,7 +469,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
         return;
     }
     
-    NSString *URLString = [bookmark.content FU_stringByEnsuringURLSchemePrefix];    
+    NSString *URLString = [bookmark.content stringByEnsuringURLSchemePrefix];    
     
     if ([bookmark.content hasPrefix:@"javascript:"]) {
         NSString *script = [NSString stringWithUTF8String:[bookmark.content UTF8String]];
@@ -660,12 +660,12 @@ NSString *const FUTabControllerKey = @"FUTabController";
     if (!typingInFindPanel) {
         result = YES;
     } else if (NSKeyUp == [evt type] || NSKeyDown == [evt type]) {
-        if ([evt FU_isCommandKeyPressed] ||
-            [evt FU_isOptionKeyPressed] ||
-            [evt FU_isCommandKeyPressed] ||
-            [evt FU_isEscKeyPressed] ||
-            [evt FU_isReturnKeyPressed] ||
-            [evt FU_isEnterKeyPressed]) {
+        if ([evt isCommandKeyPressed] ||
+            [evt isOptionKeyPressed] ||
+            [evt isCommandKeyPressed] ||
+            [evt isEscKeyPressed] ||
+            [evt isReturnKeyPressed] ||
+            [evt isEnterKeyPressed]) {
             result = YES;
         }
     }
@@ -677,7 +677,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 // necessary to handle cmd-Return in search field
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)tv doCommandBySelector:(SEL)sel {
     if (control == searchField) {
-        BOOL isCommandClick = [[[self window] currentEvent] FU_isCommandKeyPressed];
+        BOOL isCommandClick = [[[self window] currentEvent] isCommandKeyPressed];
         
         if (@selector(noop:) == sel && isCommandClick) {
             [self search:control];
@@ -719,7 +719,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
         
         // last item (clear url menu) was clicked. clear recentURLs
         if (c && i == c - 1) {
-            if (![[NSApp currentEvent] FU_isEscKeyPressed]) {
+            if (![[NSApp currentEvent] isEscKeyPressed]) {
                 NSString *s = [locationComboBox stringValue];
                 [locationComboBox deselectItemAtIndex:i];
                 
@@ -791,7 +791,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
         [[FURecentURLController instance] resetMatchingRecentURLs];
         
         for (NSString *URLString in [self recentURLs]) {
-            URLString = [URLString FU_stringByTrimmingURLSchemePrefix];
+            URLString = [URLString stringByTrimmingURLSchemePrefix];
             if ([URLString hasPrefix:uncompletedString]) {
                 [self addMatchingRecentURL:URLString];
             }
@@ -829,7 +829,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
         
         NSString *title = [wv mainFrameTitle];
         if (![title length]) {
-            title = [URLString FU_stringByTrimmingURLSchemePrefix];        
+            title = [URLString stringByTrimmingURLSchemePrefix];        
         }
         
         NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
@@ -984,7 +984,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     
     FUWebView *wv = [[tabItem identifier] webView];
     
-    return [wv FU_imageRepresentation];
+    return [wv imageRepresentation];
 }
 
 
@@ -1107,7 +1107,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
         [[FUDocumentController instance] setHiddenWindow:[self window]];
         [[self window] orderOut:self];
     } else {
-        [(FUWindow *)[self window] FU_forcePerformClose:sender];
+        [(FUWindow *)[self window] forcePerformClose:sender];
     }
 }
 

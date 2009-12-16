@@ -154,7 +154,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     [mgr createDirectoryAtPath:path attributes:nil];
     
     NSMutableArray *filenames = [NSMutableArray array];    
-    [filenames addObjectsFromArray:[mgr FU_directoryContentsAtPath:path havingExtension:@"fluidplugin" error:nil]];
+    [filenames addObjectsFromArray:[mgr directoryContentsAtPath:path havingExtension:@"fluidplugin" error:nil]];
     
     BOOL foundPlugIns = [filenames count];
     
