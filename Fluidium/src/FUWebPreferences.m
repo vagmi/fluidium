@@ -15,7 +15,7 @@
 #import "FUWebPreferences.h"
 #import "FUUserDefaults.h"
 
-NSString * FUWebPreferencesDidChangeNotification = @"FUWebPreferencesDidChangeNotification";
+NSString *const FUWebPreferencesDidChangeNotification = @"FUWebPreferencesDidChangeNotification";
 
 @implementation FUWebPreferences
 

@@ -14,7 +14,7 @@
 
 #import <WebKit/WebKit.h>
 
-extern NSString * FUWebPreferencesDidChangeNotification;
+extern NSString *const FUWebPreferencesDidChangeNotification;
 
 @interface FUWebPreferences : WebPreferences {
 

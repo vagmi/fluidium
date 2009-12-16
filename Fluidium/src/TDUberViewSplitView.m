@@ -44,7 +44,7 @@
     [borderColor set];
     NSRect borderRect;
     if (isVert) {
-        borderRect = NSOffsetRect(rect, 0., -1.);
+        borderRect = NSOffsetRect(rect, 0, -1.);
         borderRect.size.height += 2.;
     } else {
         borderRect = NSOffsetRect(rect, -1., 0);

@@ -51,7 +51,7 @@
     FUActivation *a = [[[self alloc] init] autorelease];
     
     NSUInteger flags = [[info objectForKey:WebActionModifierFlagsKey] unsignedIntegerValue];
-    BOOL isMiddleClick = 1 == [[info objectForKey:WebActionButtonKey] integerValue];
+    BOOL isMiddleClick = (1 == [[info objectForKey:WebActionButtonKey] integerValue]);
     
     a.isCommandKeyPressed = FUIsCommandKeyPressed(flags) || isMiddleClick;
     a.isShiftKeyPressed   = FUIsShiftKeyPressed(flags);
