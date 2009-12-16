@@ -41,19 +41,19 @@ extern NSString *const FUTabControllerKey;
 @end
 
 @interface FUWindowController : NSWindowController {
-    IBOutlet NSSplitView *locationSplitView;
-    IBOutlet FUProgressComboBox *locationComboBox;
-    IBOutlet NSSearchField *searchField;
+    NSSplitView *locationSplitView;
+    FUProgressComboBox *locationComboBox;
+    NSSearchField *searchField;
     
-    IBOutlet NSView *tabContainerView;
-    IBOutlet PSMTabBarControl *tabBar;
-    IBOutlet NSView *bookmarkBar;
-    IBOutlet TDUberView *uberView;
-    IBOutlet NSView *statusBar;
-    IBOutlet NSTextField *statusTextField;
+    NSView *tabContainerView;
+    PSMTabBarControl *tabBar;
+    NSView *bookmarkBar;
+    TDUberView *uberView;
+    NSView *statusBar;
+    NSTextField *statusTextField;
     
-    IBOutlet NSView *findPanelView;
-    IBOutlet NSSearchField *findPanelSearchField;
+    NSView *findPanelView;
+    NSSearchField *findPanelSearchField;
     NSTabView *tabView;
     FUTabController *departingTabController;
  
