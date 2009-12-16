@@ -81,7 +81,7 @@
 #pragma mark Notifications
 
 - (void)tabControllerDidClearWindowObject:(NSNotification *)n {
-    FUTabController *tc = [[n userInfo] objectForKey:FUTabControllerKey];
+    FUTabController *tc = [n object];
     WebView *wv = [tc webView];
     NSString *userscriptSrc = [self userscriptSourceForURLString:[wv mainFrameURL]];
     

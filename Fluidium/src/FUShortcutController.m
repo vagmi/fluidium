@@ -183,11 +183,11 @@
             NSString *s = [shortcut objectForKey:@"replacement"];
             if (NSNotFound != [s rangeOfString:@"%@"].location) {
                 result = s;
-                (*outIndexed) = NO;
+                *outIndexed = NO;
                 break;
             } else if  (NSNotFound != [s rangeOfString:@"$1"].location) {
                 result = s;
-                (*outIndexed) = YES;
+                *outIndexed = YES;
                 break;
             }
         }

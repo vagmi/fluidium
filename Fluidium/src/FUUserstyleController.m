@@ -85,7 +85,7 @@
 #pragma mark Notifications
 
 - (void)tabControllerDidCommitLoad:(NSNotification *)n {
-    FUTabController *tc = [[n userInfo] objectForKey:FUTabControllerKey];
+    FUTabController *tc = [n object];
     WebView *wv = [tc webView];
     WebPreferences *oldPrefs = [wv preferences];
     
