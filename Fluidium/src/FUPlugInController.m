@@ -60,7 +60,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)loadPlugInsAtPath:(NSString *)path;
 - (void)registerNotificationsOnPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)createMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap;
-- (void)createPrefPanesForPlugInWrappers;
+- (void)setUpPrefPanesForPlugInWrappers;
 - (void)createPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)copyIconImageNamed:(NSString *)iconImageName forPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleDrawerPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
@@ -144,8 +144,8 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)loadPlugIns {
     [self loadPlugInsAtPath:[[FUApplication instance] plugInPrivateDirPath]];
     [self loadPlugInsAtPath:[[FUApplication instance] plugInDirPath]];
-    [self createPrefPanesForPlugInWrappers];
-    [self createMenuItemsForPlugIns];
+    [self setUpPrefPanesForPlugInWrappers];
+    [self setUpMenuItemsForPlugIns];
 }
 
 
@@ -207,7 +207,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 }
 
 
-- (void)createMenuItemsForPlugIns {
+- (void)setUpMenuItemsForPlugIns {
     plugInMenu = [[[NSApp mainMenu] itemAtIndex:PLUGIN_MENU_INDEX] submenu];
     
     for (FUPlugInWrapper *wrap in plugInWrappers) {
@@ -290,7 +290,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 }
 
 
-- (void)createPrefPanesForPlugInWrappers {
+- (void)setUpPrefPanesForPlugInWrappers {
     //[OAPreferenceController sharedPreferenceController];
     
     for (FUPlugInWrapper *wrap in plugInWrappers) {

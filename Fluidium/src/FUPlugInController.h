@@ -32,7 +32,7 @@
 - (void)plugInMenuItemAction:(id)sender;
 
 - (void)loadPlugIns;
-- (void)createMenuItemsForPlugIns;
+- (void)setUpMenuItemsForPlugIns;
 - (void)toggleVisibilityOfPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleVisibilityOfPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
 
