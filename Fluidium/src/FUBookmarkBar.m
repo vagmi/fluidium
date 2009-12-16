@@ -51,7 +51,7 @@
         [overflowButton setTarget:self];
 
         self.separator = [[[FUBookmarkButtonSeparator alloc] init] autorelease];
-        [self setButtons:[NSMutableArray array]];
+        self.buttons = [NSMutableArray array];
                 
         NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, nil];
         [self registerForDraggedTypes:types];
@@ -84,11 +84,6 @@
 
     NSColor *bgColor = FUMainTabBackgroundColor();
     self.mainBgGradient = [[[NSGradient alloc] initWithStartingColor:[bgColor colorWithAlphaComponent:.65] endingColor:bgColor] autorelease];
-    
-//    NSColor *color0 = [NSColor colorWithDeviceRed:188.0/255.0 green:200.0/255.0 blue:213.0/255.0 alpha:1.0];
-//    NSColor *color1 = [NSColor colorWithDeviceRed:127.0/255.0 green:150.0/255.0 blue:177.0/255.0 alpha:1.0];
-//    self.mainBgGradient = [[[NSGradient alloc] initWithStartingColor:color0 endingColor:color1] autorelease];
-    
     bgColor = FUNonMainTabBackgroundColor();
     self.nonMainBgGradient = [[[NSGradient alloc] initWithStartingColor:[bgColor colorWithAlphaComponent:.45] endingColor:bgColor] autorelease];
     self.mainTopBorderColor = [NSColor colorWithDeviceWhite:.4 alpha:1];
