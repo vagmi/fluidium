@@ -75,8 +75,8 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)toggleSplitViewLeftPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
 - (void)toggleSplitViewRightPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
 - (void)toggleSplitViewPluginWrapper:(FUPlugInWrapper *)plugInWrapper isVertical:(BOOL)isVertical isFirst:(BOOL)isFirst inWindow:(NSWindow *)window;
-- (void)postNotificationName:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc;
-- (void)postNotificationName:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc userInfo:(NSMutableDictionary *)userInfo;
+- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc;
+- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc userInfo:(NSMutableDictionary *)userInfo;
 @end
 
 @implementation FUPlugInController
@@ -560,8 +560,8 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)toggleDrawerPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)win {    
     NSViewController *vc = [wrap plugInViewControllerForWindowNumber:[win windowNumber]];
     
+    NSAssert([[win drawers] count], @"");
     NSDrawer *drawer = [[win drawers] objectAtIndex:0];
-    if (!drawer) return;
     
     if (![drawer delegate]) {
         [drawer setDelegate:self];        
@@ -572,11 +572,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
         return;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:wrap
-                                             selector:@selector(windowWillClose:)
-                                                 name:NSWindowWillCloseNotification
-                                               object:win];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:wrap selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:win];
     
     NSString *identifier = [wrap identifier];
     NSMutableSet *visiblePlugIns = [NSMutableSet setWithArray:[[FUUserDefaults instance] visiblePlugInIdentifiers]];
@@ -585,19 +581,12 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     [userInfo setObject:drawer forKey:FUPlugInViewControllerDrawerKey];
     
     if (NSDrawerOpenState == [drawer state]) {
-        //[viewController.view removeFromSuperview];
         [[drawer contentView] setNeedsDisplay:YES];
 
-        [self postNotificationName:FUPlugInViewControllerWillDisappearNotifcation
-                  forPlugInWrapper:wrap
-                    viewController:vc
-                          userInfo:userInfo];
+        [self post:FUPlugInViewControllerWillDisappearNotifcation forPlugInWrapper:wrap viewController:vc userInfo:userInfo];
         [drawer close:self];
         [wrap setVisible:NO inWindowNumber:[win windowNumber]];
-        [self postNotificationName:FUPlugInViewControllerDidDisappearNotifcation
-                  forPlugInWrapper:wrap
-                    viewController:vc
-                          userInfo:userInfo];
+        [self post:FUPlugInViewControllerDidDisappearNotifcation forPlugInWrapper:wrap viewController:vc userInfo:userInfo];
         [visiblePlugIns removeObject:identifier];
     } else {
         NSString *contentSizeString = [[FUUserDefaults instance] plugInDrawerContentSizeString];
@@ -608,16 +597,10 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
         [vc.view setFrameSize:[drawer contentSize]];
         [[drawer contentView] setNeedsDisplay:YES];
         
-        [self postNotificationName:FUPlugInViewControllerWillAppearNotifcation
-                  forPlugInWrapper:wrap
-                    viewController:vc
-                          userInfo:userInfo];
+        [self post:FUPlugInViewControllerWillAppearNotifcation forPlugInWrapper:wrap viewController:vc userInfo:userInfo];
         [drawer open:self];
         [wrap setVisible:YES inWindowNumber:[win windowNumber]];
-        [self postNotificationName:FUPlugInViewControllerDidAppearNotifcation
-                  forPlugInWrapper:wrap
-                    viewController:vc
-                          userInfo:userInfo];
+        [self post:FUPlugInViewControllerDidAppearNotifcation forPlugInWrapper:wrap viewController:vc userInfo:userInfo];
         [visiblePlugIns addObject:identifier];
     }
 
@@ -663,30 +646,21 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     BOOL visible = [wrap isVisibleInWindowNumber:-1];
     
     if (visible) {
-        [self postNotificationName:FUPlugInViewControllerWillDisappearNotifcation 
-                  forPlugInWrapper:wrap
-                    viewController:vc];
+        [self post:FUPlugInViewControllerWillDisappearNotifcation forPlugInWrapper:wrap viewController:vc];
         
         [wrap setVisible:NO inWindowNumber:-1];
         [panel close];
 
-        [self postNotificationName:FUPlugInViewControllerDidDisappearNotifcation 
-                  forPlugInWrapper:wrap
-                    viewController:vc];
+        [self post:FUPlugInViewControllerDidDisappearNotifcation forPlugInWrapper:wrap viewController:vc];
     } else {
 
-        [self postNotificationName:FUPlugInViewControllerWillAppearNotifcation
-                  forPlugInWrapper:wrap
-                    viewController:vc];
+        [self post:FUPlugInViewControllerWillAppearNotifcation forPlugInWrapper:wrap viewController:vc];
         
         [wrap setVisible:YES inWindowNumber:-1];
         [panel setIsVisible:YES];
         [panel makeKeyAndOrderFront:self];
         
-        [self postNotificationName:FUPlugInViewControllerDidAppearNotifcation
-                  forPlugInWrapper:wrap
-                    viewController:vc];
-        
+        [self post:FUPlugInViewControllerDidAppearNotifcation forPlugInWrapper:wrap viewController:vc];
     }
 }
 
@@ -793,7 +767,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     else if (isBottom) isAppearing = !uberView.isBottomViewOpen;
     
     NSString *name = isAppearing ? FUPlugInViewControllerWillAppearNotifcation : FUPlugInViewControllerWillDisappearNotifcation;
-    [self postNotificationName:name forPlugInWrapper:wrap viewController:vc];
+    [self post:name forPlugInWrapper:wrap viewController:vc];
     [wrap setVisible:isAppearing inWindowNumber:[win windowNumber]];
     
     if (isLeft)    {
@@ -815,7 +789,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     }
 
     name = isAppearing ? FUPlugInViewControllerDidAppearNotifcation : FUPlugInViewControllerDidDisappearNotifcation;
-    [self postNotificationName:name forPlugInWrapper:wrap viewController:vc];
+    [self post:name forPlugInWrapper:wrap viewController:vc];
     
     if (isAppearing) {
         [visiblePlugIns addObject:identifier];
@@ -827,13 +801,13 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 }
 
 
-- (void)postNotificationName:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)wrap viewController:(NSViewController *)vc {
+- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)wrap viewController:(NSViewController *)vc {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    [self postNotificationName:name forPlugInWrapper:wrap viewController:vc userInfo:userInfo];
+    [self post:name forPlugInWrapper:wrap viewController:vc userInfo:userInfo];
 }
 
 
-- (void)postNotificationName:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)wrap viewController:(NSViewController *)vc userInfo:(NSMutableDictionary *)userInfo {
+- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)wrap viewController:(NSViewController *)vc userInfo:(NSMutableDictionary *)userInfo {
     [userInfo setObject:wrap.plugIn forKey:FUPlugInKey];
     [userInfo setObject:vc forKey:FUPlugInViewControllerKey];
     [userInfo setObject:[NSNumber numberWithInteger:wrap.currentViewPlacementMask] forKey:FUPlugInCurrentViewPlacementMaskKey];
