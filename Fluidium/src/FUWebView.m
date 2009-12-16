@@ -69,7 +69,7 @@
 #pragma mark -
 #pragma mark Public
 
-- (NSImage *)imageRepresentation {
+- (NSImage *)imageFromWebContent {
     NSRect webViewBounds = [self bounds];
     NSImage *image = [[[NSImage alloc] initWithSize:webViewBounds.size] autorelease];
     [self lockFocus];

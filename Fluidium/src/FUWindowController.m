@@ -981,7 +981,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     
     FUWebView *wv = [[tabItem identifier] webView];
     
-    return [wv imageRepresentation];
+    return [wv imageFromWebContent];
 }
 
 

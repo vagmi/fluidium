@@ -18,5 +18,5 @@
 
 }
 
-- (NSImage *)imageRepresentation;
+- (NSImage *)imageFromWebContent;
 @end
