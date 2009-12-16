@@ -103,17 +103,17 @@
 #pragma mark Abstract
 
 - (void)loadUserthings {
-    NSAssert(0, @"must override");
+    NSAssert(0, @"abstract method. must override");
 }
 
 
 - (void)storeUserthings {
-    NSAssert(0, @"must override");
+    NSAssert(0, @"abstract method. must override");
 }
 
 
 - (void)setUserthings:(NSMutableArray *)a {
-    NSAssert(0, @"must override");
+    NSAssert(0, @"abstract method. must override");
 }
 
 @synthesize arrayController;

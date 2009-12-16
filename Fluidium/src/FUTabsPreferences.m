@@ -17,11 +17,6 @@
 
 @implementation FUTabsPreferences
 
-- (void)updateUI {
-
-}
-
-
 - (IBAction)setValueForSender:(id)sender {
     self.defaultsHaveChanged = YES;
     [super setValueForSender:sender];
