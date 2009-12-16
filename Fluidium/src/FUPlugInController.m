@@ -59,9 +59,9 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)loadPlugInAtPath:(NSString *)path;
 - (void)loadPlugInsAtPath:(NSString *)path;
 - (void)registerNotificationsOnPlugInWrapper:(FUPlugInWrapper *)wrap;
-- (void)createMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap;
+- (void)setUpMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)setUpPrefPanesForPlugInWrappers;
-- (void)createPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap;
+- (void)setUpPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)copyIconImageNamed:(NSString *)iconImageName forPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleDrawerPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
 - (void)toggleUtilityPanelPlugInWrapper:(FUPlugInWrapper *)wrap;
@@ -211,7 +211,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     plugInMenu = [[[NSApp mainMenu] itemAtIndex:PLUGIN_MENU_INDEX] submenu];
     
     for (FUPlugInWrapper *wrap in plugInWrappers) {
-        [self createMenuItemsForPlugInWrapper:wrap];
+        [self setUpMenuItemsForPlugInWrapper:wrap];
     }
 }
 
@@ -268,7 +268,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 }
 
 
-- (void)createMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap {
+- (void)setUpMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap {
     static NSInteger tag = 0;
     
     NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), wrap.localizedTitle];
@@ -294,7 +294,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     //[OAPreferenceController sharedPreferenceController];
     
     for (FUPlugInWrapper *wrap in plugInWrappers) {
-        [self createPrefPaneForPlugInWrapper:wrap];
+        [self setUpPrefPaneForPlugInWrapper:wrap];
     }
     
     for (FUPlugInWrapper *wrap in plugInWrappers) {
@@ -321,7 +321,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 }
 
 
-- (void)createPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap {
+- (void)setUpPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap {
     NSString *identifier = wrap.identifier;
     NSString *title = wrap.localizedTitle;
     
