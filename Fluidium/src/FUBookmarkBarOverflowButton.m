@@ -68,7 +68,7 @@
     [self highlight:NO];
     [self setImage:[NSImage imageNamed:@"OverflowButtonPressed"]];
     
-    self.timer = [NSTimer timerWithTimeInterval:0.0 
+    self.timer = [NSTimer timerWithTimeInterval:0 
                                          target:self 
                                        selector:@selector(displayMenu:) 
                                        userInfo:evt 
