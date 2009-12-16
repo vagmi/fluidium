@@ -138,7 +138,6 @@
     [webView goToBackForwardItem:[sender representedObject]];
 }
 
-
 @synthesize timer;
 @end
 
