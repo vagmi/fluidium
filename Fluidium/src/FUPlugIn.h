@@ -106,8 +106,8 @@ typedef enum {
 @end
 
 @interface NSObject (FUPlugInNotifications)
-- (void)plugInViewControllerWillAppear:(NSNotification *)notification;
-- (void)plugInViewControllerDidAppear:(NSNotification *)notification;
-- (void)plugInViewControllerWillDisappear:(NSNotification *)notification;
-- (void)plugInViewControllerDidDisappear:(NSNotification *)notification;
+- (void)plugInViewControllerWillAppear:(NSNotification *)n;
+- (void)plugInViewControllerDidAppear:(NSNotification *)n;
+- (void)plugInViewControllerWillDisappear:(NSNotification *)n;
+- (void)plugInViewControllerDidDisappear:(NSNotification *)n;
 @end

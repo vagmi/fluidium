@@ -36,8 +36,7 @@ static NSUInteger sTagCount;
 
 
 - (id)initWithURLDownload:(NSURLDownload *)aDownload {
-    self = [super init];
-    if (self != nil) {
+    if (self = [super init]) {
         self.download = aDownload;
         self.tagString = [NSString stringWithFormat:@"%d", ++sTagCount];
         self.URL = [[aDownload request] URL];

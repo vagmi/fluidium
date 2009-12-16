@@ -28,8 +28,8 @@ typedef enum {
 - (NSArray *)webViews;
 - (NSString *)plugInSupportDirPath;
 
-- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground; // FUDestinationType
-- (void)loadHTMLString:(NSString *)htmlString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground; // FUDestinationType
+- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
+- (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
 
 - (void)showStatusText:(NSString *)statusText;
 

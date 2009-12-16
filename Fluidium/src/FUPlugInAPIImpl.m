@@ -31,8 +31,7 @@
 
 
 - (id)init {
-    self = [super init];
-    if (self != nil) {
+    if (self = [super init]) {
         self.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
         self.plugInSupportDirPath = [[[FUApplication instance] ssbSupportDirPath] stringByAppendingPathComponent:@"PlugIn Support"];
         [[NSFileManager defaultManager] createDirectoryAtPath:plugInSupportDirPath attributes:nil];
@@ -69,8 +68,8 @@
 }
 
 
-- (void)loadHTMLString:(NSString *)htmlString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
-    [(FUDocumentController *)[FUDocumentController instance] loadHTMLString:htmlString destinationType:type inForeground:inForeground];
+- (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
+    [(FUDocumentController *)[FUDocumentController instance] loadHTMLString:HTMLString destinationType:type inForeground:inForeground];
 }
 
 

@@ -27,8 +27,7 @@
 @implementation FUPlugInWrapper
 
 - (id)initWithPlugIn:(id <FUPlugIn>)aPlugIn {
-    self = [super init];
-    if (self != nil) {
+    if (self = [super init]) {
         self.plugIn = aPlugIn;
         self.viewControllers = [NSMutableDictionary dictionary];
         self.visibleWindowNumbers = [NSMutableSet set];
