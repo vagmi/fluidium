@@ -14,6 +14,7 @@
 
 #import "FUWebPreferences.h"
 #import "FUUserDefaults.h"
+#import "FUUserstyleController.h"
 
 NSString *const FUWebPreferencesDidChangeNotification = @"FUWebPreferencesDidChangeNotification";
 
@@ -54,8 +55,8 @@ NSString *const FUWebPreferencesDidChangeNotification = @"FUWebPreferencesDidCha
         [self setTabsToLinks:NO];
         [self setUsesPageCache:YES];
 
-        [self setUserStyleSheetEnabled:NO];
-        //[self setUserStyleSheetLocation:nil];
+        [self setUserStyleSheetEnabled:YES];
+        [self setUserStyleSheetLocation:[[FUUserstyleController instance] defaultCSSURL]];
     }
     return self;
 }
