@@ -1,8 +1,6 @@
 The initial Fluidium 0.1 release is based on the browser code powering both Fluid SSBs and Cruz (www.fluidapp.com, www.cruzapp.com). 
 
-Almost all of the code included in this project was updated prior to this release, and some of it was rewritten completely. Most of the rewriting was done due to messiness/poor architecture in the old codebase, and because I've learned a lot while writing and maintaining a Cocoa browser over the past two years.
-
-Stuff that was completely rewritten (and therefore may not be well-tested yet):
+Almost all of the code included in this project was updated prior to this release, and some of it was rewritten completely. Stuff that was completely rewritten (and therefore may not be well-tested yet):
 
 - FUDocumentController/FUDocument/FUWindowController/FUTabController/FUWindow : this is the code which handles basic browser window/tab management, and is the core functionality of the browser. It conforms to the Cocoa Document-based application design pattern.
 
