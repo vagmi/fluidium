@@ -720,7 +720,7 @@
 				GCC_PREFIX_HEADER = TwitterPlugIn_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = (
-					"$(LIBXML_PREFIX)",
+					/usr/include/libxml2,
 					"\"$(SRCROOT)/../../Fluidium/lib/UMEKit/include\"",
 					"\"$(SRCROOT)/../../Fluidium/lib/ParseKit/include\"",
 					"\"$(SRCROOT)/frameworks/yajl/include\"",
@@ -748,7 +748,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TwitterPlugIn_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					"$(LIBXML_PREFIX)",
+					/usr/include/libxml2,
 					"\"$(SRCROOT)/../../Fluidium/lib/UMEKit/include\"",
 					"\"$(SRCROOT)/../../Fluidium/lib/ParseKit/include\"",
 					"\"$(SRCROOT)/frameworks/yajl/include\"",
