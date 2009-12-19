@@ -188,12 +188,13 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
 
 - (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground {
     FUTabController *tc = nil;
-    if (FUDestinationTypeWindow == type) {
+    if (![[self documents] count] || FUDestinationTypeWindow == type) {
         FUDocument *doc = [self openDocumentWithRequest:req makeKey:inForeground];
         tc = [[doc windowController] selectedTabController];
     } else {
         FUWindowController *wc = [self frontWindowController];
         tc = [wc loadRequest:req inNewTabInForeground:inForeground];
+        [[wc window] makeKeyAndOrderFront:self]; // this is necessary if opening in a tab, and an auxilliary window is key
     }
     return tc;
 }
@@ -250,7 +251,16 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
 
 
 - (FUDocument *)frontDocument {
-    return (FUDocument *)[self currentDocument];
+    // despite what the docs say, -currentDocument does not return a document if it is main but not key. dont trust it. :(
+    //return (FUDocument *)[self currentDocument];
+
+    for (NSWindow *win in [NSApp orderedWindows]) {
+        NSDocument *doc = [self documentForWindow:win];
+        if (doc && [doc isMemberOfClass:[FUDocument class]]) {
+            return (FUDocument *)doc;
+        }
+    }
+    return nil;
 }
 
 
@@ -292,17 +302,21 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
 
 
 - (void)handleOpenContentsAppleEventWithURL:(NSString *)URLString {
-    FUWindowController *wc = [self frontWindowController];
-    NSWindow *window = [wc window];
-    if ([window isMiniaturized]) {
-        [window deminiaturize:self];
-    }
-    
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
-    FUDestinationType type = [[FUUserDefaults instance] openLinksFromApplicationsIn];
-    if (![[FUUserDefaults instance] tabbedBrowsingEnabled]) {
-        type = FUDestinationTypeWindow;
+    FUDestinationType type = FUDestinationTypeWindow;
+
+    FUWindowController *wc = [self frontWindowController];
+    if (wc) {
+        NSWindow *window = [wc window];
+        if ([window isMiniaturized]) {
+            [window deminiaturize:self];
+        }
+
+        if ([[FUUserDefaults instance] tabbedBrowsingEnabled]) {
+            type = [[FUUserDefaults instance] openLinksFromApplicationsIn];
+        }
     }
+
     [self loadRequest:req destinationType:type inForeground:YES];
 }
 

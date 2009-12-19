@@ -28,6 +28,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<FUDocument %p %@>", self, [[windowController window] title]];
+}
+
+
 - (void)makeWindowControllers {
     self.windowController = [[[FUWindowController alloc] init] autorelease];
     [self addWindowController:windowController];
