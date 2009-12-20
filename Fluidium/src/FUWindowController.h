@@ -40,7 +40,11 @@ extern NSString *const FUTabControllerKey;
 - (void)windowControllerDidChangeSelectedTab:(NSNotification *)n;
 @end
 
-@interface FUWindowController : NSWindowController {
+@interface FUWindowController : NSWindowController 
+#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
+<NSToolbarDelegate>
+#endif
+{
     NSSplitView *locationSplitView;
     FUProgressComboBox *locationComboBox;
     NSSearchField *searchField;

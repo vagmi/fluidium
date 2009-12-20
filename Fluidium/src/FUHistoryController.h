@@ -14,7 +14,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FUHistoryController : NSObject {
+@interface FUHistoryController : NSObject 
+#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
+<NSMenuDelegate>
+#endif
+{
     NSString *webHistoryFilePath;
     NSMutableArray *historyMenuObjects;
     NSUInteger numIndividualItems;

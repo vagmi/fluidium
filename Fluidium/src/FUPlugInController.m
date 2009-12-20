@@ -151,7 +151,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 - (void)loadPlugInsAtPath:(NSString *)path {
     NSFileManager *mgr = [NSFileManager defaultManager];
-    [mgr createDirectoryAtPath:path attributes:nil];
+    [mgr createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
     
     NSMutableArray *filenames = [NSMutableArray array];    
     [filenames addObjectsFromArray:[mgr directoryContentsAtPath:path havingExtension:@"fluidplugin" error:nil]];

@@ -18,7 +18,11 @@
 
 extern NSString *const FUBookmarksChangedNotification;
 
-@interface FUBookmarkController : NSObject {
+@interface FUBookmarkController : NSObject 
+#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
+<NSMenuDelegate>
+#endif
+{
     NSMutableArray *bookmarks;
 }
 

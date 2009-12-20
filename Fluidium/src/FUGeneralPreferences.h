@@ -17,7 +17,11 @@
 @class SRRecorderControl;
 @class PTHotKey;
 
-@interface FUGeneralPreferences : FUBasePreferences {
+@interface FUGeneralPreferences : FUBasePreferences
+#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
+<NSMenuDelegate>
+#endif
+{
     NSTextField *homeURLStringTextField;
     SRRecorderControl *recorderControl;
     NSPopUpButton *downloadFolderPopUpButton;

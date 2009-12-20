@@ -29,12 +29,11 @@
 
 @implementation FUPlugInAPIImpl
 
-
 - (id)init {
     if (self = [super init]) {
         self.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
         self.plugInSupportDirPath = [[[FUApplication instance] ssbSupportDirPath] stringByAppendingPathComponent:@"PlugIn Support"];
-        [[NSFileManager defaultManager] createDirectoryAtPath:plugInSupportDirPath attributes:nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath:plugInSupportDirPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     return self;
 }

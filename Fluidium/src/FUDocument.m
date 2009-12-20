@@ -86,7 +86,7 @@
     //    BOOL printBg = [preferences shouldPrintBackgrounds];
     
     NSPrintOperation *op = [NSPrintOperation printOperationWithView:dv printInfo:printInfo];
-    [op setShowPanels:show];
+    [op setShowsPrintPanel:show];
     [op runOperationModalForWindow:[wv window]
                           delegate:self 
                     didRunSelector:@selector(webPrintOperationDidRun:success:contextInfo:) 

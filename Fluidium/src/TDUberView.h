@@ -14,7 +14,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TDUberView : NSView {
+@interface TDUberView : NSView 
+#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
+<NSSplitViewDelegate>
+#endif
+{
     NSSplitView *vSplitView;
     NSSplitView *hSplitView;
     NSView *leftSuperview;

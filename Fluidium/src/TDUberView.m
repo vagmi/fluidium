@@ -86,7 +86,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         [vSplitView release];
         [vSplitView setVertical:YES];
         [vSplitView setDividerStyle:splitViewDividerStyle];
-        vSplitView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable; //NSViewMinXMargin|NSViewMinYMargin|NSViewMaxXMargin|NSViewMaxYMargin|
+        vSplitView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
         vSplitView.delegate = self;
         [self addSubview:vSplitView];
 
@@ -97,7 +97,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         [hSplitView release];
         [hSplitView setVertical:NO];
         [hSplitView setDividerStyle:splitViewDividerStyle];
-        hSplitView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable; //NSViewMinXMargin|NSViewMinYMargin|NSViewMaxXMargin|NSViewMaxYMargin|
+        hSplitView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
         hSplitView.delegate = self;
         [vSplitView addSubview:hSplitView];
 

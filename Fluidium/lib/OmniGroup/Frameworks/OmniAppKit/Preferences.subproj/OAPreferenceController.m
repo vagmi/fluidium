@@ -592,7 +592,7 @@ static NSString *windowFrameSaveName = @"Preferences";
 
     // These don't seem to get set by the nib.  We want autosizing on so that clients can resize the window by a delta (though it'd be nicer for us to have API for that).
     [preferenceBox setAutoresizesSubviews:YES];
-    [[preferenceBox contentView] setAutoresizingMask:[preferenceBox autoresizingMask]];
+    [(NSView *)[preferenceBox contentView] setAutoresizingMask:[preferenceBox autoresizingMask]];
     [[preferenceBox contentView] setAutoresizesSubviews:YES];
     
     // TJW: Is this really necessary -- it's a top level nib object.
