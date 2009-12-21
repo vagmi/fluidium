@@ -62,7 +62,7 @@ extern NSString *const FUTabControllerKey;
     FUTabController *departingTabController;
  
     BOOL typingInFindPanel;
-    NSString *findTerm;
+    NSString *findPanelTerm;
     
     FUViewSourceWindowController *viewSourceController;
     FUShortcutController *shortcutController;
@@ -146,7 +146,8 @@ extern NSString *const FUTabControllerKey;
 @property (nonatomic, retain) NSMutableSet *tabControllers;
 @property (nonatomic, retain) FUTabController *selectedTabController;
 @property (nonatomic, copy) NSString *currentTitle;
-@property (nonatomic, copy) NSString *findTerm;
+@property (nonatomic, copy) NSString *findPanelTerm;
+@property (nonatomic, getter=isTypingInFindPanel) BOOL typingInFindPanel;
 
 @property (nonatomic) BOOL suppressNextFrameStringSave;
 @end

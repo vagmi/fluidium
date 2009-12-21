@@ -128,7 +128,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     self.tabControllers = nil;
     self.selectedTabController = nil;
     self.currentTitle = nil;
-    self.findTerm = nil;
+    self.findPanelTerm = nil;
     [super dealloc];
 }
 
@@ -414,19 +414,19 @@ NSString *const FUTabControllerKey = @"FUTabController";
     WebView *wv = [[self selectedTabController] webView];
     if ([wv canMarkAllTextMatches]) {
         [wv unmarkAllTextMatches];
-        [wv markAllMatchesForText:findTerm caseSensitive:NO highlight:YES limit:0];
+        [wv markAllMatchesForText:findPanelTerm caseSensitive:NO highlight:YES limit:0];
     }
     BOOL forward = (NSFindPanelActionNext == [sender tag]);
-    BOOL found = [wv searchFor:findTerm direction:forward caseSensitive:NO wrap:YES];
+    BOOL found = [wv searchFor:findPanelTerm direction:forward caseSensitive:NO wrap:YES];
     
-    if (!found && [findTerm length]) {
+    if (!found && [findPanelTerm length]) {
         NSBeep();
     }
 }
 
 
 - (IBAction)useSelectionForFind:(id)sender {
-    self.findTerm = [[[[self selectedTabController] webView] selectedDOMRange] toString];
+    self.findPanelTerm = [[[[self selectedTabController] webView] selectedDOMRange] toString];
     [self find:sender];
 }
 
@@ -645,8 +645,10 @@ NSString *const FUTabControllerKey = @"FUTabController";
         [locationComboBox hidePopUp];
         displayingMatchingRecentURLs = NO;
         return YES;
-    } else {
+    } else if (control == findPanelSearchField) {
         return [self findPanelSearchField:control textShouldEndEditing:fieldEditor];
+    } else {
+        return YES;
     }
 }
 
@@ -657,7 +659,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     
     if (!typingInFindPanel) {
         result = YES;
-    } else if (NSKeyUp == [evt type] || NSKeyDown == [evt type]) {
+    } else if ([evt isKeyUpOrDown]) {
         if ([evt isCommandKeyPressed] ||
             [evt isOptionKeyPressed] ||
             [evt isCommandKeyPressed] ||
@@ -701,7 +703,9 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 
 - (void)controlTextDidEndEditing:(NSNotification *)n {
-    if (findPanelSearchField == [n object]) {
+    NSControl *control = [n object];
+
+    if (control == findPanelSearchField) {
         typingInFindPanel = NO;
     }
 }
@@ -1428,6 +1432,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 @synthesize tabControllers;
 @synthesize selectedTabController;
 @synthesize currentTitle;
-@synthesize findTerm;
+@synthesize findPanelTerm;
+@synthesize typingInFindPanel;
 @synthesize suppressNextFrameStringSave;
 @end

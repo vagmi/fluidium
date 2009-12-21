@@ -50,6 +50,18 @@ NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidCha
 }
 
 
+// this is necessary to prevent NSBeep() on every key press in the findPanel
+- (BOOL)makeFirstResponder:(NSResponder *)resp {
+	FUWindowController *wc = (FUWindowController *)[self windowController];
+	if (wc.isTypingInFindPanel) {
+		if ([[resp className] isEqualToString:@"WebHTMLView"]) {
+			return NO;
+		}
+	}
+	return [super makeFirstResponder:resp];
+}
+
+
 // override with a noop. that supresses NSBeep for keyDown events not handled by webview
 - (void)keyDown:(NSEvent *)evt {
 }
