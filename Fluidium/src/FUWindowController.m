@@ -314,13 +314,12 @@ NSString *const FUTabControllerKey = @"FUTabController";
         self.viewSourceController = [[[FUViewSourceWindowController alloc] init] autorelease];
     }
     
-    viewSourceController.URLString = [[self selectedTabController] URLString];
-
     NSString *sourceString = [[[[[[self selectedTabController] webView] mainFrame] dataSource] representation] documentSource];
     [viewSourceController displaySourceString:sourceString];
     
     [[self document] addWindowController:viewSourceController];
     [[viewSourceController window] makeKeyAndOrderFront:self];
+    viewSourceController.URLString = [[self selectedTabController] URLString];
 }
 
 

@@ -30,7 +30,7 @@
 
 - (IBAction)addNewTabInForeground:(id)sender;
 - (IBAction)runFontPanel:(id)sender;
-- (IBAction)showFindPanelAction:(id)sender;
+- (IBAction)showFindPanel:(id)sender;
 - (IBAction)find:(id)sender;
 - (IBAction)useSelectionForFind:(id)sender;
 

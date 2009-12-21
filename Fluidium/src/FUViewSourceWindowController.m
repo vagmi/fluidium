@@ -22,8 +22,7 @@
 @implementation FUViewSourceWindowController
 
 - (id)init {
-    self = [super initWithWindowNibName:@"FUViewSourceWindow"];
-    if (self != nil) {
+    if (self = [super initWithWindowNibName:@"FUViewSourceWindow"]) {
         self.monacoFont = [NSFont fontWithName:@"Monaco" size:11];
         self.highlighter = [[[TDHtmlSyntaxHighlighter alloc] initWithAttributesForDarkBackground:YES] autorelease];
     }
@@ -68,7 +67,7 @@
 }
 
 
-- (IBAction)showFindPanelAction:(id)sender {
+- (IBAction)showFindPanel:(id)sender {
     [sourceTextView performFindPanelAction:sender];
 }
 
