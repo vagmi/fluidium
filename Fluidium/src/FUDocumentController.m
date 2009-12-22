@@ -82,8 +82,14 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
 }
 
 
-// support for opening a new window on <cmd>-T when there are no existing windows
+// support for opening a new window on ⌘-T when there are no existing windows
 - (IBAction)addNewTabInForeground:(id)sender {
+    [self newDocument:sender];
+}
+
+
+// support for opening a new window on ⌘-L when there are no existing windows
+- (IBAction)openLocation:(id)sender {
     [self newDocument:sender];
 }
 

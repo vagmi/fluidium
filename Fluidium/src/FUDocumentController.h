@@ -40,6 +40,7 @@ extern NSString *const FUStatusBarShownDidChangeNotification;
 - (IBAction)toggleBookmarkBarShown:(id)sender;
 - (IBAction)toggleStatusBarShown:(id)sender;
 
+- (IBAction)openLocation:(id)sender;
 - (IBAction)addNewTabInForeground:(id)sender;
 
 - (FUDocument *)openDocumentWithRequest:(NSURLRequest *)req makeKey:(BOOL)makeKey;
