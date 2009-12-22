@@ -27,6 +27,7 @@ extern NSString *const kFUZoomTextOnlyKey;
 
 // UI
 extern NSString *const kFUBookmarkBarShownKey;
+extern NSString *const kFUBookmarkBarShowsFaviconsKey;
 extern NSString *const kFUStatusBarShownKey;
 extern NSString *const kFUTabBarHiddenAlwaysKey;
 extern NSString *const kFUWindowFrameStringKey;
@@ -101,6 +102,7 @@ extern NSString *const kFUPlugInDrawerContentSizeStringKey;
 // UI
 @property (nonatomic) BOOL statusBarShown;
 @property (nonatomic) BOOL bookmarkBarShown;
+@property (nonatomic) BOOL bookmarkBarShowsFavicons;
 @property (nonatomic) BOOL tabBarHiddenAlways;
 @property (nonatomic, copy) NSString *windowFrameString;
 @property (nonatomic) NSInteger windowScreenIndex;

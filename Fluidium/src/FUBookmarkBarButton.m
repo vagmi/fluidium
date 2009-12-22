@@ -17,6 +17,7 @@
 #import "FUBookmark.h"
 #import "FUBookmarkBarButtonCell.h"
 #import "FUBookmarkController.h"
+#import "FUUserDefaults.h"
 #import "WebURLsWithTitles.h"
 #import "WebKitPrivate.h"
 #import "WebIconDatabase+FUAdditions.h"
@@ -42,14 +43,16 @@
 }
 
 
-- (id)initWithBookmarkBar:(FUBookmarkBar *)bar item:(id)anItem {
+- (id)initWithBookmarkBar:(FUBookmarkBar *)bar bookmark:(FUBookmark *)b {
     if (self = [super init]) {
         self.bookmarkBar = bar;
-        self.bookmark = anItem;
-        //if ([[FUUserDefaults instance] showIconsInBookmarkBar]) {
-        //    [self setImagePosition:NSImageLeft];
-        //    [self setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:item.content]];
-        //}
+        self.bookmark = b;
+
+        if ([[FUUserDefaults instance] bookmarkBarShowsFavicons]) {
+            [self setImagePosition:NSImageLeft];
+            [self setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:bookmark.content]];
+        }
+        
         [self setTitle:[bookmark valueForKey:@"title"]];
         [self setBezelStyle:NSRecessedBezelStyle];
         [self setShowsBorderOnlyWhileMouseInside:YES];

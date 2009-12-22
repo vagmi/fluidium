@@ -28,6 +28,7 @@ NSString *const kFUZoomTextOnlyKey = @"FUZoomTextOnly";
 
 // UI
 NSString *const kFUBookmarkBarShownKey = @"FUBookmarkBarShown";
+NSString *const kFUBookmarkBarShowsFaviconsKey = @"FUBookmarkBarShowsFavicons";
 NSString *const kFUStatusBarShownKey = @"FUStatusBarShown";
 NSString *const kFUTabBarHiddenAlwaysKey = @"FUTabBarHiddenAlways";
 NSString *const kFUWindowFrameStringKey = @"FUWindowFrameString";
@@ -202,6 +203,14 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 }
 - (void)setBookmarkBarShown:(BOOL)yn {
     [[NSUserDefaults standardUserDefaults] setBool:yn forKey:kFUBookmarkBarShownKey];
+}
+
+
+- (BOOL)bookmarkBarShowsFavicons {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kFUBookmarkBarShowsFaviconsKey];
+}
+- (void)setBookmarkBarShowsFavicons:(BOOL)yn {
+    [[NSUserDefaults standardUserDefaults] setBool:yn forKey:kFUBookmarkBarShowsFaviconsKey];
 }
 
 

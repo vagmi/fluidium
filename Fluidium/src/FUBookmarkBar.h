@@ -14,6 +14,7 @@
 
 #import "FUBar.h"
 
+@class FUBookmark;
 @class FUBookmarkBarButton;
 @class FUBookmarkButtonSeparator;
 @class FUBookmarkBarOverflowButton;
@@ -30,8 +31,8 @@
     FUBookmarkBarButton *draggingButton;
 }
 
-- (void)addButtonForItem:(id)item;
-- (void)addItem:(id)item;
+- (void)addButtonForBookmark:(FUBookmark *)b;
+- (void)addBookmark:(FUBookmark *)b;
 - (void)startedDraggingButton:(FUBookmarkBarButton *)button;
 
 @property (nonatomic, retain) FUBookmarkButtonSeparator *separator;

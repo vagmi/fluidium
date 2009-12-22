@@ -21,6 +21,8 @@
     <!-- UI -->
     <key>FUBookmarkBarShown</key>
     <integer>0</integer>
+    <key>FUBookmarkBarShowsFavicons</key>
+    <integer>0</integer>
     <key>FUStatusBarShown</key>
     <integer>1</integer>
     <key>FUTabBarHiddenAlways</key>

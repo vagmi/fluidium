@@ -14,6 +14,7 @@
 
 #import "FUBookmarkController.h"
 #import "FUBookmark.h"
+#import "FUBookmarkWindowController.h"
 #import "FUApplication.h"
 #import "FUDocumentController.h"
 #import "FUUserDefaults.h"
@@ -84,8 +85,8 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 
 
 - (IBAction)deleteBookmark:(id)sender {
-    //FUBookmark *b = [sender representedObject];
-    
+    FUBookmark *b = [sender representedObject];
+    [self removeBookmark:b];
 }
 
 

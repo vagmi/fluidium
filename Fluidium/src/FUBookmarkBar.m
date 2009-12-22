@@ -31,12 +31,12 @@
 #define SEPARATOR_MIN_X 3
 
 @interface FUBookmarkBar (Private)
-- (NSButton *)newButtonWithItem:(id)item;
+- (NSButton *)newButtonWithBookmark:(id)item;
 - (void)performActionForButton:(id)sender;
 - (void)updateSeparatorForPoint:(NSPoint)p;
 - (FUBookmarkBarButton *)buttonAtX:(CGFloat)x;
-- (void)addButtonForItem:(id)item atIndex:(NSInteger)index;
-- (void)addItem:(id)item atIndex:(NSInteger)index;
+- (void)addButtonForBookmark:(FUBookmark *)b atIndex:(NSInteger)index;
+- (void)addBookmark:(FUBookmark *)b atIndex:(NSInteger)index;
 - (void)createOverflowMenu;
 - (void)layoutButtons;
 - (void)bookmarksChanged:(NSNotification *)n;
@@ -136,14 +136,14 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)addItem:(id)item {
-    [self addButtonForItem:item atIndex:-1];
-    [self addItem:item atIndex:-1];
+- (void)addBookmark:(FUBookmark *)b {
+    [self addButtonForBookmark:b atIndex:-1];
+    [self addBookmark:b atIndex:-1];
 }
 
 
-- (void)addButtonForItem:(id)item {
-    [self addButtonForItem:item atIndex:-1];
+- (void)addButtonForBookmark:(FUBookmark *)b {
+    [self addButtonForBookmark:b atIndex:-1];
 }
 
 
@@ -215,11 +215,11 @@
         NSString *title = nil;
         for (NSURL *URL in URLs) {
             title = [titles objectAtIndex:0];
-            FUBookmark *item = [[[FUBookmark alloc] init] autorelease];
-            item.title = title;
-            item.content = [URL absoluteString];
+            FUBookmark *b = [[[FUBookmark alloc] init] autorelease];
+            b.title = title;
+            b.content = [URL absoluteString];
             
-            [self addItem:item atIndex:currDropIndex];
+            [self addBookmark:b atIndex:currDropIndex];
             result = YES;
         }
         
@@ -237,11 +237,11 @@
                 NSString *suffix = @"/";
                 if ([title hasSuffix:suffix]) title = [title substringWithRange:NSMakeRange(0, [title length] - [suffix length])];
                 
-                FUBookmark *item = [[[FUBookmark alloc] init] autorelease];
-                item.content = URL;
-                item.title = title;
+                FUBookmark *b = [[[FUBookmark alloc] init] autorelease];
+                b.content = URL;
+                b.title = title;
                 
-                [self addItem:item atIndex:currDropIndex];
+                [self addBookmark:b atIndex:currDropIndex];
             }
         }
         
@@ -264,8 +264,8 @@
 #pragma mark -
 #pragma mark Private
 
-- (NSButton *)newButtonWithItem:(id)item {
-    NSButton *button = [[FUBookmarkBarButton alloc] initWithBookmarkBar:self item:item];
+- (NSButton *)newButtonWithBookmark:(FUBookmark *)b {
+    NSButton *button = [[FUBookmarkBarButton alloc] initWithBookmarkBar:self bookmark:b];
     [button setTarget:self];
     [button setAction:@selector(performActionForButton:)];
     [button sizeToFit];
@@ -348,19 +348,19 @@
 }
 
 
-- (void)addItem:(id)item atIndex:(NSInteger)i {
+- (void)addBookmark:(FUBookmark *)b atIndex:(NSInteger)i {
     if (-1 == i) {
-        [[FUBookmarkController instance] appendBookmark:item];
+        [[FUBookmarkController instance] appendBookmark:b];
     } else {
-        [[FUBookmarkController instance] insertBookmark:item atIndex:i];
+        [[FUBookmarkController instance] insertBookmark:b atIndex:i];
     }
-    [self addButtonForItem:item atIndex:i];
+    [self addButtonForBookmark:b atIndex:i];
     [self postBookmarksChangedNotification];
 }
 
 
-- (void)addButtonForItem:(id)item atIndex:(NSInteger)i {
-    NSButton *button = [self newButtonWithItem:item];
+- (void)addButtonForBookmark:(FUBookmark *)b atIndex:(NSInteger)i {
+    NSButton *button = [self newButtonWithBookmark:b];
     
     if (-1 == i) {
         [buttons addObject:button];
@@ -433,9 +433,8 @@
 
 - (void)bookmarksChanged:(NSNotification *)n {
     [self removeAllButtons];
-    NSArray *items = [[FUBookmarkController instance] bookmarks];
-    for (id item in items) {
-        [self addButtonForItem:item];
+    for (FUBookmark *b in [[FUBookmarkController instance] bookmarks]) {
+        [self addButtonForBookmark:b];
     }
 }
 
