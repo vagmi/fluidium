@@ -19,6 +19,9 @@
     NSString *content;
 }
 
+- (void)writeAllToPasteboard:(NSPasteboard *)pboard;
+- (void)writeWebURLsToPasteboard:(NSPasteboard *)pboard;
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *content;
 @end

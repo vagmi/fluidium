@@ -852,7 +852,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
             title = [URLString stringByTrimmingURLSchemePrefix];        
         }
         
-        FUWriteURLStringAndTitleToPasteboard(URLString, title, pboard);
+        FUWriteAllToPasteboard(URLString, title, pboard);
 
         return YES;
     } else {
@@ -927,24 +927,11 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 
 - (void)tabView:(NSTabView *)tv acceptedDraggingInfo:(id <NSDraggingInfo>)draggingInfo onTabViewItem:(NSTabViewItem *)tabItem {
-    NSPasteboard *pboard = [draggingInfo draggingPasteboard];
-    NSArray *types = [pboard types];
+    NSPasteboard *pboard = [draggingInfo draggingPasteboard];    
+    NSURL *URL = [WebView URLFromPasteboard:pboard];
     
-    BOOL hasWebURLs = (NSNotFound != [types indexOfObject:WebURLsWithTitlesPboardType]);
-    BOOL hasURLs = (NSNotFound != [types indexOfObject:NSURLPboardType]);
-    
-    NSArray *URLs = nil;
-    if (hasWebURLs) {
-        URLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
-    } else if (hasURLs) {
-        URLs = [pboard propertyListForType:NSURLPboardType];
-    }
-    
-    for (NSURL *URL in URLs) {
-        FUTabController *tc = [tabItem identifier];
-        [tc loadRequest:[NSURLRequest requestWithURL:URL]];
-        break;
-    }
+    FUTabController *tc = [tabItem identifier];
+    [tc loadRequest:[NSURLRequest requestWithURL:URL]];
 }
 
 

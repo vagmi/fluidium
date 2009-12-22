@@ -23,6 +23,7 @@
 #import "FUWindowController.h"
 #import "FUUtils.h"
 #import "NSString+FUAdditions.h"
+#import "NSPasteboard+FUAdditions.h"
 #import "WebURLsWithTitles.h"
 
 #define BUTTON_SPACING 4
@@ -177,7 +178,7 @@
     
     BOOL canHandle = NO;
     
-    if ([[pboard types] containsObject:WebURLsWithTitlesPboardType] || [[pboard types] containsObject:NSURLPboardType]) {
+    if ([pboard hasURLs]) {
         canHandle = YES;
         op = NSDragOperationMove|NSDragOperationCopy;
     } 
@@ -195,15 +196,11 @@
     [separator removeFromSuperview];
 
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
-    
-    BOOL hasWebURLs = (NSNotFound != [[pboard types] indexOfObject:WebURLsWithTitlesPboardType]);
-    BOOL hasURLs = (NSNotFound != [[pboard types] indexOfObject:NSURLPboardType]);
-    
     BOOL result = NO;
     
     // TODO this line should not be necessary
     currDropIndex = (currDropIndex > [buttons count]) ? [buttons count] : currDropIndex;
-    if (hasWebURLs) {
+    if ([pboard hasWebURLs]) {
         NSArray *URLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
         NSArray *titles = [WebURLsWithTitles titlesFromPasteboard:pboard];
         
@@ -218,7 +215,7 @@
             result = YES;
         }
         
-    } else if (hasURLs) {
+    } else if ([pboard hasURLs]) {
         NSArray *URLs = [pboard propertyListForType:NSURLPboardType];
         
         for (NSString *URL in URLs) {

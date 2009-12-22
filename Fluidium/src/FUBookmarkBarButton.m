@@ -18,7 +18,6 @@
 #import "FUBookmarkBarButtonCell.h"
 #import "FUBookmarkController.h"
 #import "FUUserDefaults.h"
-#import "WebURLsWithTitles.h"
 #import "WebKitPrivate.h"
 #import "WebIconDatabase+FUAdditions.h"
 #import <WebKit/WebKit.h>
@@ -114,13 +113,8 @@
 - (void)mouseDragged:(NSEvent *)evt {    
     [bookmarkBar startedDraggingButton:self];
 
-    NSArray *types = [NSArray arrayWithObject:WebURLsWithTitlesPboardType];
     NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    [pboard declareTypes:types owner:nil];
-    
-    [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:[NSURL URLWithString:bookmark.content]]
-                       andTitles:[NSArray arrayWithObject:bookmark.title]
-                    toPasteboard:pboard];
+    [bookmark writeWebURLsToPasteboard:pboard];
     
     NSImage *dragImage = [[WebIconDatabase sharedIconDatabase] defaultFavicon];
     NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];

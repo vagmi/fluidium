@@ -36,4 +36,5 @@ void FUGetSystemVersion(NSUInteger *major, NSUInteger *minor, NSUInteger *bugfix
 
 NSString *FUDefaultWebSearchFormatString();
 
-void FUWriteURLStringAndTitleToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard);
+void FUWriteWebURLsToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard);
+void FUWriteAllToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard);

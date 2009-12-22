@@ -80,7 +80,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 
 - (IBAction)copyBookmark:(id)sender {
     FUBookmark *b = [sender representedObject];
-    FUWriteURLStringAndTitleToPasteboard(b.content, b.title, nil);
+    [b writeAllToPasteboard:nil];
 }
 
 

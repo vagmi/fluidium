@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUBookmark.h"
+#import "FUUtils.h"
 
 @implementation FUBookmark
 
@@ -51,6 +52,16 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:title forKey:@"title"];
     [coder encodeObject:content forKey:@"content"];
+}
+
+
+- (void)writeAllToPasteboard:(NSPasteboard *)pboard {
+    FUWriteAllToPasteboard(content, title, pboard);
+}
+
+
+- (void)writeWebURLsToPasteboard:(NSPasteboard *)pboard {
+    FUWriteWebURLsToPasteboard(content, title, pboard);
 }
 
 @synthesize title;

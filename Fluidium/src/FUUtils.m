@@ -168,7 +168,19 @@ NSString *FUDefaultWebSearchFormatString() {
 }
 
 
-void FUWriteURLStringAndTitleToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard) {
+void FUWriteWebURLsToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard) {
+    pboard = pboard ? pboard : [NSPasteboard generalPasteboard];
+    
+    NSArray *types = [NSArray arrayWithObject:WebURLsWithTitlesPboardType];
+    [pboard declareTypes:types owner:nil];
+    
+    [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:[NSURL URLWithString:URLString]]
+                       andTitles:[NSArray arrayWithObject:title]
+                    toPasteboard:pboard];
+}
+
+
+void FUWriteAllToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard) {
     pboard = pboard ? pboard : [NSPasteboard generalPasteboard];
     
     NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
@@ -185,3 +197,4 @@ void FUWriteURLStringAndTitleToPasteboard(NSString *URLString, NSString *title, 
     // write NSStringPboardType type
     [pboard setString:URLString forType:NSStringPboardType];    
 }
+

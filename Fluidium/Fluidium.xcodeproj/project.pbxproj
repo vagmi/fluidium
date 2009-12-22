@@ -19,6 +19,7 @@
 		D3051C9510CA3A4500AFF325 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3051C9410CA3A4500AFF325 /* FUUtils.m */; };
 		D3051CE610CA45ED00AFF325 /* FUHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3051CE510CA45ED00AFF325 /* FUHistoryController.m */; };
 		D3051E2610CADB3F00AFF325 /* WebIconDatabase+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3051E2510CADB3F00AFF325 /* WebIconDatabase+FUAdditions.m */; };
+		D30BC3B010E11D920019816B /* NSPasteboard+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC3AF10E11D920019816B /* NSPasteboard+FUAdditions.m */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
 		D32803F410CC7BFA00BB363B /* FUBookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32803F310CC7BFA00BB363B /* FUBookmarkController.m */; };
 		D328FADF10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D328FADE10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
@@ -475,6 +476,8 @@
 		D3051CE510CA45ED00AFF325 /* FUHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUHistoryController.m; path = src/FUHistoryController.m; sourceTree = "<group>"; };
 		D3051E2410CADB3F00AFF325 /* WebIconDatabase+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebIconDatabase+FUAdditions.h"; path = "src/WebIconDatabase+FUAdditions.h"; sourceTree = "<group>"; };
 		D3051E2510CADB3F00AFF325 /* WebIconDatabase+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WebIconDatabase+FUAdditions.m"; path = "src/WebIconDatabase+FUAdditions.m"; sourceTree = "<group>"; };
+		D30BC3AE10E11D920019816B /* NSPasteboard+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPasteboard+FUAdditions.h"; path = "src/NSPasteboard+FUAdditions.h"; sourceTree = "<group>"; };
+		D30BC3AF10E11D920019816B /* NSPasteboard+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPasteboard+FUAdditions.m"; path = "src/NSPasteboard+FUAdditions.m"; sourceTree = "<group>"; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = src/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
 		D328FADD10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+PXRoundedRectangleAdditions.h"; path = "src/NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
@@ -1293,6 +1296,8 @@
 				D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */,
 				D3051C9010CA3A0200AFF325 /* NSEvent+FUAdditions.h */,
 				D3051C9110CA3A0200AFF325 /* NSEvent+FUAdditions.m */,
+				D30BC3AE10E11D920019816B /* NSPasteboard+FUAdditions.h */,
+				D30BC3AF10E11D920019816B /* NSPasteboard+FUAdditions.m */,
 				D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */,
 				D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */,
 				D328FADD10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.h */,
@@ -1820,6 +1825,7 @@
 				D35CC20210D411FA00DA1898 /* FUUserAgentWindowController.m in Sources */,
 				D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */,
 				D3DB01FB10D6141E0057D70C /* FUView.m in Sources */,
+				D30BC3B010E11D920019816B /* NSPasteboard+FUAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
