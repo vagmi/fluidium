@@ -99,7 +99,6 @@ extern NSString *const FUTabControllerKey;
 
 - (IBAction)addNewTabInForeground:(id)sender;
 - (IBAction)addNewTabInBackground:(id)sender;
-- (IBAction)closeTab:(id)sender;
 - (IBAction)performClose:(id)sender;
 - (IBAction)selectNextTab:(id)sender;
 - (IBAction)selectPreviousTab:(id)sender;

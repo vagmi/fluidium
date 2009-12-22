@@ -59,9 +59,10 @@ NSString *const FUTabControllerKey = @"FUTabController";
 @interface FUWindowController ()
 - (void)setUpTabBar;
 - (void)addNewTab;
+- (void)closeWindow:(id)sender;
+- (void)closeTab;
 - (BOOL)removeTabViewItem:(NSTabViewItem *)tabItem;
 - (void)tabControllerWasRemovedFromTabBar:(FUTabController *)tc;
-- (void)performWindowClose:(id)sender;
 - (void)saveFrameString;
 - (void)startObservingTabController:(FUTabController *)tc;
 - (void)stopObservingTabController:(FUTabController *)tc;
@@ -352,23 +353,11 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
-- (IBAction)closeTab:(id)sender {
-    if (1 == [tabView numberOfTabViewItems]) {
-        [self performWindowClose:sender];
-        return;
-    }
-    
-    NSTabViewItem *tabItem = [tabView selectedTabViewItem];
-
-    [self removeTabViewItem:tabItem];
-}
-    
-    
 - (IBAction)performClose:(id)sender {
     if (1 == [tabView numberOfTabViewItems]) {
-        [self performWindowClose:sender];
+        [self closeWindow:sender];
     } else {
-        [self closeTab:sender];
+        [self closeTab];
     }
 }
 
@@ -571,7 +560,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     
     if (action == @selector(setDisplayMode:) || action == @selector(setSizeMode:)) { // no changing the toolbar modes
         return NO;
-    } else if (action == @selector(closeTab:) || action == @selector(addNewTabInForeground:)) {
+    } else if (action == @selector(addNewTabInForeground:)) {
         return [[FUUserDefaults instance] tabbedBrowsingEnabled];
     } else if (action == @selector(selectNextTab:) || action == @selector(selectPreviousTab:)) {
         id responder = [[self window] firstResponder];
@@ -1064,6 +1053,24 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
+- (void)closeWindow:(id)sender {
+    BOOL onlyHide = [[FUUserDefaults instance] hideLastClosedWindow];
+    BOOL onlyOneWin = (1 == [[[FUDocumentController instance] documents] count]);
+    if (onlyHide && onlyOneWin) {
+        [[FUDocumentController instance] setHiddenWindow:[self window]];
+        [[self window] orderOut:self];
+    } else {
+        [(FUWindow *)[self window] forcePerformClose:sender];
+    }
+}
+
+
+- (void)closeTab {
+    NSTabViewItem *tabItem = [tabView selectedTabViewItem];
+    [self removeTabViewItem:tabItem];    
+}
+
+
 - (BOOL)removeTabViewItem:(NSTabViewItem *)tabItem {
     FUTabController *tc = [tabItem identifier];
 
@@ -1095,18 +1102,6 @@ NSString *const FUTabControllerKey = @"FUTabController";
     }
     
     [tabControllers removeObject:tc];
-}
-
-
-- (void)performWindowClose:(id)sender {
-    BOOL onlyHide = [[FUUserDefaults instance] hideLastClosedWindow];
-    BOOL onlyOneWin = (1 == [[[FUDocumentController instance] documents] count]);
-    if (onlyHide && onlyOneWin) {
-        [[FUDocumentController instance] setHiddenWindow:[self window]];
-        [[self window] orderOut:self];
-    } else {
-        [(FUWindow *)[self window] forcePerformClose:sender];
-    }
 }
 
 
