@@ -59,7 +59,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 @interface FUWindowController ()
 - (void)setUpTabBar;
 - (void)addNewTab;
-- (void)closeWindow:(id)sender;
+- (void)closeWindow;
 - (void)closeTab;
 - (BOOL)removeTabViewItem:(NSTabViewItem *)tabItem;
 - (void)tabControllerWasRemovedFromTabBar:(FUTabController *)tc;
@@ -355,7 +355,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 - (IBAction)performClose:(id)sender {
     if (1 == [tabView numberOfTabViewItems]) {
-        [self closeWindow:sender];
+        [self closeWindow];
     } else {
         [self closeTab];
     }
@@ -1053,14 +1053,14 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
-- (void)closeWindow:(id)sender {
+- (void)closeWindow {
     BOOL onlyHide = [[FUUserDefaults instance] hideLastClosedWindow];
     BOOL onlyOneWin = (1 == [[[FUDocumentController instance] documents] count]);
     if (onlyHide && onlyOneWin) {
         [[FUDocumentController instance] setHiddenWindow:[self window]];
         [[self window] orderOut:self];
     } else {
-        [(FUWindow *)[self window] forcePerformClose:sender];
+        [(FUWindow *)[self window] forcePerformClose:self];
     }
 }
 
