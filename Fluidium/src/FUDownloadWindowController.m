@@ -251,6 +251,7 @@
     item.done = NO;
     
     [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:.8];
+    [self save];
 }
 
 

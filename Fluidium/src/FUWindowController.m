@@ -641,7 +641,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     if (control == locationComboBox) {
         // TODO ? use binding instead?
         [locationComboBox showDefaultIcon];
-    } else {
+    } else if (control == findPanelSearchField) {
         typingInFindPanel = YES;
     }
 }
