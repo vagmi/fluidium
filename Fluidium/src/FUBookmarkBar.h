@@ -29,10 +29,10 @@
     NSInteger visibleButtonCount;
     
     FUBookmarkBarButton *draggingButton;
+    
+    BOOL draggingExistingBookmark;
 }
 
-- (void)addButtonForBookmark:(FUBookmark *)b;
-- (void)addBookmark:(FUBookmark *)b;
 - (void)startedDraggingButton:(FUBookmarkBarButton *)button;
 
 @property (nonatomic, retain) FUBookmarkButtonSeparator *separator;

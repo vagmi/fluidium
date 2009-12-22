@@ -136,12 +136,6 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)addBookmark:(FUBookmark *)b {
-    [self addButtonForBookmark:b atIndex:-1];
-    [self addBookmark:b atIndex:-1];
-}
-
-
 - (void)addButtonForBookmark:(FUBookmark *)b {
     [self addButtonForBookmark:b atIndex:-1];
 }
@@ -151,6 +145,7 @@
     [self setNeedsDisplay:YES];
     self.draggingButton = button;
     if (draggingButton) {
+        draggingExistingBookmark = YES;
         [[FUBookmarkController instance] removeBookmark:[draggingButton bookmark]];
         [buttons removeObject:draggingButton];
         [draggingButton setHidden:YES];
@@ -348,14 +343,21 @@
 }
 
 
-- (void)addBookmark:(FUBookmark *)b atIndex:(NSInteger)i {
+- (void)addBookmark:(FUBookmark *)b atIndex:(NSInteger)i {                  
     if (-1 == i) {
         [[FUBookmarkController instance] appendBookmark:b];
     } else {
         [[FUBookmarkController instance] insertBookmark:b atIndex:i];
     }
     [self addButtonForBookmark:b atIndex:i];
+    
     [self postBookmarksChangedNotification];
+
+    if (!draggingExistingBookmark) {
+        [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:b];
+    }
+    
+    draggingExistingBookmark = NO;
 }
 
 

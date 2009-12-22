@@ -447,6 +447,8 @@ NSString *const FUTabControllerKey = @"FUTabController";
     b.content = URLString;
     
     [[FUBookmarkController instance] appendBookmark:b];
+    
+    [self editTitleForBookmark:b];
 }
 
 
