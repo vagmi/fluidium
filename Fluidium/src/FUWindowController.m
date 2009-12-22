@@ -28,6 +28,7 @@
 #import "FUActivation.h"
 #import "FUUtils.h"
 #import "FUWebView.h"
+#import "FUTabBarControl.h"
 #import "FUPlugInController.h"
 #import "NSString+FUAdditions.h"
 #import "NSEvent+FUAdditions.h"
@@ -135,7 +136,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<FUWindowController %@ %p>", [[self selectedTabController] URLString], self];
+    return [NSString stringWithFormat:@"<FUWindowController %p %@>", self, [[self selectedTabController] URLString]];
 }
 
 
@@ -958,7 +959,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
     [self tabControllerWasRemovedFromTabBar:departingTabController];
 
-    FUWindowController *wc = (FUWindowController *)[[tabBarControl window] windowController];
+    FUWindowController *wc = [(FUTabBarControl *)tabBarControl windowController];
     [wc tabControllerWasDroppedOnTabBar:departingTabController];
     
     // must call this manually
@@ -968,7 +969,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 - (NSImage *)tabView:(NSTabView *)tv imageForTabViewItem:(NSTabViewItem *)tabItem offset:(NSSize *)offset styleMask:(unsigned int *)styleMask {
     if (styleMask) {
-        *styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask;
+        *styleMask = NSTitledWindowMask|NSTexturedBackgroundWindowMask;
     }
     
     FUWebView *wv = [[tabItem identifier] webView];
@@ -1036,7 +1037,15 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 
 - (void)addNewTab {
-    FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
+    [self addTabController:[[[FUTabController alloc] initWithWindowController:self] autorelease]];
+}
+
+
+- (void)addTabController:(FUTabController *)tc {
+    if ([tabControllers containsObject:tc]) {
+        return;
+    }
+    
     [tabControllers addObject:tc];
     
     NSTabViewItem *tabItem = [[[NSTabViewItem alloc] initWithIdentifier:tc] autorelease];

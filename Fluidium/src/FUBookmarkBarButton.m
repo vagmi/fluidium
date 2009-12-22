@@ -27,6 +27,13 @@
 + (void)runPoofAtPoint:(NSPoint)p;
 @end
 
+@interface FUBookmarkBarButton ()
+- (void)killTimer;
+- (void)displayMenu:(NSTimer *)t;
+
+@property (nonatomic, retain) NSTimer *timer;
+@end
+
 @implementation FUBookmarkBarButton
 
 + (Class)cellClass {
@@ -53,9 +60,21 @@
 - (void)dealloc {
     self.bookmarkBar = nil;
     self.item = nil;
+    [self killTimer];
     [super dealloc];
 }
 
+
+- (void)killTimer {
+    if (timer) {
+        [timer invalidate];
+        self.timer = nil;
+    }
+}
+
+
+#pragma mark -
+#pragma mark Left Click
 
 - (void)mouseDown:(NSEvent *)evt {
     [[self cell] setHighlighted:YES];
@@ -140,7 +159,43 @@
     [bookmarkBar startedDraggingButton:nil];
 }
 
+
+#pragma mark -
+#pragma mark Right Click
+
+- (void)rightMouseDown:(NSEvent *)evt { 
+    [self highlight:NO];
+    [self setImage:[NSImage imageNamed:@"OverflowButtonPressed"]];
+    
+    self.timer = [NSTimer timerWithTimeInterval:0 
+                                         target:self 
+                                       selector:@selector(displayMenu:) 
+                                       userInfo:evt 
+                                        repeats:NO];
+    
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+} 
+
+
+- (void)displayMenu:(NSTimer *)t {
+    NSEvent *evt = [timer userInfo];
+    
+    NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
+                                        location:[evt locationInWindow]
+                                   modifierFlags:[evt modifierFlags] 
+                                       timestamp:[evt timestamp] 
+                                    windowNumber:[evt windowNumber] 
+                                         context:[evt context]
+                                     eventNumber:[evt eventNumber] 
+                                      clickCount:[evt clickCount] 
+                                        pressure:[evt pressure]]; 
+    
+    [NSMenu popUpContextMenu:[self menu] withEvent:click forView:self];
+    [self killTimer];
+}   
+
 @synthesize hovered;
 @synthesize bookmarkBar;
 @synthesize item;
+@synthesize timer;
 @end

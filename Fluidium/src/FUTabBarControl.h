@@ -14,10 +14,14 @@
 
 #import <PSMTabBarControl/PSMTabBarControl.h>
 
+@class FUWindowController;
+
 @interface FUTabBarControl : PSMTabBarControl {
-    NSInteger lastRightClickCellIndex;
+    NSInteger rightClickCellIndex;
 }
 
 - (IBAction)reloadTab:(id)sender;
 - (IBAction)moveTabToNewWindow:(id)sender;
+
+- (FUWindowController *)windowController;
 @end

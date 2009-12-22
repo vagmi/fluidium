@@ -22,35 +22,65 @@
 - (void)closeTabClick:(id)sender;
 @end
 
-@interface FUTabBarControl ()
-- (void)handleRightClick:(NSEvent *)evt;
-- (void)displayContextMenu:(NSTimer *)timer;
-@end
-
 @interface FUWindowController ()
 - (void)tabControllerWasRemovedFromTabBar:(FUTabController *)tc;
 - (void)tabControllerWasDroppedOnTabBar:(FUTabController *)tc;
 @end
 
+@interface FUTabBarControl ()
+- (void)displayContextMenu:(NSTimer *)timer;
+- (NSMenu *)contextMenu;
+- (FUWindowController *)windowController;
+@end
+
 @implementation FUTabBarControl
 
 - (void)dealloc {
-    
     [super dealloc];
 }
 
 
-- (void)rightMouseDown:(NSEvent *)evt {
-    [self handleRightClick:evt];
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<FUTabBarControl %p (%d tabs) (%@)>", self, [[self representedTabViewItems] count], [[[self tabView] selectedTabViewItem] label]];
 }
 
 
-- (void)handleRightClick:(NSEvent *)evt {
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)reloadTab:(id)sender {
+    FUTabController *tc = [[self windowController] tabControllerAtIndex:rightClickCellIndex];
+    [tc reload:sender];
+}
+
+
+- (IBAction)moveTabToNewWindow:(id)sender {
+    FUWindowController *oldwc = [self windowController];
+    FUTabController *tc = [oldwc tabControllerAtIndex:rightClickCellIndex];
+    
+    NSError *err = nil;
+    FUWindowController *newwc = [[[FUDocumentController instance] openUntitledDocumentAndDisplay:YES error:&err] windowController];
+    
+    if (newwc) {
+        [oldwc removeTabController:tc];
+        FUTabController *oldtc = [newwc selectedTabController];
+        [newwc addTabController:tc];
+        [newwc removeTabController:oldtc];
+    } else {
+        NSLog(@"%@", err);
+    }
+}
+
+
+#pragma mark -
+#pragma mark Events
+
+- (void)rightMouseDown:(NSEvent *)evt {
     NSPoint mousePt = [self convertPoint:[evt locationInWindow] fromView:nil];
     NSRect cellFrame;
     PSMTabBarCell *cell = [super cellForPoint:mousePt cellFrame:&cellFrame];
     if (cell) {
-        lastRightClickCellIndex = [_cells indexOfObject:cell];
+        rightClickCellIndex = [_cells indexOfObject:cell];
         
         NSTimer *timer = [NSTimer timerWithTimeInterval:0 
                                                  target:self 
@@ -61,6 +91,17 @@
     }
 }
 
+
+#pragma mark -
+#pragma mark Public
+
+- (FUWindowController *)windowController {
+    return (FUWindowController *)[[self window] windowController];
+}
+
+
+#pragma mark -
+#pragma mark Private
 
 - (void)displayContextMenu:(NSTimer *)timer {
     NSEvent *evt = [timer userInfo];
@@ -73,9 +114,15 @@
                                          context:[evt context]
                                      eventNumber:[evt eventNumber] 
                                       clickCount:[evt clickCount] 
-                                        pressure:[evt pressure]]; 
+                                        pressure:[evt pressure]];
     
-    NSTabViewItem *tabViewItem = [tabView tabViewItemAtIndex:lastRightClickCellIndex];
+    [NSMenu popUpContextMenu:[self contextMenu] withEvent:click forView:self];
+    [timer invalidate];
+}
+
+
+- (NSMenu *)contextMenu {
+    NSTabViewItem *tabViewItem = [tabView tabViewItemAtIndex:rightClickCellIndex];
     NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     NSMenuItem *item = nil;
     item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Close Tab", @"")
@@ -83,17 +130,18 @@
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
     [item setRepresentedObject:tabViewItem];
-    [menu addItem:item];    
+    [item setOnStateImage:nil];
+    [menu addItem:item];
     
     item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Move Tab to New Window", @"")
                                        action:@selector(moveTabToNewWindow:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
     [item setRepresentedObject:tabViewItem];
+    [item setOnStateImage:nil];
     [menu addItem:item];    
     
-    FUWindowController *wc = [[FUDocumentController instance] frontWindowController];
-    FUTabController *tc = [wc tabControllerAtIndex:lastRightClickCellIndex];
+    FUTabController *tc = [[self windowController] tabControllerAtIndex:rightClickCellIndex];
     
     if ([tc canReload]) {
         [menu addItem:[NSMenuItem separatorItem]];
@@ -103,30 +151,11 @@
                                     keyEquivalent:@""] autorelease];
         [item setTarget:self];
         [item setRepresentedObject:tabViewItem];
+        [item setOnStateImage:nil];
         [menu addItem:item];
     }
     
-    [NSMenu popUpContextMenu:menu withEvent:click forView:self];
-    [timer invalidate];
-}   
-
-
-- (IBAction)reloadTab:(id)sender {
-    FUWindowController *wc = [[FUDocumentController instance] frontWindowController];
-    FUTabController *tc = [wc tabControllerAtIndex:lastRightClickCellIndex];
-    [tc reload:sender];
-}
-
-
-- (IBAction)moveTabToNewWindow:(id)sender {
-    FUWindowController *oldwc = (FUWindowController *)[[self window] windowController];
-    FUTabController *tc = [oldwc tabControllerAtIndex:lastRightClickCellIndex];
-
-    [[FUDocumentController instance] newDocument:sender];
-    FUWindowController *newwc = [[FUDocumentController instance] frontWindowController];
-    
-    [oldwc tabControllerWasRemovedFromTabBar:tc];
-    [newwc tabControllerWasDroppedOnTabBar:tc];
+    return menu;
 }
 
 @end

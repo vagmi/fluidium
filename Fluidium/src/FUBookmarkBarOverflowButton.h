@@ -18,7 +18,7 @@
     NSTimer *timer;
 }
 
-- (void)displayMenu:(NSTimer *)theTimer;
+- (void)displayMenu:(NSTimer *)t;
 - (void)unhighlight;
 
 @property (nonatomic, retain) NSTimer *timer;

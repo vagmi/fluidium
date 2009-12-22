@@ -45,7 +45,7 @@
 }
 
 
-- (void)displayMenu:(NSTimer *)theTimer {
+- (void)displayMenu:(NSTimer *)t {
     NSEvent *evt = [timer userInfo];
     
     NSInteger y = NSMinY([[self superview] frame]) + NSMinY([self frame]);

@@ -21,6 +21,7 @@
     FUBookmarkBar *bookmarkBar;
     FUBookmark *item;
     BOOL hovered;
+    NSTimer *timer;
 }
 
 - (id)initWithBookmarkBar:(FUBookmarkBar *)bar item:(id)anItem;

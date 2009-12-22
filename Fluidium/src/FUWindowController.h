@@ -121,6 +121,7 @@ extern NSString *const FUTabControllerKey;
 - (FUTabController *)tabControllerForWebView:(WebView *)wv;
 
 - (void)orderTabControllerFront:(FUTabController *)tc;
+- (void)addTabController:(FUTabController *)tc;
 - (BOOL)removeTabController:(FUTabController *)tc;
 
 - (BOOL)isFindPanelVisible;
