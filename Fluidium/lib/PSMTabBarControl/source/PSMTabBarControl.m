@@ -1638,9 +1638,12 @@
 	NSTabViewItem *item = [sender representedObject];
     // BEGIN FLUIDIUM
     [[sender retain] autorelease];
-    // END FLUIDIUM
-    if(([_cells count] == 1) && (![self canCloseOnlyTab]))
+    if(([_cells count] == 1) && (![self canCloseOnlyTab])) {
+        FUWindowController *wc = [[self window] windowController];
+        [wc performClose:sender];
         return;
+    }
+    // END FLUIDIUM
     
     if ([[self delegate] respondsToSelector:@selector(tabView:shouldCloseTabViewItem:)]) {
         if (![[self delegate] tabView:tabView shouldCloseTabViewItem:item]) {
