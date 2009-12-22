@@ -17,6 +17,7 @@
 #import "FUBookmarkButtonSeparator.h"
 #import "FUBookmarkBarOverflowButton.h"
 #import "FUBookmarkController.h"
+#import "FUBookmarkWindowController.h"
 #import "FUBookmark.h"
 #import "FUDocumentController.h"
 #import "FUWindowController.h"
@@ -92,6 +93,20 @@
     self.nonMainTopBevelColor = [NSColor colorWithDeviceWhite:.9 alpha:1];
     self.mainBottomBevelColor = nil;
     self.nonMainBottomBevelColor = nil;
+}
+
+
+- (void)mouseDown:(NSEvent *)evt {
+    if ([evt clickCount] > 1) {
+        [[FUBookmarkWindowController instance] showWindow:self];
+    } else {
+        [super mouseDown:evt];
+    }
+}
+
+
+- (void)rightMouseDown:(NSEvent *)evt {
+    [super rightMouseDown:evt];
 }
 
 
