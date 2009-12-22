@@ -12,14 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "HMButton.h"
+#import <Cocoa/Cocoa.h>
 
 @class FUBookmarkBar;
 @class FUBookmark;
 
-@interface FUBookmarkBarButton : HMButton {
+@interface FUBookmarkBarButton : NSButton {
     FUBookmarkBar *bookmarkBar;
-    FUBookmark *item;
+    FUBookmark *bookmark;
     BOOL hovered;
     NSTimer *timer;
 }
@@ -28,5 +28,5 @@
 
 @property (nonatomic, getter=isHovered) BOOL hovered;
 @property (nonatomic, assign) FUBookmarkBar *bookmarkBar;
-@property (nonatomic, retain) FUBookmark *item;
+@property (nonatomic, retain) FUBookmark *bookmark;
 @end

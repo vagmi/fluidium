@@ -28,11 +28,18 @@ extern NSString *const FUBookmarksChangedNotification;
 
 + (id)instance;
 
+- (IBAction)openBookmarkInNewWindow:(id)sender;
+- (IBAction)openBookmarkInNewTab:(id)sender;
+- (IBAction)copyBookmark:(id)sender;
+- (IBAction)deleteBookmark:(id)sender;
+
 - (void)save;
 
 - (void)appendBookmark:(FUBookmark *)b;
 - (void)insertBookmark:(FUBookmark *)b atIndex:(NSInteger)i;
 - (void)removeBookmark:(FUBookmark *)b;
+
+- (NSMenu *)contextMenuForBookmark:(FUBookmark *)b;
 
 @property (nonatomic, retain) NSMutableArray *bookmarks;
 @end

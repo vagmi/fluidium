@@ -151,7 +151,7 @@
     [self setNeedsDisplay:YES];
     self.draggingButton = button;
     if (draggingButton) {
-        [[FUBookmarkController instance] removeBookmark:[draggingButton item]];
+        [[FUBookmarkController instance] removeBookmark:[draggingButton bookmark]];
         [buttons removeObject:draggingButton];
         [draggingButton setHidden:YES];
     } else {

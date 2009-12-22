@@ -823,20 +823,8 @@ NSString *const FUTabControllerKey = @"FUTabController";
             title = [URLString stringByTrimmingURLSchemePrefix];        
         }
         
-        NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
-        [pboard declareTypes:types owner:nil];
-        
-        NSURL *URL = [NSURL URLWithString:URLString];
-        
-        // write WebURLsWithTitlesPboardType type
-        [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:URL] andTitles:[NSArray arrayWithObject:title] toPasteboard:pboard];
-        
-        // write NSURLPboardType type
-        [URL writeToPasteboard:pboard];
-        
-        // write NSStringPboardType type
-        [pboard setString:URLString forType:NSStringPboardType];
-        
+        FUWriteURLStringAndTitleToPasteboard(URLString, title, pboard);
+
         return YES;
     } else {
         return NO;

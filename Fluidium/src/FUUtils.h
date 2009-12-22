@@ -35,3 +35,5 @@ BOOL FUIsSnowLeopardOrLater();
 void FUGetSystemVersion(NSUInteger *major, NSUInteger *minor, NSUInteger *bugfix);
 
 NSString *FUDefaultWebSearchFormatString();
+
+void FUWriteURLStringAndTitleToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard);

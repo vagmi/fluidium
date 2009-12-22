@@ -16,9 +16,10 @@
 #import "FUBookmarkBar.h"
 #import "FUBookmark.h"
 #import "FUBookmarkBarButtonCell.h"
+#import "FUBookmarkController.h"
+#import "WebURLsWithTitles.h"
 #import "WebKitPrivate.h"
 #import "WebIconDatabase+FUAdditions.h"
-#import "WebURLsWithTitles.h"
 #import <WebKit/WebKit.h>
 
 #define ICON_SIDE 16
@@ -44,12 +45,12 @@
 - (id)initWithBookmarkBar:(FUBookmarkBar *)bar item:(id)anItem {
     if (self = [super init]) {
         self.bookmarkBar = bar;
-        self.item = anItem;
+        self.bookmark = anItem;
         //if ([[FUUserDefaults instance] showIconsInBookmarkBar]) {
         //    [self setImagePosition:NSImageLeft];
         //    [self setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:item.content]];
         //}
-        [self setTitle:[item valueForKey:@"title"]];
+        [self setTitle:[bookmark valueForKey:@"title"]];
         [self setBezelStyle:NSRecessedBezelStyle];
         [self setShowsBorderOnlyWhileMouseInside:YES];
     }
@@ -59,7 +60,7 @@
 
 - (void)dealloc {
     self.bookmarkBar = nil;
-    self.item = nil;
+    self.bookmark = nil;
     [self killTimer];
     [super dealloc];
 }
@@ -114,10 +115,10 @@
     NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
     [pboard declareTypes:types owner:nil];
     
-    [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:[NSURL URLWithString:item.content]]
-                       andTitles:[NSArray arrayWithObject:item.title]
+    [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:[NSURL URLWithString:bookmark.content]]
+                       andTitles:[NSArray arrayWithObject:bookmark.title]
                     toPasteboard:pboard];
-        
+    
     NSImage *dragImage = [[WebIconDatabase sharedIconDatabase] defaultFavicon];
     NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];
 
@@ -145,13 +146,8 @@
     CGFloat delta = ICON_SIDE / 2;
     p.x += delta;
     p.y += delta;
-    NSRect frame = [bookmarkBar frame];
 
-    // had to add this when i manually implemented a toolbar. dunno why.
-    frame.origin.y += 18;
-    //frame.origin.y += 23;
-    
-    if (!NSPointInRect(p, frame)) {
+    if (!NSPointInRect(p, [bookmarkBar frame])) {
         endPoint.x += delta;
         endPoint.y += delta;
         [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
@@ -190,12 +186,13 @@
                                       clickCount:[evt clickCount] 
                                         pressure:[evt pressure]]; 
     
-    [NSMenu popUpContextMenu:[self menu] withEvent:click forView:self];
+    NSMenu *menu = [[FUBookmarkController instance] contextMenuForBookmark:bookmark];
+    [NSMenu popUpContextMenu:menu withEvent:click forView:self];
     [self killTimer];
-}   
+}
 
 @synthesize hovered;
 @synthesize bookmarkBar;
-@synthesize item;
+@synthesize bookmark;
 @synthesize timer;
 @end

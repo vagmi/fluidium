@@ -15,7 +15,10 @@
 #import "FUBookmarkController.h"
 #import "FUBookmark.h"
 #import "FUApplication.h"
+#import "FUDocumentController.h"
+#import "FUUserDefaults.h"
 #import "FUWindowController.h" // needed for bookmarkClicked: action
+#import "FUUtils.h"
 #import "WebKitPrivate.h"
 #import "WebIconDatabase+FUAdditions.h"
 
@@ -58,6 +61,35 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 
 
 #pragma mark -
+#pragma mark Action
+
+- (IBAction)openBookmarkInNewWindow:(id)sender {
+    FUBookmark *b = [sender representedObject];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:b.content]];
+    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
+}
+
+
+- (IBAction)openBookmarkInNewTab:(id)sender {
+    FUBookmark *b = [sender representedObject];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:b.content]];
+    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeTab];
+}
+
+
+- (IBAction)copyBookmark:(id)sender {
+    FUBookmark *b = [sender representedObject];
+    FUWriteURLStringAndTitleToPasteboard(b.content, b.title, nil);
+}
+
+
+- (IBAction)deleteBookmark:(id)sender {
+    //FUBookmark *b = [sender representedObject];
+    
+}
+
+
+#pragma mark -
 #pragma mark Public
 
 - (void)save {
@@ -82,6 +114,58 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 - (void)removeBookmark:(FUBookmark *)b {
     [bookmarks removeObject:b];
     [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
+}
+
+
+- (NSMenu *)contextMenuForBookmark:(FUBookmark *)b {
+    NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    
+    NSMenuItem *item = nil;
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open", @"")
+                                       action:@selector(bookmarkClicked:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:nil];
+    [item setRepresentedObject:b];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
+    
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open in New Window", @"")
+                                       action:@selector(openBookmarkInNewWindow:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:b];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
+    
+    if ([[FUUserDefaults instance] tabbedBrowsingEnabled]) {
+        item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open in New Tab", @"")
+                                           action:@selector(openBookmarkInNewTab:) 
+                                    keyEquivalent:@""] autorelease];
+        [item setTarget:self];
+        [item setRepresentedObject:b];
+        [item setOnStateImage:nil];
+        [menu addItem:item];
+    }
+    
+    [menu addItem:[NSMenuItem separatorItem]];
+    
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"")
+                                       action:@selector(copyBookmark:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:b];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
+
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", @"")
+                                       action:@selector(deleteBookmark:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:b];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
+    
+    return menu;
 }
 
 
