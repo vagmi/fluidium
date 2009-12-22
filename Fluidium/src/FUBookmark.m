@@ -32,6 +32,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<FUBookmark %p %@>", self, title];
+}
+
+
 #pragma mark -
 #pragma mark NSCoding
 
@@ -46,11 +51,6 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:title forKey:@"title"];
     [coder encodeObject:content forKey:@"content"];
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<FUBookmark: %@>", title];
 }
 
 @synthesize title;

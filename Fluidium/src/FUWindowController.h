@@ -21,6 +21,7 @@
 @class FUTabController;
 @class FUProgressComboBox;
 @class FUShortcutController;
+@class FUBookmark;
 
 extern NSString *const FUWindowControllerDidOpenNotification;
 extern NSString *const FUWindowControllerWillCloseNotification;
@@ -58,6 +59,10 @@ extern NSString *const FUTabControllerKey;
     
     NSView *findPanelView;
     NSSearchField *findPanelSearchField;
+    
+    NSWindow *editBookmarkSheet;
+    FUBookmark *editingBookmark;
+
     NSTabView *tabView;
     FUTabController *departingTabController;
  
@@ -111,6 +116,7 @@ extern NSString *const FUTabControllerKey;
 
 - (IBAction)addBookmark:(id)sender;
 - (IBAction)bookmarkClicked:(id)sender;
+- (IBAction)endEditBookmark:(id)sender;
 
 - (FUTabController *)loadRequestInSelectedTab:(NSURLRequest *)req;
 - (FUTabController *)loadRequestInLastTab:(NSURLRequest *)req;
@@ -123,6 +129,8 @@ extern NSString *const FUTabControllerKey;
 - (void)orderTabControllerFront:(FUTabController *)tc;
 - (void)addTabController:(FUTabController *)tc;
 - (BOOL)removeTabController:(FUTabController *)tc;
+
+- (void)editTitleForBookmark:(FUBookmark *)b;
 
 - (BOOL)isFindPanelVisible;
 
@@ -139,6 +147,8 @@ extern NSString *const FUTabControllerKey;
 @property (nonatomic, retain) IBOutlet NSTextField *statusTextField;
 @property (nonatomic, retain) IBOutlet NSView *findPanelView;
 @property (nonatomic, retain) IBOutlet NSSearchField *findPanelSearchField;
+@property (nonatomic, retain) IBOutlet NSWindow *editBookmarkSheet;
+@property (nonatomic, retain) FUBookmark *editingBookmark;
 @property (nonatomic, retain) NSTabView *tabView;
 @property (nonatomic, assign) FUTabController *departingTabController; // weak ref
 @property (nonatomic, retain) FUViewSourceWindowController *viewSourceController;

@@ -60,7 +60,7 @@ typedef enum {
 - (NSString *)currentSelectionFromWebView;
 
 - (void)openPanelDidEnd:(NSSavePanel *)openPanel returnCode:(NSInteger)code contextInfo:(id <WebOpenPanelResultListener>)listener;
-- (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(int)code contextInfo:(NSURL *)URL;
+- (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)code contextInfo:(NSURL *)URL;
 @end
 
 @interface FUWindowController ()
@@ -875,7 +875,7 @@ typedef enum {
 }
 
 
-- (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(int)code contextInfo:(NSURL *)URL {
+- (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)code contextInfo:(NSURL *)URL {
     [URL autorelease]; // released
     
     if (NSFileHandlingPanelCancelButton == code) {

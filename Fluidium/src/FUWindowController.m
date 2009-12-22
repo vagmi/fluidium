@@ -81,6 +81,8 @@ NSString *const FUTabControllerKey = @"FUTabController";
 - (void)addRecentURL:(NSString *)s;
 - (void)addMatchingRecentURL:(NSString *)s;
 
+- (void)editBookmarkSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(NSDictionary *)d;
+
 - (void)tabBarShownDidChange:(NSNotification *)n;
 - (void)tabBarHiddenForSingleTabDidChange:(NSNotification *)n;
 - (void)bookmarkBarShownDidChange:(NSNotification *)n;
@@ -123,6 +125,8 @@ NSString *const FUTabControllerKey = @"FUTabController";
     self.statusTextField = nil;
     self.findPanelView = nil;
     self.findPanelSearchField = nil;
+    self.editBookmarkSheet = nil;
+    self.editingBookmark;
     self.tabView = nil;
     self.departingTabController = nil;
     self.viewSourceController = nil;
@@ -476,6 +480,12 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
+- (IBAction)endEditBookmark:(id)sender {
+    [NSApp endSheet:editBookmarkSheet returnCode:[sender tag]];
+    [editBookmarkSheet orderOut:sender];
+}
+
+
 #pragma mark -
 #pragma mark Public
 
@@ -550,6 +560,23 @@ NSString *const FUTabControllerKey = @"FUTabController";
 
 - (void)setSelectedTabIndex:(NSInteger)i {
     [tabView selectTabViewItemAtIndex:i];
+}
+
+
+- (void)editTitleForBookmark:(FUBookmark *)b {
+    self.editingBookmark = [[[FUBookmark alloc] init] autorelease];
+    editingBookmark.title = b.title;
+    
+    NSDictionary *d = [[NSDictionary alloc] initWithObjectsAndKeys:
+                        editingBookmark, @"new",
+                        b, @"old",
+                        nil]; // retained
+    
+    [NSApp beginSheet:editBookmarkSheet 
+       modalForWindow:[self window] 
+        modalDelegate:self 
+       didEndSelector:@selector(editBookmarkSheetDidEnd:returnCode:contextInfo:) 
+          contextInfo:d];
 }
 
 
@@ -1268,6 +1295,22 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
+- (void)editBookmarkSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(NSDictionary *)d {
+    [d autorelease]; // released
+    
+    if (NSOKButton == code) {
+        FUBookmark *oldBmark = [d objectForKey:@"old"];
+        FUBookmark *newBmark = [d objectForKey:@"new"];
+        oldBmark.title = newBmark.title;
+        
+        [[FUBookmarkController instance] save];
+        [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksChangedNotification object:nil];
+    }
+    
+    self.editingBookmark = nil;
+}
+
+
 - (void)tabBarShownDidChange:(NSNotification *)n {
     BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
     NSRect tabBarFrame = [tabBar frame];
@@ -1416,6 +1459,8 @@ NSString *const FUTabControllerKey = @"FUTabController";
 @synthesize statusTextField;
 @synthesize findPanelView;
 @synthesize findPanelSearchField;
+@synthesize editBookmarkSheet;
+@synthesize editingBookmark;
 @synthesize tabView;
 @synthesize departingTabController;
 @synthesize viewSourceController;

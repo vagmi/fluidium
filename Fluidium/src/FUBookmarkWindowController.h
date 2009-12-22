@@ -30,6 +30,8 @@
 - (void)insertBookmark:(FUBookmark *)b atIndex:(NSInteger)i;
 - (void)removeBookmark:(FUBookmark *)b;
 
+- (void)beginEditingContentForBookmarkAtIndex:(NSInteger)i;
+
 @property (nonatomic, retain) IBOutlet NSTableView *tableView;
 @property (nonatomic, retain) IBOutlet NSArrayController *arrayController;
 @property (nonatomic, retain, readonly) NSMutableArray *bookmarks;

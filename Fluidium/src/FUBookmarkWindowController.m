@@ -96,6 +96,13 @@
 }
 
 
+- (void)beginEditingContentForBookmarkAtIndex:(NSInteger)i {
+    [[self window] makeKeyAndOrderFront:self];
+    [arrayController setSelectionIndex:i];
+    [tableView scrollRowToVisible:i];
+}
+
+
 - (NSMutableArray *)bookmarks {
     return [[FUBookmarkController instance] bookmarks];
 }

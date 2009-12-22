@@ -32,6 +32,8 @@ extern NSString *const FUBookmarksChangedNotification;
 - (IBAction)openBookmarkInNewTab:(id)sender;
 - (IBAction)copyBookmark:(id)sender;
 - (IBAction)deleteBookmark:(id)sender;
+- (IBAction)editBookmarkTitle:(id)sender;
+- (IBAction)editBookmarkContent:(id)sender;
 
 - (void)save;
 

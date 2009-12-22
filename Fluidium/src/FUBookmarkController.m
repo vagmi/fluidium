@@ -90,6 +90,18 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 }
 
 
+- (IBAction)editBookmarkTitle:(id)sender {
+    FUBookmark *b = [sender representedObject];
+    [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:b];
+}
+
+
+- (IBAction)editBookmarkContent:(id)sender {
+    FUBookmark *b = [sender representedObject];
+    [[FUBookmarkWindowController instance] beginEditingContentForBookmarkAtIndex:[bookmarks indexOfObject:b]];
+}
+
+
 #pragma mark -
 #pragma mark Public
 
@@ -149,7 +161,25 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
     }
     
     [menu addItem:[NSMenuItem separatorItem]];
+
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Edit Name", @"")
+                                       action:@selector(editBookmarkTitle:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:b];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
     
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Edit Address", @"")
+                                       action:@selector(editBookmarkContent:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:b];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
+    
+    [menu addItem:[NSMenuItem separatorItem]];
+
     item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"")
                                        action:@selector(copyBookmark:) 
                                 keyEquivalent:@""] autorelease];
