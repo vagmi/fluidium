@@ -26,7 +26,6 @@
 - (void)dockMenuItemClick:(FUJavaScriptMenuItem *)jsItem;
 
 // JavaScript methods
-- (BOOL)isGrowlRunning;
 - (void)showGrowlNotification:(id)arg;
 
 - (void)addDockMenuItemWithTitle:(NSString *)title function:(WebScriptObject *)func;
@@ -38,6 +37,7 @@
 - (NSString *)toString;
 
 @property (nonatomic, copy) id dockBadge;
+@property (nonatomic, readonly) BOOL isGrowlRunning;
 @property (nonatomic, retain) NSMutableArray *menuItems;
 @property (nonatomic, retain) WebScriptObject *onclick;
 @end

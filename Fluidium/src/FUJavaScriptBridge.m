@@ -55,15 +55,15 @@
 + (NSString *)webScriptNameForKey:(const char *)name {
     if (0 == strcmp(name, "dockBadge")) {
         return @"dockBadge";
+    } else if (0 == strcmp(name, "isGrowlRunning")) {
+        return @"isGrowlRunning";
     }
     return nil;
 }
 
 
 + (NSString *)webScriptNameForSelector:(SEL)sel {
-    if (@selector(isGrowlRunning) == sel) {
-        return @"isGrowlRunning";
-    } else if (@selector(showGrowlNotification:) == sel) {
+    if (@selector(showGrowlNotification:) == sel) {
         return @"showGrowlNotification";
     } else if (@selector(addDockMenuItemWithTitle:function:) == sel) {
         return @"addDockMenuItem";
@@ -101,13 +101,13 @@
 }
 
 
-#pragma mark -
-#pragma mark JavaScript Methods
-
 - (BOOL)isGrowlRunning {
     return [GrowlApplicationBridge isGrowlRunning];
 }
 
+
+#pragma mark -
+#pragma mark JavaScript Methods
 
 - (void)showGrowlNotification:(id)arg {
     FUJavaScriptGrowlNotification *note = [FUJavaScriptGrowlNotification notificationFromWebScriptObject:arg];
