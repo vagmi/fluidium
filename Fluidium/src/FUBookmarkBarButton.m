@@ -149,7 +149,8 @@
         endPoint.y += delta;
         [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
     }
-    [bookmarkBar startedDraggingButton:nil];
+
+    [bookmarkBar finishedDraggingButton];
 }
 
 

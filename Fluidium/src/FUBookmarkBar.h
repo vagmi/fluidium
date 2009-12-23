@@ -30,10 +30,11 @@
     
     FUBookmarkBarButton *draggingButton;
     
-    BOOL draggingExistingBookmark;
+    BOOL draggingExistingButton;
 }
 
 - (void)startedDraggingButton:(FUBookmarkBarButton *)button;
+- (void)finishedDraggingButton;
 
 @property (nonatomic, retain) FUBookmarkButtonSeparator *separator;
 @property (nonatomic, retain) NSMutableArray *buttons;

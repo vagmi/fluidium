@@ -22,7 +22,6 @@
 #import "FUDocumentController.h"
 #import "FUWindowController.h"
 #import "FUUtils.h"
-#import "NSString+FUAdditions.h"
 #import "NSPasteboard+FUAdditions.h"
 #import "WebURLsWithTitles.h"
 
@@ -143,17 +142,24 @@
 
 
 - (void)startedDraggingButton:(FUBookmarkBarButton *)button {
+    NSParameterAssert([buttons containsObject:button]);
+
     [self setNeedsDisplay:YES];
     self.draggingButton = button;
-    if (draggingButton) {
-        draggingExistingBookmark = YES;
-        [[FUBookmarkController instance] removeBookmark:[draggingButton bookmark]];
-        [buttons removeObject:draggingButton];
-        [draggingButton setHidden:YES];
-    } else {
-        [self postBookmarksChangedNotification];
-        [self layoutButtons];
-    }
+    draggingExistingButton = YES;
+
+    [[FUBookmarkController instance] removeBookmark:[draggingButton bookmark]];
+    [buttons removeObject:draggingButton];
+    [draggingButton setHidden:YES];
+}
+
+
+- (void)finishedDraggingButton {
+    NSParameterAssert(draggingButton);
+    self.draggingButton = nil;
+    [self postBookmarksChangedNotification];
+    [self layoutButtons];
+    draggingExistingButton = NO;
 }
 
 
@@ -200,41 +206,14 @@
     
     // TODO this line should not be necessary
     currDropIndex = (currDropIndex > [buttons count]) ? [buttons count] : currDropIndex;
-    if ([pboard hasWebURLs]) {
-        NSArray *URLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
-        NSArray *titles = [WebURLsWithTitles titlesFromPasteboard:pboard];
-        
-        NSString *title = nil;
-        for (NSURL *URL in URLs) {
-            title = [titles objectAtIndex:0];
-            FUBookmark *bmark = [FUBookmark bookmarkWithTitle:title content:[URL absoluteString]];
-            [self addBookmark:bmark atIndex:currDropIndex];
-            result = YES;
-        }
-        
-    } else if ([pboard hasURLs]) {
-        NSArray *URLs = [pboard propertyListForType:NSURLPboardType];
-        
-        for (NSURL *URL in URLs) {
-            NSString *URLString = [URL absoluteString];
-            if ([URLString length]) {
-                NSString *title = URLString;
-                
-                title = [title stringByTrimmingURLSchemePrefix];
-                NSString *prefix = @"www.";
-                if ([title hasPrefix:prefix]) title = [title substringFromIndex:[prefix length]];
 
-                NSString *suffix = @"/";
-                if ([title hasSuffix:suffix]) title = [title substringWithRange:NSMakeRange(0, [title length] - [suffix length])];
-                
-                FUBookmark *bmark = [FUBookmark bookmarkWithTitle:title content:URLString];                
-                [self addBookmark:bmark atIndex:currDropIndex];
-            }
-        }
-        
-        result = YES;
-    } 
+    NSArray *bmarks = [FUBookmark bookmarksFromPasteboard:pboard];
     
+    for (FUBookmark *bmark in bmarks) {
+        [self addBookmark:bmark atIndex:currDropIndex];
+        result = YES;
+    }
+
     [self setNeedsDisplay:YES];
     return result;
 }
@@ -345,11 +324,9 @@
     
     [self postBookmarksChangedNotification];
 
-    if (!draggingExistingBookmark) {
+    if (!draggingExistingButton) {
         [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:bmark];
     }
-    
-    draggingExistingBookmark = NO;
 }
 
 

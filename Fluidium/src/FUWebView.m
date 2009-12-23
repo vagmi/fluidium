@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUWebView.h"
+#import "FUApplication.h"
 #import "FUUserDefaults.h"
 #import "FUWebPreferences.h"
 #import "FUUserAgentWindowController.h"
@@ -39,6 +40,11 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
+}
+
+
+- (NSString *)applicationNameForUserAgent {
+    return [[FUApplication instance] appName];
 }
 
 

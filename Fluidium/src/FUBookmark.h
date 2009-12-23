@@ -20,6 +20,7 @@
 }
 
 + (FUBookmark *)bookmarkWithTitle:(NSString *)t content:(NSString *)c;
++ (NSArray *)bookmarksFromPasteboard:(NSPasteboard *)pboard;
 
 - (void)writeAllToPasteboard:(NSPasteboard *)pboard;
 - (void)writeWebURLsToPasteboard:(NSPasteboard *)pboard;
