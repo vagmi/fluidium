@@ -23,10 +23,6 @@ Stuff from Fluid/Cruz which is not currently included:
 
 - Sparkle/Auto updating : I will re-add this very soon. (the prefs UI is there, but not hooked up to anything)
 
-- Growl : I will re-add this very soon.
-
-- window.fluid object : I will re-add this very soon.
-
 - custom window levels, opacity : this was dumb. do not want.
 
 - short url expansion/creation : I will re-add this very soon.
@@ -34,4 +30,4 @@ Stuff from Fluid/Cruz which is not currently included:
 - thumbnail-image-enhanced google search results : I will re-add this eventually.
 
 
-Everything else from Fluid/Cruz is still included : Twitter Plugin, userscripting, userstyles, shortcuts, cocoa plugin architecture, URL whitelist/blacklists, basic bookmarks+bookmarks bar, basic browser history, custom user-agent strings.
+Everything else from Fluid/Cruz is still included : Twitter Plugin, userscripting, userstyles, shortcuts, window.fluid JavaScript object, Growl notifications, cocoa plugin architecture, URL whitelist/blacklists, basic bookmarks+bookmarks bar, basic browser history, custom user-agent strings.
