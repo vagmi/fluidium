@@ -244,11 +244,11 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 
 
 - (BOOL)menu:(NSMenu *)menu updateItem:(NSMenuItem *)item atIndex:(NSInteger)i shouldCancel:(BOOL)shouldCancel {
-    if (index < NUM_STATIC_ITEMS) {
+    if (i < NUM_STATIC_ITEMS) {
         return YES;
     }
     
-    index -= NUM_STATIC_ITEMS;
+    i -= NUM_STATIC_ITEMS;
     
     FUBookmark *bmark = [bookmarks objectAtIndex:i];
     
