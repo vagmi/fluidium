@@ -19,7 +19,6 @@
 #import "FUDocumentController.h"
 #import "FUUtils.h"
 #import <Growl/Growl.h>
-#import <WebKit/WebKit.h>
 
 @interface FUJavaScriptBridge ()
 - (NSString *)toString:(id)obj;

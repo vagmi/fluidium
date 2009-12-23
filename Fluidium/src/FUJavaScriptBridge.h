@@ -12,9 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 
-@class WebScriptObject;
 @class FUJavaScriptMenuItem;
 
 @interface FUJavaScriptBridge : NSObject {
