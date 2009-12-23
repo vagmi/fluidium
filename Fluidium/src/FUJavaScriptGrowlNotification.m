@@ -39,21 +39,21 @@
 @implementation FUJavaScriptGrowlNotification
 
 + (FUJavaScriptGrowlNotification *)notificationFromWebScriptObject:(WebScriptObject *)wso {
-    FUJavaScriptGrowlNotification *notif = [[[FUJavaScriptGrowlNotification alloc] init] autorelease];
+    FUJavaScriptGrowlNotification *note = [[[FUJavaScriptGrowlNotification alloc] init] autorelease];
     
     NSString *identifier = [wso propertyValueForKey:@"identifier"];
     if (identifier) {
-        notif.identifier = identifier;
+        note.identifier = identifier;
     }
 
     NSString *title = [wso propertyValueForKey:@"title"];
     if (title) {
-        notif.title = title;
+        note.title = title;
     }
     
     NSString *desc = [wso propertyValueForKey:@"description"];
     if (desc) {
-        notif.desc = desc;
+        note.desc = desc;
     } 
     
     id icon = [wso propertyValueForKey:@"icon"];
@@ -66,25 +66,25 @@
             NSImage *img = [[[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:icon]] autorelease];
             data = [img TIFFRepresentation];
         }
-        notif.iconData = data;
+        note.iconData = data;
     } 
     
     NSNumber *priority = [wso propertyValueForKey:@"priority"];
     if (priority) {
-        notif.priority = [priority integerValue];
+        note.priority = [priority integerValue];
     }
     
     NSNumber *sticky = [wso propertyValueForKey:@"sticky"];
     if (sticky) {
-        notif.sticky = [sticky boolValue];
+        note.sticky = [sticky boolValue];
     }
     
     WebScriptObject *onclick = [wso propertyValueForKey:@"onclick"];
     if (onclick) {
-        notif.onclick = onclick;
+        note.onclick = onclick;
     }
     
-    return notif;
+    return note;
 }
 
 

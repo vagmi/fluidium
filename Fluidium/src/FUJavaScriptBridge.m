@@ -111,16 +111,16 @@
 
 
 - (void)showGrowlNotification:(id)arg {
-    FUJavaScriptGrowlNotification *notif = [FUJavaScriptGrowlNotification notificationFromWebScriptObject:arg];
+    FUJavaScriptGrowlNotification *note = [FUJavaScriptGrowlNotification notificationFromWebScriptObject:arg];
     //NSLog(@"%@", notif);
-    [GrowlApplicationBridge notifyWithTitle:notif.title
-                                description:notif.desc 
+    [GrowlApplicationBridge notifyWithTitle:note.title
+                                description:note.desc 
                            notificationName:@"JavaScript Notification"
-                                   iconData:notif.iconData 
-                                   priority:notif.priority 
-                                   isSticky:notif.isSticky
+                                   iconData:note.iconData 
+                                   priority:note.priority 
+                                   isSticky:note.isSticky
                                clickContext:@""
-                                 identifier:notif.identifier];
+                                 identifier:note.identifier];
 }
 
 
