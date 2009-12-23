@@ -42,10 +42,10 @@
 }
 
 
-- (id)initWithBookmarkBar:(FUBookmarkBar *)bar bookmark:(FUBookmark *)b {
+- (id)initWithBookmarkBar:(FUBookmarkBar *)bar bookmark:(FUBookmark *)bmark {
     if (self = [super init]) {
         self.bookmarkBar = bar;
-        self.bookmark = b;
+        self.bookmark = bmark;
 
         if ([[FUUserDefaults instance] bookmarkBarShowsFavicons]) {
             [self setImagePosition:NSImageLeft];

@@ -12,17 +12,29 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import "FUJavaScriptMenuItem.h"
 
-@interface FUIconController : NSObject {
-    NSImageView *dockTileImageView;
+@implementation FUJavaScriptMenuItem
+
++ (FUJavaScriptMenuItem *)menuItemWithTitle:(NSString *)s function:(WebScriptObject *)func {
+    FUJavaScriptMenuItem *item = [[[FUJavaScriptMenuItem alloc] init] autorelease];
+    item.title = s;
+    item.function = func;
+    return item;
 }
 
-+ (id)instance;
 
-- (void)setCustomAppIconToFileAtPath:(NSString *)path;
+- (void)dealloc {
+    self.title = nil;
+    self.function = nil;
+    [super dealloc];
+}
 
-- (void)setDockTileLabel:(NSString *)label;
 
-@property (nonatomic, retain) NSImageView *dockTileImageView;
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<FUJavaScriptMenuItem %p %@>", self, title];
+}
+
+@synthesize title;
+@synthesize function;
 @end

@@ -20,14 +20,17 @@
 #import "FUUserDefaults.h"
 #import "FUUtils.h"
 #import "FUActivation.h"
-#import "FUWebView.h"
 #import "FUView.h"
+#import "FUWebView.h"
+#import "FUJavaScriptBridge.h"
 #import "FURecentURLController.h"
 #import "FUDownloadWindowController.h"
 #import "NSString+FUAdditions.h"
 #import "DOMNode+FUAdditions.h"
 #import "WebIconDatabase+FUAdditions.h"
 #import "WebViewPrivate.h"
+#import "WebUIDelegatePrivate.h"
+#import "WebInspector.h"
 #import <WebKit/WebKit.h>
 
 NSString *const FUTabControllerProgressDidStartNotification = @"FUTabControllerProgressDidStartNotification";
@@ -72,7 +75,8 @@ typedef enum {
 - (id)initWithWindowController:(FUWindowController *)wc {
     if (self = [super init]) {
         self.windowController = wc;
-        
+        self.javaScriptBridge = [[[FUJavaScriptBridge alloc] init] autorelease];
+
         // necessary to prevent bindings exceptions
         self.URLString = @"";
         self.title = NSLocalizedString(@"Untitled", @"");
@@ -97,8 +101,13 @@ typedef enum {
     [webView setPolicyDelegate:nil];
     [webView setUIDelegate:nil];
     
+    if (inspector) {
+        [inspector webViewClosed];
+    }
+    
     self.view = nil;
     self.webView = nil;
+    self.javaScriptBridge = nil;
     self.windowController = nil;
     self.URLString = nil;
     self.initialURLString = nil;
@@ -107,6 +116,7 @@ typedef enum {
     self.statusText = nil;
     self.clickElementInfo = nil;
     self.hoverElementInfo = nil;
+    self.inspector = nil;
     [super dealloc];
 }
 
@@ -267,6 +277,18 @@ typedef enum {
 }
 
 
+- (IBAction)showWebInspector:(id)sender {
+    self.inspector = [[[WebInspector alloc] initWithWebView:webView] autorelease];
+    [inspector show:sender];
+}
+
+
+- (IBAction)showErrorConsole:(id)sender {
+    self.inspector = [[[WebInspector alloc] initWithWebView:webView] autorelease];
+    [inspector showConsole:sender];
+}
+
+
 #pragma mark -
 #pragma mark Public
 
@@ -388,6 +410,9 @@ typedef enum {
 - (void)webView:(WebView *)wv didClearWindowObject:(WebScriptObject *)wso forFrame:(WebFrame *)frame {
     if (frame != [webView mainFrame]) return;
 
+    // set window.fluid object
+    [[webView windowScriptObject] setValue:javaScriptBridge forKey:@"fluid"];
+    
     [self postNotificationName:FUTabControllerDidClearWindowObjectNotification];
 }
 
@@ -895,12 +920,14 @@ typedef enum {
 @synthesize windowController;
 @synthesize view;
 @synthesize webView;
+@synthesize javaScriptBridge;
 @synthesize title;
 @synthesize URLString;
 @synthesize initialURLString;
 @synthesize favicon;
 @synthesize clickElementInfo;
 @synthesize hoverElementInfo;
+@synthesize inspector;
 @synthesize statusText;
 @synthesize lastLoadFailed;
 @synthesize isProcessing;

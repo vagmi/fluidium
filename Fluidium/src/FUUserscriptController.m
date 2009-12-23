@@ -18,6 +18,7 @@
 #import "FUWebView.h"
 #import "FUApplication.h"
 #import "FUWildcardPattern.h"
+#import "FUUtils.h"
 #import <WebKit/WebKit.h>
 
 #define KEY_USERSCRIPT_SRC @"userscriptSrc"
@@ -25,8 +26,6 @@
 #define KEY_COUNT @"count"
 
 #define MAX_TRIES 5
-
-#define IS_JS_UNDEF(obj) ([(obj) isKindOfClass:[WebUndefined class]])
 
 @interface FUUserscriptController ()
 - (void)loadUserscripts;
@@ -175,12 +174,12 @@ static NSInteger FUSortMatchedUserscripts(NSDictionary *a, NSDictionary *b, void
 
 - (void)executeUserscript:(NSString *)userscriptSrc inWebView:(WebView *)wv {
     WebScriptObject *func = [[wv windowScriptObject] evaluateWebScript:userscriptSrc];
-    if (!func || IS_JS_UNDEF(func)) {
+    if (!func || FUIsWebUndefined(func)) {
         return;
     }
     
     WebScriptObject *jsThis = [func evaluateWebScript:@"this"];
-    if (!jsThis || IS_JS_UNDEF(jsThis)) {
+    if (!jsThis || FUIsWebUndefined(jsThis)) {
         return;
     } else {
         DOMDocument *doc = [wv mainFrameDocument];

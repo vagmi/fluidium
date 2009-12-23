@@ -24,7 +24,7 @@
     NSTimer *timer;
 }
 
-- (id)initWithBookmarkBar:(FUBookmarkBar *)bar bookmark:(FUBookmark *)b;
+- (id)initWithBookmarkBar:(FUBookmarkBar *)bar bookmark:(FUBookmark *)bmark;
 
 @property (nonatomic, getter=isHovered) BOOL hovered;
 @property (nonatomic, assign) FUBookmarkBar *bookmarkBar;

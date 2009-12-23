@@ -18,6 +18,7 @@
 #import "FUTabController.h"
 #import "FUUserDefaults.h"
 #import "FUWebView.h"
+#import "FUJavaScriptMenuItem.h"
 #import <WebKit/WebKit.h>
 
 #define OPEN_NEW_TAB 0
@@ -44,8 +45,17 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
 }
 
 
+- (id)init {
+    if (self = [super init]) {
+        [GrowlApplicationBridge setGrowlDelegate:self];
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.hiddenWindow = nil;
+    self.dockMenuItems = nil;
     [super dealloc];
 }
 
@@ -94,6 +104,16 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
 }
 
 
+// support for user JavaScript dock menu item callbacks
+- (IBAction)dockMenuItemClick:(id)sender {
+    FUTabController *tc = [self frontTabController];
+    if (tc) {
+        FUJavaScriptMenuItem *jsItem = [dockMenuItems objectAtIndex:[sender tag]];
+        [tc.javaScriptBridge dockMenuItemClick:jsItem];
+    }
+}
+
+
 #pragma mark -
 #pragma mark NSApplicationDelegate
 
@@ -114,6 +134,25 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
     if (hiddenWindow) {
         [hiddenWindow makeKeyAndOrderFront:self];
     }
+}
+
+
+- (NSMenu *)applicationDockMenu:(NSApplication *)app {
+    if (![dockMenuItems count]) return nil;
+        
+    NSMenu *menu = [[[NSMenu alloc] init] autorelease];
+    
+    NSInteger i = 0;
+    for (FUJavaScriptMenuItem *jsItem in dockMenuItems) {
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:jsItem.title
+                                                           action:@selector(dockMenuItemClick:)
+                                                    keyEquivalent:@""] autorelease];
+        [menuItem setTarget:[FUDocumentController instance]];
+        [menuItem setTag:i++];
+        [menu addItem:menuItem];
+    }
+    
+    return menu;
 }
 
 
@@ -152,6 +191,14 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
     } else {
         return YES;
     }
+}
+
+
+#pragma mark -
+#pragma mark GrowBridgeDelegate
+
+- (void)growlNotificationWasClicked:(id)clickContext {
+    
 }
 
 
@@ -380,5 +427,14 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
     }
 }
 
+
+- (NSMutableArray *)dockMenuItems {
+    if (!dockMenuItems) {
+        self.dockMenuItems = [NSMutableArray array];
+    }
+    return dockMenuItems;
+}
+
 @synthesize hiddenWindow; // weak ref
+@synthesize dockMenuItems;
 @end

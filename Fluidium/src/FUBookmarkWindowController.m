@@ -21,10 +21,10 @@
 - (void)bookmarksChanged:(NSNotification *)n;
 - (void)update;
 
-- (void)insertObject:(FUBookmark *)bookmark inBookmarksAtIndex:(NSInteger)index;
-- (void)removeObjectFromBookmarksAtIndex:(NSInteger)index;
-- (void)startObservingBookmark:(FUBookmark *)bookmark;
-- (void)stopObservingBookmark:(FUBookmark *)bookmark;
+- (void)insertObject:(FUBookmark *)bmark inBookmarksAtIndex:(NSInteger)i;
+- (void)removeObjectFromBookmarksAtIndex:(NSInteger)i;
+- (void)startObservingBookmark:(FUBookmark *)bmark;
+- (void)stopObservingBookmark:(FUBookmark *)bmark;
 @end
 
 @implementation FUBookmarkWindowController
@@ -81,18 +81,18 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)appendBookmark:(FUBookmark *)b {
-    [arrayController addObject:b];
+- (void)appendBookmark:(FUBookmark *)bmark {
+    [arrayController addObject:bmark];
 }
 
 
-- (void)insertBookmark:(FUBookmark *)b atIndex:(NSInteger)i {
-    [arrayController insertObject:b atArrangedObjectIndex:i];
+- (void)insertBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i {
+    [arrayController insertObject:bmark atArrangedObjectIndex:i];
 }
 
 
-- (void)removeBookmark:(FUBookmark *)b {
-    [arrayController removeObject:b];
+- (void)removeBookmark:(FUBookmark *)bmark {
+    [arrayController removeObject:bmark];
 }
 
 
@@ -112,8 +112,8 @@
 #pragma mark Private
 
 - (void)update {
-    for (FUBookmark *bookmark in self.bookmarks) {
-        [self startObservingBookmark:bookmark];
+    for (FUBookmark *bmark in self.bookmarks) {
+        [self startObservingBookmark:bmark];
     }
     
     [arrayController setContent:self.bookmarks];
@@ -126,42 +126,42 @@
 #pragma mark -
 #pragma mark ArrayController / Undo
 
-- (void)insertObject:(FUBookmark *)bookmark inBookmarksAtIndex:(NSInteger)index {
+- (void)insertObject:(FUBookmark *)bmark inBookmarksAtIndex:(NSInteger)i {
     NSUndoManager *undo = [[self window] undoManager];
-    [[undo prepareWithInvocationTarget:self] removeObjectFromBookmarksAtIndex:index];
+    [[undo prepareWithInvocationTarget:self] removeObjectFromBookmarksAtIndex:i];
 
-    [self startObservingBookmark:bookmark];
-    [self.bookmarks insertObject:bookmark atIndex:index];
+    [self startObservingBookmark:bmark];
+    [self.bookmarks insertObject:bmark atIndex:i];
 }
 
 
-- (void)removeObjectFromBookmarksAtIndex:(NSInteger)index {
-    FUBookmark *bookmark = [self.bookmarks objectAtIndex:index];
+- (void)removeObjectFromBookmarksAtIndex:(NSInteger)i {
+    FUBookmark *bmark = [self.bookmarks objectAtIndex:i];
     
     NSUndoManager *undo = [[self window] undoManager];
-    [[undo prepareWithInvocationTarget:self] insertObject:bookmark inBookmarksAtIndex:index];
+    [[undo prepareWithInvocationTarget:self] insertObject:bmark inBookmarksAtIndex:i];
     
-    [self stopObservingBookmark:bookmark];
-    [self.bookmarks removeObjectAtIndex:index];
+    [self stopObservingBookmark:bmark];
+    [self.bookmarks removeObjectAtIndex:i];
 }
 
 
-- (void)startObservingBookmark:(FUBookmark *)bookmark {
-    [bookmark addObserver:self
-               forKeyPath:@"title"
-                  options:NSKeyValueObservingOptionOld
-                  context:NULL];
+- (void)startObservingBookmark:(FUBookmark *)bmark {
+    [bmark addObserver:self
+            forKeyPath:@"title"
+               options:NSKeyValueObservingOptionOld
+               context:NULL];
 
-    [bookmark addObserver:self
-               forKeyPath:@"content"
-                  options:NSKeyValueObservingOptionOld
-                  context:NULL];
+    [bmark addObserver:self
+            forKeyPath:@"content"
+               options:NSKeyValueObservingOptionOld
+               context:NULL];
 }
 
 
-- (void)stopObservingBookmark:(FUBookmark *)bookmark {
-    [bookmark removeObserver:self forKeyPath:@"title"];
-    [bookmark removeObserver:self forKeyPath:@"content"];
+- (void)stopObservingBookmark:(FUBookmark *)bmark {
+    [bmark removeObserver:self forKeyPath:@"title"];
+    [bmark removeObserver:self forKeyPath:@"content"];
 }
 
 
@@ -170,7 +170,7 @@
 }
 
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)obj change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)obj change:(NSDictionary *)change context:(void *)ctx {
     NSUndoManager *undo = [[self window] undoManager];
     id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
     [[undo prepareWithInvocationTarget:self] changeKeyPath:keyPath ofObject:obj toValue:oldValue];

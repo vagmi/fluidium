@@ -36,11 +36,14 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
 
 @class FUWindowController;
 @class FUWebView;
+@class FUJavaScriptBridge;
+@class WebInspector;
 
 @interface FUTabController : NSObject {
     FUWindowController *windowController;
     NSView *view;
     FUWebView *webView;
+    FUJavaScriptBridge *javaScriptBridge;
     NSString *URLString;
     NSString *initialURLString;
     NSString *title;
@@ -48,6 +51,7 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
     NSString *statusText;
     NSDictionary *clickElementInfo;
     NSDictionary *hoverElementInfo;
+    WebInspector *inspector;
 
     BOOL lastLoadFailed;
     
@@ -73,6 +77,9 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
 - (IBAction)searchWebFromMenu:(id)sender;
 - (IBAction)downloadLinkAsFromMenu:(id)sender;
 
+- (IBAction)showWebInspector:(id)sender;
+- (IBAction)showErrorConsole:(id)sender;
+
 - (IBAction)zoomIn:(id)sender;
 - (IBAction)zoomOut:(id)sender;
 - (IBAction)actualSize:(id)sender;
@@ -91,6 +98,7 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
 @property (nonatomic, assign) FUWindowController *windowController; // weak ref
 @property (nonatomic, retain) NSView *view;
 @property (nonatomic, retain) FUWebView *webView;
+@property (nonatomic, retain) FUJavaScriptBridge *javaScriptBridge;
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, copy) NSString *initialURLString;
 @property (nonatomic, copy) NSString *title;
@@ -98,6 +106,7 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
 @property (nonatomic, copy) NSString *statusText;
 @property (nonatomic, retain) NSDictionary *clickElementInfo;
 @property (nonatomic, retain) NSDictionary *hoverElementInfo;
+@property (nonatomic, retain) WebInspector *inspector;
 @property (nonatomic) BOOL lastLoadFailed;
 
 @property (nonatomic) BOOL isProcessing;

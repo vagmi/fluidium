@@ -36,8 +36,8 @@
 - (void)performActionForButton:(id)sender;
 - (void)updateSeparatorForPoint:(NSPoint)p;
 - (FUBookmarkBarButton *)buttonAtX:(CGFloat)x;
-- (void)addButtonForBookmark:(FUBookmark *)b atIndex:(NSInteger)index;
-- (void)addBookmark:(FUBookmark *)b atIndex:(NSInteger)index;
+- (void)addButtonForBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i;
+- (void)addBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i;
 - (void)createOverflowMenu;
 - (void)layoutButtons;
 - (void)bookmarksChanged:(NSNotification *)n;
@@ -137,8 +137,8 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)addButtonForBookmark:(FUBookmark *)b {
-    [self addButtonForBookmark:b atIndex:-1];
+- (void)addButtonForBookmark:(FUBookmark *)bmark {
+    [self addButtonForBookmark:bmark atIndex:-1];
 }
 
 
@@ -207,20 +207,18 @@
         NSString *title = nil;
         for (NSURL *URL in URLs) {
             title = [titles objectAtIndex:0];
-            FUBookmark *b = [[[FUBookmark alloc] init] autorelease];
-            b.title = title;
-            b.content = [URL absoluteString];
-            
-            [self addBookmark:b atIndex:currDropIndex];
+            FUBookmark *bmark = [FUBookmark bookmarkWithTitle:title content:[URL absoluteString]];
+            [self addBookmark:bmark atIndex:currDropIndex];
             result = YES;
         }
         
     } else if ([pboard hasURLs]) {
         NSArray *URLs = [pboard propertyListForType:NSURLPboardType];
         
-        for (NSString *URL in URLs) {
-            if ([URL length]) {
-                NSString *title = URL;
+        for (NSURL *URL in URLs) {
+            NSString *URLString = [URL absoluteString];
+            if ([URLString length]) {
+                NSString *title = URLString;
                 
                 title = [title stringByTrimmingURLSchemePrefix];
                 NSString *prefix = @"www.";
@@ -229,11 +227,8 @@
                 NSString *suffix = @"/";
                 if ([title hasSuffix:suffix]) title = [title substringWithRange:NSMakeRange(0, [title length] - [suffix length])];
                 
-                FUBookmark *b = [[[FUBookmark alloc] init] autorelease];
-                b.content = URL;
-                b.title = title;
-                
-                [self addBookmark:b atIndex:currDropIndex];
+                FUBookmark *bmark = [FUBookmark bookmarkWithTitle:title content:URLString];                
+                [self addBookmark:bmark atIndex:currDropIndex];
             }
         }
         
@@ -256,8 +251,8 @@
 #pragma mark -
 #pragma mark Private
 
-- (NSButton *)newButtonWithBookmark:(FUBookmark *)b {
-    NSButton *button = [[FUBookmarkBarButton alloc] initWithBookmarkBar:self bookmark:b];
+- (NSButton *)newButtonWithBookmark:(FUBookmark *)bmark {
+    NSButton *button = [[FUBookmarkBarButton alloc] initWithBookmarkBar:self bookmark:bmark];
     [button setTarget:self];
     [button setAction:@selector(performActionForButton:)];
     [button sizeToFit];
@@ -340,26 +335,26 @@
 }
 
 
-- (void)addBookmark:(FUBookmark *)b atIndex:(NSInteger)i {                  
+- (void)addBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i {                  
     if (-1 == i) {
-        [[FUBookmarkController instance] appendBookmark:b];
+        [[FUBookmarkController instance] appendBookmark:bmark];
     } else {
-        [[FUBookmarkController instance] insertBookmark:b atIndex:i];
+        [[FUBookmarkController instance] insertBookmark:bmark atIndex:i];
     }
-    [self addButtonForBookmark:b atIndex:i];
+    [self addButtonForBookmark:bmark atIndex:i];
     
     [self postBookmarksChangedNotification];
 
     if (!draggingExistingBookmark) {
-        [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:b];
+        [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:bmark];
     }
     
     draggingExistingBookmark = NO;
 }
 
 
-- (void)addButtonForBookmark:(FUBookmark *)b atIndex:(NSInteger)i {
-    NSButton *button = [self newButtonWithBookmark:b];
+- (void)addButtonForBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i {
+    NSButton *button = [self newButtonWithBookmark:bmark];
     
     if (-1 == i) {
         [buttons addObject:button];
@@ -432,8 +427,8 @@
 
 - (void)bookmarksChanged:(NSNotification *)n {
     [self removeAllButtons];
-    for (FUBookmark *b in [[FUBookmarkController instance] bookmarks]) {
-        [self addButtonForBookmark:b];
+    for (FUBookmark *bmark in [[FUBookmarkController instance] bookmarks]) {
+        [self addButtonForBookmark:bmark];
     }
 }
 

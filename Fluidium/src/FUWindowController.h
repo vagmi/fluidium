@@ -118,6 +118,9 @@ extern NSString *const FUTabControllerKey;
 - (IBAction)bookmarkClicked:(id)sender;
 - (IBAction)endEditBookmark:(id)sender;
 
+- (IBAction)showWebInspector:(id)sender;
+- (IBAction)showErrorConsole:(id)sender;
+
 - (FUTabController *)loadRequestInSelectedTab:(NSURLRequest *)req;
 - (FUTabController *)loadRequestInLastTab:(NSURLRequest *)req;
 - (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabInForeground:(BOOL)inForeground;
@@ -130,7 +133,7 @@ extern NSString *const FUTabControllerKey;
 - (void)addTabController:(FUTabController *)tc;
 - (BOOL)removeTabController:(FUTabController *)tc;
 
-- (void)editTitleForBookmark:(FUBookmark *)b;
+- (void)editTitleForBookmark:(FUBookmark *)bmark;
 
 - (BOOL)isFindPanelVisible;
 

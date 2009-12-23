@@ -38,3 +38,6 @@ NSString *FUDefaultWebSearchFormatString();
 
 void FUWriteWebURLsToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard);
 void FUWriteAllToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard);
+
+#define FUIsWebUndefined(obj) ([(obj) isKindOfClass:[WebUndefined class]])
+#define FUIsWebScriptObject(obj) ([(obj) isKindOfClass:[WebScriptObject class]])

@@ -442,30 +442,28 @@ NSString *const FUTabControllerKey = @"FUTabController";
         title = [URLString stringByTrimmingURLSchemePrefix];
     }
     
-    FUBookmark *b = [[[FUBookmark alloc] init] autorelease];
-    b.title = title;
-    b.content = URLString;
+    FUBookmark *bmark = [FUBookmark bookmarkWithTitle:title content:URLString];
     
-    [[FUBookmarkController instance] appendBookmark:b];
+    [[FUBookmarkController instance] appendBookmark:bmark];
     
-    [self editTitleForBookmark:b];
+    [self editTitleForBookmark:bmark];
 }
 
 
 - (IBAction)bookmarkClicked:(id)sender {
-    FUBookmark *bookmark = nil;
+    FUBookmark *bmark = nil;
     if (sender && [sender isKindOfClass:[NSMenuItem class]]) {
-        bookmark = [sender representedObject];
+        bmark = [sender representedObject];
     } else if (sender && [sender isKindOfClass:[FUBookmark class]]) {
-        bookmark = sender;
+        bmark = sender;
     } else {
         return;
     }
     
-    NSString *URLString = [bookmark.content stringByEnsuringURLSchemePrefix];    
+    NSString *URLString = [bmark.content stringByEnsuringURLSchemePrefix];    
     
-    if ([bookmark.content hasPrefix:@"javascript:"]) {
-        NSString *script = [NSString stringWithUTF8String:[bookmark.content UTF8String]];
+    if ([bmark.content hasPrefix:@"javascript:"]) {
+        NSString *script = [NSString stringWithUTF8String:[bmark.content UTF8String]];
         script = [script stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
         [[[[self selectedTabController] webView] windowScriptObject] evaluateWebScript:script];
@@ -485,6 +483,16 @@ NSString *const FUTabControllerKey = @"FUTabController";
 - (IBAction)endEditBookmark:(id)sender {
     [NSApp endSheet:editBookmarkSheet returnCode:[sender tag]];
     [editBookmarkSheet orderOut:sender];
+}
+
+
+- (IBAction)showWebInspector:(id)sender {
+    [[self selectedTabController] showWebInspector:sender];
+}
+
+
+- (IBAction)showErrorConsole:(id)sender {
+    [[self selectedTabController] showErrorConsole:sender];
 }
 
 
@@ -565,13 +573,12 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
-- (void)editTitleForBookmark:(FUBookmark *)b {
-    self.editingBookmark = [[[FUBookmark alloc] init] autorelease];
-    editingBookmark.title = b.title;
+- (void)editTitleForBookmark:(FUBookmark *)bmark {
+    self.editingBookmark = [FUBookmark bookmarkWithTitle:bmark.title content:bmark.content];
     
     NSDictionary *d = [[NSDictionary alloc] initWithObjectsAndKeys:
                         editingBookmark, @"new",
-                        b, @"old",
+                        bmark, @"old",
                         nil]; // retained
     
     [NSApp beginSheet:editBookmarkSheet 
@@ -594,7 +601,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
         return [[FUUserDefaults instance] tabbedBrowsingEnabled];
     } else if (action == @selector(selectNextTab:) || action == @selector(selectPreviousTab:)) {
         id responder = [[self window] firstResponder];
-        return ![responder isKindOfClass:[NSTextView class]];
+        return ![responder isKindOfClass:[NSTextView class]] && [tabView numberOfTabViewItems] > 1;
     } else if (action == @selector(viewSource:)) {
         return ![[[self selectedTabController] webView] isLoading] && [[[self selectedTabController] URLString] length];
     } else if (action == @selector(stopLoading:)) {

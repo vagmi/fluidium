@@ -12,18 +12,25 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
-@interface FUBookmark : NSObject <NSCoding> {
+@interface FUJavaScriptGrowlNotification : NSObject {
+    NSString *identifier;
     NSString *title;
-    NSString *content;
+    NSString *desc;
+    NSData *iconData;
+    NSInteger priority;
+    BOOL sticky;
+    WebScriptObject *onclick;
 }
 
-+ (FUBookmark *)bookmarkWithTitle:(NSString *)t content:(NSString *)c;
++ (FUJavaScriptGrowlNotification *)notificationFromWebScriptObject:(WebScriptObject *)wso;
 
-- (void)writeAllToPasteboard:(NSPasteboard *)pboard;
-- (void)writeWebURLsToPasteboard:(NSPasteboard *)pboard;
-
+@property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *desc;
+@property (nonatomic, retain) NSData *iconData;
+@property (nonatomic) NSInteger priority;
+@property (nonatomic, getter=isSticky) BOOL sticky;
+@property (nonatomic, retain) WebScriptObject *onclick;
 @end

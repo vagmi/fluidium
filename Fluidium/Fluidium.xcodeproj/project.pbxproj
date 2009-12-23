@@ -20,6 +20,12 @@
 		D3051CE610CA45ED00AFF325 /* FUHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3051CE510CA45ED00AFF325 /* FUHistoryController.m */; };
 		D3051E2610CADB3F00AFF325 /* WebIconDatabase+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3051E2510CADB3F00AFF325 /* WebIconDatabase+FUAdditions.m */; };
 		D30BC3B010E11D920019816B /* NSPasteboard+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC3AF10E11D920019816B /* NSPasteboard+FUAdditions.m */; };
+		D30BC44F10E187A40019816B /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30BC44E10E187A40019816B /* Growl.framework */; };
+		D30BC46610E187C10019816B /* Growl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D30BC44E10E187A40019816B /* Growl.framework */; };
+		D30BC47010E188260019816B /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = D30BC46F10E188260019816B /* Growl Registration Ticket.growlRegDict */; };
+		D30BC47510E188840019816B /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
+		D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
+		D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
 		D32803F410CC7BFA00BB363B /* FUBookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32803F310CC7BFA00BB363B /* FUBookmarkController.m */; };
 		D328FADF10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D328FADE10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
@@ -442,6 +448,7 @@
 				D346E70F10CE514300BA0B15 /* OmniBase.framework in Copy Frameworks */,
 				D346E71010CE514300BA0B15 /* OmniFoundation.framework in Copy Frameworks */,
 				D346E71110CE514300BA0B15 /* OmniAppKit.framework in Copy Frameworks */,
+				D30BC46610E187C10019816B /* Growl.framework in Copy Frameworks */,
 				D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */,
 				D346ED7010CF6CA100BA0B15 /* ShortcutRecorder.framework in Copy Frameworks */,
 				D346E59A10CE43E500BA0B15 /* ParseKit.framework in Copy Frameworks */,
@@ -478,6 +485,16 @@
 		D3051E2510CADB3F00AFF325 /* WebIconDatabase+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WebIconDatabase+FUAdditions.m"; path = "src/WebIconDatabase+FUAdditions.m"; sourceTree = "<group>"; };
 		D30BC3AE10E11D920019816B /* NSPasteboard+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPasteboard+FUAdditions.h"; path = "src/NSPasteboard+FUAdditions.h"; sourceTree = "<group>"; };
 		D30BC3AF10E11D920019816B /* NSPasteboard+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPasteboard+FUAdditions.m"; path = "src/NSPasteboard+FUAdditions.m"; sourceTree = "<group>"; };
+		D30BC44E10E187A40019816B /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = lib/Growl/Growl.framework; sourceTree = "<group>"; };
+		D30BC46F10E188260019816B /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Growl Registration Ticket.growlRegDict"; path = "res/conf/Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
+		D30BC47310E188840019816B /* FUJavaScriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUJavaScriptBridge.h; path = src/FUJavaScriptBridge.h; sourceTree = "<group>"; };
+		D30BC47410E188840019816B /* FUJavaScriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptBridge.m; path = src/FUJavaScriptBridge.m; sourceTree = "<group>"; };
+		D30BC47D10E18B960019816B /* WebUIDelegatePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebUIDelegatePrivate.h; path = src/WebUIDelegatePrivate.h; sourceTree = "<group>"; };
+		D30BC47E10E18D0F0019816B /* WebInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebInspector.h; path = src/WebInspector.h; sourceTree = "<group>"; };
+		D30BC4F710E1A2260019816B /* FUJavaScriptMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUJavaScriptMenuItem.h; path = src/FUJavaScriptMenuItem.h; sourceTree = "<group>"; };
+		D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptMenuItem.m; path = src/FUJavaScriptMenuItem.m; sourceTree = "<group>"; };
+		D30BC56910E1AC0E0019816B /* FUJavaScriptGrowlNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUJavaScriptGrowlNotification.h; path = src/FUJavaScriptGrowlNotification.h; sourceTree = "<group>"; };
+		D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptGrowlNotification.m; path = src/FUJavaScriptGrowlNotification.m; sourceTree = "<group>"; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = src/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
 		D328FADD10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+PXRoundedRectangleAdditions.h"; path = "src/NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
@@ -716,6 +733,7 @@
 				D346E70C10CE512E00BA0B15 /* OmniBase.framework in Frameworks */,
 				D346E70D10CE512E00BA0B15 /* OmniFoundation.framework in Frameworks */,
 				D346E70E10CE512E00BA0B15 /* OmniAppKit.framework in Frameworks */,
+				D30BC44F10E187A40019816B /* Growl.framework in Frameworks */,
 				D328FD5710CC33F500BB363B /* PSMTabBarControl.framework in Frameworks */,
 				D346ED7110CF6CB700BA0B15 /* ShortcutRecorder.framework in Frameworks */,
 				D346E71210CE516800BA0B15 /* ParseKit.framework in Frameworks */,
@@ -732,6 +750,7 @@
 				D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */,
 				D3F4C3D310C8C7A300E0B474 /* WebKit.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				D30BC44E10E187A40019816B /* Growl.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -800,6 +819,7 @@
 				D3F4C58E10C8D62800E0B474 /* WebKit */,
 				D34B5E0210CF6EBD006E17C4 /* HotKey */,
 				D34B602610CF7477006E17C4 /* Custom App Icon */,
+				D30BC47210E188760019816B /* JavaScript Bridge */,
 				D3DB025710D616D30057D70C /* Misc */,
 				D3F4C5A110C8D69B00E0B474 /* Foundation-WebKit Categories */,
 			);
@@ -836,6 +856,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D30BC47210E188760019816B /* JavaScript Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				D30BC47310E188840019816B /* FUJavaScriptBridge.h */,
+				D30BC47410E188840019816B /* FUJavaScriptBridge.m */,
+				D30BC4F710E1A2260019816B /* FUJavaScriptMenuItem.h */,
+				D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */,
+				D30BC56910E1AC0E0019816B /* FUJavaScriptGrowlNotification.h */,
+				D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */,
+			);
+			name = "JavaScript Bridge";
+			sourceTree = "<group>";
+		};
 		D32800B210CC3CB600BB363B /* UberView */ = {
 			isa = PBXGroup;
 			children = (
@@ -866,6 +899,7 @@
 				D35CC20310D4126500DA1898 /* UserAgentStrings.plist */,
 				D33E6DF210D0A2C700D76BBB /* Shortcuts.plist */,
 				D339359E10D4DC4D000FC7C1 /* SpecialCases.plist */,
+				D30BC46F10E188260019816B /* Growl Registration Ticket.growlRegDict */,
 			);
 			name = Conf;
 			sourceTree = "<group>";
@@ -1276,11 +1310,13 @@
 		D3F4C58E10C8D62800E0B474 /* WebKit */ = {
 			isa = PBXGroup;
 			children = (
-				D3F4C59310C8D63400E0B474 /* WebDashboardRegion.h */,
-				D3F4C59410C8D63400E0B474 /* WebFramePrivate.h */,
 				D3F4C59510C8D63400E0B474 /* WebKitPrivate.h */,
-				D3F4C59610C8D63400E0B474 /* WebURLsWithTitles.h */,
 				D3F4C59710C8D63400E0B474 /* WebViewPrivate.h */,
+				D3F4C59410C8D63400E0B474 /* WebFramePrivate.h */,
+				D30BC47D10E18B960019816B /* WebUIDelegatePrivate.h */,
+				D3F4C59310C8D63400E0B474 /* WebDashboardRegion.h */,
+				D3F4C59610C8D63400E0B474 /* WebURLsWithTitles.h */,
+				D30BC47E10E18D0F0019816B /* WebInspector.h */,
 			);
 			name = WebKit;
 			sourceTree = "<group>";
@@ -1712,6 +1748,7 @@
 				D33E6E3410D0A99C00D76BBB /* toolbar_button_home.png in Resources */,
 				D3393B3B10D5B28C000FC7C1 /* toolbar_button_twitter.png in Resources */,
 				D33E6E3A10D0A9BA00D76BBB /* location_field_progress_indicator.png in Resources */,
+				D30BC47010E188260019816B /* Growl Registration Ticket.growlRegDict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1826,6 +1863,9 @@
 				D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */,
 				D3DB01FB10D6141E0057D70C /* FUView.m in Sources */,
 				D30BC3B010E11D920019816B /* NSPasteboard+FUAdditions.m in Sources */,
+				D30BC47510E188840019816B /* FUJavaScriptBridge.m in Sources */,
+				D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */,
+				D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2047,6 +2087,7 @@
 					"\"$(SRCROOT)/lib/PSMTabBarControl/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ShortcutRecorder/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ParseKit/build/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/lib/Growl\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -2082,6 +2123,7 @@
 					"\"$(SRCROOT)/lib/PSMTabBarControl/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ShortcutRecorder/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ParseKit/build/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/lib/Growl\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

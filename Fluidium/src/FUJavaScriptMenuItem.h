@@ -12,17 +12,15 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
-@interface FUIconController : NSObject {
-    NSImageView *dockTileImageView;
+@interface FUJavaScriptMenuItem : NSObject {
+    NSString *title;
+    WebScriptObject *function;
 }
 
-+ (id)instance;
++ (FUJavaScriptMenuItem *)menuItemWithTitle:(NSString *)s function:(WebScriptObject *)func;
 
-- (void)setCustomAppIconToFileAtPath:(NSString *)path;
-
-- (void)setDockTileLabel:(NSString *)label;
-
-@property (nonatomic, retain) NSImageView *dockTileImageView;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, retain) WebScriptObject *function;
 @end

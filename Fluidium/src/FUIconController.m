@@ -131,6 +131,16 @@
 }
 
 
+- (void)setDockTileLabel:(NSString *)label {
+    NSDockTile *dockTile = [NSApp dockTile];
+    [dockTile setBadgeLabel:label];
+    if ([label length]) {
+        [dockTile setContentView:dockTileImageView];
+        [dockTile display];
+    }
+}
+
+
 - (void)setDockTileImageView:(NSImageView *)iv {
     if (iv != dockTileImageView) {
         [dockTileImageView autorelease];

@@ -65,40 +65,40 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 #pragma mark Action
 
 - (IBAction)openBookmarkInNewWindow:(id)sender {
-    FUBookmark *b = [sender representedObject];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:b.content]];
+    FUBookmark *bmark = [sender representedObject];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:bmark.content]];
     [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
 }
 
 
 - (IBAction)openBookmarkInNewTab:(id)sender {
-    FUBookmark *b = [sender representedObject];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:b.content]];
+    FUBookmark *bmark = [sender representedObject];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:bmark.content]];
     [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeTab];
 }
 
 
 - (IBAction)copyBookmark:(id)sender {
-    FUBookmark *b = [sender representedObject];
-    [b writeAllToPasteboard:nil];
+    FUBookmark *bmark = [sender representedObject];
+    [bmark writeAllToPasteboard:nil];
 }
 
 
 - (IBAction)deleteBookmark:(id)sender {
-    FUBookmark *b = [sender representedObject];
-    [self removeBookmark:b];
+    FUBookmark *bmark = [sender representedObject];
+    [self removeBookmark:bmark];
 }
 
 
 - (IBAction)editBookmarkTitle:(id)sender {
-    FUBookmark *b = [sender representedObject];
-    [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:b];
+    FUBookmark *bmark = [sender representedObject];
+    [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:bmark];
 }
 
 
 - (IBAction)editBookmarkContent:(id)sender {
-    FUBookmark *b = [sender representedObject];
-    [[FUBookmarkWindowController instance] beginEditingContentForBookmarkAtIndex:[bookmarks indexOfObject:b]];
+    FUBookmark *bmark = [sender representedObject];
+    [[FUBookmarkWindowController instance] beginEditingContentForBookmarkAtIndex:[bookmarks indexOfObject:bmark]];
 }
 
 
@@ -112,25 +112,25 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 }
 
 
-- (void)appendBookmark:(FUBookmark *)b {
-    [bookmarks addObject:b];
+- (void)appendBookmark:(FUBookmark *)bmark {
+    [bookmarks addObject:bmark];
     [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
 }
 
 
-- (void)insertBookmark:(FUBookmark *)b atIndex:(NSInteger)i {
-    [bookmarks insertObject:b atIndex:i];
+- (void)insertBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i {
+    [bookmarks insertObject:bmark atIndex:i];
     [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
 }
 
 
-- (void)removeBookmark:(FUBookmark *)b {
-    [bookmarks removeObject:b];
+- (void)removeBookmark:(FUBookmark *)bmark {
+    [bookmarks removeObject:bmark];
     [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
 }
 
 
-- (NSMenu *)contextMenuForBookmark:(FUBookmark *)b {
+- (NSMenu *)contextMenuForBookmark:(FUBookmark *)bmark {
     NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     
     NSMenuItem *item = nil;
@@ -138,7 +138,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
                                        action:@selector(bookmarkClicked:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:nil];
-    [item setRepresentedObject:b];
+    [item setRepresentedObject:bmark];
     [item setOnStateImage:nil];
     [menu addItem:item];
     
@@ -146,7 +146,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
                                        action:@selector(openBookmarkInNewWindow:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
-    [item setRepresentedObject:b];
+    [item setRepresentedObject:bmark];
     [item setOnStateImage:nil];
     [menu addItem:item];
     
@@ -155,7 +155,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
                                            action:@selector(openBookmarkInNewTab:) 
                                     keyEquivalent:@""] autorelease];
         [item setTarget:self];
-        [item setRepresentedObject:b];
+        [item setRepresentedObject:bmark];
         [item setOnStateImage:nil];
         [menu addItem:item];
     }
@@ -166,7 +166,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
                                        action:@selector(editBookmarkTitle:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
-    [item setRepresentedObject:b];
+    [item setRepresentedObject:bmark];
     [item setOnStateImage:nil];
     [menu addItem:item];
     
@@ -174,7 +174,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
                                        action:@selector(editBookmarkContent:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
-    [item setRepresentedObject:b];
+    [item setRepresentedObject:bmark];
     [item setOnStateImage:nil];
     [menu addItem:item];
     
@@ -184,7 +184,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
                                        action:@selector(copyBookmark:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
-    [item setRepresentedObject:b];
+    [item setRepresentedObject:bmark];
     [item setOnStateImage:nil];
     [menu addItem:item];
 
@@ -192,7 +192,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
                                        action:@selector(deleteBookmark:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
-    [item setRepresentedObject:b];
+    [item setRepresentedObject:bmark];
     [item setOnStateImage:nil];
     [menu addItem:item];
     
@@ -243,20 +243,20 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 }
 
 
-- (BOOL)menu:(NSMenu *)menu updateItem:(NSMenuItem *)item atIndex:(NSInteger)index shouldCancel:(BOOL)shouldCancel {
+- (BOOL)menu:(NSMenu *)menu updateItem:(NSMenuItem *)item atIndex:(NSInteger)i shouldCancel:(BOOL)shouldCancel {
     if (index < NUM_STATIC_ITEMS) {
         return YES;
     }
     
     index -= NUM_STATIC_ITEMS;
     
-    FUBookmark *bookmark = [bookmarks objectAtIndex:index];
+    FUBookmark *bmark = [bookmarks objectAtIndex:i];
     
     [item setAction:@selector(bookmarkClicked:)];
-    [item setTitle:bookmark.title];
+    [item setTitle:bmark.title];
     
-    [item setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:bookmark.content]];
-    [item setRepresentedObject:bookmark];
+    [item setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:bmark.content]];
+    [item setRepresentedObject:bmark];
     
     return YES;
 }

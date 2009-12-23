@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
+#import <Growl/Growl.h>
 
 @class FUDocument;
 @class FUWindowController;
@@ -30,8 +31,9 @@ extern NSString *const FUTabBarHiddenForSingleTabDidChangeNotification;
 extern NSString *const FUBookmarkBarShownDidChangeNotification;
 extern NSString *const FUStatusBarShownDidChangeNotification;
 
-@interface FUDocumentController : NSDocumentController {
+@interface FUDocumentController : NSDocumentController <GrowlApplicationBridgeDelegate> {
     NSWindow *hiddenWindow;
+    NSMutableArray *dockMenuItems;
 }
 
 + (id)instance;
@@ -42,6 +44,8 @@ extern NSString *const FUStatusBarShownDidChangeNotification;
 
 - (IBAction)openLocation:(id)sender;
 - (IBAction)addNewTabInForeground:(id)sender;
+
+- (IBAction)dockMenuItemClick:(id)sender;
 
 - (FUDocument *)openDocumentWithRequest:(NSURLRequest *)req makeKey:(BOOL)makeKey;
 
@@ -61,4 +65,5 @@ extern NSString *const FUStatusBarShownDidChangeNotification;
 - (WebView *)frontWebView;
 
 @property (nonatomic, assign) NSWindow *hiddenWindow; // weak ref
+@property (nonatomic, retain) NSMutableArray *dockMenuItems;
 @end

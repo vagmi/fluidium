@@ -26,9 +26,9 @@
 - (IBAction)insert:(id)sender;
 - (IBAction)remove:(id)sender;
 
-- (void)appendBookmark:(FUBookmark *)b;
-- (void)insertBookmark:(FUBookmark *)b atIndex:(NSInteger)i;
-- (void)removeBookmark:(FUBookmark *)b;
+- (void)appendBookmark:(FUBookmark *)bmark;
+- (void)insertBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i;
+- (void)removeBookmark:(FUBookmark *)bmark;
 
 - (void)beginEditingContentForBookmarkAtIndex:(NSInteger)i;
 

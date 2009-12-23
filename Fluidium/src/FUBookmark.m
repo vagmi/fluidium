@@ -17,6 +17,18 @@
 
 @implementation FUBookmark
 
++ (FUBookmark *)bookmarkWithTitle:(NSString *)t content:(NSString *)c {
+    FUBookmark *bmark = [[[FUBookmark alloc] init] autorelease];
+    if (t) {
+        bmark.title = t;        
+    }
+    if (c) {
+        bmark.content = c;
+    }
+    return bmark;
+}
+
+
 - (id)init {
     if (self = [super init]) {
         self.title = NSLocalizedString(@"Untitled", @"");
