@@ -631,6 +631,7 @@
 		D3AF878410CFA34300C601A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBehaviorPreferences.xib; sourceTree = "<group>"; };
 		D3D3731F10E3D32300203EB2 /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = src/FUNotifications.h; sourceTree = "<group>"; };
 		D3D3732010E3D32300203EB2 /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = src/FUNotifications.m; sourceTree = "<group>"; };
+		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
 		D3DB01FA10D6141E0057D70C /* FUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUView.m; path = src/FUView.m; sourceTree = "<group>"; };
 		D3E42F3110CB152000A5BDEF /* FUDownloadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadItem.h; path = src/FUDownloadItem.h; sourceTree = "<group>"; };
@@ -686,7 +687,6 @@
 		D3F4C56D10C8D3EF00E0B474 /* FUBackForwardPopUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBackForwardPopUpButton.m; path = src/FUBackForwardPopUpButton.m; sourceTree = "<group>"; };
 		D3F4C59310C8D63400E0B474 /* WebDashboardRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebDashboardRegion.h; path = src/WebDashboardRegion.h; sourceTree = "<group>"; };
 		D3F4C59410C8D63400E0B474 /* WebFramePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebFramePrivate.h; path = src/WebFramePrivate.h; sourceTree = "<group>"; };
-		D3F4C59510C8D63400E0B474 /* WebKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebKitPrivate.h; path = src/WebKitPrivate.h; sourceTree = "<group>"; };
 		D3F4C59610C8D63400E0B474 /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = src/WebURLsWithTitles.h; sourceTree = "<group>"; };
 		D3F4C59710C8D63400E0B474 /* WebViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewPrivate.h; path = src/WebViewPrivate.h; sourceTree = "<group>"; };
 		D3F4C5A310C8D6A400E0B474 /* NSArray+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+FUAdditions.h"; path = "src/NSArray+FUAdditions.h"; sourceTree = "<group>"; };
@@ -1315,10 +1315,10 @@
 		D3F4C58E10C8D62800E0B474 /* WebKit */ = {
 			isa = PBXGroup;
 			children = (
-				D3F4C59510C8D63400E0B474 /* WebKitPrivate.h */,
 				D3F4C59710C8D63400E0B474 /* WebViewPrivate.h */,
 				D3F4C59410C8D63400E0B474 /* WebFramePrivate.h */,
 				D30BC47D10E18B960019816B /* WebUIDelegatePrivate.h */,
+				D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */,
 				D3F4C59310C8D63400E0B474 /* WebDashboardRegion.h */,
 				D3F4C59610C8D63400E0B474 /* WebURLsWithTitles.h */,
 				D30BC47E10E18D0F0019816B /* WebInspector.h */,

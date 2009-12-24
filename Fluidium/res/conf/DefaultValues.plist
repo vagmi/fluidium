@@ -14,19 +14,19 @@
     <key>WebKitDeveloperExtras</key>
     <true/>
     <key>FUContinuousSpellCheckingEnabled</key>
-    <key>1</key>
+    <true/>
     <key>FUZoomTextOnly</key>
-    <integer>0</integer>
+    <false/>
 
     <!-- UI -->
     <key>FUBookmarkBarShown</key>
-    <integer>0</integer>
+    <false/>
     <key>FUBookmarkBarShowsFavicons</key>
-    <integer>0</integer>
+    <false/>
     <key>FUStatusBarShown</key>
-    <integer>1</integer>
+    <true/>
     <key>FUTabBarHiddenAlways</key>
-    <integer>0</integer>
+    <false/>
     <key>FUWindowFrameString</key>
 	<string>{{130, 50}, {1020, 700}}</string>
     <key>FUWindowScreenIndex</key>
@@ -50,45 +50,45 @@
     <key>FUSpacesBehavior</key>
     <integer>0</integer>
     <key>FUTargetedClicksCreateTabs</key>
-    <integer>1</integer>
+    <true/>
     <key>FULinksSentToOtherApplicationsOpenInBackground</key>
-    <integer>0</integer>
+    <false/>
     <key>FUOpenLinksFromApplicationsIn</key>
     <integer>0</integer>
     <key>FUHideLastClosedWindow</key>
-    <integer>0</integer>
-	<key>FUSessionsEnabled</key>
-	<integer>1</integer>
+    <false/>
+    <key>FUSessionsEnabled</key>
+    <true/>
 
     <!-- Tabs -->
     <key>FUTabbedBrowsingEnabled</key>
-    <integer>1</integer>
+    <true/>
     <key>FUSelectNewWindowsOrTabsAsCreated</key>
-    <integer>1</integer>
+    <true/>
     <key>FUTabBarHiddenForSingleTab</key>
-    <integer>1</integer>
+    <true/>
     <key>FUTabBarCellOptimumWidth</key>
     <integer>175</integer>
     <key>FUConfirmBeforeClosingMultipleTabsOrWindows</key>
-    <integer>1</integer>
+    <true/>
     
     <!-- Security -->
     <key>FUPlugInsEnabled</key>
-    <integer>1</integer>
+    <true/>
     <key>FUJavaEnabled</key>
-    <integer>1</integer>
+    <true/>
     <key>FUJavaScriptEnabled</key>
-    <integer>1</integer>
+    <true/>
     <key>FUJavaScriptCanOpenWindowsAutomatically</key>
-    <integer>0</integer>
+    <false/>
     <key>FUCookieAcceptPolicy</key>
     <integer>2</integer>
     
     <!-- Advanced -->
     <key>FUAllowBrowsingToAnyDomain</key>
-    <integer>1</integer>
+    <true/>
     <key>FUInvertWhitelist</key>
-    <integer>0</integer>
+    <false/>
     
     <!-- PlugIns -->
     <key>FUNumberOfBrowsaPlugIns</key>

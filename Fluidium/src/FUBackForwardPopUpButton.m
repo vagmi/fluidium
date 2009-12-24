@@ -16,8 +16,9 @@
 #import "FUDocumentController.h"
 #import "FUWindowController.h"
 #import "NSArray+FUAdditions.h"
-#import "WebKitPrivate.h"
+#import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
+#import <WebKit/WebKit.h>
 
 #define BACK_FWD_ITEM_LIMIT 16
 #define MENU_FUDGE_Y 3

@@ -18,7 +18,7 @@
 #import "FUBookmarkBarButtonCell.h"
 #import "FUBookmarkController.h"
 #import "FUUserDefaults.h"
-#import "WebKitPrivate.h"
+#import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
 #import <WebKit/WebKit.h>
 
@@ -52,7 +52,7 @@
             [self setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:bookmark.content]];
         }
         
-        [self setTitle:[bookmark valueForKey:@"title"]];
+        [self setTitle:bookmark.title];
         [self setBezelStyle:NSRecessedBezelStyle];
         [self setShowsBorderOnlyWhileMouseInside:YES];
     }

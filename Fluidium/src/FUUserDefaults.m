@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUUserDefaults.h"
-#import "WebKitPrivate.h"
+#import "WebIconDatabase.h"
 
 NSString *const FUHomeURLStringDidChangeNotification = @"FUHomeURLStringDidChangeNotification";
 

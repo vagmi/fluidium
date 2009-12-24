@@ -21,7 +21,7 @@
 #import "FUWindowController.h" // needed for bookmarkClicked: action
 #import "FUUtils.h"
 #import "FUNotifications.h"
-#import "WebKitPrivate.h"
+#import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
 
 #define NUM_STATIC_ITEMS 3

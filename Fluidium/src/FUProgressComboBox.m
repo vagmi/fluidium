@@ -15,7 +15,7 @@
 #import "FUProgressComboBox.h"
 #import "HMImageComboBoxCell.h"
 #import "FURecentURLController.h"
-#import "WebKitPrivate.h"
+#import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
 
 #define MAX_VISIBLE_ITEMS 10
