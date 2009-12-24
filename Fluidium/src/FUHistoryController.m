@@ -83,7 +83,7 @@
     [[WebHistory optionalSharedHistory] saveToURL:[NSURL fileURLWithPath:webHistoryFilePath] error:&err];
     
     if (err) {
-        NSLog(@"Fluidium.app could not write history to disk");
+        NSLog(@"Fluidium could not write history to disk");
     }
 }
 

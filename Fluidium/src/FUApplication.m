@@ -226,6 +226,11 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
+- (void)applicationWillResignActive:(NSNotification *)n {
+    [[FUHistoryController instance] save];
+}
+
 @synthesize appName;
 @synthesize appSupportDirPath;
 @synthesize ssbSupportDirPath;
