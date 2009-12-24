@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUTabsPreferences.h"
-#import "FUDocumentController.h"
+#import "FUNotifications.h"
 
 @implementation FUTabsPreferences
 

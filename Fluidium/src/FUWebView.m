@@ -18,12 +18,9 @@
 #import "FUWebPreferences.h"
 #import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
-
-NSString *const FUContinuousSpellCheckingDidChangeNotification = @"FUContinuousSpellCheckingDidChangeNotification";
+#import "FUNotifications.h"
 
 @interface FUWebView ()
-- (void)webPreferencesDidChange:(NSNotification *)n;
-- (void)userAgentStringDidChange:(NSNotification *)n;
 - (void)updateWebPreferences;
 - (void)updateUserAgent;
 - (void)updateContinuousSpellChecking;

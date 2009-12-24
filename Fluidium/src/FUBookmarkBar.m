@@ -22,6 +22,7 @@
 #import "FUDocumentController.h"
 #import "FUWindowController.h"
 #import "FUUtils.h"
+#import "FUNotifications.h"
 #import "NSPasteboard+FUAdditions.h"
 #import "WebURLsWithTitles.h"
 
@@ -41,7 +42,7 @@
 - (void)layoutButtons;
 - (void)bookmarksChanged:(NSNotification *)n;
 - (void)removeAllButtons;
-- (void)postBookmarksChangedNotification;
+- (void)postBookmarksDidChangeNotification;
 @end
 
 @implementation FUBookmarkBar
@@ -79,7 +80,7 @@
     [self bookmarksChanged:nil];
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(bookmarksChanged:) name:FUBookmarksChangedNotification object:nil];
+    [nc addObserver:self selector:@selector(bookmarksDidChange:) name:FUBookmarksDidChangeNotification object:nil];
     [nc addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:[self window]];
     [nc addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:[self window]];    
 
@@ -157,7 +158,7 @@
 - (void)finishedDraggingButton {
     NSParameterAssert(draggingButton);
     self.draggingButton = nil;
-    [self postBookmarksChangedNotification];
+    [self postBookmarksDidChangeNotification];
     [self layoutButtons];
     draggingExistingButton = NO;
 }
@@ -322,7 +323,7 @@
     }
     [self addButtonForBookmark:bmark atIndex:i];
     
-    [self postBookmarksChangedNotification];
+    [self postBookmarksDidChangeNotification];
 
     if (!draggingExistingButton) {
         [[[FUDocumentController instance] frontWindowController] runEditTitleSheetForBookmark:bmark];
@@ -419,8 +420,8 @@
 }
 
 
-- (void)postBookmarksChangedNotification {
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksChangedNotification object:nil];
+- (void)postBookmarksDidChangeNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksDidChangeNotification object:nil];
 }
 
 @synthesize separator;

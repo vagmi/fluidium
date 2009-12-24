@@ -23,24 +23,6 @@
 @class FUShortcutController;
 @class FUBookmark;
 
-extern NSString *const FUWindowControllerDidOpenNotification;
-extern NSString *const FUWindowControllerWillCloseNotification;
-
-extern NSString *const FUWindowControllerDidOpenTabNotification;
-extern NSString *const FUWindowControllerWillCloseTabNotification;
-extern NSString *const FUWindowControllerDidChangeSelectedTabNotification;
-
-extern NSString *const FUTabControllerKey;
-
-@interface NSObject (FUWindowControllerNotifications)
-- (void)windowControllerDidOpen:(NSNotification *)n;
-- (void)windowControllerWillClose:(NSNotification *)n;
-
-- (void)windowControllerDidOpenTab:(NSNotification *)n;
-- (void)windowControllerWillCloseTab:(NSNotification *)n;
-- (void)windowControllerDidChangeSelectedTab:(NSNotification *)n;
-@end
-
 @interface FUWindowController : NSWindowController 
 #if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
 <NSToolbarDelegate>

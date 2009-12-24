@@ -20,17 +20,16 @@
 #import "FUUserDefaults.h"
 #import "FUWindowController.h" // needed for bookmarkClicked: action
 #import "FUUtils.h"
+#import "FUNotifications.h"
 #import "WebKitPrivate.h"
 #import "WebIconDatabase+FUAdditions.h"
 
 #define NUM_STATIC_ITEMS 3
 
-NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotification";
-
 @interface FUBookmarkController ()
 - (void)setUpBookmarkMenu;
 - (void)setUpBookmarks;
-- (void)postBookmarksChangedNotification;
+- (void)postBookmarksDidChangeNotification;
 @end
 
 @implementation FUBookmarkController
@@ -114,19 +113,19 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 
 - (void)appendBookmark:(FUBookmark *)bmark {
     [bookmarks addObject:bmark];
-    [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postBookmarksDidChangeNotification) withObject:nil afterDelay:0];
 }
 
 
 - (void)insertBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i {
     [bookmarks insertObject:bmark atIndex:i];
-    [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postBookmarksDidChangeNotification) withObject:nil afterDelay:0];
 }
 
 
 - (void)removeBookmark:(FUBookmark *)bmark {
     [bookmarks removeObject:bmark];
-    [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postBookmarksDidChangeNotification) withObject:nil afterDelay:0];
 }
 
 
@@ -229,9 +228,9 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 }
 
 
-- (void)postBookmarksChangedNotification {
+- (void)postBookmarksDidChangeNotification {
     [self save];
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksDidChangeNotification object:nil];
 }
 
 

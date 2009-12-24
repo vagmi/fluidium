@@ -30,6 +30,7 @@
 #import "FUWebView.h"
 #import "FUTabBarControl.h"
 #import "FUPlugInController.h"
+#import "FUNotifications.h"
 #import "NSString+FUAdditions.h"
 #import "NSEvent+FUAdditions.h"
 #import "TDUberView.h"
@@ -39,15 +40,6 @@
 #import <PSMTabBarControl/PSMTabBarControl.h>
 
 #define MIN_COMBOBOX_WIDTH 100
-
-NSString *const FUWindowControllerDidOpenNotification = @"FUWindowControllerDidOpenNotification";
-NSString *const FUWindowControllerWillCloseNotification = @"FUWindowControllerWillCloseNotification";
-
-NSString *const FUWindowControllerDidOpenTabNotification = @"FUWindowControllerDidOpenTabNotification";
-NSString *const FUWindowControllerWillCloseTabNotification = @"FUWindowControllerWillCloseTabNotification";
-NSString *const FUWindowControllerDidChangeSelectedTabNotification = @"FUWindowControllerDidChangeSelectedTabNotification";
-
-NSString *const FUTabControllerKey = @"FUTabController";
 
 @interface NSObject (FUAdditions)
 - (void)noop:(id)sender;
@@ -1309,7 +1301,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
         oldBmark.title = newBmark.title;
         
         [[FUBookmarkController instance] save];
-        [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksChangedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksDidChangeNotification object:nil];
     }
     
     self.editingBookmark = nil;

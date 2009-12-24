@@ -22,6 +22,7 @@
 #import "FUApplication.h"
 #import "FUUserDefaults.h"
 #import "FUPlugInPreferences.h"
+#import "FUNotifications.h"
 #import "TDUberView.h"
 #import "NSFileManager+FUAdditions.h"
 #import <WebKit/WebKit.h>

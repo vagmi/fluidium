@@ -15,15 +15,13 @@
 #import "FUWindow.h"
 #import "FUWindowController.h"
 #import "FUUserDefaults.h"
+#import "FUNotifications.h"
 #import "NSEvent+FUAdditions.h"
 
 #define CLOSE_CURLY 30
 #define OPEN_CURLY 33
 
-NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidChangeNotification";
-
 @interface FUWindow ()
-- (void)spacesBehaviorDidChange:(NSNotification *)n;
 - (BOOL)handleCloseSearchPanel:(NSEvent *)evt;
 - (BOOL)handleNextPrevTab:(NSEvent *)evt;
 @end

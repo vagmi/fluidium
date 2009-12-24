@@ -14,12 +14,6 @@
 
 #import <WebKit/WebKit.h>
 
-extern NSString *const FUContinuousSpellCheckingDidChangeNotification;
-
-@interface NSObject (FUWebViewNotifications)
-- (void)continuousSpellCheckingDidChange:(NSNotification *)n;
-@end
-
 @interface FUWebView : WebView {
 
 }

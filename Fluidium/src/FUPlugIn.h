@@ -26,6 +26,13 @@ extern NSString *const FUPlugInKey;                     // id <FUPlugIn>
 extern NSString *const FUPlugInViewControllerKey;       // NSViewController
 extern NSString *const FUPlugInViewControllerDrawerKey; // NSDrawer -- this is only sent for view controllers currently in a drawer position
 
+@interface NSObject (FUPlugInNotifications)
+- (void)plugInViewControllerWillAppear:(NSNotification *)n;
+- (void)plugInViewControllerDidAppear:(NSNotification *)n;
+- (void)plugInViewControllerWillDisappear:(NSNotification *)n;
+- (void)plugInViewControllerDidDisappear:(NSNotification *)n;
+@end
+
 #define FUPlugInViewPlacementIsSplitView(mask)  ((mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight || (mask) == FUPlugInViewPlacementSplitViewTop)
 #define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)
 #define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawer)
@@ -103,11 +110,4 @@ typedef enum {
 - (CGFloat)preferredVerticalSplitPosition;
 - (CGFloat)preferredHorizontalSplitPosition;
 - (NSInteger)preferredToolbarButtonType;
-@end
-
-@interface NSObject (FUPlugInNotifications)
-- (void)plugInViewControllerWillAppear:(NSNotification *)n;
-- (void)plugInViewControllerDidAppear:(NSNotification *)n;
-- (void)plugInViewControllerWillDisappear:(NSNotification *)n;
-- (void)plugInViewControllerDidDisappear:(NSNotification *)n;
 @end

@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUBehaviorPreferences.h"
-#import "FUWindow.h"
+#import "FUNotifications.h"
 
 @implementation FUBehaviorPreferences
 

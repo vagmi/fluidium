@@ -14,8 +14,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString *const FUUserAgentStringDidChangeNotification;
-
 @interface FUUserAgentWindowController : NSWindowController {
     NSString *userAgentString;
     NSArray *userAgentStrings;

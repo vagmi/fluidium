@@ -15,10 +15,9 @@
 #import "FUUserAgentWindowController.h"
 #import "FUUserDefaults.h"
 #import "FUUtils.h"
+#import "FUNotifications.h"
 
 #define UA_MENU_TAG 47
-
-NSString *const FUUserAgentStringDidChangeNotification = @"FUUserAgentStringDidChangeNotification";
 
 @interface FUUserAgentWindowController ()
 - (void)loadUserAgentStrings;

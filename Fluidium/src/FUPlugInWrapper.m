@@ -17,6 +17,7 @@
 #import "FUDocumentController.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
+#import "FUNotifications.h"
 
 @interface FUPlugInWrapper ()
 @property (nonatomic, retain, readwrite) id <FUPlugIn>plugIn;

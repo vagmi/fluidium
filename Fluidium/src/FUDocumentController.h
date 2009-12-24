@@ -26,11 +26,6 @@ typedef enum {
     FUDestinationTypeTab
 } FUDestinationType;
 
-extern NSString *const FUTabBarShownDidChangeNotification;
-extern NSString *const FUTabBarHiddenForSingleTabDidChangeNotification;
-extern NSString *const FUBookmarkBarShownDidChangeNotification;
-extern NSString *const FUStatusBarShownDidChangeNotification;
-
 @interface FUDocumentController : NSDocumentController <GrowlApplicationBridgeDelegate> {
     NSWindow *hiddenWindow;
     NSMutableArray *dockMenuItems;

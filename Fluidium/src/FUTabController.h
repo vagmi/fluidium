@@ -14,26 +14,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString *const FUTabControllerProgressDidStartNotification;
-extern NSString *const FUTabControllerProgressDidChangeNotification;
-extern NSString *const FUTabControllerProgressDidFinishNotification;
-
-extern NSString *const FUTabControllerDidCommitLoadNotification;
-extern NSString *const FUTabControllerDidFinishLoadNotification;
-extern NSString *const FUTabControllerDidFailLoadNotification;
-extern NSString *const FUTabControllerDidClearWindowObjectNotification;
-
-@interface NSObject (FUTabControllerNotifications)
-- (void)tabControllerProgressDidStart:(NSNotification *)n;
-- (void)tabControllerProgressDidChange:(NSNotification *)n;
-- (void)tabControllerProgressDidFinish:(NSNotification *)n;
-
-- (void)tabControllerDidCommitLoad:(NSNotification *)n;
-- (void)tabControllerDidFinishLoad:(NSNotification *)n;
-- (void)tabControllerDidFailLoad:(NSNotification *)n;
-- (void)tabControllerDidClearWindowObject:(NSNotification *)n;
-@end
-
 @class FUWindowController;
 @class FUWebView;
 @class FUJavaScriptBridge;

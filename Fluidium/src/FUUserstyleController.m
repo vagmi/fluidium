@@ -18,6 +18,7 @@
 #import "FUWebView.h"
 #import "FUApplication.h"
 #import "FUWildcardPattern.h"
+#import "FUNotifications.h"
 #import <WebKit/WebKit.h>
 
 @interface FUUserstyleController ()

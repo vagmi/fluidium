@@ -14,8 +14,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString *const FUSpacesBehaviorDidChangeNotification;
-
 @interface FUWindow : NSWindow {
 
 }

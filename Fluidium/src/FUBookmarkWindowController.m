@@ -15,9 +15,10 @@
 #import "FUBookmarkWindowController.h"
 #import "FUBookmark.h"
 #import "FUBookmarkController.h"
+#import "FUNotifications.h"
 
 @interface FUBookmarkWindowController ()
-- (void)postBookmarksChangedNotification;
+- (void)postBookmarksDidChangeNotification;
 - (void)bookmarksChanged:(NSNotification *)n;
 - (void)update;
 
@@ -59,7 +60,7 @@
 
 - (void)awakeFromNib {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(bookmarksChanged:) name:FUBookmarksChangedNotification object:nil];
+    [nc addObserver:self selector:@selector(bookmarksDidChange:) name:FUBookmarksDidChangeNotification object:nil];
 }
 
 
@@ -68,13 +69,13 @@
 
 - (IBAction)insert:(id)sender {
     [arrayController insert:sender];
-    [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postBookmarksDidChangeNotification) withObject:nil afterDelay:0];
 }
 
 
 - (IBAction)remove:(id)sender {
     [arrayController remove:sender];
-    [self performSelector:@selector(postBookmarksChangedNotification) withObject:nil afterDelay:0];
+    [self performSelector:@selector(postBookmarksDidChangeNotification) withObject:nil afterDelay:0];
 }
 
 
@@ -185,8 +186,8 @@
 }
 
 
-- (void)postBookmarksChangedNotification {
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksChangedNotification object:nil];
+- (void)postBookmarksDidChangeNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksDidChangeNotification object:nil];
 }
 
 
@@ -196,7 +197,7 @@
 
 
 - (void)windowDidResignKey:(NSNotification *)n {
-    [self postBookmarksChangedNotification];
+    [self postBookmarksDidChangeNotification];
 }
 
 @synthesize tableView;

@@ -25,6 +25,7 @@
 #import "FUJavaScriptBridge.h"
 #import "FURecentURLController.h"
 #import "FUDownloadWindowController.h"
+#import "FUNotifications.h"
 #import "NSString+FUAdditions.h"
 #import "DOMNode+FUAdditions.h"
 #import "WebIconDatabase+FUAdditions.h"
@@ -32,15 +33,6 @@
 #import "WebUIDelegatePrivate.h"
 #import "WebInspector.h"
 #import <WebKit/WebKit.h>
-
-NSString *const FUTabControllerProgressDidStartNotification = @"FUTabControllerProgressDidStartNotification";
-NSString *const FUTabControllerProgressDidChangeNotification = @"FUTabControllerProgressDidChangeNotification";
-NSString *const FUTabControllerProgressDidFinishNotification = @"FUTabControllerProgressDidFinishNotification";
-
-NSString *const FUTabControllerDidCommitLoadNotification = @"FUTabControllerDidCommitLoadNotification";
-NSString *const FUTabControllerDidFinishLoadNotification = @"FUTabControllerDidFinishLoadNotification";
-NSString *const FUTabControllerDidFailLoadNotification = @"FUTabControllerDidFailLoadNotification";
-NSString *const FUTabControllerDidClearWindowObjectNotification = @"FUTabControllerDidClearWindowObjectNotification";
 
 typedef enum {
     WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1

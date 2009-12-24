@@ -19,14 +19,10 @@
 #import "FUUserDefaults.h"
 #import "FUWebView.h"
 #import "FUJavaScriptMenuItem.h"
+#import "FUNotifications.h"
 #import <WebKit/WebKit.h>
 
 #define OPEN_NEW_TAB 0
-
-NSString *const FUTabBarShownDidChangeNotification = @"FUTabBarShownDidChangeNotification";
-NSString *const FUTabBarHiddenForSingleTabDidChangeNotification = @"FUTabBarHiddenForSingleTabDidChangeNotification";
-NSString *const FUBookmarkBarShownDidChangeNotification = @"FUBookmarkBarShownDidChangeNotification";
-NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidChangeNotification";
 
 @interface FUDocumentController ()
 - (void)registerForAppleEventHandling;

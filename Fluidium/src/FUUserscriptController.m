@@ -19,6 +19,7 @@
 #import "FUApplication.h"
 #import "FUWildcardPattern.h"
 #import "FUUtils.h"
+#import "FUNotifications.h"
 #import <WebKit/WebKit.h>
 
 #define KEY_USERSCRIPT_SRC @"userscriptSrc"
