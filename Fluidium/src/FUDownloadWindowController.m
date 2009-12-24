@@ -29,7 +29,7 @@
 
 @implementation FUDownloadWindowController
 
-+ (id)instance {
++ (FUDownloadWindowController *)instance {
     static FUDownloadWindowController *instance = nil;
     @synchronized (self) {
         if (!instance) {

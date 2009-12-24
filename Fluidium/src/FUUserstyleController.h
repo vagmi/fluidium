@@ -22,7 +22,7 @@
     NSString *defaultCSSText;
 }
 
-+ (id)instance;
++ (FUUserstyleController *)instance;
 
 - (void)save;
 

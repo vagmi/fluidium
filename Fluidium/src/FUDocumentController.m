@@ -40,7 +40,7 @@ NSString *const FUStatusBarShownDidChangeNotification = @"FUStatusBarShownDidCha
 
 @implementation FUDocumentController
 
-+ (id)instance {
++ (FUDocumentController *)instance {
     return [[NSApplication sharedApplication] delegate];
 }
 

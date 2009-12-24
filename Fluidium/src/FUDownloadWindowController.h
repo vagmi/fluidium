@@ -29,7 +29,7 @@
     NSString *nextDestinationFilename;
 }
 
-+ (id)instance;
++ (FUDownloadWindowController *)instance;
 
 - (IBAction)stopDownload:(id)sender;
 - (IBAction)resumeDownload:(id)sender;

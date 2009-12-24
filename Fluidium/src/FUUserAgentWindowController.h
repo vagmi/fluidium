@@ -25,7 +25,7 @@ extern NSString *const FUUserAgentStringDidChangeNotification;
     NSString *editingUserAgentString;
 }
 
-+ (id)instance;
++ (FUUserAgentWindowController *)instance;
 
 - (IBAction)changeUAString:(id)sender;
 - (IBAction)changeUAStringToOther:(id)sender;

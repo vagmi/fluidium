@@ -133,7 +133,9 @@ extern NSString *const FUTabControllerKey;
 - (void)addTabController:(FUTabController *)tc;
 - (BOOL)removeTabController:(FUTabController *)tc;
 
-- (void)editTitleForBookmark:(FUBookmark *)bmark;
+- (NSArray *)webViews;
+
+- (void)runEditTitleSheetForBookmark:(FUBookmark *)bmark;
 
 - (BOOL)isFindPanelVisible;
 

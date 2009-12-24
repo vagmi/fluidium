@@ -256,7 +256,7 @@ typedef enum {
     
     NSString *s = [NSString stringWithFormat:FUDefaultWebSearchFormatString(), term];
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:s]];
-    [(FUDocumentController *)[FUDocumentController instance] loadRequest:req];
+    [[FUDocumentController instance] loadRequest:req];
     self.clickElementInfo = nil;
 }
 
@@ -311,7 +311,6 @@ typedef enum {
     [view setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     
     self.webView = [[[FUWebView alloc] initWithFrame:frame] autorelease];
-    [webView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     
     [self setUpWebView];
     
@@ -783,21 +782,13 @@ typedef enum {
 #pragma mark Private
 
 - (void)setUpWebView {
-    [webView setShouldCloseWithWindow:YES];
-    [webView setMaintainsBackForwardList:YES];
-    [webView setDrawsBackground:YES];
-    [webView setPreferences:[FUWebPreferences instance]];
-    
     // delegates
     [webView setResourceLoadDelegate:self];
     [webView setFrameLoadDelegate:self];
     [webView setPolicyDelegate:self];
     [webView setUIDelegate:self];
-    [webView setDownloadDelegate:[FUDownloadWindowController instance]];
+    // downloadDelegate set in -[FUWebView initWithFrame:] cuz it's always the same
 
-    BOOL spellCheckEnabled = [[FUUserDefaults instance] continuousSpellCheckingEnabled];
-    [webView setContinuousSpellCheckingEnabled:spellCheckEnabled];
-    
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(webViewProgressStarted:) name:WebViewProgressStartedNotification object:webView];
     [nc addObserver:self selector:@selector(webViewProgressEstimateChanged:) name:WebViewProgressEstimateChangedNotification object:webView];

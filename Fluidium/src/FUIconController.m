@@ -30,7 +30,7 @@
 }
 
 
-+ (id)instance {
++ (FUIconController *)instance {
     static FUIconController *instance = nil;
     @synchronized (self) {
         if (!instance) {

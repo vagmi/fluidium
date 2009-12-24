@@ -25,7 +25,7 @@
     BOOL firstHistoryDateIsToday;
 }
 
-+ (id)instance;
++ (FUHistoryController *)instance;
 
 - (IBAction)historyItemClicked:(id)sender;
 

@@ -20,7 +20,7 @@ NSString *const FUWebPreferencesDidChangeNotification = @"FUWebPreferencesDidCha
 
 @implementation FUWebPreferences
 
-+ (id)instance {
++ (FUWebPreferences *)instance {
     static FUWebPreferences *instance = nil;
     @synchronized (self) {
         if (!instance) {

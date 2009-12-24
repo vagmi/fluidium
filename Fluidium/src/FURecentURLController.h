@@ -18,7 +18,8 @@
     NSMutableArray *recentURLs;
     NSMutableArray *matchingRecentURLs;
 }
-+ (id)instance;
+
++ (FURecentURLController *)instance;
 
 - (void)resetRecentURLs;
 - (void)resetMatchingRecentURLs;

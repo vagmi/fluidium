@@ -22,7 +22,7 @@
     NSString *lastURLString;
 }
 
-+ (id)instance;
++ (FUWhitelistController *)instance;
 
 - (void)save;
 - (void)loadURLPatterns;

@@ -31,7 +31,7 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
     NSString *plugInDirPath;
 }
 
-+ (id)instance;
++ (FUApplication *)instance;
 
 - (IBAction)showDownloadsWindow:(id)sender;
 - (IBAction)showBookmarksWindow:(id)sender;

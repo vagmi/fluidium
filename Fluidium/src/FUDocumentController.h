@@ -36,7 +36,7 @@ extern NSString *const FUStatusBarShownDidChangeNotification;
     NSMutableArray *dockMenuItems;
 }
 
-+ (id)instance;
++ (FUDocumentController *)instance;
 
 - (IBAction)toggleTabBarShown:(id)sender;
 - (IBAction)toggleBookmarkBarShown:(id)sender;

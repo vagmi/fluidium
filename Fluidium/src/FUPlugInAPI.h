@@ -24,14 +24,22 @@ typedef enum {
 
 @protocol FUPlugInAPI
 - (NSString *)version;
+
 - (WebView *)frontWebView;
-- (NSArray *)webViews;
+
+- (WebView *)selectedWebViewForWindow:(NSWindow *)win;
+- (NSArray *)webViewsForWindow:(NSWindow *)win;
+
+// create and setup a new WebView for use in a plugin view controller. must be released by caller.
+- (WebView *)newWebViewForPlugIn:(id <FUPlugIn>)plugIn;
+
 - (NSString *)plugInSupportDirPath;
 
 - (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
 - (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
 
 - (void)showStatusText:(NSString *)statusText;
+- (void)addRecentURL:(NSString *)URLString;
 
 - (void)showPreferencePaneForIdentifier:(NSString *)s;
 @end

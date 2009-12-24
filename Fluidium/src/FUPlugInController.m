@@ -81,7 +81,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 @implementation FUPlugInController
 
-+ (id)instance {
++ (FUPlugInController *)instance {
     static FUPlugInController *instance = nil;
     @synchronized (self) {
         if (!instance) {

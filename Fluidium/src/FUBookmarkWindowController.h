@@ -21,7 +21,7 @@
     NSArrayController *arrayController;
 }
 
-+ (id)instance;
++ (FUBookmarkWindowController *)instance;
 
 - (IBAction)insert:(id)sender;
 - (IBAction)remove:(id)sender;

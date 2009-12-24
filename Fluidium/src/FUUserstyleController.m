@@ -30,7 +30,7 @@
 
 @implementation FUUserstyleController
 
-+ (id)instance {
++ (FUUserstyleController *)instance {
     static FUUserstyleController *instance = nil;
     @synchronized (self) {
         if (!instance) {

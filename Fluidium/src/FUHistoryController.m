@@ -31,7 +31,7 @@
 
 @implementation FUHistoryController
 
-+ (id)instance {
++ (FUHistoryController *)instance {
     static FUHistoryController *instance = nil;
     @synchronized (self) {
         if (!instance) {

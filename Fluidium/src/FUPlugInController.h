@@ -30,7 +30,7 @@
     BOOL plugInsLoaded;
 }
 
-+ (id)instance;
++ (FUPlugInController *)instance;
 
 - (void)plugInAboutMenuItemAction:(id)sender;
 - (void)plugInMenuItemAction:(id)sender;

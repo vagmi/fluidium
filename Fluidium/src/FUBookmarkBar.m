@@ -325,7 +325,7 @@
     [self postBookmarksChangedNotification];
 
     if (!draggingExistingButton) {
-        [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:bmark];
+        [[[FUDocumentController instance] frontWindowController] runEditTitleSheetForBookmark:bmark];
     }
 }
 

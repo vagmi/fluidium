@@ -36,7 +36,7 @@
 
 @implementation FUUserscriptController
 
-+ (id)instance {
++ (FUUserscriptController *)instance {
     static FUUserscriptController *instance = nil;
     @synchronized (self) {
         if (!instance) {

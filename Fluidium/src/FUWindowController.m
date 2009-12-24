@@ -446,7 +446,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
     
     [[FUBookmarkController instance] appendBookmark:bmark];
     
-    [self editTitleForBookmark:bmark];
+    [self runEditTitleSheetForBookmark:bmark];
 }
 
 
@@ -563,6 +563,15 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
+- (NSArray *)webViews {
+    NSMutableArray *wvs = [NSMutableArray arrayWithCapacity:[tabControllers count]];
+    for (FUTabController *tc in tabControllers) {
+        [wvs addObject:[tc webView]];
+    }
+    return [[wvs copy] autorelease];
+}
+
+
 - (NSInteger)selectedTabIndex {
     return [tabView indexOfTabViewItem:[tabView selectedTabViewItem]];
 }
@@ -573,7 +582,7 @@ NSString *const FUTabControllerKey = @"FUTabController";
 }
 
 
-- (void)editTitleForBookmark:(FUBookmark *)bmark {
+- (void)runEditTitleSheetForBookmark:(FUBookmark *)bmark {
     self.editingBookmark = [FUBookmark bookmarkWithTitle:bmark.title content:bmark.content];
     
     NSDictionary *d = [[NSDictionary alloc] initWithObjectsAndKeys:

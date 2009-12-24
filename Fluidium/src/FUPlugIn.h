@@ -21,10 +21,10 @@ extern NSString *const FUPlugInViewControllerWillDisappearNotifcation;
 extern NSString *const FUPlugInViewControllerDidDisappearNotifcation;
 
 // keys for the userInfo dictionary of Notifications sent with names from above
-extern NSString *const FUPlugInCurrentViewPlacementMaskKey; // NSInteger
-extern NSString *const FUPlugInKey;                         // id <FUPlugIn>
-extern NSString *const FUPlugInViewControllerKey;           // NSViewController
-extern NSString *const FUPlugInViewControllerDrawerKey;     // NSDrawer -- this is only sent for view controllers currently in a drawer position
+extern NSString *const FUPlugInViewPlacementMaskKey;    // NSInteger
+extern NSString *const FUPlugInKey;                     // id <FUPlugIn>
+extern NSString *const FUPlugInViewControllerKey;       // NSViewController
+extern NSString *const FUPlugInViewControllerDrawerKey; // NSDrawer -- this is only sent for view controllers currently in a drawer position
 
 #define FUPlugInViewPlacementIsSplitView(mask)  ((mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight || (mask) == FUPlugInViewPlacementSplitViewTop)
 #define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)

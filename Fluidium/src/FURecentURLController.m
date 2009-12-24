@@ -25,7 +25,7 @@
 
 @implementation FURecentURLController
 
-+ (id)instance {
++ (FURecentURLController *)instance {
     static FURecentURLController *instance = nil;
     @synchronized (self) {
         if (!instance) {

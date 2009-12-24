@@ -42,8 +42,8 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 @implementation FUApplication
 
-+ (id)instance {
-    return [self sharedApplication];
++ (FUApplication *)instance {
+    return (FUApplication *)[self sharedApplication];
 }
 
 

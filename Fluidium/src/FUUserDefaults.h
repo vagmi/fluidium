@@ -88,7 +88,7 @@ extern NSString *const kFUPlugInDrawerContentSizeStringKey;
 
 }
 
-+ (id)instance;
++ (FUUserDefaults *)instance;
 
 // Browser
 @property (nonatomic, copy) NSString *webIconDatabaseDirectoryDefaults;

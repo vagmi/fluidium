@@ -29,7 +29,7 @@
 
 @implementation FUBookmarkWindowController
 
-+ (id)instance {    
++ (FUBookmarkWindowController *)instance {    
     static FUBookmarkWindowController *instance = nil;
     @synchronized (self) {
         if (!instance) {

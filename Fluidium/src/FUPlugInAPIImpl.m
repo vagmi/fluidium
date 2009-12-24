@@ -17,6 +17,9 @@
 #import "FUDocumentController.h"
 #import "FUTabController.h"
 #import "FUApplication.h"
+#import "FURecentURLController.h"
+#import "FUWindow.h"
+#import "FUWebView.h"
 #import "FUPlugInWrapper.h"
 #import "FUPlugInAPI.h"
 #import <OmniAppKit/OAPreferenceController.h>
@@ -51,29 +54,47 @@
 }
 
 
-- (NSArray *)webViews {
-    FUWindowController *wc = [[FUDocumentController instance] frontWindowController];
-    NSSet *tabControllers = wc.tabControllers;
-    NSMutableArray *webViews = [NSMutableArray arrayWithCapacity:[tabControllers count]];
-    for (FUTabController *tc in tabControllers) {
-        [webViews addObject:[tc webView]];
+- (WebView *)selectedWebViewForWindow:(NSWindow *)win {
+    if (![win isMemberOfClass:[FUWindow class]]) {
+        return nil;
     }
-    return webViews;
+    
+    FUWindowController *wc = (FUWindowController *)[win windowController];
+    return [[wc selectedTabController] webView];
+}
+
+
+- (NSArray *)webViewsForWindow:(NSWindow *)win {
+    if (![win isMemberOfClass:[FUWindow class]]) {
+        return nil;
+    }
+
+    return [(FUWindowController *)[win windowController] webViews];
+}
+
+
+- (WebView *)newWebViewForPlugIn:(id <FUPlugIn>)plugIn {
+    return [[FUWebView alloc] initWithFrame:NSZeroRect];
 }
 
 
 - (void)loadRequest:(NSURLRequest *)req destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
-    [(FUDocumentController *)[FUDocumentController instance] loadRequest:req destinationType:type inForeground:inForeground];
+    [[FUDocumentController instance] loadRequest:req destinationType:type inForeground:inForeground];
 }
 
 
 - (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
-    [(FUDocumentController *)[FUDocumentController instance] loadHTMLString:HTMLString destinationType:type inForeground:inForeground];
+    [[FUDocumentController instance] loadHTMLString:HTMLString destinationType:type inForeground:inForeground];
 }
 
 
 - (void)showStatusText:(NSString *)statusText {
     [[[FUDocumentController instance] frontTabController] setStatusText:statusText];
+}
+
+
+- (void)addRecentURL:(NSString *)URLString {
+    [[FURecentURLController instance] addRecentURL:URLString];
 }
 
 

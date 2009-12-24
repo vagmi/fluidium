@@ -25,7 +25,7 @@
 
 @implementation FUWhitelistController
 
-+ (id)instance {
++ (FUWhitelistController *)instance {
     static FUWhitelistController *instance = nil;
     @synchronized (self) {
         if (!instance) {

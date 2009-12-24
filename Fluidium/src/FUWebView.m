@@ -16,22 +16,38 @@
 #import "FUApplication.h"
 #import "FUUserDefaults.h"
 #import "FUWebPreferences.h"
+#import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
+
+NSString *const FUContinuousSpellCheckingDidChangeNotification = @"FUContinuousSpellCheckingDidChangeNotification";
 
 @interface FUWebView ()
 - (void)webPreferencesDidChange:(NSNotification *)n;
 - (void)userAgentStringDidChange:(NSNotification *)n;
+- (void)updateWebPreferences;
+- (void)updateUserAgent;
+- (void)updateContinuousSpellChecking;
 @end
 
 @implementation FUWebView
 
 - (id)initWithFrame:(NSRect)frame frameName:(NSString *)frameName groupName:(NSString *)groupName {
     if (self = [super initWithFrame:frame frameName:frameName groupName:groupName]) {
+        [self setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+        [self setShouldCloseWithWindow:YES];
+        [self setMaintainsBackForwardList:YES];
+        [self setDrawsBackground:YES];
+        
+        [self setDownloadDelegate:[FUDownloadWindowController instance]];
+
+        [self updateWebPreferences];
+        [self updateUserAgent];
+        [self updateContinuousSpellChecking];
+
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(webPreferencesDidChange:) name:FUWebPreferencesDidChangeNotification object:[FUWebPreferences instance]];
         [nc addObserver:self selector:@selector(userAgentStringDidChange:) name:FUUserAgentStringDidChangeNotification object:nil];
-        
-        [self userAgentStringDidChange:nil];
+        [nc addObserver:self selector:@selector(continuousSpellCheckingDidChange:) name:FUContinuousSpellCheckingDidChangeNotification object:nil];
     }
     return self;
 }
@@ -52,9 +68,10 @@
 #pragma mark Actions
 
 - (IBAction)toggleContinuousSpellChecking:(id)sender {
-    [super toggleContinuousSpellChecking:sender];
-    BOOL enabled = [self isContinuousSpellCheckingEnabled];
-    [[FUUserDefaults instance] setContinuousSpellCheckingEnabled:enabled];
+    BOOL enabled = [[FUUserDefaults instance] continuousSpellCheckingEnabled];
+    [[FUUserDefaults instance] setContinuousSpellCheckingEnabled:!enabled];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUContinuousSpellCheckingDidChangeNotification object:self];
 }
 
 
@@ -62,13 +79,18 @@
 #pragma mark Notifications
 
 - (void)webPreferencesDidChange:(NSNotification *)n {
-    [self setPreferences:[FUWebPreferences instance]];
+    [self updateWebPreferences];
     [self reload:self];
 }
 
 
 - (void)userAgentStringDidChange:(NSNotification *)n {
-    [self setCustomUserAgent:[[FUUserAgentWindowController instance] userAgentString]];
+    [self updateUserAgent];
+}
+
+
+- (void)continuousSpellCheckingDidChange:(NSNotification *)n {
+    [self updateContinuousSpellChecking];
 }
 
 
@@ -84,6 +106,24 @@
     [self cacheDisplayInRect:webViewBounds toBitmapImageRep:imageRep];
     [self unlockFocus];
     return image;
+}
+
+
+#pragma mark -
+#pragma mark Private
+
+- (void)updateWebPreferences {
+    [self setPreferences:[FUWebPreferences instance]];
+}
+
+
+- (void)updateUserAgent {
+    [self setCustomUserAgent:[[FUUserAgentWindowController instance] userAgentString]];
+}
+
+
+- (void)updateContinuousSpellChecking {
+    [self setContinuousSpellCheckingEnabled:[[FUUserDefaults instance] continuousSpellCheckingEnabled]];
 }
 
 @end

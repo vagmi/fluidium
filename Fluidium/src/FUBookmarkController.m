@@ -35,7 +35,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 
 @implementation FUBookmarkController
 
-+ (id)instance {    
++ (FUBookmarkController *)instance {    
     static FUBookmarkController *instance = nil;
     @synchronized (self) {
         if (!instance) {
@@ -92,7 +92,7 @@ NSString *const FUBookmarksChangedNotification = @"FUBookmarksChangedNotificatio
 
 - (IBAction)editBookmarkTitle:(id)sender {
     FUBookmark *bmark = [sender representedObject];
-    [[[FUDocumentController instance] frontWindowController] editTitleForBookmark:bmark];
+    [[[FUDocumentController instance] frontWindowController] runEditTitleSheetForBookmark:bmark];
 }
 
 

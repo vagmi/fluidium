@@ -20,7 +20,7 @@ extern NSString *const FUWebPreferencesDidChangeNotification;
 
 }
 
-+ (id)instance;
++ (FUWebPreferences *)instance;
 
 - (void)postDidChangeNotification;
 @end

@@ -114,7 +114,7 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 }
 
 
-+ (id)instance {
++ (FUUserDefaults *)instance {
     static FUUserDefaults *instance = nil;
     @synchronized (self) {
         if (!instance) {

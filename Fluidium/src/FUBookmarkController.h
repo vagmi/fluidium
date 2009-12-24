@@ -26,7 +26,7 @@ extern NSString *const FUBookmarksChangedNotification;
     NSMutableArray *bookmarks;
 }
 
-+ (id)instance;
++ (FUBookmarkController *)instance;
 
 - (IBAction)openBookmarkInNewWindow:(id)sender;
 - (IBAction)openBookmarkInNewTab:(id)sender;

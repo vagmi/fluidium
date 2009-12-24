@@ -32,7 +32,7 @@ NSString *const FUUserAgentStringDidChangeNotification = @"FUUserAgentStringDidC
 
 @implementation FUUserAgentWindowController
 
-+ (id)instance {
++ (FUUserAgentWindowController *)instance {
     static FUUserAgentWindowController *instance = nil;
     @synchronized (self) {
         if (!instance) {
