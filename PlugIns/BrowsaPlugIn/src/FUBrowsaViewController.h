@@ -15,7 +15,7 @@
 #import <Foundation/Foundation.h>
 
 @class WebView;
-@class FUProgressComboBox;
+@class FUBrowsaComboBox;
 @class FUBrowsaPlugIn;
 
 @protocol FUPlugInAPI;
@@ -23,7 +23,7 @@
 @interface FUBrowsaViewController : NSViewController {
 	WebView *webView;
 	NSView *navBar;
-	NSComboBox *locationComboBox;
+	FUBrowsaComboBox *locationComboBox;
 	
 	id <FUPlugInAPI>plugInAPI;
 	FUBrowsaPlugIn *plugIn;
@@ -42,7 +42,7 @@
     BOOL canReload;
 
 	CGFloat progress;
-    BOOL hasAppeared;
+    BOOL hasUpdatedNavBar;
 }
 
 - (IBAction)goHome:(id)sender;
@@ -75,7 +75,7 @@
 @property (nonatomic, retain) FUBrowsaPlugIn *plugIn;
 @property (nonatomic, retain) IBOutlet WebView *webView;
 @property (nonatomic, retain) IBOutlet NSView *navBar;
-@property (nonatomic, retain) IBOutlet NSComboBox *locationComboBox;
+@property (nonatomic, retain) IBOutlet FUBrowsaComboBox *locationComboBox;
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, copy) NSString *initialURLString;
 @property (nonatomic, copy) NSString *title;

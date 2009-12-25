@@ -12,9 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUProgressComboBox.h"
+#import "FUBrowsaComboBox.h"
 #import "HMImageComboBoxCell.h"
-#import "FURecentURLController.h"
 #import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
 
@@ -23,7 +22,7 @@
 #define DOWN_ARROW 125
 #define UP_ARROW 126
 
-@implementation FUProgressComboBox
+@implementation FUBrowsaComboBox
 
 - (void)dealloc {
     self.progressImage = nil;
@@ -148,14 +147,14 @@
             [table selectRowIndexes:[NSIndexSet indexSetWithIndex:++i] byExtendingSelection:NO];
         }
         
-        NSArray *matchingRecentURLs = [[FURecentURLController instance] matchingRecentURLs];
-        if (i < [matchingRecentURLs count]) {
-            NSString *URLString = [matchingRecentURLs objectAtIndex:i];
-            [self setStringValue:URLString];
-            NSRange r = [[self currentEditor] selectedRange];
-            r.length = [URLString length] - r.location;
-            [[self currentEditor] setSelectedRange:r];
-        }        
+//        NSArray *matchingRecentURLs = [plugInAPI matchingRecentURLs];
+//        if (i < [matchingRecentURLs count]) {
+//            NSString *URLString = [matchingRecentURLs objectAtIndex:i];
+//            [self setStringValue:URLString];
+//            NSRange r = [[self currentEditor] selectedRange];
+//            r.length = [URLString length] - r.location;
+//            [[self currentEditor] setSelectedRange:r];
+//        }        
     }
 }
 

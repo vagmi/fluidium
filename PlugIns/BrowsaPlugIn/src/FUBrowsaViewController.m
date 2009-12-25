@@ -17,6 +17,7 @@
 #import "FUUtils.h"
 #import "FUPlugInAPI.h"
 #import "FUBrowsaActivation.h"
+#import "FUBrowsaComboBox.h"
 #import "NSString+FUAdditions.h"
 #import "DOMNode+FUAdditions.h"
 #import "WebIconDatabase.h"
@@ -52,6 +53,10 @@ typedef enum {
 - (NSInteger)indexOfItemWithTag:(NSUInteger)tag inMenuItems:(NSArray *)items;
 - (NSString *)currentSelectionFromWebView;
 - (BOOL)zoomTextOnly;
+
+- (void)displayEstimatedProgress;
+- (void)clearProgressInFuture;
+- (void)clearProgress;    
 @end
 
 @implementation FUBrowsaViewController
@@ -284,6 +289,8 @@ typedef enum {
 #pragma mark Public
 
 - (void)awakeFromNib {
+    [locationComboBox bind:@"image" toObject:self withKeyPath:@"favicon" options:nil];
+
     NSRect frame = NSMakeRect(0, 0, MAXFLOAT, MAXFLOAT);
     
     self.webView = [[plugInAPI newWebViewForPlugIn:self.plugIn] autorelease];
@@ -306,8 +313,7 @@ typedef enum {
 
 
 - (void)didAppear {
-    [self updateNavBar];
-    hasAppeared = YES;
+    [self performSelector:@selector(updateNavBar) withObject:nil afterDelay:0];
 }
 
 
@@ -495,7 +501,7 @@ typedef enum {
 #pragma mark WebProgressNotifications
 
 - (void)webViewProgressStarted:(NSNotification *)n {
-    [self setValue:[NSNumber numberWithBool:YES] forKey:@"isProcessing"];
+    [self clearProgress];
     self.statusText = NSLocalizedString(@"Loading...", @"");
 }
 
@@ -508,12 +514,14 @@ typedef enum {
         s = NSLocalizedString(@"Loading...", @"");
     }
     [plugInAPI showStatusText:s];
+    [self displayEstimatedProgress];
 }
 
 
 - (void)webViewProgressFinished:(NSNotification *)n {
     [self setValue:[NSNumber numberWithBool:NO] forKey:@"isProcessing"];
     [plugInAPI showStatusText:@""];
+    [self clearProgressInFuture];
 }
 
 
@@ -537,7 +545,8 @@ typedef enum {
 
 
 - (void)updateNavBar {
-	if (!hasAppeared || FUShowNavBarAlways == plugIn.showNavBar) {
+	if (!hasUpdatedNavBar || FUShowNavBarAlways == plugIn.showNavBar) {
+        hasUpdatedNavBar = YES;
 		[self showNavBar:self];
 	} else {
 		[self hideNavBar:self];
@@ -644,6 +653,22 @@ typedef enum {
 - (BOOL)zoomTextOnly {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey];
 }
+
+
+- (void)displayEstimatedProgress {
+    locationComboBox.progress = [webView estimatedProgress];
+}
+
+
+- (void)clearProgressInFuture {
+    [NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(clearProgress) userInfo:nil repeats:NO];
+}
+
+
+- (void)clearProgress {
+    locationComboBox.progress = 0;
+}
+
 
 @synthesize plugIn;
 @synthesize plugInAPI;

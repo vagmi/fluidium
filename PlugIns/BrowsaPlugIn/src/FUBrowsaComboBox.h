@@ -14,7 +14,7 @@
 
 #import "HMImageComboBox.h"
 
-@interface FUProgressComboBox : HMImageComboBox {
+@interface FUBrowsaComboBox : HMImageComboBox {
     NSImage *progressImage;
     CGFloat progress;
     BOOL showingPopUp;
