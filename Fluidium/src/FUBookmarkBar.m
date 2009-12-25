@@ -40,7 +40,6 @@
 - (void)addBookmark:(FUBookmark *)bmark atIndex:(NSInteger)i;
 - (void)createOverflowMenu;
 - (void)layoutButtons;
-- (void)bookmarksChanged:(NSNotification *)n;
 - (void)removeAllButtons;
 - (void)postBookmarksDidChangeNotification;
 @end
@@ -77,7 +76,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self bookmarksChanged:nil];
+    [self bookmarksDidChange:nil];
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(bookmarksDidChange:) name:FUBookmarksDidChangeNotification object:nil];
@@ -403,7 +402,7 @@
 }
 
 
-- (void)bookmarksChanged:(NSNotification *)n {
+- (void)bookmarksDidChange:(NSNotification *)n {
     [self removeAllButtons];
     for (FUBookmark *bmark in [[FUBookmarkController instance] bookmarks]) {
         [self addButtonForBookmark:bmark];

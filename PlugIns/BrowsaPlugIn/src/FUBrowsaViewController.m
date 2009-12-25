@@ -308,11 +308,7 @@ typedef enum {
     NSImage *img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
     [homeButton setImage:img];
 
-    NSRect frame = NSMakeRect(0, 0, MAXFLOAT, MAXFLOAT);
-    
     self.webView = [[plugInAPI newWebViewForPlugIn:self.plugIn] autorelease];
-    [webView setFrame:frame];
-    [webView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     
     [self setUpWebView];
     

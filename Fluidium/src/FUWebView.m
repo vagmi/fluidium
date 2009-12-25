@@ -95,12 +95,12 @@
 #pragma mark Public
 
 - (NSImage *)imageFromWebContent {
-    NSRect webViewBounds = [self bounds];
-    NSImage *image = [[[NSImage alloc] initWithSize:webViewBounds.size] autorelease];
+    NSRect webBounds = [self bounds];
+    NSImage *image = [[[NSImage alloc] initWithSize:webBounds.size] autorelease];
     [self lockFocus];
-    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:webViewBounds];
+    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:webBounds];
     [image addRepresentation:imageRep];
-    [self cacheDisplayInRect:webViewBounds toBitmapImageRep:imageRep];
+    [self cacheDisplayInRect:webBounds toBitmapImageRep:imageRep];
     [self unlockFocus];
     return image;
 }
