@@ -48,10 +48,6 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 + (void)registerItemName:(NSString *)itemName bundle:(NSBundle *)bundle description:(NSDictionary *)description;
 @end
 
-@interface NSObject (FUAdditions) 
-- (id)initWithPlugInAPI:(id <FUPlugInAPI>)api tag:(NSInteger)inTag;
-@end
-
 @interface FUPlugInController ()
 - (void)windowControllerDidOpen:(NSNotification *)n;
 - (void)showVisiblePlugInsInWindow:(NSWindow *)win;
@@ -178,7 +174,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
         NSInteger num = [[FUUserDefaults instance] numberOfBrowsaPlugIns];
         NSInteger i = 0;
         for ( ; i < num; i++) {
-            plugIn = [[[bundle principalClass] alloc] initWithPlugInAPI:plugInAPI tag:i];
+            plugIn = [[[bundle principalClass] alloc] initWithPlugInAPI:plugInAPI];
             [self loadPlugIn:plugIn];
         }
     } else {

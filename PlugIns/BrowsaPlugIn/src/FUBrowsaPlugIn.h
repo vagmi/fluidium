@@ -14,7 +14,7 @@
 
 #import "FUPlugIn.h"
 
-@class FUBrowsaPrefsViewController;
+@class FUBrowsaPreferencesViewController;
 
 extern NSString *const kFUBrowsaHomeURLStringKey;
 extern NSString *const kFUBrowsaNewWindowsOpenWithKey;
@@ -24,7 +24,7 @@ extern NSString *const kFUBrowsaSendLinksToKey;
 
 @interface FUBrowsaPlugIn : NSObject <FUPlugIn> {
 	id <FUPlugInAPI>plugInAPI;
-	FUBrowsaPrefsViewController *preferencesViewController;
+	FUBrowsaPreferencesViewController *preferencesViewController;
 	NSString *identifier;
 	NSString *localizedTitle;
 	NSInteger allowedViewPlacementMask;
@@ -43,7 +43,7 @@ extern NSString *const kFUBrowsaSendLinksToKey;
 	NSInteger tag;
 }
 
-- (id)initWithPlugInAPI:(id <FUPlugInAPI>)api tag:(NSInteger)tag;
+- (id)initWithPlugInAPI:(id <FUPlugInAPI>)api;
 
 - (NSString *)taggedKey:(NSString *)inKey;
 - (NSString *)makeLocalizedTitle;

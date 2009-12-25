@@ -6,7 +6,7 @@
 	<string></string>
 	<key>FUBrowsaNewWindowsOpenWith</key>
 	<integer>1</integer>
-	<key>FUBrowsaShowNavigationBar</key>
+	<key>FUBrowsaShowToolbar</key>
 	<integer>0</integer>
 	<key>FUBrowsaSendLinksTo</key>
 	<integer>0</integer>

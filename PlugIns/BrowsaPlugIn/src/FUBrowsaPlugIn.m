@@ -15,7 +15,7 @@
 #import "FUBrowsaPlugIn.h"
 #import "FUPlugInAPI.h"
 #import "FUBrowsaViewController.h"
-#import "FUBrowsaPrefsViewController.h"
+#import "FUBrowsaPreferencesViewController.h"
 #import "NSString+FUAdditions.h"
 #import <WebKit/WebKit.h>
 
@@ -26,6 +26,8 @@ NSString *const kFUBrowsaShowToolbarKey = @"FUBrowsaShowToolbar";
 NSString *const kFUBrowsaSendLinksToKey = @"FUBrowsaSendLinksTo";
 
 NSString *const FUPlugInViewPlacementMaskKey = @"FUPlugInViewPlacementMaskKey";
+
+static NSInteger sTag = 0;
 
 @interface FUBrowsaPlugIn ()
 @property (nonatomic, readwrite, retain) id <FUPlugInAPI>plugInAPI;
@@ -49,13 +51,8 @@ NSString *const FUPlugInViewPlacementMaskKey = @"FUPlugInViewPlacementMaskKey";
 @implementation FUBrowsaPlugIn
 
 - (id)initWithPlugInAPI:(id <FUPlugInAPI>)api {
-	return [self initWithPlugInAPI:api tag:0];
-}
-
-
-- (id)initWithPlugInAPI:(id <FUPlugInAPI>)api tag:(NSInteger)t {
 	if (self = [super init]) {
-		self.tag = t;
+		self.tag = sTag++;
 		self.plugInAPI = api;
 		self.identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", tag];
 		self.localizedTitle = [self makeLocalizedTitle];
@@ -101,7 +98,7 @@ NSString *const FUPlugInViewPlacementMaskKey = @"FUPlugInViewPlacementMaskKey";
 		}
 		self.defaultsDictionary = [[mdict copy] autorelease];
 		
-		self.preferencesViewController = [[[FUBrowsaPrefsViewController alloc] initWithPlugIn:self] autorelease];
+		self.preferencesViewController = [[[FUBrowsaPreferencesViewController alloc] initWithPlugIn:self] autorelease];
 		
 		self.preferredVerticalSplitPosition = 340;
 		self.preferredHorizontalSplitPosition = 250;

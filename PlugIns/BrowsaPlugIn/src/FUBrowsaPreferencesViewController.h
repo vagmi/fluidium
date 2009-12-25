@@ -18,7 +18,7 @@
 
 extern NSString *const FUBrowsaUserAgentStringDidChange;
 
-@interface FUBrowsaPrefsViewController : NSViewController {
+@interface FUBrowsaPreferencesViewController : NSViewController {
 	NSPopUpButton *userAgentPopUpButton;
     
 	FUBrowsaPlugIn *plugIn;

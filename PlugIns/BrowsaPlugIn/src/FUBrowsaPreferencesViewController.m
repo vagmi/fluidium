@@ -12,17 +12,17 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUBrowsaPrefsViewController.h"
+#import "FUBrowsaPreferencesViewController.h"
 #import "FUBrowsaPlugIn.h"
 #import "FUBrowsaViewController.h"
 #import <WebKit/WebKit.h>
 
 NSString *const FUBrowsaUserAgentStringDidChange = @"FUBrowsaUserAgentStringDidChange";
 
-@implementation FUBrowsaPrefsViewController
+@implementation FUBrowsaPreferencesViewController
 
 - (id)initWithPlugIn:(FUBrowsaPlugIn *)p {
-	if ([super initWithNibName:@"FUBrowsaPrefsView" bundle:[NSBundle bundleForClass:[self class]]]) {
+	if ([super initWithNibName:@"FUBrowsaPreferencesView" bundle:[NSBundle bundleForClass:[self class]]]) {
 		self.plugIn = p;
 	}
 	return self;

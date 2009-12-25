@@ -10,12 +10,12 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33932A510D49F54000FC7C1 /* WebKit.framework */; };
-		D33932BA10D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932B910D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m */; };
+		D33932BA10D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932B910D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m */; };
 		D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */; };
 		D3BDE5E810E44F1400858E44 /* DefaultValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3BDE5E710E44F1400858E44 /* DefaultValues.plist */; };
 		D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */; };
 		D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D375FA10E403DC00203EB2 /* FUUtils.m */; };
-		D3D3761E10E405D500203EB2 /* FUBrowsaPrefsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761A10E405D500203EB2 /* FUBrowsaPrefsView.xib */; };
+		D3D3761E10E405D500203EB2 /* FUBrowsaPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761A10E405D500203EB2 /* FUBrowsaPreferencesView.xib */; };
 		D3D3761F10E405D500203EB2 /* FUBrowsaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */; };
 		D3D3762410E4065300203EB2 /* FUBrowsaWhiteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */; };
 		D3D3762C10E4068E00203EB2 /* FUBrowsaToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762B10E4068E00203EB2 /* FUBrowsaToolbarView.m */; };
@@ -36,8 +36,8 @@
 		D33932B010D49FD8000FC7C1 /* FUPlugInAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPI.h; path = ../../Fluidium/src/FUPlugInAPI.h; sourceTree = SOURCE_ROOT; };
 		D33932B110D49FD8000FC7C1 /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = ../../Fluidium/src/WebURLsWithTitles.h; sourceTree = SOURCE_ROOT; };
 		D33932B510D4A0AE000FC7C1 /* FUBrowsaPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaPlugIn.h; path = src/FUBrowsaPlugIn.h; sourceTree = "<group>"; };
-		D33932B810D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaPrefsViewController.h; path = src/FUBrowsaPrefsViewController.h; sourceTree = "<group>"; };
-		D33932B910D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaPrefsViewController.m; path = src/FUBrowsaPrefsViewController.m; sourceTree = "<group>"; };
+		D33932B810D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaPreferencesViewController.h; path = src/FUBrowsaPreferencesViewController.h; sourceTree = "<group>"; };
+		D33932B910D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaPreferencesViewController.m; path = src/FUBrowsaPreferencesViewController.m; sourceTree = "<group>"; };
 		D33932BB10D4A0E0000FC7C1 /* FUBrowsaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaViewController.h; path = src/FUBrowsaViewController.h; sourceTree = "<group>"; };
 		D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaViewController.m; path = src/FUBrowsaViewController.m; sourceTree = "<group>"; };
 		D339331910D4ADA5000FC7C1 /* NSString+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+FUAdditions.h"; path = "../../Fluidium/src/NSString+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
@@ -49,7 +49,7 @@
 		D3D375A910E3FD3000203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = ../../Fluidium/src/WebIconDatabase.h; sourceTree = SOURCE_ROOT; };
 		D3D375F910E403D700203EB2 /* FUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUtils.h; path = ../../Fluidium/src/FUUtils.h; sourceTree = SOURCE_ROOT; };
 		D3D375FA10E403DC00203EB2 /* FUUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUtils.m; path = ../../Fluidium/src/FUUtils.m; sourceTree = SOURCE_ROOT; };
-		D3D3761B10E405D500203EB2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBrowsaPrefsView.xib; sourceTree = "<group>"; };
+		D3D3761B10E405D500203EB2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBrowsaPreferencesView.xib; sourceTree = "<group>"; };
 		D3D3761D10E405D500203EB2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBrowsaView.xib; sourceTree = "<group>"; };
 		D3D3762210E4065300203EB2 /* FUBrowsaWhiteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaWhiteView.h; path = src/FUBrowsaWhiteView.h; sourceTree = "<group>"; };
 		D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaWhiteView.m; path = src/FUBrowsaWhiteView.m; sourceTree = "<group>"; };
@@ -179,8 +179,8 @@
 		D33932B410D4A061000FC7C1 /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
-				D33932B810D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.h */,
-				D33932B910D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m */,
+				D33932B810D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.h */,
+				D33932B910D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m */,
 			);
 			name = Prefs;
 			sourceTree = "<group>";
@@ -206,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */,
-				D3D3761A10E405D500203EB2 /* FUBrowsaPrefsView.xib */,
+				D3D3761A10E405D500203EB2 /* FUBrowsaPreferencesView.xib */,
 			);
 			name = Nib;
 			sourceTree = "<group>";
@@ -255,7 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
-				D3D3761E10E405D500203EB2 /* FUBrowsaPrefsView.xib in Resources */,
+				D3D3761E10E405D500203EB2 /* FUBrowsaPreferencesView.xib in Resources */,
 				D3D3761F10E405D500203EB2 /* FUBrowsaView.xib in Resources */,
 				D3BDE5E810E44F1400858E44 /* DefaultValues.plist in Resources */,
 			);
@@ -268,7 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D33932BA10D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m in Sources */,
+				D33932BA10D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m in Sources */,
 				D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */,
 				D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */,
 				D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */,
@@ -289,12 +289,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		D3D3761A10E405D500203EB2 /* FUBrowsaPrefsView.xib */ = {
+		D3D3761A10E405D500203EB2 /* FUBrowsaPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D3D3761B10E405D500203EB2 /* English */,
 			);
-			name = FUBrowsaPrefsView.xib;
+			name = FUBrowsaPreferencesView.xib;
 			sourceTree = "<group>";
 		};
 		D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */ = {
