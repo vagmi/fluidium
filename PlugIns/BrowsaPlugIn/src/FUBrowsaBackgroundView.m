@@ -49,7 +49,7 @@
         return;
     }
     
-    CGRect frame = [self frame];
+    NSRect frame = [self frame];
 	CGFloat h = 60;
 	NSRect r = NSMakeRect(0, NSMaxY(frame) - h, NSWidth(frame), h);
 	NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];

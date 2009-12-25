@@ -56,6 +56,8 @@ typedef enum {
 
 - (void)openPanelDidEnd:(NSSavePanel *)openPanel returnCode:(NSInteger)code contextInfo:(id <WebOpenPanelResultListener>)listener;
 - (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)code contextInfo:(NSURL *)URL;
+
+@property (nonatomic, assign, readwrite) FUWindowController *windowController; // weak ref
 @end
 
 @interface FUWindowController ()

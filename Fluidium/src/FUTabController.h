@@ -75,7 +75,7 @@
 
 - (void)loadRequest:(NSURLRequest *)req;
 
-@property (nonatomic, assign) FUWindowController *windowController; // weak ref
+@property (nonatomic, assign, readonly) FUWindowController *windowController; // weak ref
 @property (nonatomic, retain) NSView *view;
 @property (nonatomic, retain) FUWebView *webView;
 @property (nonatomic, retain) FUJavaScriptBridge *javaScriptBridge;
