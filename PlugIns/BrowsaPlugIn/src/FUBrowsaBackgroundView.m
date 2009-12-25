@@ -16,6 +16,8 @@
 #import "FUBrowsaPlugIn.h"
 #import "FUBrowsaViewController.h"
 
+#define MOUSE_MOVED_DETECTION_HEIGHT 60.0 
+
 @interface FUBrowsaBackgroundView ()
 - (void)startShowTimer;
 - (void)startHideTimer;
@@ -50,7 +52,7 @@
     }
     
     NSRect frame = [self frame];
-	CGFloat h = 60;
+	CGFloat h = MOUSE_MOVED_DETECTION_HEIGHT;
 	NSRect r = NSMakeRect(0, NSMaxY(frame) - h, NSWidth(frame), h);
 	NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
 	if (NSPointInRect(p, r)) {
