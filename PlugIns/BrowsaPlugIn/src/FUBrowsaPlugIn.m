@@ -22,7 +22,7 @@
 NSString *const kFUBrowsaHomeURLStringKey = @"FUBrowsaHomeURLString";
 NSString *const kFUBrowsaNewWindowsOpenWithKey = @"FUBrowsaNewWindowsOpenWith";
 NSString *const kFUBrowsaUserAgentStringKey = @"FUBrowsaUserAgentString";
-NSString *const kFUBrowsaShowToolbarKey = @"FUBrowsaShowToolbar";
+NSString *const kFUBrowsaShowNavBarKey = @"FUBrowsaShowNavBar";
 NSString *const kFUBrowsaSendLinksToKey = @"FUBrowsaSendLinksTo";
 
 NSString *const FUPlugInViewPlacementMaskKey = @"FUPlugInViewPlacementMaskKey";
@@ -321,13 +321,13 @@ static NSInteger sTag = 0;
 }
 
 
-- (NSInteger)showToolbar {
-	return [[NSUserDefaults standardUserDefaults] integerForKey:[self taggedKey:kFUBrowsaShowToolbarKey]];
+- (NSInteger)showNavBar {
+	return [[NSUserDefaults standardUserDefaults] integerForKey:[self taggedKey:kFUBrowsaShowNavBarKey]];
 }
 
 
-- (void)setShowToolbar:(NSInteger)i {
-	NSString *key = [self taggedKey:kFUBrowsaShowToolbarKey];
+- (void)setShowNavBar:(NSInteger)i {
+	NSString *key = [self taggedKey:kFUBrowsaShowNavBarKey];
 	[[NSUserDefaults standardUserDefaults] setInteger:i forKey:key];
 }
 

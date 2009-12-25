@@ -166,7 +166,6 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 - (void)loadPlugInAtPath:(NSString *)path {
     NSBundle *bundle = [NSBundle bundleWithPath:path];
-    if (!bundle) return;
 
     id <FUPlugIn>plugIn = nil;
 

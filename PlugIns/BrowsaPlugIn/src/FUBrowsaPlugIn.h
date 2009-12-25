@@ -19,7 +19,7 @@
 extern NSString *const kFUBrowsaHomeURLStringKey;
 extern NSString *const kFUBrowsaNewWindowsOpenWithKey;
 extern NSString *const kFUBrowsaUserAgentStringKey;
-extern NSString *const kFUBrowsaShowToolbarKey;
+extern NSString *const kFUBrowsaShowNavBarKey;
 extern NSString *const kFUBrowsaSendLinksToKey;
 
 @interface FUBrowsaPlugIn : NSObject <FUPlugIn> {
@@ -54,6 +54,6 @@ extern NSString *const kFUBrowsaSendLinksToKey;
 @property (nonatomic, copy) NSString *homeURLString;
 @property (nonatomic) NSInteger newWindowsOpenWith;
 @property (nonatomic, copy) NSString *userAgentString;
-@property (nonatomic) NSInteger showToolbar;
+@property (nonatomic) NSInteger showNavBar;
 @property (nonatomic) NSInteger sendLinksTo;
 @end

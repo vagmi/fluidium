@@ -42,6 +42,7 @@ typedef enum {
 
 @interface FUBrowsaViewController ()
 - (void)setUpWebView;
+- (void)updateNavBar;
 - (void)handleLoadFail:(NSError *)err;
 - (BOOL)willRetryWithTLDAdded:(WebView *)wv;
 - (NSImage *)defaultFavicon;
@@ -273,11 +274,21 @@ typedef enum {
     [self setUpWebView];
     
     [self.view addSubview:webView];
+    
+    BOOL loadHomeURL = plugIn.newWindowsOpenWith;
+	if (loadHomeURL) {
+		self.URLString = plugIn.homeURLString;
+		if ([URLString length]) {
+			[self goToLocation:self];
+		}
+	}
+    
 }
 
 
 - (void)didAppear {
-    
+    [self updateNavBar];
+    hasAppeared = YES;
 }
 
 
@@ -506,6 +517,18 @@ typedef enum {
 }
 
 
+- (void)updateNavBar {
+	NSInteger showToolbar = plugIn.showNavBar;
+	if (!hasAppeared || 1 == showToolbar) {
+		[self showToolbar:self];
+	} else {
+		[self hideToolbar:self];
+	}
+	[self.view setNeedsDisplay:YES];
+	[navBarView setNeedsDisplay:YES];
+}
+
+
 - (BOOL)willRetryWithTLDAdded:(WebView *)wv {
     NSURL *URL = [NSURL URLWithString:[wv mainFrameURL]];
     NSString *host = [URL host];
@@ -602,7 +625,7 @@ typedef enum {
 @synthesize plugIn;
 @synthesize plugInAPI;
 @synthesize webView;
-@synthesize toolbarView;
+@synthesize navBarView;
 @synthesize locationComboBox;
 @synthesize title;
 @synthesize URLString;
