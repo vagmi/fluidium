@@ -51,6 +51,7 @@ typedef enum {
 - (BOOL)insertItem:(NSMenuItem *)item intoMenuItems:(NSMutableArray *)items afterItemWithTag:(NSInteger)tag;
 - (NSInteger)indexOfItemWithTag:(NSUInteger)tag inMenuItems:(NSArray *)items;
 - (NSString *)currentSelectionFromWebView;
+- (BOOL)zoomTextOnly;
 @end
 
 @implementation FUBrowsaViewController
@@ -138,18 +139,36 @@ typedef enum {
 }
 
 
-- (IBAction)showToolbar:(id)sender {
+- (IBAction)showNavBar:(id)sender {
+	NSRect frame = [self.view frame];
+	CGFloat h = NSHeight([navBar bounds]);
+	NSRect navFrame = NSMakeRect(0, NSMaxY(frame) - h, NSWidth(frame), h);
+	
+	NSRect webFrame = frame;
+	webFrame.size.height -= h;
     
+	[webView setFrame:webFrame];
+	[navBar setFrame:navFrame];
+    
+	[self.view addSubview:navBar];
+	[self.view setNeedsDisplay:YES];
+	[webView setNeedsDisplay:YES];
+	[navBar setNeedsDisplay:YES];
 }
-
-
-- (IBAction)hideToolbar:(id)sender {
     
+
+- (IBAction)hideNavBar:(id)sender {
+	if (![URLString length]) return;
+
+	[navBar removeFromSuperview];
+	[webView setFrame:[self.view frame]];
+	[self.view setNeedsDisplay:YES];
+	[webView setNeedsDisplay:YES];
 }
 
 
 - (IBAction)zoomIn:(id)sender {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey]) {
+    if ([self zoomTextOnly]) {
         [webView makeTextLarger:sender];
     } else {
         [webView zoomPageIn:sender];
@@ -158,7 +177,7 @@ typedef enum {
 
 
 - (IBAction)zoomOut:(id)sender {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey]) {
+    if ([self zoomTextOnly]) {
         [webView makeTextSmaller:sender];
     } else {
         [webView zoomPageOut:sender];
@@ -167,7 +186,7 @@ typedef enum {
 
 
 - (IBAction)actualSize:(id)sender {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey]) {
+    if ([self zoomTextOnly]) {
         [webView makeTextStandardSize:sender];
     } else {
         [webView resetPageZoom:sender];
@@ -176,7 +195,7 @@ typedef enum {
 
 
 - (BOOL)canZoomIn {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey]) {
+    if ([self zoomTextOnly]) {
         return [webView canMakeTextLarger];
     } else {
         return [webView canZoomPageIn];
@@ -185,7 +204,7 @@ typedef enum {
 
 
 - (BOOL)canZoomOut {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey]) {
+    if ([self zoomTextOnly]) {
         return [webView canMakeTextSmaller];
     } else {
         return [webView canZoomPageOut];
@@ -194,7 +213,7 @@ typedef enum {
 
 
 - (BOOL)canActualSize {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey]) {
+    if ([self zoomTextOnly]) {
         return [webView canMakeTextStandardSize];
     } else {
         return [webView canResetPageZoom];
@@ -518,14 +537,13 @@ typedef enum {
 
 
 - (void)updateNavBar {
-	NSInteger showToolbar = plugIn.showNavBar;
-	if (!hasAppeared || 1 == showToolbar) {
-		[self showToolbar:self];
+	if (!hasAppeared || FUShowNavBarAlways == plugIn.showNavBar) {
+		[self showNavBar:self];
 	} else {
-		[self hideToolbar:self];
+		[self hideNavBar:self];
 	}
 	[self.view setNeedsDisplay:YES];
-	[navBarView setNeedsDisplay:YES];
+	[navBar setNeedsDisplay:YES];
 }
 
 
@@ -622,10 +640,15 @@ typedef enum {
     [plugInAPI downloadRequest:req directory:dirPath filename:filename];
 }
 
+
+- (BOOL)zoomTextOnly {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kFUZoomTextOnlyKey];
+}
+
 @synthesize plugIn;
 @synthesize plugInAPI;
 @synthesize webView;
-@synthesize navBarView;
+@synthesize navBar;
 @synthesize locationComboBox;
 @synthesize title;
 @synthesize URLString;

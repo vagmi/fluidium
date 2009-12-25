@@ -14,7 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FUBrowsaToolbarView : NSView {
+@interface FUBrowsaNavBar : NSView {
 	NSColor *bgColor;
 }
 

@@ -48,9 +48,9 @@ NSString *const FUBrowsaUserAgentStringDidChange = @"FUBrowsaUserAgentStringDidC
 	
 	for (FUBrowsaViewController *vc in plugIn.viewControllers) {
 		if (1 == showNavbar) {
-			[vc showToolbar:sender];
+			[vc showNavBar:sender];
 		} else {
-			[vc hideToolbar:sender];
+			[vc hideNavBar:sender];
 		}
 	}	
 }

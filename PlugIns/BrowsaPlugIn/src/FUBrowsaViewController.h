@@ -22,7 +22,7 @@
 
 @interface FUBrowsaViewController : NSViewController {
 	WebView *webView;
-	NSView *navBarView;
+	NSView *navBar;
 	NSComboBox *locationComboBox;
 	
 	id <FUPlugInAPI>plugInAPI;
@@ -53,8 +53,8 @@
 
 - (IBAction)goToLocation:(id)sender;
 
-- (IBAction)showToolbar:(id)sender;
-- (IBAction)hideToolbar:(id)sender;
+- (IBAction)showNavBar:(id)sender;
+- (IBAction)hideNavBar:(id)sender;
 
 // context menu actions
 - (IBAction)openLinkInNewTabFromMenu:(id)sender;
@@ -74,7 +74,7 @@
 @property (nonatomic, retain) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) FUBrowsaPlugIn *plugIn;
 @property (nonatomic, retain) IBOutlet WebView *webView;
-@property (nonatomic, retain) IBOutlet NSView *navBarView;
+@property (nonatomic, retain) IBOutlet NSView *navBar;
 @property (nonatomic, retain) IBOutlet NSComboBox *locationComboBox;
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, copy) NSString *initialURLString;

@@ -27,9 +27,11 @@ static NSString * const FULocationItemIdentifier = @"FULocationItemIdentifier";
 static NSString * const FUTextSmallerItemIdentifier = @"FUTextSmallerItemIdentifier";
 static NSString * const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier";
 
+static NSString * const FUBrowsaPlugInItemIdentifier = @"com.fluidapp.BrowsaPlugIn";
 static NSString * const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPlugIn";
 
 @interface FUWindowController (NSToolbarDelegatePrivate)
+- (NSToolbarItem *)plugInButtonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
 - (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
 - (NSToolbarItem *)viewToolbarItemWithIdentifier:(NSString *)itemID view:(NSView *)view label:(NSString *)label target:(id)target action:(SEL)sel;
 - (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier label:(NSString *)label;
@@ -118,10 +120,13 @@ static NSString * const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPl
         item = [self viewToolbarItemWithIdentifier:itemID view:locationSplitView label:NSLocalizedString(@"Address / Search", @"") target:self action:nil];
         [locationSplitView resizeSubviewsWithOldSize:NSMakeSize(0, 0)];
         
+    } else if ([itemID hasPrefix:FUBrowsaPlugInItemIdentifier]) {
+        name = isFullScreen ? @"fullscreen_toolbar_button_browsa" : @"toolbar_button_browsa";
+        item = [self plugInButtonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Browsa", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
+
     } else if ([itemID isEqualToString:FUTwitterPlugInItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_browsa" : @"toolbar_button_twitter";
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Twitter", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
-
+        item = [self plugInButtonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Twitter", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
     } 
     
     return item;
@@ -146,8 +151,14 @@ static NSString * const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPl
 #pragma mark -
 #pragma mark NSToolbarDelegatePrivate
 
+- (NSToolbarItem *)plugInButtonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t {
+    FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:itemID];
+    NSInteger tag = [[[FUPlugInController instance] plugInWrappers] indexOfObject:wrap];
+    return [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:label target:target action:sel tag:tag];
+}
+
+
 - (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t {
-    
     NSToolbarItem *item = [self toolbarItemWithIdentifier:itemID label:label];
     
     Class buttonClass = nil;

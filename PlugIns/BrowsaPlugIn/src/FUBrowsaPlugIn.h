@@ -22,6 +22,12 @@ extern NSString *const kFUBrowsaUserAgentStringKey;
 extern NSString *const kFUBrowsaShowNavBarKey;
 extern NSString *const kFUBrowsaSendLinksToKey;
 
+typedef enum {
+    FUShowNavBarWhenMousedOver = 0,
+    FUShowNavBarAlways,
+    FUShowNavBarNever
+} FUShowNavBar;
+
 @interface FUBrowsaPlugIn : NSObject <FUPlugIn> {
 	id <FUPlugInAPI>plugInAPI;
 	FUBrowsaPreferencesViewController *preferencesViewController;

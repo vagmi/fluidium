@@ -12,9 +12,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUBrowsaToolbarView.h"
+#import "FUBrowsaNavBar.h"
 
-@implementation FUBrowsaToolbarView
+@implementation FUBrowsaNavBar
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {

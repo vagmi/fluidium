@@ -12,8 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
-			<integer value="60"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -40,7 +38,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="265666832">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">266</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -302,14 +300,12 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{502, 33}</string>
-				<reference key="NSSuperview"/>
-				<string key="NSClassName">FUBrowsaToolbarView</string>
+				<string key="NSClassName">FUBrowsaNavBar</string>
 			</object>
 			<object class="NSCustomView" id="1005">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<string key="NSFrameSize">{304, 598}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">FUBrowsaWhiteView</string>
 			</object>
 		</object>
@@ -462,14 +458,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">navBarView</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="265666832"/>
-					</object>
-					<int key="connectionID">92</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">locationComboBox</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="916610584"/>
@@ -483,6 +471,14 @@
 						<reference key="destination" ref="1005"/>
 					</object>
 					<int key="connectionID">94</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">navBar</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="265666832"/>
+					</object>
+					<int key="connectionID">96</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -697,21 +693,13 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">94</int>
+			<int key="maxID">96</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">FUBrowsaToolbarView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUBrowsaToolbarView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUBrowsaToolbarView</string>
+					<string key="className">FUBrowsaNavBar</string>
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
@@ -730,14 +718,14 @@
 							<string>goForward:</string>
 							<string>goHome:</string>
 							<string>goToLocation:</string>
-							<string>hideToolbar:</string>
+							<string>hideNavBar:</string>
 							<string>openFrameInNewWindowFromMenu:</string>
 							<string>openImageInNewWindowFromMenu:</string>
 							<string>openLinkInNewTabFromMenu:</string>
 							<string>openLinkInNewWindowFromMenu:</string>
 							<string>reload:</string>
 							<string>searchWebFromMenu:</string>
-							<string>showToolbar:</string>
+							<string>showNavBar:</string>
 							<string>stopLoading:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -763,7 +751,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>locationComboBox</string>
-							<string>navBarView</string>
+							<string>navBar</string>
 							<string>plugInAPI</string>
 							<string>webView</string>
 						</object>

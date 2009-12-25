@@ -116,6 +116,7 @@
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
 		D3AF878510CFA34300C601A3 /* FUBehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */; };
+		D3BDE6F410E45E1800858E44 /* prefpane_icon_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3BDE6F310E45E1800858E44 /* prefpane_icon_browsa.png */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3D3774C10E42CC300203EB2 /* toolbar_button_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */; };
 		D3D3775510E42DB000203EB2 /* toolbar_button_bkite.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775010E42DB000203EB2 /* toolbar_button_bkite.png */; };
@@ -649,6 +650,7 @@
 		D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBehaviorPreferences.m; path = src/FUBehaviorPreferences.m; sourceTree = "<group>"; };
 		D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_behavior.png; path = res/img/prefpanes/prefpane_icon_behavior.png; sourceTree = "<group>"; };
 		D3AF878410CFA34300C601A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBehaviorPreferences.xib; sourceTree = "<group>"; };
+		D3BDE6F310E45E1800858E44 /* prefpane_icon_browsa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_browsa.png; path = res/img/prefpanes/prefpane_icon_browsa.png; sourceTree = "<group>"; };
 		D3D3731F10E3D32300203EB2 /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = src/FUNotifications.h; sourceTree = "<group>"; };
 		D3D3732010E3D32300203EB2 /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = src/FUNotifications.m; sourceTree = "<group>"; };
 		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
@@ -1151,6 +1153,7 @@
 		D346E8A910CEBF3200BA0B15 /* Preference Panes */ = {
 			isa = PBXGroup;
 			children = (
+				D3BDE6F310E45E1800858E44 /* prefpane_icon_browsa.png */,
 				D346E8BF10CEC02100BA0B15 /* prefpane_icon_showall.png */,
 				D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */,
 				D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */,
@@ -1814,6 +1817,7 @@
 				D3D3775710E42DB000203EB2 /* toolbar_button_flickr.png in Resources */,
 				D3D3775810E42DB000203EB2 /* toolbar_button_friendfeed.png in Resources */,
 				D3D3775910E42DB000203EB2 /* toolbar_button_reader.png in Resources */,
+				D3BDE6F410E45E1800858E44 /* prefpane_icon_browsa.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
