@@ -15,6 +15,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class WebView;
+@class FUActivation;
 @protocol FUPlugIn;
 
 typedef enum {
@@ -35,11 +36,17 @@ typedef enum {
 
 - (NSString *)plugInSupportDirPath;
 
+- (void)loadRequest:(NSURLRequest *)request; // prefers tabs
+- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type; // respects FUSelectTabsAndWindowsAsCreated
 - (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
+
+- (void)loadHTMLString:(NSString *)HTMLString; // prefers tabs
+- (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type;
 - (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
 
 - (void)showStatusText:(NSString *)statusText;
 - (void)addRecentURL:(NSString *)URLString;
+- (void)removeRecentURL:(NSString *)URLString;
 
 - (void)showPreferencePaneForIdentifier:(NSString *)s;
 @end

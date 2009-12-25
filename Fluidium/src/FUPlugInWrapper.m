@@ -21,7 +21,7 @@
 
 @interface FUPlugInWrapper ()
 @property (nonatomic, retain, readwrite) id <FUPlugIn>plugIn;
-@property (nonatomic, copy, readwrite) NSString *currentViewPlacementMaskKey;
+@property (nonatomic, copy, readwrite) NSString *viewPlacementMaskKey;
 @property (nonatomic, retain) NSMutableSet *visibleWindowNumbers;
 @end
 
@@ -32,11 +32,11 @@
         self.plugIn = aPlugIn;
         self.viewControllers = [NSMutableDictionary dictionary];
         self.visibleWindowNumbers = [NSMutableSet set];
-        self.currentViewPlacementMaskKey = [NSString stringWithFormat:@"%@-currentViewPlacement", self.identifier];
+        self.viewPlacementMaskKey = [NSString stringWithFormat:@"%@-currentViewPlacement", self.identifier];
         
-        id existingValue = [[NSUserDefaults standardUserDefaults] objectForKey:self.currentViewPlacementMaskKey];
+        id existingValue = [[NSUserDefaults standardUserDefaults] objectForKey:self.viewPlacementMaskKey];
         if (!existingValue) {
-            self.currentViewPlacementMask = self.preferredViewPlacementMask;
+            self.viewPlacementMask = self.preferredViewPlacementMask;
         }
     }
     return self;
@@ -50,7 +50,7 @@
     self.plugIn = nil;
     self.viewControllers = nil;
     self.visibleWindowNumbers = nil;
-    self.currentViewPlacementMaskKey = nil;
+    self.viewPlacementMaskKey = nil;
     [super dealloc];
 }
 
@@ -155,13 +155,13 @@
 #pragma mark -
 #pragma mark accessors
 
-- (NSInteger)currentViewPlacementMask {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:self.currentViewPlacementMaskKey];
+- (NSUInteger)viewPlacementMask {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:self.viewPlacementMaskKey];
 }
 
 
-- (void)setCurrentViewPlacementMask:(NSInteger)mask {
-    [[NSUserDefaults standardUserDefaults] setInteger:mask forKey:self.currentViewPlacementMaskKey];
+- (void)setViewPlacementMask:(NSUInteger)mask {
+    [[NSUserDefaults standardUserDefaults] setInteger:mask forKey:self.viewPlacementMaskKey];
 }
 
 
@@ -252,7 +252,6 @@
 
 @synthesize plugIn;
 @synthesize viewControllers;
-@synthesize currentViewPlacementMaskKey;
-@dynamic currentViewPlacementMask;
+@synthesize viewPlacementMaskKey;
 @synthesize visibleWindowNumbers;
 @end

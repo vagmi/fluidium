@@ -428,7 +428,7 @@ static BOOL OFBundledClassDebug = NO;
 {
     BOOL immediateLoad;
 
-    OBPRECONDITION(descriptionDictionary == nil); // -processDescription: shouldn't be called more than once for a given class
+    //OBPRECONDITION(descriptionDictionary == nil); // -processDescription: shouldn't be called more than once for a given class
     // If the above assumption is false, then we'll need to figure out how to merge descriptionDictionaries. Right now nobody actually calls the -descriptionDictionary method so we might be able to sidestep the issue entirely by eliminating that ivar.
     [descriptionDictionary release];
     descriptionDictionary = [description copy];

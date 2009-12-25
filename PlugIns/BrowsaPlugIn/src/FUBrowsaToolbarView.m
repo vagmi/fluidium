@@ -12,12 +12,28 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
-#import <WebKit/WebKit.h>
+#import "FUBrowsaToolbarView.h"
 
-@interface WebIconDatabase
-+ (id)sharedIconDatabase;
-- (NSImage *)iconForURL:(NSString *)URL withSize:(NSSize)size;
-- (NSImage *)defaultIconWithSize:(NSSize)size;
-- (void)_setIconURL:(NSString*)iconURL forURL:(NSString*)URL;
+@implementation FUBrowsaToolbarView
+
+- (id)initWithFrame:(NSRect)frame {
+    if (self = [super initWithFrame:frame]) {
+		self.bgColor = [NSColor colorWithDeviceWhite:.82 alpha:1];
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+	self.bgColor = nil;
+	[super dealloc];
+}
+
+
+- (void)drawRect:(NSRect)r {
+	[bgColor set];
+	NSRectFill(r);
+}
+
+@synthesize bgColor;
 @end

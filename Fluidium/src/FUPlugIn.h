@@ -78,10 +78,10 @@ typedef enum {
 - (NSString *)localizedTitle;
 
 // an or'ed mask containing the UI placements allowed for this plugin
-- (NSInteger)allowedViewPlacementMask;
+- (NSUInteger)allowedViewPlacementMask;
 
 // a single UI placement maks stating where this plugin should appear by default
-- (NSInteger)preferredViewPlacementMask;
+- (NSUInteger)preferredViewPlacementMask;
 
 // a string that will be used as the 'keyboard shortcut' in the main menu item for this plugin
 - (NSString *)preferredMenuItemKeyEquivalent;

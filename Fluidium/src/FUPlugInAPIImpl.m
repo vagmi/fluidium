@@ -25,7 +25,13 @@
 #import <OmniAppKit/OAPreferenceController.h>
 #import <WebKit/WebKit.h>
 
+@interface FUWindowController ()
+- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
+@end
+
 @interface FUPlugInAPIImpl ()
+- (FUWindowController *)windowControllerForWindow:(NSWindow *)win;
+
 @property (nonatomic, copy, readwrite) NSString *version;
 @property (nonatomic, copy, readwrite) NSString *plugInSupportDirPath;
 @end
@@ -59,7 +65,7 @@
         return nil;
     }
     
-    FUWindowController *wc = (FUWindowController *)[win windowController];
+    FUWindowController *wc = [self windowControllerForWindow:win];
     return [[wc selectedTabController] webView];
 }
 
@@ -69,7 +75,7 @@
         return nil;
     }
 
-    return [(FUWindowController *)[win windowController] webViews];
+    return [[self windowControllerForWindow:win] webViews];
 }
 
 
@@ -78,8 +84,33 @@
 }
 
 
+- (void)handleCommandClick:(id)activation request:(NSURLRequest *)req forWindow:(NSWindow *)win {
+    [[self windowControllerForWindow:win] handleCommandClick:activation request:req];
+}
+
+
+- (void)loadRequest:(NSURLRequest *)req {
+    [[FUDocumentController instance] loadRequest:req];
+}
+
+
+- (void)loadRequest:(NSURLRequest *)req destinationType:(FUPlugInDestinationType)type {
+    [[FUDocumentController instance] loadRequest:req destinationType:type];
+}
+
+
 - (void)loadRequest:(NSURLRequest *)req destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
     [[FUDocumentController instance] loadRequest:req destinationType:type inForeground:inForeground];
+}
+
+
+- (void)loadHTMLString:(NSString *)HTMLString {
+    [[FUDocumentController instance] loadHTMLString:HTMLString];
+}
+
+
+- (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type {
+    [[FUDocumentController instance] loadHTMLString:HTMLString destinationType:type];
 }
 
 
@@ -98,9 +129,26 @@
 }
 
 
+- (void)removeRecentURL:(NSString *)URLString {
+    [[FURecentURLController instance] removeRecentURL:URLString];
+}
+
+
 - (void)showPreferencePaneForIdentifier:(NSString *)s {
     [[OAPreferenceController sharedPreferenceController] showPreferencesPanel:self];
     [[OAPreferenceController sharedPreferenceController] setCurrentClientRecord:[OAPreferenceController clientRecordWithIdentifier:s]];
+}
+
+
+#pragma mark -
+#pragma mark Private
+
+- (FUWindowController *)windowControllerForWindow:(NSWindow *)win {
+    if ([win isMemberOfClass:[FUWindow class]]) {
+        return (FUWindowController *)[win windowController];
+    } else {
+        return [[FUDocumentController instance] frontWindowController];
+    }
 }
 
 @synthesize version;

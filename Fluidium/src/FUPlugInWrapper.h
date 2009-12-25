@@ -20,7 +20,7 @@
     id <FUPlugIn>plugIn;
     NSMutableDictionary *viewControllers;
     NSMutableSet *visibleWindowNumbers;
-    NSString *currentViewPlacementMaskKey;
+    NSString *viewPlacementMaskKey;
 }
 
 - (id)initWithPlugIn:(id <FUPlugIn>)aPlugIn;
@@ -32,8 +32,8 @@
 - (void)setVisible:(BOOL)visible inWindowNumber:(NSInteger)num;
 
 @property (nonatomic, retain, readonly) id <FUPlugIn> plugIn;
-@property (nonatomic) NSInteger currentViewPlacementMask;
-@property (nonatomic, copy, readonly) NSString *currentViewPlacementMaskKey;
+@property (nonatomic) NSUInteger viewPlacementMask;
+@property (nonatomic, copy, readonly) NSString *viewPlacementMaskKey;
 @property (nonatomic, retain) NSMutableDictionary *viewControllers;
 
 @property (nonatomic, readonly) NSViewController *preferencesViewController;

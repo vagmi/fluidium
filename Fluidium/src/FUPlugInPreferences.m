@@ -42,12 +42,12 @@
     
     [plugInManager hidePlugInWrapperInAllWindows:plugInWrapper];
     
-    NSInteger oldMask = plugInWrapper.currentViewPlacementMask;
+    NSInteger oldMask = plugInWrapper.viewPlacementMask;
     if (FUPlugInViewPlacementIsPanel(oldMask)) {
         [plugInManager.windowsForPlugInIdentifier removeObjectForKey:plugInWrapper.identifier];
     }
     
-    plugInWrapper.currentViewPlacementMask = mask;
+    plugInWrapper.viewPlacementMask = mask;
     [plugInManager toggleVisibilityOfPlugInWrapper:plugInWrapper];
 }
 
@@ -62,7 +62,7 @@
 
 
 - (void)updatePopUpMenu {
-    NSInteger mask = plugInWrapper.currentViewPlacementMask;
+    NSInteger mask = plugInWrapper.viewPlacementMask;
     NSInteger tag;
     
     for (tag = 1; tag < 10; tag++) {

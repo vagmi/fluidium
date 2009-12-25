@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
+		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33932A510D49F54000FC7C1 /* WebKit.framework */; };
+		D33932BA10D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932B910D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m */; };
+		D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */; };
+		D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */; };
+		D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D375FA10E403DC00203EB2 /* FUUtils.m */; };
+		D3D3761E10E405D500203EB2 /* FUBrowsaPrefsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761A10E405D500203EB2 /* FUBrowsaPrefsView.xib */; };
+		D3D3761F10E405D500203EB2 /* FUBrowsaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */; };
+		D3D3762410E4065300203EB2 /* FUBrowsaWhiteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */; };
+		D3D3762C10E4068E00203EB2 /* FUBrowsaToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762B10E4068E00203EB2 /* FUBrowsaToolbarView.m */; };
+		D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF630370AF2F00C91783 /* BrowsaPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowsaPlugIn_Prefix.pch; sourceTree = "<group>"; };
+		8D5B49B6048680CD000E48DA /* Browsa.fluidplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Browsa.fluidplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D33932A510D49F54000FC7C1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D33932AF10D49FD8000FC7C1 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = ../../Fluidium/src/FUPlugIn.h; sourceTree = SOURCE_ROOT; };
+		D33932B010D49FD8000FC7C1 /* FUPlugInAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPI.h; path = ../../Fluidium/src/FUPlugInAPI.h; sourceTree = SOURCE_ROOT; };
+		D33932B110D49FD8000FC7C1 /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = ../../Fluidium/src/WebURLsWithTitles.h; sourceTree = SOURCE_ROOT; };
+		D33932B510D4A0AE000FC7C1 /* FUBrowsaPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaPlugIn.h; path = src/FUBrowsaPlugIn.h; sourceTree = "<group>"; };
+		D33932B810D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaPrefsViewController.h; path = src/FUBrowsaPrefsViewController.h; sourceTree = "<group>"; };
+		D33932B910D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaPrefsViewController.m; path = src/FUBrowsaPrefsViewController.m; sourceTree = "<group>"; };
+		D33932BB10D4A0E0000FC7C1 /* FUBrowsaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaViewController.h; path = src/FUBrowsaViewController.h; sourceTree = "<group>"; };
+		D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaViewController.m; path = src/FUBrowsaViewController.m; sourceTree = "<group>"; };
+		D339331910D4ADA5000FC7C1 /* NSString+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+FUAdditions.h"; path = "../../Fluidium/src/NSString+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
+		D339337110D4BB55000FC7C1 /* WebViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewPrivate.h; path = ../../Fluidium/src/WebViewPrivate.h; sourceTree = SOURCE_ROOT; };
+		D339339F10D4C0F9000FC7C1 /* DOMNode+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMNode+FUAdditions.h"; path = "../../Fluidium/src/DOMNode+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
+		D33933BB10D4C1B9000FC7C1 /* WebIconDatabase+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebIconDatabase+FUAdditions.h"; path = "../../Fluidium/src/WebIconDatabase+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
+		D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaPlugIn.m; path = src/FUBrowsaPlugIn.m; sourceTree = "<group>"; };
+		D3D375A910E3FD3000203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = ../../Fluidium/src/WebIconDatabase.h; sourceTree = SOURCE_ROOT; };
+		D3D375F910E403D700203EB2 /* FUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUtils.h; path = ../../Fluidium/src/FUUtils.h; sourceTree = SOURCE_ROOT; };
+		D3D375FA10E403DC00203EB2 /* FUUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUtils.m; path = ../../Fluidium/src/FUUtils.m; sourceTree = SOURCE_ROOT; };
+		D3D3761B10E405D500203EB2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBrowsaPrefsView.xib; sourceTree = "<group>"; };
+		D3D3761D10E405D500203EB2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBrowsaView.xib; sourceTree = "<group>"; };
+		D3D3762210E4065300203EB2 /* FUBrowsaWhiteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaWhiteView.h; path = src/FUBrowsaWhiteView.h; sourceTree = "<group>"; };
+		D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaWhiteView.m; path = src/FUBrowsaWhiteView.m; sourceTree = "<group>"; };
+		D3D3762A10E4068E00203EB2 /* FUBrowsaToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaToolbarView.h; path = src/FUBrowsaToolbarView.h; sourceTree = "<group>"; };
+		D3D3762B10E4068E00203EB2 /* FUBrowsaToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaToolbarView.m; path = src/FUBrowsaToolbarView.m; sourceTree = "<group>"; };
+		D3D3779E10E430EE00203EB2 /* FUBrowsaActivation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaActivation.h; path = src/FUBrowsaActivation.h; sourceTree = "<group>"; };
+		D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaActivation.m; path = src/FUBrowsaActivation.m; sourceTree = "<group>"; };
+		D3D377A610E4316F00203EB2 /* NSEvent+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSEvent+FUAdditions.h"; path = "../../Fluidium/src/NSEvent+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* BrowsaPlugIn */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				32C88E010371C26100C91783 /* Other Sources */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = BrowsaPlugIn;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D3D3760F10E4056100203EB2 /* Nib */,
+				8D5B49B7048680CD000E48DA /* Info.plist */,
+				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D33932AE10D49FC5000FC7C1 /* Fluidium */,
+				D33932B510D4A0AE000FC7C1 /* FUBrowsaPlugIn.h */,
+				D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */,
+				D33932BB10D4A0E0000FC7C1 /* FUBrowsaViewController.h */,
+				D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */,
+				D3D3762210E4065300203EB2 /* FUBrowsaWhiteView.h */,
+				D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */,
+				D33932B410D4A061000FC7C1 /* Prefs */,
+				D3D3762A10E4068E00203EB2 /* FUBrowsaToolbarView.h */,
+				D3D3762B10E4068E00203EB2 /* FUBrowsaToolbarView.m */,
+				D3D3779E10E430EE00203EB2 /* FUBrowsaActivation.h */,
+				D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D33932A510D49F54000FC7C1 /* WebKit.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* Browsa.fluidplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C88E010371C26100C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF630370AF2F00C91783 /* BrowsaPlugIn_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		D33932AE10D49FC5000FC7C1 /* Fluidium */ = {
+			isa = PBXGroup;
+			children = (
+				D3D375F910E403D700203EB2 /* FUUtils.h */,
+				D3D375FA10E403DC00203EB2 /* FUUtils.m */,
+				D33932AF10D49FD8000FC7C1 /* FUPlugIn.h */,
+				D33932B010D49FD8000FC7C1 /* FUPlugInAPI.h */,
+				D339331910D4ADA5000FC7C1 /* NSString+FUAdditions.h */,
+				D3D377A610E4316F00203EB2 /* NSEvent+FUAdditions.h */,
+				D339339F10D4C0F9000FC7C1 /* DOMNode+FUAdditions.h */,
+				D339337110D4BB55000FC7C1 /* WebViewPrivate.h */,
+				D33932B110D49FD8000FC7C1 /* WebURLsWithTitles.h */,
+				D3D375A910E3FD3000203EB2 /* WebIconDatabase.h */,
+				D33933BB10D4C1B9000FC7C1 /* WebIconDatabase+FUAdditions.h */,
+			);
+			name = Fluidium;
+			sourceTree = "<group>";
+		};
+		D33932B410D4A061000FC7C1 /* Prefs */ = {
+			isa = PBXGroup;
+			children = (
+				D33932B810D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.h */,
+				D33932B910D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m */,
+			);
+			name = Prefs;
+			sourceTree = "<group>";
+		};
+		D3D3760F10E4056100203EB2 /* Nib */ = {
+			isa = PBXGroup;
+			children = (
+				D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */,
+				D3D3761A10E405D500203EB2 /* FUBrowsaPrefsView.xib */,
+			);
+			name = Nib;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* BrowsaPlugIn */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "BrowsaPlugIn" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BrowsaPlugIn;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = BrowsaPlugIn;
+			productReference = 8D5B49B6048680CD000E48DA /* Browsa.fluidplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "BrowsaPlugIn" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* BrowsaPlugIn */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* BrowsaPlugIn */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
+				D3D3761E10E405D500203EB2 /* FUBrowsaPrefsView.xib in Resources */,
+				D3D3761F10E405D500203EB2 /* FUBrowsaView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D33932BA10D4A0D1000FC7C1 /* FUBrowsaPrefsViewController.m in Sources */,
+				D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */,
+				D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */,
+				D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */,
+				D3D3762410E4065300203EB2 /* FUBrowsaWhiteView.m in Sources */,
+				D3D3762C10E4068E00203EB2 /* FUBrowsaToolbarView.m in Sources */,
+				D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C167EFE841241C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D3D3761A10E405D500203EB2 /* FUBrowsaPrefsView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3D3761B10E405D500203EB2 /* English */,
+			);
+			name = FUBrowsaPrefsView.xib;
+			sourceTree = "<group>";
+		};
+		D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3D3761D10E405D500203EB2 /* English */,
+			);
+			name = FUBrowsaView.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BrowsaPlugIn_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				PRODUCT_NAME = Browsa;
+				SDKROOT = macosx10.5;
+				WRAPPER_EXTENSION = fluidplugin;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BrowsaPlugIn_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				PRODUCT_NAME = Browsa;
+				SDKROOT = macosx10.5;
+				WRAPPER_EXTENSION = fluidplugin;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "BrowsaPlugIn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "BrowsaPlugIn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

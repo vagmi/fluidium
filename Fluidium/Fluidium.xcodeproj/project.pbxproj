@@ -117,6 +117,12 @@
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
 		D3AF878510CFA34300C601A3 /* FUBehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
+		D3D3774C10E42CC300203EB2 /* toolbar_button_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */; };
+		D3D3775510E42DB000203EB2 /* toolbar_button_bkite.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775010E42DB000203EB2 /* toolbar_button_bkite.png */; };
+		D3D3775610E42DB000203EB2 /* toolbar_button_digg.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775110E42DB000203EB2 /* toolbar_button_digg.png */; };
+		D3D3775710E42DB000203EB2 /* toolbar_button_flickr.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775210E42DB000203EB2 /* toolbar_button_flickr.png */; };
+		D3D3775810E42DB000203EB2 /* toolbar_button_friendfeed.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775310E42DB000203EB2 /* toolbar_button_friendfeed.png */; };
+		D3D3775910E42DB000203EB2 /* toolbar_button_reader.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775410E42DB000203EB2 /* toolbar_button_reader.png */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
 		D3E42F3B10CB152000A5BDEF /* FUDownloadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3210CB152000A5BDEF /* FUDownloadItem.m */; };
 		D3E42F3C10CB152000A5BDEF /* FUDownloadListBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3410CB152000A5BDEF /* FUDownloadListBackgroundView.m */; };
@@ -437,6 +443,20 @@
 			remoteGlobalIDString = 342E00EB109CCC36009AD8CA;
 			remoteInfo = "ShortcutRecorder.framework - for embedding in ibplugin";
 		};
+		D3D3766410E4091800203EB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA /* BrowsaPlugIn.fluidplugin */;
+			remoteInfo = BrowsaPlugIn;
+		};
+		D3D3766610E4092500203EB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* BrowsaPlugIn */;
+			remoteInfo = BrowsaPlugIn;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -632,6 +652,13 @@
 		D3D3731F10E3D32300203EB2 /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = src/FUNotifications.h; sourceTree = "<group>"; };
 		D3D3732010E3D32300203EB2 /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = src/FUNotifications.m; sourceTree = "<group>"; };
 		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
+		D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BrowsaPlugIn.xcodeproj; path = ../PlugIns/BrowsaPlugIn/BrowsaPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
+		D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_browsa.png; sourceTree = "<group>"; };
+		D3D3775010E42DB000203EB2 /* toolbar_button_bkite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_bkite.png; sourceTree = "<group>"; };
+		D3D3775110E42DB000203EB2 /* toolbar_button_digg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_digg.png; sourceTree = "<group>"; };
+		D3D3775210E42DB000203EB2 /* toolbar_button_flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_flickr.png; sourceTree = "<group>"; };
+		D3D3775310E42DB000203EB2 /* toolbar_button_friendfeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_friendfeed.png; sourceTree = "<group>"; };
+		D3D3775410E42DB000203EB2 /* toolbar_button_reader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_reader.png; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
 		D3DB01FA10D6141E0057D70C /* FUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUView.m; path = src/FUView.m; sourceTree = "<group>"; };
 		D3E42F3110CB152000A5BDEF /* FUDownloadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadItem.h; path = src/FUDownloadItem.h; sourceTree = "<group>"; };
@@ -787,6 +814,7 @@
 				D346ED5B10CF6C7600BA0B15 /* ShortcutRecorder.xcodeproj */,
 				D346E48410CE434A00BA0B15 /* ParseKit.xcodeproj */,
 				D346E58310CE436000BA0B15 /* UMEKit.xcodeproj */,
+				D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */,
 				D346E5CC10CE452000BA0B15 /* TwitterPlugIn.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Fluidium Source */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
@@ -946,8 +974,14 @@
 		D33E6E3210D0A99C00D76BBB /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
-				D3393B3A10D5B28C000FC7C1 /* toolbar_button_twitter.png */,
 				D33E6E3310D0A99C00D76BBB /* toolbar_button_home.png */,
+				D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */,
+				D3D3775010E42DB000203EB2 /* toolbar_button_bkite.png */,
+				D3D3775110E42DB000203EB2 /* toolbar_button_digg.png */,
+				D3D3775210E42DB000203EB2 /* toolbar_button_flickr.png */,
+				D3D3775310E42DB000203EB2 /* toolbar_button_friendfeed.png */,
+				D3D3775410E42DB000203EB2 /* toolbar_button_reader.png */,
+				D3393B3A10D5B28C000FC7C1 /* toolbar_button_twitter.png */,
 			);
 			name = Toolbar;
 			path = res/img/toolbar;
@@ -1191,6 +1225,14 @@
 			name = UserAgent;
 			sourceTree = "<group>";
 		};
+		D3D3766110E4091800203EB2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3D3766510E4091800203EB2 /* BrowsaPlugIn.fluidplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D3DB025710D616D30057D70C /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1425,6 +1467,7 @@
 				D346ED6F10CF6C8100BA0B15 /* PBXTargetDependency */,
 				D346E58F10CE437800BA0B15 /* PBXTargetDependency */,
 				D346E58D10CE437800BA0B15 /* PBXTargetDependency */,
+				D3D3766710E4092500203EB2 /* PBXTargetDependency */,
 				D346E5D310CE452900BA0B15 /* PBXTargetDependency */,
 			);
 			name = Fluidium;
@@ -1444,6 +1487,10 @@
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* FluidApp */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = D3D3766110E4091800203EB2 /* Products */;
+					ProjectRef = D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */;
+				},
 				{
 					ProductGroup = D346E6B010CE4D5B00BA0B15 /* Products */;
 					ProjectRef = D346E6AF10CE4D5B00BA0B15 /* OmniAppKit.xcodeproj */;
@@ -1695,6 +1742,13 @@
 			remoteRef = D346ED6C10CF6C7600BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D3D3766510E4091800203EB2 /* BrowsaPlugIn.fluidplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BrowsaPlugIn.fluidplugin;
+			remoteRef = D3D3766410E4091800203EB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1754,6 +1808,12 @@
 				D33E6E3410D0A99C00D76BBB /* toolbar_button_home.png in Resources */,
 				D3393B3B10D5B28C000FC7C1 /* toolbar_button_twitter.png in Resources */,
 				D33E6E3A10D0A9BA00D76BBB /* location_field_progress_indicator.png in Resources */,
+				D3D3774C10E42CC300203EB2 /* toolbar_button_browsa.png in Resources */,
+				D3D3775510E42DB000203EB2 /* toolbar_button_bkite.png in Resources */,
+				D3D3775610E42DB000203EB2 /* toolbar_button_digg.png in Resources */,
+				D3D3775710E42DB000203EB2 /* toolbar_button_flickr.png in Resources */,
+				D3D3775810E42DB000203EB2 /* toolbar_button_friendfeed.png in Resources */,
+				D3D3775910E42DB000203EB2 /* toolbar_button_reader.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1772,7 +1832,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -pR \"../PlugIns/TwitterPlugIn/build/${BUILD_STYLE}/Twitter.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\n";
+			shellScript = "cp -pR \"../PlugIns/BrowsaPlugIn/build/${BUILD_STYLE}/Browsa.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\ncp -pR \"../PlugIns/TwitterPlugIn/build/${BUILD_STYLE}/Twitter.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1917,6 +1977,11 @@
 			isa = PBXTargetDependency;
 			name = "ShortcutRecorder.framework - for embedding in ibplugin";
 			targetProxy = D346ED6E10CF6C8100BA0B15 /* PBXContainerItemProxy */;
+		};
+		D3D3766710E4092500203EB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BrowsaPlugIn;
+			targetProxy = D3D3766610E4092500203EB2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
