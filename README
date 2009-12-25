@@ -6,12 +6,12 @@ Almost all of the code included in this project was updated prior to this releas
 
 - Userscripting : previously, Fluid and Cruz userscripting was based on GreaseKit. That has been removed and replaced with a new implementation in Fluidium.
 
+- Browsa Plug-in
+
 
 Stuff from Fluid/Cruz which is not currently included:
 
 - Fluid.app (SSB creator/generator) : this codebase does not include the code for Fluid.app itself (the small application which can be used to create SSBs with a name/url/custom icon). Fluid.app itself represents a *very* small portion of the Fluid application. Most of the code is in the SSB Browser (and here in Fluidium).
-
-- Browsa.fluidplugin : the Browsa plugin is not included in this release. I am rewriting it. It will be included soon.
 
 - Thumbnail.fluidplugin : rewriting. will add soonish.
 
@@ -30,4 +30,4 @@ Stuff from Fluid/Cruz which is not currently included:
 - thumbnail-image-enhanced google search results : I will re-add this eventually.
 
 
-Everything else from Fluid/Cruz is still included : Twitter Plugin, userscripting, userstyles, shortcuts, window.fluid JavaScript object, Growl notifications, cocoa plugin architecture, URL whitelist/blacklists, basic bookmarks+bookmarks bar, basic browser history, custom user-agent strings.
+Everything else from Fluid/Cruz is still included : Twitter Plugin, Browsa Plugin (web split views), userscripting, userstyles, shortcuts, window.fluid JavaScript object, Growl notifications, cocoa plugin architecture, URL whitelist/blacklists, basic bookmarks+bookmarks bar, basic browser history, custom user-agent strings.
