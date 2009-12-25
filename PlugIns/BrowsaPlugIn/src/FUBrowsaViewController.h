@@ -24,6 +24,7 @@
 	WebView *webView;
 	NSView *navBar;
 	FUBrowsaComboBox *locationComboBox;
+    NSButton *homeButton;
 	
 	id <FUPlugInAPI>plugInAPI;
 	FUBrowsaPlugIn *plugIn;
@@ -43,6 +44,7 @@
 
 	CGFloat progress;
     BOOL hasUpdatedNavBar;
+    BOOL displayingMatchingRecentURLs;
 }
 
 - (IBAction)goHome:(id)sender;
@@ -76,6 +78,7 @@
 @property (nonatomic, retain) IBOutlet WebView *webView;
 @property (nonatomic, retain) IBOutlet NSView *navBar;
 @property (nonatomic, retain) IBOutlet FUBrowsaComboBox *locationComboBox;
+@property (nonatomic, retain) IBOutlet NSButton *homeButton;
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, copy) NSString *initialURLString;
 @property (nonatomic, copy) NSString *title;

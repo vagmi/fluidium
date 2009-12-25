@@ -24,7 +24,7 @@
 		D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D375FA10E403DC00203EB2 /* FUUtils.m */; };
 		D3D3761E10E405D500203EB2 /* FUBrowsaPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761A10E405D500203EB2 /* FUBrowsaPreferencesView.xib */; };
 		D3D3761F10E405D500203EB2 /* FUBrowsaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */; };
-		D3D3762410E4065300203EB2 /* FUBrowsaWhiteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */; };
+		D3D3762410E4065300203EB2 /* FUBrowsaBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762310E4065300203EB2 /* FUBrowsaBackgroundView.m */; };
 		D3D3762C10E4068E00203EB2 /* FUBrowsaNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762B10E4068E00203EB2 /* FUBrowsaNavBar.m */; };
 		D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */; };
 /* End PBXBuildFile section */
@@ -72,8 +72,8 @@
 		D3D375FA10E403DC00203EB2 /* FUUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUtils.m; path = ../../Fluidium/src/FUUtils.m; sourceTree = SOURCE_ROOT; };
 		D3D3761B10E405D500203EB2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBrowsaPreferencesView.xib; sourceTree = "<group>"; };
 		D3D3761D10E405D500203EB2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBrowsaView.xib; sourceTree = "<group>"; };
-		D3D3762210E4065300203EB2 /* FUBrowsaWhiteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaWhiteView.h; path = src/FUBrowsaWhiteView.h; sourceTree = "<group>"; };
-		D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaWhiteView.m; path = src/FUBrowsaWhiteView.m; sourceTree = "<group>"; };
+		D3D3762210E4065300203EB2 /* FUBrowsaBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaBackgroundView.h; path = src/FUBrowsaBackgroundView.h; sourceTree = "<group>"; };
+		D3D3762310E4065300203EB2 /* FUBrowsaBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaBackgroundView.m; path = src/FUBrowsaBackgroundView.m; sourceTree = "<group>"; };
 		D3D3762A10E4068E00203EB2 /* FUBrowsaNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaNavBar.h; path = src/FUBrowsaNavBar.h; sourceTree = "<group>"; };
 		D3D3762B10E4068E00203EB2 /* FUBrowsaNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaNavBar.m; path = src/FUBrowsaNavBar.m; sourceTree = "<group>"; };
 		D3D3779E10E430EE00203EB2 /* FUBrowsaActivation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaActivation.h; path = src/FUBrowsaActivation.h; sourceTree = "<group>"; };
@@ -134,8 +134,8 @@
 				D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */,
 				D33932BB10D4A0E0000FC7C1 /* FUBrowsaViewController.h */,
 				D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */,
-				D3D3762210E4065300203EB2 /* FUBrowsaWhiteView.h */,
-				D3D3762310E4065300203EB2 /* FUBrowsaWhiteView.m */,
+				D3D3762210E4065300203EB2 /* FUBrowsaBackgroundView.h */,
+				D3D3762310E4065300203EB2 /* FUBrowsaBackgroundView.m */,
 				D3D3762A10E4068E00203EB2 /* FUBrowsaNavBar.h */,
 				D3D3762B10E4068E00203EB2 /* FUBrowsaNavBar.m */,
 				D3D3779E10E430EE00203EB2 /* FUBrowsaActivation.h */,
@@ -323,7 +323,7 @@
 				D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */,
 				D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */,
 				D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */,
-				D3D3762410E4065300203EB2 /* FUBrowsaWhiteView.m in Sources */,
+				D3D3762410E4065300203EB2 /* FUBrowsaBackgroundView.m in Sources */,
 				D3D3762C10E4068E00203EB2 /* FUBrowsaNavBar.m in Sources */,
 				D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */,
 				D3BDE77E10E461A600858E44 /* HMAppKitEx.m in Sources */,

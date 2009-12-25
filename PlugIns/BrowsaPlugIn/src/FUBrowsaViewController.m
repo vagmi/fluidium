@@ -19,6 +19,7 @@
 #import "FUBrowsaActivation.h"
 #import "FUBrowsaComboBox.h"
 #import "NSString+FUAdditions.h"
+#import "NSEvent+FUAdditions.h"
 #import "DOMNode+FUAdditions.h"
 #import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
@@ -57,6 +58,11 @@ typedef enum {
 - (void)displayEstimatedProgress;
 - (void)clearProgressInFuture;
 - (void)clearProgress;    
+
+- (NSArray *)recentURLs;
+- (NSArray *)matchingRecentURLs;
+- (void)addRecentURL:(NSString *)s;
+- (void)addMatchingRecentURL:(NSString *)s;
 @end
 
 @implementation FUBrowsaViewController
@@ -85,6 +91,7 @@ typedef enum {
 	self.plugIn = nil;
     self.view = nil;
     self.webView = nil;
+    self.homeButton = nil;
     self.URLString = nil;
     self.initialURLString = nil;
     self.title = nil;
@@ -290,6 +297,10 @@ typedef enum {
 
 - (void)awakeFromNib {
     [locationComboBox bind:@"image" toObject:self withKeyPath:@"favicon" options:nil];
+    
+    NSString *path = [[NSBundle mainBundle] pathForImageResource:@"toolbar_button_home.png"];
+    NSImage *img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
+    [homeButton setImage:img];
 
     NSRect frame = NSMakeRect(0, 0, MAXFLOAT, MAXFLOAT);
     
@@ -526,6 +537,171 @@ typedef enum {
 
 
 #pragma mark -
+#pragma mark NSControl Text
+
+- (void)controlTextDidBeginEditing:(NSNotification *)n {
+    NSControl *control = [n object];
+    
+    if (control == locationComboBox) {
+        // TODO ? use binding instead?
+        [locationComboBox showDefaultIcon];
+    }
+}
+
+
+- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
+    if (control == locationComboBox) {
+        [plugInAPI resetMatchingRecentURLs];
+        displayingMatchingRecentURLs = YES;
+        return YES;
+    } else {
+        return YES;
+    }
+}
+
+
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
+    if (control == locationComboBox) {
+        [locationComboBox hidePopUp];
+        //        displayingMatchingRecentURLs = NO;
+        return YES;
+    } else {
+        return YES;
+    }
+}
+
+
+#pragma mark -
+#pragma mark NSComboBoxDataSource
+
+- (void)comboBoxWillDismiss:(NSNotification *)n {
+    if (locationComboBox == [n object]) {
+        NSInteger i = [locationComboBox indexOfSelectedItem];
+        NSInteger c = [locationComboBox numberOfItems];
+        
+        // last item (clear url menu) was clicked. clear recentURLs
+        if (c && i == c - 1) {
+            if (![[NSApp currentEvent] isEscKeyPressed]) {
+                NSString *s = [locationComboBox stringValue];
+                [locationComboBox deselectItemAtIndex:i];
+                
+                [plugInAPI resetRecentURLs];
+                [plugInAPI resetMatchingRecentURLs];
+                
+                [locationComboBox reloadData];
+                [locationComboBox setStringValue:s];
+            }
+        }
+    }
+}
+
+
+- (id)comboBox:(NSComboBox *)cb objectValueForItemAtIndex:(NSInteger)i {
+    if (locationComboBox == cb) {
+        NSArray *URLs = displayingMatchingRecentURLs ? [self matchingRecentURLs] : [self recentURLs];
+        
+        NSInteger c = [URLs count];
+        if (!c) {
+            [locationComboBox hidePopUp];
+        }
+        if (c && i == c) {
+            NSDictionary *attrs = [NSDictionary dictionaryWithObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
+            return [[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Clear Recent URL Menu", @"") attributes:attrs] autorelease];
+        } else {
+            if (i < c) {
+                return [URLs objectAtIndex:i];
+            } else {
+                return nil;
+            }
+        }
+    } else {
+        return nil;
+    }
+}
+
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)cb {
+    if (locationComboBox == cb) {
+        NSArray *URLs = displayingMatchingRecentURLs ? [self matchingRecentURLs] : [self recentURLs];
+        NSInteger c = [URLs count];
+        if (c) {
+            return c + 1;
+        } else {
+            [locationComboBox hidePopUp];
+        }
+        return c;
+    } else {
+        return 0;
+    }
+}
+
+
+- (NSUInteger)comboBox:(NSComboBox *)cb indexOfItemWithStringValue:(NSString *)s {
+    if (locationComboBox == cb) {
+        if (displayingMatchingRecentURLs) {
+            return [[self matchingRecentURLs] indexOfObject:s];
+        }
+        return [[self recentURLs] indexOfObject:s];
+    } else {
+        return 0;
+    }
+}
+
+
+- (NSString *)comboBox:(NSComboBox *)cb completedString:(NSString *)uncompletedString {
+    if (locationComboBox == cb) {
+        [plugInAPI resetMatchingRecentURLs];
+        
+        for (NSString *s in [self recentURLs]) {
+            s = [s stringByTrimmingURLSchemePrefix];
+            if ([s hasPrefix:uncompletedString]) {
+                [self addMatchingRecentURL:s];
+            }
+        }
+        
+        if ([[self matchingRecentURLs] count]) {
+            [[locationComboBox cell] scrollItemAtIndexToVisible:0];
+            [locationComboBox showPopUpWithItemCount:[[self matchingRecentURLs] count]];
+            return [[self matchingRecentURLs] objectAtIndex:0];
+        }
+        return nil;
+    } else {
+        return nil;
+    }
+}
+
+
+// prevent suggestions in locationcombobox on <esc> key
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)tv completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)i {
+    return nil;
+}
+
+
+#pragma mark -
+#pragma mark HMImageComboBoxDelegate
+
+- (BOOL)hmComboBox:(HMImageComboBox *)cb writeDataToPasteboard:(NSPasteboard *)pboard {
+    if (locationComboBox == cb) {        
+        NSString *s = [webView mainFrameURL];
+        if (![s length]) {
+            return NO;
+        }
+        
+        NSString *t = [webView mainFrameTitle];
+        if (![t length]) {
+            t = [s stringByTrimmingURLSchemePrefix];        
+        }
+        
+        FUWriteAllToPasteboard(s, t, pboard);
+        
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+
+#pragma mark -
 #pragma mark Private
 
 - (void)setUpWebView {
@@ -670,11 +846,35 @@ typedef enum {
 }
 
 
+- (NSArray *)recentURLs {
+    return [plugInAPI recentURLs];
+}
+
+
+- (NSArray *)matchingRecentURLs {
+    return [plugInAPI matchingRecentURLs];
+}
+
+
+- (void)addRecentURL:(NSString *)s {
+    [plugInAPI addRecentURL:s];
+    [locationComboBox noteNumberOfItemsChanged];
+    [locationComboBox reloadData];
+}
+
+
+- (void)addMatchingRecentURL:(NSString *)s {
+    [plugInAPI addMatchingRecentURL:s];
+    [locationComboBox noteNumberOfItemsChanged];
+    [locationComboBox reloadData];
+}
+
 @synthesize plugIn;
 @synthesize plugInAPI;
 @synthesize webView;
 @synthesize navBar;
 @synthesize locationComboBox;
+@synthesize homeButton;
 @synthesize title;
 @synthesize URLString;
 @synthesize initialURLString;

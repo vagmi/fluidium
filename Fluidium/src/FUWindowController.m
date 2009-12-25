@@ -607,7 +607,7 @@
         return ![[[self selectedTabController] webView] isLoading] && [[[self selectedTabController] URLString] length];
     } else if (action == @selector(stopLoading:)) {
         return [[[self selectedTabController] webView] isLoading];
-    } else if (action == @selector(reload:) || action == @selector(showFindPanel:) || action == @selector(addBookmark:)) {
+    } else if (action == @selector(reload:) || action == @selector(addBookmark:)) {
         return [[[self selectedTabController] URLString] length];
     } else if (action == @selector(goBack:)) {
         return [[[self selectedTabController] webView] canGoBack];

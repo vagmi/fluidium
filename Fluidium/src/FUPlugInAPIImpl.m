@@ -135,8 +135,33 @@
 }
 
 
+- (void)addMatchingRecentURL:(NSString *)URLString {
+    [[FURecentURLController instance] addMatchingRecentURL:URLString];
+}
+
+
 - (void)removeRecentURL:(NSString *)URLString {
     [[FURecentURLController instance] removeRecentURL:URLString];
+}
+
+
+- (NSArray *)recentURLs {
+    return [[FURecentURLController instance] recentURLs];
+}
+
+
+- (NSArray *)matchingRecentURLs {
+    return [[FURecentURLController instance] matchingRecentURLs];
+}
+
+
+- (void)resetRecentURLs {
+    [[FURecentURLController instance] resetRecentURLs];
+}
+
+
+- (void)resetMatchingRecentURLs {
+    [[FURecentURLController instance] resetMatchingRecentURLs];
 }
 
 

@@ -47,8 +47,15 @@ typedef enum {
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
 
 - (void)showStatusText:(NSString *)statusText;
+
+// TODO move to Friend category?
 - (void)addRecentURL:(NSString *)URLString;
+- (void)addMatchingRecentURL:(NSString *)URLString;
 - (void)removeRecentURL:(NSString *)URLString;
+- (NSArray *)recentURLs;
+- (NSArray *)matchingRecentURLs;
+- (void)resetRecentURLs;
+- (void)resetMatchingRecentURLs;
 
 - (void)showPreferencePaneForIdentifier:(NSString *)s;
 @end

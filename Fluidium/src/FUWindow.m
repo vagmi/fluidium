@@ -14,6 +14,8 @@
 
 #import "FUWindow.h"
 #import "FUWindowController.h"
+#import "FUPlugInController.h"
+#import "FUPlugInWrapper.h"
 #import "FUUserDefaults.h"
 #import "FUNotifications.h"
 #import "NSEvent+FUAdditions.h"
@@ -24,6 +26,8 @@
 @interface FUWindow ()
 - (BOOL)handleCloseSearchPanel:(NSEvent *)evt;
 - (BOOL)handleNextPrevTab:(NSEvent *)evt;
+- (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt;
+- (void)sendMouseMovedEvent:(NSEvent *)evt toPlugInWithIdentifier:(NSString *)identifier;
 @end
 
 @implementation FUWindow
@@ -62,6 +66,18 @@
 
 // override with a noop. that supresses NSBeep for keyDown events not handled by webview
 - (void)keyDown:(NSEvent *)evt {
+}
+
+
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+- (void)mouseMoved:(NSEvent *)evt {
+	[super mouseMoved:evt];
+
+    // would be nice to remove this hack. but necessary to get 'navbar appears when moused over' to work in all cases
+    [self allowBrowsaPlugInsToHandleMouseMoved:evt];
 }
 
 
@@ -142,6 +158,28 @@
         }
     }
     return NO;
+}
+
+
+- (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt {
+    //FUWindowController *wc = (FUWindowController *)[self windowController];
+	//wc.typingInFindPanel = NO; // ??
+    
+	NSInteger i = 0;
+	for ( ; i < [[FUUserDefaults instance] numberOfBrowsaPlugIns]; i++) {
+		NSString *identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", i];
+		[self sendMouseMovedEvent:evt toPlugInWithIdentifier:identifier];
+	}    
+}
+
+
+- (void)sendMouseMovedEvent:(NSEvent *)evt toPlugInWithIdentifier:(NSString *)identifier {
+	FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:identifier];
+    NSInteger num = [self windowNumber];
+    if ([wrap isVisibleInWindowNumber:num]) {
+        NSViewController *vc = [wrap plugInViewControllerForWindowNumber:num];
+        [vc.view mouseMoved:evt];
+    }
 }
 
 @end

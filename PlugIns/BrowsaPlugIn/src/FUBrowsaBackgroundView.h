@@ -12,13 +12,18 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUBrowsaWhiteView.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUBrowsaWhiteView
+@class FUBrowsaViewController;
 
-- (void)drawRect:(NSRect)r {
-    [[NSColor whiteColor] set];
-    NSRectFill(r);
+@interface FUBrowsaBackgroundView : NSView {
+	FUBrowsaViewController *viewController;
+	BOOL showingNavBar;
+	NSTimer *showTimer;
+	NSTimer *hideTimer;
 }
 
+@property (nonatomic, retain) IBOutlet FUBrowsaViewController *viewController;
+@property (nonatomic, retain) NSTimer *showTimer;
+@property (nonatomic, retain) NSTimer *hideTimer;
 @end
