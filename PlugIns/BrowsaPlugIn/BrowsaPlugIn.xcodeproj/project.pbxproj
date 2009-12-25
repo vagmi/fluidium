@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D32E8AA510E525FE00445B4C /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8AA410E525FE00445B4C /* FUNotifications.m */; };
 		D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33932A510D49F54000FC7C1 /* WebKit.framework */; };
 		D33932BA10D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932B910D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m */; };
 		D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */; };
@@ -38,6 +39,8 @@
 		8D5B49B6048680CD000E48DA /* Browsa.fluidplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Browsa.fluidplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = res/conf/Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D32E8A9F10E525E200445B4C /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = ../../Fluidium/src/FUNotifications.h; sourceTree = SOURCE_ROOT; };
+		D32E8AA410E525FE00445B4C /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = ../../Fluidium/src/FUNotifications.m; sourceTree = SOURCE_ROOT; };
 		D33932A510D49F54000FC7C1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D33932AF10D49FD8000FC7C1 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = ../../Fluidium/src/FUPlugIn.h; sourceTree = SOURCE_ROOT; };
 		D33932B010D49FD8000FC7C1 /* FUPlugInAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPI.h; path = ../../Fluidium/src/FUPlugInAPI.h; sourceTree = SOURCE_ROOT; };
@@ -185,6 +188,8 @@
 			children = (
 				D3D375F910E403D700203EB2 /* FUUtils.h */,
 				D3D375FA10E403DC00203EB2 /* FUUtils.m */,
+				D32E8A9F10E525E200445B4C /* FUNotifications.h */,
+				D32E8AA410E525FE00445B4C /* FUNotifications.m */,
 				D33932AF10D49FD8000FC7C1 /* FUPlugIn.h */,
 				D33932B010D49FD8000FC7C1 /* FUPlugInAPI.h */,
 				D339331910D4ADA5000FC7C1 /* NSString+FUAdditions.h */,
@@ -333,6 +338,7 @@
 				D3BDE78210E461A600858E44 /* HMImageComboBox.m in Sources */,
 				D3BDE78310E461A600858E44 /* HMImageComboBoxCell.m in Sources */,
 				D3BDE7A810E4638100858E44 /* FUBrowsaComboBox.m in Sources */,
+				D32E8AA510E525FE00445B4C /* FUNotifications.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

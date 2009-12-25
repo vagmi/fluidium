@@ -56,6 +56,8 @@ typedef enum {
 - (NSString *)taggedKey:(NSString *)inKey;
 - (NSString *)makeLocalizedTitle;
 
+- (void)postBrowsaUserAgentStringDidChangeNotification;
+
 @property (nonatomic, retain, readonly) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *viewControllers;
 

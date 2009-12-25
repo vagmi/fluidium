@@ -143,7 +143,7 @@
 
     [[NSUserDefaults standardUserDefaults] synchronize];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUBrowsaUserAgentStringDidChangeNotification object:self];
+    [plugIn postBrowsaUserAgentStringDidChangeNotification];
 }
 
 

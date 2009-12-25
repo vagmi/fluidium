@@ -16,6 +16,7 @@
 #import "FUBrowsaPlugIn.h"
 #import "FUBrowsaPreferencesViewController.h"
 #import "FUUtils.h"
+#import "FUNotifications.h"
 #import "FUPlugInAPI.h"
 #import "FUBrowsaActivation.h"
 #import "FUBrowsaComboBox.h"
@@ -723,7 +724,8 @@ typedef enum {
     [nc addObserver:self selector:@selector(webViewProgressEstimateChanged:) name:WebViewProgressEstimateChangedNotification object:webView];
     [nc addObserver:self selector:@selector(webViewProgressFinished:) name:WebViewProgressFinishedNotification object:webView];
     
-    [nc addObserver:self selector:@selector(browsaUserAgentStringDidChange:) name:FUBrowsaUserAgentStringDidChangeNotification object:nil];
+    // dont listen for changes to browser user agent string
+    [nc removeObserver:webView name:FUUserAgentStringDidChangeNotification object:nil];
 }
 
 

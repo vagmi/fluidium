@@ -159,6 +159,11 @@ static NSInteger sTag = 0;
     [viewControllers addObject:vc];
     vc.plugInAPI = plugInAPI;
     vc.plugIn = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:vc 
+                                             selector:@selector(browsaUserAgentStringDidChange:) 
+                                                 name:[self taggedKey:FUBrowsaUserAgentStringDidChangeNotification]
+                                               object:nil];
     return vc;
 }
 
@@ -244,6 +249,14 @@ static NSInteger sTag = 0;
     }
     
     return result;
+}
+
+
+#pragma mark - 
+#pragma mark Public
+
+- (void)postBrowsaUserAgentStringDidChangeNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:[self taggedKey:FUBrowsaUserAgentStringDidChangeNotification] object:nil];
 }
 
 
