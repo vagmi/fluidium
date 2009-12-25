@@ -166,7 +166,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 - (void)loadPlugInAtPath:(NSString *)path {
     NSBundle *bundle = [NSBundle bundleWithPath:path];
-    //    if (!bundle) return;
+    if (!bundle) return;
 
     id <FUPlugIn>plugIn = nil;
 
@@ -174,7 +174,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
         NSInteger num = [[FUUserDefaults instance] numberOfBrowsaPlugIns];
         NSInteger i = 0;
         for ( ; i < num; i++) {
-            plugIn = [[[bundle principalClass] alloc] initWithPlugInAPI:plugInAPI];
+            plugIn = [[[[bundle principalClass] alloc] initWithPlugInAPI:plugInAPI] autorelease];
             [self loadPlugIn:plugIn];
         }
     } else {
