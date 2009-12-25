@@ -462,7 +462,7 @@ typedef enum {
         if (existingFrame) {
             // found an existing frame with frameName. use it, and suppress new window creation
             [[tc.view window] makeKeyAndOrderFront:self];
-            [[[FUDocumentController instance] frontWindowController] orderTabControllerFront:tc];
+            [[[FUDocumentController instance] frontWindowController] selectTabController:tc];
 
             [existingFrame loadRequest:req];
             [listener ignore];
@@ -533,7 +533,7 @@ typedef enum {
     NSWindow *win = [wv window];
     FUWindowController *wc = [[[FUDocumentController instance] documentForWindow:win] windowController];
     
-    [wc orderTabControllerFront:[wc tabControllerForWebView:wv]];
+    [wc selectTabController:[wc tabControllerForWebView:wv]];
     [win makeKeyAndOrderFront:wv];
 }
 
@@ -546,7 +546,7 @@ typedef enum {
 
 - (void)webViewFocus:(WebView *)wv {
     FUTabController *tc = [windowController tabControllerForWebView:wv];
-    [windowController orderTabControllerFront:tc];
+    [windowController selectTabController:tc];
 }
 
 

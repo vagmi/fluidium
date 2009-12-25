@@ -73,7 +73,7 @@
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)changeUAString:(id)sender {
+- (IBAction)changeUserAgentString:(id)sender {
     NSMenu *UAMenu = [sender menu];
     
     for (NSMenuItem *item in [UAMenu itemArray]) {
@@ -86,7 +86,7 @@
 }
 
 
-- (IBAction)changeUAStringToOther:(id)sender {
+- (IBAction)changeUserAgentStringToOther:(id)sender {
     NSMenu *UAMenu = [sender menu];
     
     for (NSMenuItem *item in [UAMenu itemArray]) {
@@ -211,7 +211,7 @@
         lastTitleFirstWord = [title substringToIndex:loc];
         
         NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:title
-                                                       action:@selector(changeUAString:)
+                                                       action:@selector(changeUserAgentString:)
                                                 keyEquivalent:@""] autorelease];
         [item setTarget:self];
         [item setTag:tag++];
@@ -226,7 +226,7 @@
     [UAMenu addItem:[NSMenuItem separatorItem]];
     
     NSMenuItem *otherItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Other...", @"")
-                                                        action:@selector(changeUAStringToOther:)
+                                                        action:@selector(changeUserAgentStringToOther:)
                                                  keyEquivalent:@""] autorelease];
     [otherItem setTarget:self];
     [UAMenu addItem:otherItem];

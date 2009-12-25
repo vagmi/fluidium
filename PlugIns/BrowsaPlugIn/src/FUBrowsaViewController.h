@@ -21,14 +21,14 @@
 @protocol FUPlugInAPI;
 
 @interface FUBrowsaViewController : NSViewController {
-	WebView *webView;
-	NSView *navBar;
-	FUBrowsaComboBox *locationComboBox;
+    WebView *webView;
+    NSView *navBar;
+    FUBrowsaComboBox *locationComboBox;
     NSButton *homeButton;
-	
-	id <FUPlugInAPI>plugInAPI;
-	FUBrowsaPlugIn *plugIn;
-	
+    
+    id <FUPlugInAPI>plugInAPI;
+    FUBrowsaPlugIn *plugIn;
+    
     NSString *URLString;
     NSString *initialURLString;
     NSString *title;
@@ -42,7 +42,7 @@
     BOOL isProcessing;
     BOOL canReload;
 
-	CGFloat progress;
+    CGFloat progress;
     BOOL hasUpdatedNavBar;
     BOOL displayingMatchingRecentURLs;
 }

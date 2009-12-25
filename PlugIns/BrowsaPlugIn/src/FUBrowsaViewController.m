@@ -14,6 +14,7 @@
 
 #import "FUBrowsaViewController.h"
 #import "FUBrowsaPlugIn.h"
+#import "FUBrowsaPreferencesViewController.h"
 #import "FUUtils.h"
 #import "FUPlugInAPI.h"
 #import "FUBrowsaActivation.h"
@@ -76,7 +77,7 @@ typedef enum {
 
 
 - (id)initWithNibName:(NSString *)name bundle:(NSBundle *)b {
-	if (self = [super initWithNibName:name bundle:b]) {        
+    if (self = [super initWithNibName:name bundle:b]) {        
         // necessary to prevent bindings exceptions
         self.URLString = @"";
         self.title = NSLocalizedString(@"Untitled", @"");
@@ -90,8 +91,8 @@ typedef enum {
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-	self.plugInAPI = nil;
-	self.plugIn = nil;
+    self.plugInAPI = nil;
+    self.plugIn = nil;
     self.view = nil;
     self.webView = nil;
     self.homeButton = nil;
@@ -156,30 +157,30 @@ typedef enum {
 
 
 - (IBAction)showNavBar:(id)sender {
-	NSRect frame = [self.view frame];
-	CGFloat h = NSHeight([navBar bounds]);
-	NSRect navFrame = NSMakeRect(0, NSMaxY(frame) - h, NSWidth(frame), h);
-	
-	NSRect webFrame = frame;
-	webFrame.size.height -= h;
+    NSRect frame = [self.view frame];
+    CGFloat h = NSHeight([navBar bounds]);
+    NSRect navFrame = NSMakeRect(0, NSMaxY(frame) - h, NSWidth(frame), h);
     
-	[webView setFrame:webFrame];
-	[navBar setFrame:navFrame];
+    NSRect webFrame = frame;
+    webFrame.size.height -= h;
     
-	[self.view addSubview:navBar];
-	[self.view setNeedsDisplay:YES];
-	[webView setNeedsDisplay:YES];
-	[navBar setNeedsDisplay:YES];
+    [webView setFrame:webFrame];
+    [navBar setFrame:navFrame];
+    
+    [self.view addSubview:navBar];
+    [self.view setNeedsDisplay:YES];
+    [webView setNeedsDisplay:YES];
+    [navBar setNeedsDisplay:YES];
 }
     
 
 - (IBAction)hideNavBar:(id)sender {
-	if (![URLString length]) return;
+    if (![URLString length]) return;
 
-	[navBar removeFromSuperview];
-	[webView setFrame:[self.view frame]];
-	[self.view setNeedsDisplay:YES];
-	[webView setNeedsDisplay:YES];
+    [navBar removeFromSuperview];
+    [webView setFrame:[self.view frame]];
+    [self.view setNeedsDisplay:YES];
+    [webView setNeedsDisplay:YES];
 }
 
 
@@ -317,12 +318,12 @@ typedef enum {
     [self.view addSubview:webView];
     
     BOOL loadHomeURL = plugIn.newWindowsOpenWith;
-	if (loadHomeURL) {
-		self.URLString = plugIn.homeURLString;
-		if ([URLString length]) {
-			[self goToLocation:self];
-		}
-	}
+    if (loadHomeURL) {
+        self.URLString = plugIn.homeURLString;
+        if ([URLString length]) {
+            [self goToLocation:self];
+        }
+    }
     
 }
 
@@ -727,14 +728,14 @@ typedef enum {
 
 
 - (void)updateNavBar {
-	if (!hasUpdatedNavBar || FUShowNavBarAlways == plugIn.showNavBar) {
+    if (!hasUpdatedNavBar || FUShowNavBarAlways == plugIn.showNavBar) {
         hasUpdatedNavBar = YES;
-		[self showNavBar:self];
-	} else {
-		[self hideNavBar:self];
-	}
-	[self.view setNeedsDisplay:YES];
-	[navBar setNeedsDisplay:YES];
+        [self showNavBar:self];
+    } else {
+        [self hideNavBar:self];
+    }
+    [self.view setNeedsDisplay:YES];
+    [navBar setNeedsDisplay:YES];
 }
 
 
@@ -877,7 +878,7 @@ typedef enum {
 
 
 - (void)updateUserAgentString {
-    [webView setCustomUserAgent:plugIn.userAgentString];
+    [webView setCustomUserAgent:[(FUBrowsaPreferencesViewController *)plugIn.preferencesViewController userAgentString]];
 }
 
 

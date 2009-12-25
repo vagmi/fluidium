@@ -17,10 +17,10 @@
 @class FUBrowsaViewController;
 
 @interface FUBrowsaBackgroundView : NSView {
-	FUBrowsaViewController *viewController;
-	BOOL showingNavBar;
-	NSTimer *showTimer;
-	NSTimer *hideTimer;
+    FUBrowsaViewController *viewController;
+    BOOL showingNavBar;
+    NSTimer *showTimer;
+    NSTimer *hideTimer;
 }
 
 @property (nonatomic, retain) IBOutlet FUBrowsaViewController *viewController;

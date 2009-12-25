@@ -17,9 +17,10 @@
 @class FUBrowsaPlugIn;
 
 @interface FUBrowsaPreferencesViewController : NSViewController {
-	NSPopUpButton *userAgentPopUpButton;
+    NSPopUpButton *userAgentPopUpButton;
+    NSWindow *editUserAgentSheet;
     
-	FUBrowsaPlugIn *plugIn;
+    FUBrowsaPlugIn *plugIn;
     
     // UA
     NSString *userAgentString;
@@ -32,12 +33,12 @@
 
 - (IBAction)showNavBars:(id)sender;
 
-- (IBAction)changeUAString:(id)sender;
-- (IBAction)changeUAStringToOther:(id)sender;
+- (IBAction)changeUserAgentString:(id)sender;
+- (IBAction)changeUserAgentStringToOther:(id)sender;
 
-//- (IBAction)cancel:(id)sender;
-//- (IBAction)ok:(id)sender;
+- (IBAction)endEditUserAgentSheet:(id)sender;
 
+@property (nonatomic, retain) IBOutlet NSWindow *editUserAgentSheet;
 @property (nonatomic, retain) IBOutlet NSPopUpButton *userAgentPopUpButton;
 @property (nonatomic, assign) FUBrowsaPlugIn *plugIn;
 

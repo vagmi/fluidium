@@ -18,21 +18,21 @@
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-		self.bgColor = [NSColor colorWithDeviceWhite:.82 alpha:1];
+        self.bgColor = [NSColor colorWithDeviceWhite:.82 alpha:1];
     }
     return self;
 }
 
 
 - (void)dealloc {
-	self.bgColor = nil;
-	[super dealloc];
+    self.bgColor = nil;
+    [super dealloc];
 }
 
 
 - (void)drawRect:(NSRect)r {
-	[bgColor set];
-	NSRectFill(r);
+    [bgColor set];
+    NSRectFill(r);
 }
 
 @synthesize bgColor;

@@ -23,6 +23,7 @@
 - (void)loadUserAgentStrings;
 - (void)updateMenu;
 - (BOOL)isUsingDefaultUserAgent;
+- (void)customUserAgentSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(void *)ctx;
 
 @property (nonatomic, copy) NSArray *userAgentStrings;
 @property (nonatomic, copy) NSString *defaultUserAgentFormat;
@@ -31,30 +32,31 @@
 @implementation FUBrowsaPreferencesViewController
 
 - (id)initWithPlugIn:(FUBrowsaPlugIn *)p {
-	if ([super initWithNibName:@"FUBrowsaPreferencesView" bundle:[NSBundle bundleForClass:[self class]]]) {
-		self.plugIn = p;
+    if ([super initWithNibName:@"FUBrowsaPreferencesView" bundle:[NSBundle bundleForClass:[self class]]]) {
+        self.plugIn = p;
         [self loadUserAgentStrings];
-	}
-	return self;
+    }
+    return self;
 }
 
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
+    self.editUserAgentSheet = nil;
     self.userAgentPopUpButton = nil;
-	self.plugIn = nil;
+    self.plugIn = nil;
 
     self.userAgentString = nil;
     self.userAgentStrings = nil;
     self.defaultUserAgentFormat = nil;
     self.editingUserAgentString = nil;
-	[super dealloc];
+    [super dealloc];
 }
 
 
 - (void)awakeFromNib {
-	[self updateMenu];
+    [self updateMenu];
 }
 
 
@@ -62,19 +64,19 @@
 #pragma mark Actions
 
 - (IBAction)showNavBars:(id)sender {
-	NSInteger showNavbar = plugIn.showNavBar;
-	
-	for (FUBrowsaViewController *vc in plugIn.viewControllers) {
-		if (FUShowNavBarAlways == showNavbar) {
-			[vc showNavBar:sender];
-		} else {
-			[vc hideNavBar:sender];
-		}
-	}	
+    NSInteger showNavbar = plugIn.showNavBar;
+    
+    for (FUBrowsaViewController *vc in plugIn.viewControllers) {
+        if (FUShowNavBarAlways == showNavbar) {
+            [vc showNavBar:sender];
+        } else {
+            [vc hideNavBar:sender];
+        }
+    }    
 }
 
 
-- (IBAction)changeUAString:(id)sender {
+- (IBAction)changeUserAgentString:(id)sender {
     NSMenu *UAMenu = [sender menu];
     
     for (NSMenuItem *item in [UAMenu itemArray]) {
@@ -87,7 +89,7 @@
 }
 
 
-- (IBAction)changeUAStringToOther:(id)sender {
+- (IBAction)changeUserAgentStringToOther:(id)sender {
     NSMenu *UAMenu = [sender menu];
     
     for (NSMenuItem *item in [UAMenu itemArray]) {
@@ -97,21 +99,19 @@
     [sender setState:NSOnState];
     
     self.editingUserAgentString = self.userAgentString;
-    //    [self showWindow:self];
+    
+    [NSApp beginSheet:editUserAgentSheet
+       modalForWindow:[self.view window]
+        modalDelegate:self
+       didEndSelector:@selector(customUserAgentSheetDidEnd:returnCode:contextInfo:) 
+          contextInfo:NULL];
 }
 
 
-//- (IBAction)cancel:(id)sender {
-//    [[self window] performClose:sender];
-//    self.editingUserAgentString = nil;
-//}
-//
-//
-//- (IBAction)ok:(id)sender {
-//    [[self window] performClose:sender];
-//    self.userAgentString = self.editingUserAgentString;
-//    self.editingUserAgentString = nil;
-//}
+- (IBAction)endEditUserAgentSheet:(id)sender {
+    [NSApp endSheet:editUserAgentSheet returnCode:[sender tag]];
+    [editUserAgentSheet orderOut:sender];
+}
 
 
 #pragma mark -
@@ -185,7 +185,7 @@
         lastTitleFirstWord = [title substringToIndex:loc];
         
         NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:title
-                                                       action:@selector(changeUAString:)
+                                                       action:@selector(changeUserAgentString:)
                                                 keyEquivalent:@""] autorelease];
         [item setTarget:self];
         [item setTag:tag];
@@ -202,7 +202,7 @@
     [UAMenu addItem:[NSMenuItem separatorItem]];
     
     NSMenuItem *otherItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Other...", @"")
-                                                        action:@selector(changeUAStringToOther:)
+                                                        action:@selector(changeUserAgentStringToOther:)
                                                  keyEquivalent:@""] autorelease];
     [otherItem setTag:tag];
     [otherItem setTarget:self];
@@ -217,6 +217,14 @@
 }
 
 
+- (void)customUserAgentSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(void *)ctx {
+    if (NSOKButton == code) {
+        self.userAgentString = self.editingUserAgentString;
+    }
+    self.editingUserAgentString = nil;
+}
+
+@synthesize editUserAgentSheet;
 @synthesize userAgentPopUpButton;
 @synthesize plugIn;
 @synthesize userAgentString;

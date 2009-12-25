@@ -27,9 +27,9 @@
 
 - (void)dealloc {
     self.viewController = nil;
-	self.showTimer = nil;
-	self.hideTimer = nil;
-	[super dealloc];
+    self.showTimer = nil;
+    self.hideTimer = nil;
+    [super dealloc];
 }
 
 
@@ -40,33 +40,33 @@
 
 
 - (BOOL)acceptsFirstResponder {
-	return YES;
+    return YES;
 }
 
 
 - (void)mouseMoved:(NSEvent *)evt {
-	[self setNeedsDisplay:YES];
+    [self setNeedsDisplay:YES];
 
-	if (FUShowNavBarWhenMousedOver != viewController.plugIn.showNavBar) {
+    if (FUShowNavBarWhenMousedOver != viewController.plugIn.showNavBar) {
         return;
     }
     
     NSRect frame = [self frame];
-	CGFloat h = MOUSE_MOVED_DETECTION_HEIGHT;
-	NSRect r = NSMakeRect(0, NSMaxY(frame) - h, NSWidth(frame), h);
-	NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
-	if (NSPointInRect(p, r)) {
-		if (!showingNavBar) {
-			showingNavBar = YES;
+    CGFloat h = MOUSE_MOVED_DETECTION_HEIGHT;
+    NSRect r = NSMakeRect(0, NSMaxY(frame) - h, NSWidth(frame), h);
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    if (NSPointInRect(p, r)) {
+        if (!showingNavBar) {
+            showingNavBar = YES;
             [self startShowTimer];
-		}
-	} else {
-		if (showingNavBar) {
-			showingNavBar = NO;
-			[showTimer invalidate];
+        }
+    } else {
+        if (showingNavBar) {
+            showingNavBar = NO;
+            [showTimer invalidate];
             [self startHideTimer];
-		}
-	}
+        }
+    }
 }
 
 
@@ -89,14 +89,14 @@
 
 
 - (void)showTimerFired:(NSTimer *)inTimer {
-	[viewController showNavBar:self];
-	[self setNeedsDisplay:YES];
+    [viewController showNavBar:self];
+    [self setNeedsDisplay:YES];
 }
 
 
 - (void)hideTimerFired:(NSTimer *)inTimer {
-	[viewController hideNavBar:self];
-	[self setNeedsDisplay:YES];
+    [viewController hideNavBar:self];
+    [self setNeedsDisplay:YES];
 }
 
 @synthesize viewController;

@@ -24,8 +24,8 @@
 
 + (FUUserAgentWindowController *)instance;
 
-- (IBAction)changeUAString:(id)sender;
-- (IBAction)changeUAStringToOther:(id)sender;
+- (IBAction)changeUserAgentString:(id)sender;
+- (IBAction)changeUserAgentStringToOther:(id)sender;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)ok:(id)sender;

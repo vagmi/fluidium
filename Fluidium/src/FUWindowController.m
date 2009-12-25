@@ -192,7 +192,7 @@
         [self goHome:self];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenNotification object:self userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenNotification object:self];
 }
 
 
@@ -260,7 +260,7 @@
 
     if (cmd.isTabbed) {
         for (NSString *URLString in cmd.moreURLStrings) {
-            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabInForeground:YES];
+            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabInForeground:NO];
         }
     }
 }
@@ -545,7 +545,7 @@
 }
 
 
-- (void)orderTabControllerFront:(FUTabController *)tc {
+- (void)selectTabController:(FUTabController *)tc {
     self.selectedTabIndex = [tabView indexOfTabViewItem:[self tabViewItemForTabController:tc]];
 }
 

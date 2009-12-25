@@ -12,7 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -49,7 +48,7 @@
 				<string key="NSWindowContentMaxSize">{600, 300}</string>
 				<string key="NSWindowContentMinSize">{481, 169}</string>
 				<object class="NSView" key="NSWindowView" id="458809715">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -110,7 +109,7 @@
 										<object class="NSTextView" id="20106300">
 											<reference key="NSNextResponder" ref="424035989"/>
 											<int key="NSvFlags">2322</int>
-											<string key="NSFrameSize">{423, 96}</string>
+											<string key="NSFrameSize">{423, 0}</string>
 											<reference key="NSSuperview" ref="424035989"/>
 											<object class="NSTextContainer" key="NSTextContainer" id="227131308">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -387,10 +386,9 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{424, 1}, {15, 87}}</string>
 									<reference key="NSSuperview" ref="606435168"/>
-									<bool key="NSEnabled">YES</bool>
 									<reference key="NSTarget" ref="606435168"/>
 									<string key="NSAction">_doScroller:</string>
-									<double key="NSPercent">0.90625</double>
+									<double key="NSPercent">0.9513513513513514</double>
 								</object>
 								<object class="NSScroller" id="368689144">
 									<reference key="NSNextResponder" ref="606435168"/>
@@ -407,14 +405,13 @@
 							<string key="NSFrame">{{20, 60}, {440, 89}}</string>
 							<reference key="NSSuperview" ref="458809715"/>
 							<reference key="NSNextKeyView" ref="424035989"/>
-							<int key="NSsFlags">82</int>
+							<int key="NSsFlags">18</int>
 							<reference key="NSVScroller" ref="873709406"/>
 							<reference key="NSHScroller" ref="368689144"/>
 							<reference key="NSContentView" ref="424035989"/>
 						</object>
 					</object>
 					<string key="NSFrameSize">{481, 169}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{481, 191}</string>
@@ -665,8 +662,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cancel:</string>
-							<string>changeUAString:</string>
-							<string>changeUAStringToOther:</string>
+							<string>changeUserAgentString:</string>
+							<string>changeUserAgentStringToOther:</string>
 							<string>ok:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">

@@ -15,7 +15,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface FUBrowsaNavBar : NSView {
-	NSColor *bgColor;
+    NSColor *bgColor;
 }
 
 @property (nonatomic, retain) NSColor *bgColor;

@@ -31,24 +31,24 @@ typedef enum {
 } FUShowNavBar;
 
 @interface FUBrowsaPlugIn : NSObject <FUPlugIn> {
-	id <FUPlugInAPI>plugInAPI;
-	FUBrowsaPreferencesViewController *preferencesViewController;
-	NSString *identifier;
-	NSString *localizedTitle;
-	NSInteger allowedViewPlacementMask;
-	NSInteger preferredViewPlacementMask;
-	NSString *preferredMenuItemKeyEquivalent;
-	NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-	NSString *toolbarIconImageName;
-	NSString *preferencesIconImageName;
-	NSMutableDictionary *defaultsDictionary;
-	NSDictionary *aboutInfoDictionary;
-	CGFloat preferredVerticalSplitPosition;
-	CGFloat preferredHorizontalSplitPosition;
-	NSInteger preferredToolbarButtonType;
-	
-	NSMutableArray *viewControllers;
-	NSInteger tag;
+    id <FUPlugInAPI>plugInAPI;
+    FUBrowsaPreferencesViewController *preferencesViewController;
+    NSString *identifier;
+    NSString *localizedTitle;
+    NSInteger allowedViewPlacementMask;
+    NSInteger preferredViewPlacementMask;
+    NSString *preferredMenuItemKeyEquivalent;
+    NSUInteger preferredMenuItemKeyEquivalentModifierMask;
+    NSString *toolbarIconImageName;
+    NSString *preferencesIconImageName;
+    NSMutableDictionary *defaultsDictionary;
+    NSDictionary *aboutInfoDictionary;
+    CGFloat preferredVerticalSplitPosition;
+    CGFloat preferredHorizontalSplitPosition;
+    NSInteger preferredToolbarButtonType;
+    
+    NSMutableArray *viewControllers;
+    NSInteger tag;
 }
 
 - (id)initWithPlugInAPI:(id <FUPlugInAPI>)api;
