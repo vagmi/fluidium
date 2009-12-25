@@ -54,13 +54,19 @@
 - (id)initWithWindowNibName:(NSString *)name {
     if (self = [super initWithWindowNibName:name]) {
         [self loadUserAgentStrings];
-        [self updateMainMenu];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationDidFinishLaunching:)
+                                                     name:NSApplicationDidFinishLaunchingNotification
+                                                   object:nil];
     }
     return self;
 }
 
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+     
     self.userAgentString = nil;
     self.allUserAgentStrings = nil;
     self.defaultUserAgentFormat = nil;
@@ -234,6 +240,11 @@
     if (!foundCurrentUAString) {
         [otherItem setState:NSOnState];
     }
+}
+
+
+- (void)applicationDidFinishLaunching:(NSNotification *)n {
+    [self updateMainMenu];
 }
 
 @synthesize userAgentString;
