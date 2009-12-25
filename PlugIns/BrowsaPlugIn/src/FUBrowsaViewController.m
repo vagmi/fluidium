@@ -63,6 +63,9 @@ typedef enum {
 - (NSArray *)matchingRecentURLs;
 - (void)addRecentURL:(NSString *)s;
 - (void)addMatchingRecentURL:(NSString *)s;
+
+- (void)updateUserAgentString;
+- (void)browsaUserAgentStringDidChange:(NSNotification *)n;
 @end
 
 @implementation FUBrowsaViewController
@@ -112,7 +115,8 @@ typedef enum {
 #pragma mark Actions
 
 - (IBAction)goHome:(id)sender {
-    
+    self.URLString = plugIn.homeURLString;
+    [self goToLocation:sender];
 }
 
 
@@ -563,7 +567,7 @@ typedef enum {
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
     if (control == locationComboBox) {
         [locationComboBox hidePopUp];
-        //        displayingMatchingRecentURLs = NO;
+        displayingMatchingRecentURLs = NO;
         return YES;
     } else {
         return YES;
@@ -711,12 +715,14 @@ typedef enum {
     [webView setPolicyDelegate:self];
     [webView setUIDelegate:[[NSDocumentController sharedDocumentController] frontTabController]];
     
-    //[webView setCustomUserAgent:[[FUApplication instance] userAgentString]];
+    [self updateUserAgentString];
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(webViewProgressStarted:) name:WebViewProgressStartedNotification object:webView];
     [nc addObserver:self selector:@selector(webViewProgressEstimateChanged:) name:WebViewProgressEstimateChangedNotification object:webView];
     [nc addObserver:self selector:@selector(webViewProgressFinished:) name:WebViewProgressFinishedNotification object:webView];
+    
+    [nc addObserver:self selector:@selector(browsaUserAgentStringDidChange:) name:FUBrowsaUserAgentStringDidChangeNotification object:nil];
 }
 
 
@@ -867,6 +873,16 @@ typedef enum {
     [plugInAPI addMatchingRecentURL:s];
     [locationComboBox noteNumberOfItemsChanged];
     [locationComboBox reloadData];
+}
+
+
+- (void)updateUserAgentString {
+    [webView setCustomUserAgent:plugIn.userAgentString];
+}
+
+
+- (void)browsaUserAgentStringDidChange:(NSNotification *)n {
+    [self updateUserAgentString];
 }
 
 @synthesize plugIn;

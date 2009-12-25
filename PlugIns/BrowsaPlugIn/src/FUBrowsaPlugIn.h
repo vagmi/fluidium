@@ -14,6 +14,8 @@
 
 #import "FUPlugIn.h"
 
+extern NSString *const FUBrowsaUserAgentStringDidChangeNotification;
+
 @class FUBrowsaPreferencesViewController;
 
 extern NSString *const kFUBrowsaHomeURLStringKey;
@@ -54,6 +56,7 @@ typedef enum {
 - (NSString *)taggedKey:(NSString *)inKey;
 - (NSString *)makeLocalizedTitle;
 
+@property (nonatomic, retain, readonly) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *viewControllers;
 
 // Prefs

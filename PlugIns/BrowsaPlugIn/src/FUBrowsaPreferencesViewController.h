@@ -16,18 +16,32 @@
 
 @class FUBrowsaPlugIn;
 
-extern NSString *const FUBrowsaUserAgentStringDidChange;
-
 @interface FUBrowsaPreferencesViewController : NSViewController {
 	NSPopUpButton *userAgentPopUpButton;
     
 	FUBrowsaPlugIn *plugIn;
+    
+    // UA
+    NSString *userAgentString;
+    NSArray *userAgentStrings;
+    NSString *defaultUserAgentFormat;
+    NSString *editingUserAgentString;    
 }
 
 - (id)initWithPlugIn:(FUBrowsaPlugIn *)p;
 
-- (IBAction)showNavbars:(id)sender;
+- (IBAction)showNavBars:(id)sender;
+
+- (IBAction)changeUAString:(id)sender;
+- (IBAction)changeUAStringToOther:(id)sender;
+
+//- (IBAction)cancel:(id)sender;
+//- (IBAction)ok:(id)sender;
 
 @property (nonatomic, retain) IBOutlet NSPopUpButton *userAgentPopUpButton;
 @property (nonatomic, assign) FUBrowsaPlugIn *plugIn;
+
+// UA
+@property (nonatomic, copy) NSString *userAgentString;
+@property (nonatomic, copy) NSString *editingUserAgentString;
 @end

@@ -19,6 +19,7 @@
 #import "FUApplication.h"
 #import "FURecentURLController.h"
 #import "FUDownloadWindowController.h"
+#import "FUUserAgentWindowController.h"
 #import "FUWindow.h"
 #import "FUWebView.h"
 #import "FUPlugInWrapper.h"
@@ -53,6 +54,16 @@
     self.version = nil;
     self.plugInSupportDirPath = nil;
     [super dealloc];
+}
+
+
+- (NSString *)defaultUserAgentString {
+    return [[FUUserAgentWindowController instance] defaultUserAgentString];
+}
+
+
+- (NSArray *)allUserAgentStrings {
+    return [[FUUserAgentWindowController instance] allUserAgentStrings];
 }
 
 

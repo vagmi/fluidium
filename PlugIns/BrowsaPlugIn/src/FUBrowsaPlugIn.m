@@ -19,6 +19,8 @@
 #import "NSString+FUAdditions.h"
 #import <WebKit/WebKit.h>
 
+NSString *const FUBrowsaUserAgentStringDidChangeNotification = @"FUBrowsaUserAgentStringDidChangeNotification";
+
 NSString *const kFUBrowsaHomeURLStringKey = @"FUBrowsaHomeURLString";
 NSString *const kFUBrowsaNewWindowsOpenWithKey = @"FUBrowsaNewWindowsOpenWith";
 NSString *const kFUBrowsaUserAgentStringKey = @"FUBrowsaUserAgentString";
@@ -30,7 +32,7 @@ NSString *const FUPlugInViewPlacementMaskKey = @"FUPlugInViewPlacementMaskKey";
 static NSInteger sTag = 0;
 
 @interface FUBrowsaPlugIn ()
-@property (nonatomic, readwrite, retain) id <FUPlugInAPI>plugInAPI;
+@property (nonatomic, retain, readwrite) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, readwrite, retain) NSViewController *preferencesViewController;
 @property (nonatomic, readwrite, copy) NSString *identifier;
 @property (nonatomic, readwrite, copy) NSString *localizedTitle;

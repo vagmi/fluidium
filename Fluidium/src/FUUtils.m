@@ -163,6 +163,27 @@ fail:
 }
 
 
+NSString *FUWebKitVersionString() {
+    static NSString *sWebKitVersionString = nil;
+    if (!sWebKitVersionString) {
+        NSString *path = @"/System/Library/Frameworks/WebKit.framework/Versions/A/Resources/version.plist";
+        NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile:path];
+        NSString *s = [d objectForKey:@"CFBundleVersion"];
+        if ([s length] > 2) {
+            // The value in the version.plist file looks like this. dunno what the leading '6' is for, but Safari removes it. so we will too. :|
+            //        <key>CFBundleVersion</key>
+            //        <string>6531.21.8</string>
+            s = [s substringFromIndex:1];
+        } else {
+            // a reasonable default (Safari 4.0.4)
+            s = @"531.21.10";
+        }
+        sWebKitVersionString = [[NSString alloc] initWithString:s];
+    }
+    return sWebKitVersionString;    
+}
+
+
 NSString *FUDefaultWebSearchFormatString() {
     return @"http://www.google.com/search?client=fluid&q=%@";
 }

@@ -25,6 +25,8 @@ typedef enum {
 
 @protocol FUPlugInAPI
 - (NSString *)version;
+- (NSString *)defaultUserAgentString;
+- (NSArray *)allUserAgentStrings;
 
 - (WebView *)frontWebView;
 

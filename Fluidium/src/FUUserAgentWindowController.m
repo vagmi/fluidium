@@ -23,13 +23,22 @@
 - (void)loadUserAgentStrings;
 - (void)updateMainMenu;
 - (BOOL)isUsingDefaultUserAgent;
-- (void)postDidChangeNotification;
 
-@property (nonatomic, copy) NSArray *userAgentStrings;
 @property (nonatomic, copy) NSString *defaultUserAgentFormat;
 @end
 
 @implementation FUUserAgentWindowController
+
++ (void)load {
+    if ([FUUserAgentWindowController class] == self) {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        
+        [self instance]; // load early
+        
+        [pool release];
+    }
+}
+
 
 + (FUUserAgentWindowController *)instance {
     static FUUserAgentWindowController *instance = nil;
@@ -53,10 +62,9 @@
 
 - (void)dealloc {
     self.userAgentString = nil;
-    self.userAgentStrings = nil;
+    self.allUserAgentStrings = nil;
     self.defaultUserAgentFormat = nil;
     self.defaultUserAgentString = nil;
-    self.webKitVersionString = nil;
     self.editingUserAgentString = nil;
     [super dealloc];
 }
@@ -74,7 +82,7 @@
     
     [sender setState:NSOnState];
     
-    self.userAgentString = [[userAgentStrings objectAtIndex:[sender tag]] objectForKey:@"value"];
+    self.userAgentString = [[allUserAgentStrings objectAtIndex:[sender tag]] objectForKey:@"value"];
 }
 
 
@@ -110,9 +118,9 @@
 
 - (void)loadUserAgentStrings {
     NSString *path = [[[NSBundle mainBundle] pathForResource:@"UserAgentStrings" ofType:@"plist"] stringByExpandingTildeInPath];
-    self.userAgentStrings = [NSArray arrayWithContentsOfFile:path];
-    if ([userAgentStrings count]) {
-        self.defaultUserAgentFormat = [[userAgentStrings objectAtIndex:0] objectForKey:@"value"];
+    self.allUserAgentStrings = [NSArray arrayWithContentsOfFile:path];
+    if ([allUserAgentStrings count]) {
+        self.defaultUserAgentFormat = [[allUserAgentStrings objectAtIndex:0] objectForKey:@"value"];
     }
 }
 
@@ -126,26 +134,6 @@
 }
 
 
-- (NSString *)webKitVersionString {
-    if (!webKitVersionString) {
-        NSString *path = @"/System/Library/Frameworks/WebKit.framework/Versions/A/Resources/version.plist";
-        NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile:path];
-        NSString *s = [d objectForKey:@"CFBundleVersion"];
-        if ([s length] > 2) {
-            // The value in the version.plist file looks like this. dunno what the leading '6' is for, but Safari removes it. so we will too. :|
-            //        <key>CFBundleVersion</key>
-            //        <string>6531.21.8</string>
-            s = [s substringFromIndex:1];
-        } else {
-            // a reasonable default (Safari 4.0.4)
-            s = @"531.21.10";
-        }
-        self.webKitVersionString = s;
-    }
-    return webKitVersionString;
-}
-
-
 - (NSString *)defaultUserAgentString {
     if (!defaultUserAgentString) {
         // Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us) AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10
@@ -155,7 +143,7 @@
         FUGetSystemVersion(&macMajorVers, &macMinorVers, &macBugfixVers);
         
         NSString *appVers = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-        NSString *webKitVers = [self webKitVersionString];
+        NSString *webKitVers = FUWebKitVersionString();
         
         self.defaultUserAgentString = [NSString stringWithFormat:defaultUserAgentFormat, 
                                        macMajorVers,
@@ -177,7 +165,8 @@
         [[FUUserDefaults instance] setUserAgentString:[[s copy] autorelease]];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self postDidChangeNotification];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUUserAgentStringDidChangeNotification object:self];
 }
 
 
@@ -207,7 +196,7 @@
     
     NSString *lastTitleFirstWord = nil;
     NSInteger tag = 0;
-    for (NSDictionary *d in userAgentStrings) {
+    for (NSDictionary *d in allUserAgentStrings) {
         NSString *title = [d objectForKey:@"title"];
         NSString *value = [d objectForKey:@"value"];
         
@@ -247,15 +236,9 @@
     }
 }
 
-
-- (void)postDidChangeNotification {
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUUserAgentStringDidChangeNotification object:self];
-}
-
 @synthesize userAgentString;
-@synthesize userAgentStrings;
+@synthesize allUserAgentStrings;
 @synthesize defaultUserAgentFormat;
 @synthesize defaultUserAgentString;
-@synthesize webKitVersionString;
 @synthesize editingUserAgentString;
 @end

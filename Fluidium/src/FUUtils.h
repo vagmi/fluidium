@@ -34,6 +34,8 @@ NSDictionary *FUNonMainTabTextAttributes();
 BOOL FUIsSnowLeopardOrLater();
 void FUGetSystemVersion(NSUInteger *major, NSUInteger *minor, NSUInteger *bugfix);
 
+NSString *FUWebKitVersionString();
+
 NSString *FUDefaultWebSearchFormatString();
 
 void FUWriteWebURLsToPasteboard(NSString *URLString, NSString *title, NSPasteboard *pboard);

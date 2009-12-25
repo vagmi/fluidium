@@ -16,10 +16,9 @@
 
 @interface FUUserAgentWindowController : NSWindowController {
     NSString *userAgentString;
-    NSArray *userAgentStrings;
+    NSArray *allUserAgentStrings;
     NSString *defaultUserAgentFormat;
     NSString *defaultUserAgentString;
-    NSString *webKitVersionString;
     NSString *editingUserAgentString;
 }
 
@@ -32,7 +31,7 @@
 - (IBAction)ok:(id)sender;
 
 @property (nonatomic, copy) NSString *userAgentString;
-@property (nonatomic, copy) NSString *webKitVersionString;
+@property (nonatomic, copy) NSArray *allUserAgentStrings;
 @property (nonatomic, copy) NSString *defaultUserAgentString;
 @property (nonatomic, copy) NSString *editingUserAgentString;
 @end
