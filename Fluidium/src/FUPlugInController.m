@@ -157,16 +157,12 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     NSMutableArray *filenames = [NSMutableArray array];    
     [filenames addObjectsFromArray:[mgr directoryContentsAtPath:dirPath havingExtension:@"fluidplugin" error:nil]];
     
-    BOOL foundPlugIns = [filenames count];
-    
-    if (foundPlugIns) {
-        for (NSString *filename in filenames) {
-            NSString *path = [dirPath stringByAppendingPathComponent:filename];
-            @try {
-                [self loadPlugInAtPath:path];
-            } @catch (NSException *e) {
-                NSLog(@"Fluidium couldn't load Plug-in at path: %@\n%@", path, [e reason]);
-            }
+    for (NSString *filename in filenames) {
+        NSString *path = [dirPath stringByAppendingPathComponent:filename];
+        @try {
+            [self loadPlugInAtPath:path];
+        } @catch (NSException *e) {
+            NSLog(@"Fluidium couldn't load Plug-in at path: %@\n%@", path, [e reason]);
         }
     }
 }
@@ -332,12 +328,12 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     
     NSString *path = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"PlugInClientRecord"] stringByAppendingPathExtension:@"plist"];
     
-    NSMutableDictionary *description = [NSMutableDictionary dictionary];
-    [description addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
-    [description setObject:wrap.preferencesIconImageName forKey:@"icon"];
-    [description setObject:identifier forKey:@"identifier"];
-    [description setObject:title forKey:@"shortTitle"];
-    [description setObject:[NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), title] forKey:@"title"];
+    NSMutableDictionary *desc = [NSMutableDictionary dictionary];
+    [desc addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
+    [desc setObject:wrap.preferencesIconImageName forKey:@"icon"];
+    [desc setObject:identifier forKey:@"identifier"];
+    [desc setObject:title forKey:@"shortTitle"];
+    [desc setObject:[NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), title] forKey:@"title"];
 
     // hardcode ordering for mulitple BrowsaBrowsa plugins. ensures they show up in prefpane in order we want. otherwise the get jumbled. :0[
     if ([identifier hasPrefix:@"com.fluidapp.BrowsaPlugIn"]) {
@@ -353,14 +349,14 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
         } else if ([identifier isEqualToString:@"com.fluidapp.BrowsaPlugIn4"]) {
             ordering = 240;
         }
-        [description setObject:[NSNumber numberWithInteger:ordering] forKey:@"ordering"];
+        [desc setObject:[NSNumber numberWithInteger:ordering] forKey:@"ordering"];
     }
 
     
     NSDictionary *defaultsDictionary = [NSDictionary dictionaryWithDictionary:wrap.defaultsDictionary];
-    [description setObject:defaultsDictionary forKey:@"defaultsDictionary"];
+    [desc setObject:defaultsDictionary forKey:@"defaultsDictionary"];
     
-    [OAPreferenceController registerItemName:@"FUPlugInPreferences" bundle:[NSBundle mainBundle] description:[[description copy] autorelease]];
+    [OAPreferenceController registerItemName:@"FUPlugInPreferences" bundle:[NSBundle mainBundle] description:[[desc copy] autorelease]];
 }
 
 

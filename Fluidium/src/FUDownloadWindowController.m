@@ -58,7 +58,7 @@
     self.labelTextField = nil;
     self.downloadItems = nil;
     self.indexForURLDownloadTable = nil;
-    self.nextDestinationDirPath = nil;
+    self.nextDestinationDirectory = nil;
     self.nextDestinationFilename = nil;
     [super dealloc];
 }
@@ -169,6 +169,14 @@
             NSLog(@"Fluidium.app could not write download archive to disk");
         }
     }
+}
+
+
+- (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename {
+    [self setNextDestinationDirectory:dirPath];
+    [self setNextDestinationFilename:filename];
+    
+    [[[NSURLDownload alloc] initWithRequest:req delegate:self] autorelease]; // start    
 }
 
 
@@ -290,11 +298,11 @@
     BOOL isUserscript = NO;
     NSString *dirPath = nil;
     NSString *path = nil;
-    if (nextDestinationDirPath && nextDestinationFilename) {
-        dirPath = [[nextDestinationDirPath copy] autorelease];
+    if (nextDestinationDirectory && nextDestinationFilename) {
+        dirPath = [[nextDestinationDirectory copy] autorelease];
         filename = [[nextDestinationFilename copy] autorelease];
         path = [dirPath stringByAppendingPathComponent:filename];
-        self.nextDestinationDirPath = nil;
+        self.nextDestinationDirectory = nil;
         self.nextDestinationFilename = nil;
     } else {
         if (isUserscript) {
@@ -354,7 +362,7 @@
 @synthesize downloadItems;
 @synthesize indexForURLDownloadTable;
 @synthesize numberOfDownloadItems;
-@synthesize nextDestinationDirPath;
+@synthesize nextDestinationDirectory;
 @synthesize nextDestinationFilename;
 @end
     

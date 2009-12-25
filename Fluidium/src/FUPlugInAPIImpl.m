@@ -18,6 +18,7 @@
 #import "FUTabController.h"
 #import "FUApplication.h"
 #import "FURecentURLController.h"
+#import "FUDownloadWindowController.h"
 #import "FUWindow.h"
 #import "FUWebView.h"
 #import "FUPlugInWrapper.h"
@@ -116,6 +117,11 @@
 
 - (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
     [[FUDocumentController instance] loadHTMLString:HTMLString destinationType:type inForeground:inForeground];
+}
+
+
+- (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename {
+    [[FUDownloadWindowController instance] downloadRequest:req directory:dirPath filename:filename];
 }
 
 

@@ -25,7 +25,7 @@
     NSMutableDictionary *indexForURLDownloadTable;
     NSUInteger numberOfDownloadItems;
 
-    NSString *nextDestinationDirPath;
+    NSString *nextDestinationDirectory;
     NSString *nextDestinationFilename;
 }
 
@@ -38,6 +38,8 @@
 
 - (void)save;
 
+- (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
+
 @property (nonatomic, retain) IBOutlet NSCollectionView *collectionView;
 @property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet NSArrayController *arrayController;
@@ -47,6 +49,6 @@
 @property (nonatomic, retain) NSMutableDictionary *indexForURLDownloadTable;
 @property NSUInteger numberOfDownloadItems;
 
-@property (nonatomic, copy) NSString *nextDestinationDirPath;
+@property (nonatomic, copy) NSString *nextDestinationDirectory;
 @property (nonatomic, copy) NSString *nextDestinationFilename;
 @end

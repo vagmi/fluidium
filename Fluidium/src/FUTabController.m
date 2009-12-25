@@ -891,13 +891,10 @@ typedef enum {
     }
     
     NSURLRequest *req = [NSURLRequest requestWithURL:URL];
-    
-    FUDownloadWindowController *dc = [FUDownloadWindowController instance];
-    
-    [dc setNextDestinationDirPath:[[savePanel directory] stringByExpandingTildeInPath]];
-    [dc setNextDestinationFilename:[[savePanel filename] lastPathComponent]];
-    
-    [[[NSURLDownload alloc] initWithRequest:req delegate:dc] autorelease]; // start
+    NSString *dirPath = [[savePanel directory] stringByExpandingTildeInPath];
+    NSString *filename = [[savePanel filename] lastPathComponent];
+
+    [[FUDownloadWindowController instance] downloadRequest:req directory:dirPath filename:filename];
 }
 
 @synthesize windowController;

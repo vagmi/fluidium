@@ -19,9 +19,8 @@
 extern NSString *const kFUBrowsaHomeURLStringKey;
 extern NSString *const kFUBrowsaNewWindowsOpenWithKey;
 extern NSString *const kFUBrowsaUserAgentStringKey;
-extern NSString *const kFUBrowsaShowNavigationBarKey;
-extern NSString *const kFUBrowsaSendLinksToMainWebViewKey;
-extern NSString *const kFUBrowsaLinksSentToMainWebViewOpenInNewTabKey;
+extern NSString *const kFUBrowsaShowToolbarKey;
+extern NSString *const kFUBrowsaSendLinksToKey;
 
 @interface FUBrowsaPlugIn : NSObject <FUPlugIn> {
 	id <FUPlugInAPI>plugInAPI;
@@ -49,10 +48,12 @@ extern NSString *const kFUBrowsaLinksSentToMainWebViewOpenInNewTabKey;
 - (NSString *)taggedKey:(NSString *)inKey;
 - (NSString *)makeLocalizedTitle;
 
+@property (nonatomic, retain) NSMutableArray *viewControllers;
+
+// Prefs
 @property (nonatomic, copy) NSString *homeURLString;
 @property (nonatomic) NSInteger newWindowsOpenWith;
 @property (nonatomic, copy) NSString *userAgentString;
-@property (nonatomic) NSInteger alwaysShowNavigationBar;
-@property (nonatomic) NSInteger linkNavigationTargetedTo;
-@property (nonatomic, retain) NSMutableArray *viewControllers;
+@property (nonatomic) NSInteger showToolbar;
+@property (nonatomic) NSInteger sendLinksTo;
 @end

@@ -44,6 +44,8 @@ typedef enum {
 - (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type;
 - (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
 
+- (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
+
 - (void)showStatusText:(NSString *)statusText;
 - (void)addRecentURL:(NSString *)URLString;
 - (void)removeRecentURL:(NSString *)URLString;

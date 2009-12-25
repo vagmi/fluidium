@@ -584,6 +584,21 @@ typedef enum {
     return [r text];
 }
 
+
+- (void)savePanelDidEnd:(NSSavePanel *)panel returnCode:(NSInteger)code contextInfo:(NSURL *)URL {
+    [URL autorelease]; // released
+    
+    if (NSFileHandlingPanelCancelButton == code) {
+        return;
+    }
+    
+    NSURLRequest *req = [NSURLRequest requestWithURL:URL];
+    NSString *dirPath = [[panel directory] stringByExpandingTildeInPath];
+    NSString *filename = [[panel filename] lastPathComponent];
+
+    [plugInAPI downloadRequest:req directory:dirPath filename:filename];
+}
+
 @synthesize plugIn;
 @synthesize plugInAPI;
 @synthesize webView;
