@@ -60,6 +60,7 @@
 
     [imageBrowserView setZoomValue:1.0];
     //[imageBrowserView setCellSize:NSMakeSize(600, 400)];
+    [imageBrowserView setIntercellSpacing:NSMakeSize(8, 8)];
 	[imageBrowserView setConstrainsToOriginalSize:NO];
 	[imageBrowserView setContentResizingMask:NSViewHeightSizable];
 	[imageBrowserView setAllowsEmptySelection:NO];
@@ -161,10 +162,13 @@
 - (void)tabControllerDidFinishLoad:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
     WebView *wv = [[self webViews] objectAtIndex:i];
-    
-    FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
-    [self updateImageBrowserItem:item fromWebView:wv];
-    [imageBrowserView reloadData];
+
+    IKImageBrowserCell *cell = [imageBrowserView cellForItemAtIndex:i];
+    if (IKImageStateReady != [cell cellState]) {
+        FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
+        [self updateImageBrowserItem:item fromWebView:wv];
+        [imageBrowserView reloadData];
+    }
 }
 
 
