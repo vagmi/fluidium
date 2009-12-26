@@ -55,6 +55,9 @@
 
 
 - (void)awakeFromNib {
+    [imageBrowserView setValue:[NSColor colorWithDeviceWhite:.9 alpha:1] forKey:IKImageBrowserBackgroundColorKey];
+    [imageBrowserView setValue:[NSColor lightGrayColor] forKey:IKImageBrowserCellsOutlineColorKey];
+
     [imageBrowserView setZoomValue:1.0];
     //[imageBrowserView setCellSize:NSMakeSize(600, 400)];
 	[imageBrowserView setConstrainsToOriginalSize:NO];
@@ -105,8 +108,8 @@
 #pragma mark IKImageBrowserDelegate
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)ib {
-//    id wc = [[self.view window] windowController];
-//    [wc setSelectedTabIndex:[[ib selectionIndexes] firstIndex]];
+    id wc = [[self.view window] windowController];
+    [wc setSelectedTabIndex:[[ib selectionIndexes] firstIndex]];
 }
 
 

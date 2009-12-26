@@ -582,9 +582,9 @@
 
 
 - (void)setSelectedTabIndex:(NSInteger)i {
-    NSInteger max = [tabView numberOfTabViewItems] - 1;
-    i = i > max ? max : i;
-    i = i < 0 ? 0 : i;
+    if (i < 0) return;
+    if (i > [tabView numberOfTabViewItems] - 1) return;
+    
     [tabView selectTabViewItemAtIndex:i];
 }
 

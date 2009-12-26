@@ -55,7 +55,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IKImageBrowserView" id="19234353">
 						<reference key="NSNextResponder" ref="1005"/>
-						<int key="NSvFlags">274</int>
+						<int key="NSvFlags">18</int>
 						<object class="NSMutableSet" key="NSDragTypes">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="NSArray" key="set.sortedObjects">
@@ -216,7 +216,7 @@
 						<bool key="constrainsToOriginalSize">NO</bool>
 						<bool key="cellsHaveSubtitle">NO</bool>
 						<bool key="cellsHaveTitle">NO</bool>
-						<bool key="outlinesCells">NO</bool>
+						<bool key="outlinesCells">YES</bool>
 						<bool key="shadowsCells">YES</bool>
 						<bool key="animates">YES</bool>
 						<bool key="allowsReordering">NO</bool>
