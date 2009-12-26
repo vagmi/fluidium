@@ -76,6 +76,7 @@
 
 @interface NSObject (FUAdditions)
 - (void)addNewTabInForeground:(id)sender;
+- (void)tabView:(NSTabView *)tv willCloseTabViewItem:(NSTabViewItem *)tabItem;
 @end
 // TODD END
 
@@ -1635,33 +1636,30 @@
 
 - (void)closeTabClick:(id)sender
 {
-	NSTabViewItem *item = [sender representedObject];
-    // BEGIN FLUIDIUM
-    [[sender retain] autorelease];
-    if(([_cells count] == 1) && (![self canCloseOnlyTab])) {
-        FUWindowController *wc = [[self window] windowController];
-        [wc performClose:sender];
+    [sender retain];
+    if(([_cells count] == 1) && (![self canCloseOnlyTab]))
         return;
-    }
-    // END FLUIDIUM
     
-    if ([[self delegate] respondsToSelector:@selector(tabView:shouldCloseTabViewItem:)]) {
-        if (![[self delegate] tabView:tabView shouldCloseTabViewItem:item]) {
+    if(([self delegate]) && ([[self delegate] respondsToSelector:@selector(tabView:shouldCloseTabViewItem:)])){
+        if(![[self delegate] tabView:tabView shouldCloseTabViewItem:[sender representedObject]]){
             // fix mouse downed close button
             [sender setCloseButtonPressed:NO];
             return;
         }
     }
-	
-    // BEGIN FLUIDIUM
-    [[item retain] autorelease];
-    // END FLUIDIUM
     
-	[tabView removeTabViewItem:item];
-    // BEGIN FLUIDIUM
-    //[item release];
-    //[sender release];
-    // END FLUIDIUM
+    if(([self delegate]) && ([[self delegate] respondsToSelector:@selector(tabView:willCloseTabViewItem:)])){
+        [[self delegate] tabView:tabView willCloseTabViewItem:[sender representedObject]];
+    }
+    
+    [[sender representedObject] retain];
+    [tabView removeTabViewItem:[sender representedObject]];
+    
+    if(([self delegate]) && ([[self delegate] respondsToSelector:@selector(tabView:didCloseTabViewItem:)])){
+        [[self delegate] tabView:tabView didCloseTabViewItem:[sender representedObject]];
+    }
+    [[sender representedObject] release];
+    [sender release];
 }
 
 - (void)tabClick:(id)sender

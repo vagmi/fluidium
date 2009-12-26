@@ -17,6 +17,8 @@
     FUTabsPlugIn *plugIn;
     id <FUPlugInAPI>plugInAPI;
     NSMutableArray *imageBrowserItems;
+    
+    NSInteger changeCount;
 }
 
 - (void)viewDidAppear;

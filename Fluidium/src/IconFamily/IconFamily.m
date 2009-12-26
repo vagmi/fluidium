@@ -1069,7 +1069,7 @@ enum {
     
     graphicsContext = [NSGraphicsContext currentContext];
 
-#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
+#if FU_BUILD_TARGET_SNOW_LEOPARD
     workingImageRep = [workingImage bestRepresentationForRect:NSMakeRect(0, 0, size.width, size.height) context:graphicsContext hints:[[NSScreen mainScreen] deviceDescription]];
 #else
     workingImageRep = [workingImage bestRepresentationForDevice:nil];

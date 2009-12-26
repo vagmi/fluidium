@@ -296,6 +296,7 @@
 				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = Tabs;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = fluidplugin;
 			};
 			name = Debug;
@@ -311,6 +312,7 @@
 				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = Tabs;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = fluidplugin;
 			};
 			name = Release;

@@ -23,6 +23,8 @@
 @end
 
 @interface FUWindowController ()
+- (BOOL)removeTabViewItem:(NSTabViewItem *)tabItem;
+
 - (void)tabControllerWasRemovedFromTabBar:(FUTabController *)tc;
 - (void)tabControllerWasDroppedOnTabBar:(FUTabController *)tc;
 @end
@@ -42,6 +44,15 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<FUTabBarControl %p (%d tabs) (%@)>", self, [[self representedTabViewItems] count], [[[self tabView] selectedTabViewItem] label]];
+}
+
+
+#pragma mark -
+#pragma mark Overridden
+
+- (void)closeTabClick:(id)sender {
+	NSTabViewItem *tabItem = [sender representedObject];
+    [[self windowController] removeTabViewItem:tabItem];
 }
 
 

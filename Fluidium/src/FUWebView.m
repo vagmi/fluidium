@@ -111,6 +111,48 @@
 }
 
 
+- (NSImage *)squareImageOfWebContent {
+    NSBitmapImageRep *imageRep = [self squareBitmapImageRepOfWebContent];
+    NSSize size = [imageRep size];
+    NSImage *image = [[[NSImage alloc] initWithSize:size] autorelease];
+    [image addRepresentation:imageRep];
+    return image;
+}
+
+
+- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent {
+    NSSize fullSize = [self frame].size;
+    
+    CGFloat side = 0;
+    CGFloat ratio = 0;
+    
+    if (fullSize.width < fullSize.height) {
+        side = fullSize.width;
+        ratio = fullSize.width / side;
+    } else {
+        side = fullSize.height;
+        ratio = fullSize.height / side;
+    }
+    
+    CGRect finalDisplayRect = CGRectMake(0, 0, side, side);
+    
+    CGFloat w = finalDisplayRect.size.width * ratio;
+    CGFloat h = finalDisplayRect.size.height * ratio;
+    
+    CGFloat x = fullSize.width / 2.0 - w / 2.0;
+    CGFloat y = 0;
+    
+    CGRect r = CGRectMake(x, y, w, h);
+    //NSLog(@"r: %@", NSStringFromRect(r));
+    
+    //[self lockFocus];
+    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:r];
+    [self cacheDisplayInRect:r toBitmapImageRep:imageRep];
+    //[self unlockFocus];
+    return imageRep;
+}
+
+
 #pragma mark -
 #pragma mark Private
 

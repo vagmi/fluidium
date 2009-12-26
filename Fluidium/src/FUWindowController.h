@@ -24,7 +24,7 @@
 @class FUBookmark;
 
 @interface FUWindowController : NSWindowController 
-#if defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
+#if FU_BUILD_TARGET_SNOW_LEOPARD
 <NSToolbarDelegate>
 #endif
 {
