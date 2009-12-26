@@ -97,11 +97,11 @@
 - (NSImage *)imageOfWebContent {
     NSRect webBounds = [self bounds];
     NSImage *image = [[[NSImage alloc] initWithSize:webBounds.size] autorelease];
-    [self lockFocus];
+    //    [self lockFocus];
     NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:webBounds];
     [image addRepresentation:imageRep];
     [self cacheDisplayInRect:webBounds toBitmapImageRep:imageRep];
-    [self unlockFocus];
+    //    [self unlockFocus];
     return image;
 }
 

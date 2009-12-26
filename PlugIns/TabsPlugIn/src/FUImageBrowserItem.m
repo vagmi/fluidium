@@ -17,7 +17,7 @@
         self.imageUID = [(id)CFUUIDCreateString(NULL, UUID) autorelease];
         CFRelease(UUID);
         
-        self.imageRepresentationType = IKImageBrowserNSImageRepresentationType;
+        self.imageRepresentationType = IKImageBrowserNSBitmapImageRepresentationType;
         self.selectable = YES;
         self.imageVersion = 0;
     }
@@ -36,7 +36,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<FUImageBrowserItem %p %@>", self, imageUID];
+    return [NSString stringWithFormat:@"<FUImageBrowserItem %p %@>", self, imageTitle];
 }
 
 

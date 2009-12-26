@@ -1073,7 +1073,11 @@
     // must set this controller's window as host window or else Flash content won't play in background tabs
     [[tc webView] setHostWindow:[self window]];
     
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:tc forKey:FUTabControllerKey];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              tc, FUTabControllerKey,
+                              [NSNumber numberWithInteger:[tabView numberOfTabViewItems] - 1], FUIndexKey,
+                              nil];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenTabNotification object:self userInfo:userInfo];
 }
 
