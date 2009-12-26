@@ -111,6 +111,8 @@
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i;
 - (FUTabController *)tabControllerForWebView:(WebView *)wv;
 
+- (NSInteger)indexOfTabController:(FUTabController *)tc;
+
 - (void)selectTabController:(FUTabController *)tc;
 - (void)addTabController:(FUTabController *)tc;
 - (BOOL)removeTabController:(FUTabController *)tc;

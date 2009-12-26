@@ -535,6 +535,18 @@
 }
 
 
+- (NSInteger)indexOfTabController:(FUTabController *)tc {
+    NSInteger i = 0;
+    for (NSTabViewItem *tabItem in [tabView tabViewItems]) {
+        if ([tabItem identifier] == tc) {
+            return i;
+        }
+        i++;
+    }
+    return NSNotFound;
+}
+
+
 - (FUTabController *)tabControllerForWebView:(WebView *)wv {
     for (FUTabController *tc in tabControllers) {
         if (wv == [tc webView]) {
@@ -556,9 +568,9 @@
 
 
 - (NSArray *)webViews {
-    NSMutableArray *wvs = [NSMutableArray arrayWithCapacity:[tabControllers count]];
-    for (FUTabController *tc in tabControllers) {
-        [wvs addObject:[tc webView]];
+    NSMutableArray *wvs = [NSMutableArray arrayWithCapacity:[tabView numberOfTabViewItems]];
+    for (NSTabViewItem *tabItem in [tabView tabViewItems]) {
+        [wvs addObject:[[tabItem identifier] webView]];
     }
     return [[wvs copy] autorelease];
 }

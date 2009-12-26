@@ -36,7 +36,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<FUImageBrowserItem %p %@>", self, imageTitle];
+    return [NSString stringWithFormat:@"<FUImageBrowserItem %p %d %@>", self, imageVersion, imageTitle];
 }
 
 
@@ -45,7 +45,8 @@
         [imageRepresentation autorelease];
         imageRepresentation = [img retain];
         
-        self.imageVersion = ++imageVersion;
+        self.imageVersion = imageVersion + 1;
+        NSLog(@"%@", self);
     }
 }
 

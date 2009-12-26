@@ -839,7 +839,10 @@ typedef enum {
 
                  
 - (void)postNotificationName:(NSString *)name {
-    [[NSNotificationCenter defaultCenter] postNotificationName:name object:self];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [NSNumber numberWithInteger:[windowController indexOfTabController:self]], FUIndexKey,
+                              nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:name object:self userInfo:userInfo];
 }
 
 

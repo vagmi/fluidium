@@ -7,6 +7,7 @@
 //
 
 #import "FUTabsViewController.h"
+#import "FUNotifications.h"
 #import "FUPlugIn.h"
 #import "FUPlugInAPI.h"
 #import "FUTabsPlugIn.h"
@@ -104,12 +105,22 @@
     WebView *wv = [[self webViews] objectAtIndex:i];
     FUImageBrowserItem *item = [[self newImageBrowserItemForWebView:wv] autorelease];
     [imageBrowserItems insertObject:item atIndex:i];
+    
+    id tc = [[n userInfo] objectForKey:@"FUTabController"];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(tabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:tc];
+    //    [nc addObserver:self selector:@selector(tabControllerDidClearWindowObject:) name:FUTabControllerDidClearWindowObjectNotification object:tc];
 }
 
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
     [imageBrowserItems removeObjectAtIndex:i];
+
+    id tc = [[n userInfo] objectForKey:@"FUTabController"];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:tc];
+    //    [nc removeObserver:self name:FUTabControllerDidClearWindowObjectNotification object:tc];
 }
 
 
@@ -117,6 +128,30 @@
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
     [imageBrowserView setSelectionIndexes:[NSIndexSet indexSetWithIndex:i] byExtendingSelection:NO];
 }
+
+
+#pragma mark -
+#pragma mark FUTabControllerNotifcations
+
+- (void)tabControllerDidFinishLoad:(NSNotification *)n {
+    NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
+    WebView *wv = [[self webViews] objectAtIndex:i];
+    
+    FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
+    item.imageTitle = [wv mainFrameTitle];
+    item.imageSubtitle = [wv mainFrameURL];
+    item.imageRepresentation = [self bitmapImageRepFromWebView:wv];
+    [imageBrowserView reloadData];
+}
+
+
+//- (void)tabControllerDidClearWindowObject:(NSNotification *)n {
+//    NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
+//    WebView *wv = [[self webViews] objectAtIndex:i];
+//    
+//    FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
+//    item.imageRepresentation = [self bitmapImageRepFromWebView:wv];
+//}
 
 
 #pragma mark -
