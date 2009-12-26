@@ -25,7 +25,7 @@
 
 @interface FUTabsViewController ()
 - (NSArray *)webViews;
-- (FUImageBrowserItem *)newImageBrowserItemForWebView:(WebView *)wv;
+- (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv;
 - (NSBitmapImageRep *)bitmapImageRepFromWebView:(WebView *)wv;
 @end
 
@@ -77,7 +77,8 @@
     self.imageBrowserItems = [NSMutableArray arrayWithCapacity:[wvs count]];
     
     for (WebView *wv in wvs) {
-        FUImageBrowserItem *item = [[self newImageBrowserItemForWebView:wv] autorelease];
+        FUImageBrowserItem *item = [[[FUImageBrowserItem alloc] init] autorelease];
+        [self updateImageBrowserItem:item fromWebView:wv];
         [imageBrowserItems addObject:item];
     }
     
@@ -119,7 +120,8 @@
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
     WebView *wv = [[self webViews] objectAtIndex:i];
-    FUImageBrowserItem *item = [[self newImageBrowserItemForWebView:wv] autorelease];
+    FUImageBrowserItem *item = [[[FUImageBrowserItem alloc] init] autorelease];
+    [self updateImageBrowserItem:item fromWebView:wv];
     [imageBrowserItems insertObject:item atIndex:i];
     [imageBrowserView reloadData];
     
@@ -143,6 +145,13 @@
 - (void)windowControllerDidChangeSelectedTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
     [imageBrowserView setSelectionIndexes:[NSIndexSet indexSetWithIndex:i] byExtendingSelection:NO];
+
+
+    WebView *wv = [[self webViews] objectAtIndex:i];
+    
+    FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
+    [self updateImageBrowserItem:item fromWebView:wv];
+    [imageBrowserView reloadData];
 }
 
 
@@ -154,9 +163,7 @@
     WebView *wv = [[self webViews] objectAtIndex:i];
     
     FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
-    item.imageTitle = [wv mainFrameTitle];
-    item.imageSubtitle = [wv mainFrameURL];
-    item.imageRepresentation = [self bitmapImageRepFromWebView:wv];
+    [self updateImageBrowserItem:item fromWebView:wv];
     [imageBrowserView reloadData];
 }
 
@@ -169,12 +176,10 @@
 }
 
 
-- (FUImageBrowserItem *)newImageBrowserItemForWebView:(WebView *)wv {
-    FUImageBrowserItem *item = [[FUImageBrowserItem alloc] init];
+- (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv {
     item.imageRepresentation = [self bitmapImageRepFromWebView:wv];
     item.imageTitle = [wv mainFrameTitle];
     item.imageSubtitle = [wv mainFrameURL];
-    return item;
 }
 
 
