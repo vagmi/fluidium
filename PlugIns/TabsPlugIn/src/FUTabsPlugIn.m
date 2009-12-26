@@ -84,25 +84,12 @@
 - (void)plugInViewControllerDidAppear:(NSNotification *)n {
     FUTabsViewController *vc = [n object];
     [vc viewDidAppear];
-    
-//    NSWindowController *wc = [[vc.view window] windowController];
-//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-//    [nc addObserver:vc selector:@selector(windowControllerDidOpenTab:) name:FUWindowControllerDidOpenTabNotification object:wc];
-//    [nc addObserver:vc selector:@selector(windowControllerWillCloseTab:) name:FUWindowControllerWillCloseTabNotification object:wc];
-//    [nc addObserver:vc selector:@selector(windowControllerDidChangeSelectedTab:) name:FUWindowControllerDidChangeSelectedTabNotification object:wc];
 }
 
 
 - (void)plugInViewControllerWillDisappear:(NSNotification *)n {
     FUTabsViewController *vc = [n object];
     [vc viewWillDisappear];
-
-//    NSWindowController *wc = [[vc.view window] windowController];
-//
-//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-//    [nc removeObserver:vc name:FUWindowControllerDidOpenTabNotification object:wc];
-//    [nc removeObserver:vc name:FUWindowControllerWillCloseTabNotification object:wc];
-//    [nc removeObserver:vc name:FUWindowControllerDidChangeSelectedTabNotification object:wc];
 }
 
 

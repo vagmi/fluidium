@@ -582,6 +582,9 @@
 
 
 - (void)setSelectedTabIndex:(NSInteger)i {
+    NSInteger max = [tabView numberOfTabViewItems] - 1;
+    i = i > max ? max : i;
+    i = i < 0 ? 0 : i;
     [tabView selectTabViewItemAtIndex:i];
 }
 
@@ -1115,7 +1118,10 @@
 - (BOOL)removeTabViewItem:(NSTabViewItem *)tabItem {
     FUTabController *tc = [tabItem identifier];
 
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:tc forKey:FUTabControllerKey];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              tc, FUTabControllerKey,
+                              [NSNumber numberWithInteger:[tabView indexOfTabViewItem:tabItem]], FUIndexKey,
+                              nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerWillCloseTabNotification object:self userInfo:userInfo];
     
     // must call this manually

@@ -15,6 +15,10 @@
 #import <Quartz/Quartz.h>
 #import <WebKit/WebKit.h>
 
+@interface NSObject ()
+- (void)setSelectedTabIndex:(NSInteger)i;
+@end
+
 @interface WebView ()
 - (NSImage *)imageOfWebContent;
 @end
@@ -98,6 +102,15 @@
 
 
 #pragma mark -
+#pragma mark IKImageBrowserDelegate
+
+- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)ib {
+//    id wc = [[self.view window] windowController];
+//    [wc setSelectedTabIndex:[[ib selectionIndexes] firstIndex]];
+}
+
+
+#pragma mark -
 #pragma mark FUWindowControllerNotifcations
 
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
@@ -105,22 +118,22 @@
     WebView *wv = [[self webViews] objectAtIndex:i];
     FUImageBrowserItem *item = [[self newImageBrowserItemForWebView:wv] autorelease];
     [imageBrowserItems insertObject:item atIndex:i];
+    [imageBrowserView reloadData];
     
     id tc = [[n userInfo] objectForKey:@"FUTabController"];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(tabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:tc];
-    //    [nc addObserver:self selector:@selector(tabControllerDidClearWindowObject:) name:FUTabControllerDidClearWindowObjectNotification object:tc];
 }
 
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
     [imageBrowserItems removeObjectAtIndex:i];
-
+    [imageBrowserView reloadData];
+    
     id tc = [[n userInfo] objectForKey:@"FUTabController"];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:tc];
-    //    [nc removeObserver:self name:FUTabControllerDidClearWindowObjectNotification object:tc];
 }
 
 
@@ -143,15 +156,6 @@
     item.imageRepresentation = [self bitmapImageRepFromWebView:wv];
     [imageBrowserView reloadData];
 }
-
-
-//- (void)tabControllerDidClearWindowObject:(NSNotification *)n {
-//    NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
-//    WebView *wv = [[self webViews] objectAtIndex:i];
-//    
-//    FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
-//    item.imageRepresentation = [self bitmapImageRepFromWebView:wv];
-//}
 
 
 #pragma mark -
