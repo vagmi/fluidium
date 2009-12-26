@@ -32,7 +32,7 @@ NSString *const FUPlugInViewPlacementMaskKey = @"FUPlugInViewPlacementMaskKey";
 static NSInteger sTag = 0;
 
 @interface FUBrowsaPlugIn ()
-@property (nonatomic, retain, readwrite) id <FUPlugInAPI>plugInAPI;
+@property (nonatomic, readwrite, retain) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, readwrite, retain) NSViewController *preferencesViewController;
 @property (nonatomic, readwrite, copy) NSString *identifier;
 @property (nonatomic, readwrite, copy) NSString *localizedTitle;
@@ -46,7 +46,6 @@ static NSInteger sTag = 0;
 @property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
 @property (nonatomic, readwrite) CGFloat preferredVerticalSplitPosition;
 @property (nonatomic, readwrite) CGFloat preferredHorizontalSplitPosition;
-@property (nonatomic, readwrite) NSInteger preferredToolbarButtonType;
 @property (nonatomic, readwrite) NSInteger tag;
 @end
 
@@ -371,7 +370,6 @@ static NSInteger sTag = 0;
 @synthesize aboutInfoDictionary;
 @synthesize preferredVerticalSplitPosition;
 @synthesize preferredHorizontalSplitPosition;
-@synthesize preferredToolbarButtonType;
 @synthesize viewControllers;
 @synthesize tag;
 @end

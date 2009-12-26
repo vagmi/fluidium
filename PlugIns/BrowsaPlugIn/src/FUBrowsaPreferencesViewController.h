@@ -40,7 +40,7 @@
 
 @property (nonatomic, retain) IBOutlet NSWindow *editUserAgentSheet;
 @property (nonatomic, retain) IBOutlet NSPopUpButton *userAgentPopUpButton;
-@property (nonatomic, assign) FUBrowsaPlugIn *plugIn;
+@property (nonatomic, assign) FUBrowsaPlugIn *plugIn; // weakref
 
 // UA
 @property (nonatomic, copy) NSString *userAgentString;

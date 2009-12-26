@@ -45,7 +45,6 @@ typedef enum {
     NSDictionary *aboutInfoDictionary;
     CGFloat preferredVerticalSplitPosition;
     CGFloat preferredHorizontalSplitPosition;
-    NSInteger preferredToolbarButtonType;
     
     NSMutableArray *viewControllers;
     NSInteger tag;
@@ -58,7 +57,7 @@ typedef enum {
 
 - (void)postBrowsaUserAgentStringDidChangeNotification;
 
-@property (nonatomic, retain, readonly) id <FUPlugInAPI>plugInAPI;
+@property (nonatomic, readonly, retain) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *viewControllers;
 
 // Prefs

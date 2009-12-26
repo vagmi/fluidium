@@ -73,8 +73,8 @@
 
 - (void)loadRequest:(NSURLRequest *)req;
 
-@property (nonatomic, retain) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, retain) FUBrowsaPlugIn *plugIn;
+@property (nonatomic, assign) id <FUPlugInAPI>plugInAPI; // weak ref
+@property (nonatomic, assign) FUBrowsaPlugIn *plugIn; // weak ref
 @property (nonatomic, retain) IBOutlet WebView *webView;
 @property (nonatomic, retain) IBOutlet NSView *navBar;
 @property (nonatomic, retain) IBOutlet FUBrowsaComboBox *locationComboBox;

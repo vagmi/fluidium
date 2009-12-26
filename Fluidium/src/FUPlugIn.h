@@ -109,5 +109,4 @@ typedef enum {
 @optional
 - (CGFloat)preferredVerticalSplitPosition;
 - (CGFloat)preferredHorizontalSplitPosition;
-- (NSInteger)preferredToolbarButtonType;
 @end

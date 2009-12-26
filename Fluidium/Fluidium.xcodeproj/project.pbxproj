@@ -206,6 +206,20 @@
 			remoteGlobalIDString = 53DF68FC067E5B5A0090B5B0;
 			remoteInfo = PSMTabBarControlFramework;
 		};
+		D32E8C2710E593AB00445B4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA /* Tabs.fluidplugin */;
+			remoteInfo = TabsPlugIn;
+		};
+		D32E8C3310E593FE00445B4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* TabsPlugIn */;
+			remoteInfo = TabsPlugIn;
+		};
 		D346E48E10CE434A00BA0B15 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D346E48410CE434A00BA0B15 /* ParseKit.xcodeproj */;
@@ -523,6 +537,7 @@
 		D328FADE10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath+PXRoundedRectangleAdditions.m"; path = "src/NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
 		D328FB1210CB9E2600BB363B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBookmarkWindow.xib; sourceTree = "<group>"; };
 		D328FC9410CC339E00BB363B /* PSMTabBarControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PSMTabBarControl.xcodeproj; path = lib/PSMTabBarControl/PSMTabBarControl.xcodeproj; sourceTree = "<group>"; };
+		D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TabsPlugIn.xcodeproj; path = ../PlugIns/TabsPlugIn/TabsPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D332221110C8C19500151693 /* FUDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocument.h; path = src/FUDocument.h; sourceTree = "<group>"; };
 		D332221210C8C19500151693 /* FUDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDocument.m; path = src/FUDocument.m; sourceTree = "<group>"; };
 		D332221410C8C1A500151693 /* Fluidium_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fluidium_Prefix.pch; path = src/Fluidium_Prefix.pch; sourceTree = "<group>"; };
@@ -818,6 +833,7 @@
 				D346E58310CE436000BA0B15 /* UMEKit.xcodeproj */,
 				D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */,
 				D346E5CC10CE452000BA0B15 /* TwitterPlugIn.xcodeproj */,
+				D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Fluidium Source */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
@@ -921,6 +937,14 @@
 				D328FC9F10CC339F00BB363B /* PSMTabBarControl.palette */,
 				D328FCA110CC339F00BB363B /* TabBarControlDemo.app */,
 				D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D32E8C2410E593AB00445B4C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D32E8C2810E593AB00445B4C /* Tabs.fluidplugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1472,6 +1496,7 @@
 				D346E58D10CE437800BA0B15 /* PBXTargetDependency */,
 				D3D3766710E4092500203EB2 /* PBXTargetDependency */,
 				D346E5D310CE452900BA0B15 /* PBXTargetDependency */,
+				D32E8C3410E593FE00445B4C /* PBXTargetDependency */,
 			);
 			name = Fluidium;
 			productInstallPath = "$(HOME)/Applications";
@@ -1519,6 +1544,10 @@
 					ProjectRef = D346ED5B10CF6C7600BA0B15 /* ShortcutRecorder.xcodeproj */;
 				},
 				{
+					ProductGroup = D32E8C2410E593AB00445B4C /* Products */;
+					ProjectRef = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
+				},
+				{
 					ProductGroup = D346E5CD10CE452000BA0B15 /* Products */;
 					ProjectRef = D346E5CC10CE452000BA0B15 /* TwitterPlugIn.xcodeproj */;
 				},
@@ -1554,6 +1583,13 @@
 			fileType = wrapper.framework;
 			path = PSMTabBarControl.framework;
 			remoteRef = D328FCA210CC339F00BB363B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D32E8C2810E593AB00445B4C /* Tabs.fluidplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tabs.fluidplugin;
+			remoteRef = D32E8C2710E593AB00445B4C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D346E48F10CE434A00BA0B15 /* ParseKit.framework */ = {
@@ -1836,7 +1872,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -pR \"../PlugIns/BrowsaPlugIn/build/${BUILD_STYLE}/Browsa.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\ncp -pR \"../PlugIns/TwitterPlugIn/build/${BUILD_STYLE}/Twitter.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\n";
+			shellScript = "cp -pR \"../PlugIns/BrowsaPlugIn/build/${BUILD_STYLE}/Browsa.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\ncp -pR \"../PlugIns/TwitterPlugIn/build/${BUILD_STYLE}/Twitter.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\ncp -pR \"../PlugIns/TabsPlugIn/build/${BUILD_STYLE}/Tabs.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1946,6 +1982,11 @@
 			isa = PBXTargetDependency;
 			name = PSMTabBarControlFramework;
 			targetProxy = D328FF4F10CC340C00BB363B /* PBXContainerItemProxy */;
+		};
+		D32E8C3410E593FE00445B4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TabsPlugIn;
+			targetProxy = D32E8C3310E593FE00445B4C /* PBXContainerItemProxy */;
 		};
 		D346E58D10CE437800BA0B15 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

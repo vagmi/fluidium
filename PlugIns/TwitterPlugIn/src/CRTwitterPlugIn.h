@@ -64,7 +64,7 @@ extern NSString *CRTwitterPlugInSelectedUsernameDidChangeNotification;
 - (BOOL)wasShiftKeyPressed:(NSInteger)modifierFlags;
 - (BOOL)wasOptionKeyPressed:(NSInteger)modifierFlags;
 
-@property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, assign) CRTwitterPlugInViewController *frontViewController;
+@property (nonatomic, assign) id <FUPlugInAPI>plugInAPI; // weakref
+@property (nonatomic, assign) CRTwitterPlugInViewController *frontViewController; // weakref
 @property (nonatomic, copy) NSString *selectedUsername;
 @end

@@ -18,17 +18,18 @@
 #import "FUBackForwardPopUpButton.h"
 #import "FUPlugInController.h"
 
-static NSString * const FUBackItemIdentifier = @"FUBackItemIdentifier";
-static NSString * const FUForwardItemIdentifier = @"FUForwardItemIdentifier";
-static NSString * const FUReloadItemIdentifier = @"FUReloadItemIdentifier";
-static NSString * const FUStopItemIdentifier = @"FUStopItemIdentifier";
-static NSString * const FUHomeItemIdentifier = @"FUHomeItemIdentifier";
-static NSString * const FULocationItemIdentifier = @"FULocationItemIdentifier";
-static NSString * const FUTextSmallerItemIdentifier = @"FUTextSmallerItemIdentifier";
-static NSString * const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier";
+static NSString *const FUBackItemIdentifier = @"FUBackItemIdentifier";
+static NSString *const FUForwardItemIdentifier = @"FUForwardItemIdentifier";
+static NSString *const FUReloadItemIdentifier = @"FUReloadItemIdentifier";
+static NSString *const FUStopItemIdentifier = @"FUStopItemIdentifier";
+static NSString *const FUHomeItemIdentifier = @"FUHomeItemIdentifier";
+static NSString *const FULocationItemIdentifier = @"FULocationItemIdentifier";
+static NSString *const FUTextSmallerItemIdentifier = @"FUTextSmallerItemIdentifier";
+static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier";
 
-static NSString * const FUBrowsaPlugInItemIdentifier = @"com.fluidapp.BrowsaPlugIn";
-static NSString * const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPlugIn";
+static NSString *const FUBrowsaPlugInItemIdentifier = @"com.fluidapp.BrowsaPlugIn";
+static NSString *const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPlugIn";
+static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
 
 @interface FUWindowController (NSToolbarDelegatePrivate)
 - (NSToolbarItem *)plugInButtonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
@@ -127,6 +128,11 @@ static NSString * const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPl
     } else if ([itemID isEqualToString:FUTwitterPlugInItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_browsa" : @"toolbar_button_twitter";
         item = [self plugInButtonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Twitter", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
+
+    } else if ([itemID isEqualToString:FUTabsPlugInItemIdentifier]) {
+        name = isFullScreen ? @"fullscreen_toolbar_button_tabs" : NSImageNameIconViewTemplate;
+        item = [self plugInButtonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Tabs", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
+
     } 
     
     return item;
