@@ -891,7 +891,11 @@
         [self clearProgress];
     }
 
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:tc forKey:FUTabControllerKey];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              tc, FUTabControllerKey,
+                              [NSNumber numberWithInteger:self.selectedTabIndex], FUIndexKey,
+                              nil];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidChangeSelectedTabNotification object:self userInfo:userInfo];
 }
 
@@ -986,7 +990,7 @@
     
     FUWebView *wv = [[tabItem identifier] webView];
     
-    return [wv imageFromWebContent];
+    return [wv imageOfWebContent];
 }
 
 

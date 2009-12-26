@@ -210,14 +210,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8D5B49B6048680CD000E48DA /* Tabs.fluidplugin */;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = TabsPlugIn;
 		};
 		D32E8C3310E593FE00445B4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* TabsPlugIn */;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = TabsPlugIn;
 		};
 		D346E48E10CE434A00BA0B15 /* PBXContainerItemProxy */ = {

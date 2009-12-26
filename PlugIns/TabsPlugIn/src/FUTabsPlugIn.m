@@ -7,6 +7,9 @@
 //
 
 #import "FUTabsPlugIn.h"
+#import "FUNotifications.h"
+#import "FUPlugIn.h"
+#import "FUPlugInAPI.h"
 #import "FUTabsViewController.h"
 #import "FUTabsPreferencesViewController.h"
 
@@ -41,7 +44,7 @@
                                          FUPlugInViewPlacementSplitViewRight|
                                          FUPlugInViewPlacementSplitViewTop|
                                          FUPlugInViewPlacementSplitViewBottom);
-        self.preferredViewPlacementMask = FUPlugInViewPlacementDrawer;;
+        self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewBottom;
         self.preferredMenuItemKeyEquivalent = @"t";
         
         // get defaults from disk
@@ -79,16 +82,36 @@
 
 
 - (void)plugInViewControllerDidAppear:(NSNotification *)n {
+    FUTabsViewController *vc = [n object];
+    [vc viewDidAppear];
+    
+    NSWindowController *wc = [[vc.view window] windowController];
+
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:vc selector:@selector(windowControllerDidOpenTab:) name:FUWindowControllerDidOpenTabNotification object:wc];
+    [nc addObserver:vc selector:@selector(windowControllerWillCloseTab:) name:FUWindowControllerWillCloseTabNotification object:wc];
+    [nc addObserver:vc selector:@selector(windowControllerDidChangeSelectedTab:) name:FUWindowControllerDidChangeSelectedTabNotification object:wc];
 }
 
 
 - (void)plugInViewControllerWillDisappear:(NSNotification *)n {
+    FUTabsViewController *vc = [n object];
+    [vc viewWillDisappear];
+
+    NSWindowController *wc = [[vc.view window] windowController];
+
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:vc name:FUWindowControllerDidOpenTabNotification object:wc];
+    [nc removeObserver:vc name:FUWindowControllerWillCloseTabNotification object:wc];
+    [nc removeObserver:vc name:FUWindowControllerDidChangeSelectedTabNotification object:wc];
 }
 
 
 - (NSViewController *)newPlugInViewController {
     FUTabsViewController *vc = [[FUTabsViewController alloc] init];
     [viewControllers addObject:vc];
+    vc.plugIn = self;
+    vc.plugInAPI = plugInAPI;
     return vc;
 }
 

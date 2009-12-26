@@ -41,6 +41,7 @@ extern NSString *const FUWindowControllerWillCloseTabNotification;
 extern NSString *const FUWindowControllerDidChangeSelectedTabNotification;
 
 extern NSString *const FUTabControllerKey;
+extern NSString *const FUIndexKey;
 
 @interface NSObject (FUWindowControllerNotifications)
 - (void)windowControllerDidOpen:(NSNotification *)n;

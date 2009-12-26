@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		D32CE86610E59A9600F28812 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32CE86510E59A9600F28812 /* Quartz.framework */; };
+		D32CE94110E59D1500F28812 /* FUImageBrowserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D32CE94010E59D1500F28812 /* FUImageBrowserItem.m */; };
 		D32E8AD810E52C4600445B4C /* FUTabsPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8AD710E52C4600445B4C /* FUTabsPlugIn.m */; };
 		D32E8AE910E52C5F00445B4C /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8ADD10E52C5F00445B4C /* FUUtils.m */; };
 		D32E8AEA10E52C5F00445B4C /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8ADF10E52C5F00445B4C /* FUNotifications.m */; };
@@ -28,6 +30,9 @@
 		8D5B49B6048680CD000E48DA /* Tabs.fluidplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tabs.fluidplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = res/conf/Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D32CE86510E59A9600F28812 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		D32CE93F10E59D1500F28812 /* FUImageBrowserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUImageBrowserItem.h; path = src/FUImageBrowserItem.h; sourceTree = "<group>"; };
+		D32CE94010E59D1500F28812 /* FUImageBrowserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUImageBrowserItem.m; path = src/FUImageBrowserItem.m; sourceTree = "<group>"; };
 		D32E8AD610E52C4600445B4C /* FUTabsPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabsPlugIn.h; path = src/FUTabsPlugIn.h; sourceTree = "<group>"; };
 		D32E8AD710E52C4600445B4C /* FUTabsPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabsPlugIn.m; path = src/FUTabsPlugIn.m; sourceTree = "<group>"; };
 		D32E8ADC10E52C5F00445B4C /* FUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUtils.h; path = ../../Fluidium/src/FUUtils.h; sourceTree = SOURCE_ROOT; };
@@ -53,6 +58,7 @@
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D32E8B0110E52D6800445B4C /* WebKit.framework in Frameworks */,
+				D32CE86610E59A9600F28812 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +106,8 @@
 				D32E8BDF10E58F8A00445B4C /* FUTabsViewController.m */,
 				D32E8BE510E5915600445B4C /* FUTabsPreferencesViewController.h */,
 				D32E8BE610E5915600445B4C /* FUTabsPreferencesViewController.m */,
+				D32CE93F10E59D1500F28812 /* FUImageBrowserItem.h */,
+				D32CE94010E59D1500F28812 /* FUImageBrowserItem.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -109,6 +117,7 @@
 			children = (
 				D32E8B0010E52D6800445B4C /* WebKit.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+				D32CE86510E59A9600F28812 /* Quartz.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -239,6 +248,7 @@
 				D32E8AD810E52C4600445B4C /* FUTabsPlugIn.m in Sources */,
 				D32E8BE010E58F8A00445B4C /* FUTabsViewController.m in Sources */,
 				D32E8BE710E5915600445B4C /* FUTabsPreferencesViewController.m in Sources */,
+				D32CE94110E59D1500F28812 /* FUImageBrowserItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

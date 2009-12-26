@@ -8,8 +8,22 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FUTabsViewController : NSViewController {
+@class IKImageBrowserView;
+@class FUTabsPlugIn;
+@protocol FUPlugInAPI;
 
+@interface FUTabsViewController : NSViewController {
+    IKImageBrowserView *imageBrowserView;
+    FUTabsPlugIn *plugIn;
+    id <FUPlugInAPI>plugInAPI;
+    NSMutableArray *imageBrowserItems;
 }
 
+- (void)viewDidAppear;
+- (void)viewWillDisappear;
+
+@property (nonatomic, retain) IBOutlet IKImageBrowserView *imageBrowserView;
+@property (nonatomic, assign) FUTabsPlugIn *plugIn;
+@property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;
+@property (nonatomic, retain) NSMutableArray *imageBrowserItems;
 @end
