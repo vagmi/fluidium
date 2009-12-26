@@ -73,7 +73,7 @@
 - (void)addRecentURL:(NSString *)s;
 - (void)addMatchingRecentURL:(NSString *)s;
 
-- (void)editBookmarkSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(NSDictionary *)d;
+- (void)editBookmarkSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(FUBookmark *)bmark;
 
 - (void)tabBarShownDidChange:(NSNotification *)n;
 - (void)tabBarHiddenForSingleTabDidChange:(NSNotification *)n;
@@ -576,17 +576,14 @@
 
 - (void)runEditTitleSheetForBookmark:(FUBookmark *)bmark {
     self.editingBookmark = [FUBookmark bookmarkWithTitle:bmark.title content:bmark.content];
-    
-    NSDictionary *d = [[NSDictionary alloc] initWithObjectsAndKeys:
-                        editingBookmark, @"new",
-                        bmark, @"old",
-                        nil]; // retained
+
+    [bmark retain]; // retained
     
     [NSApp beginSheet:editBookmarkSheet 
        modalForWindow:[self window] 
         modalDelegate:self 
        didEndSelector:@selector(editBookmarkSheetDidEnd:returnCode:contextInfo:) 
-          contextInfo:d];
+          contextInfo:bmark];
 }
 
 
@@ -1292,13 +1289,11 @@
 }
 
 
-- (void)editBookmarkSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(NSDictionary *)d {
-    [d autorelease]; // released
+- (void)editBookmarkSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(FUBookmark *)bmark {
+    [bmark autorelease]; // released
     
     if (NSOKButton == code) {
-        FUBookmark *oldBmark = [d objectForKey:@"old"];
-        FUBookmark *newBmark = [d objectForKey:@"new"];
-        oldBmark.title = newBmark.title;
+        bmark.title = editingBookmark.title;
         
         [[FUBookmarkController instance] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:FUBookmarksDidChangeNotification object:nil];

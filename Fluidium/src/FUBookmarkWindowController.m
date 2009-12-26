@@ -19,7 +19,6 @@
 
 @interface FUBookmarkWindowController ()
 - (void)postBookmarksDidChangeNotification;
-- (void)bookmarksChanged:(NSNotification *)n;
 - (void)update;
 
 - (void)insertObject:(FUBookmark *)bmark inBookmarksAtIndex:(NSInteger)i;
@@ -181,7 +180,7 @@
 #pragma mark -
 #pragma mark Notifications
 
-- (void)bookmarksChanged:(NSNotification *)n {
+- (void)bookmarksDidChange:(NSNotification *)n {
     [self update];
 }
 
