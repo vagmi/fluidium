@@ -75,57 +75,49 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         self.preferredTopSplitHeight = 175;
         self.preferredBottomSplitHeight = 175;
         self.snapsToPreferredSplitWidths = YES;
-        self.snapTolerance = 35;
+        self.snapTolerance = 22;
         
         self.leftViewOpen = NO;
         self.rightViewOpen = NO;
         self.topViewOpen = NO;
         self.bottomViewOpen = NO;
         
-        self.vSplitView = [[TDUberViewSplitView alloc] initWithFrame:NSMakeRect(0, 0, frame.size.width, frame.size.height)];
-        [vSplitView release];
+        self.vSplitView = [[[TDUberViewSplitView alloc] initWithFrame:NSMakeRect(0, 0, frame.size.width, frame.size.height)] autorelease];
         [vSplitView setVertical:YES];
         [vSplitView setDividerStyle:splitViewDividerStyle];
-        vSplitView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
-        vSplitView.delegate = self;
+        [vSplitView setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+        [vSplitView setDelegate:self];
         [self addSubview:vSplitView];
 
         self.leftSuperview = [[NSView alloc] initWithFrame:NSZeroRect];
-        leftSuperview.frame = NSMakeRect(0, 0, preferredLeftSplitWidth, MAXFLOAT);
+        [leftSuperview setFrame:NSMakeRect(0, 0, preferredLeftSplitWidth, MAXFLOAT)];
         
-        self.hSplitView = [[TDUberViewSplitView alloc] initWithFrame:NSMakeRect(0, 0, frame.size.width, frame.size.height)];
-        [hSplitView release];
+        self.hSplitView = [[[TDUberViewSplitView alloc] initWithFrame:NSMakeRect(0, 0, frame.size.width, frame.size.height)] autorelease];
         [hSplitView setVertical:NO];
         [hSplitView setDividerStyle:splitViewDividerStyle];
-        hSplitView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
-        hSplitView.delegate = self;
+        [hSplitView setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+        [hSplitView setDelegate:self];
         [vSplitView addSubview:hSplitView];
 
-        self.rightSuperview = [[NSView alloc] initWithFrame:NSZeroRect];
-        rightSuperview.frame = NSMakeRect(vSplitView.frame.size.width - preferredLeftSplitWidth - preferredRightSplitWidth, 0, preferredRightSplitWidth, MAXFLOAT);
+        self.rightSuperview = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
+        [rightSuperview setFrame:NSMakeRect(NSWidth([vSplitView frame]) - preferredLeftSplitWidth - preferredRightSplitWidth, 0, preferredRightSplitWidth, MAXFLOAT)];
 
-        self.topSuperview = [[NSView alloc] initWithFrame:NSZeroRect];
-        topSuperview.frame = NSMakeRect(0, 0, MAXFLOAT, preferredTopSplitHeight);
+        self.topSuperview = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
+        [topSuperview setFrame:NSMakeRect(0, 0, MAXFLOAT, preferredTopSplitHeight)];
 
-        self.midSuperview = [[NSView alloc] initWithFrame:NSZeroRect];
+        self.midSuperview = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
         [hSplitView addSubview:midSuperview];
-        midSuperview.frame = NSMakeRect(0, 0, MAXFLOAT, MAXFLOAT);
+        [midSuperview setFrame:NSMakeRect(0, 0, MAXFLOAT, MAXFLOAT)];
 
-        self.bottomSuperview = [[NSView alloc] initWithFrame:NSZeroRect];
-        bottomSuperview.frame = NSMakeRect(0, 0, MAXFLOAT, preferredBottomSplitHeight);
+        self.bottomSuperview = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
+        [bottomSuperview setFrame:NSMakeRect(0, 0, MAXFLOAT, preferredBottomSplitHeight)];
 
-        leftSuperview.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
-        rightSuperview.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
-        topSuperview.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
-        midSuperview.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
-        bottomSuperview.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable;
+        [leftSuperview setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+        [rightSuperview setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+        [topSuperview setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+        [midSuperview setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+        [bottomSuperview setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
         
-        [leftSuperview release];
-        [rightSuperview release];
-        [topSuperview release];
-        [midSuperview release];
-        [bottomSuperview release];
-
         [self resetCapturing];
     }
     return self;
@@ -186,7 +178,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.leftViewOpen = YES;
     
     // add leftSuperview to splitview if necessary
-    if (leftSuperview.superview != vSplitView) {
+    if ([leftSuperview superview] != vSplitView) {
         [vSplitView addSubview:leftSuperview];
         [vSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDVSplitViewSubviewComparatorFunc context:self];
     }
@@ -202,7 +194,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.leftViewOpen = NO;
     
     // remove leftSuperview from splitview if necessary
-    if (leftSuperview.superview == vSplitView) {
+    if ([leftSuperview superview] == vSplitView) {
         [leftSuperview removeFromSuperview];
     }
 
@@ -229,7 +221,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.rightViewOpen = YES;
 
     // add rightSuperview to splitview if necessary
-    if (rightSuperview.superview != vSplitView) {
+    if ([rightSuperview superview] != vSplitView) {
         [vSplitView addSubview:rightSuperview];
         [vSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDVSplitViewSubviewComparatorFunc context:self];
     }
@@ -245,7 +237,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.rightViewOpen = NO;
 
     // remove rightSuperview from splitview if necessary
-    if (rightSuperview.superview == vSplitView) {
+    if ([rightSuperview superview] == vSplitView) {
         [rightSuperview removeFromSuperview];
     }
     
@@ -272,7 +264,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.topViewOpen = YES;
     
     // add topSuperview to splitview if necessary
-    if (topSuperview.superview != hSplitView) {
+    if ([topSuperview superview] != hSplitView) {
         [hSplitView addSubview:topSuperview];
         [hSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDHSplitViewSubviewComparatorFunc context:self];
     }
@@ -288,7 +280,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.topViewOpen = NO;
     
     // remove topSuperview from splitview if necessary
-    if (topSuperview.superview == hSplitView) {
+    if ([topSuperview superview] == hSplitView) {
         [topSuperview removeFromSuperview];
     }
     
@@ -315,7 +307,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.bottomViewOpen = YES;
     
     // add bottomSuperview to splitview if necessary
-    if (bottomSuperview.superview != hSplitView) {
+    if ([bottomSuperview superview] != hSplitView) {
         [hSplitView addSubview:bottomSuperview];
         [hSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDHSplitViewSubviewComparatorFunc context:self];
     }
@@ -332,7 +324,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.bottomViewOpen = NO;
     
     // remove bottomSuperview from splitview if necessary
-    if (bottomSuperview.superview == hSplitView) {
+    if ([bottomSuperview superview] == hSplitView) {
         [bottomSuperview removeFromSuperview];
     }
     
@@ -376,24 +368,24 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (CGFloat)vSplitView:(NSSplitView *)splitView constrainSplitPosition:(CGFloat)proposedPosition ofSubviewAt:(NSInteger)dividerIndex {
     CGFloat result = proposedPosition;
-    CGFloat dividerThickness = splitView.dividerThickness;
+    CGFloat dividerThickness = [splitView dividerThickness];
 
     if (leftViewOpen && 0 == dividerIndex) { // snap leftFrame
         CGFloat x = preferredLeftSplitWidth;
-        if (rightViewOpen && proposedPosition > rightSuperview.frame.origin.x - dividerThickness - snapTolerance) {
-            result = rightSuperview.frame.origin.x;
-        } else if (proposedPosition > splitView.frame.size.width - dividerThickness - snapTolerance) {
-            result = splitView.frame.size.width;
+        if (rightViewOpen && proposedPosition > NSMinX([rightSuperview frame]) - dividerThickness - snapTolerance) {
+            result = NSMinX([rightSuperview frame]);
+        } else if (proposedPosition > NSWidth([splitView frame]) - dividerThickness - snapTolerance) {
+            result = NSWidth([splitView frame]);
         } else if (proposedPosition > x - snapTolerance && proposedPosition < x + snapTolerance) {
             result = x;
         } else if (proposedPosition >= 0 && proposedPosition < snapTolerance) {
             result = 0;
         }
     } else if ((!leftViewOpen && 0 == dividerIndex) || (leftViewOpen && 1 == dividerIndex)) { //snap rightFrame
-        NSRect frame = splitView.frame;
+        NSRect frame = [splitView frame];
         CGFloat x = frame.size.width - preferredRightSplitWidth;
-        if (proposedPosition < hSplitView.frame.origin.x + snapTolerance - dividerThickness) {
-            result = hSplitView.frame.origin.x;
+        if (proposedPosition < NSMinX([hSplitView frame]) + snapTolerance - dividerThickness) {
+            result = NSMinX([hSplitView frame]);
         } else if (proposedPosition > x - snapTolerance && proposedPosition < x + snapTolerance) {
             result = x - dividerThickness;
         } else if (proposedPosition < frame.size.width && proposedPosition > frame.size.width - snapTolerance) {
@@ -407,24 +399,24 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (CGFloat)hSplitView:(NSSplitView *)splitView constrainSplitPosition:(CGFloat)proposedPosition ofSubviewAt:(NSInteger)dividerIndex {
     CGFloat result = proposedPosition;
-    CGFloat dividerThickness = splitView.dividerThickness;
+    CGFloat dividerThickness = [splitView dividerThickness];
     
     if (topViewOpen && 0 == dividerIndex) { // snap topFrame
         CGFloat y = preferredTopSplitHeight;
-        if (bottomViewOpen && proposedPosition > bottomSuperview.frame.origin.y - dividerThickness - snapTolerance) {
-            result = rightSuperview.frame.origin.x;
-        } else if (proposedPosition > splitView.frame.size.height - dividerThickness - snapTolerance) {
-            result = splitView.frame.size.height;
+        if (bottomViewOpen && proposedPosition > NSMinY([bottomSuperview frame]) - dividerThickness - snapTolerance) {
+            result = NSMinY([rightSuperview frame]);
+        } else if (proposedPosition > NSHeight([splitView frame]) - dividerThickness - snapTolerance) {
+            result = NSHeight([splitView frame]);
         } else if (proposedPosition > y - snapTolerance && proposedPosition < y + snapTolerance) {
             result = y;
         } else if (proposedPosition >= 0 && proposedPosition < snapTolerance) {
             result = 0;
         }
     } else if ((!topViewOpen && 0 == dividerIndex) || (topViewOpen && 1 == dividerIndex)) { //snap rightFrame
-        NSRect frame = splitView.frame;
+        NSRect frame = [splitView frame];
         CGFloat y = frame.size.height - preferredTopSplitHeight;
-        if (proposedPosition < midSuperview.frame.origin.y + snapTolerance - dividerThickness) {
-            result = midSuperview.frame.origin.y;
+        if (proposedPosition < NSMinY([midSuperview frame]) + snapTolerance - dividerThickness) {
+            result = NSMinY([midSuperview frame]);
         } else if (proposedPosition > y - snapTolerance && proposedPosition < y + snapTolerance) {
             result = y - dividerThickness;
         } else if (proposedPosition < frame.size.height && proposedPosition > frame.size.height - snapTolerance) {
@@ -446,11 +438,11 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 
 - (void)vSplitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize {
-    NSRect newFrame = splitView.frame; // get the new size of the whole splitView
+    NSRect newFrame = [splitView frame]; // get the new size of the whole splitView
     
-    NSRect leftFrame = leftSuperview.frame;
-    NSRect midFrame = hSplitView.frame;
-    NSRect rightFrame = rightSuperview.frame;
+    NSRect leftFrame = [leftSuperview frame];
+    NSRect midFrame = [hSplitView frame];
+    NSRect rightFrame = [rightSuperview frame];
 
     if (-1 == dragStartMidWidth) {
         dragStartMidWidth = midFrame.size.width;
@@ -462,7 +454,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
     BOOL bothOpen = (leftViewOpen && rightViewOpen);
     
-    CGFloat dividerThickness = splitView.dividerThickness;
+    CGFloat dividerThickness = [splitView dividerThickness];
     
     leftFrame.size.height = newFrame.size.height;
     midFrame.size.height = newFrame.size.height;
@@ -553,20 +545,20 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         midFrame.size.width = newMidWidth;
     }
     
-    leftSuperview.frame = leftFrame;
+    [leftSuperview setFrame:leftFrame];
     [leftView setFrameSize:leftFrame.size];
-    hSplitView.frame = midFrame;
-    rightSuperview.frame = rightFrame;
+    [hSplitView setFrame:midFrame];
+    [rightSuperview setFrame:rightFrame];
     [rightView setFrameSize:rightFrame.size];
 }
 
 
 - (void)hSplitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize {
-    NSRect newFrame = splitView.frame; // get the new size of the whole splitView
+    NSRect newFrame = [splitView frame]; // get the new size of the whole splitView
     
-    NSRect topFrame = topSuperview.frame;
-    NSRect midFrame = hSplitView.frame;
-    NSRect bottomFrame = bottomSuperview.frame;
+    NSRect topFrame = [topSuperview frame];
+    NSRect midFrame = [hSplitView frame];
+    NSRect bottomFrame = [bottomSuperview frame];
     
     if (-1 == dragStartMidWidth) {
         dragStartMidWidth = midFrame.size.height;
@@ -578,7 +570,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     
     BOOL bothOpen = (topViewOpen && bottomViewOpen);
     
-    CGFloat dividerThickness = splitView.dividerThickness;
+    CGFloat dividerThickness = [splitView dividerThickness];
     
     topFrame.size.width = newFrame.size.width;
     midFrame.size.width = newFrame.size.width;
@@ -670,11 +662,11 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         midFrame.size.height = newMidHeight;
     }
     
-    topSuperview.frame = topFrame;
+    [topSuperview setFrame:topFrame];
     [topView setFrameSize:topFrame.size];
-    midSuperview.frame = NSMakeRect(0, midFrame.origin.y, midFrame.size.width, midFrame.size.height);
-    midView.frame = NSMakeRect(0, 0, midFrame.size.width, midFrame.size.height);
-    bottomSuperview.frame = bottomFrame;
+    [midSuperview setFrame:NSMakeRect(0, midFrame.origin.y, midFrame.size.width, midFrame.size.height)];
+    [midView setFrame:NSMakeRect(0, 0, midFrame.size.width, midFrame.size.height)];
+    [bottomSuperview setFrame:bottomFrame];
     [bottomView setFrameSize:bottomFrame.size];
 }
 
@@ -719,7 +711,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)storeLeftSplitPosition {
     if (leftViewOpen) {
-        CGFloat leftViewWidth = abs(leftSuperview.frame.size.width);
+        CGFloat leftViewWidth = abs(NSWidth([leftSuperview frame]));
         leftViewWidth = (leftViewWidth < 1) ? 1 : leftViewWidth;
         [[NSUserDefaults standardUserDefaults] setFloat:leftViewWidth forKey:@"TDUberView_leftViewWidth"];
     }
@@ -728,7 +720,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)storeRightSplitPosition {
     if (rightViewOpen) {
-        CGFloat rightViewWidth = abs(rightSuperview.frame.size.width);
+        CGFloat rightViewWidth = abs(NSWidth([rightSuperview frame]));
         [[NSUserDefaults standardUserDefaults] setFloat:rightViewWidth forKey:@"TDUberView_rightViewWidth"];
     }
 }
@@ -736,7 +728,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)storeTopSplitPosition {
     if (topViewOpen) {
-        CGFloat topViewHeight = abs(topSuperview.frame.size.height);
+        CGFloat topViewHeight = abs(NSHeight([topSuperview frame]));
         topViewHeight = (topViewHeight < 1) ? 1 : topViewHeight;
         [[NSUserDefaults standardUserDefaults] setFloat:topViewHeight forKey:@"TDUberView_topViewHeight"];
     }
@@ -745,7 +737,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)storeBottomSplitPosition {
     if (bottomViewOpen) {
-        CGFloat bottomViewHeight = abs(bottomView.frame.size.height);
+        CGFloat bottomViewHeight = abs(NSHeight([bottomView frame]));
         [[NSUserDefaults standardUserDefaults] setFloat:bottomViewHeight forKey:@"TDUberView_bottomViewHeight"];
     }
 }
@@ -798,14 +790,14 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)restoreLeftSplitPosition {
     CGFloat leftViewWidth = [self storedLeftSplitPosition];
-    NSRect midFrame = hSplitView.frame;
+    NSRect midFrame = [hSplitView frame];
     midFrame.origin.x = leftViewWidth;
     midFrame.size.width -= leftViewWidth;
-    hSplitView.frame = midFrame;
+    [hSplitView setFrame:midFrame];
     
-    NSRect leftFrame = leftSuperview.frame;
+    NSRect leftFrame = [leftSuperview frame];
     leftFrame.size.width = leftViewWidth;
-    leftSuperview.frame = leftFrame;
+    [leftSuperview setFrame:leftFrame];
 }
 
 
@@ -826,16 +818,16 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)restoreRightSplitPosition {
     CGFloat rightViewWidth = [self storedRightSplitPosition];
-    //CGFloat dividerThickness = vSplitView.dividerThickness;
-    NSRect midFrame = hSplitView.frame;
-    midFrame.size.width = vSplitView.frame.size.width - fabs(leftSuperview.frame.size.width) - rightViewWidth;
-    hSplitView.frame = midFrame;
+    //CGFloat dividerThickness = [vSplitView dividerThickness];
+    NSRect midFrame = [hSplitView frame];
+    midFrame.size.width = NSWidth([vSplitView frame]) - fabs(NSWidth([leftSuperview frame])) - rightViewWidth;
+    [hSplitView setFrame:midFrame];
     
-    NSRect rightFrame = rightSuperview.frame;
+    NSRect rightFrame = [rightSuperview frame];
     
     rightFrame.size.width = rightViewWidth;
-    rightFrame.origin.x = (vSplitView.frame.size.width - rightViewWidth);
-    rightSuperview.frame = rightFrame;
+    rightFrame.origin.x = (NSWidth([vSplitView frame]) - rightViewWidth);
+    [rightSuperview setFrame:rightFrame];
 }
 
 
@@ -856,15 +848,15 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)restoreTopSplitPosition {
     CGFloat topViewHeight = [self storedTopSplitPosition];
-    CGFloat dividerThickness = hSplitView.dividerThickness;
-    NSRect midFrame = midSuperview.frame;
+    CGFloat dividerThickness = [hSplitView dividerThickness];
+    NSRect midFrame = [midSuperview frame];
     midFrame.origin.y = topViewHeight;
     midFrame.size.height -= topViewHeight - dividerThickness;
-    midSuperview.frame = midFrame;
+    [midSuperview setFrame:midFrame];
     
-    NSRect topFrame = topSuperview.frame;
+    NSRect topFrame = [topSuperview frame];
     topFrame.size.height = topViewHeight;
-    topSuperview.frame = topFrame;
+    [topSuperview setFrame:topFrame];
 }
 
 
@@ -885,17 +877,17 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 - (void)restoreBottomSplitPosition {
     CGFloat bottomViewHeight = [self storedBottomSplitPosition];
-    CGFloat dividerThickness = hSplitView.dividerThickness;
-    NSRect midFrame = midSuperview.frame;
-    midFrame.size.height = hSplitView.frame.size.height - abs(topSuperview.frame.size.height) - bottomViewHeight - dividerThickness;
-    midSuperview.frame = midFrame;
+    CGFloat dividerThickness = [hSplitView dividerThickness];
+    NSRect midFrame = [midSuperview frame];
+    midFrame.size.height = NSHeight([hSplitView frame]) - abs(NSHeight([topSuperview frame])) - bottomViewHeight - dividerThickness;
+    [midSuperview setFrame:midFrame];
     
-    NSRect bottomFrame = bottomSuperview.frame;
+    NSRect bottomFrame = [bottomSuperview frame];
     
     bottomFrame.size.width = MAXFLOAT;
     bottomFrame.size.height = bottomViewHeight;
     bottomFrame.origin.y = (midFrame.origin.y + midFrame.size.height + dividerThickness);
-    bottomSuperview.frame = bottomFrame;
+    [bottomSuperview setFrame:bottomFrame];
 }
 
 
@@ -919,8 +911,8 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         // if leftView is not nil...
         if (leftView) {
             // set sizing of new leftView...
-            leftView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable; //NSViewMinXMargin|NSViewMinYMargin|NSViewMaxXMargin|NSViewMaxYMargin|
-            leftView.frame = leftSuperview.bounds;
+            [leftView setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+            [leftView setFrame:[leftSuperview bounds]];
             
             // & add to leftSuperview
             [leftSuperview addSubview:leftView];
@@ -946,8 +938,8 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         // if rightView is not nil...
         if (rightView) {
             // set sizing of new rightView...
-            rightView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable; //NSViewMinXMargin|NSViewMinYMargin|NSViewMaxXMargin|NSViewMaxYMargin|
-            rightView.frame = rightSuperview.bounds;
+            [rightView setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+            [rightView setFrame:[rightSuperview bounds]];
             
             // & add to rightSuperview
             [rightSuperview addSubview:rightView];
@@ -974,8 +966,8 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         // if topView is not nil...
         if (topView) {
             // set sizing of new topView...
-            topView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable; //NSViewMinXMargin|NSViewMinYMargin|NSViewMaxXMargin|NSViewMaxYMargin|
-            topView.frame = topSuperview.bounds;
+            [topView setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+            [topView setFrame:[topSuperview bounds]];
             
             // & add to topSuperview
             [topSuperview addSubview:topView];
@@ -994,8 +986,8 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     if (v != midView) {
         [midView autorelease];
         midView = [v retain];
-        midView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable; //NSViewMinXMargin|NSViewMinYMargin|NSViewMaxXMargin|NSViewMaxYMargin|
-        midView.frame = midSuperview.bounds;
+        [midView setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+        [midView setFrame:[midSuperview bounds]];
         [midSuperview addSubview:midView];
     }
 }
@@ -1018,8 +1010,8 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         // if bottomView is not nil...
         if (bottomView) {
             // set sizing of new bottomView...
-            bottomView.autoresizingMask = NSViewHeightSizable|NSViewWidthSizable; //NSViewMinXMargin|NSViewMinYMargin|NSViewMaxXMargin|NSViewMaxYMargin|
-            bottomView.frame = bottomSuperview.bounds;
+            [bottomView setAutoresizingMask:NSViewHeightSizable|NSViewWidthSizable];
+            [bottomView setFrame:[bottomSuperview bounds]];
             
             // & add to bottomSuperview
             [bottomSuperview addSubview:bottomView];
