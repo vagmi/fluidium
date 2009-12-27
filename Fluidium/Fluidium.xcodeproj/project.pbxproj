@@ -720,6 +720,7 @@
 		D3E4346610CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkButtonSeparator.m; path = src/FUBookmarkButtonSeparator.m; sourceTree = "<group>"; };
 		D3E4346710CB8D4C00A5BDEF /* FUBookmarkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkWindowController.h; path = src/FUBookmarkWindowController.h; sourceTree = "<group>"; };
 		D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkWindowController.m; path = src/FUBookmarkWindowController.m; sourceTree = "<group>"; };
+		D3F292ED10E7B32500CCB392 /* WebFrameViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebFrameViewPrivate.h; path = src/WebFrameViewPrivate.h; sourceTree = "<group>"; };
 		D3F4C3D310C8C7A300E0B474 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D3F4C49510C8C93400E0B474 /* FUWindowController+NSToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+NSToolbarDelegate.h"; path = "src/FUWindowController+NSToolbarDelegate.h"; sourceTree = "<group>"; };
 		D3F4C49610C8C93400E0B474 /* FUWindowController+NSToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+NSToolbarDelegate.m"; path = "src/FUWindowController+NSToolbarDelegate.m"; sourceTree = "<group>"; };
@@ -1386,6 +1387,7 @@
 			children = (
 				D3F4C59710C8D63400E0B474 /* WebViewPrivate.h */,
 				D3F4C59410C8D63400E0B474 /* WebFramePrivate.h */,
+				D3F292ED10E7B32500CCB392 /* WebFrameViewPrivate.h */,
 				D30BC47D10E18B960019816B /* WebUIDelegatePrivate.h */,
 				D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */,
 				D3F4C59310C8D63400E0B474 /* WebDashboardRegion.h */,

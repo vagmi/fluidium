@@ -39,7 +39,10 @@ NSInteger IKImageStateReady = 2;
 @end
 
 @interface WebView ()
-- (NSBitmapImageRep *)bitmapImageRepOfWebContent;
+- (NSImage *)imageOfWebContent;
+- (NSBitmapImageRep *)bitmapOfWebContent;
+- (NSBitmapImageRep *)landscapeBitmapOfWebContent;
+- (NSBitmapImageRep *)squareBitmapOfWebContent;
 @end
 
 @interface FUTabsViewController ()
@@ -47,7 +50,6 @@ NSInteger IKImageStateReady = 2;
 - (void)updateImageBrowserItemLaterAtIndex:(NSNumber *)indexObj;
 - (void)updateImageBrowserItemAtIndex:(NSInteger)i;
 - (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv;
-- (NSBitmapImageRep *)thumbnailFromWebView:(WebView *)wv;
 @end
 
 @implementation FUTabsViewController
@@ -233,17 +235,12 @@ NSInteger IKImageStateReady = 2;
 
 
 - (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv {
-    item.imageRepresentation = [self thumbnailFromWebView:wv];
+    item.imageRepresentation = [wv bitmapOfWebContent];
     item.imageTitle = [wv mainFrameTitle];
     item.imageSubtitle = [wv mainFrameURL];
 }
 
 
-- (NSBitmapImageRep *)thumbnailFromWebView:(WebView *)wv {
-    return [wv bitmapImageRepOfWebContent];
-}
-         
-         
 - (void)startObserveringTabController:(id)tc {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(tabControllerProgressDidChange:) name:FUTabControllerProgressDidChangeNotification object:tc];

@@ -19,6 +19,7 @@
 #import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
 #import "FUNotifications.h"
+#import "WebFrameViewPrivate.h"
 
 @interface FUWebView ()
 - (void)updateWebPreferences;
@@ -99,71 +100,80 @@
 #pragma mark -
 #pragma mark Public
 
-- (NSImage *)imageOfWebContent {
-    NSRect webBounds = [self bounds];
-    NSImage *image = [[[NSImage alloc] initWithSize:webBounds.size] autorelease];
-    //[self lockFocus];
-    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:webBounds];
-    [image addRepresentation:imageRep];
-    [self cacheDisplayInRect:webBounds toBitmapImageRep:imageRep];
-    //[self unlockFocus];
+- (NSImage *)imageOfWebContentWithAspectRatio:(NSSize)size {
+    NSBitmapImageRep *bitmap = [self bitmapOfWebContentWithAspectRatio:size];
+    NSSize bitmapSize = [bitmap size];
+    
+    NSImage *image = [[[NSImage alloc] initWithSize:bitmapSize] autorelease];
+    [image addRepresentation:bitmap];
     return image;
 }
 
 
-//- (NSImage *)squareImageOfWebContent {
-//    NSBitmapImageRep *imageRep = [self squareBitmapImageRepOfWebContent];
-//    NSSize size = [imageRep size];
-//    NSImage *image = [[[NSImage alloc] initWithSize:size] autorelease];
-//    [image addRepresentation:imageRep];
-//    return image;
-//}
+- (NSImage *)imageOfWebContent {
+    return [self imageOfWebContentWithAspectRatio:[self bounds].size];
+}
 
 
-//- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent {
-- (NSBitmapImageRep *)bitmapImageRepOfWebContent {
+- (NSImage *)landscapeImageOfWebContent {
+    return [self imageOfWebContentWithAspectRatio:NSMakeSize(3, 2)];
+}
+
+
+- (NSImage *)squareImageOfWebContent {
+    return [self imageOfWebContentWithAspectRatio:NSMakeSize(1, 1)];
+}
+
+
+- (NSBitmapImageRep *)bitmapOfWebContentWithAspectRatio:(NSSize)size {
     NSSize fullSize = [self frame].size;
     
-    CGFloat side = 0;
+    // dont show vertical scrollbar in image
+    if ([[[self mainFrame] frameView] _hasScrollBars]) {
+        fullSize.width -= 40;
+    }
+
     CGFloat ratio = 0;
+    NSSize displaySize = NSZeroSize;
     
-    if (fullSize.width < fullSize.height) {
-        side = fullSize.width;
-        ratio = fullSize.width / side;
+    if (size.width > size.height) {
+        ratio = size.height / size.width;
+        displaySize = NSMakeSize(fullSize.width, fullSize.width *ratio);
     } else {
-        side = fullSize.height;
-        ratio = fullSize.height / side;
+        ratio = size.width / size.height;
+        displaySize = NSMakeSize(fullSize.height * ratio, fullSize.height);
+    }
+
+    CGFloat x = fullSize.width / 2.0 - displaySize.width / 2.0;
+    CGFloat y = 0;
+    if (![self isFlipped]) {
+        y = fullSize.height - displaySize.height;
     }
     
-    side = side * ratio;
-    
-    CGFloat x = fullSize.width / 2.0 - side / 2.0;
-    CGFloat y = fullSize.height - side;
-    
-    CGRect r = CGRectMake(x, y, side, side);
+    CGRect r = CGRectMake(x, y, displaySize.width, displaySize.height);
     //NSLog(@"r: %@", NSStringFromRect(r));
     
     //[self lockFocus];
     NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:r];
     [self cacheDisplayInRect:r toBitmapImageRep:imageRep];
     //[self unlockFocus];
-    return imageRep;
+    return imageRep;    
 }
 
 
-//- (NSBitmapImageRep *)bitmapImageRepOfWebContent {
-//    NSSize fullSize = [self frame].size;
-//
-//    CGFloat ratio = .66;
-//    NSSize displaySize = NSMakeSize(fullSize.width, fullSize.width * ratio);
-//
-//    CGRect r = CGRectMake(0, fullSize.height - displaySize.height, displaySize.width, displaySize.height);
-//    //NSLog(@"r: %@", NSStringFromRect(r));
-//    
-//    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:r];
-//    [self cacheDisplayInRect:r toBitmapImageRep:imageRep];
-//    return imageRep;
-//}
+- (NSBitmapImageRep *)bitmapOfWebContent {
+    return [self bitmapOfWebContentWithAspectRatio:[self bounds].size];
+}
+
+
+- (NSBitmapImageRep *)landscapeBitmapOfWebContent {
+    return [self bitmapOfWebContentWithAspectRatio:NSMakeSize(3, 2)];
+}
+
+
+- (NSBitmapImageRep *)squareBitmapOfWebContent {
+    return [self bitmapOfWebContentWithAspectRatio:NSMakeSize(1, 1)];
+}
 
 
 #pragma mark -

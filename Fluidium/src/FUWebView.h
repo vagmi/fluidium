@@ -18,8 +18,13 @@
 
 }
 
+- (NSImage *)imageOfWebContentWithAspectRatio:(NSSize)size;
 - (NSImage *)imageOfWebContent;
-//- (NSImage *)squareImageOfWebContent;
-//- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent;
-- (NSBitmapImageRep *)bitmapImageRepOfWebContent;
+- (NSImage *)landscapeImageOfWebContent;
+- (NSImage *)squareImageOfWebContent;
+
+- (NSBitmapImageRep *)bitmapOfWebContentWithAspectRatio:(NSSize)size;
+- (NSBitmapImageRep *)bitmapOfWebContent;
+- (NSBitmapImageRep *)landscapeBitmapOfWebContent;
+- (NSBitmapImageRep *)squareBitmapOfWebContent;
 @end
