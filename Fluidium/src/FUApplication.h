@@ -40,6 +40,8 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
 // font panel support
 - (IBAction)changeFont:(id)sender;
 
+- (void)showPreferencePaneForIdentifier:(NSString *)s;
+
 - (BOOL)isFullScreen;
 
 - (BOOL)createAppSupportDir;

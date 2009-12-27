@@ -54,7 +54,7 @@
 
 // this is necessary to prevent NSBeep() on every key press in the findPanel
 - (BOOL)makeFirstResponder:(NSResponder *)resp {
-    FUWindowController *wc = (FUWindowController *)[self windowController];
+    FUWindowController *wc = [self windowController];
     if (wc.isTypingInFindPanel) {
         if ([[resp className] isEqualToString:@"WebHTMLView"]) {
             return NO;
@@ -103,7 +103,7 @@
 #pragma mark Actions
 
 - (IBAction)performClose:(id)sender {
-    [(FUWindowController *)[self windowController] performClose:sender];
+    [[self windowController] performClose:sender];
 }
 
 
@@ -134,7 +134,7 @@
 
 - (BOOL)handleCloseSearchPanel:(NSEvent *)evt {
     if ([evt isEscKeyPressed]) {
-        FUWindowController *wc = (FUWindowController *)[self windowController];
+        FUWindowController *wc = [self windowController];
         if ([wc isFindPanelVisible]) {
             [wc hideFindPanel:self];
             return YES;
@@ -148,7 +148,7 @@
     if ([evt isCommandKeyPressed]) {
         NSInteger keyCode = [evt keyCode];
         if (CLOSE_CURLY == keyCode || OPEN_CURLY == keyCode) {
-            FUWindowController *wc = (FUWindowController *)[self windowController];
+            FUWindowController *wc = [self windowController];
             if (CLOSE_CURLY == keyCode) {
                 [wc selectNextTab:self];
             } else if (OPEN_CURLY == keyCode) {
@@ -162,7 +162,7 @@
 
 
 - (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt {
-    //FUWindowController *wc = (FUWindowController *)[self windowController];
+    //FUWindowController *wc = [self windowController];
 	//wc.typingInFindPanel = NO; // ??
     
 	NSInteger i = 0;

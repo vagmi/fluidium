@@ -733,7 +733,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 
 - (void)toggleSplitViewPluginWrapper:(FUPlugInWrapper *)wrap isVertical:(BOOL)isVertical isFirst:(BOOL)isFirst inWindow:(NSWindow *)win {
-    FUWindowController *wc = (FUWindowController *)[win windowController];
+    FUWindowController *wc = [win windowController];
     
     NSViewController *vc = [wrap plugInViewControllerForWindowNumber:[win windowNumber]];
     NSView *plugInView = vc.view;

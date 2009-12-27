@@ -121,6 +121,12 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 }
 
 
+- (void)showPreferencePaneForIdentifier:(NSString *)s {
+    [[OAPreferenceController sharedPreferenceController] showPreferencesPanel:self];
+    [[OAPreferenceController sharedPreferenceController] setCurrentClientRecord:[OAPreferenceController clientRecordWithIdentifier:s]];
+}
+
+
 - (BOOL)createAppSupportDir {
     NSArray *pathComps = [NSArray arrayWithObjects:@"~", @"Library", @"Application Support", @"Fluidium", nil];
     NSString *path = [[NSString pathWithComponents:pathComps] stringByExpandingTildeInPath];

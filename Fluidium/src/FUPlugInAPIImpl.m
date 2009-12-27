@@ -24,7 +24,6 @@
 #import "FUWebView.h"
 #import "FUPlugInWrapper.h"
 #import "FUPlugInAPI.h"
-#import <OmniAppKit/OAPreferenceController.h>
 #import <WebKit/WebKit.h>
 
 @interface FUWindowController ()
@@ -177,8 +176,7 @@
 
 
 - (void)showPreferencePaneForIdentifier:(NSString *)s {
-    [[OAPreferenceController sharedPreferenceController] showPreferencesPanel:self];
-    [[OAPreferenceController sharedPreferenceController] setCurrentClientRecord:[OAPreferenceController clientRecordWithIdentifier:s]];
+    [[FUApplication instance] showPreferencePaneForIdentifier:s];
 }
 
 
@@ -187,7 +185,7 @@
 
 - (FUWindowController *)windowControllerForWindow:(NSWindow *)win {
     if ([win isMemberOfClass:[FUWindow class]]) {
-        return (FUWindowController *)[win windowController];
+        return [win windowController];
     } else {
         return [[FUDocumentController instance] frontWindowController];
     }
