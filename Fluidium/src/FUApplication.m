@@ -49,6 +49,8 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 - (id)init {
     if (self = [super init]) {
+        self.versionString = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
+
         [self createAppSupportDir];
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -62,6 +64,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.appName = nil;
+    self.versionString = nil;
     self.appSupportDirPath = nil;
     self.ssbSupportDirPath = nil;
     self.userscriptDirPath = nil;
@@ -72,6 +75,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     self.downloadArchiveFilePath = nil;
     self.plugInPrivateDirPath = nil;
     self.plugInDirPath = nil;
+    self.plugInSupportDirPath = nil;
     [super dealloc];
 }
 
@@ -127,6 +131,16 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 }
 
 
+- (NSString *)defaultUserAgentString {
+    return [[FUUserAgentWindowController instance] defaultUserAgentString];
+}
+
+
+- (NSArray *)allUserAgentStrings {
+    return [[FUUserAgentWindowController instance] allUserAgentStrings];
+}
+
+
 - (BOOL)createAppSupportDir {
     NSArray *pathComps = [NSArray arrayWithObjects:@"~", @"Library", @"Application Support", @"Fluidium", nil];
     NSString *path = [[NSString pathWithComponents:pathComps] stringByExpandingTildeInPath];
@@ -144,18 +158,19 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
         self.ssbSupportDirPath = path;
         [self createDirAtPathIfDoesntExist:ssbSupportDirPath];
 
-        path = [ssbSupportDirPath stringByAppendingPathComponent:@"Userscripts"];
-        self.userscriptDirPath = path;
+        self.userscriptDirPath = [ssbSupportDirPath stringByAppendingPathComponent:@"Userscripts"];
         [self createDirAtPathIfDoesntExist:userscriptDirPath];
         self.userscriptFilePath = [[userscriptDirPath stringByAppendingPathComponent:@"Userscripts"] stringByAppendingPathExtension:@"plist"];
         
-        path = [ssbSupportDirPath stringByAppendingPathComponent:@"Userstyles"];
-        self.userstyleDirPath = path;
+        self.userstyleDirPath = [ssbSupportDirPath stringByAppendingPathComponent:@"Userstyles"];
         [self createDirAtPathIfDoesntExist:userstyleDirPath];
         self.userstyleFilePath = [[userstyleDirPath stringByAppendingPathComponent:@"Userstyles"] stringByAppendingPathExtension:@"plist"];
         
         self.downloadArchiveFilePath = [ssbSupportDirPath stringByAppendingPathComponent:@"DownloadArchive"];
         self.bookmarksFilePath = [ssbSupportDirPath stringByAppendingPathComponent:@"Bookmarks"];
+
+        self.plugInSupportDirPath = [ssbSupportDirPath stringByAppendingPathComponent:@"PlugIn Support"];
+        [self createDirAtPathIfDoesntExist:plugInSupportDirPath];
 
         path = [appSupportDirPath stringByAppendingPathComponent:@"IconDatabase"];
         success = [self createDirAtPathIfDoesntExist:path];
@@ -192,9 +207,8 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 - (void)checkForVersionChange {
     NSString *lastVers = [[NSUserDefaults standardUserDefaults] stringForKey:kFUApplicationLastVersionStringKey];
-    NSString *currVers = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
-    if (![lastVers isEqualToString:currVers]) {
-        [[NSUserDefaults standardUserDefaults] setObject:currVers forKey:kFUApplicationLastVersionStringKey];
+    if (![lastVers isEqualToString:versionString]) {
+        [[NSUserDefaults standardUserDefaults] setObject:versionString forKey:kFUApplicationLastVersionStringKey];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:FUApplicationVersionDidChangeNotification object:self];
     }    
@@ -238,6 +252,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 }
 
 @synthesize appName;
+@synthesize versionString;
 @synthesize appSupportDirPath;
 @synthesize ssbSupportDirPath;
 @synthesize userscriptDirPath;
@@ -248,4 +263,5 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 @synthesize downloadArchiveFilePath;
 @synthesize plugInPrivateDirPath;
 @synthesize plugInDirPath;
+@synthesize plugInSupportDirPath;
 @end

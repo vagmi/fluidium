@@ -19,6 +19,7 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
 
 @interface FUApplication : OAApplication {
     NSString *appName;
+    NSString *versionString;
     NSString *appSupportDirPath;
     NSString *ssbSupportDirPath;
     NSString *userscriptDirPath;
@@ -29,6 +30,7 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
     NSString *downloadArchiveFilePath;
     NSString *plugInPrivateDirPath;
     NSString *plugInDirPath;
+    NSString *plugInSupportDirPath;
 }
 
 + (FUApplication *)instance;
@@ -42,11 +44,15 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
 
 - (void)showPreferencePaneForIdentifier:(NSString *)s;
 
+- (NSString *)defaultUserAgentString;
+- (NSArray *)allUserAgentStrings;
+
 - (BOOL)isFullScreen;
 
 - (BOOL)createAppSupportDir;
 
 @property (nonatomic, copy) NSString *appName;
+@property (nonatomic, copy) NSString *versionString;
 @property (nonatomic, copy) NSString *appSupportDirPath;
 @property (nonatomic, copy) NSString *ssbSupportDirPath;
 @property (nonatomic, copy) NSString *userscriptDirPath;
@@ -57,4 +63,5 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
 @property (nonatomic, copy) NSString *downloadArchiveFilePath;
 @property (nonatomic, copy) NSString *plugInPrivateDirPath;
 @property (nonatomic, copy) NSString *plugInDirPath;
+@property (nonatomic, copy) NSString *plugInSupportDirPath;
 @end

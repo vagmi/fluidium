@@ -48,6 +48,8 @@ typedef enum {
 - (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated
 - (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground;
 
+- (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
+
 - (FUTabController *)loadHTMLString:(NSString *)s; // prefers tabs
 - (FUTabController *)loadHTMLString:(NSString *)s destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated
 - (FUTabController *)loadHTMLString:(NSString *)s destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground;

@@ -899,7 +899,7 @@ typedef enum {
     NSString *dirPath = [[savePanel directory] stringByExpandingTildeInPath];
     NSString *filename = [[savePanel filename] lastPathComponent];
 
-    [[FUDownloadWindowController instance] downloadRequest:req directory:dirPath filename:filename];
+    [[FUDocumentController instance] downloadRequest:req directory:dirPath filename:filename];
 }
 
 @synthesize windowController;

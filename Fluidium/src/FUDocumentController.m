@@ -20,6 +20,8 @@
 #import "FUWebView.h"
 #import "FUJavaScriptMenuItem.h"
 #import "FUNotifications.h"
+#import "FUDownloadWindowController.h"
+
 #import <WebKit/WebKit.h>
 
 #define OPEN_NEW_TAB 0
@@ -246,6 +248,11 @@
         [[wc window] makeKeyAndOrderFront:self]; // this is necessary if opening in a tab, and an auxilliary window is key
     }
     return tc;
+}
+
+
+- (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename {
+    [[FUDownloadWindowController instance] downloadRequest:req directory:dirPath filename:filename];
 }
 
 
