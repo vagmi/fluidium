@@ -33,6 +33,9 @@ NSInteger IKImageStateReady = 2;
 @interface NSObject ()
 // FUWindowController
 - (void)setSelectedTabIndex:(NSInteger)i;
+- (NSArray *)tabControllers;
+- (void)startObserveringTabController:(id)tc;
+- (void)stopObserveringTabController:(id)tc;
 @end
 
 @interface WebView ()
@@ -76,8 +79,9 @@ NSInteger IKImageStateReady = 2;
     [imageBrowserView setValue:[NSColor colorWithDeviceWhite:.9 alpha:1] forKey:IKImageBrowserBackgroundColorKey];
     [imageBrowserView setValue:[NSColor lightGrayColor] forKey:IKImageBrowserCellsOutlineColorKey];
 
-    [imageBrowserView setZoomValue:1.0];
     //[imageBrowserView setCellSize:NSMakeSize(600, 400)];
+
+    [imageBrowserView setZoomValue:1.0];
 	[imageBrowserView setConstrainsToOriginalSize:NO];
 	[imageBrowserView setContentResizingMask:NSViewHeightSizable];
 	[imageBrowserView setAllowsEmptySelection:NO];
@@ -106,6 +110,11 @@ NSInteger IKImageStateReady = 2;
     }
     
     [imageBrowserView reloadData];
+
+    id wc = [[self.view window] windowController];
+    for (id tc in [wc tabControllers]) {
+        [self startObserveringTabController:tc];
+    }
 }
 
 
@@ -149,9 +158,7 @@ NSInteger IKImageStateReady = 2;
     [imageBrowserView reloadData];
     
     id tc = [[n userInfo] objectForKey:@"FUTabController"];
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(tabControllerProgressDidChange:) name:FUTabControllerProgressDidChangeNotification object:tc];
-    [nc addObserver:self selector:@selector(tabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:tc];
+    [self startObserveringTabController:tc];
 }
 
 
@@ -161,8 +168,7 @@ NSInteger IKImageStateReady = 2;
     [imageBrowserView reloadData];
     
     id tc = [[n userInfo] objectForKey:@"FUTabController"];
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:tc];
+    [self stopObserveringTabController:tc];
 }
 
 
@@ -233,6 +239,20 @@ NSInteger IKImageStateReady = 2;
 
 - (NSBitmapImageRep *)thumbnailFromWebView:(WebView *)wv {
     return [wv squareBitmapImageRepOfWebContent];
+}
+         
+         
+- (void)startObserveringTabController:(id)tc {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(tabControllerProgressDidChange:) name:FUTabControllerProgressDidChangeNotification object:tc];
+    [nc addObserver:self selector:@selector(tabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:tc];
+}
+
+
+- (void)stopObserveringTabController:(id)tc {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:FUTabControllerProgressDidChangeNotification object:tc];
+    [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:tc];
 }
 
 @synthesize imageBrowserView;

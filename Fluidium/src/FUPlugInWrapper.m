@@ -107,40 +107,31 @@
 
     if (num > -1) {
         FUWindowController *wc = [[FUDocumentController instance] frontWindowController];
-        NSWindow *window = [wc window];
+        NSWindow *win = [wc window];
 
-        [self addObserver:vc for:FUWindowControllerWillCloseNotification object:nil ifRespondsTo:@selector(windowControllerWillClose:)];
+        [self addObserver:vc for:FUWindowControllerWillCloseNotification object:wc ifRespondsTo:@selector(windowControllerWillClose:)];
 
-        [self addObserver:vc for:FUWindowControllerDidOpenTabNotification object:nil ifRespondsTo:@selector(windowControllerDidOpenTab:)];
-        [self addObserver:vc for:FUWindowControllerWillCloseTabNotification object:nil ifRespondsTo:@selector(windowControllerWillCloseTab:)];
-        [self addObserver:vc for:FUWindowControllerDidChangeSelectedTabNotification object:nil ifRespondsTo:@selector(windowControllerDidChangeSelectedTab:)];
-
-        [self addObserver:vc for:FUTabControllerProgressDidStartNotification object:nil ifRespondsTo:@selector(tabControllerProgressDidStart:)];
-        [self addObserver:vc for:FUTabControllerProgressDidChangeNotification object:nil ifRespondsTo:@selector(tabControllerProgressDidChange:)];
-        [self addObserver:vc for:FUTabControllerProgressDidFinishNotification object:nil ifRespondsTo:@selector(tabControllerProgressDidFinish:)];
-
-        [self addObserver:vc for:FUTabControllerDidCommitLoadNotification object:nil ifRespondsTo:@selector(tabControllerDidCommitLoad:)];
-        [self addObserver:vc for:FUTabControllerDidFinishLoadNotification object:nil ifRespondsTo:@selector(tabControllerDidFinishLoad:)];
-        [self addObserver:vc for:FUTabControllerDidFailLoadNotification object:nil ifRespondsTo:@selector(tabControllerDidFailLoad:)];
-        [self addObserver:vc for:FUTabControllerDidClearWindowObjectNotification object:nil ifRespondsTo:@selector(tabControllerDidClearWindowObject:)];
+        [self addObserver:vc for:FUWindowControllerDidOpenTabNotification object:wc ifRespondsTo:@selector(windowControllerDidOpenTab:)];
+        [self addObserver:vc for:FUWindowControllerWillCloseTabNotification object:wc ifRespondsTo:@selector(windowControllerWillCloseTab:)];
+        [self addObserver:vc for:FUWindowControllerDidChangeSelectedTabNotification object:wc ifRespondsTo:@selector(windowControllerDidChangeSelectedTab:)];
         
-        [self addObserver:vc for:NSWindowDidResizeNotification object:window ifRespondsTo:@selector(windowDidResize:)];
-        [self addObserver:vc for:NSWindowDidExposeNotification object:window ifRespondsTo:@selector(windowDidExpose:)];
-        [self addObserver:vc for:NSWindowWillMoveNotification object:window ifRespondsTo:@selector(windowWillMove:)];
-        [self addObserver:vc for:NSWindowDidMoveNotification object:window ifRespondsTo:@selector(windowDidMove:)];
-        [self addObserver:vc for:NSWindowDidBecomeKeyNotification object:window ifRespondsTo:@selector(windowDidBecomeKey:)];
-        [self addObserver:vc for:NSWindowDidResignKeyNotification object:window ifRespondsTo:@selector(windowDidResignKey:)];
-        [self addObserver:vc for:NSWindowDidBecomeMainNotification object:window ifRespondsTo:@selector(windowDidBecomeMain:)];
-        [self addObserver:vc for:NSWindowDidResignMainNotification object:window ifRespondsTo:@selector(windowDidResignMain:)];
-        [self addObserver:vc for:NSWindowWillCloseNotification object:window ifRespondsTo:@selector(windowWillClose:)];
-        [self addObserver:vc for:NSWindowWillMiniaturizeNotification object:window ifRespondsTo:@selector(windowWillMiniaturize:)];
-        [self addObserver:vc for:NSWindowDidMiniaturizeNotification object:window ifRespondsTo:@selector(windowDidMiniaturize:)];
-        [self addObserver:vc for:NSWindowDidDeminiaturizeNotification object:window ifRespondsTo:@selector(windowDidDeminiaturize:)];
-        [self addObserver:vc for:NSWindowDidUpdateNotification object:window ifRespondsTo:@selector(windowDidUpdate:)];
-        [self addObserver:vc for:NSWindowDidChangeScreenNotification object:window ifRespondsTo:@selector(windowDidChangeScreen:)];
-        [self addObserver:vc for:NSWindowDidChangeScreenProfileNotification object:window ifRespondsTo:@selector(windowDidChangeScreenProfile:)];
-        [self addObserver:vc for:NSWindowWillBeginSheetNotification object:window ifRespondsTo:@selector(windowWillBeginSheet:)];
-        [self addObserver:vc for:NSWindowDidEndSheetNotification object:window ifRespondsTo:@selector(windowDidEndSheet:)];
+        [self addObserver:vc for:NSWindowDidResizeNotification object:win ifRespondsTo:@selector(windowDidResize:)];
+        [self addObserver:vc for:NSWindowDidExposeNotification object:win ifRespondsTo:@selector(windowDidExpose:)];
+        [self addObserver:vc for:NSWindowWillMoveNotification object:win ifRespondsTo:@selector(windowWillMove:)];
+        [self addObserver:vc for:NSWindowDidMoveNotification object:win ifRespondsTo:@selector(windowDidMove:)];
+        [self addObserver:vc for:NSWindowDidBecomeKeyNotification object:win ifRespondsTo:@selector(windowDidBecomeKey:)];
+        [self addObserver:vc for:NSWindowDidResignKeyNotification object:win ifRespondsTo:@selector(windowDidResignKey:)];
+        [self addObserver:vc for:NSWindowDidBecomeMainNotification object:win ifRespondsTo:@selector(windowDidBecomeMain:)];
+        [self addObserver:vc for:NSWindowDidResignMainNotification object:win ifRespondsTo:@selector(windowDidResignMain:)];
+        [self addObserver:vc for:NSWindowWillCloseNotification object:win ifRespondsTo:@selector(windowWillClose:)];
+        [self addObserver:vc for:NSWindowWillMiniaturizeNotification object:win ifRespondsTo:@selector(windowWillMiniaturize:)];
+        [self addObserver:vc for:NSWindowDidMiniaturizeNotification object:win ifRespondsTo:@selector(windowDidMiniaturize:)];
+        [self addObserver:vc for:NSWindowDidDeminiaturizeNotification object:win ifRespondsTo:@selector(windowDidDeminiaturize:)];
+        [self addObserver:vc for:NSWindowDidUpdateNotification object:win ifRespondsTo:@selector(windowDidUpdate:)];
+        [self addObserver:vc for:NSWindowDidChangeScreenNotification object:win ifRespondsTo:@selector(windowDidChangeScreen:)];
+        [self addObserver:vc for:NSWindowDidChangeScreenProfileNotification object:win ifRespondsTo:@selector(windowDidChangeScreenProfile:)];
+        [self addObserver:vc for:NSWindowWillBeginSheetNotification object:win ifRespondsTo:@selector(windowWillBeginSheet:)];
+        [self addObserver:vc for:NSWindowDidEndSheetNotification object:win ifRespondsTo:@selector(windowDidEndSheet:)];
     }
     
     return vc;
