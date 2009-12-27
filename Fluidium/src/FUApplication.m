@@ -55,6 +55,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:self];
+        [nc addObserver:self selector:@selector(applicationWillResignActive:) name:NSApplicationWillResignActiveNotification object:self];
     }
     return self;
 }
@@ -221,6 +222,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 - (void)finishLaunching {
     [super finishLaunching];
     
+    // instantiate singletons
     [FUWhitelistController instance];
     [FUUserstyleController instance];
     [FUBookmarkController instance];
