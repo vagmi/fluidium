@@ -14,13 +14,8 @@
 		D33932BA10D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932B910D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m */; };
 		D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */; };
 		D3BDE5E810E44F1400858E44 /* DefaultValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3BDE5E710E44F1400858E44 /* DefaultValues.plist */; };
-		D3BDE77E10E461A600858E44 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE77310E461A600858E44 /* HMAppKitEx.m */; };
-		D3BDE77F10E461A600858E44 /* HMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE77510E461A600858E44 /* HMButton.m */; };
-		D3BDE78010E461A600858E44 /* HMButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE77710E461A600858E44 /* HMButtonCell.m */; };
-		D3BDE78110E461A600858E44 /* HMFoundationEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE77910E461A600858E44 /* HMFoundationEx.m */; };
-		D3BDE78210E461A600858E44 /* HMImageComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE77B10E461A600858E44 /* HMImageComboBox.m */; };
-		D3BDE78310E461A600858E44 /* HMImageComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE77D10E461A600858E44 /* HMImageComboBoxCell.m */; };
 		D3BDE7A810E4638100858E44 /* FUBrowsaComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE7A710E4638100858E44 /* FUBrowsaComboBox.m */; };
+		D3C2501410E7C6600059B788 /* HMShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C2500810E7C63D0059B788 /* HMShared.framework */; };
 		D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */; };
 		D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D375FA10E403DC00203EB2 /* FUUtils.m */; };
 		D3D3761E10E405D500203EB2 /* FUBrowsaPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761A10E405D500203EB2 /* FUBrowsaPreferencesView.xib */; };
@@ -29,6 +24,30 @@
 		D3D3762C10E4068E00203EB2 /* FUBrowsaNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762B10E4068E00203EB2 /* FUBrowsaNavBar.m */; };
 		D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D3C2500510E7C63D0059B788 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D15AC370486D014006FF6A4 /* Fluidium.app */;
+			remoteInfo = Fluidium;
+		};
+		D3C2500710E7C63D0059B788 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D3F2942C10E7C35700CCB392 /* HMShared.framework */;
+			remoteInfo = HMShared;
+		};
+		D3C250B910E7C66D0059B788 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D3F2942B10E7C35700CCB392 /* HMShared */;
+			remoteInfo = HMShared;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -55,20 +74,9 @@
 		D339339F10D4C0F9000FC7C1 /* DOMNode+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMNode+FUAdditions.h"; path = "../../Fluidium/src/DOMNode+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
 		D33933BB10D4C1B9000FC7C1 /* WebIconDatabase+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebIconDatabase+FUAdditions.h"; path = "../../Fluidium/src/WebIconDatabase+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
 		D3BDE5E710E44F1400858E44 /* DefaultValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = DefaultValues.plist; path = res/conf/DefaultValues.plist; sourceTree = "<group>"; };
-		D3BDE77210E461A600858E44 /* HMAppKitEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMAppKitEx.h; path = ../../Fluidium/src/Shiira/HMAppKitEx.h; sourceTree = SOURCE_ROOT; };
-		D3BDE77310E461A600858E44 /* HMAppKitEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMAppKitEx.m; path = ../../Fluidium/src/Shiira/HMAppKitEx.m; sourceTree = SOURCE_ROOT; };
-		D3BDE77410E461A600858E44 /* HMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMButton.h; path = ../../Fluidium/src/Shiira/HMButton.h; sourceTree = SOURCE_ROOT; };
-		D3BDE77510E461A600858E44 /* HMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMButton.m; path = ../../Fluidium/src/Shiira/HMButton.m; sourceTree = SOURCE_ROOT; };
-		D3BDE77610E461A600858E44 /* HMButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMButtonCell.h; path = ../../Fluidium/src/Shiira/HMButtonCell.h; sourceTree = SOURCE_ROOT; };
-		D3BDE77710E461A600858E44 /* HMButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMButtonCell.m; path = ../../Fluidium/src/Shiira/HMButtonCell.m; sourceTree = SOURCE_ROOT; };
-		D3BDE77810E461A600858E44 /* HMFoundationEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMFoundationEx.h; path = ../../Fluidium/src/Shiira/HMFoundationEx.h; sourceTree = SOURCE_ROOT; };
-		D3BDE77910E461A600858E44 /* HMFoundationEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMFoundationEx.m; path = ../../Fluidium/src/Shiira/HMFoundationEx.m; sourceTree = SOURCE_ROOT; };
-		D3BDE77A10E461A600858E44 /* HMImageComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMImageComboBox.h; path = ../../Fluidium/src/Shiira/HMImageComboBox.h; sourceTree = SOURCE_ROOT; };
-		D3BDE77B10E461A600858E44 /* HMImageComboBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMImageComboBox.m; path = ../../Fluidium/src/Shiira/HMImageComboBox.m; sourceTree = SOURCE_ROOT; };
-		D3BDE77C10E461A600858E44 /* HMImageComboBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMImageComboBoxCell.h; path = ../../Fluidium/src/Shiira/HMImageComboBoxCell.h; sourceTree = SOURCE_ROOT; };
-		D3BDE77D10E461A600858E44 /* HMImageComboBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMImageComboBoxCell.m; path = ../../Fluidium/src/Shiira/HMImageComboBoxCell.m; sourceTree = SOURCE_ROOT; };
 		D3BDE7A610E4638100858E44 /* FUBrowsaComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaComboBox.h; path = src/FUBrowsaComboBox.h; sourceTree = "<group>"; };
 		D3BDE7A710E4638100858E44 /* FUBrowsaComboBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaComboBox.m; path = src/FUBrowsaComboBox.m; sourceTree = "<group>"; };
+		D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Fluidium.xcodeproj; path = ../../Fluidium/Fluidium.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaPlugIn.m; path = src/FUBrowsaPlugIn.m; sourceTree = "<group>"; };
 		D3D375A910E3FD3000203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = ../../Fluidium/src/WebIconDatabase.h; sourceTree = SOURCE_ROOT; };
 		D3D375F910E403D700203EB2 /* FUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUtils.h; path = ../../Fluidium/src/FUUtils.h; sourceTree = SOURCE_ROOT; };
@@ -89,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3C2501410E7C6600059B788 /* HMShared.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */,
 			);
@@ -100,6 +109,7 @@
 		089C166AFE841209C02AAC07 /* BrowsaPlugIn */ = {
 			isa = PBXGroup;
 			children = (
+				D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -234,28 +244,17 @@
 			children = (
 				D3BDE7A610E4638100858E44 /* FUBrowsaComboBox.h */,
 				D3BDE7A710E4638100858E44 /* FUBrowsaComboBox.m */,
-				D3BDE77110E4618A00858E44 /* Shiira */,
 			);
 			name = ComboBox;
 			sourceTree = "<group>";
 		};
-		D3BDE77110E4618A00858E44 /* Shiira */ = {
+		D3C2500110E7C63D0059B788 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D3BDE77210E461A600858E44 /* HMAppKitEx.h */,
-				D3BDE77310E461A600858E44 /* HMAppKitEx.m */,
-				D3BDE77410E461A600858E44 /* HMButton.h */,
-				D3BDE77510E461A600858E44 /* HMButton.m */,
-				D3BDE77610E461A600858E44 /* HMButtonCell.h */,
-				D3BDE77710E461A600858E44 /* HMButtonCell.m */,
-				D3BDE77810E461A600858E44 /* HMFoundationEx.h */,
-				D3BDE77910E461A600858E44 /* HMFoundationEx.m */,
-				D3BDE77A10E461A600858E44 /* HMImageComboBox.h */,
-				D3BDE77B10E461A600858E44 /* HMImageComboBox.m */,
-				D3BDE77C10E461A600858E44 /* HMImageComboBoxCell.h */,
-				D3BDE77D10E461A600858E44 /* HMImageComboBoxCell.m */,
+				D3C2500610E7C63D0059B788 /* Fluidium.app */,
+				D3C2500810E7C63D0059B788 /* HMShared.framework */,
 			);
-			name = Shiira;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D3D3760F10E4056100203EB2 /* Nib */ = {
@@ -281,6 +280,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D3C250BA10E7C66D0059B788 /* PBXTargetDependency */,
 			);
 			name = BrowsaPlugIn;
 			productInstallPath = "$(HOME)/Library/Bundles";
@@ -298,12 +298,35 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* BrowsaPlugIn */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D3C2500110E7C63D0059B788 /* Products */;
+					ProjectRef = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* BrowsaPlugIn */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D3C2500610E7C63D0059B788 /* Fluidium.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Fluidium.app;
+			remoteRef = D3C2500510E7C63D0059B788 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3C2500810E7C63D0059B788 /* HMShared.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HMShared.framework;
+			remoteRef = D3C2500710E7C63D0059B788 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D5B49AF048680CD000E48DA /* Resources */ = {
@@ -331,18 +354,20 @@
 				D3D3762410E4065300203EB2 /* FUBrowsaBackgroundView.m in Sources */,
 				D3D3762C10E4068E00203EB2 /* FUBrowsaNavBar.m in Sources */,
 				D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */,
-				D3BDE77E10E461A600858E44 /* HMAppKitEx.m in Sources */,
-				D3BDE77F10E461A600858E44 /* HMButton.m in Sources */,
-				D3BDE78010E461A600858E44 /* HMButtonCell.m in Sources */,
-				D3BDE78110E461A600858E44 /* HMFoundationEx.m in Sources */,
-				D3BDE78210E461A600858E44 /* HMImageComboBox.m in Sources */,
-				D3BDE78310E461A600858E44 /* HMImageComboBoxCell.m in Sources */,
 				D3BDE7A810E4638100858E44 /* FUBrowsaComboBox.m in Sources */,
 				D32E8AA510E525FE00445B4C /* FUNotifications.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D3C250BA10E7C66D0059B788 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HMShared;
+			targetProxy = D3C250B910E7C66D0059B788 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {

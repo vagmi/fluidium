@@ -46,7 +46,6 @@
         imageRepresentation = [img retain];
         
         self.imageVersion = imageVersion + 1;
-        NSLog(@"%@", self);
     }
 }
 
