@@ -111,16 +111,17 @@
 }
 
 
-- (NSImage *)squareImageOfWebContent {
-    NSBitmapImageRep *imageRep = [self squareBitmapImageRepOfWebContent];
-    NSSize size = [imageRep size];
-    NSImage *image = [[[NSImage alloc] initWithSize:size] autorelease];
-    [image addRepresentation:imageRep];
-    return image;
-}
+//- (NSImage *)squareImageOfWebContent {
+//    NSBitmapImageRep *imageRep = [self squareBitmapImageRepOfWebContent];
+//    NSSize size = [imageRep size];
+//    NSImage *image = [[[NSImage alloc] initWithSize:size] autorelease];
+//    [image addRepresentation:imageRep];
+//    return image;
+//}
 
 
-- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent {
+//- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent {
+- (NSBitmapImageRep *)bitmapImageRepOfWebContent {
     NSSize fullSize = [self frame].size;
     
     CGFloat side = 0;
@@ -134,15 +135,12 @@
         ratio = fullSize.height / side;
     }
     
-    CGRect finalDisplayRect = CGRectMake(0, 0, side, side);
+    side = side * ratio;
     
-    CGFloat w = finalDisplayRect.size.width * ratio;
-    CGFloat h = finalDisplayRect.size.height * ratio;
+    CGFloat x = fullSize.width / 2.0 - side / 2.0;
+    CGFloat y = fullSize.height - side;
     
-    CGFloat x = fullSize.width / 2.0 - w / 2.0;
-    CGFloat y = 0;
-    
-    CGRect r = CGRectMake(x, y, w, h);
+    CGRect r = CGRectMake(x, y, side, side);
     //NSLog(@"r: %@", NSStringFromRect(r));
     
     //[self lockFocus];
@@ -151,6 +149,21 @@
     //[self unlockFocus];
     return imageRep;
 }
+
+
+//- (NSBitmapImageRep *)bitmapImageRepOfWebContent {
+//    NSSize fullSize = [self frame].size;
+//
+//    CGFloat ratio = .66;
+//    NSSize displaySize = NSMakeSize(fullSize.width, fullSize.width * ratio);
+//
+//    CGRect r = CGRectMake(0, fullSize.height - displaySize.height, displaySize.width, displaySize.height);
+//    //NSLog(@"r: %@", NSStringFromRect(r));
+//    
+//    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:r];
+//    [self cacheDisplayInRect:r toBitmapImageRep:imageRep];
+//    return imageRep;
+//}
 
 
 #pragma mark -

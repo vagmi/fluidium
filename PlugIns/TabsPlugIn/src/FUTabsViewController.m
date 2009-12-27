@@ -39,7 +39,7 @@ NSInteger IKImageStateReady = 2;
 @end
 
 @interface WebView ()
-- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent;
+- (NSBitmapImageRep *)bitmapImageRepOfWebContent;
 @end
 
 @interface FUTabsViewController ()
@@ -78,12 +78,14 @@ NSInteger IKImageStateReady = 2;
 - (void)awakeFromNib {
     [imageBrowserView setValue:[NSColor colorWithDeviceWhite:.9 alpha:1] forKey:IKImageBrowserBackgroundColorKey];
     [imageBrowserView setValue:[NSColor lightGrayColor] forKey:IKImageBrowserCellsOutlineColorKey];
+    [imageBrowserView setValue:[NSColor clearColor] forKey:IKImageBrowserSelectionColorKey];
 
     //[imageBrowserView setCellSize:NSMakeSize(600, 400)];
+    [imageBrowserView setConstrainsToOriginalSize:YES];
+    [imageBrowserView setAutoresizesSubviews:YES];
 
     [imageBrowserView setZoomValue:1.0];
-	[imageBrowserView setConstrainsToOriginalSize:NO];
-	[imageBrowserView setContentResizingMask:NSViewHeightSizable];
+	[imageBrowserView setContentResizingMask:NSViewHeightSizable]; // dont add width here. causes multiple cols
 	[imageBrowserView setAllowsEmptySelection:NO];
 	[imageBrowserView setAllowsMultipleSelection:NO];
 	[imageBrowserView setDelegate:self];
@@ -238,7 +240,7 @@ NSInteger IKImageStateReady = 2;
 
 
 - (NSBitmapImageRep *)thumbnailFromWebView:(WebView *)wv {
-    return [wv squareBitmapImageRepOfWebContent];
+    return [wv bitmapImageRepOfWebContent];
 }
          
          

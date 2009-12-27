@@ -19,6 +19,7 @@
 }
 
 - (NSImage *)imageOfWebContent;
-- (NSImage *)squareImageOfWebContent;
-- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent;
+//- (NSImage *)squareImageOfWebContent;
+//- (NSBitmapImageRep *)squareBitmapImageRepOfWebContent;
+- (NSBitmapImageRep *)bitmapImageRepOfWebContent;
 @end
