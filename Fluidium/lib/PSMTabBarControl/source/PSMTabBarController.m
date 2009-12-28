@@ -619,7 +619,7 @@ static int potentialMinimumForArray(NSArray *array, int minimum)
     }
 }
 
-- (BOOL)menu:(NSMenu *)menu updateItem:(NSMenuItem *)menuItem atIndex:(int)index shouldCancel:(BOOL)shouldCancel
+- (BOOL)menu:(NSMenu *)menu updateItem:(NSMenuItem *)menuItem atIndex:(NSInteger)index shouldCancel:(BOOL)shouldCancel
 {
 	if (menu == _overflowMenu) {
 		if ([[[menuItem representedObject] identifier] respondsToSelector:@selector(icon)]) {
@@ -630,7 +630,7 @@ static int potentialMinimumForArray(NSArray *array, int minimum)
 	return TRUE;
 }
 
-- (int)numberOfItemsInMenu:(NSMenu *)menu
+- (NSInteger)numberOfItemsInMenu:(NSMenu *)menu
 {
 	if (menu == _overflowMenu) {
 		return [_overflowMenu numberOfItems];
