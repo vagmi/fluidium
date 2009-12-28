@@ -116,6 +116,12 @@
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
 		D3AF878510CFA34300C601A3 /* FUBehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */; };
+		D3B8BC0310E837E400271454 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FB10C8D90C00E0B474 /* HMAppKitEx.m */; };
+		D3B8BC0410E837E400271454 /* HMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FD10C8D90C00E0B474 /* HMButton.m */; };
+		D3B8BC0510E837E400271454 /* HMButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FF10C8D90C00E0B474 /* HMButtonCell.m */; };
+		D3B8BC0610E837E400271454 /* HMFoundationEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60110C8D90C00E0B474 /* HMFoundationEx.m */; };
+		D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60310C8D90C00E0B474 /* HMImageComboBox.m */; };
+		D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60510C8D90C00E0B474 /* HMImageComboBoxCell.m */; };
 		D3BDE6F410E45E1800858E44 /* prefpane_icon_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3BDE6F310E45E1800858E44 /* prefpane_icon_browsa.png */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3D3774C10E42CC300203EB2 /* toolbar_button_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */; };
@@ -147,20 +153,6 @@
 		D3E4346D10CB8D4C00A5BDEF /* FUBookmarkBarOverflowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4346410CB8D4C00A5BDEF /* FUBookmarkBarOverflowButton.m */; };
 		D3E4346E10CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4346610CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m */; };
 		D3E4346F10CB8D4C00A5BDEF /* FUBookmarkWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */; };
-		D3F2943710E7C37A00CCB392 /* HMShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2942C10E7C35700CCB392 /* HMShared.framework */; };
-		D3F2943A10E7C3A000CCB392 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FB10C8D90C00E0B474 /* HMAppKitEx.m */; };
-		D3F2943B10E7C3A000CCB392 /* HMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FD10C8D90C00E0B474 /* HMButton.m */; };
-		D3F2943C10E7C3A000CCB392 /* HMButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FF10C8D90C00E0B474 /* HMButtonCell.m */; };
-		D3F2943D10E7C3A000CCB392 /* HMFoundationEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60110C8D90C00E0B474 /* HMFoundationEx.m */; };
-		D3F2943E10E7C3A000CCB392 /* HMImageComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60310C8D90C00E0B474 /* HMImageComboBox.m */; };
-		D3F2943F10E7C3A000CCB392 /* HMImageComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60510C8D90C00E0B474 /* HMImageComboBoxCell.m */; };
-		D3F2944310E7C3CC00CCB392 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
-		D3F2944710E7C3E000CCB392 /* HMAppKitEx.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4C5FA10C8D90C00E0B474 /* HMAppKitEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3F2944810E7C3E000CCB392 /* HMButton.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4C5FC10C8D90C00E0B474 /* HMButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3F2944910E7C3E000CCB392 /* HMButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4C5FE10C8D90C00E0B474 /* HMButtonCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3F2944A10E7C3E000CCB392 /* HMFoundationEx.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4C60010C8D90C00E0B474 /* HMFoundationEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3F2944B10E7C3E000CCB392 /* HMImageComboBox.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4C60210C8D90C00E0B474 /* HMImageComboBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3F2944C10E7C3E000CCB392 /* HMImageComboBoxCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F4C60410C8D90C00E0B474 /* HMImageComboBoxCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3F4C3D410C8C7A300E0B474 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F4C3D310C8C7A300E0B474 /* WebKit.framework */; };
 		D3F4C49710C8C93400E0B474 /* FUWindowController+NSToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C49610C8C93400E0B474 /* FUWindowController+NSToolbarDelegate.m */; };
 		D3F4C53610C8CF4600E0B474 /* FUWindowToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C53510C8CF4600E0B474 /* FUWindowToolbar.m */; };
@@ -480,13 +472,6 @@
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = BrowsaPlugIn;
 		};
-		D3F2943510E7C36900CCB392 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D3F2942B10E7C35700CCB392;
-			remoteInfo = HMShared;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -736,7 +721,6 @@
 		D3E4346710CB8D4C00A5BDEF /* FUBookmarkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkWindowController.h; path = src/FUBookmarkWindowController.h; sourceTree = "<group>"; };
 		D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkWindowController.m; path = src/FUBookmarkWindowController.m; sourceTree = "<group>"; };
 		D3F292ED10E7B32500CCB392 /* WebFrameViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebFrameViewPrivate.h; path = src/WebFrameViewPrivate.h; sourceTree = "<group>"; };
-		D3F2942C10E7C35700CCB392 /* HMShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F2942D10E7C35700CCB392 /* HMShared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "HMShared-Info.plist"; path = "res/conf/HMShared-Info.plist"; sourceTree = "<group>"; };
 		D3F4C3D310C8C7A300E0B474 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D3F4C49510C8C93400E0B474 /* FUWindowController+NSToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+NSToolbarDelegate.h"; path = "src/FUWindowController+NSToolbarDelegate.h"; sourceTree = "<group>"; };
@@ -802,15 +786,6 @@
 				D328FD5710CC33F500BB363B /* PSMTabBarControl.framework in Frameworks */,
 				D346ED7110CF6CB700BA0B15 /* ShortcutRecorder.framework in Frameworks */,
 				D346E71210CE516800BA0B15 /* ParseKit.framework in Frameworks */,
-				D3F2943710E7C37A00CCB392 /* HMShared.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D3F2942A10E7C35700CCB392 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D3F2944310E7C3CC00CCB392 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,7 +819,6 @@
 			children = (
 				8D15AC370486D014006FF6A4 /* Fluidium.app */,
 				D34B5DDC10CF6E8A006E17C4 /* ShortcutRecorder.framework */,
-				D3F2942C10E7C35700CCB392 /* HMShared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -900,6 +874,7 @@
 				D30BC47210E188760019816B /* JavaScript Bridge */,
 				D3DB025710D616D30057D70C /* Misc */,
 				D3F4C5A110C8D69B00E0B474 /* Foundation-WebKit Categories */,
+				D3F2945010E7C42700CCB392 /* Shiira */,
 			);
 			name = "Fluidium Source";
 			sourceTree = "<group>";
@@ -907,7 +882,6 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				D3F2945010E7C42700CCB392 /* HMShared */,
 				D332221410C8C1A500151693 /* Fluidium_Prefix.pch */,
 				D332221510C8C1A500151693 /* main.m */,
 			);
@@ -1393,7 +1367,7 @@
 			name = Bookmarks;
 			sourceTree = "<group>";
 		};
-		D3F2945010E7C42700CCB392 /* HMShared */ = {
+		D3F2945010E7C42700CCB392 /* Shiira */ = {
 			isa = PBXGroup;
 			children = (
 				D3F4C5FA10C8D90C00E0B474 /* HMAppKitEx.h */,
@@ -1409,7 +1383,7 @@
 				D3F4C60410C8D90C00E0B474 /* HMImageComboBoxCell.h */,
 				D3F4C60510C8D90C00E0B474 /* HMImageComboBoxCell.m */,
 			);
-			name = HMShared;
+			name = Shiira;
 			sourceTree = "<group>";
 		};
 		D3F4C56310C8D3AF00E0B474 /* Toolbar */ = {
@@ -1502,22 +1476,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D3F2942710E7C35700CCB392 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D3F2944710E7C3E000CCB392 /* HMAppKitEx.h in Headers */,
-				D3F2944810E7C3E000CCB392 /* HMButton.h in Headers */,
-				D3F2944910E7C3E000CCB392 /* HMButtonCell.h in Headers */,
-				D3F2944A10E7C3E000CCB392 /* HMFoundationEx.h in Headers */,
-				D3F2944B10E7C3E000CCB392 /* HMImageComboBox.h in Headers */,
-				D3F2944C10E7C3E000CCB392 /* HMImageComboBoxCell.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		8D15AC270486D014006FF6A4 /* Fluidium */ = {
 			isa = PBXNativeTarget;
@@ -1539,7 +1497,6 @@
 				D346ED6F10CF6C8100BA0B15 /* PBXTargetDependency */,
 				D346E58F10CE437800BA0B15 /* PBXTargetDependency */,
 				D346E58D10CE437800BA0B15 /* PBXTargetDependency */,
-				D3F2943610E7C36900CCB392 /* PBXTargetDependency */,
 				D3D3766710E4092500203EB2 /* PBXTargetDependency */,
 				D346E5D310CE452900BA0B15 /* PBXTargetDependency */,
 				D32E8C3410E593FE00445B4C /* PBXTargetDependency */,
@@ -1549,24 +1506,6 @@
 			productName = FluidApp;
 			productReference = 8D15AC370486D014006FF6A4 /* Fluidium.app */;
 			productType = "com.apple.product-type.application";
-		};
-		D3F2942B10E7C35700CCB392 /* HMShared */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D3F2943010E7C35800CCB392 /* Build configuration list for PBXNativeTarget "HMShared" */;
-			buildPhases = (
-				D3F2942710E7C35700CCB392 /* Headers */,
-				D3F2942810E7C35700CCB392 /* Resources */,
-				D3F2942910E7C35700CCB392 /* Sources */,
-				D3F2942A10E7C35700CCB392 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HMShared;
-			productName = HMShared;
-			productReference = D3F2942C10E7C35700CCB392 /* HMShared.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -1623,7 +1562,6 @@
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* Fluidium */,
-				D3F2942B10E7C35700CCB392 /* HMShared */,
 			);
 		};
 /* End PBXProject section */
@@ -1922,13 +1860,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D3F2942810E7C35700CCB392 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -2038,19 +1969,12 @@
 				D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */,
 				D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */,
 				D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D3F2942910E7C35700CCB392 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D3F2943A10E7C3A000CCB392 /* HMAppKitEx.m in Sources */,
-				D3F2943B10E7C3A000CCB392 /* HMButton.m in Sources */,
-				D3F2943C10E7C3A000CCB392 /* HMButtonCell.m in Sources */,
-				D3F2943D10E7C3A000CCB392 /* HMFoundationEx.m in Sources */,
-				D3F2943E10E7C3A000CCB392 /* HMImageComboBox.m in Sources */,
-				D3F2943F10E7C3A000CCB392 /* HMImageComboBoxCell.m in Sources */,
+				D3B8BC0310E837E400271454 /* HMAppKitEx.m in Sources */,
+				D3B8BC0410E837E400271454 /* HMButton.m in Sources */,
+				D3B8BC0510E837E400271454 /* HMButtonCell.m in Sources */,
+				D3B8BC0610E837E400271454 /* HMFoundationEx.m in Sources */,
+				D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */,
+				D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2106,11 +2030,6 @@
 			isa = PBXTargetDependency;
 			name = BrowsaPlugIn;
 			targetProxy = D3D3766610E4092500203EB2 /* PBXContainerItemProxy */;
-		};
-		D3F2943610E7C36900CCB392 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D3F2942B10E7C35700CCB392 /* HMShared */;
-			targetProxy = D3F2943510E7C36900CCB392 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2368,60 +2287,6 @@
 			};
 			name = Release;
 		};
-		D3F2942E10E7C35700CCB392 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "res/conf/HMShared-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = HMShared;
-			};
-			name = Debug;
-		};
-		D3F2942F10E7C35700CCB392 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "res/conf/HMShared-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = HMShared;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2439,15 +2304,6 @@
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,
 				C05733CD08A9546B00998B17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D3F2943010E7C35800CCB392 /* Build configuration list for PBXNativeTarget "HMShared" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D3F2942E10E7C35700CCB392 /* Debug */,
-				D3F2942F10E7C35700CCB392 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -13,9 +13,14 @@
 		D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33932A510D49F54000FC7C1 /* WebKit.framework */; };
 		D33932BA10D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932B910D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m */; };
 		D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */; };
+		D3B8BC3210E8389A00271454 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2710E8389A00271454 /* HMAppKitEx.m */; };
+		D3B8BC3310E8389A00271454 /* HMBrowsaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2910E8389A00271454 /* HMBrowsaButton.m */; };
+		D3B8BC3410E8389A00271454 /* HMBrowsaButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2B10E8389A00271454 /* HMBrowsaButtonCell.m */; };
+		D3B8BC3510E8389A00271454 /* HMFoundationEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2D10E8389A00271454 /* HMFoundationEx.m */; };
+		D3B8BC3610E8389A00271454 /* HMBrowsaImageComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2F10E8389A00271454 /* HMBrowsaImageComboBox.m */; };
+		D3B8BC3710E8389A00271454 /* HMBrowsaImageComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC3110E8389A00271454 /* HMBrowsaImageComboBoxCell.m */; };
 		D3BDE5E810E44F1400858E44 /* DefaultValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3BDE5E710E44F1400858E44 /* DefaultValues.plist */; };
 		D3BDE7A810E4638100858E44 /* FUBrowsaComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BDE7A710E4638100858E44 /* FUBrowsaComboBox.m */; };
-		D3C2501410E7C6600059B788 /* HMShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C2500810E7C63D0059B788 /* HMShared.framework */; };
 		D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D371BA10E3BE2500203EB2 /* FUBrowsaPlugIn.m */; };
 		D3D375FB10E403DC00203EB2 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D375FA10E403DC00203EB2 /* FUUtils.m */; };
 		D3D3761E10E405D500203EB2 /* FUBrowsaPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761A10E405D500203EB2 /* FUBrowsaPreferencesView.xib */; };
@@ -30,22 +35,8 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8D15AC370486D014006FF6A4 /* Fluidium.app */;
+			remoteGlobalIDString = 8D15AC370486D014006FF6A4;
 			remoteInfo = Fluidium;
-		};
-		D3C2500710E7C63D0059B788 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D3F2942C10E7C35700CCB392 /* HMShared.framework */;
-			remoteInfo = HMShared;
-		};
-		D3C250B910E7C66D0059B788 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D3F2942B10E7C35700CCB392 /* HMShared */;
-			remoteInfo = HMShared;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -73,6 +64,18 @@
 		D339337110D4BB55000FC7C1 /* WebViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewPrivate.h; path = ../../Fluidium/src/WebViewPrivate.h; sourceTree = SOURCE_ROOT; };
 		D339339F10D4C0F9000FC7C1 /* DOMNode+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMNode+FUAdditions.h"; path = "../../Fluidium/src/DOMNode+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
 		D33933BB10D4C1B9000FC7C1 /* WebIconDatabase+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebIconDatabase+FUAdditions.h"; path = "../../Fluidium/src/WebIconDatabase+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
+		D3B8BC2610E8389A00271454 /* HMAppKitEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAppKitEx.h; sourceTree = "<group>"; };
+		D3B8BC2710E8389A00271454 /* HMAppKitEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAppKitEx.m; sourceTree = "<group>"; };
+		D3B8BC2810E8389A00271454 /* HMBrowsaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMBrowsaButton.h; sourceTree = "<group>"; };
+		D3B8BC2910E8389A00271454 /* HMBrowsaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMBrowsaButton.m; sourceTree = "<group>"; };
+		D3B8BC2A10E8389A00271454 /* HMBrowsaButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMBrowsaButtonCell.h; sourceTree = "<group>"; };
+		D3B8BC2B10E8389A00271454 /* HMBrowsaButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMBrowsaButtonCell.m; sourceTree = "<group>"; };
+		D3B8BC2C10E8389A00271454 /* HMFoundationEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMFoundationEx.h; sourceTree = "<group>"; };
+		D3B8BC2D10E8389A00271454 /* HMFoundationEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMFoundationEx.m; sourceTree = "<group>"; };
+		D3B8BC2E10E8389A00271454 /* HMBrowsaImageComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMBrowsaImageComboBox.h; sourceTree = "<group>"; };
+		D3B8BC2F10E8389A00271454 /* HMBrowsaImageComboBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMBrowsaImageComboBox.m; sourceTree = "<group>"; };
+		D3B8BC3010E8389A00271454 /* HMBrowsaImageComboBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMBrowsaImageComboBoxCell.h; sourceTree = "<group>"; };
+		D3B8BC3110E8389A00271454 /* HMBrowsaImageComboBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMBrowsaImageComboBoxCell.m; sourceTree = "<group>"; };
 		D3BDE5E710E44F1400858E44 /* DefaultValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = DefaultValues.plist; path = res/conf/DefaultValues.plist; sourceTree = "<group>"; };
 		D3BDE7A610E4638100858E44 /* FUBrowsaComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaComboBox.h; path = src/FUBrowsaComboBox.h; sourceTree = "<group>"; };
 		D3BDE7A710E4638100858E44 /* FUBrowsaComboBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaComboBox.m; path = src/FUBrowsaComboBox.m; sourceTree = "<group>"; };
@@ -97,7 +100,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3C2501410E7C6600059B788 /* HMShared.framework in Frameworks */,
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */,
 			);
@@ -222,6 +224,26 @@
 			name = Prefs;
 			sourceTree = "<group>";
 		};
+		D3B8BC2510E8389A00271454 /* Shiira */ = {
+			isa = PBXGroup;
+			children = (
+				D3B8BC2610E8389A00271454 /* HMAppKitEx.h */,
+				D3B8BC2710E8389A00271454 /* HMAppKitEx.m */,
+				D3B8BC2810E8389A00271454 /* HMBrowsaButton.h */,
+				D3B8BC2910E8389A00271454 /* HMBrowsaButton.m */,
+				D3B8BC2A10E8389A00271454 /* HMBrowsaButtonCell.h */,
+				D3B8BC2B10E8389A00271454 /* HMBrowsaButtonCell.m */,
+				D3B8BC2C10E8389A00271454 /* HMFoundationEx.h */,
+				D3B8BC2D10E8389A00271454 /* HMFoundationEx.m */,
+				D3B8BC2E10E8389A00271454 /* HMBrowsaImageComboBox.h */,
+				D3B8BC2F10E8389A00271454 /* HMBrowsaImageComboBox.m */,
+				D3B8BC3010E8389A00271454 /* HMBrowsaImageComboBoxCell.h */,
+				D3B8BC3110E8389A00271454 /* HMBrowsaImageComboBoxCell.m */,
+			);
+			name = Shiira;
+			path = src/Shiira;
+			sourceTree = "<group>";
+		};
 		D3BDE5E610E44EFE00858E44 /* Conf */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +264,7 @@
 		D3BDE75B10E4614500858E44 /* ComboBox */ = {
 			isa = PBXGroup;
 			children = (
+				D3B8BC2510E8389A00271454 /* Shiira */,
 				D3BDE7A610E4638100858E44 /* FUBrowsaComboBox.h */,
 				D3BDE7A710E4638100858E44 /* FUBrowsaComboBox.m */,
 			);
@@ -252,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				D3C2500610E7C63D0059B788 /* Fluidium.app */,
-				D3C2500810E7C63D0059B788 /* HMShared.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,7 +302,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D3C250BA10E7C66D0059B788 /* PBXTargetDependency */,
 			);
 			name = BrowsaPlugIn;
 			productInstallPath = "$(HOME)/Library/Bundles";
@@ -319,13 +340,6 @@
 			remoteRef = D3C2500510E7C63D0059B788 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D3C2500810E7C63D0059B788 /* HMShared.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = HMShared.framework;
-			remoteRef = D3C2500710E7C63D0059B788 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -356,18 +370,16 @@
 				D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */,
 				D3BDE7A810E4638100858E44 /* FUBrowsaComboBox.m in Sources */,
 				D32E8AA510E525FE00445B4C /* FUNotifications.m in Sources */,
+				D3B8BC3210E8389A00271454 /* HMAppKitEx.m in Sources */,
+				D3B8BC3310E8389A00271454 /* HMBrowsaButton.m in Sources */,
+				D3B8BC3410E8389A00271454 /* HMBrowsaButtonCell.m in Sources */,
+				D3B8BC3510E8389A00271454 /* HMFoundationEx.m in Sources */,
+				D3B8BC3610E8389A00271454 /* HMBrowsaImageComboBox.m in Sources */,
+				D3B8BC3710E8389A00271454 /* HMBrowsaImageComboBoxCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D3C250BA10E7C66D0059B788 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = HMShared;
-			targetProxy = D3C250B910E7C66D0059B788 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {

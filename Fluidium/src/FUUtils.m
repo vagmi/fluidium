@@ -15,9 +15,12 @@
 #import "FUUtils.h"
 #import "WebURLsWithTitles.h"
 
+extern NSString *_NSPathForSystemFramework(NSString *framework);
+
 NSString *const kFUHTTPSchemePrefix = @"http://";
 NSString *const kFUHTTPSSchemePrefix = @"https://";
 NSString *const kFUFileSchemePrefix = @"file://";
+NSString *const kFUJavaScriptSchemePrefix = @"javascript:";
 
 NSString *const kFUAboutBlank = @"about:blank";
 
@@ -166,7 +169,7 @@ fail:
 NSString *FUWebKitVersionString() {
     static NSString *sWebKitVersionString = nil;
     if (!sWebKitVersionString) {
-        NSString *path = @"/System/Library/Frameworks/WebKit.framework/Versions/A/Resources/version.plist";
+        NSString *path = [_NSPathForSystemFramework(@"WebKit.framework") stringByAppendingPathComponent:@"Versions/A/Resources/version.plist"];
         NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile:path];
         NSString *s = [d objectForKey:@"CFBundleVersion"];
         if ([s length] > 2) {

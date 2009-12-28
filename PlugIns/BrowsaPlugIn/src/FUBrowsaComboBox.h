@@ -12,9 +12,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "HMImageComboBox.h"
+#import "HMBrowsaImageComboBox.h"
 
-@interface FUBrowsaComboBox : HMImageComboBox {
+@interface FUBrowsaComboBox : HMBrowsaImageComboBox {
     NSImage *progressImage;
     CGFloat progress;
     BOOL showingPopUp;

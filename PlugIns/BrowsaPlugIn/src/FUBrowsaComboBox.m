@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUBrowsaComboBox.h"
-#import "HMImageComboBoxCell.h"
+#import "HMBrowsaImageComboBoxCell.h"
 #import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
 
@@ -89,7 +89,7 @@
 
 
 - (void)showPopUpWithItemCount:(NSInteger)count {
-    NSWindow *popUp = [(HMImageComboBoxCell *)[self cell] popUp];
+    NSWindow *popUp = [(HMBrowsaImageComboBoxCell *)[self cell] popUp];
     [popUp makeKeyAndOrderFront:self];
     [popUp setOpaque:NO];
     [popUp setAlphaValue:.88];
@@ -116,7 +116,7 @@
 #pragma mark NSTableViewDelegate
 
 - (void)hidePopUp {
-    NSWindow *popUp = [(HMImageComboBoxCell *)self.cell popUp];
+    NSWindow *popUp = [(HMBrowsaImageComboBoxCell *)self.cell popUp];
     [popUp orderOut:nil];
     firstKeyDownHasHappened = NO;
     showingPopUp = NO;
@@ -130,7 +130,7 @@
         return;
     }
     
-    NSWindow *popUp = [(HMImageComboBoxCell *)[self cell] popUp];
+    NSWindow *popUp = [(HMBrowsaImageComboBoxCell *)[self cell] popUp];
     NSInteger keyCode = [evt keyCode];
     
     if (ESC == keyCode) { // esc

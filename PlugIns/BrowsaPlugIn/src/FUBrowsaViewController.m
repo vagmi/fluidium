@@ -680,9 +680,9 @@ typedef enum {
 
 
 #pragma mark -
-#pragma mark HMImageComboBoxDelegate
+#pragma mark HMBrowsaImageComboBoxDelegate
 
-- (BOOL)hmComboBox:(HMImageComboBox *)cb writeDataToPasteboard:(NSPasteboard *)pboard {
+- (BOOL)hmComboBox:(HMBrowsaImageComboBox *)cb writeDataToPasteboard:(NSPasteboard *)pboard {
     if (locationComboBox == cb) {        
         NSString *s = [webView mainFrameURL];
         if (![s length]) {

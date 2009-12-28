@@ -19,4 +19,5 @@
 - (NSString *)stringByTrimmingURLSchemePrefix;
 - (BOOL)hasHTTPSchemePrefix;
 - (BOOL)hasSupportedSchemePrefix;
+- (BOOL)hasJavaScriptSchemePrefix;
 @end

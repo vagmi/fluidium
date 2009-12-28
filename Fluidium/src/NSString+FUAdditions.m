@@ -34,6 +34,8 @@
         s = [s substringFromIndex:[kFUHTTPSSchemePrefix length]];
     } else if ([s hasPrefix:kFUFileSchemePrefix]) {
         s = [s substringFromIndex:[kFUFileSchemePrefix length]];
+    } else if ([s hasPrefix:kFUJavaScriptSchemePrefix]) {
+        s = [s substringFromIndex:[kFUJavaScriptSchemePrefix length]];
     }
  
     return s;
@@ -45,13 +47,18 @@
 }
 
 
+- (BOOL)hasJavaScriptSchemePrefix {
+    return [self hasPrefix:kFUJavaScriptSchemePrefix];
+}
+
+
 - (BOOL)hasSupportedSchemePrefix {
     return [self hasHTTPSchemePrefix] 
         || [self hasPrefix:kFUFileSchemePrefix] 
         || [self hasPrefix:@"about:"] 
         || [self hasPrefix:@"data:"] 
         || [self hasPrefix:@"file:"] 
-        || [self hasPrefix:@"javascript:"];
+        || [self hasJavaScriptSchemePrefix];
 }
 
 @end

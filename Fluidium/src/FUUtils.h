@@ -17,6 +17,7 @@
 extern NSString *const kFUHTTPSchemePrefix;
 extern NSString *const kFUHTTPSSchemePrefix;
 extern NSString *const kFUFileSchemePrefix;
+extern NSString *const kFUJavaScriptSchemePrefix;
 
 extern NSString *const kFUAboutBlank;
 

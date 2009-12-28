@@ -454,11 +454,11 @@
     
     NSString *URLString = [bmark.content stringByEnsuringURLSchemePrefix];    
     
-    if ([bmark.content hasPrefix:@"javascript:"]) {
-        NSString *script = [NSString stringWithUTF8String:[bmark.content UTF8String]];
+    if ([bmark.content hasJavaScriptSchemePrefix]) {
+        NSString *script = [bmark.content stringByTrimmingURLSchemePrefix];
         script = [script stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        [[[[self selectedTabController] webView] windowScriptObject] evaluateWebScript:script];
+        [[[self selectedTabController] webView] stringByEvaluatingJavaScriptFromString:script];
     } else {
         FUActivation *act = [FUActivation activationFromEvent:[[self window] currentEvent]];
         
