@@ -137,11 +137,6 @@
 - (NSImage *)documentViewImageWithAspectRatio:(NSSize)aspectRatio {
     NSView *docView = [[[self mainFrame] frameView] documentView];
 
-    NSRect webBounds = [self bounds];
-    if (NSIsEmptyRect(webBounds)) {
-        return nil;
-    }
-    
     NSRect docFrame = [docView frame];
     if (NSIsEmptyRect(docFrame)) {
         return nil;
@@ -168,18 +163,14 @@
         NSLog(@"didnt have to make a new bitmap. reusing");
     }
     
-    NSImage *documentViewImage = [[[NSImage alloc] initWithSize:docFrame.size] autorelease];
-    [documentViewImage addRepresentation:documentViewBitmap];
-    
     [docView cacheDisplayInRect:imageFrame toBitmapImageRep:documentViewBitmap];
-    [docView setNeedsDisplay:YES];
     
     
     ///////
     CGImageRef cgImg = CGImageCreateWithImageInRect([documentViewBitmap CGImage], imageFrame);
-    self.documentViewBitmap = [[[NSBitmapImageRep alloc] initWithCGImage:cgImg] autorelease];
-    documentViewImage = [[[NSImage alloc] initWithSize:imageFrame.size] autorelease];
-    [documentViewImage addRepresentation:documentViewBitmap];
+    NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:cgImg] autorelease];
+    NSImage *documentViewImage = [[[NSImage alloc] initWithSize:imageFrame.size] autorelease];
+    [documentViewImage addRepresentation:bitmap];
     //////
     
     
@@ -189,6 +180,7 @@
     NSLog(@"bitmapSize: %@", NSStringFromSize([documentViewBitmap size]));
     NSLog(@"imageSize: %@", NSStringFromSize([documentViewImage size]));
 
+    [docView setNeedsDisplay:YES];
     return documentViewImage;
 }
 
