@@ -53,8 +53,8 @@
         
         self.preferencesViewController = [[[FUTabsPreferencesViewController alloc] init] autorelease];
         
-        self.preferredVerticalSplitPosition = 340;
-        self.preferredHorizontalSplitPosition = 120;
+        self.preferredVerticalSplitPosition = 120;
+        self.preferredHorizontalSplitPosition = 200;
         
         self.viewControllers = [NSMutableArray array];
     }

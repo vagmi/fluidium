@@ -47,6 +47,7 @@ NSInteger IKImageStateReady = 2;
 
 @interface FUTabsViewController ()
 - (NSArray *)webViews;
+- (id)windowController;
 - (void)updateImageBrowserItemLaterAtIndex:(NSNumber *)indexObj;
 - (void)updateImageBrowserItemAtIndex:(NSInteger)i;
 - (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv;
@@ -73,12 +74,13 @@ NSInteger IKImageStateReady = 2;
     self.plugIn = nil;
     self.plugInAPI = nil;
     self.imageBrowserItems = nil;
+    self.drawer = nil;
     [super dealloc];
 }
 
 
 - (void)awakeFromNib {
-    [imageBrowserView setValue:[NSColor colorWithDeviceWhite:.9 alpha:1] forKey:IKImageBrowserBackgroundColorKey];
+    [imageBrowserView setValue:[NSColor colorWithDeviceWhite:.95 alpha:1] forKey:IKImageBrowserBackgroundColorKey];
     [imageBrowserView setValue:[NSColor lightGrayColor] forKey:IKImageBrowserCellsOutlineColorKey];
     [imageBrowserView setValue:[NSColor clearColor] forKey:IKImageBrowserSelectionColorKey];
 
@@ -115,7 +117,7 @@ NSInteger IKImageStateReady = 2;
     
     [imageBrowserView reloadData];
 
-    id wc = [[self.view window] windowController];
+    id wc = [self windowController];
     for (id tc in [wc tabControllers]) {
         [self startObserveringTabController:tc];
     }
@@ -145,7 +147,7 @@ NSInteger IKImageStateReady = 2;
 #pragma mark IKImageBrowserDelegate
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)ib {
-    id wc = [[self.view window] windowController];
+    id wc = [self windowController];
     [wc setSelectedTabIndex:[[ib selectionIndexes] firstIndex]];
 }
 
@@ -183,10 +185,10 @@ NSInteger IKImageStateReady = 2;
     if (i < [imageBrowserItems count]) {
         // snow leopard only
         if ([imageBrowserView respondsToSelector:@selector(cellForItemAtIndex:)]) {
-//            IKImageBrowserCell *cell = [imageBrowserView cellForItemAtIndex:i];
-//            if (IKImageStateReady != [cell cellState]) {
+            IKImageBrowserCell *cell = [imageBrowserView cellForItemAtIndex:i];
+            if (IKImageStateReady != [cell cellState]) {
                 [self updateImageBrowserItemAtIndex:i];
-//            }
+            }
         } else {
             [self updateImageBrowserItemAtIndex:i];
         }
@@ -213,10 +215,36 @@ NSInteger IKImageStateReady = 2;
 
 
 #pragma mark -
+#pragma mark NSDrawerNotifications
+
+- (void)drawerWillOpen:(NSNotification *)n {
+    self.drawer = [n object];
+}
+
+    
+- (void)drawerWillClose:(NSNotification *)n {
+    self.drawer = nil;
+}
+
+
+#pragma mark -
 #pragma mark Private
 
 - (NSArray *)webViews {
-    return [plugInAPI webViewsForWindow:[self.view window]];
+    if (drawer) {
+        return [plugInAPI webViewsForDrawer:drawer];
+    } else {
+        return [plugInAPI webViewsForWindow:[self.view window]];
+    }
+}
+
+
+- (id)windowController {
+    if (drawer) {
+        return [[drawer parentWindow] windowController];
+    } else {
+        return [[self.view window] windowController];
+    }
 }
 
 
@@ -235,7 +263,7 @@ NSInteger IKImageStateReady = 2;
 
 
 - (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv {
-    item.imageRepresentation = [wv bitmapOfWebContent];
+    item.imageRepresentation = [wv squareBitmapOfWebContent];
     item.imageTitle = [wv mainFrameTitle];
     item.imageSubtitle = [wv mainFrameURL];
 }
@@ -258,4 +286,5 @@ NSInteger IKImageStateReady = 2;
 @synthesize plugIn;
 @synthesize plugInAPI;
 @synthesize imageBrowserItems;
+@synthesize drawer;
 @end

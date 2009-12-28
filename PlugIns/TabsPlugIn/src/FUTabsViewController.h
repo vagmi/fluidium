@@ -19,6 +19,8 @@
     NSMutableArray *imageBrowserItems;
     
     NSInteger changeCount;
+
+    NSDrawer *drawer;
 }
 
 - (void)viewDidAppear;
@@ -28,4 +30,5 @@
 @property (nonatomic, assign) FUTabsPlugIn *plugIn;
 @property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *imageBrowserItems;
+@property (nonatomic, retain) NSDrawer *drawer;
 @end

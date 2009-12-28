@@ -90,6 +90,12 @@
 }
 
 
+- (NSArray *)webViewsForDrawer:(NSDrawer *)drawer {
+    NSWindow *win = [drawer parentWindow];
+    return [self webViewsForWindow:win];
+}
+
+
 - (WebView *)newWebViewForPlugIn:(id <FUPlugIn>)plugIn {
     return [[FUWebView alloc] initWithFrame:NSZeroRect];
 }

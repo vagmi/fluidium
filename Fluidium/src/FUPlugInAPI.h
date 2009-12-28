@@ -32,6 +32,7 @@ typedef enum {
 
 - (WebView *)selectedWebViewForWindow:(NSWindow *)win;
 - (NSArray *)webViewsForWindow:(NSWindow *)win;
+- (NSArray *)webViewsForDrawer:(NSDrawer *)drawer;
 
 // create and setup a new WebView for use in a plugin view controller. must be released by caller.
 - (WebView *)newWebViewForPlugIn:(id <FUPlugIn>)plugIn;
