@@ -45,11 +45,11 @@
         [self setDrawsBackground:YES];
         
         [self setDownloadDelegate:[FUDownloadWindowController instance]];
-
+        
         [self updateWebPreferences];
         [self updateUserAgent];
         [self updateContinuousSpellChecking];
-
+        
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(webPreferencesDidChange:) name:FUWebPreferencesDidChangeNotification object:[FUWebPreferences instance]];
         [nc addObserver:self selector:@selector(userAgentStringDidChange:) name:FUUserAgentStringDidChangeNotification object:nil];
@@ -61,9 +61,9 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
     self.documentViewBitmap = nil;
-
+    
     [super dealloc];
 }
 
@@ -136,15 +136,15 @@
 
 - (NSImage *)documentViewImageWithAspectRatio:(NSSize)aspectRatio {
     NSView *docView = [[[self mainFrame] frameView] documentView];
-
+    
     NSRect docFrame = [docView frame];
     if (NSIsEmptyRect(docFrame)) {
         return nil;
     }
-    
-    if ([docView respondsToSelector:@selector(_layoutIfNeeded)]) {
-        [docView _layoutIfNeeded];
-    }
+
+//    if ([docView respondsToSelector:@selector(_layoutIfNeeded)]) {
+//        [docView _layoutIfNeeded];
+//    }
     
     CGFloat ratio = 0;
     NSRect imageFrame = NSZeroRect;
@@ -157,30 +157,30 @@
     }
     
     if (!documentViewBitmap || !NSEqualSizes([documentViewBitmap size], docFrame.size)) {
-        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!! had to make a new bitmap");
+        //NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!! had to make a new bitmap");
         self.documentViewBitmap = [docView bitmapImageRepForCachingDisplayInRect:docFrame];
     } else {
-        NSLog(@"didnt have to make a new bitmap. reusing");
+        //NSLog(@"didnt have to make a new bitmap. reusing");
     }
     
     [docView cacheDisplayInRect:imageFrame toBitmapImageRep:documentViewBitmap];
     
     
     ///////
-    CGImageRef cgImg = CGImageCreateWithImageInRect([documentViewBitmap CGImage], imageFrame);
+    CGImageRef cgImg = CGImageCreateWithImageInRect([documentViewBitmap CGImage], NSRectToCGRect(imageFrame));
     NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:cgImg] autorelease];
     NSImage *documentViewImage = [[[NSImage alloc] initWithSize:imageFrame.size] autorelease];
     [documentViewImage addRepresentation:bitmap];
     //////
     
     
-    NSLog(@"docFrame: %@", NSStringFromRect(docFrame));
-    NSLog(@"imageFrame: %@", NSStringFromRect(imageFrame));
-
-    NSLog(@"bitmapSize: %@", NSStringFromSize([documentViewBitmap size]));
-    NSLog(@"imageSize: %@", NSStringFromSize([documentViewImage size]));
-
-    [docView setNeedsDisplay:YES];
+//    NSLog(@"docFrame: %@", NSStringFromRect(docFrame));
+//    NSLog(@"imageFrame: %@", NSStringFromRect(imageFrame));
+//    
+//    NSLog(@"bitmapSize: %@", NSStringFromSize([documentViewBitmap size]));
+//    NSLog(@"imageSize: %@", NSStringFromSize([documentViewImage size]));
+    
+    //    [docView setNeedsDisplay:YES];
     return documentViewImage;
 }
 

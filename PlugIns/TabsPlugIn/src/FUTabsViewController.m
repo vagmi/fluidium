@@ -71,7 +71,7 @@
 
 - (void)awakeFromNib {
     [collectionView setSelectable:YES];
-    [collectionView setBackgroundColors:[NSArray arrayWithObject:[NSColor colorWithDeviceWhite:1 alpha:1]]];
+    [collectionView setBackgroundColors:[NSArray arrayWithObject:[NSColor colorWithDeviceWhite:.9 alpha:1]]];
     
     [collectionView addObserver:self forKeyPath:KEY_SELECTION_INDEXES options:NSKeyValueObservingOptionNew context:NULL];
 }
@@ -176,10 +176,10 @@
 #pragma mark FUTabControllerNotifcations
 
 - (void)tabControllerProgressDidChange:(NSNotification *)n {
-    //    if (0 == ++changeCount % 3) { // only update web image every third notification
+    if (0 == ++changeCount % 3) { // only update web image every third notification
         NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
         [self updateTabModelAtIndex:i];
-    //    }
+    }
 }
 
 
