@@ -23,10 +23,22 @@
 
 #define VERTICAL_SCROLL_WIDTH 40
 
+@interface NSObject ()
+- (void)_layoutIfNeeded;
+@end
+
 @interface FUWebView ()
 - (void)updateWebPreferences;
 - (void)updateUserAgent;
 - (void)updateContinuousSpellChecking;
+
+- (void)updateWebViewImageWithAspectRatio:(NSSize)size;
+- (void)updateDocumentViewImageWithAspectRatio:(NSSize)size;
+
+@property (nonatomic, retain) NSImage *webViewImage;
+@property (nonatomic, retain) NSImage *documentViewImage;
+@property (nonatomic, retain) NSBitmapImageRep *webViewBitmap;
+@property (nonatomic, retain) NSBitmapImageRep *documentViewBitmap;
 @end
 
 @implementation FUWebView
@@ -55,6 +67,12 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    self.webViewImage = nil;
+    self.documentViewImage = nil;
+    self.webViewBitmap = nil;
+    self.documentViewBitmap = nil;
+
     [super dealloc];
 }
 
@@ -102,79 +120,15 @@
 #pragma mark -
 #pragma mark Public
 
-- (NSImage *)imageOfWebContentWithAspectRatio:(NSSize)size {
-    NSBitmapImageRep *bitmap = [self bitmapOfWebContentWithAspectRatio:size];
-    NSSize bitmapSize = [bitmap size];
-    
-    NSImage *image = [[[NSImage alloc] initWithSize:bitmapSize] autorelease];
-    [image addRepresentation:bitmap];
-    return image;
+- (NSImage *)webViewImageWithAspectRatio:(NSSize)size {
+//    [self updateWebViewImageWithAspectRatio:size];
+    [self updateDocumentViewImageWithAspectRatio:[self bounds].size];
+    return documentViewImage;
 }
 
 
-- (NSImage *)imageOfWebContent {
-    return [self imageOfWebContentWithAspectRatio:[self bounds].size];
-}
-
-
-- (NSImage *)landscapeImageOfWebContent {
-    return [self imageOfWebContentWithAspectRatio:NSMakeSize(3, 2)];
-}
-
-
-- (NSImage *)squareImageOfWebContent {
-    return [self imageOfWebContentWithAspectRatio:NSMakeSize(1, 1)];
-}
-
-
-- (NSBitmapImageRep *)bitmapOfWebContentWithAspectRatio:(NSSize)size {
-    NSSize fullSize = [self frame].size;
-    
-    // dont show vertical scrollbar in image
-    if ([[[self mainFrame] frameView] _hasScrollBars]) {
-        fullSize.width -= VERTICAL_SCROLL_WIDTH;
-    }
-
-    CGFloat ratio = 0;
-    NSSize displaySize = NSZeroSize;
-    
-    if (size.width > size.height) {
-        ratio = size.height / size.width;
-        displaySize = NSMakeSize(fullSize.width, fullSize.width *ratio);
-    } else {
-        ratio = size.width / size.height;
-        displaySize = NSMakeSize(fullSize.height * ratio, fullSize.height);
-    }
-
-    CGFloat x = fullSize.width / 2.0 - displaySize.width / 2.0;
-    CGFloat y = 0;
-    if (![self isFlipped]) {
-        y = fullSize.height - displaySize.height;
-    }
-    
-    CGRect r = CGRectMake(x, y, displaySize.width, displaySize.height);
-    //NSLog(@"r: %@", NSStringFromRect(r));
-    
-    //[self lockFocus];
-    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:r];
-    [self cacheDisplayInRect:r toBitmapImageRep:imageRep];
-    //[self unlockFocus];
-    return imageRep;    
-}
-
-
-- (NSBitmapImageRep *)bitmapOfWebContent {
-    return [self bitmapOfWebContentWithAspectRatio:[self bounds].size];
-}
-
-
-- (NSBitmapImageRep *)landscapeBitmapOfWebContent {
-    return [self bitmapOfWebContentWithAspectRatio:NSMakeSize(3, 2)];
-}
-
-
-- (NSBitmapImageRep *)squareBitmapOfWebContent {
-    return [self bitmapOfWebContentWithAspectRatio:NSMakeSize(1, 1)];
+- (NSImage *)webViewImageWithCurrentAspectRatio {
+    return [self webViewImageWithAspectRatio:[self bounds].size];
 }
 
 
@@ -195,4 +149,135 @@
     [self setContinuousSpellCheckingEnabled:[[FUUserDefaults instance] continuousSpellCheckingEnabled]];
 }
 
+
+- (void)updateWebViewImageWithAspectRatio:(NSSize)size {
+    id frameView = [[self mainFrame] frameView];
+    id docView = [frameView documentView];
+
+    NSView *view = self;
+    NSSize fullSize = [view frame].size;
+    
+    // dont show vertical scrollbar in image
+    if ([frameView _hasScrollBars]) {
+        fullSize.width -= VERTICAL_SCROLL_WIDTH;
+    }
+    
+    if ([docView respondsToSelector:@selector(_layoutIfNeeded)]) {
+        [docView _layoutIfNeeded];
+    }
+    
+    if (NSEqualSizes(fullSize, NSZeroSize)) {
+        return;
+    }
+    
+    CGFloat ratio = 0;
+    NSSize displaySize = NSZeroSize;
+    
+    if (size.width > size.height) {
+        ratio = size.height / size.width;
+        displaySize = NSMakeSize(fullSize.width, floor(fullSize.width *ratio));
+    } else {
+        ratio = size.width / size.height;
+        displaySize = NSMakeSize(floor(fullSize.height * ratio), fullSize.height);
+    }
+    
+    CGFloat x = floor(fullSize.width / 2.0 - displaySize.width / 2.0);
+    
+    CGFloat y = 0;
+    if ([view isFlipped]) {
+        y = 0;
+    } else {
+        y = fullSize.height - displaySize.height;
+    }
+    
+    NSRect r = NSMakeRect(x, y, displaySize.width, displaySize.height);
+    //NSLog(@"isFlipped: %d", [view isFlipped]);
+    //NSLog(@"[bitmapImageRep size]: %@", NSStringFromSize([bitmapImageRep size]));
+    NSLog(@"r: %@", NSStringFromRect(r));
+    
+    if (!webViewBitmap || !NSEqualSizes([webViewBitmap size], r.size)) {
+        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!! had to make a new bitmap");
+        self.webViewBitmap = [view bitmapImageRepForCachingDisplayInRect:r];
+    } else {
+        NSLog(@"didnt have to make a new bitmap. reusing");
+    }
+    
+    self.webViewImage = [[[NSImage alloc] initWithSize:[webViewBitmap size]] autorelease];
+    [webViewImage addRepresentation:webViewBitmap];
+    
+    NSLog(@"webViewBitmap: %@", webViewBitmap);
+    NSLog(@"webViewImage: %@", webViewImage);
+    
+    [view cacheDisplayInRect:r toBitmapImageRep:webViewBitmap];
+    [docView setNeedsDisplay:YES];
+    [view setNeedsDisplay:YES];
+}
+
+
+- (void)updateDocumentViewImageWithAspectRatio:(NSSize)size {
+    id frameView = [[self mainFrame] frameView];
+    id docView = [frameView documentView];
+    
+    NSView *view = docView;
+    NSSize fullSize = [view frame].size;
+    
+    // dont show vertical scrollbar in image
+    if ([frameView _hasScrollBars]) {
+        fullSize.width -= VERTICAL_SCROLL_WIDTH;
+    }
+    
+    if ([docView respondsToSelector:@selector(_layoutIfNeeded)]) {
+        [docView _layoutIfNeeded];
+    }
+    
+    if (NSEqualSizes(fullSize, NSZeroSize)) {
+        return;
+    }
+    
+    CGFloat ratio = 0;
+    NSSize displaySize = NSZeroSize;
+    
+    if (size.width > size.height) {
+        ratio = size.height / size.width;
+        displaySize = NSMakeSize(fullSize.width, floor(fullSize.width *ratio));
+    } else {
+        ratio = size.width / size.height;
+        displaySize = NSMakeSize(floor(fullSize.height * ratio), fullSize.height);
+    }
+    
+    CGFloat x = floor(fullSize.width / 2.0 - displaySize.width / 2.0);
+    
+    CGFloat y = 0;
+    if ([view isFlipped]) {
+        y = 0;
+    } else {
+        y = fullSize.height - displaySize.height;
+    }
+    
+    NSRect r = NSMakeRect(x, y, displaySize.width, displaySize.height);
+    //NSLog(@"isFlipped: %d", [view isFlipped]);
+    NSLog(@"r: %@", NSStringFromRect(r));
+    
+    if (!documentViewBitmap || !NSEqualSizes([documentViewBitmap size], r.size)) {
+        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!! had to make a new bitmap");
+        self.documentViewBitmap = [view bitmapImageRepForCachingDisplayInRect:r];
+    } else {
+        NSLog(@"didnt have to make a new bitmap. reusing");
+    }
+    
+    self.documentViewImage = [[[NSImage alloc] initWithSize:[documentViewBitmap size]] autorelease];
+    [documentViewImage addRepresentation:documentViewBitmap];
+    
+    NSLog(@"documentViewBitmap: %@", documentViewBitmap);
+    NSLog(@"documentViewImage: %@", documentViewImage);
+    
+    [view cacheDisplayInRect:r toBitmapImageRep:documentViewBitmap];
+    [docView setNeedsDisplay:YES];
+    [view setNeedsDisplay:YES];
+}
+
+@synthesize webViewImage;
+@synthesize documentViewImage;
+@synthesize webViewBitmap;
+@synthesize documentViewBitmap;
 @end

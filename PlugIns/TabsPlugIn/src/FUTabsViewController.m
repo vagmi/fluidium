@@ -14,6 +14,10 @@
 #import "FUTabModel.h"
 #import <WebKit/WebKit.h>
 
+#define KEY_SELECTION_INDEXES @"selectionIndexes"
+#define KEY_TAB_CONTROLLER @"FUTabController"
+#define KEY_INDEX @"FUIndex"
+
 @interface NSObject ()
 // FUWindowController
 - (void)setSelectedTabIndex:(NSInteger)i;
@@ -23,13 +27,8 @@
 @end
 
 @interface WebView ()
-- (NSImage *)imageOfWebContentWithAspectRatio:(NSSize)size;
-- (NSImage *)imageOfWebContent;
-- (NSImage *)squareImageOfWebContent;
-- (NSImage *)landscapeImageOfWebContent;
-- (NSBitmapImageRep *)bitmapOfWebContent;
-- (NSBitmapImageRep *)landscapeBitmapOfWebContent;
-- (NSBitmapImageRep *)squareBitmapOfWebContent;
+- (NSImage *)webViewImage;
+- (NSImage *)webViewImageWithAspectRatio:(NSSize)size;
 @end
 
 @interface FUTabsViewController ()
@@ -72,14 +71,14 @@
 
 - (void)awakeFromNib {
     [collectionView setSelectable:YES];
-    [collectionView setBackgroundColors:[NSArray arrayWithObject:[NSColor colorWithDeviceWhite:.95 alpha:1]]];
+    [collectionView setBackgroundColors:[NSArray arrayWithObject:[NSColor colorWithDeviceWhite:1 alpha:1]]];
     
-    [collectionView addObserver:self forKeyPath:@"selectionIndexes" options:NSKeyValueObservingOptionNew context:NULL];
+    [collectionView addObserver:self forKeyPath:KEY_SELECTION_INDEXES options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)ctx {
-    if ([@"selectionIndexes" isEqualToString:keyPath]) {
+    if ([KEY_SELECTION_INDEXES isEqualToString:keyPath]) {
         id wc = [self windowController];
         [wc setSelectedTabIndex:[[collectionView selectionIndexes] firstIndex]];
     }
@@ -143,28 +142,28 @@
 #pragma mark FUWindowControllerNotifcations
 
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
-    NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     WebView *wv = [[self webViews] objectAtIndex:i];
     FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
     [self updateTabModel:model fromWebView:wv];
     [modelController insertObject:model atArrangedObjectIndex:i];
     
-    id tc = [[n userInfo] objectForKey:@"FUTabController"];
+    id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self startObserveringTabController:tc];
 }
 
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
-    NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [modelController removeObjectAtArrangedObjectIndex:i];
     
-    id tc = [[n userInfo] objectForKey:@"FUTabController"];
+    id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self stopObserveringTabController:tc];
 }
 
 
 - (void)windowControllerDidChangeSelectedTab:(NSNotification *)n {
-    NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [collectionView setSelectionIndexes:[NSIndexSet indexSetWithIndex:i]];
     
 //    if (i < [tabModels count]) {
@@ -177,16 +176,23 @@
 #pragma mark FUTabControllerNotifcations
 
 - (void)tabControllerProgressDidChange:(NSNotification *)n {
-    if (0 == ++changeCount % 3) { // only update web image every third notification
-        NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
+    //    if (0 == ++changeCount % 3) { // only update web image every third notification
+        NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
         [self updateTabModelAtIndex:i];
-    }
+    //    }
 }
 
 
+//- (void)timerFired:(NSTimer *)t {
+//    [self updateTabModelLaterAtIndex:[t userInfo]];
+//}
+
+
 - (void)tabControllerDidFinishLoad:(NSNotification *)n {
-    NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [self updateTabModelAtIndex:i];
+    
+    //    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired:) userInfo:[NSNumber numberWithInteger:i] repeats:YES];
     [self performSelector:@selector(updateTabModelLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:.6];
 }
 
@@ -239,7 +245,7 @@
 
 
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
-    model.image = [wv imageOfWebContentWithAspectRatio:NSMakeSize(1, .5)];
+    model.image = [wv webViewImageWithAspectRatio:NSMakeSize(1, .5)];
     NSString *title = [wv mainFrameTitle];
     if (![title length]) {
         title = NSLocalizedString(@"Untitled", @"");
