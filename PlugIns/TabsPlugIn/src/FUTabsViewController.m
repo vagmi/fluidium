@@ -183,10 +183,10 @@ NSInteger IKImageStateReady = 2;
     if (i < [imageBrowserItems count]) {
         // snow leopard only
         if ([imageBrowserView respondsToSelector:@selector(cellForItemAtIndex:)]) {
-            IKImageBrowserCell *cell = [imageBrowserView cellForItemAtIndex:i];
-            if (IKImageStateReady != [cell cellState]) {
+//            IKImageBrowserCell *cell = [imageBrowserView cellForItemAtIndex:i];
+//            if (IKImageStateReady != [cell cellState]) {
                 [self updateImageBrowserItemAtIndex:i];
-            }
+//            }
         } else {
             [self updateImageBrowserItemAtIndex:i];
         }

@@ -1077,6 +1077,7 @@
     [tabControllers addObject:tc];
     
     NSTabViewItem *tabItem = [[[NSTabViewItem alloc] initWithIdentifier:tc] autorelease];
+    [tc.view setFrame:[uberView.midView bounds]]; // need to set the frame here to make sure it is valid for any thumbnail generation for background tabs
     [tabItem setView:tc.view];
     [tabItem bind:@"label" toObject:tc withKeyPath:@"title" options:nil];
     

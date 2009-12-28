@@ -21,6 +21,8 @@
 #import "FUNotifications.h"
 #import "WebFrameViewPrivate.h"
 
+#define VERTICAL_SCROLL_WIDTH 40
+
 @interface FUWebView ()
 - (void)updateWebPreferences;
 - (void)updateUserAgent;
@@ -130,7 +132,7 @@
     
     // dont show vertical scrollbar in image
     if ([[[self mainFrame] frameView] _hasScrollBars]) {
-        fullSize.width -= 40;
+        fullSize.width -= VERTICAL_SCROLL_WIDTH;
     }
 
     CGFloat ratio = 0;
