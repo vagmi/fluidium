@@ -219,7 +219,7 @@
 }
 
 
-- (FUDownloadItem *)downloadItemForButton:(id)sender {
+- (FUDownloadItem *)downloadItemForButton:(id)sender {	
     return [[arrayController content] objectAtIndex:[self indexForButton:sender]];
 }
 

@@ -33,6 +33,8 @@ extern NSString *const FUPlugInViewControllerDrawerKey; // NSDrawer -- this is o
 - (void)plugInViewControllerDidDisappear:(NSNotification *)n;
 @end
 
+#define FUPlugInViewPlacementIsVerticalSplitView(mask)  (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight
+#define FUPlugInViewPlacementIsHorizontalSplitView(mask)  (mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewTop
 #define FUPlugInViewPlacementIsSplitView(mask)  ((mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight || (mask) == FUPlugInViewPlacementSplitViewTop)
 #define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)
 #define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawer)

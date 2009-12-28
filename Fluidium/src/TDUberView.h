@@ -19,8 +19,8 @@
 <NSSplitViewDelegate>
 #endif
 {
-    NSSplitView *vSplitView;
-    NSSplitView *hSplitView;
+    NSSplitView *verticalSplitView;
+    NSSplitView *horizontalSplitView;
     NSView *leftSuperview;
     NSView *rightSuperview;
     NSView *bottomSuperview;
@@ -78,6 +78,9 @@
 @property (nonatomic, retain) NSView *topView;
 @property (nonatomic, retain) NSView *midView;
 @property (nonatomic, retain) NSView *bottomView;
+
+@property (nonatomic, retain) NSSplitView *verticalSplitView; // this one has split divider lines running north sout
+@property (nonatomic, retain) NSSplitView *horizontalSplitView; // this one has split divider lines running east west
 
 @property (nonatomic) NSSplitViewDividerStyle splitViewDividerStyle;
 @property (nonatomic) CGFloat preferredLeftSplitWidth;

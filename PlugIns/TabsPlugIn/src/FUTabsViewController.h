@@ -8,15 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class IKImageBrowserView;
 @class FUTabsPlugIn;
 @protocol FUPlugInAPI;
 
 @interface FUTabsViewController : NSViewController {
-    IKImageBrowserView *imageBrowserView;
+    NSArrayController *modelController;
+    NSScrollView *scrollView;
+    NSCollectionView *collectionView;
     FUTabsPlugIn *plugIn;
     id <FUPlugInAPI>plugInAPI;
-    NSMutableArray *imageBrowserItems;
+    NSMutableArray *tabModels;
     
     NSInteger changeCount;
 
@@ -26,9 +27,11 @@
 - (void)viewDidAppear;
 - (void)viewWillDisappear;
 
-@property (nonatomic, retain) IBOutlet IKImageBrowserView *imageBrowserView;
+@property (nonatomic, retain) IBOutlet NSArrayController *modelController;
+@property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet NSCollectionView *collectionView;
 @property (nonatomic, assign) FUTabsPlugIn *plugIn;
 @property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, retain) NSMutableArray *imageBrowserItems;
+@property (nonatomic, retain) NSMutableArray *tabModels;
 @property (nonatomic, retain) NSDrawer *drawer;
 @end

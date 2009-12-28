@@ -18,6 +18,7 @@
 #import "FUWindowController.h"
 #import "FUTabController.h"
 #import "FUNotifications.h"
+#import "TDUberView.h"
 
 @interface FUPlugInWrapper ()
 @property (nonatomic, retain, readwrite) id <FUPlugIn>plugIn;
@@ -133,13 +134,19 @@
         [self addObserver:vc for:NSWindowWillBeginSheetNotification object:win ifRespondsTo:@selector(windowWillBeginSheet:)];
         [self addObserver:vc for:NSWindowDidEndSheetNotification object:win ifRespondsTo:@selector(windowDidEndSheet:)];
         
-        if (FUPlugInViewPlacementDrawer & [plugIn allowedViewPlacementMask]) {
-            NSDrawer *drawer = [[win drawers] objectAtIndex:0];
-            [self addObserver:vc for:NSDrawerWillOpenNotification object:drawer ifRespondsTo:@selector(drawerWillOpen:)];
-            [self addObserver:vc for:NSDrawerDidOpenNotification object:drawer ifRespondsTo:@selector(drawerDidOpen:)];
-            [self addObserver:vc for:NSDrawerWillCloseNotification object:drawer ifRespondsTo:@selector(drawerWillClose:)];
-            [self addObserver:vc for:NSDrawerDidCloseNotification object:drawer ifRespondsTo:@selector(drawerDidClose:)];
-        }
+        NSDrawer *drawer = [[win drawers] objectAtIndex:0];
+        [self addObserver:vc for:NSDrawerWillOpenNotification object:drawer ifRespondsTo:@selector(drawerWillOpen:)];
+        [self addObserver:vc for:NSDrawerDidOpenNotification object:drawer ifRespondsTo:@selector(drawerDidOpen:)];
+        [self addObserver:vc for:NSDrawerWillCloseNotification object:drawer ifRespondsTo:@selector(drawerWillClose:)];
+        [self addObserver:vc for:NSDrawerDidCloseNotification object:drawer ifRespondsTo:@selector(drawerDidClose:)];
+
+        NSSplitView *sv = wc.uberView.verticalSplitView;
+        [self addObserver:vc for:NSSplitViewWillResizeSubviewsNotification object:sv ifRespondsTo:@selector(splitViewWillResizeSubviews:)];
+        [self addObserver:vc for:NSSplitViewDidResizeSubviewsNotification object:sv ifRespondsTo:@selector(splitViewDidResizeSubviews:)];
+
+        sv = wc.uberView.horizontalSplitView;
+        [self addObserver:vc for:NSSplitViewWillResizeSubviewsNotification object:sv ifRespondsTo:@selector(splitViewWillResizeSubviews:)];
+        [self addObserver:vc for:NSSplitViewDidResizeSubviewsNotification object:sv ifRespondsTo:@selector(splitViewDidResizeSubviews:)];
     }
     
     return vc;

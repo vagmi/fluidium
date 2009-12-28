@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUPlugInAPIImpl.h"
+#import "FUPlugInController.h"
 #import "FUWindowController.h"
 #import "FUDocumentController.h"
 #import "FUTabController.h"
@@ -63,6 +64,12 @@
 
 - (NSArray *)allUserAgentStrings {
     return [[FUUserAgentWindowController instance] allUserAgentStrings];
+}
+
+
+- (NSUInteger)viewPlacementForPlugInIdentifier:(NSString *)s {
+    FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:s];
+    return [wrap viewPlacementMask];
 }
 
 

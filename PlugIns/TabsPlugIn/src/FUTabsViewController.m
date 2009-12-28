@@ -11,24 +11,8 @@
 #import "FUPlugIn.h"
 #import "FUPlugInAPI.h"
 #import "FUTabsPlugIn.h"
-#import "FUImageBrowserItem.h"
-#import <Quartz/Quartz.h>
+#import "FUTabModel.h"
 #import <WebKit/WebKit.h>
-
-#if FU_BUILD_TARGET_LEOPARD
-@class IKImageBrowserCell;
-
-NSInteger IKImageStateReady = 2;
-
-@interface NSObject ()
-// IKImageBrowserView
-- (void)setIntercellSpacing:(NSSize)size;
-- (id)cellForItemAtIndex:(NSInteger)i;
-
-// IKImageBrowserCell
-- (NSInteger)cellState;
-@end
-#endif
 
 @interface NSObject ()
 // FUWindowController
@@ -39,7 +23,10 @@ NSInteger IKImageStateReady = 2;
 @end
 
 @interface WebView ()
+- (NSImage *)imageOfWebContentWithAspectRatio:(NSSize)size;
 - (NSImage *)imageOfWebContent;
+- (NSImage *)squareImageOfWebContent;
+- (NSImage *)landscapeImageOfWebContent;
 - (NSBitmapImageRep *)bitmapOfWebContent;
 - (NSBitmapImageRep *)landscapeBitmapOfWebContent;
 - (NSBitmapImageRep *)squareBitmapOfWebContent;
@@ -48,9 +35,11 @@ NSInteger IKImageStateReady = 2;
 @interface FUTabsViewController ()
 - (NSArray *)webViews;
 - (id)windowController;
-- (void)updateImageBrowserItemLaterAtIndex:(NSNumber *)indexObj;
-- (void)updateImageBrowserItemAtIndex:(NSInteger)i;
-- (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv;
+- (void)updateTabModelLaterAtIndex:(NSNumber *)indexObj;
+- (void)updateTabModelAtIndex:(NSInteger)i;
+- (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv;
+- (BOOL)isVertical;
+- (BOOL)isHorizontal;    
 @end
 
 @implementation FUTabsViewController
@@ -70,34 +59,44 @@ NSInteger IKImageStateReady = 2;
 
 - (void)dealloc {
     self.view = nil;
-    self.imageBrowserView = nil;
+    self.modelController = nil;
+    self.scrollView = nil;
+    self.collectionView = nil;
     self.plugIn = nil;
     self.plugInAPI = nil;
-    self.imageBrowserItems = nil;
+    self.tabModels = nil;
     self.drawer = nil;
     [super dealloc];
 }
 
 
 - (void)awakeFromNib {
-    [imageBrowserView setValue:[NSColor colorWithDeviceWhite:.95 alpha:1] forKey:IKImageBrowserBackgroundColorKey];
-    [imageBrowserView setValue:[NSColor lightGrayColor] forKey:IKImageBrowserCellsOutlineColorKey];
-    [imageBrowserView setValue:[NSColor clearColor] forKey:IKImageBrowserSelectionColorKey];
+    [collectionView setSelectable:YES];
+    [collectionView setBackgroundColors:[NSArray arrayWithObject:[NSColor colorWithDeviceWhite:.95 alpha:1]]];
+    
+    [collectionView addObserver:self forKeyPath:@"selectionIndexes" options:NSKeyValueObservingOptionNew context:NULL];
+}
 
-    //[imageBrowserView setCellSize:NSMakeSize(600, 400)];
-    [imageBrowserView setConstrainsToOriginalSize:YES];
-    [imageBrowserView setAutoresizesSubviews:YES];
 
-    [imageBrowserView setZoomValue:1.0];
-	[imageBrowserView setContentResizingMask:NSViewHeightSizable]; // dont add width here. causes multiple cols
-	[imageBrowserView setAllowsEmptySelection:NO];
-	[imageBrowserView setAllowsMultipleSelection:NO];
-	[imageBrowserView setDelegate:self];
-	[imageBrowserView setDataSource:self];
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)ctx {
+    if ([@"selectionIndexes" isEqualToString:keyPath]) {
+        id wc = [self windowController];
+        [wc setSelectedTabIndex:[[collectionView selectionIndexes] firstIndex]];
+    }
+}
 
-    // snow leopard only
-    if ([imageBrowserView respondsToSelector:@selector(setIntercellSpacing:)]) {
-        [imageBrowserView setIntercellSpacing:NSMakeSize(8, 8)];
+
+- (void)splitViewDidResizeSubviews:(NSNotification *)n {
+    if ([self isVertical]) {
+        CGFloat w = [scrollView contentSize].width;
+        NSSize size = NSMakeSize(w, w * .59);
+        [collectionView setMinItemSize:size];
+        [collectionView setMaxItemSize:size];
+    } else if ([self isHorizontal]) {
+        CGFloat h = [scrollView contentSize].height;
+        NSSize size = NSMakeSize(h * 1.69, h);
+        [collectionView setMinItemSize:size];
+        [collectionView setMaxItemSize:size];
     }
 }
 
@@ -106,16 +105,27 @@ NSInteger IKImageStateReady = 2;
 #pragma mark Public
 
 - (void)viewDidAppear {
-    NSArray *wvs = [self webViews];
-    self.imageBrowserItems = [NSMutableArray arrayWithCapacity:[wvs count]];
-    
-    for (WebView *wv in wvs) {
-        FUImageBrowserItem *item = [[[FUImageBrowserItem alloc] init] autorelease];
-        [self updateImageBrowserItem:item fromWebView:wv];
-        [imageBrowserItems addObject:item];
+    if ([self isVertical]) {
+        [collectionView setMaxNumberOfRows:0];
+        [collectionView setMaxNumberOfColumns:1];
+    } else if ([self isHorizontal]) {
+        [collectionView setMaxNumberOfRows:1];
+        [collectionView setMaxNumberOfColumns:0];
     }
     
-    [imageBrowserView reloadData];
+    [collectionView setMinItemSize:NSMakeSize(100, 59)];
+    CGFloat w = [scrollView contentSize].width;
+    [collectionView setMaxItemSize:NSMakeSize(w, w * .59)];
+    
+    NSArray *wvs = [self webViews];
+    self.tabModels = [NSMutableArray arrayWithCapacity:[wvs count]];
+    
+    for (WebView *wv in wvs) {
+        FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
+        [self updateTabModel:model fromWebView:wv];
+        //[tabModels addObject:model];
+        [modelController addObject:model];
+    }
 
     id wc = [self windowController];
     for (id tc in [wc tabControllers]) {
@@ -125,30 +135,7 @@ NSInteger IKImageStateReady = 2;
 
 
 - (void)viewWillDisappear {
-    self.imageBrowserItems = nil;
-    [imageBrowserView reloadData];
-}
-
-
-#pragma mark -
-#pragma mark IKImageBrowserDataSource
-
-- (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *)ib {
-    return [imageBrowserItems count];
-}
-
-
-- (id /*IKImageBrowserItem*/)imageBrowser:(IKImageBrowserView *)ib itemAtIndex:(NSUInteger)i {
-    return [imageBrowserItems objectAtIndex:i];
-}
-
-
-#pragma mark -
-#pragma mark IKImageBrowserDelegate
-
-- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)ib {
-    id wc = [self windowController];
-    [wc setSelectedTabIndex:[[ib selectionIndexes] firstIndex]];
+    self.tabModels = nil;
 }
 
 
@@ -158,10 +145,9 @@ NSInteger IKImageStateReady = 2;
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
     WebView *wv = [[self webViews] objectAtIndex:i];
-    FUImageBrowserItem *item = [[[FUImageBrowserItem alloc] init] autorelease];
-    [self updateImageBrowserItem:item fromWebView:wv];
-    [imageBrowserItems insertObject:item atIndex:i];
-    [imageBrowserView reloadData];
+    FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
+    [self updateTabModel:model fromWebView:wv];
+    [modelController insertObject:model atArrangedObjectIndex:i];
     
     id tc = [[n userInfo] objectForKey:@"FUTabController"];
     [self startObserveringTabController:tc];
@@ -170,8 +156,7 @@ NSInteger IKImageStateReady = 2;
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
-    [imageBrowserItems removeObjectAtIndex:i];
-    [imageBrowserView reloadData];
+    [modelController removeObjectAtArrangedObjectIndex:i];
     
     id tc = [[n userInfo] objectForKey:@"FUTabController"];
     [self stopObserveringTabController:tc];
@@ -180,19 +165,11 @@ NSInteger IKImageStateReady = 2;
 
 - (void)windowControllerDidChangeSelectedTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
-    [imageBrowserView setSelectionIndexes:[NSIndexSet indexSetWithIndex:i] byExtendingSelection:NO];
+    [collectionView setSelectionIndexes:[NSIndexSet indexSetWithIndex:i]];
     
-    if (i < [imageBrowserItems count]) {
-        // snow leopard only
-        if ([imageBrowserView respondsToSelector:@selector(cellForItemAtIndex:)]) {
-            IKImageBrowserCell *cell = [imageBrowserView cellForItemAtIndex:i];
-            if (IKImageStateReady != [cell cellState]) {
-                [self updateImageBrowserItemAtIndex:i];
-            }
-        } else {
-            [self updateImageBrowserItemAtIndex:i];
-        }
-    }
+//    if (i < [tabModels count]) {
+//        [self updateTabModelAtIndex:i];
+//    }
 }
 
 
@@ -202,15 +179,15 @@ NSInteger IKImageStateReady = 2;
 - (void)tabControllerProgressDidChange:(NSNotification *)n {
     if (0 == ++changeCount % 3) { // only update web image every third notification
         NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
-        [self updateImageBrowserItemAtIndex:i];
+        [self updateTabModelAtIndex:i];
     }
 }
 
 
 - (void)tabControllerDidFinishLoad:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:@"FUIndex"] integerValue];
-    [self updateImageBrowserItemAtIndex:i];
-    [self performSelector:@selector(updateImageBrowserItemLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:.6];
+    [self updateTabModelAtIndex:i];
+    [self performSelector:@selector(updateTabModelLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:.6];
 }
 
 
@@ -248,24 +225,27 @@ NSInteger IKImageStateReady = 2;
 }
 
 
-- (void)updateImageBrowserItemLaterAtIndex:(NSNumber *)indexObj {
-    [self updateImageBrowserItemAtIndex:[indexObj integerValue]];
+- (void)updateTabModelLaterAtIndex:(NSNumber *)indexObj {
+    [self updateTabModelAtIndex:[indexObj integerValue]];
 }
 
 
-- (void)updateImageBrowserItemAtIndex:(NSInteger)i {
+- (void)updateTabModelAtIndex:(NSInteger)i {
     WebView *wv = [[self webViews] objectAtIndex:i];
     
-    FUImageBrowserItem *item = [imageBrowserItems objectAtIndex:i];
-    [self updateImageBrowserItem:item fromWebView:wv];
-    [imageBrowserView reloadData];    
+    FUTabModel *model = [tabModels objectAtIndex:i];
+    [self updateTabModel:model fromWebView:wv];
 }
 
 
-- (void)updateImageBrowserItem:(FUImageBrowserItem *)item fromWebView:(WebView *)wv {
-    item.imageRepresentation = [wv squareBitmapOfWebContent];
-    item.imageTitle = [wv mainFrameTitle];
-    item.imageSubtitle = [wv mainFrameURL];
+- (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
+    model.image = [wv imageOfWebContentWithAspectRatio:NSMakeSize(1, .5)];
+    NSString *title = [wv mainFrameTitle];
+    if (![title length]) {
+        title = NSLocalizedString(@"Untitled", @"");
+    }
+    model.title = title;
+    model.URLString = [wv mainFrameURL];
 }
 
 
@@ -282,9 +262,23 @@ NSInteger IKImageStateReady = 2;
     [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:tc];
 }
 
-@synthesize imageBrowserView;
+
+- (BOOL)isVertical {
+    NSUInteger mask = [plugInAPI viewPlacementForPlugInIdentifier:[plugIn identifier]];
+    return FUPlugInViewPlacementIsVerticalSplitView(mask) || FUPlugInViewPlacementIsDrawer(mask);
+}
+
+
+- (BOOL)isHorizontal {
+    NSUInteger mask = [plugInAPI viewPlacementForPlugInIdentifier:[plugIn identifier]];
+    return FUPlugInViewPlacementIsHorizontalSplitView(mask);
+}
+
+@synthesize modelController;
+@synthesize scrollView;
+@synthesize collectionView;
 @synthesize plugIn;
 @synthesize plugInAPI;
-@synthesize imageBrowserItems;
+@synthesize tabModels;
 @synthesize drawer;
 @end
