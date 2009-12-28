@@ -15,15 +15,9 @@
 #import <WebKit/WebKit.h>
 
 @interface FUWebView : WebView {
-    NSImage *webViewImage;
-    NSImage *documentViewImage;
-    NSBitmapImageRep *webViewBitmap;
     NSBitmapImageRep *documentViewBitmap;
 }
 
-- (NSImage *)webViewImageWithAspectRatio:(NSSize)size;
-- (NSImage *)webViewImageWithCurrentAspectRatio;
-
-//- (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
-//- (NSImage *)documentViewImage;
+- (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
+- (NSImage *)documentViewImageWithCurrentAspectRatio;
 @end

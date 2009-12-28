@@ -1002,7 +1002,7 @@
     
     FUWebView *wv = [[tabItem identifier] webView];
     
-    return [wv webViewImageWithCurrentAspectRatio];
+    return [wv documentViewImageWithCurrentAspectRatio];
 }
 
 

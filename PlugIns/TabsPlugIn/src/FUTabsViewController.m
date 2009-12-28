@@ -27,8 +27,8 @@
 @end
 
 @interface WebView ()
-- (NSImage *)webViewImage;
-- (NSImage *)webViewImageWithAspectRatio:(NSSize)size;
+- (NSImage *)documentViewImageWithCurrentAspectRatio;
+- (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
 @end
 
 @interface FUTabsViewController ()
@@ -86,17 +86,17 @@
 
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)n {
-    if ([self isVertical]) {
-        CGFloat w = [scrollView contentSize].width;
-        NSSize size = NSMakeSize(w, w * .59);
-        [collectionView setMinItemSize:size];
-        [collectionView setMaxItemSize:size];
-    } else if ([self isHorizontal]) {
-        CGFloat h = [scrollView contentSize].height;
-        NSSize size = NSMakeSize(h * 1.69, h);
-        [collectionView setMinItemSize:size];
-        [collectionView setMaxItemSize:size];
-    }
+//    if ([self isVertical]) {
+//        CGFloat w = [scrollView contentSize].width;
+//        NSSize size = NSMakeSize(w, w * .59);
+//        [collectionView setMinItemSize:size];
+//        [collectionView setMaxItemSize:size];
+//    } else if ([self isHorizontal]) {
+//        CGFloat h = [scrollView contentSize].height;
+//        NSSize size = NSMakeSize(h * 1.69, h);
+//        [collectionView setMinItemSize:size];
+//        [collectionView setMaxItemSize:size];
+//    }
 }
 
 
@@ -245,7 +245,7 @@
 
 
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
-    model.image = [wv webViewImageWithAspectRatio:NSMakeSize(1, .5)];
+    model.image = [wv documentViewImageWithCurrentAspectRatio];
     NSString *title = [wv mainFrameTitle];
     if (![title length]) {
         title = NSLocalizedString(@"Untitled", @"");

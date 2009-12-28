@@ -32,12 +32,6 @@
 - (void)updateUserAgent;
 - (void)updateContinuousSpellChecking;
 
-- (void)updateWebViewImageWithAspectRatio:(NSSize)size;
-- (void)updateDocumentViewImageWithAspectRatio:(NSSize)size;
-
-@property (nonatomic, retain) NSImage *webViewImage;
-@property (nonatomic, retain) NSImage *documentViewImage;
-@property (nonatomic, retain) NSBitmapImageRep *webViewBitmap;
 @property (nonatomic, retain) NSBitmapImageRep *documentViewBitmap;
 @end
 
@@ -68,9 +62,6 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    self.webViewImage = nil;
-    self.documentViewImage = nil;
-    self.webViewBitmap = nil;
     self.documentViewBitmap = nil;
 
     [super dealloc];
@@ -120,15 +111,8 @@
 #pragma mark -
 #pragma mark Public
 
-- (NSImage *)webViewImageWithAspectRatio:(NSSize)size {
-//    [self updateWebViewImageWithAspectRatio:size];
-    [self updateDocumentViewImageWithAspectRatio:[self bounds].size];
-    return documentViewImage;
-}
-
-
-- (NSImage *)webViewImageWithCurrentAspectRatio {
-    return [self webViewImageWithAspectRatio:[self bounds].size];
+- (NSImage *)documentViewImageWithCurrentAspectRatio {
+    return [self documentViewImageWithAspectRatio:[self bounds].size];
 }
 
 
@@ -150,134 +134,46 @@
 }
 
 
-- (void)updateWebViewImageWithAspectRatio:(NSSize)size {
-    id frameView = [[self mainFrame] frameView];
-    id docView = [frameView documentView];
+- (NSImage *)documentViewImageWithAspectRatio:(NSSize)aspectRatio {
+    NSView *docView = [[[self mainFrame] frameView] documentView];
 
-    NSView *view = self;
-    NSSize fullSize = [view frame].size;
-    
-    // dont show vertical scrollbar in image
-    if ([frameView _hasScrollBars]) {
-        fullSize.width -= VERTICAL_SCROLL_WIDTH;
-    }
+    NSRect docFrame = [docView frame];
     
     if ([docView respondsToSelector:@selector(_layoutIfNeeded)]) {
         [docView _layoutIfNeeded];
     }
     
-    if (NSEqualSizes(fullSize, NSZeroSize)) {
-        return;
-    }
-    
     CGFloat ratio = 0;
-    NSSize displaySize = NSZeroSize;
-    
-    if (size.width > size.height) {
-        ratio = size.height / size.width;
-        displaySize = NSMakeSize(fullSize.width, floor(fullSize.width *ratio));
+    NSRect imageFrame = NSZeroRect;
+    if (aspectRatio.width > aspectRatio.height) {
+        ratio = aspectRatio.height / aspectRatio.width;
+        imageFrame = NSMakeRect(0, 0, docFrame.size.width, floor(docFrame.size.width * ratio));
     } else {
-        ratio = size.width / size.height;
-        displaySize = NSMakeSize(floor(fullSize.height * ratio), fullSize.height);
+        ratio = aspectRatio.width / aspectRatio.height;
+        imageFrame = NSMakeRect(0, 0, floor(docFrame.size.height * ratio), docFrame.size.width);
     }
     
-    CGFloat x = floor(fullSize.width / 2.0 - displaySize.width / 2.0);
-    
-    CGFloat y = 0;
-    if ([view isFlipped]) {
-        y = 0;
-    } else {
-        y = fullSize.height - displaySize.height;
-    }
-    
-    NSRect r = NSMakeRect(x, y, displaySize.width, displaySize.height);
-    //NSLog(@"isFlipped: %d", [view isFlipped]);
-    //NSLog(@"[bitmapImageRep size]: %@", NSStringFromSize([bitmapImageRep size]));
-    NSLog(@"r: %@", NSStringFromRect(r));
-    
-    if (!webViewBitmap || !NSEqualSizes([webViewBitmap size], r.size)) {
+    if (!documentViewBitmap || !NSEqualSizes([documentViewBitmap size], docFrame.size)) {
         NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!! had to make a new bitmap");
-        self.webViewBitmap = [view bitmapImageRepForCachingDisplayInRect:r];
+        self.documentViewBitmap = [docView bitmapImageRepForCachingDisplayInRect:docFrame];
     } else {
         NSLog(@"didnt have to make a new bitmap. reusing");
     }
     
-    self.webViewImage = [[[NSImage alloc] initWithSize:[webViewBitmap size]] autorelease];
-    [webViewImage addRepresentation:webViewBitmap];
-    
-    NSLog(@"webViewBitmap: %@", webViewBitmap);
-    NSLog(@"webViewImage: %@", webViewImage);
-    
-    [view cacheDisplayInRect:r toBitmapImageRep:webViewBitmap];
-    [docView setNeedsDisplay:YES];
-    [view setNeedsDisplay:YES];
-}
-
-
-- (void)updateDocumentViewImageWithAspectRatio:(NSSize)size {
-    id frameView = [[self mainFrame] frameView];
-    id docView = [frameView documentView];
-    
-    NSView *view = docView;
-    NSSize fullSize = [view frame].size;
-    
-    // dont show vertical scrollbar in image
-    if ([frameView _hasScrollBars]) {
-        fullSize.width -= VERTICAL_SCROLL_WIDTH;
-    }
-    
-    if ([docView respondsToSelector:@selector(_layoutIfNeeded)]) {
-        [docView _layoutIfNeeded];
-    }
-    
-    if (NSEqualSizes(fullSize, NSZeroSize)) {
-        return;
-    }
-    
-    CGFloat ratio = 0;
-    NSSize displaySize = NSZeroSize;
-    
-    if (size.width > size.height) {
-        ratio = size.height / size.width;
-        displaySize = NSMakeSize(fullSize.width, floor(fullSize.width *ratio));
-    } else {
-        ratio = size.width / size.height;
-        displaySize = NSMakeSize(floor(fullSize.height * ratio), fullSize.height);
-    }
-    
-    CGFloat x = floor(fullSize.width / 2.0 - displaySize.width / 2.0);
-    
-    CGFloat y = 0;
-    if ([view isFlipped]) {
-        y = 0;
-    } else {
-        y = fullSize.height - displaySize.height;
-    }
-    
-    NSRect r = NSMakeRect(x, y, displaySize.width, displaySize.height);
-    //NSLog(@"isFlipped: %d", [view isFlipped]);
-    NSLog(@"r: %@", NSStringFromRect(r));
-    
-    if (!documentViewBitmap || !NSEqualSizes([documentViewBitmap size], r.size)) {
-        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!! had to make a new bitmap");
-        self.documentViewBitmap = [view bitmapImageRepForCachingDisplayInRect:r];
-    } else {
-        NSLog(@"didnt have to make a new bitmap. reusing");
-    }
-    
-    self.documentViewImage = [[[NSImage alloc] initWithSize:[documentViewBitmap size]] autorelease];
+    NSImage *documentViewImage = [[[NSImage alloc] initWithSize:docFrame.size] autorelease];
     [documentViewImage addRepresentation:documentViewBitmap];
     
-    NSLog(@"documentViewBitmap: %@", documentViewBitmap);
-    NSLog(@"documentViewImage: %@", documentViewImage);
-    
-    [view cacheDisplayInRect:r toBitmapImageRep:documentViewBitmap];
+    [docView cacheDisplayInRect:imageFrame toBitmapImageRep:documentViewBitmap];
     [docView setNeedsDisplay:YES];
-    [view setNeedsDisplay:YES];
+    
+    NSLog(@"docFrame: %@", NSStringFromRect(docFrame));
+    NSLog(@"imageFrame: %@", NSStringFromRect(imageFrame));
+
+    NSLog(@"bitmapSize: %@", NSStringFromSize([documentViewBitmap size]));
+    NSLog(@"imageSize: %@", NSStringFromSize([documentViewImage size]));
+
+    return documentViewImage;
 }
 
-@synthesize webViewImage;
-@synthesize documentViewImage;
-@synthesize webViewBitmap;
 @synthesize documentViewBitmap;
 @end
