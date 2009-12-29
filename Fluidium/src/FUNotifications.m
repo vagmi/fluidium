@@ -26,6 +26,7 @@ NSString *const FUWindowControllerWillCloseNotification = @"FUWindowControllerWi
 
 NSString *const FUWindowControllerDidOpenTabNotification = @"FUWindowControllerDidOpenTabNotification";
 NSString *const FUWindowControllerWillCloseTabNotification = @"FUWindowControllerWillCloseTabNotification";
+NSString *const FUWindowControllerDidCloseTabNotification = @"FUWindowControllerDidCloseTabNotification";
 NSString *const FUWindowControllerDidChangeSelectedTabNotification = @"FUWindowControllerDidChangeSelectedTabNotification";
 
 NSString *const FUTabControllerKey = @"FUTabController";

@@ -45,6 +45,7 @@
 @interface FUTabsViewController ()
 - (NSArray *)webViews;
 - (id)windowController;
+- (void)reloadAllTabModels;
 - (void)updateSelectedTabModel;
 - (void)updateTabModelLaterAtIndex:(NSNumber *)indexObj;
 - (void)updateTabModelAtIndex:(NSInteger)i;
@@ -106,26 +107,8 @@
 }
 
 
-- (void)viewDidAppear {    
-    NSArray *wvs = [self webViews];
-    self.tabModels = [NSMutableArray arrayWithCapacity:[wvs count]];
-    
-    NSInteger i = 0;
-    for (WebView *wv in wvs) {
-        FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
-        [self updateTabModel:model fromWebView:wv atIndex:i];
-        [tabModels addObject:model];
-        i++;
-    }
-
-    id wc = [self windowController];
-    for (id tc in [wc tabControllers]) {
-        [self startObserveringTabController:tc];
-    }
-
-    [self updateSelectedTabModel];
-    
-    [tableView reloadData];
+- (void)viewDidAppear {
+    [self reloadAllTabModels];
 }
 
 
@@ -200,18 +183,7 @@
 #pragma mark FUWindowControllerNotifcations
 
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
-    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-    WebView *wv = [[self webViews] objectAtIndex:i];
-    FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
-    [self updateTabModel:model fromWebView:wv atIndex:i];
-    
-    NSAssert(i <= [tabModels count], @"");
-    if (i == [tabModels count]) {
-        [tabModels addObject:model];
-    } else {
-        [tabModels insertObject:model atIndex:i];
-    }
-    [tableView reloadData];
+    [self reloadAllTabModels];
     
     id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self startObserveringTabController:tc];
@@ -219,12 +191,13 @@
 
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
-    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-    [tabModels removeObjectAtIndex:i];
-    [tableView reloadData];
-    
     id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self stopObserveringTabController:tc];
+}
+
+
+- (void)windowControllerDidCloseTab:(NSNotification *)n {
+    [self reloadAllTabModels];
 }
 
 
@@ -283,6 +256,29 @@
     } else {
         return [[self.view window] windowController];
     }
+}
+
+
+- (void)reloadAllTabModels {
+    NSArray *wvs = [self webViews];
+    self.tabModels = [NSMutableArray arrayWithCapacity:[wvs count]];
+    
+    NSInteger i = 0;
+    for (WebView *wv in wvs) {
+        FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
+        [self updateTabModel:model fromWebView:wv atIndex:i];
+        [tabModels addObject:model];
+        i++;
+    }
+    
+    id wc = [self windowController];
+    for (id tc in [wc tabControllers]) {
+        [self startObserveringTabController:tc];
+    }
+    
+    [self updateSelectedTabModel];
+    
+    [tableView reloadData];
 }
 
 

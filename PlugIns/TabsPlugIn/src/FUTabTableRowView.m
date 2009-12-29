@@ -94,18 +94,17 @@ static NSColor *sInnerRectStrokeColor = nil;
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.closeButton = [[[NSButton alloc] initWithFrame:NSMakeRect(6, 4, 13, 13)] autorelease];
-        [closeButton setButtonType:NSMomentaryPushInButton];
+        self.closeButton = [[[NSButton alloc] initWithFrame:NSMakeRect(7, 5, 10, 10)] autorelease];
         [closeButton setBordered:NO];
         [closeButton setAction:@selector(closeTabButtonClick:)];
 
         NSBundle *b = [NSBundle bundleForClass:[self class]];
-        NSString *path  = [b pathForImageResource:@"close_button"];
-        NSImage *img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
+        NSString *path  = [b pathForImageResource:@"close_button_hover"];
+        NSImage *img = [[[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease] scaledImageOfSize:NSMakeSize(10, 10)];
         [closeButton setImage:img];
 
-        path = [b pathForImageResource:@"close_button_hover"];
-        img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
+        path = [b pathForImageResource:@"close_button"];
+        img = [[[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease] scaledImageOfSize:NSMakeSize(10, 10)];
         [closeButton setAlternateImage:img];
         
         [self addSubview:closeButton];
@@ -119,10 +118,6 @@ static NSColor *sInnerRectStrokeColor = nil;
     self.closeButton = nil;
     self.viewController = nil;
     [super dealloc];
-}
-
-
-- (void)viewWillDraw {
 }
 
 
@@ -146,7 +141,7 @@ static NSColor *sInnerRectStrokeColor = nil;
     if (bounds.size.width < 40.0) return; // dont draw anymore when you're really small. looks bad.
 
     NSRect titleRect = NSInsetRect(roundRect, 11, 2);
-    titleRect.origin.x += 9; // make room for close button
+    titleRect.origin.x += 8; // make room for close button
     titleRect.size.height = 13;
     NSUInteger opts = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin;
     NSDictionary *attrs = model.isSelected ? sSelectedTitleAttrs : sTitleAttrs;

@@ -114,6 +114,7 @@
 
         [self addObserver:vc for:FUWindowControllerDidOpenTabNotification object:wc ifRespondsTo:@selector(windowControllerDidOpenTab:)];
         [self addObserver:vc for:FUWindowControllerWillCloseTabNotification object:wc ifRespondsTo:@selector(windowControllerWillCloseTab:)];
+        [self addObserver:vc for:FUWindowControllerDidCloseTabNotification object:wc ifRespondsTo:@selector(windowControllerDidCloseTab:)];
         [self addObserver:vc for:FUWindowControllerDidChangeSelectedTabNotification object:wc ifRespondsTo:@selector(windowControllerDidChangeSelectedTab:)];
         
         [self addObserver:vc for:NSWindowDidResizeNotification object:win ifRespondsTo:@selector(windowDidResize:)];

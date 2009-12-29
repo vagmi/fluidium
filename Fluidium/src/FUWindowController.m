@@ -1134,6 +1134,7 @@
     [tabView removeTabViewItem:tabItem];
     [tabControllers removeObject:[[tc retain] autorelease]];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidCloseTabNotification object:self userInfo:userInfo];
     return YES;
 }
 

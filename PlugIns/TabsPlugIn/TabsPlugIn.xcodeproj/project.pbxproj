@@ -20,9 +20,9 @@
 		D32E8C1E10E5938200445B4C /* FUTabsPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32E8C1C10E5938200445B4C /* FUTabsPreferencesView.xib */; };
 		D3A520BC10EA5A200021B801 /* TDTableRowViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A520BB10EA5A200021B801 /* TDTableRowViewQueue.m */; };
 		D3A522DC10EA98D40021B801 /* FUTabTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A522DB10EA98D40021B801 /* FUTabTableRowView.m */; };
-		D3A522E610EA990B0021B801 /* close_button.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A522E310EA990B0021B801 /* close_button.png */; };
-		D3A522E710EA990B0021B801 /* close_button_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A522E410EA990B0021B801 /* close_button_hover.png */; };
-		D3A522E810EA990B0021B801 /* close_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A522E510EA990B0021B801 /* close_button_pressed.png */; };
+		D3A5236510EA9E1D0021B801 /* close_button_hover.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236210EA9E1D0021B801 /* close_button_hover.tif */; };
+		D3A5236610EA9E1D0021B801 /* close_button_pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236310EA9E1D0021B801 /* close_button_pressed.tif */; };
+		D3A5236710EA9E1D0021B801 /* close_button.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236410EA9E1D0021B801 /* close_button.tif */; };
 		D3B8C15010E8738B00271454 /* FUTabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8C14F10E8738B00271454 /* FUTabModel.m */; };
 		D3E6C85B10E98E880002D204 /* TDTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E6C85A10E98E880002D204 /* TDTableView.m */; };
 		D3E6C85E10E98EC00002D204 /* TDTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E6C85D10E98EC00002D204 /* TDTableRowView.m */; };
@@ -58,9 +58,9 @@
 		D3A520BB10EA5A200021B801 /* TDTableRowViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTableRowViewQueue.m; path = src/TDTableRowViewQueue.m; sourceTree = "<group>"; };
 		D3A522DA10EA98D40021B801 /* FUTabTableRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabTableRowView.h; path = src/FUTabTableRowView.h; sourceTree = "<group>"; };
 		D3A522DB10EA98D40021B801 /* FUTabTableRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabTableRowView.m; path = src/FUTabTableRowView.m; sourceTree = "<group>"; };
-		D3A522E310EA990B0021B801 /* close_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_button.png; path = res/img/close_button.png; sourceTree = "<group>"; };
-		D3A522E410EA990B0021B801 /* close_button_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_button_hover.png; path = res/img/close_button_hover.png; sourceTree = "<group>"; };
-		D3A522E510EA990B0021B801 /* close_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_button_pressed.png; path = res/img/close_button_pressed.png; sourceTree = "<group>"; };
+		D3A5236210EA9E1D0021B801 /* close_button_hover.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button_hover.tif; path = res/img/close_button_hover.tif; sourceTree = "<group>"; };
+		D3A5236310EA9E1D0021B801 /* close_button_pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button_pressed.tif; path = res/img/close_button_pressed.tif; sourceTree = "<group>"; };
+		D3A5236410EA9E1D0021B801 /* close_button.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button.tif; path = res/img/close_button.tif; sourceTree = "<group>"; };
 		D3B8C14E10E8738B00271454 /* FUTabModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabModel.h; path = src/FUTabModel.h; sourceTree = "<group>"; };
 		D3B8C14F10E8738B00271454 /* FUTabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabModel.m; path = src/FUTabModel.m; sourceTree = "<group>"; };
 		D3E6C85910E98E880002D204 /* TDTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTableView.h; path = src/TDTableView.h; sourceTree = "<group>"; };
@@ -195,9 +195,9 @@
 		D32E8C1710E5935800445B4C /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				D3A522E310EA990B0021B801 /* close_button.png */,
-				D3A522E410EA990B0021B801 /* close_button_hover.png */,
-				D3A522E510EA990B0021B801 /* close_button_pressed.png */,
+				D3A5236210EA9E1D0021B801 /* close_button_hover.tif */,
+				D3A5236310EA9E1D0021B801 /* close_button_pressed.tif */,
+				D3A5236410EA9E1D0021B801 /* close_button.tif */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -270,9 +270,9 @@
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				D32E8C1B10E5937300445B4C /* FUTabsView.xib in Resources */,
 				D32E8C1E10E5938200445B4C /* FUTabsPreferencesView.xib in Resources */,
-				D3A522E610EA990B0021B801 /* close_button.png in Resources */,
-				D3A522E710EA990B0021B801 /* close_button_hover.png in Resources */,
-				D3A522E810EA990B0021B801 /* close_button_pressed.png in Resources */,
+				D3A5236510EA9E1D0021B801 /* close_button_hover.tif in Resources */,
+				D3A5236610EA9E1D0021B801 /* close_button_pressed.tif in Resources */,
+				D3A5236710EA9E1D0021B801 /* close_button.tif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
