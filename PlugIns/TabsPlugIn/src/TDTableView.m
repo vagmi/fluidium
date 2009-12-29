@@ -92,10 +92,14 @@
 - (void)layoutRows {
     NSAssert(dataSource, @"TDTableView must have a dataSource before doing layout");
     
+    NSRect bounds = [self bounds];
+    
+    BOOL isVert = bounds.size.height > bounds.size.width;
+    
     CGFloat x = 0;
     CGFloat y = 0;
-    CGFloat w = NSWidth([self frame]);
-    CGFloat h = 0;
+    CGFloat w = isVert ? bounds.size.width : 0;
+    CGFloat h = isVert ? 0 : bounds.size.height;
     
     NSInteger i = 0;
     NSInteger c = [dataSource numberOfRowsInTableView:self];
@@ -114,9 +118,15 @@
         NSAssert1(rv, @"nil rowView returned for index: %d", i);
         
         // get row height
-        h = rowHeight;
+        NSInteger wh = rowHeight;
         if (delegate && [delegate respondsToSelector:@selector(tableView:heightForRowAtIndex:)]) {
-            h = [delegate tableView:self heightForRowAtIndex:i];
+            wh = [delegate tableView:self heightForRowAtIndex:i];
+        }        
+        
+        if (isVert) {
+            h = wh;
+        } else {
+            w = wh;
         }
         
         [rv setFrame:NSMakeRect(x, y, w, h)];
@@ -125,7 +135,11 @@
         [self addSubview:rv];
         [rowViews addObject:rv];
         
-        y += h; // add height for next row
+        if (isVert) {
+            y += wh; // add height for next row
+        } else {
+            x += wh;
+        }
     }
     
 }
@@ -151,7 +165,6 @@
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize backgroundColor;
-@synthesize orientation;
 @synthesize rowHeight;
 @synthesize selectedRowIndex;
 @synthesize scrollView;

@@ -12,16 +12,10 @@
 @protocol TDTableViewDataSource;
 @protocol TDTableViewDelegate;
 
-typedef enum {
-    TDTableViewOrientationPortrait,
-    TDTableViewOrientationLandscape
-} TDTableViewOrientation;
-
 @interface TDTableView : NSView {
     id <TDTableViewDataSource>dataSource;
     id <TDTableViewDelegate>delegate;
     NSColor *backgroundColor;
-    TDTableViewOrientation orientation;
     CGFloat rowHeight;
     NSInteger selectedRowIndex;
 
@@ -38,7 +32,6 @@ typedef enum {
 @property (nonatomic, assign) id <TDTableViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDTableViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
-@property (nonatomic, assign) TDTableViewOrientation orientation;
 @property (nonatomic, assign) CGFloat rowHeight;
 @property (nonatomic, assign) NSInteger selectedRowIndex;
 @end

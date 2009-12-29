@@ -79,9 +79,7 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)viewDidAppear {
-    tableView.orientation = TDTableViewOrientationPortrait;
-    
+- (void)viewDidAppear {    
     NSArray *wvs = [self webViews];
     self.tabModels = [NSMutableArray arrayWithCapacity:[wvs count]];
     
@@ -133,8 +131,15 @@
 #pragma mark TDTableViewDelegate
 
 - (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i {
-    CGFloat w = NSWidth([self.view frame]);
-    return floor(w * .7);
+    NSRect tableFrame = [tv frame];
+    NSRect frame = [self.view frame];
+    
+    BOOL isVert = tableFrame.size.height > tableFrame.size.width;
+    if (isVert) {
+        return floor(frame.size.width * .7);
+    } else {
+        return floor(frame.size.height * 1.43);
+    }
 }
 
 
