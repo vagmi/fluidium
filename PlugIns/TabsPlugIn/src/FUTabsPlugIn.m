@@ -51,7 +51,7 @@
                                          FUPlugInViewPlacementSplitViewTop|
                                          FUPlugInViewPlacementSplitViewBottom);
         self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewBottom;
-        self.preferredMenuItemKeyEquivalent = @"t";
+        self.preferredMenuItemKeyEquivalent = @"a";
         
         // get defaults from disk
         NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"DefaultValues" ofType:@"plist"];

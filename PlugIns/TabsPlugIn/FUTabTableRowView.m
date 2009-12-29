@@ -16,8 +16,22 @@
 #import "FUTabModel.h"
 #import "FUUtils.h"
 
-static NSDictionary *sTitleAttrs = nil;
+#define NORMAL_RADIUS 4
+#define SMALL_RADIUS 3
+#define BGCOLOR_INSET 2
+#define THUMBNAIL_DIFF 6
+
 static NSDictionary *sSelectedTitleAttrs = nil;
+static NSDictionary *sTitleAttrs = nil;
+
+static NSGradient *sSelectedOuterRectFillGradient = nil;
+
+static NSColor *sSelectedOuterRectStrokeColor = nil;
+
+static NSGradient *sInnerRectFillGradient = nil;
+
+static NSColor *sSelectedInnerRectStrokeColor = nil;
+static NSColor *sInnerRectStrokeColor = nil;
 
 @interface NSImage (FUTabAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
@@ -54,6 +68,20 @@ static NSDictionary *sSelectedTitleAttrs = nil;
                                [NSColor colorWithDeviceWhite:.3 alpha:1], NSForegroundColorAttributeName,
                                paraStyle, NSParagraphStyleAttributeName,
                                nil];
+
+        // outer round rect fill
+        NSColor *fillTopColor = [NSColor colorWithDeviceRed:134.0/255.0 green:147.0/255.0 blue:169.0/255.0 alpha:1.0];
+        NSColor *fillBottomColor = [NSColor colorWithDeviceRed:108.0/255.0 green:120.0/255.0 blue:141.0/255.0 alpha:1.0];
+        sSelectedOuterRectFillGradient = [[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor];
+        
+        // outer round rect stroke
+        sSelectedOuterRectStrokeColor = [[NSColor colorWithDeviceRed:91.0/255.0 green:100.0/255.0 blue:115.0/255.0 alpha:1.0] retain];
+
+        // inner round rect fill
+        sInnerRectFillGradient = [[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor whiteColor]];
+        
+        sSelectedInnerRectStrokeColor = [[sSelectedOuterRectStrokeColor colorWithAlphaComponent:.8] retain];
+        sInnerRectStrokeColor = [[NSColor colorWithDeviceWhite:.7 alpha:1] retain];
     }
 }
 
@@ -85,22 +113,10 @@ static NSDictionary *sSelectedTitleAttrs = nil;
 
     NSRect roundRect = NSInsetRect(bounds, 2.5, 1.5);
     
-    NSColor *fillTopColor = nil;
-    NSColor *fillBottomColor = nil;
-    NSGradient *grad = nil;
-    NSColor *strokeColor = nil;
-    
     if (model.isSelected) {
-        fillTopColor = [NSColor colorWithDeviceRed:134.0/255.0 green:147.0/255.0 blue:169.0/255.0 alpha:1.0];
-        fillBottomColor = [NSColor colorWithDeviceRed:108.0/255.0 green:120.0/255.0 blue:141.0/255.0 alpha:1.0];
-        strokeColor = [NSColor colorWithDeviceRed:91.0/255.0 green:100.0/255.0 blue:115.0/255.0 alpha:1.0];
-
-        grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
-        
-        CGFloat radius = (bounds.size.width < 32) ? 3 : 4;
-        FUDrawRoundRect(roundRect, radius, grad, strokeColor, 1);
+        CGFloat radius = (bounds.size.width < 32) ? SMALL_RADIUS : NORMAL_RADIUS;
+        FUDrawRoundRect(roundRect, radius, sSelectedOuterRectFillGradient, sSelectedOuterRectStrokeColor, 1);
     }
-
 
     // title
     if (bounds.size.width < 40.0) return; // dont draw anymore when you're really small. looks bad.
@@ -110,8 +126,6 @@ static NSDictionary *sSelectedTitleAttrs = nil;
     NSUInteger opts = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin;
     NSDictionary *attrs = model.isSelected ? sSelectedTitleAttrs : sTitleAttrs;
     [model.title drawWithRect:titleRect options:opts attributes:attrs];
-    
-
     
     // inner round rect
     if (bounds.size.width < 55.0) return; // dont draw anymore when you're really small. looks bad.
@@ -123,33 +137,27 @@ static NSDictionary *sSelectedTitleAttrs = nil;
     NSImage *img = model.image;
     [img setFlipped:[self isFlipped]];
 
+    NSGradient *grad = nil;
     if (img) {
         NSSize size = [img size];
         NSBitmapImageRep *bitmap = [[img representations] objectAtIndex:0];
-        
-        fillTopColor = [bitmap colorAtX:size.width - 2 y:7];
+
+        NSColor *fillTopColor = [bitmap colorAtX:size.width - BGCOLOR_INSET y:BGCOLOR_INSET];
         fillTopColor = fillTopColor ? fillTopColor : [NSColor whiteColor];
 
-        fillBottomColor = [bitmap colorAtX:7 y:size.height - 7];
+        NSColor *fillBottomColor = [bitmap colorAtX:BGCOLOR_INSET y:size.height - BGCOLOR_INSET];
         fillBottomColor = fillBottomColor ? fillBottomColor : [NSColor whiteColor];
+        grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
     } else {
-        fillTopColor = [NSColor whiteColor];
-        fillBottomColor = [NSColor whiteColor];
+        grad = sInnerRectFillGradient;
     }
-    grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
-    
-    if (model.isSelected) {
-        strokeColor = [strokeColor colorWithAlphaComponent:.8];
-    } else {
-        strokeColor = [NSColor colorWithDeviceWhite:.7 alpha:1];
-    }
-    FUDrawRoundRect(roundRect, 5, grad, strokeColor, 1);
-    
+
+    NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
+    FUDrawRoundRect(roundRect, NORMAL_RADIUS, grad, strokeColor, 1);
     
     // draw image
     if (bounds.size.width < 64.0) return; // dont draw anymore when you're really small. looks bad.
 
-#define THUMBNAIL_DIFF 6
     NSSize imgSize = roundRect.size;
     imgSize.width = floor(imgSize.width - THUMBNAIL_DIFF);
     imgSize.height = floor(imgSize.height - THUMBNAIL_DIFF);
