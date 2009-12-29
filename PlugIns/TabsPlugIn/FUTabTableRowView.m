@@ -12,6 +12,10 @@
 
 static NSDictionary *sTitleAttrs = nil;
 
+@interface NSImage (FUTabAdditions)
+- (NSImage *)scaledImageOfSize:(NSSize)size;
+@end
+
 @interface FUTabTableRowView ()
 - (void)startObserveringModel:(FUTabModel *)m;
 - (void)stopObserveringModel:(FUTabModel *)m;
@@ -66,12 +70,12 @@ static NSDictionary *sTitleAttrs = nil;
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    NSRect rect = [self bounds];
+    NSRect bounds = [self bounds];
     
     // outer round rect
-    if (rect.size.width < 24.0) return; // dont draw anymore when you're really small. looks bad.
+    if (bounds.size.width < 24.0) return; // dont draw anymore when you're really small. looks bad.
 
-    NSRect roundRect = NSInsetRect(rect, 4.5, 4.5);
+    NSRect roundRect = NSInsetRect(bounds, 4.5, 4.5);
     
     NSColor *fillTopColor = [NSColor colorWithDeviceRed:134.0/255.0 green:147.0/255.0 blue:169.0/255.0 alpha:1.0];
     NSColor *fillBottomColor = [NSColor colorWithDeviceRed:108.0/255.0 green:120.0/255.0 blue:141.0/255.0 alpha:1.0];
@@ -79,12 +83,12 @@ static NSDictionary *sTitleAttrs = nil;
 
     NSColor *strokeColor = [NSColor colorWithDeviceRed:91.0/255.0 green:100.0/255.0 blue:115.0/255.0 alpha:1.0];
 
-    CGFloat radius = (rect.size.width < 32) ? 3 : 5;
+    CGFloat radius = (bounds.size.width < 32) ? 3 : 5;
     FUDrawRoundRect(roundRect, radius, grad, strokeColor, 1);
 
 
     // title
-    if (rect.size.width < 40.0) return; // dont draw anymore when you're really small. looks bad.
+    if (bounds.size.width < 40.0) return; // dont draw anymore when you're really small. looks bad.
 
     NSRect titleRect = NSInsetRect(roundRect, 6, 2);
     titleRect.size.height = 13;
@@ -94,7 +98,7 @@ static NSDictionary *sTitleAttrs = nil;
 
     
     // inner round rect
-    if (rect.size.width < 55.0) return; // dont draw anymore when you're really small. looks bad.
+    if (bounds.size.width < 55.0) return; // dont draw anymore when you're really small. looks bad.
 
     roundRect = NSInsetRect(roundRect, 4, 4);
     roundRect = NSOffsetRect(roundRect, 0, 12);
@@ -107,16 +111,29 @@ static NSDictionary *sTitleAttrs = nil;
     
     
     // draw image
-    if (rect.size.width < 64.0) return; // dont draw anymore when you're really small. looks bad.
+    if (bounds.size.width < 64.0) return; // dont draw anymore when you're really small. looks bad.
 
-    NSRect imgRect = NSInsetRect(roundRect, 4, 4);
-    imgRect.size.height -= 4;
+    NSRect destRect = NSInsetRect(roundRect, 4, 4);
+    destRect.size.height -= 4;
+
+    NSRect srcRect = NSZeroRect;
+
+    NSSize imgSize = roundRect.size;
+    CGFloat ratio = 0;
+    if (bounds.size.width > bounds.size.height) {
+        ratio = bounds.size.height / bounds.size.width;
+        srcRect.size.width = imgSize.width;
+        srcRect.size.height = floor(imgSize.height *ratio);
+    } else {
+        ratio = bounds.size.width / bounds.size.height;
+        srcRect.size.width = floor(imgSize.width *ratio);
+        srcRect.size.height = srcRect.size.height;
+    }
     
-    NSImage *img = model.image;
-    [img setFlipped:[self isFlipped]];
+    [model.image setFlipped:[self isFlipped]];
+    NSImage *img = [model.image scaledImageOfSize:destRect.size];
 
-    NSSize imgSize = [img size];
-    [img drawInRect:imgRect fromRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) operation:NSCompositeSourceOver fraction:1];
+    [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
 }
 
 

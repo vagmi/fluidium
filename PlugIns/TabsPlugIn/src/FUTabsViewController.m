@@ -266,11 +266,15 @@
 
 
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
-    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1436, 718)];
+    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, 1)];
 
     NSString *title = [wv mainFrameTitle];
     if (![title length]) {
-        title = NSLocalizedString(@"Untitled", @"");
+        if ([wv isLoading]) {
+            title = NSLocalizedString(@"Loading...", @"");
+        } else {
+            title = NSLocalizedString(@"Untitled", @"");
+        }
     }
     model.title = title;
     model.URLString = [wv mainFrameURL];
