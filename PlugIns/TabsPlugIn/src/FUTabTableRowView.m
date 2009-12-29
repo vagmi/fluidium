@@ -95,15 +95,16 @@ static NSColor *sInnerRectStrokeColor = nil;
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.closeButton = [[[NSButton alloc] initWithFrame:NSMakeRect(7, 5, 10, 10)] autorelease];
+        [closeButton setButtonType:NSMomentaryChangeButton];
         [closeButton setBordered:NO];
         [closeButton setAction:@selector(closeTabButtonClick:)];
 
         NSBundle *b = [NSBundle bundleForClass:[self class]];
-        NSString *path  = [b pathForImageResource:@"close_button_hover"];
+        NSString *path  = [b pathForImageResource:@"close_button"];
         NSImage *img = [[[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease] scaledImageOfSize:NSMakeSize(10, 10)];
         [closeButton setImage:img];
 
-        path = [b pathForImageResource:@"close_button"];
+        path = [b pathForImageResource:@"close_button_pressed"];
         img = [[[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease] scaledImageOfSize:NSMakeSize(10, 10)];
         [closeButton setAlternateImage:img];
         
