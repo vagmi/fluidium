@@ -50,7 +50,8 @@
 }
 
 
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(NSRect)dirtyRect {
+    NSRect rect = [self bounds];
     NSDrawWindowBackground(rect);
     
     CGFloat rectWidth = rect.size.width;

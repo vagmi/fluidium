@@ -24,10 +24,10 @@
 }
 
 
-- (void)drawRect:(NSRect)inRect {
+- (void)drawRect:(NSRect)dirtyRect {
     BOOL isMain = [[self window] isMainWindow];
     
-    CGRect rect = NSRectToCGRect(inRect);
+    CGRect rect = NSRectToCGRect([self bounds]);
     CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
     
     //clear

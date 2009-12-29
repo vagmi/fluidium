@@ -1,10 +1,16 @@
+//  Copyright 2009 Todd Ditchendorf
 //
-//  FUTabsTableView.m
-//  TabsPlugIn
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 12/28/09.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "TDTableView.h"
 #import "TDTableRowView.h"
@@ -96,7 +102,6 @@
 - (void)layoutRows {
     NSAssert(dataSource, @"TDTableView must have a dataSource before doing layout");
     
-    //NSRect bounds = [self bounds];
     NSRect scrollBounds = [scrollView bounds];
     NSSize scrollContentSize = [scrollView contentSize];
     BOOL isVert = scrollContentSize.height > scrollContentSize.width;
@@ -112,17 +117,16 @@
     CGFloat y = 0;
     CGFloat w = isVert ? scrollSize.width : 0;
     CGFloat h = isVert ? 0 : scrollSize.height;
-    
-    NSInteger i = 0;
-    NSInteger c = [dataSource numberOfRowsInTableView:self];
 
     for (TDTableRowView *rv in visibleRowViews) {
         [rowViewQueue enqueue:rv withIdentifier:[[rv class] identifier]];
         [rv removeFromSuperview];
     }
     
+    NSInteger c = [dataSource numberOfRowsInTableView:self];
     self.visibleRowViews = [NSMutableArray arrayWithCapacity:c];
 
+    NSInteger i = 0;
     for ( ; i < c; i++) {
         TDTableRowView *rv = [dataSource tableView:self viewForRowAtIndex:i];
         NSAssert1(rv, @"nil rowView returned for index: %d", i);

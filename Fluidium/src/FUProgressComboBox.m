@@ -50,8 +50,8 @@
 }
 
 
-- (void)drawRect:(NSRect)inRect {
-    [super drawRect:inRect];
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
     
     NSRect bounds = [self bounds];
     NSSize size = bounds.size;

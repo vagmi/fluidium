@@ -23,8 +23,10 @@
 }
 
 
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(NSRect)dirtyRect {
     NSArray *colors = [NSColor controlAlternatingRowBackgroundColors];
+    
+    NSRect rect = [self bounds];
     
     NSInteger i = 0;
     CGFloat totalHeight = 0;
