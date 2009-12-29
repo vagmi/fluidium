@@ -15,6 +15,7 @@
 
 @interface FUTabsViewController : NSViewController <TDTableViewDataSource, TDTableViewDelegate> {
     TDTableView *tableView;
+    NSScrollView *scrollView;
 
     FUTabsPlugIn *plugIn;
     id <FUPlugInAPI>plugInAPI;
@@ -30,6 +31,7 @@
 - (void)viewWillDisappear;
 
 @property (nonatomic, retain) IBOutlet TDTableView *tableView;
+@property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) FUTabsPlugIn *plugIn;
 @property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *tabModels;

@@ -65,6 +65,7 @@
 - (void)dealloc {
     self.view = nil;
     self.tableView = nil;
+    self.scrollView = nil;
     self.plugIn = nil;
     self.plugInAPI = nil;
     self.tabModels = nil;
@@ -133,14 +134,14 @@
 #pragma mark TDTableViewDelegate
 
 - (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i {
-    NSRect tableFrame = [tv frame];
-    NSRect frame = [self.view frame];
+    NSRect scrollFrame = [scrollView frame];
+//    NSRect frame = [self.view frame];
     
-    BOOL isVert = tableFrame.size.height > tableFrame.size.width;
+    BOOL isVert = scrollFrame.size.height > scrollFrame.size.width;
     if (isVert) {
-        return floor(frame.size.width * ASPECT_RATIO);
+        return floor(scrollFrame.size.width * ASPECT_RATIO);
     } else {
-        return floor(frame.size.height * 1 / ASPECT_RATIO);
+        return floor(scrollFrame.size.height * 1 / ASPECT_RATIO);
     }
 }
 
@@ -327,6 +328,7 @@
 }
 
 @synthesize tableView;
+@synthesize scrollView;
 @synthesize plugIn;
 @synthesize plugInAPI;
 @synthesize tabModels;

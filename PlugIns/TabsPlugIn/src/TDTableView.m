@@ -13,7 +13,6 @@
 #define DEFAULT_ROW_HEIGHT 44
 
 @interface TDTableView ()
-@property (nonatomic, retain) NSScrollView *scrollView;
 @property (nonatomic, retain) NSMutableArray *visibleRowViews;
 @property (nonatomic, retain) TDTableRowViewQueue *rowViewQueue;
 @end
@@ -34,6 +33,7 @@
 
 
 - (void)dealloc {
+    self.scrollView = nil;
     self.backgroundColor = nil;
     self.visibleRowViews = nil;
     self.rowViewQueue = nil;
@@ -96,14 +96,22 @@
 - (void)layoutRows {
     NSAssert(dataSource, @"TDTableView must have a dataSource before doing layout");
     
-    NSRect bounds = [self bounds];
-    
-    BOOL isVert = bounds.size.height > bounds.size.width;
-    
+    //NSRect bounds = [self bounds];
+    NSRect scrollBounds = [scrollView bounds];
+    NSSize scrollContentSize = [scrollView contentSize];
+    BOOL isVert = scrollContentSize.height > scrollContentSize.width;
+
+    NSSize scrollSize = NSZeroSize;
+    if (isVert) {
+        scrollSize = NSMakeSize(scrollContentSize.width, scrollBounds.size.height);
+    } else {
+        scrollSize = NSMakeSize(scrollBounds.size.width, scrollContentSize.height);
+    }
+        
     CGFloat x = 0;
     CGFloat y = 0;
-    CGFloat w = isVert ? bounds.size.width : 0;
-    CGFloat h = isVert ? 0 : bounds.size.height;
+    CGFloat w = isVert ? scrollSize.width : 0;
+    CGFloat h = isVert ? 0 : scrollSize.height;
     
     NSInteger i = 0;
     NSInteger c = [dataSource numberOfRowsInTableView:self];
@@ -139,13 +147,20 @@
         
         if (isVert) {
             y += wh; // add height for next row
-            if (y > bounds.size.height) break;
+            //if (y > scrollSize.height) break;
         } else {
             x += wh;
-            if (x > bounds.size.width) break;
+            //if (x > scrollSize.width) break;
         }
     }
     
+    NSRect frame = [self frame];
+    if (isVert) {
+        frame.size.height = y;
+    } else {
+        frame.size.width = x;
+    }
+    [self setFrame:frame];
 }
 
 
@@ -166,12 +181,12 @@
     }
 }
 
+@synthesize scrollView;
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize backgroundColor;
 @synthesize rowHeight;
 @synthesize selectedRowIndex;
-@synthesize scrollView;
 @synthesize visibleRowViews;
 @synthesize rowViewQueue;
 @end

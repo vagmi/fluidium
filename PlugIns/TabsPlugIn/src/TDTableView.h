@@ -14,13 +14,13 @@
 @protocol TDTableViewDelegate;
 
 @interface TDTableView : NSView {
+    NSScrollView *scrollView;
     id <TDTableViewDataSource>dataSource;
     id <TDTableViewDelegate>delegate;
     NSColor *backgroundColor;
     CGFloat rowHeight;
     NSInteger selectedRowIndex;
 
-    NSScrollView *scrollView;
     NSMutableArray *visibleRowViews;
     TDTableRowViewQueue *rowViewQueue;
 }
@@ -31,6 +31,7 @@
 
 - (void)layoutRows;
 
+@property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) id <TDTableViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDTableViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
