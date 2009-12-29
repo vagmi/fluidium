@@ -51,7 +51,7 @@
 #pragma mark Overridden
 
 - (void)closeTabClick:(id)sender {
-	NSTabViewItem *tabItem = [sender representedObject];
+    NSTabViewItem *tabItem = [sender representedObject];
     [[self windowController] removeTabViewItem:tabItem];
 }
 

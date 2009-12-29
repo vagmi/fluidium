@@ -74,7 +74,7 @@
 }
 
 - (void)mouseMoved:(NSEvent *)evt {
-	[super mouseMoved:evt];
+    [super mouseMoved:evt];
 
     // would be nice to remove this hack. but necessary to get 'navbar appears when moused over' to work in all cases
     [self allowBrowsaPlugInsToHandleMouseMoved:evt];
@@ -163,18 +163,18 @@
 
 - (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt {
     //FUWindowController *wc = [self windowController];
-	//wc.typingInFindPanel = NO; // ??
+    //wc.typingInFindPanel = NO; // ??
     
-	NSInteger i = 0;
-	for ( ; i < [[FUUserDefaults instance] numberOfBrowsaPlugIns]; i++) {
-		NSString *identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", i];
-		[self sendMouseMovedEvent:evt toPlugInWithIdentifier:identifier];
-	}    
+    NSInteger i = 0;
+    for ( ; i < [[FUUserDefaults instance] numberOfBrowsaPlugIns]; i++) {
+        NSString *identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", i];
+        [self sendMouseMovedEvent:evt toPlugInWithIdentifier:identifier];
+    }    
 }
 
 
 - (void)sendMouseMovedEvent:(NSEvent *)evt toPlugInWithIdentifier:(NSString *)identifier {
-	FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:identifier];
+    FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:identifier];
     NSInteger num = [self windowNumber];
     if ([wrap isVisibleInWindowNumber:num]) {
         NSViewController *vc = [wrap plugInViewControllerForWindowNumber:num];
