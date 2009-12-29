@@ -15,10 +15,15 @@
 #import "TDTableRowView.h"
 
 @class FUTabModel;
+@class FUTabsViewController;
 
 @interface FUTabTableRowView : TDTableRowView {
     FUTabModel *model;
+    NSButton *closeButton;
+    FUTabsViewController *viewController;
 }
 
 @property (nonatomic, retain) FUTabModel *model;
+@property (nonatomic, retain) NSButton *closeButton;
+@property (nonatomic, assign) FUTabsViewController *viewController;
 @end

@@ -15,6 +15,7 @@
 #import "FUTabTableRowView.h"
 #import "FUTabModel.h"
 #import "FUUtils.h"
+#import "FUTabsViewController.h"
 
 #define NORMAL_RADIUS 4
 #define SMALL_RADIUS 3
@@ -48,7 +49,7 @@ static NSColor *sInnerRectStrokeColor = nil;
     if ([FUTabTableRowView class] == self) {
         
         NSMutableParagraphStyle *paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
-        [paraStyle setAlignment:NSCenterTextAlignment];
+        [paraStyle setAlignment:NSLeftTextAlignment];
         [paraStyle setLineBreakMode:NSLineBreakByTruncatingTail];
         
         NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
@@ -93,7 +94,21 @@ static NSColor *sInnerRectStrokeColor = nil;
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
+        self.closeButton = [[[NSButton alloc] initWithFrame:NSMakeRect(6, 4, 13, 13)] autorelease];
+        [closeButton setButtonType:NSMomentaryPushInButton];
+        [closeButton setBordered:NO];
+        [closeButton setAction:@selector(closeTabButtonClick:)];
+
+        NSBundle *b = [NSBundle bundleForClass:[self class]];
+        NSString *path  = [b pathForImageResource:@"close_button"];
+        NSImage *img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
+        [closeButton setImage:img];
+
+        path = [b pathForImageResource:@"close_button_hover"];
+        img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
+        [closeButton setAlternateImage:img];
         
+        [self addSubview:closeButton];
     }
     return self;
 }
@@ -101,11 +116,20 @@ static NSColor *sInnerRectStrokeColor = nil;
 
 - (void)dealloc {
     self.model = nil;
+    self.closeButton = nil;
+    self.viewController = nil;
     [super dealloc];
 }
 
 
+- (void)viewWillDraw {
+}
+
+
 - (void)drawRect:(NSRect)dirtyRect {
+    [closeButton setTag:model.index];
+    [closeButton setTarget:viewController];
+
     NSRect bounds = [self bounds];
     
     // outer round rect
@@ -121,7 +145,8 @@ static NSColor *sInnerRectStrokeColor = nil;
     // title
     if (bounds.size.width < 40.0) return; // dont draw anymore when you're really small. looks bad.
 
-    NSRect titleRect = NSInsetRect(roundRect, 6, 2);
+    NSRect titleRect = NSInsetRect(roundRect, 11, 2);
+    titleRect.origin.x += 9; // make room for close button
     titleRect.size.height = 13;
     NSUInteger opts = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin;
     NSDictionary *attrs = model.isSelected ? sSelectedTitleAttrs : sTitleAttrs;
@@ -169,6 +194,8 @@ static NSColor *sInnerRectStrokeColor = nil;
     NSRect srcRect = NSMakeRect(0, 0, imgSize.width, imgSize.height);
     NSRect destRect = NSOffsetRect(srcRect, floor(roundRect.origin.x + THUMBNAIL_DIFF/2), floor(roundRect.origin.y + THUMBNAIL_DIFF/2));
     [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
+    
+    [closeButton setNeedsDisplay:YES];
 }
 
 
@@ -207,4 +234,6 @@ static NSColor *sInnerRectStrokeColor = nil;
 }
 
 @synthesize model;
+@synthesize closeButton;
+@synthesize viewController;
 @end

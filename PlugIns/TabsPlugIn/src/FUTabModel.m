@@ -26,5 +26,6 @@
 @synthesize image;
 @synthesize title;
 @synthesize URLString;
+@synthesize index;
 @synthesize selected;
 @end

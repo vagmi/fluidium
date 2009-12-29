@@ -18,11 +18,13 @@
     NSImage *image;
     NSString *title;
     NSString *URLString;
+    NSInteger index;
     BOOL selected;
 }
 
 @property (nonatomic, retain) NSImage *image;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *URLString;
+@property (nonatomic) NSInteger index;
 @property (nonatomic, getter=isSelected) BOOL selected;
 @end

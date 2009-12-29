@@ -33,8 +33,8 @@
 - (NSInteger)selectedTabIndex;
 - (void)setSelectedTabIndex:(NSInteger)i;
 - (NSArray *)tabControllers;
-- (void)startObserveringTabController:(id)tc;
-- (void)stopObserveringTabController:(id)tc;
+- (id)tabControllerAtIndex:(NSInteger)i;
+- (void)removeTabController:(id)tc;
 @end
 
 @interface WebView ()
@@ -48,7 +48,9 @@
 - (void)updateSelectedTabModel;
 - (void)updateTabModelLaterAtIndex:(NSNumber *)indexObj;
 - (void)updateTabModelAtIndex:(NSInteger)i;
-- (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv;
+- (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv atIndex:(NSInteger)i;
+- (void)startObserveringTabController:(id)tc;
+- (void)stopObserveringTabController:(id)tc;
 - (BOOL)isVertical;
 - (BOOL)isHorizontal;    
 @end
@@ -85,6 +87,13 @@
 }
 
 
+- (IBAction)closeTabButtonClick:(id)sender {
+    id wc = [self windowController];
+    id tc = [wc tabControllerAtIndex:[sender tag]];
+    [wc removeTabController:tc];
+}
+
+
 #pragma mark -
 #pragma mark Public
 
@@ -101,10 +110,12 @@
     NSArray *wvs = [self webViews];
     self.tabModels = [NSMutableArray arrayWithCapacity:[wvs count]];
     
+    NSInteger i = 0;
     for (WebView *wv in wvs) {
         FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
-        [self updateTabModel:model fromWebView:wv];
+        [self updateTabModel:model fromWebView:wv atIndex:i];
         [tabModels addObject:model];
+        i++;
     }
 
     id wc = [self windowController];
@@ -138,6 +149,7 @@
         rv = [[[FUTabTableRowView alloc] init] autorelease];
     }
     
+    rv.viewController = self;
     rv.model = [tabModels objectAtIndex:i];
     [rv setNeedsDisplay:YES];
     
@@ -191,7 +203,7 @@
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     WebView *wv = [[self webViews] objectAtIndex:i];
     FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
-    [self updateTabModel:model fromWebView:wv];
+    [self updateTabModel:model fromWebView:wv atIndex:i];
     
     NSAssert(i <= [tabModels count], @"");
     if (i == [tabModels count]) {
@@ -297,11 +309,12 @@
     WebView *wv = [[self webViews] objectAtIndex:i];
     
     FUTabModel *model = [tabModels objectAtIndex:i];
-    [self updateTabModel:model fromWebView:wv];
+    [self updateTabModel:model fromWebView:wv atIndex:i];
 }
 
 
-- (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
+- (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv atIndex:(NSInteger)i {
+    model.index = i;
     model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, ASPECT_RATIO)];
 
     NSString *title = [wv mainFrameTitle];
