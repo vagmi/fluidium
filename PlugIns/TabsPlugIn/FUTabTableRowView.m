@@ -121,7 +121,7 @@ static NSDictionary *sSelectedTitleAttrs = nil;
         NSSize size = [img size];
         NSBitmapImageRep *bitmap = [[img representations] objectAtIndex:0];
         
-        fillTopColor = [bitmap colorAtX:7 y:7];
+        fillTopColor = [bitmap colorAtX:size.width - 2 y:7];
         fillTopColor = fillTopColor ? fillTopColor : [NSColor whiteColor];
 
         fillBottomColor = [bitmap colorAtX:7 y:size.height - 7];
