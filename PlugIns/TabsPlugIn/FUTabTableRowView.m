@@ -11,6 +11,7 @@
 #import "FUUtils.h"
 
 static NSDictionary *sTitleAttrs = nil;
+static NSDictionary *sSelectedTitleAttrs = nil;
 
 @interface NSImage (FUTabAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
@@ -35,12 +36,18 @@ static NSDictionary *sTitleAttrs = nil;
         [shadow setShadowOffset:NSMakeSize(0, -1)];
         [shadow setShadowBlurRadius:0];
 
+        sSelectedTitleAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [NSFont boldSystemFontOfSize:10], NSFontAttributeName,
+                               [NSColor whiteColor], NSForegroundColorAttributeName,
+                               paraStyle, NSParagraphStyleAttributeName,
+                               shadow, NSShadowAttributeName,
+                               nil];
+
         sTitleAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-                       [NSFont boldSystemFontOfSize:10], NSFontAttributeName,
-                       [NSColor whiteColor], NSForegroundColorAttributeName,
-                       paraStyle, NSParagraphStyleAttributeName,
-                       shadow, NSShadowAttributeName,
-                       nil];
+                               [NSFont boldSystemFontOfSize:10], NSFontAttributeName,
+                               [NSColor colorWithDeviceWhite:.3 alpha:1], NSForegroundColorAttributeName,
+                               paraStyle, NSParagraphStyleAttributeName,
+                               nil];
     }
 }
 
@@ -77,14 +84,21 @@ static NSDictionary *sTitleAttrs = nil;
 
     NSRect roundRect = NSInsetRect(bounds, 4.5, 4.5);
     
-    NSColor *fillTopColor = [NSColor colorWithDeviceRed:134.0/255.0 green:147.0/255.0 blue:169.0/255.0 alpha:1.0];
-    NSColor *fillBottomColor = [NSColor colorWithDeviceRed:108.0/255.0 green:120.0/255.0 blue:141.0/255.0 alpha:1.0];
-    NSGradient *grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
+    NSColor *fillTopColor = nil;
+    NSColor *fillBottomColor = nil;
+    NSGradient *grad = nil;
+    NSColor *strokeColor = nil;
+    
+    if (model.isSelected) {
+        fillTopColor = [NSColor colorWithDeviceRed:134.0/255.0 green:147.0/255.0 blue:169.0/255.0 alpha:1.0];
+        fillBottomColor = [NSColor colorWithDeviceRed:108.0/255.0 green:120.0/255.0 blue:141.0/255.0 alpha:1.0];
+        strokeColor = [NSColor colorWithDeviceRed:91.0/255.0 green:100.0/255.0 blue:115.0/255.0 alpha:1.0];
 
-    NSColor *strokeColor = [NSColor colorWithDeviceRed:91.0/255.0 green:100.0/255.0 blue:115.0/255.0 alpha:1.0];
-
-    CGFloat radius = (bounds.size.width < 32) ? 3 : 5;
-    FUDrawRoundRect(roundRect, radius, grad, strokeColor, 1);
+        grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
+        
+        CGFloat radius = (bounds.size.width < 32) ? 3 : 5;
+        FUDrawRoundRect(roundRect, radius, grad, strokeColor, 1);
+    }
 
 
     // title
@@ -93,7 +107,8 @@ static NSDictionary *sTitleAttrs = nil;
     NSRect titleRect = NSInsetRect(roundRect, 6, 2);
     titleRect.size.height = 13;
     NSUInteger opts = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin;
-    [model.title drawWithRect:titleRect options:opts attributes:sTitleAttrs];
+    NSDictionary *attrs = model.isSelected ? sSelectedTitleAttrs : sTitleAttrs;
+    [model.title drawWithRect:titleRect options:opts attributes:attrs];
     
 
     
@@ -110,15 +125,19 @@ static NSDictionary *sTitleAttrs = nil;
     if (img) {
         NSSize size = [img size];
         NSBitmapImageRep *bitmap = [[img representations] objectAtIndex:0];
-        fillTopColor = [bitmap colorAtX:3 y:3];
-        fillBottomColor = [bitmap colorAtX:3 y:size.height - 3];
+        fillTopColor = [bitmap colorAtX:7 y:7];
+        fillBottomColor = [bitmap colorAtX:7 y:size.height - 7];
     } else {
         fillTopColor = [NSColor whiteColor];
         fillBottomColor = [NSColor whiteColor];
     }
     grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
     
-    strokeColor = [strokeColor colorWithAlphaComponent:.8];
+    if (model.isSelected) {
+        strokeColor = [strokeColor colorWithAlphaComponent:.8];
+    } else {
+        strokeColor = [NSColor colorWithDeviceWhite:.7 alpha:1];
+    }
     FUDrawRoundRect(roundRect, 5, grad, strokeColor, 1);
     
     

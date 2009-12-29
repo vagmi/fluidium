@@ -11,6 +11,7 @@
 
 @class FUTabsPlugIn;
 @protocol FUPlugInAPI;
+@class FUTabModel;
 
 @interface FUTabsViewController : NSViewController <TDTableViewDataSource, TDTableViewDelegate> {
     TDTableView *tableView;
@@ -18,6 +19,7 @@
     FUTabsPlugIn *plugIn;
     id <FUPlugInAPI>plugInAPI;
     NSMutableArray *tabModels;
+    FUTabModel *selectedModel;
     
     NSInteger changeCount;
 

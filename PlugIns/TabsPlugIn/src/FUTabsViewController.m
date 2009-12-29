@@ -22,6 +22,7 @@
 
 @interface NSObject ()
 // FUWindowController
+- (NSInteger)selectedTabIndex;
 - (void)setSelectedTabIndex:(NSInteger)i;
 - (NSArray *)tabControllers;
 - (void)startObserveringTabController:(id)tc;
@@ -36,6 +37,7 @@
 @interface FUTabsViewController ()
 - (NSArray *)webViews;
 - (id)windowController;
+- (void)updateSelectedTabModel;
 - (void)updateTabModelLaterAtIndex:(NSNumber *)indexObj;
 - (void)updateTabModelAtIndex:(NSInteger)i;
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv;
@@ -93,6 +95,8 @@
     for (id tc in [wc tabControllers]) {
         [self startObserveringTabController:tc];
     }
+
+    [self updateSelectedTabModel];
     
     [tableView reloadData];
 }
@@ -184,12 +188,7 @@
 
 
 - (void)windowControllerDidChangeSelectedTab:(NSNotification *)n {
-    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-    [tableView setSelectedRowIndex:i];
-    
-//    if (i < [tabModels count]) {
-//        [self updateTabModelAtIndex:i];
-//    }
+    [self updateSelectedTabModel];
 }
 
 
@@ -249,6 +248,20 @@
     } else {
         return [[self.view window] windowController];
     }
+}
+
+
+- (void)updateSelectedTabModel {
+    NSInteger selectedIndex = [[self windowController] selectedTabIndex];
+
+    if (selectedModel) {
+        selectedModel.selected = NO;
+    }
+    
+    selectedModel = [tabModels objectAtIndex:selectedIndex];
+    selectedModel.selected = YES;
+    
+    [tableView setSelectedRowIndex:selectedIndex];
 }
 
 

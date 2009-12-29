@@ -41,6 +41,32 @@
 }
 
 
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+
+- (void)mouseDown:(NSEvent *)evt {
+    [super mouseDown:evt];
+    
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    
+    TDTableRowView *clickedView = nil;
+    NSInteger i = 0;
+    for (TDTableRowView *rv in rowViews) {
+        if (NSPointInRect(p, [rv frame])) {
+            clickedView = rv;
+            break;
+        }
+        i++;
+    }
+    
+    if (clickedView) {
+        self.selectedRowIndex = i;
+    }
+}
+
+
 - (void)viewWillDraw {
     [self layoutRows];
 }
@@ -102,6 +128,24 @@
         y += h; // add height for next row
     }
     
+}
+
+
+- (void)setSelectedRowIndex:(NSInteger)i {
+    if (i != selectedRowIndex) {
+        if (delegate && [delegate respondsToSelector:@selector(tableView:willSelectRowAtIndex:)]) {
+            if (-1 == [delegate tableView:self willSelectRowAtIndex:i]) {
+                return;
+            }
+        }
+        
+        selectedRowIndex = i;
+        [self reloadData];
+        
+        if (delegate && [delegate respondsToSelector:@selector(tableView:didSelectRowAtIndex:)]) {
+            [delegate tableView:self didSelectRowAtIndex:i];
+        }
+    }
 }
 
 @synthesize dataSource;
