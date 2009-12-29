@@ -20,6 +20,8 @@
 #define KEY_TAB_CONTROLLER @"FUTabController"
 #define KEY_INDEX @"FUIndex"
 
+#define ASPECT_RATIO .7
+
 @interface NSObject ()
 // FUWindowController
 - (NSInteger)selectedTabIndex;
@@ -136,9 +138,9 @@
     
     BOOL isVert = tableFrame.size.height > tableFrame.size.width;
     if (isVert) {
-        return floor(frame.size.width * .7);
+        return floor(frame.size.width * ASPECT_RATIO);
     } else {
-        return floor(frame.size.height * 1.43);
+        return floor(frame.size.height * 1 / ASPECT_RATIO);
     }
 }
 
@@ -174,7 +176,13 @@
     WebView *wv = [[self webViews] objectAtIndex:i];
     FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
     [self updateTabModel:model fromWebView:wv];
-    [tabModels insertObject:model atIndex:i];
+    
+    NSAssert(i <= [tabModels count], @"");
+    if (i == [tabModels count]) {
+        [tabModels addObject:model];
+    } else {
+        [tabModels insertObject:model atIndex:i];
+    }
     [tableView reloadData];
     
     id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
@@ -208,16 +216,10 @@
 }
 
 
-//- (void)timerFired:(NSTimer *)t {
-//    [self updateTabModelLaterAtIndex:[t userInfo]];
-//}
-
-
 - (void)tabControllerDidFinishLoad:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [self updateTabModelAtIndex:i];
     
-    //    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired:) userInfo:[NSNumber numberWithInteger:i] repeats:YES];
     [self performSelector:@selector(updateTabModelLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:.6];
 }
 
@@ -284,7 +286,7 @@
 
 
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
-    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, .7)];
+    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, ASPECT_RATIO)];
 
     NSString *title = [wv mainFrameTitle];
     if (![title length]) {

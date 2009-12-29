@@ -10,6 +10,11 @@
 
 @implementation TDTableRowView
 
++ (NSString *)identifier {
+    return NSStringFromClass(self);
+}
+
+
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
         

@@ -14,7 +14,5 @@
     FUTabModel *model;
 }
 
-+ (NSString *)identifier;
-
 @property (nonatomic, retain) FUTabModel *model;
 @end

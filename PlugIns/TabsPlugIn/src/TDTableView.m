@@ -8,12 +8,14 @@
 
 #import "TDTableView.h"
 #import "TDTableRowView.h"
+#import "TDTableRowViewQueue.h"
 
 #define DEFAULT_ROW_HEIGHT 44
 
 @interface TDTableView ()
 @property (nonatomic, retain) NSScrollView *scrollView;
-@property (nonatomic, retain) NSMutableArray *rowViews;
+@property (nonatomic, retain) NSMutableArray *visibleRowViews;
+@property (nonatomic, retain) TDTableRowViewQueue *rowViewQueue;
 @end
 
 @implementation TDTableView
@@ -24,6 +26,8 @@
         
         self.backgroundColor = [NSColor whiteColor];
         self.rowHeight = DEFAULT_ROW_HEIGHT;
+        
+        self.rowViewQueue = [[[TDTableRowViewQueue alloc] init] autorelease];
     }
     return self;
 }
@@ -31,7 +35,8 @@
 
 - (void)dealloc {
     self.backgroundColor = nil;
-    self.rowViews = nil;
+    self.visibleRowViews = nil;
+    self.rowViewQueue = nil;
     [super dealloc];
 }
 
@@ -53,7 +58,7 @@
     
     TDTableRowView *clickedView = nil;
     NSInteger i = 0;
-    for (TDTableRowView *rv in rowViews) {
+    for (TDTableRowView *rv in visibleRowViews) {
         if (NSPointInRect(p, [rv frame])) {
             clickedView = rv;
             break;
@@ -84,8 +89,7 @@
 
 
 - (id)dequeueReusableRowViewWithIdentifier:(NSString *)s {
-    // TODO
-    return nil;
+    return [rowViewQueue dequeueWithIdentifier:s];
 }
 
 
@@ -104,16 +108,14 @@
     NSInteger i = 0;
     NSInteger c = [dataSource numberOfRowsInTableView:self];
 
-    for (TDTableRowView *rv in rowViews) {
+    for (TDTableRowView *rv in visibleRowViews) {
+        [rowViewQueue enqueue:rv withIdentifier:[[rv class] identifier]];
         [rv removeFromSuperview];
     }
     
-    [[rowViews retain] autorelease]; // paranoia
-    
-    self.rowViews = [NSMutableArray arrayWithCapacity:c];
+    self.visibleRowViews = [NSMutableArray arrayWithCapacity:c];
 
     for ( ; i < c; i++) {
-        
         TDTableRowView *rv = [dataSource tableView:self viewForRowAtIndex:i];
         NSAssert1(rv, @"nil rowView returned for index: %d", i);
         
@@ -133,12 +135,14 @@
         [rv setNeedsDisplay:YES];
         
         [self addSubview:rv];
-        [rowViews addObject:rv];
+        [visibleRowViews addObject:rv];
         
         if (isVert) {
             y += wh; // add height for next row
+            if (y > bounds.size.height) break;
         } else {
             x += wh;
+            if (x > bounds.size.width) break;
         }
     }
     
@@ -168,5 +172,6 @@
 @synthesize rowHeight;
 @synthesize selectedRowIndex;
 @synthesize scrollView;
-@synthesize rowViews;
+@synthesize visibleRowViews;
+@synthesize rowViewQueue;
 @end

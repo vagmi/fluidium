@@ -52,11 +52,6 @@ static NSDictionary *sSelectedTitleAttrs = nil;
 }
 
 
-+ (NSString *)identifier {
-    return NSStringFromClass(self);
-}
-
-
 - (id)init {
     return [self initWithFrame:NSZeroRect];
 }
@@ -125,8 +120,12 @@ static NSDictionary *sSelectedTitleAttrs = nil;
     if (img) {
         NSSize size = [img size];
         NSBitmapImageRep *bitmap = [[img representations] objectAtIndex:0];
+        
         fillTopColor = [bitmap colorAtX:7 y:7];
+        fillTopColor = fillTopColor ? fillTopColor : [NSColor whiteColor];
+
         fillBottomColor = [bitmap colorAtX:7 y:size.height - 7];
+        fillBottomColor = fillBottomColor ? fillBottomColor : [NSColor whiteColor];
     } else {
         fillTopColor = [NSColor whiteColor];
         fillBottomColor = [NSColor whiteColor];
@@ -151,6 +150,7 @@ static NSDictionary *sSelectedTitleAttrs = nil;
     
     img = [img scaledImageOfSize:imgSize];
     
+    if (!img) return;
     imgSize = [img size];
     NSRect srcRect = NSMakeRect(0, 0, imgSize.width, imgSize.height);
     NSRect destRect = NSOffsetRect(srcRect, floor(roundRect.origin.x + THUMBNAIL_DIFF/2), floor(roundRect.origin.y + THUMBNAIL_DIFF/2));
@@ -174,7 +174,6 @@ static NSDictionary *sSelectedTitleAttrs = nil;
     if (m) {
         [m addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:NULL];
         [m addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
-        //    [m addObserver:self forKeyPath:@"URLString" options:0 context:NULL];
     }
 }
 
@@ -183,7 +182,6 @@ static NSDictionary *sSelectedTitleAttrs = nil;
     if (m) {
         [m removeObserver:self forKeyPath:@"image"];
         [m removeObserver:self forKeyPath:@"title"];
-        //    [m removeObserver:self forKeyPath:@"URLString"];
     }
 }
 

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class TDTableRowView;
+@class TDTableRowViewQueue;
 @protocol TDTableViewDataSource;
 @protocol TDTableViewDelegate;
 
@@ -20,7 +21,8 @@
     NSInteger selectedRowIndex;
 
     NSScrollView *scrollView;
-    NSMutableArray *rowViews;
+    NSMutableArray *visibleRowViews;
+    TDTableRowViewQueue *rowViewQueue;
 }
 
 - (void)reloadData;
