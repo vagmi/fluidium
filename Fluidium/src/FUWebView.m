@@ -167,7 +167,7 @@
     
     
     ///////
-    CGImageRef cgImg = CGImageCreateWithImageInRect([documentViewBitmap CGImage], NSRectToCGRect(imageFrame));
+    CGImageRef cgImg = CGImageCreateWithImageInRect([documentViewBitmap CGImage], imageFrame);
     NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:cgImg] autorelease];
     NSImage *documentViewImage = [[[NSImage alloc] initWithSize:imageFrame.size] autorelease];
     [documentViewImage addRepresentation:bitmap];

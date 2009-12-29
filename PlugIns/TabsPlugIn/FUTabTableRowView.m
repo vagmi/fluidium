@@ -104,7 +104,19 @@ static NSDictionary *sTitleAttrs = nil;
     roundRect = NSOffsetRect(roundRect, 0, 12);
     roundRect.size.height -= 10;
     
-    grad = [[[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor whiteColor]] autorelease];
+    NSImage *img = model.image;
+    [img setFlipped:[self isFlipped]];
+
+    if (img) {
+        NSSize size = [img size];
+        NSBitmapImageRep *bitmap = [[img representations] objectAtIndex:0];
+        fillTopColor = [bitmap colorAtX:3 y:3];
+        fillBottomColor = [bitmap colorAtX:3 y:size.height - 3];
+    } else {
+        fillTopColor = [NSColor whiteColor];
+        fillBottomColor = [NSColor whiteColor];
+    }
+    grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
     
     strokeColor = [strokeColor colorWithAlphaComponent:.8];
     FUDrawRoundRect(roundRect, 5, grad, strokeColor, 1);
@@ -117,8 +129,8 @@ static NSDictionary *sTitleAttrs = nil;
     NSSize imgSize = roundRect.size;
     imgSize.width = floor(imgSize.width - THUMBNAIL_DIFF);
     imgSize.height = floor(imgSize.height - THUMBNAIL_DIFF);
-    [model.image setFlipped:[self isFlipped]];
-    NSImage *img = [model.image scaledImageOfSize:imgSize];
+    
+    img = [img scaledImageOfSize:imgSize];
     
     imgSize = [img size];
     NSRect srcRect = NSMakeRect(0, 0, imgSize.width, imgSize.height);
