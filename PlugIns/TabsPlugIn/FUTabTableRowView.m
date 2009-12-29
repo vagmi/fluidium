@@ -113,26 +113,16 @@ static NSDictionary *sTitleAttrs = nil;
     // draw image
     if (bounds.size.width < 64.0) return; // dont draw anymore when you're really small. looks bad.
 
-    NSRect destRect = NSInsetRect(roundRect, 4, 4);
-    destRect.size.height -= 4;
-
-    NSRect srcRect = NSZeroRect;
-
+#define THUMBNAIL_DIFF 6
     NSSize imgSize = roundRect.size;
-    CGFloat ratio = 0;
-    if (bounds.size.width > bounds.size.height) {
-        ratio = bounds.size.height / bounds.size.width;
-        srcRect.size.width = imgSize.width;
-        srcRect.size.height = floor(imgSize.height *ratio);
-    } else {
-        ratio = bounds.size.width / bounds.size.height;
-        srcRect.size.width = floor(imgSize.width *ratio);
-        srcRect.size.height = srcRect.size.height;
-    }
-    
+    imgSize.width = floor(imgSize.width - THUMBNAIL_DIFF);
+    imgSize.height = floor(imgSize.height - THUMBNAIL_DIFF);
     [model.image setFlipped:[self isFlipped]];
-    NSImage *img = [model.image scaledImageOfSize:destRect.size];
-
+    NSImage *img = [model.image scaledImageOfSize:imgSize];
+    
+    imgSize = [img size];
+    NSRect srcRect = NSMakeRect(0, 0, imgSize.width, imgSize.height);
+    NSRect destRect = NSOffsetRect(srcRect, floor(roundRect.origin.x + THUMBNAIL_DIFF/2), floor(roundRect.origin.y + THUMBNAIL_DIFF/2));
     [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
 }
 

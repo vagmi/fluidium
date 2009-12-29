@@ -130,7 +130,7 @@
 
 - (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i {
     CGFloat w = NSWidth([self.view frame]);
-    return floor(w * .6);
+    return floor(w * .66);
 }
 
 
@@ -266,7 +266,7 @@
 
 
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
-    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, 1)];
+    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, .66)];
 
     NSString *title = [wv mainFrameTitle];
     if (![title length]) {
