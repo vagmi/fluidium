@@ -156,8 +156,10 @@
     
     NSRect frame = [self frame];
     if (isVert) {
+        y = y < scrollSize.height ? scrollSize.height : y;
         frame.size.height = y;
     } else {
+        x = x < scrollSize.width ? scrollSize.width : x;
         frame.size.width = x;
     }
     [self setFrame:frame];
