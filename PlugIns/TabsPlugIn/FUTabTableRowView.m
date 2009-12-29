@@ -82,7 +82,7 @@ static NSDictionary *sSelectedTitleAttrs = nil;
     // outer round rect
     if (bounds.size.width < 24.0) return; // dont draw anymore when you're really small. looks bad.
 
-    NSRect roundRect = NSInsetRect(bounds, 4.5, 4.5);
+    NSRect roundRect = NSInsetRect(bounds, 2.5, 1.5);
     
     NSColor *fillTopColor = nil;
     NSColor *fillBottomColor = nil;
@@ -96,7 +96,7 @@ static NSDictionary *sSelectedTitleAttrs = nil;
 
         grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
         
-        CGFloat radius = (bounds.size.width < 32) ? 3 : 5;
+        CGFloat radius = (bounds.size.width < 32) ? 3 : 4;
         FUDrawRoundRect(roundRect, radius, grad, strokeColor, 1);
     }
 
