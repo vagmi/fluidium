@@ -18,9 +18,9 @@
 #import <WebKit/WebKit.h>
 
 @interface FUActivation ()
-@property (nonatomic, readwrite, getter=isCommandClick) BOOL isCommandKeyPressed;
-@property (nonatomic, readwrite, getter=isShiftClick) BOOL isShiftKeyPressed;
-@property (nonatomic, readwrite, getter=isOptionClick) BOOL isOptionKeyPressed;
+@property (nonatomic, readwrite, getter=isCommandClick) BOOL commandKeyPressed;
+@property (nonatomic, readwrite, getter=isShiftClick) BOOL shiftKeyPressed;
+@property (nonatomic, readwrite, getter=isOptionClick) BOOL optionKeyPressed;
 @end
 
 @implementation FUActivation
@@ -28,9 +28,9 @@
 + (id)activationFromEvent:(NSEvent *)evt {
     FUActivation *a = [[[self alloc] init] autorelease];
     
-    a.isCommandKeyPressed = [evt isCommandKeyPressed] || [evt is3rdButtonClick];
-    a.isShiftKeyPressed   = [evt isShiftKeyPressed];
-    a.isOptionKeyPressed  = [evt isOptionKeyPressed];
+    a.commandKeyPressed = [evt isCommandKeyPressed] || [evt is3rdButtonClick];
+    a.shiftKeyPressed   = [evt isShiftKeyPressed];
+    a.optionKeyPressed  = [evt isOptionKeyPressed];
     
     return a;
 }
@@ -39,9 +39,9 @@
 + (id)activationFromModifierFlags:(NSUInteger)flags {
     FUActivation *a = [[[self alloc] init] autorelease];
     
-    a.isCommandKeyPressed = FUIsCommandKeyPressed(flags);
-    a.isShiftKeyPressed   = FUIsShiftKeyPressed(flags);
-    a.isOptionKeyPressed  = FUIsOptionKeyPressed(flags);
+    a.commandKeyPressed = FUIsCommandKeyPressed(flags);
+    a.shiftKeyPressed   = FUIsShiftKeyPressed(flags);
+    a.optionKeyPressed  = FUIsOptionKeyPressed(flags);
     
     return a;
 }
@@ -53,14 +53,14 @@
     NSUInteger flags = [[info objectForKey:WebActionModifierFlagsKey] unsignedIntegerValue];
     BOOL isMiddleClick = (1 == [[info objectForKey:WebActionButtonKey] integerValue]);
     
-    a.isCommandKeyPressed = FUIsCommandKeyPressed(flags) || isMiddleClick;
-    a.isShiftKeyPressed   = FUIsShiftKeyPressed(flags);
-    a.isOptionKeyPressed  = FUIsOptionKeyPressed(flags);
+    a.commandKeyPressed = FUIsCommandKeyPressed(flags) || isMiddleClick;
+    a.shiftKeyPressed   = FUIsShiftKeyPressed(flags);
+    a.optionKeyPressed  = FUIsOptionKeyPressed(flags);
 
     return a;
 }
 
-@synthesize isCommandKeyPressed;
-@synthesize isShiftKeyPressed;
-@synthesize isOptionKeyPressed;
+@synthesize commandKeyPressed;
+@synthesize shiftKeyPressed;
+@synthesize optionKeyPressed;
 @end

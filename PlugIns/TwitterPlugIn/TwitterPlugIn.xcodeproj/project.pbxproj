@@ -560,7 +560,7 @@
 		D33930D910D4929F000FC7C1 /* libparsekit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libparsekit.a;
+			path = parsekit.a;
 			remoteRef = D33930D810D4929F000FC7C1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

@@ -19,16 +19,16 @@
 // It is used to equalize the different ways in which this common idiom is represented in Cocoa and WebKit.
 
 @interface FUActivation : NSObject {
-    BOOL isCommandKeyPressed;
-    BOOL isShiftKeyPressed;
-    BOOL isOptionKeyPressed;
+    BOOL commandKeyPressed;
+    BOOL shiftKeyPressed;
+    BOOL optionKeyPressed;
 }
 
 + (id)activationFromEvent:(NSEvent *)evt;
 + (id)activationFromModifierFlags:(NSUInteger)flags;
 + (id)activationFromWebActionInfo:(NSDictionary *)info;
 
-@property (nonatomic, readonly, getter=isCommandKeyPressed) BOOL isCommandKeyPressed;
-@property (nonatomic, readonly, getter=isShiftKeyPressed) BOOL isShiftKeyPressed;
-@property (nonatomic, readonly, getter=isOptionKeyPressed) BOOL isOptionKeyPressed;
+@property (nonatomic, readonly, getter=isCommandKeyPressed) BOOL commandKeyPressed;
+@property (nonatomic, readonly, getter=isShiftKeyPressed) BOOL shiftKeyPressed;
+@property (nonatomic, readonly, getter=isOptionKeyPressed) BOOL optionKeyPressed;
 @end
