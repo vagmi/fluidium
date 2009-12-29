@@ -116,7 +116,7 @@
 						<string key="NSFrameSize">{120, 734}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSNextKeyView" ref="1020987371"/>
-						<int key="NSsFlags">528</int>
+						<int key="NSsFlags">560</int>
 						<reference key="NSVScroller" ref="365976382"/>
 						<reference key="NSHScroller" ref="562068912"/>
 						<reference key="NSContentView" ref="1020987371"/>
