@@ -7,14 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TDTableView.h"
 
 @class FUTabsPlugIn;
 @protocol FUPlugInAPI;
 
-@interface FUTabsViewController : NSViewController {
-    NSArrayController *modelController;
-    NSScrollView *scrollView;
-    NSCollectionView *collectionView;
+@interface FUTabsViewController : NSViewController <TDTableViewDataSource, TDTableViewDelegate> {
+    TDTableView *tableView;
+
     FUTabsPlugIn *plugIn;
     id <FUPlugInAPI>plugInAPI;
     NSMutableArray *tabModels;
@@ -27,9 +27,7 @@
 - (void)viewDidAppear;
 - (void)viewWillDisappear;
 
-@property (nonatomic, retain) IBOutlet NSArrayController *modelController;
-@property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
-@property (nonatomic, retain) IBOutlet NSCollectionView *collectionView;
+@property (nonatomic, retain) IBOutlet TDTableView *tableView;
 @property (nonatomic, assign) FUTabsPlugIn *plugIn;
 @property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *tabModels;

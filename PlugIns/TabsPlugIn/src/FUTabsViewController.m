@@ -12,6 +12,8 @@
 #import "FUPlugInAPI.h"
 #import "FUTabsPlugIn.h"
 #import "FUTabModel.h"
+#import "TDTableView.h"
+#import "FUTabTableRowView.h"
 #import <WebKit/WebKit.h>
 
 #define KEY_SELECTION_INDEXES @"selectionIndexes"
@@ -58,9 +60,7 @@
 
 - (void)dealloc {
     self.view = nil;
-    self.modelController = nil;
-    self.scrollView = nil;
-    self.collectionView = nil;
+    self.tableView = nil;
     self.plugIn = nil;
     self.plugInAPI = nil;
     self.tabModels = nil;
@@ -70,33 +70,7 @@
 
 
 - (void)awakeFromNib {
-    [collectionView setSelectable:YES];
-    [collectionView setBackgroundColors:[NSArray arrayWithObject:[NSColor colorWithDeviceWhite:.9 alpha:1]]];
-    
-    [collectionView addObserver:self forKeyPath:KEY_SELECTION_INDEXES options:NSKeyValueObservingOptionNew context:NULL];
-}
-
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)ctx {
-    if ([KEY_SELECTION_INDEXES isEqualToString:keyPath]) {
-        id wc = [self windowController];
-        [wc setSelectedTabIndex:[[collectionView selectionIndexes] firstIndex]];
-    }
-}
-
-
-- (void)splitViewDidResizeSubviews:(NSNotification *)n {
-    if ([self isVertical]) {
-        CGFloat w = [scrollView contentSize].width;
-        NSSize size = NSMakeSize(w, w * .59);
-        [collectionView setMinItemSize:size];
-        [collectionView setMaxItemSize:size];
-    } else if ([self isHorizontal]) {
-        CGFloat h = [scrollView contentSize].height;
-        NSSize size = NSMakeSize(h * 1.69, h);
-        [collectionView setMinItemSize:size];
-        [collectionView setMaxItemSize:size];
-    }
+    tableView.backgroundColor = [NSColor colorWithDeviceWhite:.9 alpha:1.0];
 }
 
 
@@ -104,17 +78,7 @@
 #pragma mark Public
 
 - (void)viewDidAppear {
-    if ([self isVertical]) {
-        [collectionView setMaxNumberOfRows:0];
-        [collectionView setMaxNumberOfColumns:1];
-    } else if ([self isHorizontal]) {
-        [collectionView setMaxNumberOfRows:1];
-        [collectionView setMaxNumberOfColumns:0];
-    }
-    
-    [collectionView setMinItemSize:NSMakeSize(100, 59)];
-    CGFloat w = [scrollView contentSize].width;
-    [collectionView setMaxItemSize:NSMakeSize(w, w * .59)];
+    tableView.orientation = TDTableViewOrientationPortrait;
     
     NSArray *wvs = [self webViews];
     self.tabModels = [NSMutableArray arrayWithCapacity:[wvs count]];
@@ -122,19 +86,74 @@
     for (WebView *wv in wvs) {
         FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
         [self updateTabModel:model fromWebView:wv];
-        //[tabModels addObject:model];
-        [modelController addObject:model];
+        [tabModels addObject:model];
     }
 
     id wc = [self windowController];
     for (id tc in [wc tabControllers]) {
         [self startObserveringTabController:tc];
     }
+    
+    [tableView reloadData];
 }
 
 
 - (void)viewWillDisappear {
     self.tabModels = nil;
+}
+
+
+#pragma mark -
+#pragma mark TDTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(TDTableView *)tv {
+    return [tabModels count];
+}
+
+
+- (TDTableRowView *)tableView:(TDTableView *)tv viewForRowAtIndex:(NSInteger)i {
+    FUTabTableRowView *rv = [tv dequeueReusableRowViewWithIdentifier:[FUTabTableRowView identifier]];
+    
+    if (!rv) {
+        rv = [[[FUTabTableRowView alloc] init] autorelease];
+    }
+    
+    rv.model = [tabModels objectAtIndex:i];
+    [rv setNeedsDisplay:YES];
+    
+    return rv;
+}
+
+
+#pragma mark -
+#pragma mark TDTableViewDelegate
+
+- (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i {
+    CGFloat w = NSWidth([self.view frame]);
+    return floor(w * .6);
+}
+
+
+- (void)tableView:(TDTableView *)tv willDisplayView:(TDTableRowView *)rv forRowAtIndex:(NSInteger)i {
+    
+}
+
+
+- (void)tableView:(TDTableView *)tv didSelectRowAtIndex:(NSInteger)i {
+    id wc = [self windowController];
+    [wc setSelectedTabIndex:i];
+}
+
+
+#pragma mark -
+#pragma mark NSSplitViewNotifications
+
+- (void)splitViewDidResizeSubviews:(NSNotification *)n {
+    if ([self isVertical]) {
+
+    } else if ([self isHorizontal]) {
+
+    }
 }
 
 
@@ -146,7 +165,8 @@
     WebView *wv = [[self webViews] objectAtIndex:i];
     FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
     [self updateTabModel:model fromWebView:wv];
-    [modelController insertObject:model atArrangedObjectIndex:i];
+    [tabModels insertObject:model atIndex:i];
+    [tableView reloadData];
     
     id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self startObserveringTabController:tc];
@@ -155,7 +175,8 @@
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-    [modelController removeObjectAtArrangedObjectIndex:i];
+    [tabModels removeObjectAtIndex:i];
+    [tableView reloadData];
     
     id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self stopObserveringTabController:tc];
@@ -164,7 +185,7 @@
 
 - (void)windowControllerDidChangeSelectedTab:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-    [collectionView setSelectionIndexes:[NSIndexSet indexSetWithIndex:i]];
+    [tableView setSelectedRowIndex:i];
     
 //    if (i < [tabModels count]) {
 //        [self updateTabModelAtIndex:i];
@@ -245,7 +266,8 @@
 
 
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv {
-    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, .5)];
+    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1436, 718)];
+
     NSString *title = [wv mainFrameTitle];
     if (![title length]) {
         title = NSLocalizedString(@"Untitled", @"");
@@ -280,9 +302,7 @@
     return FUPlugInViewPlacementIsHorizontalSplitView(mask);
 }
 
-@synthesize modelController;
-@synthesize scrollView;
-@synthesize collectionView;
+@synthesize tableView;
 @synthesize plugIn;
 @synthesize plugInAPI;
 @synthesize tabModels;

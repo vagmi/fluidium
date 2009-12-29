@@ -8,13 +8,13 @@
 
 #import "TDTableRowView.h"
 
+@class FUTabModel;
+
 @interface FUTabTableRowView : TDTableRowView {
-    NSImage *thumbnail;
-    NSString *title;
-    NSString *URLString;
+    FUTabModel *model;
 }
 
-@property (nonatomic, retain) NSImage *thumbnail;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *URLString;
++ (NSString *)identifier;
+
+@property (nonatomic, retain) FUTabModel *model;
 @end

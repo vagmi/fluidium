@@ -22,7 +22,7 @@
     if (self = [super initWithFrame:frame]) {
         //scrollView 
         
-        self.rowViews = [NSMutableArray array];
+        self.backgroundColor = [NSColor whiteColor];
         self.rowHeight = DEFAULT_ROW_HEIGHT;
     }
     return self;
@@ -30,35 +30,62 @@
 
 
 - (void)dealloc {
+    self.backgroundColor = nil;
     self.rowViews = nil;
     [super dealloc];
 }
 
 
-- (void)viewWillDraw {
-    [self layoutRowViews];
+- (BOOL)isFlipped {
+    return YES;
 }
 
 
-- (void)drawRect:(NSRect)r {
-    [super drawRect:r];
+- (void)viewWillDraw {
+    [self layoutRows];
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [backgroundColor set];
+    NSRectFill(dirtyRect);
 }
 
 
 - (void)reloadData {
-    
+    [self setNeedsDisplay:YES];
 }
 
 
-- (void)layoutRowViews {
-    NSInteger i = 0;
+- (id)dequeueReusableRowViewWithIdentifier:(NSString *)s {
+    // TODO
+    return nil;
+}
 
+
+- (void)layoutRows {
+    NSAssert(dataSource, @"TDTableView must have a dataSource before doing layout");
+    
     CGFloat x = 0;
     CGFloat y = 0;
     CGFloat w = NSWidth([self frame]);
     CGFloat h = 0;
     
-    for (TDTableRowView *rowView in rowViews) {
+    NSInteger i = 0;
+    NSInteger c = [dataSource numberOfRowsInTableView:self];
+
+    for (TDTableRowView *rv in rowViews) {
+        [rv removeFromSuperview];
+    }
+    
+    [[rowViews retain] autorelease]; // paranoia
+    
+    self.rowViews = [NSMutableArray arrayWithCapacity:c];
+
+    for ( ; i < c; i++) {
+        
+        TDTableRowView *rv = [dataSource tableView:self viewForRowAtIndex:i];
+        NSAssert1(rv, @"nil rowView returned for index: %d", i);
         
         // get row height
         h = rowHeight;
@@ -66,19 +93,23 @@
             h = [delegate tableView:self heightForRowAtIndex:i];
         }
         
-        [rowView setFrame:NSMakeRect(x, y, w, h)];
-        [rowView setNeedsDisplay:YES];
+        [rv setFrame:NSMakeRect(x, y, w, h)];
+        [rv setNeedsDisplay:YES];
+        
+        [self addSubview:rv];
+        [rowViews addObject:rv];
         
         y += h; // add height for next row
     }
     
-    [self setNeedsDisplay:YES];
 }
 
 @synthesize dataSource;
 @synthesize delegate;
+@synthesize backgroundColor;
 @synthesize orientation;
 @synthesize rowHeight;
+@synthesize selectedRowIndex;
 @synthesize scrollView;
 @synthesize rowViews;
 @end

@@ -20,8 +20,10 @@ typedef enum {
 @interface TDTableView : NSView {
     id <TDTableViewDataSource>dataSource;
     id <TDTableViewDelegate>delegate;
+    NSColor *backgroundColor;
     TDTableViewOrientation orientation;
     CGFloat rowHeight;
+    NSInteger selectedRowIndex;
 
     NSScrollView *scrollView;
     NSMutableArray *rowViews;
@@ -29,23 +31,29 @@ typedef enum {
 
 - (void)reloadData;
 
-- (void)layoutRowViews;
+- (id)dequeueReusableRowViewWithIdentifier:(NSString *)s;
+
+- (void)layoutRows;
 
 @property (nonatomic, assign) id <TDTableViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDTableViewDelegate>delegate;
+@property (nonatomic, retain) NSColor *backgroundColor;
 @property (nonatomic, assign) TDTableViewOrientation orientation;
 @property (nonatomic, assign) CGFloat rowHeight;
+@property (nonatomic, assign) NSInteger selectedRowIndex;
 @end
 
 @protocol TDTableViewDataSource <NSObject>
+@required
 - (NSInteger)numberOfRowsInTableView:(TDTableView *)tv;
 - (TDTableRowView *)tableView:(TDTableView *)tv viewForRowAtIndex:(NSInteger)i;
 @end
 
 @protocol TDTableViewDelegate <NSObject>
+@optional
 - (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i;
 - (void)tableView:(TDTableView *)tv willDisplayView:(TDTableRowView *)rv forRowAtIndex:(NSInteger)i;
 - (NSInteger)tableView:(TDTableView *)tv willSelectRowAtIndex:(NSInteger)i;
-- (NSInteger)tableView:(TDTableView *)tv didSelectRowAtIndex:(NSInteger)i;
+- (void)tableView:(TDTableView *)tv didSelectRowAtIndex:(NSInteger)i;
 @end
 

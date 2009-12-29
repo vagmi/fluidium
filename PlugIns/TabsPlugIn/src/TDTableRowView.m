@@ -10,13 +10,8 @@
 
 @implementation TDTableRowView
 
-- (id)init {
-    return [self initWithFrame:NSZeroRect];
-}
-
-
 - (id)initWithFrame:(NSRect)frame {
-    if (self = [super init]) {
+    if (self = [super initWithFrame:frame]) {
         
     }
     return self;
@@ -25,6 +20,11 @@
 
 - (void)dealloc {
     [super dealloc];
+}
+
+
+- (BOOL)isFlipped {
+    return YES;
 }
 
 @end
