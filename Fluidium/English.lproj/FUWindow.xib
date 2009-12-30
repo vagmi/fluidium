@@ -12,8 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100051"/>
-			<integer value="100108"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -47,7 +45,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{94, 86}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -137,7 +135,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{1087, 718}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{94, 108}</string>
@@ -518,7 +515,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="183786173">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -603,7 +600,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{240, 129}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -1563,7 +1559,6 @@
 							<string>actualSize:</string>
 							<string>addBookmark:</string>
 							<string>addNewTabInBackground:</string>
-							<string>addNewTabInForeground:</string>
 							<string>bookmarkClicked:</string>
 							<string>emptyCache:</string>
 							<string>endEditBookmark:</string>
@@ -1576,6 +1571,7 @@
 							<string>jumpToSelection:</string>
 							<string>openLocation:</string>
 							<string>openSearch:</string>
+							<string>openTab:</string>
 							<string>performClose:</string>
 							<string>reload:</string>
 							<string>search:</string>

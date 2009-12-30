@@ -35,6 +35,7 @@
 
     // contents
 - (void)addTabViewItem:(NSTabViewItem *)item;
+- (void)addTabViewItem:(NSTabViewItem *)item atIndex:(NSInteger)i;
 - (void)removeTabForCell:(PSMTabBarCell *)cell;
 
     // draw
@@ -608,10 +609,22 @@
 #pragma mark Functionality
 
 - (void)addTabViewItem:(NSTabViewItem *)item
+// BEGIN FLUIDIUM
 {
+    [self addTabViewItem:item atIndex:[[self representedTabViewItems] count]];
+}
+
+
+- (void)addTabViewItem:(NSTabViewItem *)item atIndex:(NSInteger)i
+{
+    id leftCell = nil;
+    if (i > 0) {
+        leftCell = [_cells objectAtIndex:i - 1];
+    }
+    
     // create cell
     PSMTabBarCell *cell = [[PSMTabBarCell alloc] initWithControlView:self];
-	NSRect cellRect, lastCellFrame = [[_cells lastObject] frame];
+	NSRect cellRect, lastCellFrame = [leftCell frame];
 	
 	if ([self orientation] == PSMTabBarHorizontalOrientation) {
 		cellRect = [self genericCellRect];
@@ -631,12 +644,17 @@
     [self bindPropertiesForCell:cell andTabViewItem:item];
 	
     // add to collection
-    [_cells addObject:cell];
+    if (i == [_cells count]) {
+        [_cells addObject:cell];
+    } else {
+        [_cells insertObject:cell atIndex:i];
+    }
     [cell release];
     if ([_cells count] == [tabView numberOfTabViewItems]) {
         [self update]; // don't update unless all are accounted for!
 	}
 }
+// END FLUIDIUM
 
 - (void)removeTabForCell:(PSMTabBarCell *)cell
 {
@@ -1594,7 +1612,7 @@
         for (NSURL *URL in URLs) {
             FUWindowController *wc = (FUWindowController *)[[self window] windowController];
             NSURLRequest *req = [NSURLRequest requestWithURL:URL];
-            [wc loadRequest:req inNewTabInForeground:YES];
+            [wc loadRequest:req inNewTabAndSelect:YES];
             break;
         }
 
@@ -1905,11 +1923,13 @@
     // go through tab view items, add cell for any not present
     NSMutableArray *cellItems = [self representedTabViewItems];
     NSEnumerator *ex = [tabItems objectEnumerator];
+    NSInteger i = 0;
     NSTabViewItem *item;
     while ( (item = [ex nextObject]) ) {
         if (![cellItems containsObject:item]) {
-            [self addTabViewItem:item];
+            [self addTabViewItem:item atIndex:i];
         }
+        i++;
     }
 
     // pass along for other delegate responses

@@ -91,7 +91,7 @@
 
 
 // support for opening a new window on ⌘-T when there are no existing windows
-- (IBAction)addNewTabInForeground:(id)sender {
+- (IBAction)openTab:(id)sender {
     [self newDocument:sender];
 }
 
@@ -244,7 +244,7 @@
         tc = [[doc windowController] selectedTabController];
     } else {
         FUWindowController *wc = [self frontWindowController];
-        tc = [wc loadRequest:req inNewTabInForeground:inForeground];
+        tc = [wc loadRequest:req inNewTabAndSelect:YES];
         [[wc window] makeKeyAndOrderFront:self]; // this is necessary if opening in a tab, and an auxilliary window is key
     }
     return tc;
@@ -253,36 +253,6 @@
 
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename {
     [[FUDownloadWindowController instance] downloadRequest:req directory:dirPath filename:filename];
-}
-
-
-- (FUTabController *)loadHTMLString:(NSString *)s {
-    return [self loadHTMLString:s destinationType:[[FUUserDefaults instance] tabbedBrowsingEnabled] ? FUDestinationTypeTab : FUDestinationTypeWindow];
-}
-
-
-- (FUTabController *)loadHTMLString:(NSString *)s destinationType:(FUDestinationType)type {
-    return [self loadHTMLString:s destinationType:type inForeground:[[FUUserDefaults instance] selectNewWindowsOrTabsAsCreated]];
-}
-
-
-- (FUTabController *)loadHTMLString:(NSString *)s destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground {
-    FUTabController *tc = nil;
-    if (FUDestinationTypeWindow == type) {
-        FUDocument *doc = [self openDocumentWithRequest:nil makeKey:inForeground];
-        tc = [[doc windowController] selectedTabController];
-        [[[tc webView] mainFrame] loadHTMLString:s baseURL:nil];
-    } else {
-        FUWindowController *wc = [self frontWindowController];
-        if (inForeground) {
-            [wc addNewTabInForeground:self];
-        } else {
-            [wc addNewTabInBackground:self];
-        }
-        tc = [wc selectedTabController];
-        [[[tc webView] mainFrame] loadHTMLString:s baseURL:nil];
-    }
-    return tc;
 }
 
 
@@ -423,7 +393,7 @@
         NSArray *tabs = [d objectForKey:@"tabs"];
         
         for (NSString *URLString in tabs) {
-            [wc loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabInForeground:YES];
+            [wc loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:YES];
         }
         
         wc.selectedTabIndex = [[d objectForKey:@"selectedTabIndex"] integerValue];

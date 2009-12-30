@@ -28,7 +28,7 @@
     NSInteger tag;
 }
 
-- (IBAction)addNewTabInForeground:(id)sender;
+- (IBAction)openTab:(id)sender;
 - (IBAction)runFontPanel:(id)sender;
 - (IBAction)showFindPanel:(id)sender;
 - (IBAction)find:(id)sender;

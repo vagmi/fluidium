@@ -454,7 +454,7 @@ typedef enum {
         [listener ignore];
         [windowController handleCommandClick:act request:req];
     } else if ([[FUUserDefaults instance] targetedClicksCreateTabs]) {
-        [[[FUDocumentController instance] frontWindowController] loadRequest:req inNewTabInForeground:YES];
+        [[[FUDocumentController instance] frontWindowController] loadRequest:req inNewTabAndSelect:YES];
     } else {
         // look for existing frame with this name. if found, use it
         FUTabController *tc = nil;

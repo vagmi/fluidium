@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="296"/>
+			<integer value="24"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1172,6 +1172,35 @@
 									<reference key="NSOnImage" ref="1033313550"/>
 									<reference key="NSMixedImage" ref="310636482"/>
 								</object>
+								<object class="NSMenuItem" id="480028531">
+									<reference key="NSMenu" ref="835318025"/>
+									<string key="NSTitle">Web Inspector</string>
+									<string key="NSKeyEquiv">i</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
+								<object class="NSMenuItem" id="670299045">
+									<reference key="NSMenu" ref="835318025"/>
+									<string key="NSTitle">Show Error Console</string>
+									<string key="NSKeyEquiv">c</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
+								<object class="NSMenuItem" id="706546578">
+									<reference key="NSMenu" ref="835318025"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
 								<object class="NSMenuItem" id="803843401">
 									<reference key="NSMenu" ref="835318025"/>
 									<string key="NSTitle">Downloads</string>
@@ -1760,14 +1789,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">addNewTabInForeground:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="764633994"/>
-					</object>
-					<int key="connectionID">655</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showDownloadsWindow:</string>
 						<reference key="source" ref="1021"/>
 						<reference key="destination" ref="803843401"/>
@@ -1837,6 +1858,30 @@
 						<reference key="destination" ref="328043917"/>
 					</object>
 					<int key="connectionID">699</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openTab:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="764633994"/>
+					</object>
+					<int key="connectionID">700</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showWebInspector:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="480028531"/>
+					</object>
+					<int key="connectionID">706</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showErrorConsole:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="670299045"/>
+					</object>
+					<int key="connectionID">707</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2254,6 +2299,9 @@
 							<reference ref="803843401"/>
 							<reference ref="1024203791"/>
 							<reference ref="835345707"/>
+							<reference ref="706546578"/>
+							<reference ref="480028531"/>
+							<reference ref="670299045"/>
 						</object>
 						<reference key="parent" ref="713487014"/>
 					</object>
@@ -2777,6 +2825,21 @@
 						<reference key="object" ref="680739550"/>
 						<reference key="parent" ref="110575045"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">701</int>
+						<reference key="object" ref="706546578"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">702</int>
+						<reference key="object" ref="480028531"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">703</int>
+						<reference key="object" ref="670299045"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3005,6 +3068,12 @@
 					<string>691.ImportedFromIB2</string>
 					<string>692.IBPluginDependency</string>
 					<string>692.ImportedFromIB2</string>
+					<string>701.IBPluginDependency</string>
+					<string>701.ImportedFromIB2</string>
+					<string>702.IBPluginDependency</string>
+					<string>702.ImportedFromIB2</string>
+					<string>703.IBPluginDependency</string>
+					<string>703.ImportedFromIB2</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>73.IBPluginDependency</string>
@@ -3132,11 +3201,11 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{564, 660}, {225, 153}}</string>
+					<string>{{841, 495}, {227, 203}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{98, 813}, {598, 20}}</string>
+					<string>{{375, 698}, {598, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -3268,7 +3337,13 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{367, 590}, {204, 223}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="1"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="1"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="1"/>
+					<string>{{431, 590}, {204, 223}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{155, 774}, {199, 203}}</string>
@@ -3296,7 +3371,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">699</int>
+			<int key="maxID">707</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3333,13 +3408,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addNewTabInForeground:</string>
+							<string>dockMenuItemClick:</string>
+							<string>openLocation:</string>
+							<string>openTab:</string>
 							<string>toggleBookmarkBarShown:</string>
 							<string>toggleStatusBarShown:</string>
 							<string>toggleTabBarShown:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3357,6 +3436,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FULine</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FULine.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3385,12 +3472,16 @@
 							<string>openLinkInNewWindowFromMenu:</string>
 							<string>reload:</string>
 							<string>searchWebFromMenu:</string>
+							<string>showErrorConsole:</string>
+							<string>showWebInspector:</string>
 							<string>stopLoading:</string>
 							<string>zoomIn:</string>
 							<string>zoomOut:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3419,10 +3510,10 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addNewTabInForeground:</string>
 							<string>find:</string>
+							<string>openTab:</string>
 							<string>runFontPanel:</string>
-							<string>showFindPanelAction:</string>
+							<string>showFindPanel:</string>
 							<string>useSelectionForFind:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3459,11 +3550,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>actualSize:</string>
 							<string>addBookmark:</string>
-							<string>addNewTabInBackground:</string>
-							<string>addNewTabInForeground:</string>
 							<string>bookmarkClicked:</string>
-							<string>closeTab:</string>
 							<string>emptyCache:</string>
+							<string>endEditBookmark:</string>
 							<string>find:</string>
 							<string>goBack:</string>
 							<string>goForward:</string>
@@ -3473,12 +3562,15 @@
 							<string>jumpToSelection:</string>
 							<string>openLocation:</string>
 							<string>openSearch:</string>
+							<string>openTab:</string>
 							<string>performClose:</string>
 							<string>reload:</string>
 							<string>search:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
+							<string>showErrorConsole:</string>
 							<string>showFindPanel:</string>
+							<string>showWebInspector:</string>
 							<string>stopLoading:</string>
 							<string>toggleToolbarShown:</string>
 							<string>useSelectionForFind:</string>
@@ -3516,6 +3608,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -3523,6 +3616,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bookmarkBar</string>
+							<string>editBookmarkSheet</string>
+							<string>emptyTabBarLine</string>
 							<string>findPanelSearchField</string>
 							<string>findPanelView</string>
 							<string>locationComboBox</string>
@@ -3537,6 +3632,8 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSView</string>
+							<string>NSWindow</string>
+							<string>FULine</string>
 							<string>NSSearchField</string>
 							<string>NSView</string>
 							<string>FUProgressComboBox</string>
@@ -3552,6 +3649,28 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FirstResponder</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>openTab:</string>
+							<string>showErrorConsole:</string>
+							<string>showWebInspector:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3581,6 +3700,13 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUNotifications.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUPlugIn.h</string>
 					</object>
 				</object>
@@ -3591,6 +3717,13 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<reference key="sourceIdentifier" ref="327168779"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/WebUIDelegatePrivate.h</string>
+					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
@@ -4179,6 +4312,13 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">Growl.framework/Headers/GrowlApplicationBridge.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">WebKit.framework/Headers/WebDownload.h</string>
 					</object>
 				</object>
@@ -4429,7 +4569,7 @@
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../FluidApp.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../Fluidium.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 	</data>
 </archive>

@@ -52,7 +52,6 @@
 
 @interface FUWindowController ()
 - (void)setUpTabBar;
-- (void)addNewTab;
 - (void)closeWindow;
 - (void)closeTab;
 - (BOOL)removeTabViewItem:(NSTabViewItem *)tabItem;
@@ -62,6 +61,7 @@
 - (void)stopObservingTabController:(FUTabController *)tc;
 - (NSTabViewItem *)tabViewItemForTabController:(FUTabController *)tc;
 
+- (NSInteger)preferredIndexForNewTab;
 - (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
 
 - (void)removeDocumentIconButton;
@@ -188,7 +188,7 @@
     [[self window] makeFirstResponder:locationComboBox];
     [[self window] setFrameFromString:[[FUUserDefaults instance] windowFrameString]];
     
-    [self addNewTabInForeground:self];
+    [self addNewTabAndSelect:YES];
 
     if ([[FUUserDefaults instance] newWindowsOpenWith]) {
         [self goHome:self];
@@ -262,7 +262,7 @@
 
     if (cmd.isTabbed) {
         for (NSString *URLString in cmd.moreURLStrings) {
-            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabInForeground:NO];
+            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:NO];
         }
     }
 }
@@ -340,15 +340,11 @@
 }
 
 
-- (IBAction)addNewTabInForeground:(id)sender {
-    [self addNewTab];
-    self.selectedTabIndex = ([tabControllers count] - 1);
-    [[self window] makeFirstResponder:locationComboBox];
-}
-
-
-- (IBAction)addNewTabInBackground:(id)sender {
-    [self addNewTab];
+- (IBAction)openTab:(id)sender {
+    // always open a tab at the end in response to this action (which only comes from the File menu/cmd-T)
+    // in other words, never respect FUNewTabsOpenInline pref
+    NSInteger i = [tabView numberOfTabViewItems];
+    [self addNewTabAtIndex:i andSelect:YES];
 }
 
 
@@ -468,7 +464,7 @@
         if (act.isCommandKeyPressed) {
             [self handleCommandClick:act request:req];
         } else {
-            [self loadRequestInSelectedTab:req];
+            [self loadRequest:req inNewTab:NO atIndex:self.selectedTabIndex andSelect:NO];
         }
     }
 }
@@ -493,33 +489,112 @@
 #pragma mark -
 #pragma mark Public
 
+- (void)runEditTitleSheetForBookmark:(FUBookmark *)bmark {
+    self.editingBookmark = [FUBookmark bookmarkWithTitle:bmark.title content:bmark.content];
+    
+    [bmark retain]; // retained
+    
+    [NSApp beginSheet:editBookmarkSheet 
+       modalForWindow:[self window] 
+        modalDelegate:self 
+       didEndSelector:@selector(editBookmarkSheetDidEnd:returnCode:contextInfo:) 
+          contextInfo:bmark];
+}
+
+
+- (BOOL)isFindPanelVisible {
+    return (nil != [findPanelView superview]);
+}
+
+
 - (FUTabController *)loadRequestInSelectedTab:(NSURLRequest *)req {
-    FUTabController *tc = [self selectedTabController];
-    [tc loadRequest:req];
-    return tc;
+    NSInteger i = self.selectedTabIndex;
+    return [self loadRequest:req inNewTab:NO atIndex:i andSelect:NO];
 }
 
 
-- (FUTabController *)loadRequestInLastTab:(NSURLRequest *)req {
-    FUTabController *tc = [self lastTabController];
-    [tc loadRequest:req];
-    return tc;
+- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabAndSelect:(BOOL)select {
+    return [self loadRequest:req inNewTab:YES atIndex:[self preferredIndexForNewTab] andSelect:select];
 }
 
 
-- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabInForeground:(BOOL)inForeground {
+- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select {
     FUTabController *tc = nil;
-    if (inForeground) {
-        // if the selected tab is empty, use it
-        if ([[[self selectedTabController] URLString] length]) {
-            [self addNewTabInForeground:self];
-        }
-        tc = [self loadRequestInSelectedTab:req];
+
+    // use selected tab if empty
+    if (shouldCreate && ![[[self selectedTabController] URLString] length]) {
+        shouldCreate = NO;
+    }
+        
+    if (shouldCreate) {
+        tc = [self addNewTabAtIndex:i andSelect:select];
     } else {
-        [self addNewTabInBackground:self];
-        tc = [self loadRequestInLastTab:req];
+        tc = [self selectedTabController];
+    }
+    
+    [[[tc webView] mainFrame] loadRequest:req];
+    return tc;
+}
+
+
+- (FUTabController *)addNewTabAndSelect:(BOOL)select {
+    return [self addNewTabAtIndex:[self preferredIndexForNewTab] andSelect:select];
+}
+
+
+- (FUTabController *)addNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select {
+    FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
+    [self addTabController:tc atIndex:i];
+    if (select) {
+        self.selectedTabIndex = i;
+        [[self window] makeFirstResponder:locationComboBox];
     }
     return tc;
+}
+
+
+- (void)addTabController:(FUTabController *)tc {
+    [self addTabController:tc atIndex:[self preferredIndexForNewTab]];
+}
+
+
+- (void)addTabController:(FUTabController *)tc atIndex:(NSInteger)i {
+    if ([tabControllers containsObject:tc]) {
+        return;
+    }
+    
+    [tabControllers addObject:tc];
+    
+    NSTabViewItem *tabItem = [[[NSTabViewItem alloc] initWithIdentifier:tc] autorelease];
+    [tc.view setFrame:[uberView.midView bounds]]; // need to set the frame here to make sure it is valid for any thumbnail generation for background tabs
+    [tabItem setView:tc.view];
+    [tabItem bind:@"label" toObject:tc withKeyPath:@"title" options:nil];
+    
+    if (i == [tabView numberOfTabViewItems]) {
+        [tabView addTabViewItem:tabItem];
+    } else {
+        [tabView insertTabViewItem:tabItem atIndex:i];
+    }
+    
+    // must set this controller's window as host window or else Flash content won't play in background tabs
+    [[tc webView] setHostWindow:[self window]];
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              tc, FUTabControllerKey,
+                              [NSNumber numberWithInteger:[tabView numberOfTabViewItems] - 1], FUIndexKey,
+                              nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenTabNotification object:self userInfo:userInfo];
+}
+
+
+- (BOOL)removeTabController:(FUTabController *)tc {
+    return [self removeTabViewItem:[self tabViewItemForTabController:tc]];
+}
+
+
+- (void)selectTabController:(FUTabController *)tc {
+    self.selectedTabIndex = [tabView indexOfTabViewItem:[self tabViewItemForTabController:tc]];
 }
 
 
@@ -559,16 +634,6 @@
 }
 
 
-- (void)selectTabController:(FUTabController *)tc {
-    self.selectedTabIndex = [tabView indexOfTabViewItem:[self tabViewItemForTabController:tc]];
-}
-
-
-- (BOOL)removeTabController:(FUTabController *)tc {
-    return [self removeTabViewItem:[self tabViewItemForTabController:tc]];
-}
-
-
 - (NSArray *)webViews {
     NSMutableArray *wvs = [NSMutableArray arrayWithCapacity:[tabView numberOfTabViewItems]];
     for (NSTabViewItem *tabItem in [tabView tabViewItems]) {
@@ -579,7 +644,12 @@
 
 
 - (NSInteger)selectedTabIndex {
-    return [tabView indexOfTabViewItem:[tabView selectedTabViewItem]];
+    NSTabViewItem *tabItem = [tabView selectedTabViewItem];
+    if (tabItem) {
+        return [tabView indexOfTabViewItem:tabItem];
+    } else {
+        return -1;
+    }
 }
 
 
@@ -591,19 +661,6 @@
 }
 
 
-- (void)runEditTitleSheetForBookmark:(FUBookmark *)bmark {
-    self.editingBookmark = [FUBookmark bookmarkWithTitle:bmark.title content:bmark.content];
-
-    [bmark retain]; // retained
-    
-    [NSApp beginSheet:editBookmarkSheet 
-       modalForWindow:[self window] 
-        modalDelegate:self 
-       didEndSelector:@selector(editBookmarkSheetDidEnd:returnCode:contextInfo:) 
-          contextInfo:bmark];
-}
-
-
 #pragma mark -
 #pragma mark NSMenuValidation
 
@@ -612,7 +669,7 @@
     
     if (action == @selector(setDisplayMode:) || action == @selector(setSizeMode:)) { // no changing the toolbar modes
         return NO;
-    } else if (action == @selector(addNewTabInForeground:)) {
+    } else if (action == @selector(openTab:)) {
         return [[FUUserDefaults instance] tabbedBrowsingEnabled];
     } else if (action == @selector(selectNextTab:) || action == @selector(selectPreviousTab:)) {
         id responder = [[self window] firstResponder];
@@ -1060,40 +1117,9 @@
     [tabBar setShowAddTabButton:NO];
     [tabBar setCellOptimumWidth:[[FUUserDefaults instance] tabBarCellOptimumWidth]];
     [[tabBar addTabButton] setTarget:self];
-    [[tabBar addTabButton] setAction:@selector(addNewTabInForeground:)];
+    [[tabBar addTabButton] setAction:@selector(openTab:)];
     
     uberView.midView = tabView;
-}
-
-
-- (void)addNewTab {
-    [self addTabController:[[[FUTabController alloc] initWithWindowController:self] autorelease]];
-}
-
-
-- (void)addTabController:(FUTabController *)tc {
-    if ([tabControllers containsObject:tc]) {
-        return;
-    }
-    
-    [tabControllers addObject:tc];
-    
-    NSTabViewItem *tabItem = [[[NSTabViewItem alloc] initWithIdentifier:tc] autorelease];
-    [tc.view setFrame:[uberView.midView bounds]]; // need to set the frame here to make sure it is valid for any thumbnail generation for background tabs
-    [tabItem setView:tc.view];
-    [tabItem bind:@"label" toObject:tc withKeyPath:@"title" options:nil];
-    
-    [tabView addTabViewItem:tabItem];
-    
-    // must set this controller's window as host window or else Flash content won't play in background tabs
-    [[tc webView] setHostWindow:[self window]];
-    
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              tc, FUTabControllerKey,
-                              [NSNumber numberWithInteger:[tabView numberOfTabViewItems] - 1], FUIndexKey,
-                              nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenTabNotification object:self userInfo:userInfo];
 }
 
 
@@ -1212,17 +1238,28 @@
 }
 
 
+- (NSInteger)preferredIndexForNewTab {
+    NSInteger i = 0;
+    if ([[FUUserDefaults instance] newTabsOpenInline]) {
+        i = self.selectedTabIndex + 1;
+    } else {
+        i = [tabView numberOfTabViewItems];
+    }
+    return i;
+}
+
+
 - (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req {    
     BOOL inTab = [[FUUserDefaults instance] tabbedBrowsingEnabled];
-    BOOL inForeground = [[FUUserDefaults instance] selectNewWindowsOrTabsAsCreated];
+    BOOL select = [[FUUserDefaults instance] selectNewWindowsOrTabsAsCreated];
     
-    inForeground = act.isShiftKeyPressed ? !inForeground : inForeground;
+    select = act.isShiftKeyPressed ? !select : select;
     inTab = act.isOptionKeyPressed ? !inTab : inTab;
     
     if (inTab) {
-        [self loadRequest:req inNewTabInForeground:inForeground];
+        [self loadRequest:req inNewTabAndSelect:select];
     } else {
-        [[FUDocumentController instance] openDocumentWithRequest:req makeKey:inForeground];
+        [[FUDocumentController instance] openDocumentWithRequest:req makeKey:select];
     }
 }
 
@@ -1430,11 +1467,6 @@
     [tabBar setNeedsDisplay:YES];
     [bookmarkBar setNeedsDisplay:YES];
     [[[self selectedTabController] webView] setNeedsDisplay:YES];
-}
-
-
-- (BOOL)isFindPanelVisible {
-    return (nil != [findPanelView superview]);
 }
 
 

@@ -171,20 +171,7 @@
 #pragma mark FUWindowControllerNotifcations
 
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
-    //    [self reloadAllTabModels];
-    
-    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-    WebView *wv = [[self webViews] objectAtIndex:i];
-    FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
-    [self updateTabModel:model fromWebView:wv atIndex:i];
-
-    NSAssert(i == [tabModels count], @"");
-    if (i == [tabModels count]) {
-    [tabModels addObject:model];
-    } else {
-        [tabModels insertObject:model atIndex:i];
-    }
-    [tableView reloadData];
+    [self reloadAllTabModels];
     
     id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self startObserveringTabController:tc];

@@ -128,21 +128,6 @@
 }
 
 
-- (void)loadHTMLString:(NSString *)HTMLString {
-    [[FUDocumentController instance] loadHTMLString:HTMLString];
-}
-
-
-- (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type {
-    [[FUDocumentController instance] loadHTMLString:HTMLString destinationType:type];
-}
-
-
-- (void)loadHTMLString:(NSString *)HTMLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
-    [[FUDocumentController instance] loadHTMLString:HTMLString destinationType:type inForeground:inForeground];
-}
-
-
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename {
     [[FUDownloadWindowController instance] downloadRequest:req directory:dirPath filename:filename];
 }

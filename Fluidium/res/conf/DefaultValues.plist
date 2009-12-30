@@ -67,6 +67,8 @@
     <true/>
     <key>FUTabBarHiddenForSingleTab</key>
     <true/>
+    <key>FUNewTabsOpenInline</key>
+    <true/>
     <key>FUTabBarCellOptimumWidth</key>
     <integer>175</integer>
     <key>FUConfirmBeforeClosingMultipleTabsOrWindows</key>

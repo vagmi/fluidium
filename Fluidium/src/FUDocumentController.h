@@ -38,21 +38,17 @@ typedef enum {
 - (IBAction)toggleStatusBarShown:(id)sender;
 
 - (IBAction)openLocation:(id)sender;
-- (IBAction)addNewTabInForeground:(id)sender;
+- (IBAction)openTab:(id)sender;
 
 - (IBAction)dockMenuItemClick:(id)sender;
 
 - (FUDocument *)openDocumentWithRequest:(NSURLRequest *)req makeKey:(BOOL)makeKey;
 
 - (FUTabController *)loadRequest:(NSURLRequest *)req; // prefers tabs
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground;
+- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated  & FUNewTabsOpenInline
+- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground; // respects FUNewTabsOpenInline
 
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
-
-- (FUTabController *)loadHTMLString:(NSString *)s; // prefers tabs
-- (FUTabController *)loadHTMLString:(NSString *)s destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated
-- (FUTabController *)loadHTMLString:(NSString *)s destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground;
 
 - (WebFrame *)findFrameNamed:(NSString *)name outTabController:(FUTabController **)outTabController;
 

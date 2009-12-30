@@ -86,8 +86,7 @@
 - (IBAction)emptyCache:(id)sender;
 - (IBAction)toggleToolbarShown:(id)sender;
 
-- (IBAction)addNewTabInForeground:(id)sender;
-- (IBAction)addNewTabInBackground:(id)sender;
+- (IBAction)openTab:(id)sender;
 - (IBAction)performClose:(id)sender;
 - (IBAction)selectNextTab:(id)sender;
 - (IBAction)selectPreviousTab:(id)sender;
@@ -105,25 +104,29 @@
 - (IBAction)showWebInspector:(id)sender;
 - (IBAction)showErrorConsole:(id)sender;
 
+- (void)runEditTitleSheetForBookmark:(FUBookmark *)bmark;
+
+- (BOOL)isFindPanelVisible;
+
 - (FUTabController *)loadRequestInSelectedTab:(NSURLRequest *)req;
-- (FUTabController *)loadRequestInLastTab:(NSURLRequest *)req;
-- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabInForeground:(BOOL)inForeground;
+- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabAndSelect:(BOOL)select; // shouldCreate = YES, respects FUNewTabsOpenInline pref
+- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
+
+- (FUTabController *)addNewTabAndSelect:(BOOL)select; // respects FUNewTabsOpenInline pref
+- (FUTabController *)addNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select;
+
+- (void)addTabController:(FUTabController *)tc; // respects FUNewTabsOpenInline pref
+- (void)addTabController:(FUTabController *)tc atIndex:(NSInteger)i;
+
+- (BOOL)removeTabController:(FUTabController *)tc;
+- (void)selectTabController:(FUTabController *)tc;
 
 - (FUTabController *)lastTabController;
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i;
 - (FUTabController *)tabControllerForWebView:(WebView *)wv;
-
 - (NSInteger)indexOfTabController:(FUTabController *)tc;
 
-- (void)selectTabController:(FUTabController *)tc;
-- (void)addTabController:(FUTabController *)tc;
-- (BOOL)removeTabController:(FUTabController *)tc;
-
 - (NSArray *)webViews;
-
-- (void)runEditTitleSheetForBookmark:(FUBookmark *)bmark;
-
-- (BOOL)isFindPanelVisible;
 
 @property (nonatomic) NSInteger selectedTabIndex;
 
