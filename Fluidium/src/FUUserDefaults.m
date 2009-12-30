@@ -63,7 +63,7 @@ NSString *const kFUSelectNewWindowsOrTabsAsCreatedKey = @"FUSelectNewWindowsOrTa
 NSString *const kFUConfirmBeforeClosingMultipleTabsOrWindowsKey = @"FUConfirmBeforeClosingMultipleTabsOrWindows";
 NSString *const kFUTabBarHiddenForSingleTabKey = @"FUTabBarHiddenForSingleTab";
 NSString *const kFUNewTabsOpenInlineKey = @"FUNewTabsOpenInline";
-NSString *const kFUSelectPreviouslySelectedTabOnTabCloseKey= @"FUSelectPreviouslySelectedTabOnTabClose";
+NSString *const kFUSelectPriorSelectedTabOnTabCloseKey = @"FUSelectPriorSelectedTabOnTabClose";
 NSString *const kFUTabBarCellOptimumWidthKey = @"FUTabBarCellOptimumWidth";
 
 // Security Prefs
@@ -398,11 +398,11 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 }
 
 
-- (BOOL)selectPreviouslySelectedTabOnTabClose {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kFUSelectPreviouslySelectedTabOnTabCloseKey];
+- (BOOL)selectPriorSelectedTabOnTabClose {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kFUSelectPriorSelectedTabOnTabCloseKey];
 }
-- (void)setSelectPreviouslySelectedTabOnTabClose:(BOOL)yn {
-    [[NSUserDefaults standardUserDefaults] setBool:yn forKey:kFUSelectPreviouslySelectedTabOnTabCloseKey];
+- (void)setSelectPriorSelectedTabOnTabClose:(BOOL)yn {
+    [[NSUserDefaults standardUserDefaults] setBool:yn forKey:kFUSelectPriorSelectedTabOnTabCloseKey];
 }
 
 

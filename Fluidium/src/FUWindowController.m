@@ -651,11 +651,11 @@
     if (i < 0) return;
     if (i > [tabView numberOfTabViewItems] - 1) return;
     
-    // don't reselect the same tab. it effs up the previouslySelectedTabIndex
+    // don't reselect the same tab. it effs up the priorSelectedTabIndex
     NSInteger currentSelectedTabIndex = self.selectedTabIndex;
     if (i == currentSelectedTabIndex) return;
     
-    previouslySelectedTabIndex = currentSelectedTabIndex;
+    priorSelectedTabIndex = currentSelectedTabIndex;
     [tabView selectTabViewItemAtIndex:i];
 }
 
@@ -988,9 +988,9 @@
     // are we closing the currently selected tab?
     if (closingSelectedTabIndex != -1) {
 
-        // then respect pref for returning to previously selected tab
-        if ([[FUUserDefaults instance] selectPreviouslySelectedTabOnTabClose]) {
-            self.selectedTabIndex = previouslySelectedTabIndex;
+        // then respect pref for returning to prior selected tab
+        if ([[FUUserDefaults instance] selectPriorSelectedTabOnTabClose]) {
+            self.selectedTabIndex = priorSelectedTabIndex;
 
         // otherwise select the *next* tab (NSTabView's default behavior is *previous*)
         } else  {

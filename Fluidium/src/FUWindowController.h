@@ -64,8 +64,11 @@
     BOOL suppressNextFrameStringSave;
     BOOL displayingMatchingRecentURLs;
     
-    NSInteger closingSelectedTabIndex;    
-    NSInteger previouslySelectedTabIndex;
+    // the index of the just closed tab if it was selected. otherwise -1
+    NSInteger closingSelectedTabIndex;
+    
+    // the index of the tab selected prior to the current selected index
+    NSInteger priorSelectedTabIndex;
 }
 
 - (IBAction)goBack:(id)sender;
