@@ -107,7 +107,7 @@
 #pragma mark Public
 
 - (FUWindowController *)windowController {
-    return (FUWindowController *)[[self window] windowController];
+    return [[self window] windowController];
 }
 
 

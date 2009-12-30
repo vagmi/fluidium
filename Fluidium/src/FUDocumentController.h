@@ -45,8 +45,8 @@ typedef enum {
 - (FUDocument *)openDocumentWithRequest:(NSURLRequest *)req makeKey:(BOOL)makeKey;
 
 - (FUTabController *)loadRequest:(NSURLRequest *)req; // prefers tabs
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated  & FUNewTabsOpenInline
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground; // respects FUNewTabsOpenInline
+- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated
+- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground;
 
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
 

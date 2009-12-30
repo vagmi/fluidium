@@ -42,8 +42,8 @@ typedef enum {
 - (NSUInteger)viewPlacementForPlugInIdentifier:(NSString *)s;
 
 - (void)loadRequest:(NSURLRequest *)request; // prefers tabs
-- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type; // respects FUSelectTabsAndWindowsAsCreated & FUNewTabsOpenInline
-- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground; // respects FUNewTabsOpenInline
+- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type; // respects FUSelectTabsAndWindowsAsCreated
+- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
 
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
 

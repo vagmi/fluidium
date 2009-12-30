@@ -357,6 +357,7 @@ typedef enum {
     if (frame != [webView mainFrame]) return;
     
     didReceiveTitle = NO;
+    backgroundTabSpawnCount = 0;
     
     NSString *s = [webView mainFrameURL];
     self.URLString = s;
@@ -918,4 +919,5 @@ typedef enum {
 @synthesize lastLoadFailed;
 @synthesize isProcessing;
 @synthesize canReload;
+@synthesize backgroundTabSpawnCount;
 @end

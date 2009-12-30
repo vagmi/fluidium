@@ -57,7 +57,7 @@
     FUShortcutController *shortcutController;
 
     NSMutableSet *tabControllers;
-    FUTabController *selectedTabController;
+    FUTabController *backgroundTabSpawnCount;
     
     NSString *currentTitle;
     
@@ -116,7 +116,7 @@
 - (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabAndSelect:(BOOL)select; // shouldCreate = YES, respects FUNewTabsOpenInline pref
 - (FUTabController *)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
 
-- (FUTabController *)addNewTabAndSelect:(BOOL)select; // respects FUNewTabsOpenInline pref
+- (FUTabController *)addNewTabAndSelect:(BOOL)select;
 - (FUTabController *)addNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select;
 
 - (void)addTabController:(FUTabController *)tc; // respects FUNewTabsOpenInline pref

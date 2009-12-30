@@ -340,8 +340,12 @@
 
 
 - (IBAction)openTab:(id)sender {
+    // reset all backgroundTabSpawnCounts. not sure if i like this. matches Chrome behavior
+    for (FUTabController *tc in [self tabControllers]) {
+        [tc setBackgroundTabSpawnCount:0];
+    }
+    
     // always open a tab at the end in response to this action (which only comes from the File menu/cmd-T)
-    // in other words, never respect FUNewTabsOpenInline pref
     NSInteger i = [tabView numberOfTabViewItems];
     [self addNewTabAtIndex:i andSelect:YES];
 }
@@ -561,6 +565,9 @@
     if ([tabControllers containsObject:tc]) {
         return;
     }
+    
+    NSInteger c = [tabControllers count];
+    i = i > c ? c : i;
     
     [tabControllers addObject:tc];
     
@@ -955,7 +962,6 @@
     
     if ([tabControllers containsObject:tc]) { // if the tab was just dragged to this tabBar from another window, we will not have created a tabController yet
 
-        [self clearProgress];
         self.selectedTabController = tc;
         [self startObservingTabController:tc];
         [self clearProgress];
@@ -1247,12 +1253,7 @@
 
 
 - (NSInteger)preferredIndexForNewTab {
-    NSInteger i = 0;
-    if ([[FUUserDefaults instance] newTabsOpenInline]) {
-        i = self.selectedTabIndex + 1;
-    } else {
-        i = [tabView numberOfTabViewItems];
-    }
+    NSInteger i = [tabView numberOfTabViewItems];
     return i;
 }
 
@@ -1265,7 +1266,14 @@
     inTab = act.isOptionKeyPressed ? !inTab : inTab;
     
     if (inTab) {
-        [self loadRequest:req inNewTabAndSelect:select];
+        NSInteger i = self.selectedTabIndex + 1;
+        if (!select) {
+            NSInteger spawnCount = [[self selectedTabController] backgroundTabSpawnCount];
+            i += spawnCount;
+            spawnCount++;
+            [[self selectedTabController] setBackgroundTabSpawnCount:spawnCount];
+        }
+        [self loadRequest:req inNewTab:YES atIndex:i andSelect:select];
     } else {
         [[FUDocumentController instance] openDocumentWithRequest:req makeKey:select];
     }
