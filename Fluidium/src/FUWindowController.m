@@ -28,6 +28,7 @@
 #import "FUActivation.h"
 #import "FUUtils.h"
 #import "FUWebView.h"
+#import "FULine.h"
 #import "FUTabBarControl.h"
 #import "FUPlugInController.h"
 #import "FUNotifications.h"
@@ -111,6 +112,7 @@
     self.searchField = nil;
     self.tabContainerView = nil;
     self.tabBar = nil;
+    self.emptyTabBarLine = nil;
     self.bookmarkBar = nil;
     self.uberView = nil;
     self.statusBar = nil;
@@ -1331,20 +1333,24 @@
 }
 
 
-- (void)tabBarShownDidChange:(NSNotification *)n {
-    BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
+- (void)tabBarShownDidChange:(NSNotification *)n {    
     NSRect tabBarFrame = [tabBar frame];
     CGFloat tabBarHeight = tabBarFrame.size.height;
+
+    BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
+    [tabBar setHidden:hiddenAlways];
     
     NSRect uberFrame = [uberView frame];
     if (hiddenAlways) {
-        uberFrame.size.height += tabBarHeight;
+        uberFrame.size.height += tabBarHeight - 1;
     } else {
-        uberFrame.size.height -= tabBarHeight;
+        uberFrame.size.height -= tabBarHeight - 1;
     }
-    
+
     [uberView setFrame:uberFrame];
     [uberView setNeedsDisplay:YES];
+    [emptyTabBarLine setNeedsDisplay:YES];
+    if ([tabBar superview]) [tabBar setNeedsDisplay:YES];
 }    
 
 
@@ -1473,6 +1479,7 @@
 @synthesize searchField;
 @synthesize tabContainerView;
 @synthesize tabBar;
+@synthesize emptyTabBarLine;
 @synthesize bookmarkBar;
 @synthesize uberView;
 @synthesize statusBar;

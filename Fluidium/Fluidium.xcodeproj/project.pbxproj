@@ -111,6 +111,7 @@
 		D35CC25F10D41DD900DA1898 /* FUUserAgentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */; };
 		D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
+		D3A5246810EAC90F0021B801 /* FULine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A5246710EAC90F0021B801 /* FULine.m */; };
 		D3AF875C10CFA00A00C601A3 /* FUAppearancePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */; };
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
@@ -658,6 +659,8 @@
 		D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMNode+FUAdditions.m"; path = "src/DOMNode+FUAdditions.m"; sourceTree = "<group>"; };
 		D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+FUAdditions.h"; path = "src/NSFileManager+FUAdditions.h"; sourceTree = "<group>"; };
 		D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+FUAdditions.m"; path = "src/NSFileManager+FUAdditions.m"; sourceTree = "<group>"; };
+		D3A5246610EAC90F0021B801 /* FULine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FULine.h; path = src/FULine.h; sourceTree = "<group>"; };
+		D3A5246710EAC90F0021B801 /* FULine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FULine.m; path = src/FULine.m; sourceTree = "<group>"; };
 		D3AF875A10CFA00A00C601A3 /* FUAppearancePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAppearancePreferences.h; path = src/FUAppearancePreferences.h; sourceTree = "<group>"; };
 		D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAppearancePreferences.m; path = src/FUAppearancePreferences.m; sourceTree = "<group>"; };
 		D3AF875D10CFA01E00C601A3 /* FUBehaviorPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBehaviorPreferences.h; path = src/FUBehaviorPreferences.h; sourceTree = "<group>"; };
@@ -1272,6 +1275,8 @@
 				D3DB01FA10D6141E0057D70C /* FUView.m */,
 				D3E42FCC10CB1CC700A5BDEF /* FUBar.h */,
 				D3E42FCD10CB1CC700A5BDEF /* FUBar.m */,
+				D3A5246610EAC90F0021B801 /* FULine.h */,
+				D3A5246710EAC90F0021B801 /* FULine.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1975,6 +1980,7 @@
 				D3B8BC0610E837E400271454 /* HMFoundationEx.m in Sources */,
 				D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */,
 				D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */,
+				D3A5246810EAC90F0021B801 /* FULine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

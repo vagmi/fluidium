@@ -22,6 +22,7 @@
 @class FUProgressComboBox;
 @class FUShortcutController;
 @class FUBookmark;
+@class FULine;
 
 @interface FUWindowController : NSWindowController 
 #if FU_BUILD_TARGET_SNOW_LEOPARD
@@ -34,6 +35,7 @@
     
     NSView *tabContainerView;
     PSMTabBarControl *tabBar;
+    FULine *emptyTabBarLine;
     NSView *bookmarkBar;
     TDUberView *uberView;
     NSView *statusBar;
@@ -130,6 +132,7 @@
 @property (nonatomic, retain) IBOutlet NSSearchField *searchField;
 @property (nonatomic, retain) IBOutlet NSView *tabContainerView;
 @property (nonatomic, retain) IBOutlet PSMTabBarControl *tabBar;
+@property (nonatomic, retain) IBOutlet FULine *emptyTabBarLine;
 @property (nonatomic, retain) IBOutlet NSView *bookmarkBar;
 @property (nonatomic, retain) IBOutlet TDUberView *uberView;
 @property (nonatomic, retain) IBOutlet NSView *statusBar;
