@@ -1338,11 +1338,6 @@
     CGFloat tabBarHeight = tabBarFrame.size.height;
 
     BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
-//    BOOL onlyOneTab = 1 == [tabView numberOfTabViewItems];
-//    if (hiddenAlways && onlyOneTab && [[FUUserDefaults instance] tabBarHiddenForSingleTab]) {
-//        return;
-//    }
-    
     [tabBar setHidden:hiddenAlways];
     
     NSRect uberFrame = [uberView frame];

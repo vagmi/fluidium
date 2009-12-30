@@ -733,6 +733,10 @@
         return;
 	}
 	
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FUTabBarHiddenAlways"]) {
+        return;
+    }
+    
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     _isHidden = hide;
@@ -892,6 +896,10 @@
 
 - (void)animateShowHide:(NSTimer *)timer
 {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FUTabBarHiddenAlways"]) {
+        return;
+    }
+    
     // moves the frame of the tab bar and window (or partner view) linearly to hide or show the tab bar
     NSRect myFrame = [self frame];
 	NSDictionary *userInfo = [timer userInfo];
@@ -1736,7 +1744,7 @@
 {
     // hide? must readjust things if I'm not supposed to be showing
     // this block of code only runs when the app launches
-    if ([self hideForSingleTab] && ([_cells count] <= 1) && !_awakenedFromNib) {
+    if ([self hideForSingleTab] && ([_cells count] <= 1) && !_awakenedFromNib && ![[NSUserDefaults standardUserDefaults] boolForKey:@"FUTabBarHiddenAlways"]) {
         // must adjust frames now before display
         NSRect myFrame = [self frame];
 		if ([self orientation] == PSMTabBarHorizontalOrientation) {
