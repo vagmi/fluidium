@@ -61,7 +61,7 @@
 							<reference key="NSControlView" ref="443689030"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<object class="NSCustomResource" key="NSNormalImage" id="1040751723">
+							<object class="NSCustomResource" key="NSNormalImage" id="1054171478">
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">NSSwitch</string>
 							</object>
@@ -88,7 +88,7 @@
 							<reference key="NSControlView" ref="718311571"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="1040751723"/>
+							<reference key="NSNormalImage" ref="1054171478"/>
 							<reference key="NSAlternateImage" ref="433074441"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -168,7 +168,7 @@ cmVudCBvbmUuA</string>
 							<reference key="NSControlView" ref="756823558"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="1040751723"/>
+							<reference key="NSNormalImage" ref="1054171478"/>
 							<reference key="NSAlternateImage" ref="433074441"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -245,7 +245,7 @@ cmVudCBvbmUuA</string>
 							<reference key="NSControlView" ref="980982371"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="1040751723"/>
+							<reference key="NSNormalImage" ref="1054171478"/>
 							<reference key="NSAlternateImage" ref="433074441"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -262,6 +262,7 @@ cmVudCBvbmUuA</string>
 				<object class="NSMutableArray" key="NSDeclaredKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>FUSelectPreviouslySelectedTabOnTabClose</string>
+					<string>FUSelectPriorSelectedTabOnTabClose</string>
 				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
@@ -570,22 +571,6 @@ cmVudCBvbmUuA</string>
 					<int key="connectionID">121</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.FUSelectPreviouslySelectedTabOnTabClose</string>
-						<reference key="source" ref="756823558"/>
-						<reference key="destination" ref="121275788"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="756823558"/>
-							<reference key="NSDestination" ref="121275788"/>
-							<string key="NSLabel">value: values.FUSelectPreviouslySelectedTabOnTabClose</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.FUSelectPreviouslySelectedTabOnTabClose</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">122</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">nextKeyView</string>
 						<reference key="source" ref="756823558"/>
@@ -600,6 +585,22 @@ cmVudCBvbmUuA</string>
 						<reference key="destination" ref="756823558"/>
 					</object>
 					<int key="connectionID">124</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.FUSelectPriorSelectedTabOnTabClose</string>
+						<reference key="source" ref="756823558"/>
+						<reference key="destination" ref="121275788"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="756823558"/>
+							<reference key="NSDestination" ref="121275788"/>
+							<string key="NSLabel">value: values.FUSelectPriorSelectedTabOnTabClose</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.FUSelectPriorSelectedTabOnTabClose</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">125</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -854,7 +855,7 @@ cmVudCBvbmUuA</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">124</int>
+			<int key="maxID">125</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
