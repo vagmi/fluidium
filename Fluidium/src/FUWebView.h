@@ -16,8 +16,13 @@
 
 @interface FUWebView : WebView {
     NSBitmapImageRep *documentViewBitmap;
+    NSImage *documentViewImage;
+    BOOL documentViewImageNeedsUpdate;
+    NSInteger estimateChangeCount;
 }
 
 - (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
 - (NSImage *)documentViewImageWithCurrentAspectRatio;
+
+@property (nonatomic, readonly, retain) NSImage *documentViewImage;
 @end

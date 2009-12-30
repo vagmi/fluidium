@@ -34,6 +34,8 @@
 @implementation FUGeneralPreferences
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
     self.homeURLStringTextField = nil;
     self.recorderControl = nil;
     self.downloadFolderPopUpButton = nil;

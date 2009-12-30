@@ -31,7 +31,15 @@
 - (void)updateWebPreferences;
 - (void)updateUserAgent;
 - (void)updateContinuousSpellChecking;
+- (void)allowDocumentViewImageUpdate;
 
+- (void)webViewProgressStarted:(NSNotification *)n;
+- (void)webViewProgressEstimateChanged:(NSNotification *)n;
+- (void)webViewProgressFinished:(NSNotification *)n;    
+
+- (void)updateDocumentViewImageWithAspectRatio:(NSSize)aspectRatio;
+
+@property (nonatomic, readwrite, retain) NSImage *documentViewImage;
 @property (nonatomic, retain) NSBitmapImageRep *documentViewBitmap;
 @end
 
@@ -54,16 +62,22 @@
         [nc addObserver:self selector:@selector(webPreferencesDidChange:) name:FUWebPreferencesDidChangeNotification object:[FUWebPreferences instance]];
         [nc addObserver:self selector:@selector(userAgentStringDidChange:) name:FUUserAgentStringDidChangeNotification object:nil];
         [nc addObserver:self selector:@selector(continuousSpellCheckingDidChange:) name:FUContinuousSpellCheckingDidChangeNotification object:nil];
+
+        [nc addObserver:self selector:@selector(webViewProgressStarted:) name:WebViewProgressStartedNotification object:nil];
+        [nc addObserver:self selector:@selector(webViewProgressEstimateChanged:) name:WebViewProgressEstimateChangedNotification object:nil];
+        [nc addObserver:self selector:@selector(webViewProgressFinished:) name:WebViewProgressFinishedNotification object:nil];
+        
     }
     return self;
 }
 
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    self.documentViewImage = nil;
     self.documentViewBitmap = nil;
-    
     [super dealloc];
 }
 
@@ -109,10 +123,43 @@
 
 
 #pragma mark -
+#pragma mark WebViewNotifications
+
+- (void)webViewProgressStarted:(NSNotification *)n {
+    documentViewImageNeedsUpdate = YES;
+}
+
+
+- (void)webViewProgressEstimateChanged:(NSNotification *)n {
+    if (0 == ++estimateChangeCount % 5) { // only allow update to image on every third progress estimate change
+        documentViewImageNeedsUpdate = YES;
+    }
+}
+
+
+- (void)webViewProgressFinished:(NSNotification *)n {
+    documentViewImageNeedsUpdate = YES;
+    [self performSelector:@selector(allowDocumentViewImageUpdate) withObject:nil afterDelay:.3];
+}
+
+
+#pragma mark -
 #pragma mark Public
 
 - (NSImage *)documentViewImageWithCurrentAspectRatio {
     return [self documentViewImageWithAspectRatio:[self bounds].size];
+}
+
+
+- (NSImage *)documentViewImageWithAspectRatio:(NSSize)aspectRatio {
+    if (documentViewImageNeedsUpdate) {
+        
+        [self updateDocumentViewImageWithAspectRatio:aspectRatio];
+        
+        documentViewImageNeedsUpdate = NO;
+    }
+    
+    return documentViewImage;
 }
 
 
@@ -134,12 +181,13 @@
 }
 
 
-- (NSImage *)documentViewImageWithAspectRatio:(NSSize)aspectRatio {
+- (void)updateDocumentViewImageWithAspectRatio:(NSSize)aspectRatio {
     NSView *docView = [[[self mainFrame] frameView] documentView];
     
     NSRect docFrame = [docView frame];
     if (NSIsEmptyRect(docFrame)) {
-        return nil;
+        documentViewImageNeedsUpdate = YES;
+        return;
     }
 
 //    if ([docView respondsToSelector:@selector(_layoutIfNeeded)]) {
@@ -170,7 +218,7 @@
     CGImageRef cgImg = CGImageCreateWithImageInRect([documentViewBitmap CGImage], NSRectToCGRect(imageFrame));
     NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:cgImg] autorelease];
     CGImageRelease(cgImg);
-    NSImage *documentViewImage = [[[NSImage alloc] initWithSize:imageFrame.size] autorelease];
+    self.documentViewImage = [[[NSImage alloc] initWithSize:imageFrame.size] autorelease];
     [documentViewImage addRepresentation:bitmap];
     //////
     
@@ -182,8 +230,13 @@
 //    NSLog(@"imageSize: %@", NSStringFromSize([documentViewImage size]));
     
     //    [docView setNeedsDisplay:YES];
-    return documentViewImage;
 }
 
+
+- (void)allowDocumentViewImageUpdate {
+    documentViewImageNeedsUpdate = YES;
+}
+
+@synthesize documentViewImage;
 @synthesize documentViewBitmap;
 @end

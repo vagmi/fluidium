@@ -82,6 +82,7 @@ typedef enum {
 
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     // taking some extra paranoid steps here with the webView to prevent crashing 

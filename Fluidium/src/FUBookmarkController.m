@@ -55,6 +55,7 @@
 
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     self.bookmarks = nil;
     [super dealloc];
 }

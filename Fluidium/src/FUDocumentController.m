@@ -170,12 +170,12 @@
         }
         
         BOOL onlyOneTab = (1 == [[[self frontWindowController] tabControllers] count]);
-        if (!onlyOneTab) {
+        if (onlyOneTab) {
+            BOOL hideForSingleTab = [[FUUserDefaults instance] tabBarHiddenForSingleTab];
+            return !hideForSingleTab;
+        } else {
             return tabbedBrowsingEnabled;
         }
-        
-        BOOL hideForSingleTab = [[FUUserDefaults instance] tabBarHiddenForSingleTab];
-        return !hideForSingleTab;
 
     } else if (@selector(toggleBookmarkBarShown:) == action) {
         BOOL shown = [[FUUserDefaults instance] bookmarkBarShown];

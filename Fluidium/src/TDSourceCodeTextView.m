@@ -24,6 +24,7 @@
 @implementation TDSourceCodeTextView
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.gutterView = nil;
     self.scrollView = nil;
@@ -33,7 +34,7 @@
 
 - (void)awakeFromNib {
     [self registerForNotifications];
-    [self performSelector:@selector(renderGutter) withObject:nil afterDelay:0.];
+    [self performSelector:@selector(renderGutter) withObject:nil afterDelay:0];
 }
 
 
