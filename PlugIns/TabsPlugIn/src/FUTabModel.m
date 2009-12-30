@@ -27,5 +27,7 @@
 @synthesize title;
 @synthesize URLString;
 @synthesize index;
+@synthesize estimatedProgress;
+@synthesize loading;
 @synthesize selected;
 @end

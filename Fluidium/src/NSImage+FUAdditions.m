@@ -17,13 +17,18 @@
 @implementation NSImage (FUAdditions)
 
 - (NSImage *)scaledImageOfSize:(NSSize)size {
+    return [self scaledImageOfSize:size alpha:1];
+}
+
+
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha {
     NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
     [result lockFocus];
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
     NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
     [currentContext setImageInterpolation:NSImageInterpolationHigh];
     NSSize fromSize = [self size];
-    [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:1];
+    [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:alpha];
     [currentContext setImageInterpolation:savedInterpolation];
     [result unlockFocus];
     return result;

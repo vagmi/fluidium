@@ -20,10 +20,12 @@
 @interface FUTabTableRowView : TDTableRowView {
     FUTabModel *model;
     NSButton *closeButton;
+    NSProgressIndicator *progressIndicator;
     FUTabsViewController *viewController;
 }
 
 @property (nonatomic, retain) FUTabModel *model;
 @property (nonatomic, retain) NSButton *closeButton;
+@property (nonatomic, retain) NSProgressIndicator *progressIndicator;
 @property (nonatomic, assign) FUTabsViewController *viewController;
 @end

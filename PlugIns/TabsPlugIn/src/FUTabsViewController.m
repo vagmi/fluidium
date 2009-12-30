@@ -145,7 +145,6 @@
 
 - (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i {
     NSRect scrollFrame = [scrollView frame];
-//    NSRect frame = [self.view frame];
     
     BOOL isVert = scrollFrame.size.height > scrollFrame.size.width;
     if (isVert) {
@@ -311,6 +310,8 @@
     }
     model.title = title;
     model.URLString = [wv mainFrameURL];
+    model.estimatedProgress = [wv estimatedProgress];
+    model.loading = [wv isLoading];
 }
 
 

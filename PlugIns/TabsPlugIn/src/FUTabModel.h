@@ -19,6 +19,8 @@
     NSString *title;
     NSString *URLString;
     NSInteger index;
+    CGFloat estimatedProgress;
+    BOOL loading;
     BOOL selected;
 }
 
@@ -26,5 +28,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic) NSInteger index;
+@property (nonatomic) CGFloat estimatedProgress;
+@property (nonatomic, getter=isLoading) BOOL loading;
 @property (nonatomic, getter=isSelected) BOOL selected;
 @end

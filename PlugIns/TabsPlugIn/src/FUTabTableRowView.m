@@ -34,8 +34,41 @@ static NSGradient *sInnerRectFillGradient = nil;
 static NSColor *sSelectedInnerRectStrokeColor = nil;
 static NSColor *sInnerRectStrokeColor = nil;
 
-@interface NSImage (FUTabAdditions)
+static NSImage *sProgressImage = nil;
+
+@interface NSImage (FUAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
+@end
+
+@interface NSImage (FUTabAdditions)
+- (NSImage *)scaledImageOfSize:(NSSize)size progress:(CGFloat)progress;
+@end
+
+@implementation NSImage (FUTabAdditions)
+
+- (NSImage *)scaledImageOfSize:(NSSize)size progress:(CGFloat)progress {
+    if (!sProgressImage) {
+        NSString *path = [[NSBundle bundleForClass:[FUTabTableRowView class]] pathForImageResource:@"progress_indicator"];
+        sProgressImage = [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]];
+    }
+    
+    NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
+    [result lockFocus];
+    NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
+    NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
+    [currentContext setImageInterpolation:NSImageInterpolationHigh];
+    NSSize fromSize = [self size];
+    [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:1];
+    
+//    NSSize progressSize = [sProgressImage size];
+//    [sProgressImage drawInRect:NSMakeRect(0, 0, size.width * progress, size.height) fromRect:NSMakeRect(0, 0, progressSize.width, progressSize.height) operation:NSCompositeSourceOver fraction:1];
+
+    [currentContext setImageInterpolation:savedInterpolation];
+    [result unlockFocus];
+    return result;
+}
+
 @end
 
 @interface FUTabTableRowView ()
@@ -109,6 +142,15 @@ static NSColor *sInnerRectStrokeColor = nil;
         [closeButton setAlternateImage:img];
         
         [self addSubview:closeButton];
+        
+        self.progressIndicator = [[[NSProgressIndicator alloc] initWithFrame:NSZeroRect] autorelease];
+        [progressIndicator setStyle:NSProgressIndicatorSpinningStyle];
+        [progressIndicator setControlSize:NSSmallControlSize];
+        [progressIndicator setDisplayedWhenStopped:NO];
+        [progressIndicator setIndeterminate:YES];
+        [progressIndicator sizeToFit];
+        
+        [self addSubview:progressIndicator];
     }
     return self;
 }
@@ -117,6 +159,7 @@ static NSColor *sInnerRectStrokeColor = nil;
 - (void)dealloc {
     self.model = nil;
     self.closeButton = nil;
+    self.progressIndicator = nil;
     self.viewController = nil;
     [super dealloc];
 }
@@ -182,8 +225,9 @@ static NSColor *sInnerRectStrokeColor = nil;
     NSSize imgSize = roundRect.size;
     imgSize.width = floor(imgSize.width - THUMBNAIL_DIFF);
     imgSize.height = floor(imgSize.height - THUMBNAIL_DIFF);
-    
-    img = [img scaledImageOfSize:imgSize];
+
+    //    img = [img scaledImageOfSize:imgSize progress:model.estimatedProgress];
+    img = [img scaledImageOfSize:imgSize alpha:model.isLoading ? .4 : 1];
     
     if (!img) return;
     imgSize = [img size];
@@ -191,6 +235,13 @@ static NSColor *sInnerRectStrokeColor = nil;
     NSRect destRect = NSOffsetRect(srcRect, floor(roundRect.origin.x + THUMBNAIL_DIFF/2), floor(roundRect.origin.y + THUMBNAIL_DIFF/2));
     [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
     
+    if (model.isLoading) {
+        [progressIndicator setFrameOrigin:NSMakePoint(NSMaxX(bounds) - 26, 20)];
+        [progressIndicator startAnimation:self];
+    } else {
+        [progressIndicator stopAnimation:self];
+    }
+    [progressIndicator setNeedsDisplay:YES];
     [closeButton setNeedsDisplay:YES];
 }
 
@@ -231,5 +282,6 @@ static NSColor *sInnerRectStrokeColor = nil;
 
 @synthesize model;
 @synthesize closeButton;
+@synthesize progressIndicator;
 @synthesize viewController;
 @end

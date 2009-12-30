@@ -16,4 +16,5 @@
 
 @interface NSImage (FUAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
 @end
