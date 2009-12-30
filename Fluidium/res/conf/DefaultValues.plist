@@ -69,6 +69,8 @@
     <true/>
     <key>FUNewTabsOpenInline</key>
     <true/>
+    <key>FUSelectPreviouslySelectedTabOnTabClose</key>
+    <true/>
     <key>FUTabBarCellOptimumWidth</key>
     <integer>175</integer>
     <key>FUConfirmBeforeClosingMultipleTabsOrWindows</key>

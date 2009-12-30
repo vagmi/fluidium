@@ -65,6 +65,7 @@
     BOOL displayingMatchingRecentURLs;
     
     NSInteger closingSelectedTabIndex;    
+    NSInteger previouslySelectedTabIndex;
 }
 
 - (IBAction)goBack:(id)sender;
@@ -121,7 +122,6 @@
 - (BOOL)removeTabController:(FUTabController *)tc;
 - (void)selectTabController:(FUTabController *)tc;
 
-- (FUTabController *)lastTabController;
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i;
 - (FUTabController *)tabControllerForWebView:(WebView *)wv;
 - (NSInteger)indexOfTabController:(FUTabController *)tc;

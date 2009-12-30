@@ -62,6 +62,7 @@ extern NSString *const kFUSelectNewWindowsOrTabsAsCreatedKey;
 extern NSString *const kFUConfirmBeforeClosingMultipleTabsOrWindowsKey;
 extern NSString *const kFUTabBarHiddenForSingleTabKey;
 extern NSString *const kFUNewTabsOpenInlineKey;
+extern NSString *const kFUSelectPreviouslySelectedTabOnTabCloseKey;
 extern NSString *const kFUTabBarCellOptimumWidthKey;
 
 // Security Prefs
@@ -135,6 +136,7 @@ extern NSString *const kFUPlugInDrawerContentSizeStringKey;
 @property (nonatomic) BOOL confirmBeforeClosingMultipleTabsOrWindows;
 @property (nonatomic) BOOL tabBarHiddenForSingleTab;
 @property (nonatomic) BOOL newTabsOpenInline;
+@property (nonatomic) BOOL selectPreviouslySelectedTabOnTabClose;
 @property (nonatomic) NSInteger tabBarCellOptimumWidth;
 
 // Security Prefs

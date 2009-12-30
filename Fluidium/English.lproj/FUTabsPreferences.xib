@@ -46,7 +46,7 @@
 					<object class="NSButton" id="26542808">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{55, 117}, {266, 18}}</string>
+						<string key="NSFrame">{{40, 139}, {266, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="931852686">
@@ -77,7 +77,7 @@
 					<object class="NSButton" id="443689030">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{55, 95}, {330, 18}}</string>
+						<string key="NSFrame">{{40, 95}, {330, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="771244768">
@@ -99,7 +99,7 @@
 					<object class="NSButton" id="718311571">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{55, 139}, {330, 18}}</string>
+						<string key="NSFrame">{{40, 161}, {330, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="350126775">
@@ -179,13 +179,13 @@ cmVudCBvbmUuA</string>
 					<object class="NSButton" id="756823558">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{55, 161}, {178, 18}}</string>
+						<string key="NSFrame">{{40, 117}, {352, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="310119607">
 							<int key="NSCellFlags">-2080244224</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Enable tabbed browsing</string>
+							<string key="NSContents">Select the previously selected tab when a tab closes</string>
 							<reference key="NSSupport" ref="743032377"/>
 							<reference key="NSControlView" ref="756823558"/>
 							<int key="NSButtonFlags">1211912703</int>
@@ -256,7 +256,7 @@ cmVudCBvbmUuA</string>
 					<object class="NSButton" id="980982371">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{55, 73}, {164, 18}}</string>
+						<string key="NSFrame">{{40, 73}, {164, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="966496798">
@@ -283,7 +283,7 @@ cmVudCBvbmUuA</string>
 			<object class="NSUserDefaultsController" id="121275788">
 				<object class="NSMutableArray" key="NSDeclaredKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>FUNewTabsOpenInline</string>
+					<string>FUSelectPreviouslySelectedTabOnTabClose</string>
 				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
@@ -345,35 +345,11 @@ cmVudCBvbmUuA</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">initialFirstResponder</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="756823558"/>
-					</object>
-					<int key="connectionID">54</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">controlBox</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="1005"/>
 					</object>
 					<int key="connectionID">55</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.FUTabbedBrowsingEnabled</string>
-						<reference key="source" ref="756823558"/>
-						<reference key="destination" ref="121275788"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="756823558"/>
-							<reference key="NSDestination" ref="121275788"/>
-							<string key="NSLabel">value: values.FUTabbedBrowsingEnabled</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.FUTabbedBrowsingEnabled</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">61</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -584,30 +560,6 @@ cmVudCBvbmUuA</string>
 					<int key="connectionID">85</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="756823558"/>
-						<reference key="destination" ref="718311571"/>
-					</object>
-					<int key="connectionID">91</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="443689030"/>
-						<reference key="destination" ref="980982371"/>
-					</object>
-					<int key="connectionID">93</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="980982371"/>
-						<reference key="destination" ref="756823558"/>
-					</object>
-					<int key="connectionID">94</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleTabBarHiddenForSingleTab:</string>
 						<reference key="source" ref="1001"/>
@@ -633,11 +585,11 @@ cmVudCBvbmUuA</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="26542808"/>
-						<reference key="destination" ref="443689030"/>
+						<string key="label">initialFirstResponder</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="718311571"/>
 					</object>
-					<int key="connectionID">114</int>
+					<int key="connectionID">116</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -645,7 +597,55 @@ cmVudCBvbmUuA</string>
 						<reference key="source" ref="718311571"/>
 						<reference key="destination" ref="26542808"/>
 					</object>
-					<int key="connectionID">115</int>
+					<int key="connectionID">117</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="26542808"/>
+						<reference key="destination" ref="756823558"/>
+					</object>
+					<int key="connectionID">118</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="756823558"/>
+						<reference key="destination" ref="443689030"/>
+					</object>
+					<int key="connectionID">119</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="443689030"/>
+						<reference key="destination" ref="980982371"/>
+					</object>
+					<int key="connectionID">120</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="980982371"/>
+						<reference key="destination" ref="718311571"/>
+					</object>
+					<int key="connectionID">121</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.FUSelectPreviouslySelectedTabOnTabClose</string>
+						<reference key="source" ref="756823558"/>
+						<reference key="destination" ref="121275788"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="756823558"/>
+							<reference key="NSDestination" ref="121275788"/>
+							<string key="NSLabel">value: values.FUSelectPreviouslySelectedTabOnTabClose</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.FUSelectPreviouslySelectedTabOnTabClose</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">122</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -919,7 +919,7 @@ cmVudCBvbmUuA</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">115</int>
+			<int key="maxID">122</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

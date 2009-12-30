@@ -185,7 +185,6 @@
     [self statusBarShownDidChange:nil];
     [self setUpTabBar];
 
-    [[self window] makeFirstResponder:locationComboBox];
     [[self window] setFrameFromString:[[FUUserDefaults instance] windowFrameString]];
     
     [self addNewTabAndSelect:YES];
@@ -598,11 +597,6 @@
 }
 
 
-- (FUTabController *)lastTabController {
-    return [self tabControllerAtIndex:[tabView numberOfTabViewItems] - 1];
-}
-
-
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i {
     if (i > [tabView numberOfTabViewItems] - 1) {
         return nil;
@@ -657,6 +651,11 @@
     if (i < 0) return;
     if (i > [tabView numberOfTabViewItems] - 1) return;
     
+    // don't reselect the same tab. it effs up the previouslySelectedTabIndex
+    NSInteger currentSelectedTabIndex = self.selectedTabIndex;
+    if (i == currentSelectedTabIndex) return;
+    
+    previouslySelectedTabIndex = currentSelectedTabIndex;
     [tabView selectTabViewItemAtIndex:i];
 }
 
@@ -985,8 +984,11 @@
     FUTabController *tc = [tabItem identifier];
     
     [self tabControllerWasRemovedFromTabBar:tc];
-
-    if (closingSelectedTabIndex != -1) {
+    
+    if ([[FUUserDefaults instance] selectPreviouslySelectedTabOnTabClose]) {
+        self.selectedTabIndex = previouslySelectedTabIndex;
+        
+    } else if (closingSelectedTabIndex != -1) {
         // NSTabView behavior on closing a selected tab is to select the tab at the next lower index (prev)
         // However, most browsers instead select the next higher index (next)
         // this changes the NSTabView behavior to match browser behavior expectations
