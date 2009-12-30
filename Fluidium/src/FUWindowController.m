@@ -984,20 +984,26 @@
     FUTabController *tc = [tabItem identifier];
     
     [self tabControllerWasRemovedFromTabBar:tc];
-    
-    if ([[FUUserDefaults instance] selectPreviouslySelectedTabOnTabClose]) {
-        self.selectedTabIndex = previouslySelectedTabIndex;
-        
-    } else if (closingSelectedTabIndex != -1) {
-        // NSTabView behavior on closing a selected tab is to select the tab at the next lower index (prev)
-        // However, most browsers instead select the next higher index (next)
-        // this changes the NSTabView behavior to match browser behavior expectations
-        NSInteger c = [tabView numberOfTabViewItems];
-        NSUInteger i = closingSelectedTabIndex;
-        BOOL selectNext = i != 0 && i != c;
-        
-        if (selectNext) {
-            [self selectNextTab:self];
+
+    // are we closing the currently selected tab?
+    if (closingSelectedTabIndex != -1) {
+
+        // then respect pref for returning to previously selected tab
+        if ([[FUUserDefaults instance] selectPreviouslySelectedTabOnTabClose]) {
+            self.selectedTabIndex = previouslySelectedTabIndex;
+
+        // otherwise select the *next* tab (NSTabView's default behavior is *previous*)
+        } else  {
+            // NSTabView behavior on closing a selected tab is to select the tab at the next lower index (prev)
+            // However, most browsers instead select the next higher index (next)
+            // this changes the NSTabView behavior to match browser behavior expectations
+            NSInteger c = [tabView numberOfTabViewItems];
+            NSUInteger i = closingSelectedTabIndex;
+            BOOL selectNext = i != 0 && i != c;
+            
+            if (selectNext) {
+                [self selectNextTab:self];
+            }
         }
     }
 }
