@@ -64,11 +64,11 @@
     <key>FUTabbedBrowsingEnabled</key>
     <true/>
     <key>FUSelectNewWindowsOrTabsAsCreated</key>
-    <true/>
+    <false/>
     <key>FUTabBarHiddenForSingleTab</key>
     <true/>
     <key>FUSelectPriorSelectedTabOnTabClose</key>
-    <true/>
+    <false/>
     <key>FUTabBarCellOptimumWidth</key>
     <integer>175</integer>
     <key>FUConfirmBeforeClosingMultipleTabsOrWindows</key>
