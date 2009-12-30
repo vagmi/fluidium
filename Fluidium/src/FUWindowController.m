@@ -1342,7 +1342,12 @@
     
     NSRect uberFrame = [uberView frame];
     if (hiddenAlways) {
-        uberFrame.size.height += tabBarHeight - 1;
+        BOOL isUberViewAlreadyExpanded = NSPointInRect(NSMakePoint(2, NSMaxY(uberFrame) - 2), tabBarFrame);
+        if (isUberViewAlreadyExpanded) {
+            // do nothing
+        } else {
+            uberFrame.size.height += tabBarHeight - 1;
+        }
     } else {
         uberFrame.size.height -= tabBarHeight - 1;
     }

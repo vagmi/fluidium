@@ -61,8 +61,8 @@
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    //NSDrawWindowBackground(rect);
-
+    NSRect rect = [self bounds];
+    
     NSGradient *bgGradient = nil;
     NSColor *topBorderColor = nil;
     NSColor *topBevelColor = nil;
@@ -81,12 +81,12 @@
 
     // background
     if (bgGradient) {
-        [bgGradient drawInRect:dirtyRect angle:270];
+        [bgGradient drawInRect:rect angle:270];
     }
     
     CGFloat y = NSMaxY([self bounds]) - 1.5;
     NSPoint p1 = NSMakePoint(0.0, y);
-    NSPoint p2 = NSMakePoint(NSWidth(dirtyRect), y);
+    NSPoint p2 = NSMakePoint(NSWidth(rect), y);
 
     NSBezierPath *path = [NSBezierPath bezierPath];
     [path setLineWidth:1.0];
@@ -114,7 +114,7 @@
     if (bottomBevelColor) {
         [bottomBevelColor set];
         p1 = NSMakePoint(0.0, 0.5);
-        p2 = NSMakePoint(NSWidth(dirtyRect), 0.5);
+        p2 = NSMakePoint(NSWidth(rect), 0.5);
         [path removeAllPoints];
         [path moveToPoint:p1];
         [path lineToPoint:p2];

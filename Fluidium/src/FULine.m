@@ -39,6 +39,23 @@
     NSRectFill(dirtyRect);
 }
 
+
+- (void)awakeFromNib {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:[self window]];
+    [nc addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:[self window]];        
+}
+
+
+- (void)windowDidBecomeMain:(NSNotification *)n {
+    [self setNeedsDisplay:YES];
+}
+
+
+- (void)windowDidResignMain:(NSNotification *)n {
+    [self setNeedsDisplay:YES];
+}
+
 @synthesize mainColor;
 @synthesize nonMainColor;
 @end

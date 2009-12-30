@@ -141,14 +141,6 @@
     [item setOnStateImage:nil];
     [menu addItem:item];
     
-    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open in New Window", @"")
-                                       action:@selector(openBookmarkInNewWindow:) 
-                                keyEquivalent:@""] autorelease];
-    [item setTarget:self];
-    [item setRepresentedObject:bmark];
-    [item setOnStateImage:nil];
-    [menu addItem:item];
-    
     if ([[FUUserDefaults instance] tabbedBrowsingEnabled]) {
         item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open in New Tab", @"")
                                            action:@selector(openBookmarkInNewTab:) 
@@ -158,6 +150,14 @@
         [item setOnStateImage:nil];
         [menu addItem:item];
     }
+    
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open in New Window", @"")
+                                       action:@selector(openBookmarkInNewWindow:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:bmark];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
     
     [menu addItem:[NSMenuItem separatorItem]];
 
