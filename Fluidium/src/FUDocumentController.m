@@ -245,7 +245,7 @@
         tc = [[doc windowController] selectedTabController];
     } else {
         FUWindowController *wc = [self frontWindowController];
-        tc = [wc loadRequest:req inNewTabAndSelect:YES];
+        tc = [wc loadRequest:req inNewTabAndSelect:inForeground];
         [[wc window] makeKeyAndOrderFront:self]; // this is necessary if opening in a tab, and an auxilliary window is key
     }
     return tc;
