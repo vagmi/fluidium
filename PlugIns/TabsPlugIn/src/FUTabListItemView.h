@@ -12,12 +12,12 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "TDTableRowView.h"
+#import "TDListItemView.h"
 
 @class FUTabModel;
 @class FUTabsViewController;
 
-@interface FUTabTableRowView : TDTableRowView {
+@interface FUTabListItemView : TDListItemView {
     FUTabModel *model;
     NSButton *closeButton;
     NSProgressIndicator *progressIndicator;

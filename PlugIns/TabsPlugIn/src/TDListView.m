@@ -12,18 +12,18 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "TDTableView.h"
-#import "TDTableRowView.h"
-#import "TDTableRowViewQueue.h"
+#import "TDListView.h"
+#import "TDListItemView.h"
+#import "TDListItemViewQueue.h"
 
 #define DEFAULT_ROW_HEIGHT 44
 
-@interface TDTableView ()
+@interface TDListView ()
 @property (nonatomic, retain) NSMutableArray *visibleRowViews;
-@property (nonatomic, retain) TDTableRowViewQueue *rowViewQueue;
+@property (nonatomic, retain) TDListItemViewQueue *rowViewQueue;
 @end
 
-@implementation TDTableView
+@implementation TDListView
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -32,7 +32,7 @@
         self.backgroundColor = [NSColor whiteColor];
         self.rowHeight = DEFAULT_ROW_HEIGHT;
         
-        self.rowViewQueue = [[[TDTableRowViewQueue alloc] init] autorelease];
+        self.rowViewQueue = [[[TDListItemViewQueue alloc] init] autorelease];
     }
     return self;
 }
@@ -62,9 +62,9 @@
     
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
     
-    TDTableRowView *clickedView = nil;
+    TDListItemView *clickedView = nil;
     NSInteger i = 0;
-    for (TDTableRowView *rv in visibleRowViews) {
+    for (TDListItemView *rv in visibleRowViews) {
         if (NSPointInRect(p, [rv frame])) {
             clickedView = rv;
             break;
@@ -100,7 +100,7 @@
 
 
 - (void)layoutRows {
-    NSAssert(dataSource, @"TDTableView must have a dataSource before doing layout");
+    NSAssert(dataSource, @"TDListView must have a dataSource before doing layout");
     
     NSRect scrollBounds = [scrollView bounds];
     NSSize scrollContentSize = [scrollView contentSize];
@@ -118,7 +118,7 @@
     CGFloat w = isVert ? scrollSize.width : 0;
     CGFloat h = isVert ? 0 : scrollSize.height;
 
-    for (TDTableRowView *rv in visibleRowViews) {
+    for (TDListItemView *rv in visibleRowViews) {
         [rowViewQueue enqueue:rv withIdentifier:[[rv class] identifier]];
         [rv removeFromSuperview];
     }
@@ -128,7 +128,7 @@
 
     NSInteger i = 0;
     for ( ; i < c; i++) {
-        TDTableRowView *rv = [dataSource tableView:self viewForRowAtIndex:i];
+        TDListItemView *rv = [dataSource tableView:self viewForRowAtIndex:i];
         NSAssert1(rv, @"nil rowView returned for index: %d", i);
         
         // get row height

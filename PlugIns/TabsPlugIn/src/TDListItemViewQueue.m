@@ -12,14 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "TDTableRowViewQueue.h"
-#import "TDTableRowView.h"s
+#import "TDListItemViewQueue.h"
+#import "TDListItemView.h"s
 
-@interface TDTableRowViewQueue ()
+@interface TDListItemViewQueue ()
 @property (nonatomic, retain) NSMutableDictionary *dict;
 @end
 
-@implementation TDTableRowViewQueue
+@implementation TDListItemViewQueue
 
 - (id)init {
     if (self = [super init]) {
@@ -36,11 +36,11 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<TDTableRowViewQueue %p %@>", self, dict];
+    return [NSString stringWithFormat:@"<TDListItemViewQueue %p %@>", self, dict];
 }
 
 
-- (BOOL)enqueue:(TDTableRowView *)rv withIdentifier:(NSString *)s {
+- (BOOL)enqueue:(TDListItemView *)rv withIdentifier:(NSString *)s {
     NSMutableSet *set = [dict objectForKey:s];
     if (!set) {
         set = [NSMutableSet set];
@@ -56,8 +56,8 @@
 }
 
 
-- (TDTableRowView *)dequeueWithIdentifier:(NSString *)s {
-    TDTableRowView *rv = nil;
+- (TDListItemView *)dequeueWithIdentifier:(NSString *)s {
+    TDListItemView *rv = nil;
     
     NSMutableSet *set = [dict objectForKey:s];
     if (set) {

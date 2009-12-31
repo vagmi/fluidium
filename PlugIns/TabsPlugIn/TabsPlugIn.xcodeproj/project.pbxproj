@@ -18,15 +18,15 @@
 		D32E8BE710E5915600445B4C /* FUTabsPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8BE610E5915600445B4C /* FUTabsPreferencesViewController.m */; };
 		D32E8C1B10E5937300445B4C /* FUTabsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32E8C1910E5937300445B4C /* FUTabsView.xib */; };
 		D32E8C1E10E5938200445B4C /* FUTabsPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32E8C1C10E5938200445B4C /* FUTabsPreferencesView.xib */; };
-		D3A520BC10EA5A200021B801 /* TDTableRowViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A520BB10EA5A200021B801 /* TDTableRowViewQueue.m */; };
-		D3A522DC10EA98D40021B801 /* FUTabTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A522DB10EA98D40021B801 /* FUTabTableRowView.m */; };
+		D3A520BC10EA5A200021B801 /* TDListItemViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A520BB10EA5A200021B801 /* TDListItemViewQueue.m */; };
+		D3A522DC10EA98D40021B801 /* FUTabListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A522DB10EA98D40021B801 /* FUTabListItemView.m */; };
 		D3A5236510EA9E1D0021B801 /* close_button_hover.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236210EA9E1D0021B801 /* close_button_hover.tif */; };
 		D3A5236610EA9E1D0021B801 /* close_button_pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236310EA9E1D0021B801 /* close_button_pressed.tif */; };
 		D3A5236710EA9E1D0021B801 /* close_button.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236410EA9E1D0021B801 /* close_button.tif */; };
 		D3A5291310EBFAD90021B801 /* progress_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A5291210EBFAD90021B801 /* progress_indicator.png */; };
 		D3B8C15010E8738B00271454 /* FUTabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8C14F10E8738B00271454 /* FUTabModel.m */; };
-		D3E6C85B10E98E880002D204 /* TDTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E6C85A10E98E880002D204 /* TDTableView.m */; };
-		D3E6C85E10E98EC00002D204 /* TDTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E6C85D10E98EC00002D204 /* TDTableRowView.m */; };
+		D3E6C85B10E98E880002D204 /* TDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E6C85A10E98E880002D204 /* TDListView.m */; };
+		D3E6C85E10E98EC00002D204 /* TDListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E6C85D10E98EC00002D204 /* TDListItemView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,20 +55,20 @@
 		D32E8BE610E5915600445B4C /* FUTabsPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabsPreferencesViewController.m; path = src/FUTabsPreferencesViewController.m; sourceTree = "<group>"; };
 		D32E8C1A10E5937300445B4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUTabsView.xib; sourceTree = "<group>"; };
 		D32E8C1D10E5938200445B4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUTabsPreferencesView.xib; sourceTree = "<group>"; };
-		D3A520BA10EA5A200021B801 /* TDTableRowViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTableRowViewQueue.h; path = src/TDTableRowViewQueue.h; sourceTree = "<group>"; };
-		D3A520BB10EA5A200021B801 /* TDTableRowViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTableRowViewQueue.m; path = src/TDTableRowViewQueue.m; sourceTree = "<group>"; };
-		D3A522DA10EA98D40021B801 /* FUTabTableRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabTableRowView.h; path = src/FUTabTableRowView.h; sourceTree = "<group>"; };
-		D3A522DB10EA98D40021B801 /* FUTabTableRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabTableRowView.m; path = src/FUTabTableRowView.m; sourceTree = "<group>"; };
+		D3A520BA10EA5A200021B801 /* TDListItemViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItemViewQueue.h; path = src/TDListItemViewQueue.h; sourceTree = "<group>"; };
+		D3A520BB10EA5A200021B801 /* TDListItemViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItemViewQueue.m; path = src/TDListItemViewQueue.m; sourceTree = "<group>"; };
+		D3A522DA10EA98D40021B801 /* FUTabListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabListItemView.h; path = src/FUTabListItemView.h; sourceTree = "<group>"; };
+		D3A522DB10EA98D40021B801 /* FUTabListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabListItemView.m; path = src/FUTabListItemView.m; sourceTree = "<group>"; };
 		D3A5236210EA9E1D0021B801 /* close_button_hover.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button_hover.tif; path = res/img/close_button_hover.tif; sourceTree = "<group>"; };
 		D3A5236310EA9E1D0021B801 /* close_button_pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button_pressed.tif; path = res/img/close_button_pressed.tif; sourceTree = "<group>"; };
 		D3A5236410EA9E1D0021B801 /* close_button.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button.tif; path = res/img/close_button.tif; sourceTree = "<group>"; };
 		D3A5291210EBFAD90021B801 /* progress_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = progress_indicator.png; path = res/img/progress_indicator.png; sourceTree = "<group>"; };
 		D3B8C14E10E8738B00271454 /* FUTabModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabModel.h; path = src/FUTabModel.h; sourceTree = "<group>"; };
 		D3B8C14F10E8738B00271454 /* FUTabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabModel.m; path = src/FUTabModel.m; sourceTree = "<group>"; };
-		D3E6C85910E98E880002D204 /* TDTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTableView.h; path = src/TDTableView.h; sourceTree = "<group>"; };
-		D3E6C85A10E98E880002D204 /* TDTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTableView.m; path = src/TDTableView.m; sourceTree = "<group>"; };
-		D3E6C85C10E98EC00002D204 /* TDTableRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTableRowView.h; path = src/TDTableRowView.h; sourceTree = "<group>"; };
-		D3E6C85D10E98EC00002D204 /* TDTableRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTableRowView.m; path = src/TDTableRowView.m; sourceTree = "<group>"; };
+		D3E6C85910E98E880002D204 /* TDListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListView.h; path = src/TDListView.h; sourceTree = "<group>"; };
+		D3E6C85A10E98E880002D204 /* TDListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListView.m; path = src/TDListView.m; sourceTree = "<group>"; };
+		D3E6C85C10E98EC00002D204 /* TDListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItemView.h; path = src/TDListItemView.h; sourceTree = "<group>"; };
+		D3E6C85D10E98EC00002D204 /* TDListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItemView.m; path = src/TDListItemView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +129,8 @@
 				D32E8BE610E5915600445B4C /* FUTabsPreferencesViewController.m */,
 				D3B8C14E10E8738B00271454 /* FUTabModel.h */,
 				D3B8C14F10E8738B00271454 /* FUTabModel.m */,
-				D3A522DA10EA98D40021B801 /* FUTabTableRowView.h */,
-				D3A522DB10EA98D40021B801 /* FUTabTableRowView.m */,
+				D3A522DA10EA98D40021B801 /* FUTabListItemView.h */,
+				D3A522DB10EA98D40021B801 /* FUTabListItemView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -217,12 +217,12 @@
 		D3E6C88010E9958B0002D204 /* TDTableView */ = {
 			isa = PBXGroup;
 			children = (
-				D3E6C85910E98E880002D204 /* TDTableView.h */,
-				D3E6C85A10E98E880002D204 /* TDTableView.m */,
-				D3E6C85C10E98EC00002D204 /* TDTableRowView.h */,
-				D3E6C85D10E98EC00002D204 /* TDTableRowView.m */,
-				D3A520BA10EA5A200021B801 /* TDTableRowViewQueue.h */,
-				D3A520BB10EA5A200021B801 /* TDTableRowViewQueue.m */,
+				D3E6C85910E98E880002D204 /* TDListView.h */,
+				D3E6C85A10E98E880002D204 /* TDListView.m */,
+				D3E6C85C10E98EC00002D204 /* TDListItemView.h */,
+				D3E6C85D10E98EC00002D204 /* TDListItemView.m */,
+				D3A520BA10EA5A200021B801 /* TDListItemViewQueue.h */,
+				D3A520BB10EA5A200021B801 /* TDListItemViewQueue.m */,
 			);
 			name = TDTableView;
 			sourceTree = "<group>";
@@ -293,10 +293,10 @@
 				D32E8BE010E58F8A00445B4C /* FUTabsViewController.m in Sources */,
 				D32E8BE710E5915600445B4C /* FUTabsPreferencesViewController.m in Sources */,
 				D3B8C15010E8738B00271454 /* FUTabModel.m in Sources */,
-				D3E6C85B10E98E880002D204 /* TDTableView.m in Sources */,
-				D3E6C85E10E98EC00002D204 /* TDTableRowView.m in Sources */,
-				D3A520BC10EA5A200021B801 /* TDTableRowViewQueue.m in Sources */,
-				D3A522DC10EA98D40021B801 /* FUTabTableRowView.m in Sources */,
+				D3E6C85B10E98E880002D204 /* TDListView.m in Sources */,
+				D3E6C85E10E98EC00002D204 /* TDListItemView.m in Sources */,
+				D3A520BC10EA5A200021B801 /* TDListItemViewQueue.m in Sources */,
+				D3A522DC10EA98D40021B801 /* FUTabListItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

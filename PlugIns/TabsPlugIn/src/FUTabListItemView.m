@@ -12,7 +12,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUTabTableRowView.h"
+#import "FUTabListItemView.h"
 #import "FUTabModel.h"
 #import "FUUtils.h"
 #import "FUTabsViewController.h"
@@ -49,7 +49,7 @@ static NSImage *sProgressImage = nil;
 
 - (NSImage *)scaledImageOfSize:(NSSize)size progress:(CGFloat)progress {
     if (!sProgressImage) {
-        NSString *path = [[NSBundle bundleForClass:[FUTabTableRowView class]] pathForImageResource:@"progress_indicator"];
+        NSString *path = [[NSBundle bundleForClass:[FUTabListItemView class]] pathForImageResource:@"progress_indicator"];
         sProgressImage = [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]];
     }
     
@@ -71,15 +71,15 @@ static NSImage *sProgressImage = nil;
 
 @end
 
-@interface FUTabTableRowView ()
+@interface FUTabListItemView ()
 - (void)startObserveringModel:(FUTabModel *)m;
 - (void)stopObserveringModel:(FUTabModel *)m;
 @end
 
-@implementation FUTabTableRowView
+@implementation FUTabListItemView
 
 + (void)initialize {
-    if ([FUTabTableRowView class] == self) {
+    if ([FUTabListItemView class] == self) {
         
         NSMutableParagraphStyle *paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [paraStyle setAlignment:NSLeftTextAlignment];

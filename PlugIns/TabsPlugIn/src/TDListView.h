@@ -14,21 +14,21 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class TDTableRowView;
-@class TDTableRowViewQueue;
-@protocol TDTableViewDataSource;
-@protocol TDTableViewDelegate;
+@class TDListItemView;
+@class TDListItemViewQueue;
+@protocol TDListViewDataSource;
+@protocol TDListViewDelegate;
 
-@interface TDTableView : NSView {
+@interface TDListView : NSView {
     NSScrollView *scrollView;
-    id <TDTableViewDataSource>dataSource;
-    id <TDTableViewDelegate>delegate;
+    id <TDListViewDataSource>dataSource;
+    id <TDListViewDelegate>delegate;
     NSColor *backgroundColor;
     CGFloat rowHeight;
     NSInteger selectedRowIndex;
 
     NSMutableArray *visibleRowViews;
-    TDTableRowViewQueue *rowViewQueue;
+    TDListItemViewQueue *rowViewQueue;
 }
 
 - (void)reloadData;
@@ -38,24 +38,24 @@
 - (void)layoutRows;
 
 @property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
-@property (nonatomic, assign) id <TDTableViewDataSource>dataSource;
-@property (nonatomic, assign) id <TDTableViewDelegate>delegate;
+@property (nonatomic, assign) id <TDListViewDataSource>dataSource;
+@property (nonatomic, assign) id <TDListViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
 @property (nonatomic, assign) CGFloat rowHeight;
 @property (nonatomic, assign) NSInteger selectedRowIndex;
 @end
 
-@protocol TDTableViewDataSource <NSObject>
+@protocol TDListViewDataSource <NSObject>
 @required
-- (NSInteger)numberOfRowsInTableView:(TDTableView *)tv;
-- (TDTableRowView *)tableView:(TDTableView *)tv viewForRowAtIndex:(NSInteger)i;
+- (NSInteger)numberOfRowsInTableView:(TDListView *)tv;
+- (TDListItemView *)tableView:(TDListView *)tv viewForRowAtIndex:(NSInteger)i;
 @end
 
-@protocol TDTableViewDelegate <NSObject>
+@protocol TDListViewDelegate <NSObject>
 @optional
-- (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i;
-- (void)tableView:(TDTableView *)tv willDisplayView:(TDTableRowView *)rv forRowAtIndex:(NSInteger)i;
-- (NSInteger)tableView:(TDTableView *)tv willSelectRowAtIndex:(NSInteger)i;
-- (void)tableView:(TDTableView *)tv didSelectRowAtIndex:(NSInteger)i;
+- (CGFloat)tableView:(TDListView *)tv heightForRowAtIndex:(NSInteger)i;
+- (void)tableView:(TDListView *)tv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i;
+- (NSInteger)tableView:(TDListView *)tv willSelectRowAtIndex:(NSInteger)i;
+- (void)tableView:(TDListView *)tv didSelectRowAtIndex:(NSInteger)i;
 @end
 

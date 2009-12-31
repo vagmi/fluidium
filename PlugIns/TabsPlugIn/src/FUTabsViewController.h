@@ -13,14 +13,14 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-#import "TDTableView.h"
+#import "TDListView.h"
 
 @class FUTabsPlugIn;
 @protocol FUPlugInAPI;
 @class FUTabModel;
 
-@interface FUTabsViewController : NSViewController <TDTableViewDataSource, TDTableViewDelegate> {
-    TDTableView *tableView;
+@interface FUTabsViewController : NSViewController <TDListViewDataSource, TDListViewDelegate> {
+    TDListView *tableView;
     NSScrollView *scrollView;
 
     FUTabsPlugIn *plugIn;
@@ -39,7 +39,7 @@
 
 - (IBAction)closeTabButtonClick:(id)sender;
 
-@property (nonatomic, retain) IBOutlet TDTableView *tableView;
+@property (nonatomic, retain) IBOutlet TDListView *tableView;
 @property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) FUTabsPlugIn *plugIn;
 @property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;

@@ -14,7 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TDTableRowView : NSView {
+@interface TDListItemView : NSView {
 
 }
 

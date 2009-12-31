@@ -12,30 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "TDTableRowView.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation TDTableRowView
+@class TDListItemView;
 
-+ (NSString *)identifier {
-    return NSStringFromClass(self);
+@interface TDListItemViewQueue : NSObject {
+    NSMutableDictionary *dict;
 }
 
-
-- (id)initWithFrame:(NSRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
-
-- (BOOL)isFlipped {
-    return YES;
-}
-
+- (BOOL)enqueue:(TDListItemView *)rv withIdentifier:(NSString *)s;
+- (TDListItemView *)dequeueWithIdentifier:(NSString *)s;
 @end

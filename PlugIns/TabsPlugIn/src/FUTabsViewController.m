@@ -18,8 +18,8 @@
 #import "FUPlugInAPI.h"
 #import "FUTabsPlugIn.h"
 #import "FUTabModel.h"
-#import "TDTableView.h"
-#import "FUTabTableRowView.h"
+#import "TDListView.h"
+#import "FUTabListItemView.h"
 #import <WebKit/WebKit.h>
 
 #define KEY_SELECTION_INDEXES @"selectionIndexes"
@@ -118,18 +118,18 @@
 
 
 #pragma mark -
-#pragma mark TDTableViewDataSource
+#pragma mark TDListViewDataSource
 
-- (NSInteger)numberOfRowsInTableView:(TDTableView *)tv {
+- (NSInteger)numberOfRowsInTableView:(TDListView *)tv {
     return [tabModels count];
 }
 
 
-- (TDTableRowView *)tableView:(TDTableView *)tv viewForRowAtIndex:(NSInteger)i {
-    FUTabTableRowView *rv = [tv dequeueReusableRowViewWithIdentifier:[FUTabTableRowView identifier]];
+- (TDListItemView *)tableView:(TDListView *)tv viewForRowAtIndex:(NSInteger)i {
+    FUTabListItemView *rv = [tv dequeueReusableRowViewWithIdentifier:[FUTabListItemView identifier]];
     
     if (!rv) {
-        rv = [[[FUTabTableRowView alloc] init] autorelease];
+        rv = [[[FUTabListItemView alloc] init] autorelease];
     }
     
     rv.viewController = self;
@@ -141,9 +141,9 @@
 
 
 #pragma mark -
-#pragma mark TDTableViewDelegate
+#pragma mark TDListViewDelegate
 
-- (CGFloat)tableView:(TDTableView *)tv heightForRowAtIndex:(NSInteger)i {
+- (CGFloat)tableView:(TDListView *)tv heightForRowAtIndex:(NSInteger)i {
     NSRect scrollFrame = [scrollView frame];
     
     BOOL isVert = scrollFrame.size.height > scrollFrame.size.width;
@@ -155,12 +155,12 @@
 }
 
 
-- (void)tableView:(TDTableView *)tv willDisplayView:(TDTableRowView *)rv forRowAtIndex:(NSInteger)i {
+- (void)tableView:(TDListView *)tv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i {
     
 }
 
 
-- (void)tableView:(TDTableView *)tv didSelectRowAtIndex:(NSInteger)i {
+- (void)tableView:(TDListView *)tv didSelectRowAtIndex:(NSInteger)i {
     id wc = [self windowController];
     [wc setSelectedTabIndex:i];
 }
