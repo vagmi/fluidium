@@ -16,20 +16,16 @@
 
 @implementation TDListItemView
 
-+ (NSString *)identifier {
-    return NSStringFromClass(self);
-}
-
-
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
     if (self = [super initWithFrame:frame]) {
-        
+        self.reuseIdentifier = s;
     }
     return self;
 }
 
 
 - (void)dealloc {
+    self.reuseIdentifier = nil;
     [super dealloc];
 }
 
@@ -38,4 +34,10 @@
     return YES;
 }
 
+
+- (void)prepareForReuse {
+    
+}
+
+@synthesize reuseIdentifier;
 @end

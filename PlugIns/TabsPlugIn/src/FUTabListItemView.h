@@ -24,6 +24,8 @@
     FUTabsViewController *viewController;
 }
 
++ (NSString *)identifier;
+
 @property (nonatomic, retain) FUTabModel *model;
 @property (nonatomic, retain) NSButton *closeButton;
 @property (nonatomic, retain) NSProgressIndicator *progressIndicator;

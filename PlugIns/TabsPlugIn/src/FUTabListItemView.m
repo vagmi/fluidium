@@ -34,44 +34,13 @@ static NSGradient *sInnerRectFillGradient = nil;
 static NSColor *sSelectedInnerRectStrokeColor = nil;
 static NSColor *sInnerRectStrokeColor = nil;
 
-static NSImage *sProgressImage = nil;
-
 @interface NSImage (FUAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
 @end
 
-@interface NSImage (FUTabAdditions)
-- (NSImage *)scaledImageOfSize:(NSSize)size progress:(CGFloat)progress;
-@end
-
-@implementation NSImage (FUTabAdditions)
-
-- (NSImage *)scaledImageOfSize:(NSSize)size progress:(CGFloat)progress {
-    if (!sProgressImage) {
-        NSString *path = [[NSBundle bundleForClass:[FUTabListItemView class]] pathForImageResource:@"progress_indicator"];
-        sProgressImage = [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]];
-    }
-    
-    NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
-    [result lockFocus];
-    NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
-    NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
-    [currentContext setImageInterpolation:NSImageInterpolationHigh];
-    NSSize fromSize = [self size];
-    [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:1];
-    
-//    NSSize progressSize = [sProgressImage size];
-//    [sProgressImage drawInRect:NSMakeRect(0, 0, size.width * progress, size.height) fromRect:NSMakeRect(0, 0, progressSize.width, progressSize.height) operation:NSCompositeSourceOver fraction:1];
-
-    [currentContext setImageInterpolation:savedInterpolation];
-    [result unlockFocus];
-    return result;
-}
-
-@end
-
 @interface FUTabListItemView ()
+- (NSImage *)imageNamed:(NSString *)name scaledToSize:(NSSize)size;
 - (void)startObserveringModel:(FUTabModel *)m;
 - (void)stopObserveringModel:(FUTabModel *)m;
 @end
@@ -120,27 +89,26 @@ static NSImage *sProgressImage = nil;
 }
 
 
-- (id)init {
-    return [self initWithFrame:NSZeroRect];
++ (NSString *)identifier {
+    return NSStringFromClass(self);
 }
 
 
-- (id)initWithFrame:(NSRect)frame {
-    if (self = [super initWithFrame:frame]) {
+- (id)init {
+    return [self initWithFrame:NSZeroRect reuseIdentifier:[[self class] identifier]];
+}
+
+
+- (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
+    if (self = [super initWithFrame:frame reuseIdentifier:s]) {
         self.closeButton = [[[NSButton alloc] initWithFrame:NSMakeRect(7, 5, 10, 10)] autorelease];
         [closeButton setButtonType:NSMomentaryChangeButton];
         [closeButton setBordered:NO];
         [closeButton setAction:@selector(closeTabButtonClick:)];
 
-        NSBundle *b = [NSBundle bundleForClass:[self class]];
-        NSString *path  = [b pathForImageResource:@"close_button"];
-        NSImage *img = [[[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease] scaledImageOfSize:NSMakeSize(10, 10)];
-        [closeButton setImage:img];
-
-        path = [b pathForImageResource:@"close_button_pressed"];
-        img = [[[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease] scaledImageOfSize:NSMakeSize(10, 10)];
-        [closeButton setAlternateImage:img];
-        
+        NSSize imgSize = NSMakeSize(10, 10);
+        [closeButton setImage:[self imageNamed:@"close_button" scaledToSize:imgSize]];
+        [closeButton setAlternateImage:[self imageNamed:@"close_button_pressed" scaledToSize:imgSize]];
         [self addSubview:closeButton];
         
         self.progressIndicator = [[[NSProgressIndicator alloc] initWithFrame:NSZeroRect] autorelease];
@@ -149,7 +117,6 @@ static NSImage *sProgressImage = nil;
         [progressIndicator setDisplayedWhenStopped:NO];
         [progressIndicator setIndeterminate:YES];
         [progressIndicator sizeToFit];
-        
         [self addSubview:progressIndicator];
     }
     return self;
@@ -255,6 +222,12 @@ static NSImage *sProgressImage = nil;
         
         [self startObserveringModel:model];
     }
+}
+
+
+- (NSImage *)imageNamed:(NSString *)name scaledToSize:(NSSize)size {
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForImageResource:name];
+    return [[[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease] scaledImageOfSize:size];
 }
 
 

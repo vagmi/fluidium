@@ -99,10 +99,18 @@
 #pragma mark Public
 
 - (void)viewWillAppear {
-    if (FUPlugInViewPlacementIsDrawer([plugInAPI viewPlacementForPlugInIdentifier:[plugIn identifier]])) {
+    NSUInteger mask = [plugInAPI viewPlacementForPlugInIdentifier:[plugIn identifier]];
+    
+    if (FUPlugInViewPlacementIsDrawer(mask)) {
         tableView.backgroundColor = [NSColor colorWithDeviceWhite:.95 alpha:1.0];
+        tableView.orientation = TDListViewOrientationPortrait;
     } else {
         tableView.backgroundColor = [NSColor colorWithDeviceWhite:.9 alpha:1.0];
+        if (FUPlugInViewPlacementIsVerticalSplitView(mask)) {
+            tableView.orientation = TDListViewOrientationPortrait;
+        } else {
+            tableView.orientation = TDListViewOrientationLandscape;
+        }
     }
 }
 
@@ -120,13 +128,13 @@
 #pragma mark -
 #pragma mark TDListViewDataSource
 
-- (NSInteger)numberOfRowsInTableView:(TDListView *)tv {
+- (NSInteger)numberOfItemsInListView:(TDListView *)tv {
     return [tabModels count];
 }
 
 
-- (TDListItemView *)tableView:(TDListView *)tv viewForRowAtIndex:(NSInteger)i {
-    FUTabListItemView *rv = [tv dequeueReusableRowViewWithIdentifier:[FUTabListItemView identifier]];
+- (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i {
+    FUTabListItemView *rv = [lv dequeueReusableItemViewWithIdentifier:[FUTabListItemView identifier]];
     
     if (!rv) {
         rv = [[[FUTabListItemView alloc] init] autorelease];
@@ -143,7 +151,7 @@
 #pragma mark -
 #pragma mark TDListViewDelegate
 
-- (CGFloat)tableView:(TDListView *)tv heightForRowAtIndex:(NSInteger)i {
+- (CGFloat)listView:(TDListView *)lv heightForItemAtIndex:(NSInteger)i {
     NSRect scrollFrame = [scrollView frame];
     
     BOOL isVert = scrollFrame.size.height > scrollFrame.size.width;
@@ -155,12 +163,12 @@
 }
 
 
-- (void)tableView:(TDListView *)tv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i {
     
 }
 
 
-- (void)tableView:(TDListView *)tv didSelectRowAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv didSelectRowAtIndex:(NSInteger)i {
     id wc = [self windowController];
     [wc setSelectedTabIndex:i];
 }
@@ -279,7 +287,7 @@
     selectedModel = [tabModels objectAtIndex:selectedIndex];
     selectedModel.selected = YES;
     
-    [tableView setSelectedRowIndex:selectedIndex];
+    [tableView setSelectedItemIndex:selectedIndex];
 }
 
 

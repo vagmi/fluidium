@@ -15,9 +15,12 @@
 #import <Cocoa/Cocoa.h>
 
 @interface TDListItemView : NSView {
-
+    NSString *reuseIdentifier;
 }
 
-+ (NSString *)identifier;
+- (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s;
 
+- (void)prepareForReuse;
+
+@property (nonatomic, copy) NSString *reuseIdentifier;
 @end

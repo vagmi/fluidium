@@ -16,23 +16,23 @@
 #import "TDListItemView.h"
 #import "TDListItemViewQueue.h"
 
-#define DEFAULT_ROW_HEIGHT 44
+#define DEFAULT_ITEM_HEIGHT 44
 
 @interface TDListView ()
-@property (nonatomic, retain) NSMutableArray *visibleRowViews;
-@property (nonatomic, retain) TDListItemViewQueue *rowViewQueue;
+- (void)layoutItems;
+
+@property (nonatomic, retain) NSMutableArray *visibleItemViews;
+@property (nonatomic, retain) TDListItemViewQueue *itemViewQueue;
 @end
 
 @implementation TDListView
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-        //scrollView 
-        
         self.backgroundColor = [NSColor whiteColor];
-        self.rowHeight = DEFAULT_ROW_HEIGHT;
+        self.itemHeight = DEFAULT_ITEM_HEIGHT;
         
-        self.rowViewQueue = [[[TDListItemViewQueue alloc] init] autorelease];
+        self.itemViewQueue = [[[TDListItemViewQueue alloc] init] autorelease];
     }
     return self;
 }
@@ -41,8 +41,8 @@
 - (void)dealloc {
     self.scrollView = nil;
     self.backgroundColor = nil;
-    self.visibleRowViews = nil;
-    self.rowViewQueue = nil;
+    self.visibleItemViews = nil;
+    self.itemViewQueue = nil;
     [super dealloc];
 }
 
@@ -64,7 +64,7 @@
     
     TDListItemView *clickedView = nil;
     NSInteger i = 0;
-    for (TDListItemView *rv in visibleRowViews) {
+    for (TDListItemView *rv in visibleItemViews) {
         if (NSPointInRect(p, [rv frame])) {
             clickedView = rv;
             break;
@@ -73,13 +73,13 @@
     }
     
     if (clickedView) {
-        self.selectedRowIndex = i;
+        self.selectedItemIndex = i;
     }
 }
 
 
 - (void)viewWillDraw {
-    [self layoutRows];
+    [self layoutItems];
 }
 
 
@@ -94,20 +94,22 @@
 }
 
 
-- (id)dequeueReusableRowViewWithIdentifier:(NSString *)s {
-    return [rowViewQueue dequeueWithIdentifier:s];
+- (id)dequeueReusableItemViewWithIdentifier:(NSString *)s {
+    TDListItemView *itemView = [itemViewQueue dequeueWithIdentifier:s];
+    [itemView prepareForReuse];
+    return itemView;
 }
 
 
-- (void)layoutRows {
+- (void)layoutItems {
     NSAssert(dataSource, @"TDListView must have a dataSource before doing layout");
     
     NSRect scrollBounds = [scrollView bounds];
     NSSize scrollContentSize = [scrollView contentSize];
-    BOOL isVert = scrollContentSize.height > scrollContentSize.width;
+    BOOL isPortrait = TDListViewOrientationPortrait == orientation;
 
     NSSize scrollSize = NSZeroSize;
-    if (isVert) {
+    if (isPortrait) {
         scrollSize = NSMakeSize(scrollContentSize.width, scrollBounds.size.height);
     } else {
         scrollSize = NSMakeSize(scrollBounds.size.width, scrollContentSize.height);
@@ -115,41 +117,41 @@
         
     CGFloat x = 0;
     CGFloat y = 0;
-    CGFloat w = isVert ? scrollSize.width : 0;
-    CGFloat h = isVert ? 0 : scrollSize.height;
+    CGFloat w = isPortrait ? scrollSize.width : 0;
+    CGFloat h = isPortrait ? 0 : scrollSize.height;
 
-    for (TDListItemView *rv in visibleRowViews) {
-        [rowViewQueue enqueue:rv withIdentifier:[[rv class] identifier]];
-        [rv removeFromSuperview];
+    for (TDListItemView *itemView in visibleItemViews) {
+        [itemViewQueue enqueue:itemView withIdentifier:itemView.reuseIdentifier];
+        [itemView removeFromSuperview];
     }
     
-    NSInteger c = [dataSource numberOfRowsInTableView:self];
-    self.visibleRowViews = [NSMutableArray arrayWithCapacity:c];
+    NSInteger c = [dataSource numberOfItemsInListView:self];
+    self.visibleItemViews = [NSMutableArray arrayWithCapacity:c];
 
     NSInteger i = 0;
     for ( ; i < c; i++) {
-        TDListItemView *rv = [dataSource tableView:self viewForRowAtIndex:i];
-        NSAssert1(rv, @"nil rowView returned for index: %d", i);
+        TDListItemView *listItem = [dataSource listView:self viewForItemAtIndex:i];
+        NSAssert1(listItem, @"nil rowView returned for index: %d", i);
         
         // get row height
-        NSInteger wh = rowHeight;
-        if (delegate && [delegate respondsToSelector:@selector(tableView:heightForRowAtIndex:)]) {
-            wh = [delegate tableView:self heightForRowAtIndex:i];
+        NSInteger wh = itemHeight;
+        if (delegate && [delegate respondsToSelector:@selector(listView:heightForItemAtIndex:)]) {
+            wh = [delegate listView:self heightForItemAtIndex:i];
         }        
         
-        if (isVert) {
+        if (isPortrait) {
             h = wh;
         } else {
             w = wh;
         }
         
-        [rv setFrame:NSMakeRect(x, y, w, h)];
-        [rv setNeedsDisplay:YES];
+        [listItem setFrame:NSMakeRect(x, y, w, h)];
+        [listItem setNeedsDisplay:YES];
         
-        [self addSubview:rv];
-        [visibleRowViews addObject:rv];
+        [self addSubview:listItem];
+        [visibleItemViews addObject:listItem];
         
-        if (isVert) {
+        if (isPortrait) {
             y += wh; // add height for next row
             //if (y > scrollSize.height) break;
         } else {
@@ -159,7 +161,7 @@
     }
     
     NSRect frame = [self frame];
-    if (isVert) {
+    if (isPortrait) {
         y = y < scrollSize.height ? scrollSize.height : y;
         frame.size.height = y;
     } else {
@@ -170,19 +172,19 @@
 }
 
 
-- (void)setSelectedRowIndex:(NSInteger)i {
-    if (i != selectedRowIndex) {
-        if (delegate && [delegate respondsToSelector:@selector(tableView:willSelectRowAtIndex:)]) {
-            if (-1 == [delegate tableView:self willSelectRowAtIndex:i]) {
+- (void)setSelectedItemIndex:(NSInteger)i {
+    if (i != selectedItemIndex) {
+        if (delegate && [delegate respondsToSelector:@selector(listView:willSelectRowAtIndex:)]) {
+            if (-1 == [delegate listView:self willSelectRowAtIndex:i]) {
                 return;
             }
         }
         
-        selectedRowIndex = i;
+        selectedItemIndex = i;
         [self reloadData];
         
-        if (delegate && [delegate respondsToSelector:@selector(tableView:didSelectRowAtIndex:)]) {
-            [delegate tableView:self didSelectRowAtIndex:i];
+        if (delegate && [delegate respondsToSelector:@selector(listView:didSelectRowAtIndex:)]) {
+            [delegate listView:self didSelectRowAtIndex:i];
         }
     }
 }
@@ -191,8 +193,9 @@
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize backgroundColor;
-@synthesize rowHeight;
-@synthesize selectedRowIndex;
-@synthesize visibleRowViews;
-@synthesize rowViewQueue;
+@synthesize itemHeight;
+@synthesize selectedItemIndex;
+@synthesize orientation;
+@synthesize visibleItemViews;
+@synthesize itemViewQueue;
 @end

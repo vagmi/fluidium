@@ -19,43 +19,48 @@
 @protocol TDListViewDataSource;
 @protocol TDListViewDelegate;
 
+typedef enum {
+    TDListViewOrientationPortrait = 0,
+    TDListViewOrientationLandscape
+} TDListViewOrientation;
+
 @interface TDListView : NSView {
     NSScrollView *scrollView;
     id <TDListViewDataSource>dataSource;
     id <TDListViewDelegate>delegate;
     NSColor *backgroundColor;
-    CGFloat rowHeight;
-    NSInteger selectedRowIndex;
-
-    NSMutableArray *visibleRowViews;
-    TDListItemViewQueue *rowViewQueue;
+    CGFloat itemHeight;
+    NSInteger selectedItemIndex;
+    TDListViewOrientation orientation;
+    
+    NSMutableArray *visibleItemViews;
+    TDListItemViewQueue *itemViewQueue;
 }
 
 - (void)reloadData;
 
-- (id)dequeueReusableRowViewWithIdentifier:(NSString *)s;
-
-- (void)layoutRows;
+- (id)dequeueReusableItemViewWithIdentifier:(NSString *)s;
 
 @property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) id <TDListViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDListViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
-@property (nonatomic, assign) CGFloat rowHeight;
-@property (nonatomic, assign) NSInteger selectedRowIndex;
+@property (nonatomic, assign) CGFloat itemHeight;
+@property (nonatomic, assign) NSInteger selectedItemIndex;
+@property (nonatomic, assign) TDListViewOrientation orientation;
 @end
 
 @protocol TDListViewDataSource <NSObject>
 @required
-- (NSInteger)numberOfRowsInTableView:(TDListView *)tv;
-- (TDListItemView *)tableView:(TDListView *)tv viewForRowAtIndex:(NSInteger)i;
+- (NSInteger)numberOfItemsInListView:(TDListView *)tv;
+- (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i;
 @end
 
 @protocol TDListViewDelegate <NSObject>
 @optional
-- (CGFloat)tableView:(TDListView *)tv heightForRowAtIndex:(NSInteger)i;
-- (void)tableView:(TDListView *)tv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i;
-- (NSInteger)tableView:(TDListView *)tv willSelectRowAtIndex:(NSInteger)i;
-- (void)tableView:(TDListView *)tv didSelectRowAtIndex:(NSInteger)i;
+- (CGFloat)listView:(TDListView *)lv heightForItemAtIndex:(NSInteger)i;
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i;
+- (NSInteger)listView:(TDListView *)lv willSelectRowAtIndex:(NSInteger)i;
+- (void)listView:(TDListView *)lv didSelectRowAtIndex:(NSInteger)i;
 @end
 

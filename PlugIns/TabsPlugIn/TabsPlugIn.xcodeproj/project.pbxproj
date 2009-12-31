@@ -119,7 +119,7 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D3E6C88010E9958B0002D204 /* TDTableView */,
+				D3E6C88010E9958B0002D204 /* TDListView */,
 				D32E8ADB10E52C5000445B4C /* Fluidium */,
 				D32E8AD610E52C4600445B4C /* FUTabsPlugIn.h */,
 				D32E8AD710E52C4600445B4C /* FUTabsPlugIn.m */,
@@ -214,7 +214,7 @@
 			name = Nib;
 			sourceTree = "<group>";
 		};
-		D3E6C88010E9958B0002D204 /* TDTableView */ = {
+		D3E6C88010E9958B0002D204 /* TDListView */ = {
 			isa = PBXGroup;
 			children = (
 				D3E6C85910E98E880002D204 /* TDListView.h */,
@@ -224,7 +224,7 @@
 				D3A520BA10EA5A200021B801 /* TDListItemViewQueue.h */,
 				D3A520BB10EA5A200021B801 /* TDListItemViewQueue.m */,
 			);
-			name = TDTableView;
+			name = TDListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
