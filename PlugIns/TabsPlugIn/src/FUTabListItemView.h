@@ -22,9 +22,14 @@
     NSButton *closeButton;
     NSProgressIndicator *progressIndicator;
     FUTabsViewController *viewController;
+    
+    NSTimer *drawHiRezTimer;
+    BOOL drawHiRez;
 }
 
-+ (NSString *)identifier;
++ (NSString *)reuseIdentifier;
+
+- (void)drawHiRezLater;
 
 @property (nonatomic, retain) FUTabModel *model;
 @property (nonatomic, retain) NSButton *closeButton;

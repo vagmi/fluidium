@@ -18,12 +18,19 @@
 
 - (void)dealloc {
     self.image = nil;
+    self.scaledImage = nil;
     self.title = nil;
     self.URLString = nil;
     [super dealloc];
 }
 
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<FUTabModel %p %@>", self, title];
+}
+
 @synthesize image;
+@synthesize scaledImage;
 @synthesize title;
 @synthesize URLString;
 @synthesize index;

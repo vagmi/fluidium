@@ -146,9 +146,8 @@
         }
         
         [listItem setFrame:NSMakeRect(x, y, w, h)];
-        [listItem setNeedsDisplay:YES];
-        
         [self addSubview:listItem];
+
         [visibleItemViews addObject:listItem];
         
         if (isPortrait) {

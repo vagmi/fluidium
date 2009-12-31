@@ -16,6 +16,7 @@
 
 @interface FUTabModel : NSObject {
     NSImage *image;
+    NSImage *scaledImage;
     NSString *title;
     NSString *URLString;
     NSInteger index;
@@ -25,6 +26,7 @@
 }
 
 @property (nonatomic, retain) NSImage *image;
+@property (nonatomic, retain) NSImage *scaledImage;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic) NSInteger index;

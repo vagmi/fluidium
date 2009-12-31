@@ -20,7 +20,7 @@
 @class FUTabModel;
 
 @interface FUTabsViewController : NSViewController <TDListViewDataSource, TDListViewDelegate> {
-    TDListView *tableView;
+    TDListView *listView;
     NSScrollView *scrollView;
 
     FUTabsPlugIn *plugIn;
@@ -39,7 +39,7 @@
 
 - (IBAction)closeTabButtonClick:(id)sender;
 
-@property (nonatomic, retain) IBOutlet TDListView *tableView;
+@property (nonatomic, retain) IBOutlet TDListView *listView;
 @property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) FUTabsPlugIn *plugIn;
 @property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;

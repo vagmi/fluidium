@@ -969,6 +969,7 @@
 
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               tc, FUTabControllerKey,
+                              [NSNumber numberWithInteger:priorSelectedTabIndex], FUPriorIndexKey,
                               [NSNumber numberWithInteger:self.selectedTabIndex], FUIndexKey,
                               nil];
     

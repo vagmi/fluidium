@@ -22,11 +22,17 @@
 
 
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha {
+    return [self scaledImageOfSize:size alpha:alpha hiRez:YES];
+}
+
+
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez {
     NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
     [result lockFocus];
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
     NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
-    [currentContext setImageInterpolation:NSImageInterpolationHigh];
+    NSImageInterpolation rez = hiRez ? NSImageInterpolationHigh : NSImageInterpolationDefault;
+    [currentContext setImageInterpolation:rez];
     NSSize fromSize = [self size];
     [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:alpha];
     [currentContext setImageInterpolation:savedInterpolation];

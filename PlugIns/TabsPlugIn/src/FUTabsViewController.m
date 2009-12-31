@@ -45,7 +45,8 @@
 @interface FUTabsViewController ()
 - (NSArray *)webViews;
 - (id)windowController;
-- (void)reloadAllTabModels;
+- (void)updateAllTabModels;
+- (void)updateAllTabModelsFromIndex:(NSInteger)startIndex;
 - (void)updateSelectedTabModel;
 - (void)updateTabModelLaterAtIndex:(NSNumber *)indexObj;
 - (void)updateTabModelAtIndex:(NSInteger)i;
@@ -73,7 +74,7 @@
 
 - (void)dealloc {
     self.view = nil;
-    self.tableView = nil;
+    self.listView = nil;
     self.scrollView = nil;
     self.plugIn = nil;
     self.plugInAPI = nil;
@@ -102,21 +103,21 @@
     NSUInteger mask = [plugInAPI viewPlacementForPlugInIdentifier:[plugIn identifier]];
     
     if (FUPlugInViewPlacementIsDrawer(mask)) {
-        tableView.backgroundColor = [NSColor colorWithDeviceWhite:.95 alpha:1.0];
-        tableView.orientation = TDListViewOrientationPortrait;
+        listView.backgroundColor = [NSColor colorWithDeviceWhite:.95 alpha:1.0];
+        listView.orientation = TDListViewOrientationPortrait;
     } else {
-        tableView.backgroundColor = [NSColor colorWithDeviceWhite:.9 alpha:1.0];
+        listView.backgroundColor = [NSColor colorWithDeviceWhite:.9 alpha:1.0];
         if (FUPlugInViewPlacementIsVerticalSplitView(mask)) {
-            tableView.orientation = TDListViewOrientationPortrait;
+            listView.orientation = TDListViewOrientationPortrait;
         } else {
-            tableView.orientation = TDListViewOrientationLandscape;
+            listView.orientation = TDListViewOrientationLandscape;
         }
     }
 }
 
 
 - (void)viewDidAppear {
-    [self reloadAllTabModels];
+    [self updateAllTabModels];
 }
 
 
@@ -134,7 +135,7 @@
 
 
 - (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i {
-    FUTabListItemView *rv = [lv dequeueReusableItemViewWithIdentifier:[FUTabListItemView identifier]];
+    FUTabListItemView *rv = [lv dequeueReusableItemViewWithIdentifier:[FUTabListItemView reuseIdentifier]];
     
     if (!rv) {
         rv = [[[FUTabListItemView alloc] init] autorelease];
@@ -142,7 +143,6 @@
     
     rv.viewController = self;
     rv.model = [tabModels objectAtIndex:i];
-    [rv setNeedsDisplay:YES];
     
     return rv;
 }
@@ -152,13 +152,12 @@
 #pragma mark TDListViewDelegate
 
 - (CGFloat)listView:(TDListView *)lv heightForItemAtIndex:(NSInteger)i {
-    NSRect scrollFrame = [scrollView frame];
+    NSSize scrollSize = [scrollView frame].size;
     
-    BOOL isVert = scrollFrame.size.height > scrollFrame.size.width;
-    if (isVert) {
-        return floor(scrollFrame.size.width * ASPECT_RATIO);
+    if (TDListViewOrientationPortrait == listView.orientation) {
+        return floor(scrollSize.width * ASPECT_RATIO);
     } else {
-        return floor(scrollFrame.size.height * 1 / ASPECT_RATIO);
+        return floor(scrollSize.height * 1 / ASPECT_RATIO);
     }
 }
 
@@ -178,7 +177,8 @@
 #pragma mark FUWindowControllerNotifcations
 
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
-    [self reloadAllTabModels];
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
+    [self updateAllTabModelsFromIndex:i];
     
     id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self startObserveringTabController:tc];
@@ -192,7 +192,8 @@
 
 
 - (void)windowControllerDidCloseTab:(NSNotification *)n {
-    [self reloadAllTabModels];
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
+    [self updateAllTabModelsFromIndex:i];
 }
 
 
@@ -254,17 +255,37 @@
 }
 
 
-- (void)reloadAllTabModels {
-    NSArray *wvs = [self webViews];
-    self.tabModels = [NSMutableArray arrayWithCapacity:[wvs count]];
+- (void)updateAllTabModels {
+    [self updateAllTabModelsFromIndex:0];
+}
     
-    NSInteger i = 0;
-    for (WebView *wv in wvs) {
+
+- (void)updateAllTabModelsFromIndex:(NSInteger)startIndex {
+
+    NSArray *wvs = [self webViews];
+    NSInteger webViewsCount = [wvs count];
+    
+    NSMutableArray *newModels = nil;
+    if (startIndex && tabModels) {
+        newModels = [[[tabModels subarrayWithRange:NSMakeRange(0, startIndex)] mutableCopy] autorelease];
+    } else {
+        newModels = [NSMutableArray arrayWithCapacity:webViewsCount];
+    }
+
+    NSInteger newModelsCount = [newModels count];
+    NSInteger i = startIndex;
+    for ( ; i < webViewsCount; i++) {
+        WebView *wv = [wvs objectAtIndex:i];
         FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
         [self updateTabModel:model fromWebView:wv atIndex:i];
-        [tabModels addObject:model];
-        i++;
+        if (i < newModelsCount) {
+            [newModels replaceObjectAtIndex:i withObject:model];
+        } else {
+            [newModels addObject:model];
+        }
     }
+    
+    self.tabModels = newModels;
     
     id wc = [self windowController];
     for (id tc in [wc tabControllers]) {
@@ -273,7 +294,7 @@
     
     [self updateSelectedTabModel];
     
-    [tableView reloadData];
+    [listView reloadData];
 }
 
 
@@ -287,7 +308,7 @@
     selectedModel = [tabModels objectAtIndex:selectedIndex];
     selectedModel.selected = YES;
     
-    [tableView setSelectedItemIndex:selectedIndex];
+    [listView setSelectedItemIndex:selectedIndex];
 }
 
 
@@ -305,8 +326,8 @@
 
 
 - (void)updateTabModel:(FUTabModel *)model fromWebView:(WebView *)wv atIndex:(NSInteger)i {
+    model.loading = [wv isLoading];
     model.index = i;
-    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, ASPECT_RATIO)];
 
     NSString *title = [wv mainFrameTitle];
     if (![title length]) {
@@ -319,7 +340,9 @@
     model.title = title;
     model.URLString = [wv mainFrameURL];
     model.estimatedProgress = [wv estimatedProgress];
-    model.loading = [wv isLoading];
+
+    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, ASPECT_RATIO)];
+    model.scaledImage = nil;
 }
 
 
@@ -348,7 +371,7 @@
     return FUPlugInViewPlacementIsHorizontalSplitView(mask);
 }
 
-@synthesize tableView;
+@synthesize listView;
 @synthesize scrollView;
 @synthesize plugIn;
 @synthesize plugInAPI;

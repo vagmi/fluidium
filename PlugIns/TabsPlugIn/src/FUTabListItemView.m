@@ -37,12 +37,19 @@ static NSColor *sInnerRectStrokeColor = nil;
 @interface NSImage (FUAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
 @end
 
 @interface FUTabListItemView ()
 - (NSImage *)imageNamed:(NSString *)name scaledToSize:(NSSize)size;
 - (void)startObserveringModel:(FUTabModel *)m;
 - (void)stopObserveringModel:(FUTabModel *)m;
+
+- (void)startDrawHiRezTimer;
+- (void)drawHiRezTimerFired:(NSTimer *)t;
+- (void)killDrawHiRezTimer;
+
+@property (nonatomic, retain) NSTimer *drawHiRezTimer;
 @end
 
 @implementation FUTabListItemView
@@ -89,13 +96,13 @@ static NSColor *sInnerRectStrokeColor = nil;
 }
 
 
-+ (NSString *)identifier {
++ (NSString *)reuseIdentifier {
     return NSStringFromClass(self);
 }
 
 
 - (id)init {
-    return [self initWithFrame:NSZeroRect reuseIdentifier:[[self class] identifier]];
+    return [self initWithFrame:NSZeroRect reuseIdentifier:[[self class] reuseIdentifier]];
 }
 
 
@@ -118,21 +125,32 @@ static NSColor *sInnerRectStrokeColor = nil;
         [progressIndicator setIndeterminate:YES];
         [progressIndicator sizeToFit];
         [self addSubview:progressIndicator];
-    }
+}
     return self;
 }
 
 
 - (void)dealloc {
+    [self killDrawHiRezTimer];
+    
     self.model = nil;
     self.closeButton = nil;
     self.progressIndicator = nil;
     self.viewController = nil;
+    self.drawHiRezTimer = nil;
     [super dealloc];
 }
 
 
+- (void)drawHiRezLater {
+    //NSLog(@"%s YES %@", __PRETTY_FUNCTION__, model);
+    drawHiRez = NO;
+    [self startDrawHiRezTimer];
+}
+
+
 - (void)drawRect:(NSRect)dirtyRect {
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, model);
     [closeButton setTag:model.index];
     [closeButton setTarget:viewController];
 
@@ -164,19 +182,36 @@ static NSColor *sInnerRectStrokeColor = nil;
     roundRect = NSInsetRect(roundRect, 4, 4);
     roundRect = NSOffsetRect(roundRect, 0, 12);
     roundRect.size.height -= 10;
+
+    NSSize imgSize = roundRect.size;
+    imgSize.width = floor(imgSize.width - THUMBNAIL_DIFF);
+    imgSize.height = floor(imgSize.height - THUMBNAIL_DIFF);
+
+    NSImage *img = model.scaledImage;
+    if (!img || !NSEqualSizes(imgSize, [img size])) {
+        CGFloat alpha = 1;
+        BOOL hiRez = YES;
+        if (/*!drawHiRez || */model.isLoading) {
+            alpha = .4;
+            hiRez = NO;
+        }
+        
+        [model.image setFlipped:[self isFlipped]];
+        
+        img = [model.image scaledImageOfSize:imgSize alpha:alpha hiRez:hiRez];
+        model.scaledImage = img;
+    }
     
-    NSImage *img = model.image;
-    [img setFlipped:[self isFlipped]];
-
     NSGradient *grad = nil;
-    if (img) {
-        NSSize size = [img size];
-        NSBitmapImageRep *bitmap = [[img representations] objectAtIndex:0];
+    imgSize = [img size];
 
-        NSColor *fillTopColor = [bitmap colorAtX:size.width - BGCOLOR_INSET y:BGCOLOR_INSET];
+    if (img) {
+        NSBitmapImageRep *bitmap = [[model.image representations] objectAtIndex:0];
+
+        NSColor *fillTopColor = [bitmap colorAtX:imgSize.width - BGCOLOR_INSET y:BGCOLOR_INSET];
         fillTopColor = fillTopColor ? fillTopColor : [NSColor whiteColor];
 
-        NSColor *fillBottomColor = [bitmap colorAtX:BGCOLOR_INSET y:size.height - BGCOLOR_INSET];
+        NSColor *fillBottomColor = [bitmap colorAtX:BGCOLOR_INSET y:imgSize.height - BGCOLOR_INSET];
         fillBottomColor = fillBottomColor ? fillBottomColor : [NSColor whiteColor];
         grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
     } else {
@@ -189,15 +224,8 @@ static NSColor *sInnerRectStrokeColor = nil;
     // draw image
     if (bounds.size.width < 64.0) return; // dont draw anymore when you're really small. looks bad.
 
-    NSSize imgSize = roundRect.size;
-    imgSize.width = floor(imgSize.width - THUMBNAIL_DIFF);
-    imgSize.height = floor(imgSize.height - THUMBNAIL_DIFF);
-
-    //    img = [img scaledImageOfSize:imgSize progress:model.estimatedProgress];
-    img = [img scaledImageOfSize:imgSize alpha:model.isLoading ? .4 : 1];
-    
     if (!img) return;
-    imgSize = [img size];
+
     NSRect srcRect = NSMakeRect(0, 0, imgSize.width, imgSize.height);
     NSRect destRect = NSOffsetRect(srcRect, floor(roundRect.origin.x + THUMBNAIL_DIFF/2), floor(roundRect.origin.y + THUMBNAIL_DIFF/2));
     [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
@@ -210,6 +238,8 @@ static NSColor *sInnerRectStrokeColor = nil;
     }
     [progressIndicator setNeedsDisplay:YES];
     [closeButton setNeedsDisplay:YES];
+    
+    drawHiRez = NO; // reset
 }
 
 
@@ -247,14 +277,37 @@ static NSColor *sInnerRectStrokeColor = nil;
 }
 
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object == model) {
+- (void)observeValueForKeyPath:(NSString *)path ofObject:(id)obj change:(NSDictionary *)change context:(void *)ctx {
+    if (obj == model) {
         [self setNeedsDisplay:YES];
     }
+}
+
+
+- (void)startDrawHiRezTimer {
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, model);
+    [self killDrawHiRezTimer];
+    self.drawHiRezTimer = [NSTimer scheduledTimerWithTimeInterval:.3 target:self selector:@selector(drawHiRezTimerFired:) userInfo:nil repeats:NO];
+}
+
+
+- (void)drawHiRezTimerFired:(NSTimer *)t {
+    if ([drawHiRezTimer isValid]) {
+        //NSLog(@"%s %@", __PRETTY_FUNCTION__, model);
+        drawHiRez = YES;
+        [super setNeedsDisplay:YES]; // call super to avoid setting flag
+    }
+}
+
+
+- (void)killDrawHiRezTimer {
+    [drawHiRezTimer invalidate];
+    self.drawHiRezTimer = nil;
 }
 
 @synthesize model;
 @synthesize closeButton;
 @synthesize progressIndicator;
 @synthesize viewController;
+@synthesize drawHiRezTimer;
 @end

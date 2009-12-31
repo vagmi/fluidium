@@ -15,6 +15,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSImage (FUAdditions)
-- (NSImage *)scaledImageOfSize:(NSSize)size;
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
+- (NSImage *)scaledImageOfSize:(NSSize)size; // alpha=1, hiRez=YES
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha; // hiRez=YES
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
 @end
