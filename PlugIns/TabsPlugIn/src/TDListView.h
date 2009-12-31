@@ -33,13 +33,14 @@ typedef enum {
     NSInteger selectedItemIndex;
     TDListViewOrientation orientation;
     
-    NSMutableArray *visibleItemViews;
+    NSMutableArray *itemViews;
     TDListItemViewQueue *itemViewQueue;
 }
 
 - (void)reloadData;
-
 - (id)dequeueReusableItemViewWithIdentifier:(NSString *)s;
+- (NSInteger)indexForItemAtPoint:(NSPoint)p;
+- (id)cellForItemAtIndex:(NSInteger)i;
 
 @property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) id <TDListViewDataSource>dataSource;
@@ -48,6 +49,8 @@ typedef enum {
 @property (nonatomic, assign) CGFloat itemHeight;
 @property (nonatomic, assign) NSInteger selectedItemIndex;
 @property (nonatomic, assign) TDListViewOrientation orientation;
+@property (nonatomic, readonly, getter=isPortrait) BOOL portrait;
+@property (nonatomic, readonly, getter=isLandscape) BOOL landscape;
 @end
 
 @protocol TDListViewDataSource <NSObject>
@@ -62,5 +65,6 @@ typedef enum {
 - (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i;
 - (NSInteger)listView:(TDListView *)lv willSelectRowAtIndex:(NSInteger)i;
 - (void)listView:(TDListView *)lv didSelectRowAtIndex:(NSInteger)i;
+- (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt;
 @end
 

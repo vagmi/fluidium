@@ -1310,7 +1310,7 @@
     }
     // BEGIN FLUIDIUM
     else if ([theEvent clickCount] > 1) {
-        [(id)[[self window] windowController] addNewTabInForeground:self];
+        [[[self window] windowController] addNewTabInForeground:self];
     }
     // END FLUIDIUM
 }

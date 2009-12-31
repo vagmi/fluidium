@@ -21,7 +21,7 @@
 @interface TDListView ()
 - (void)layoutItems;
 
-@property (nonatomic, retain) NSMutableArray *visibleItemViews;
+@property (nonatomic, retain) NSMutableArray *itemViews;
 @property (nonatomic, retain) TDListItemViewQueue *itemViewQueue;
 @end
 
@@ -41,11 +41,53 @@
 - (void)dealloc {
     self.scrollView = nil;
     self.backgroundColor = nil;
-    self.visibleItemViews = nil;
+    self.itemViews = nil;
     self.itemViewQueue = nil;
     [super dealloc];
 }
 
+
+#pragma mark -
+#pragma mark Public
+
+- (void)reloadData {
+    [self setNeedsDisplay:YES];
+}
+
+
+- (id)dequeueReusableItemViewWithIdentifier:(NSString *)s {
+    TDListItemView *itemView = [itemViewQueue dequeueWithIdentifier:s];
+    [itemView prepareForReuse];
+    return itemView;
+}
+
+
+- (NSInteger)indexForItemAtPoint:(NSPoint)p {
+    NSInteger i = 0;
+    for (id itemView in itemViews) {
+        if (NSPointInRect(p, [itemView frame])) {
+            return i;
+        }
+        i++;
+    }
+    return NSNotFound;
+}
+
+
+- (id)cellForItemAtIndex:(NSInteger)i {
+    id listView = nil;
+    
+    NSInteger c = [itemViews count];
+    if (c && i >= 0 && i < c) {
+        listView = [itemViews objectAtIndex:i];
+    }
+
+    return listView;
+}
+
+
+#pragma mark -
+#pragma mark NSView
 
 - (BOOL)isFlipped {
     return YES;
@@ -62,17 +104,14 @@
     
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
     
-    TDListItemView *clickedView = nil;
-    NSInteger i = 0;
-    for (TDListItemView *rv in visibleItemViews) {
-        if (NSPointInRect(p, [rv frame])) {
-            clickedView = rv;
-            break;
+    NSInteger i = [self indexForItemAtPoint:p];
+    if (NSNotFound == i) {
+        if ([evt clickCount] > 1) {
+            if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
+                [delegate listView:self emptyAreaWasDoubleClicked:evt];
+            }
         }
-        i++;
-    }
-    
-    if (clickedView) {
+    } else {
         self.selectedItemIndex = i;
     }
 }
@@ -89,30 +128,18 @@
 }
 
 
-- (void)reloadData {
-    [self setNeedsDisplay:YES];
-}
-
-
-- (id)dequeueReusableItemViewWithIdentifier:(NSString *)s {
-    TDListItemView *itemView = [itemViewQueue dequeueWithIdentifier:s];
-    [itemView prepareForReuse];
-    return itemView;
-}
-
-
 - (void)layoutItems {
     NSAssert(dataSource, @"TDListView must have a dataSource before doing layout");
     
-    NSRect scrollBounds = [scrollView bounds];
+    NSRect scrollViewBounds = [scrollView bounds];
     NSSize scrollContentSize = [scrollView contentSize];
     BOOL isPortrait = TDListViewOrientationPortrait == orientation;
 
     NSSize scrollSize = NSZeroSize;
     if (isPortrait) {
-        scrollSize = NSMakeSize(scrollContentSize.width, scrollBounds.size.height);
+        scrollSize = NSMakeSize(scrollContentSize.width, scrollViewBounds.size.height);
     } else {
-        scrollSize = NSMakeSize(scrollBounds.size.width, scrollContentSize.height);
+        scrollSize = NSMakeSize(scrollViewBounds.size.width, scrollContentSize.height);
     }
         
     CGFloat x = 0;
@@ -120,13 +147,13 @@
     CGFloat w = isPortrait ? scrollSize.width : 0;
     CGFloat h = isPortrait ? 0 : scrollSize.height;
 
-    for (TDListItemView *itemView in visibleItemViews) {
+    for (TDListItemView *itemView in itemViews) {
         [itemViewQueue enqueue:itemView withIdentifier:itemView.reuseIdentifier];
         [itemView removeFromSuperview];
     }
     
     NSInteger c = [dataSource numberOfItemsInListView:self];
-    self.visibleItemViews = [NSMutableArray arrayWithCapacity:c];
+    self.itemViews = [NSMutableArray arrayWithCapacity:c];
 
     NSInteger i = 0;
     for ( ; i < c; i++) {
@@ -148,7 +175,7 @@
         [listItem setFrame:NSMakeRect(x, y, w, h)];
         [self addSubview:listItem];
 
-        [visibleItemViews addObject:listItem];
+        [itemViews addObject:listItem];
         
         if (isPortrait) {
             y += wh; // add height for next row
@@ -188,6 +215,16 @@
     }
 }
 
+
+- (BOOL)isPortrait {
+    return TDListViewOrientationPortrait == orientation;
+}
+
+
+- (BOOL)landscape {
+    return TDListViewOrientationLandscape == orientation;
+}
+
 @synthesize scrollView;
 @synthesize dataSource;
 @synthesize delegate;
@@ -195,6 +232,6 @@
 @synthesize itemHeight;
 @synthesize selectedItemIndex;
 @synthesize orientation;
-@synthesize visibleItemViews;
+@synthesize itemViews;
 @synthesize itemViewQueue;
 @end

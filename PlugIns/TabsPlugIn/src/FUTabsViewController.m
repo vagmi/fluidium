@@ -30,6 +30,7 @@
 
 @interface NSObject ()
 // FUWindowController
+- (void)openTab:(id)sender;
 - (NSInteger)selectedTabIndex;
 - (void)setSelectedTabIndex:(NSInteger)i;
 - (NSArray *)tabControllers;
@@ -170,6 +171,11 @@
 - (void)listView:(TDListView *)lv didSelectRowAtIndex:(NSInteger)i {
     id wc = [self windowController];
     [wc setSelectedTabIndex:i];
+}
+
+
+- (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt {
+    [[[self.view window] windowController] openTab:self];
 }
 
 
