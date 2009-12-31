@@ -363,7 +363,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL exists = [mgr fileExistsAtPath:imageEndPath];
     
-    if (!exists) {        
+    if (!exists && imageStartPath) {        
         [mgr copyItemAtPath:imageStartPath toPath:imageEndPath error:nil];
         // on first run, this generic app icon will have to do. on second run, icon will appear
         //iconImageName = @"NSApplicationIcon";

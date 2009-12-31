@@ -52,6 +52,11 @@
 }
 
 
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+
 // this is necessary to prevent NSBeep() on every key press in the findPanel
 - (BOOL)makeFirstResponder:(NSResponder *)resp {
     FUWindowController *wc = [self windowController];
@@ -68,10 +73,6 @@
 - (void)keyDown:(NSEvent *)evt {
 }
 
-
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
 
 - (void)mouseMoved:(NSEvent *)evt {
     [super mouseMoved:evt];

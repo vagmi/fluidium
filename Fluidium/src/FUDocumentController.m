@@ -23,6 +23,7 @@
 #import "FUDownloadWindowController.h"
 
 #import <WebKit/WebKit.h>
+#import <Growl/Growl.h>
 
 #define OPEN_NEW_TAB 0
 
@@ -39,13 +40,13 @@
 @implementation FUDocumentController
 
 + (FUDocumentController *)instance {
-    return [[NSApplication sharedApplication] delegate];
+    return (id)[[NSApplication sharedApplication] delegate];
 }
 
 
 - (id)init {
     if (self = [super init]) {
-        [GrowlApplicationBridge setGrowlDelegate:self];
+        [GrowlApplicationBridge setGrowlDelegate:(NSObject <GrowlApplicationBridgeDelegate>*)self];
     }
     return self;
 }

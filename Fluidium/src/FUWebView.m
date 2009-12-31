@@ -19,12 +19,17 @@
 #import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
 #import "FUNotifications.h"
+#import "WebViewPrivate.h"
 #import "WebFrameViewPrivate.h"
 
 #define VERTICAL_SCROLL_WIDTH 40
 
-@interface NSObject ()
-- (void)_layoutIfNeeded;
+//@interface NSObject ()
+//- (void)_layoutIfNeeded;
+//@end
+
+@interface NSEvent ()
+- (CGFloat)magnification;
 @end
 
 @interface FUWebView ()
@@ -66,7 +71,6 @@
         [nc addObserver:self selector:@selector(webViewProgressStarted:) name:WebViewProgressStartedNotification object:nil];
         [nc addObserver:self selector:@selector(webViewProgressEstimateChanged:) name:WebViewProgressEstimateChangedNotification object:nil];
         [nc addObserver:self selector:@selector(webViewProgressFinished:) name:WebViewProgressFinishedNotification object:nil];
-        
     }
     return self;
 }
@@ -90,6 +94,70 @@
 - (NSString *)applicationNameForUserAgent {
     return [[FUApplication instance] appName];
 }
+
+
+#pragma mark -
+#pragma mark Events
+
+//#if BUILD_TARGET_SNOW_LEOPARD
+- (void)beginGestureWithEvent:(NSEvent *)evt {
+    magnified = NO;
+}
+
+
+- (void)endGestureWithEvent:(NSEvent *)evt {
+    magnified = YES;
+}
+
+
+- (void)magnifyWithEvent:(NSEvent *)evt {
+    if (!magnified) {
+        BOOL zoomTextOnly = [[FUUserDefaults instance] zoomTextOnly];
+        
+        CGFloat magnification = [evt magnification];
+        if (magnification > 0) {
+            if (zoomTextOnly) {
+                [self makeTextLarger:nil];
+            } else {
+                [self zoomPageIn:nil];
+            }
+            magnified = YES;
+        } else if (magnification < 0) {
+            if (zoomTextOnly) {
+                [self makeTextSmaller:nil];
+            } else {
+                [self zoomPageOut:nil];
+            }
+            magnified = YES;
+        }
+    }
+}
+
+
+- (void)swipeWithEvent:(NSEvent *)evt {
+    CGFloat delta = [evt deltaX];
+
+    if (delta > 0) { // left
+        if ([self canGoBack]) {
+            if ([self isLoading]) {
+                [self stopLoading:nil];
+            }
+            [self goBack:nil];
+        } else {
+            NSBeep();
+        }
+    } else if (delta < 0) { // right
+        if ([self canGoForward]) {
+            if ([self isLoading]) {
+                [self stopLoading:nil];
+            }
+            [self goForward:nil];
+        } else {
+            NSBeep();
+        }
+    }
+}
+//#endif
 
 
 #pragma mark -

@@ -19,6 +19,8 @@
     NSImage *documentViewImage;
     BOOL documentViewImageNeedsUpdate;
     NSInteger estimateChangeCount;
+    
+    BOOL magnified;
 }
 
 - (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
