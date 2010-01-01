@@ -163,9 +163,6 @@
 
 
 - (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt {
-    //FUWindowController *wc = [self windowController];
-    //wc.typingInFindPanel = NO; // ??
-    
     NSInteger i = 0;
     for ( ; i < [[FUUserDefaults instance] numberOfBrowsaPlugIns]; i++) {
         NSString *identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", i];

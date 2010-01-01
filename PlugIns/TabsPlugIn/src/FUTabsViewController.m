@@ -152,10 +152,10 @@
 #pragma mark -
 #pragma mark TDListViewDelegate
 
-- (CGFloat)listView:(TDListView *)lv heightForItemAtIndex:(NSInteger)i {
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i {
     NSSize scrollSize = [scrollView frame].size;
     
-    if (TDListViewOrientationPortrait == listView.orientation) {
+    if (listView.isPortrait) {
         return floor(scrollSize.width * ASPECT_RATIO);
     } else {
         return floor(scrollSize.height * 1 / ASPECT_RATIO);
@@ -163,7 +163,7 @@
 }
 
 
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forItemAtIndex:(NSInteger)i {
     
 }
 

@@ -63,6 +63,7 @@ extern NSString *const FUTabControllerProgressDidStartNotification;
 extern NSString *const FUTabControllerProgressDidChangeNotification;
 extern NSString *const FUTabControllerProgressDidFinishNotification;
 
+extern NSString *const FUTabControllerDidStartProvisionalLoadNotification;
 extern NSString *const FUTabControllerDidCommitLoadNotification;
 extern NSString *const FUTabControllerDidFinishLoadNotification;
 extern NSString *const FUTabControllerDidFailLoadNotification;

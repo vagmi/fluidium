@@ -76,11 +76,6 @@
 
 - (void)editBookmarkSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)code contextInfo:(FUBookmark *)bmark;
 
-- (void)tabBarShownDidChange:(NSNotification *)n;
-- (void)tabBarHiddenForSingleTabDidChange:(NSNotification *)n;
-- (void)bookmarkBarShownDidChange:(NSNotification *)n;
-- (void)statusBarShownDidChange:(NSNotification *)n;
-
 - (void)toggleFindPanel:(BOOL)show;
 - (BOOL)findPanelSearchField:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor;
 @end
@@ -1111,6 +1106,53 @@
 
 
 #pragma mark -
+#pragma mark FUTabControllerNotifications
+
+- (void)tabControllerProgressDidStart:(NSNotification *)n {
+    [self clearProgress];
+}
+
+
+- (void)tabControllerProgressDidChange:(NSNotification *)n {
+    FUTabController *tc = [n object];
+    if (tc == [self selectedTabController]) {
+        [self displayEstimatedProgress];
+    }
+}
+
+
+- (void)tabControllerProgressDidFinish:(NSNotification *)n {
+    FUTabController *tc = [n object];
+    if (tc == [self selectedTabController]) {
+        WebView *wv = [tc webView];
+        if ([[wv mainFrameURL] hasPrefix:kFUAboutBlank]) {
+            [locationComboBox setStringValue:[[[wv backForwardList] currentItem] URLString]];
+        } else {
+            tc.lastLoadFailed = NO;
+        }
+        [self clearProgressInFuture];
+    }
+}
+
+
+- (void)tabControllerDidStartProvisionalLoad:(NSNotification *)n {
+    self.typingInFindPanel = NO;
+    [self hideFindPanel:self];
+}
+
+
+- (void)tabControllerDidCommitLoad:(NSNotification *)n {
+    FUTabController *tc = [n object];
+    
+    NSString *finalURLString = tc.URLString;
+    NSString *initialURLString = tc.initialURLString;
+    
+    [self addRecentURL:finalURLString];
+    [self addRecentURL:initialURLString]; // if they are the same, this will not be added
+}
+
+
+#pragma mark -
 #pragma mark Private
 
 - (void)setUpTabBar {
@@ -1209,6 +1251,7 @@
     [nc addObserver:self selector:@selector(tabControllerProgressDidStart:) name:FUTabControllerProgressDidStartNotification object:tc];
     [nc addObserver:self selector:@selector(tabControllerProgressDidChange:) name:FUTabControllerProgressDidChangeNotification object:tc];
     [nc addObserver:self selector:@selector(tabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:tc];
+    [nc addObserver:self selector:@selector(tabControllerDidStartProvisionalLoad:) name:FUTabControllerDidStartProvisionalLoadNotification object:tc];
     [nc addObserver:self selector:@selector(tabControllerDidCommitLoad:) name:FUTabControllerDidCommitLoadNotification object:tc];
     
     // bind title
@@ -1288,44 +1331,6 @@
         }
     }
     return nil;
-}
-
-
-- (void)tabControllerProgressDidStart:(NSNotification *)n {
-    [self clearProgress];
-}
-
-
-- (void)tabControllerProgressDidChange:(NSNotification *)n {
-    FUTabController *tc = [n object];
-    if (tc == [self selectedTabController]) {
-        [self displayEstimatedProgress];
-    }
-}
-
-
-- (void)tabControllerProgressDidFinish:(NSNotification *)n {
-    FUTabController *tc = [n object];
-    if (tc == [self selectedTabController]) {
-        WebView *wv = [tc webView];
-        if ([[wv mainFrameURL] hasPrefix:kFUAboutBlank]) {
-            [locationComboBox setStringValue:[[[wv backForwardList] currentItem] URLString]];
-        } else {
-            tc.lastLoadFailed = NO;
-        }
-        [self clearProgressInFuture];
-    }
-}
-
-
-- (void)tabControllerDidCommitLoad:(NSNotification *)n {
-    FUTabController *tc = [n object];
-    
-    NSString *finalURLString = tc.URLString;
-    NSString *initialURLString = tc.initialURLString;
-    
-    [self addRecentURL:finalURLString];
-    [self addRecentURL:initialURLString]; // if they are the same, this will not be added
 }
 
 

@@ -38,6 +38,7 @@ NSString *const FUTabControllerProgressDidStartNotification = @"FUTabControllerP
 NSString *const FUTabControllerProgressDidChangeNotification = @"FUTabControllerProgressDidChangeNotification";
 NSString *const FUTabControllerProgressDidFinishNotification = @"FUTabControllerProgressDidFinishNotification";
 
+NSString *const FUTabControllerDidStartProvisionalLoadNotification = @"FUTabControllerDidStartProvisionalLoadNotification";
 NSString *const FUTabControllerDidCommitLoadNotification = @"FUTabControllerDidCommitLoadNotification";
 NSString *const FUTabControllerDidFinishLoadNotification = @"FUTabControllerDidFinishLoadNotification";
 NSString *const FUTabControllerDidFailLoadNotification = @"FUTabControllerDidFailLoadNotification";

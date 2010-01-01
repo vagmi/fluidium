@@ -16,7 +16,7 @@
 #import "TDListItemView.h"
 #import "TDListItemViewQueue.h"
 
-#define DEFAULT_ITEM_HEIGHT 44
+#define DEFAULT_ITEM_EXTENT 44
 
 @interface TDListView ()
 - (void)layoutItems;
@@ -30,7 +30,7 @@
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [NSColor whiteColor];
-        self.itemHeight = DEFAULT_ITEM_HEIGHT;
+        self.itemExtent = DEFAULT_ITEM_EXTENT;
         
         self.itemViewQueue = [[[TDListItemViewQueue alloc] init] autorelease];
     }
@@ -51,6 +51,7 @@
 #pragma mark Public
 
 - (void)reloadData {
+    [self layoutItems];
     [self setNeedsDisplay:YES];
 }
 
@@ -133,9 +134,9 @@
     
     NSRect scrollViewBounds = [scrollView bounds];
     NSSize scrollContentSize = [scrollView contentSize];
-    BOOL isPortrait = TDListViewOrientationPortrait == orientation;
 
     NSSize scrollSize = NSZeroSize;
+    BOOL isPortrait = self.isPortrait;
     if (isPortrait) {
         scrollSize = NSMakeSize(scrollContentSize.width, scrollViewBounds.size.height);
     } else {
@@ -161,9 +162,9 @@
         NSAssert1(listItem, @"nil rowView returned for index: %d", i);
         
         // get row height
-        NSInteger wh = itemHeight;
-        if (delegate && [delegate respondsToSelector:@selector(listView:heightForItemAtIndex:)]) {
-            wh = [delegate listView:self heightForItemAtIndex:i];
+        NSInteger wh = itemExtent;
+        if (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]) {
+            wh = [delegate listView:self extentForItemAtIndex:i];
         }        
         
         if (isPortrait) {
@@ -229,7 +230,7 @@
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize backgroundColor;
-@synthesize itemHeight;
+@synthesize itemExtent;
 @synthesize selectedItemIndex;
 @synthesize orientation;
 @synthesize itemViews;

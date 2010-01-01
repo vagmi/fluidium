@@ -331,6 +331,8 @@ typedef enum {
     
     self.URLString = [[[[frame provisionalDataSource] request] URL] absoluteString];
     self.title = NSLocalizedString(@"Loading...", @"");
+
+    [self postNotificationName:FUTabControllerDidStartProvisionalLoadNotification];
 }
 
 

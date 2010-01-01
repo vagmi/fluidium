@@ -29,7 +29,7 @@ typedef enum {
     id <TDListViewDataSource>dataSource;
     id <TDListViewDelegate>delegate;
     NSColor *backgroundColor;
-    CGFloat itemHeight;
+    CGFloat itemExtent;
     NSInteger selectedItemIndex;
     TDListViewOrientation orientation;
     
@@ -46,7 +46,7 @@ typedef enum {
 @property (nonatomic, assign) id <TDListViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDListViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
-@property (nonatomic, assign) CGFloat itemHeight;
+@property (nonatomic, assign) CGFloat itemExtent;
 @property (nonatomic, assign) NSInteger selectedItemIndex;
 @property (nonatomic, assign) TDListViewOrientation orientation;
 @property (nonatomic, readonly, getter=isPortrait) BOOL portrait;
@@ -61,8 +61,8 @@ typedef enum {
 
 @protocol TDListViewDelegate <NSObject>
 @optional
-- (CGFloat)listView:(TDListView *)lv heightForItemAtIndex:(NSInteger)i;
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forRowAtIndex:(NSInteger)i;
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i; // should return height if isPortrait. shoud return width if isLandscape
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forItemAtIndex:(NSInteger)i;
 - (NSInteger)listView:(TDListView *)lv willSelectRowAtIndex:(NSInteger)i;
 - (void)listView:(TDListView *)lv didSelectRowAtIndex:(NSInteger)i;
 - (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt;
