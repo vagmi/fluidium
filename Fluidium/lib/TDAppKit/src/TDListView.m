@@ -98,24 +98,6 @@
 }
 
 
-- (id)viewForItemAtIndex:(NSInteger)i {
-    id result = nil;
-    
-    // fix this.
-    for (TDListItemView *itemView in [self subviews]) {
-        NSInteger currIndex = itemView.index;
-        if (i == currIndex) {
-            result = itemView;
-            break;
-        } else if (i < currIndex) {
-            break;
-        }
-    }
-    
-    return result;
-}
-
-
 #pragma mark -
 #pragma mark NSView
 

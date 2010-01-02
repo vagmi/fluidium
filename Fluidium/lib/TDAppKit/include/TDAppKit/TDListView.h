@@ -39,7 +39,6 @@ typedef enum {
 - (void)reloadData;
 - (id)dequeueReusableItemWithIdentifier:(NSString *)s;
 - (NSInteger)indexForItemAtPoint:(NSPoint)p;
-- (id)viewForItemAtIndex:(NSInteger)i;
 
 @property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) id <TDListViewDataSource>dataSource;
