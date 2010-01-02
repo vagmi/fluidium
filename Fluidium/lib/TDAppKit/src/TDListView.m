@@ -43,7 +43,6 @@
         [self setPostsBoundsChangedNotifications:YES];
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        //[nc addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self];
         [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:self];
     }
     return self;
@@ -58,11 +57,6 @@
     self.queue = nil;
     [super dealloc];
 }
-
-
-//- (void)viewFrameDidChange:(NSNotification *)n {
-//
-//}
 
 
 - (void)viewBoundsDidChange:(NSNotification *)n {
@@ -126,11 +120,6 @@
     } else {
         self.selectedItemIndex = i;
     }
-}
-
-
-- (void)viewWillDraw {
-    //[self layoutItems];
 }
 
 
@@ -250,10 +239,8 @@
     }
     [self setFrame:frame];
     
-    //NSLog(@"%s frame: %@, bounds: %@", _cmd, NSStringFromRect([self frame]), NSStringFromRect([self bounds]));
     //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([[scrollView contentView] bounds]));
-    //NSLog(@"queue count: %d", [queue count]);
-    //NSLog(@"view count: %d", [[self subviews] count]);
+    //NSLog(@"view count: %d, queue count: %d", [[self subviews] count], [queue count]);
 }
 
 @synthesize scrollView;
