@@ -323,10 +323,14 @@
 
 
 - (void)updateTabModelAtIndex:(NSInteger)i {
-    WebView *wv = [[self webViews] objectAtIndex:i];
-    
-    FUTabModel *model = [tabModels objectAtIndex:i];
-    [self updateTabModel:model fromWebView:wv atIndex:i];
+    NSArray *wvs = [self webViews];
+                    
+    if (i < [wvs count]) {
+        WebView *wv = [wvs objectAtIndex:i];
+        
+        FUTabModel *model = [tabModels objectAtIndex:i];
+        [self updateTabModel:model fromWebView:wv atIndex:i];
+    }
 }
 
 
