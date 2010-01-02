@@ -167,7 +167,7 @@
 }
 
 
-- (void)listView:(TDListView *)lv didSelectRowAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSInteger)i {
     id wc = [self windowController];
     [wc setSelectedTabIndex:i];
 }

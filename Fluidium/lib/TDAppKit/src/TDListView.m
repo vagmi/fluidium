@@ -25,8 +25,8 @@
 @interface TDListView ()
 - (void)layoutItems;
 - (void)viewBoundsDidChange:(NSNotification *)n;
+- (NSInteger)subviewIndexForItemAtPoint:(NSPoint)p;
 
-//@property (nonatomic, retain) NSMutableArray *itemViews;
 @property (nonatomic, retain) TDListItemViewQueue *queue;
 @end
 
@@ -55,7 +55,6 @@
     
     self.scrollView = nil;
     self.backgroundColor = nil;
-    //    self.itemViews = nil;
     self.queue = nil;
     [super dealloc];
 }
@@ -67,7 +66,7 @@
 
 
 - (void)viewBoundsDidChange:(NSNotification *)n {
-    //    [self layoutItems];
+    [self layoutItems];
 }
 
 
@@ -75,7 +74,7 @@
 #pragma mark Public
 
 - (void)reloadData {
-    //    [self layoutItems];
+    [self layoutItems];
     [self setNeedsDisplay:YES];
 }
 
@@ -89,9 +88,9 @@
 
 - (NSInteger)indexForItemAtPoint:(NSPoint)p {
     NSInteger i = 0;
-    for (TDListItemView *itemView in [queue allObjects]) {
+    for (TDListItemView *itemView in [self subviews]) {
         if (NSPointInRect(p, [itemView frame])) {
-            return i;
+            return itemView.index;
         }
         i++;
     }
@@ -102,6 +101,8 @@
 - (id)viewForItemAtIndex:(NSInteger)i {
     id result = nil;
     
+    // this is not efficient. but i dont think we want to optimize the datastructure for this.
+    // i think this will not be commonly used and optimizing for it would also slow down insertion (which is very common).
     for (TDListItemView *itemView in [queue allObjects]) {
         i == itemView.index;
         result = itemView;
@@ -130,7 +131,7 @@
     
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
     
-    NSInteger i = [self indexForItemAtPoint:p];
+    NSInteger i = [self subviewIndexForItemAtPoint:p];
     if (NSNotFound == i) {
         if ([evt clickCount] > 1) {
             if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
@@ -144,7 +145,7 @@
 
 
 - (void)viewWillDraw {
-    [self layoutItems];
+    //[self layoutItems];
 }
 
 
@@ -188,6 +189,18 @@
 #pragma mark -
 #pragma mark Private
 
+- (NSInteger)subviewIndexForItemAtPoint:(NSPoint)p {
+    NSInteger i = 0;
+    for (TDListItemView *itemView in [self subviews]) {
+        if (NSPointInRect(p, [itemView frame])) {
+            return i;
+        }
+        i++;
+    }
+    return NSNotFound;
+}
+
+
 - (NSRect)visibleRect {
     return [[scrollView contentView] bounds];
 }
@@ -226,6 +239,7 @@
         }
         NSRect itemFrame = NSMakeRect(x, y, w, h);
         
+        // if the item is visible...
         if (NSIntersectsRect(viewportRect, itemFrame)) {
             TDListItemView *itemView = [dataSource listView:self viewForItemAtIndex:i];
             NSAssert1(itemView, @"nil rowView returned for index: %d", i);
@@ -264,6 +278,5 @@
 @synthesize itemExtent;
 @synthesize selectedItemIndex;
 @synthesize orientation;
-//@synthesize itemViews;
 @synthesize queue;
 @end

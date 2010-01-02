@@ -87,7 +87,7 @@
 - (NSArray *)allObjects {
     NSMutableArray *all = [NSMutableArray array];
     for (NSString *key in dict) {
-        [all addObject:[dict objectForKey:key]];
+        [all addObject:[[dict objectForKey:key] allObjects]];
     }
     return all;
 }
