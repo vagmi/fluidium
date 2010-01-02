@@ -32,21 +32,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D3442EA610EFCD4D00855FD9 /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = TDAppKit;
 		};
 		D3442EAD10EFCD4D00855FD9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3442EA610EFCD4D00855FD9 /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D31CBFE910EFB9630013347D /* ListViewDemoApp.app */;
+			remoteGlobalIDString = D31CBFE910EFB9630013347D;
 			remoteInfo = ListViewDemoApp;
 		};
 		D3442EAF10EFCD5F00855FD9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3442EA610EFCD4D00855FD9 /* TDAppKit.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* TDAppKit */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = TDAppKit;
 		};
 /* End PBXContainerItemProxy section */

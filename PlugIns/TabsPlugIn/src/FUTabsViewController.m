@@ -135,16 +135,16 @@
 
 
 - (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i {
-    FUTabListItemView *rv = [lv dequeueReusableItemViewWithIdentifier:[FUTabListItemView reuseIdentifier]];
+    FUTabListItemView *itemView = [lv dequeueReusableItemWithIdentifier:[FUTabListItemView reuseIdentifier]];
     
-    if (!rv) {
-        rv = [[[FUTabListItemView alloc] init] autorelease];
+    if (!itemView) {
+        itemView = [[[FUTabListItemView alloc] init] autorelease];
     }
     
-    rv.viewController = self;
-    rv.model = [tabModels objectAtIndex:i];
+    itemView.viewController = self;
+    itemView.model = [tabModels objectAtIndex:i];
     
-    return rv;
+    return itemView;
 }
 
 
@@ -162,7 +162,7 @@
 }
 
 
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forItemAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)itemView forItemAtIndex:(NSInteger)i {
     
 }
 
