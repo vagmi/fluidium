@@ -62,7 +62,7 @@ typedef enum {
 @protocol TDListViewDelegate <NSObject>
 @optional
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i; // should return height if isPortrait. shoud return width if isLandscape
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)rv forItemAtIndex:(NSInteger)i;
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)itemView forItemAtIndex:(NSInteger)i;
 - (NSInteger)listView:(TDListView *)lv willSelectItemAtIndex:(NSInteger)i;
 - (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSInteger)i;
 - (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt;
