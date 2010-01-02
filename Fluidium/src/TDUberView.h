@@ -14,6 +14,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString *const kTDUberViewSplitViewDividerStyleKey;
+extern NSString *const kTDUberViewIsLeftViewOpenKey;
+extern NSString *const kTDUberViewIsRightViewOpenKey;
+extern NSString *const kTDUberViewIsTopViewOpenKey;
+extern NSString *const kTDUberViewIsBottomViewOpenKey;
+extern NSString *const kTDUberViewLeftViewWidthKey;
+extern NSString *const kTDUberViewRightViewWidthKey;
+extern NSString *const kTDUberViewTopViewHeightKey;
+extern NSString *const kTDUberViewBottomViewHeightKey;
+
 @interface TDUberView : NSView 
 #if FU_BUILD_TARGET_SNOW_LEOPARD
 <NSSplitViewDelegate>

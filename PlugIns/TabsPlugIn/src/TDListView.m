@@ -33,17 +33,36 @@
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
         self.itemViewQueue = [[[TDListItemViewQueue alloc] init] autorelease];
+        
+        [self setPostsFrameChangedNotifications:YES];
+        [self setPostsBoundsChangedNotifications:YES];
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        //[nc addObserver:self selector:@selector(viewFrameDidChange:) name:NSViewFrameDidChangeNotification object:self];
+        [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:self];
     }
     return self;
 }
 
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     self.scrollView = nil;
     self.backgroundColor = nil;
     self.itemViews = nil;
     self.itemViewQueue = nil;
     [super dealloc];
+}
+
+
+//- (void)viewFrameDidChange:(NSNotification *)n {
+//
+//}
+
+
+- (void)viewBoundsDidChange:(NSNotification *)n {
+    [self layoutItems];
 }
 
 
@@ -119,7 +138,7 @@
 
 
 - (void)viewWillDraw {
-    [self layoutItems];
+    //    [self layoutItems];
 }
 
 

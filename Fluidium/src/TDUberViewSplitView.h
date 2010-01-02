@@ -14,11 +14,17 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class TDUberView;
+
 @interface TDUberViewSplitView : NSSplitView {
+    TDUberView *uberView;
     NSGradient *gradient;
     NSColor *borderColor;
 }
 
+- (id)initWithFrame:(NSRect)frame uberView:(TDUberView *)uv;
+
+@property (nonatomic, assign) TDUberView *uberView;
 @property (nonatomic, retain) NSColor *borderColor;
 @property (nonatomic, retain) NSGradient *gradient;
 @end
