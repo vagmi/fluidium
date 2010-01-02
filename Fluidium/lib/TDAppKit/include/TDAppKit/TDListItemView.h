@@ -16,6 +16,7 @@
 
 @interface TDListItemView : NSView {
     NSString *reuseIdentifier;
+    NSUInteger index;
 }
 
 - (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s;

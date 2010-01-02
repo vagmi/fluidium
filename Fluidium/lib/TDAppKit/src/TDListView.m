@@ -18,12 +18,16 @@
 
 #define DEFAULT_ITEM_EXTENT 44
 
+@interface TDListItemView ()
+@property (nonatomic) NSUInteger index;
+@end
+
 @interface TDListView ()
 - (void)layoutItems;
 - (void)viewBoundsDidChange:(NSNotification *)n;
 
-@property (nonatomic, retain) NSMutableArray *itemViews;
-@property (nonatomic, retain) TDListItemViewQueue *itemViewQueue;
+//@property (nonatomic, retain) NSMutableArray *itemViews;
+@property (nonatomic, retain) TDListItemViewQueue *queue;
 @end
 
 @implementation TDListView
@@ -33,7 +37,7 @@
         self.backgroundColor = [NSColor whiteColor];
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
-        self.itemViewQueue = [[[TDListItemViewQueue alloc] init] autorelease];
+        self.queue = [[[TDListItemViewQueue alloc] init] autorelease];
         
         [self setPostsFrameChangedNotifications:YES];
         [self setPostsBoundsChangedNotifications:YES];
@@ -51,8 +55,8 @@
     
     self.scrollView = nil;
     self.backgroundColor = nil;
-    self.itemViews = nil;
-    self.itemViewQueue = nil;
+    //    self.itemViews = nil;
+    self.queue = nil;
     [super dealloc];
 }
 
@@ -76,8 +80,8 @@
 }
 
 
-- (id)dequeueReusableItemViewWithIdentifier:(NSString *)s {
-    TDListItemView *itemView = [itemViewQueue dequeueWithIdentifier:s];
+- (id)dequeueReusableItemWithIdentifier:(NSString *)s {
+    TDListItemView *itemView = [queue dequeueWithIdentifier:s];
     [itemView prepareForReuse];
     return itemView;
 }
@@ -85,7 +89,7 @@
 
 - (NSInteger)indexForItemAtPoint:(NSPoint)p {
     NSInteger i = 0;
-    for (id itemView in itemViews) {
+    for (TDListItemView *itemView in [queue allObjects]) {
         if (NSPointInRect(p, [itemView frame])) {
             return i;
         }
@@ -96,14 +100,15 @@
 
 
 - (id)viewForItemAtIndex:(NSInteger)i {
-    id listView = nil;
+    id result = nil;
     
-    NSInteger c = [itemViews count];
-    if (c && i >= 0 && i < c) {
-        listView = [itemViews objectAtIndex:i];
+    for (TDListItemView *itemView in [queue allObjects]) {
+        i == itemView.index;
+        result = itemView;
+        break;
     }
-
-    return listView;
+    
+    return result;
 }
 
 
@@ -149,75 +154,8 @@
 }
 
 
-- (void)layoutItems {
-    NSAssert(dataSource, @"TDListView must have a dataSource before doing layout");
-    
-    NSRect scrollViewBounds = [scrollView bounds];
-    NSSize scrollContentSize = [scrollView contentSize];
-
-    NSSize scrollSize = NSZeroSize;
-    BOOL isPortrait = self.isPortrait;
-    if (isPortrait) {
-        scrollSize = NSMakeSize(scrollContentSize.width, scrollViewBounds.size.height);
-    } else {
-        scrollSize = NSMakeSize(scrollViewBounds.size.width, scrollContentSize.height);
-    }
-        
-    CGFloat x = 0;
-    CGFloat y = 0;
-    CGFloat w = isPortrait ? scrollSize.width : 0;
-    CGFloat h = isPortrait ? 0 : scrollSize.height;
-
-    for (TDListItemView *itemView in itemViews) {
-        [itemViewQueue enqueue:itemView withIdentifier:itemView.reuseIdentifier];
-        [itemView removeFromSuperview];
-    }
-    
-    NSInteger c = [dataSource numberOfItemsInListView:self];
-    self.itemViews = [NSMutableArray arrayWithCapacity:c];
-
-    NSInteger i = 0;
-    for ( ; i < c; i++) {
-        TDListItemView *listItem = [dataSource listView:self viewForItemAtIndex:i];
-        NSAssert1(listItem, @"nil rowView returned for index: %d", i);
-        
-        // get row height
-        NSInteger wh = itemExtent;
-        if (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]) {
-            wh = [delegate listView:self extentForItemAtIndex:i];
-        }        
-        
-        if (isPortrait) {
-            h = wh;
-        } else {
-            w = wh;
-        }
-        
-        [listItem setFrame:NSMakeRect(x, y, w, h)];
-        [self addSubview:listItem];
-
-        [itemViews addObject:listItem];
-        
-        if (isPortrait) {
-            y += wh; // add height for next row
-            //if (y > scrollSize.height) break;
-        } else {
-            x += wh;
-            //if (x > scrollSize.width) break;
-        }
-    }
-    
-    NSRect frame = [self frame];
-    if (isPortrait) {
-        y = y < scrollSize.height ? scrollSize.height : y;
-        frame.size.height = y;
-    } else {
-        x = x < scrollSize.width ? scrollSize.width : x;
-        frame.size.width = x;
-    }
-    [self setFrame:frame];
-}
-
+#pragma mark -
+#pragma mark Public
 
 - (void)setSelectedItemIndex:(NSInteger)i {
     if (i != selectedItemIndex) {
@@ -246,6 +184,79 @@
     return TDListViewOrientationLandscape == orientation;
 }
 
+
+#pragma mark -
+#pragma mark Private
+
+- (NSRect)visibleRect {
+    return [[scrollView contentView] bounds];
+}
+
+
+- (void)layoutItems {
+    NSAssert(dataSource, @"TDListView must have a dataSource before doing layout");
+
+    NSEnumerator *e = [[self subviews] reverseObjectEnumerator];
+    TDListItemView *itemView = nil;
+    while (itemView = [e nextObject]) {
+        [queue enqueue:itemView];
+        [itemView removeFromSuperview];
+    }
+    
+    NSSize scrollContentSize = [scrollView contentSize];
+    BOOL isPortrait = self.isPortrait;
+    
+    CGFloat x = 0;
+    CGFloat y = 0;
+    CGFloat w = isPortrait ? scrollContentSize.width : 0;
+    CGFloat h = isPortrait ? 0 : scrollContentSize.height;
+    
+    NSInteger c = [dataSource numberOfItemsInListView:self];
+    BOOL respondsToExtentForItem = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);
+    NSRect viewportRect = [self visibleRect];
+    
+    NSInteger i = 0;
+    for ( ; i < c; i++) {
+        // determine item frame
+        NSInteger extent = respondsToExtentForItem ? [delegate listView:self extentForItemAtIndex:i] : itemExtent;
+        if (isPortrait) {
+            h = extent;
+        } else {
+            w = extent;
+        }
+        NSRect itemFrame = NSMakeRect(x, y, w, h);
+        
+        if (NSIntersectsRect(viewportRect, itemFrame)) {
+            TDListItemView *itemView = [dataSource listView:self viewForItemAtIndex:i];
+            NSAssert1(itemView, @"nil rowView returned for index: %d", i);
+            [itemView setFrame:NSMakeRect(x, y, w, h)];
+            itemView.index = i;            
+            [self addSubview:itemView];
+        }
+
+        if (isPortrait) {
+            y += extent; // add height for next row
+        } else {
+            x += extent;
+        }
+    }
+    
+    NSRect frame = [self frame];
+    if (isPortrait) {
+        y = y < scrollContentSize.height ? scrollContentSize.height : y;
+        frame.size.height = y;
+    } else {
+        x = x < scrollContentSize.width ? scrollContentSize.width : x;
+        frame.size.width = x;
+    }
+    [self setFrame:frame];
+    
+    //NSLog(@"%s frame: %@, bounds: %@", _cmd, NSStringFromRect([self frame]), NSStringFromRect([self bounds]));
+    //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([[scrollView contentView] bounds]));
+    //NSLog(@"queue count: %d", [queue count]);
+    //NSLog(@"view count: %d", [[self subviews] count]);
+}
+
 @synthesize scrollView;
 @synthesize dataSource;
 @synthesize delegate;
@@ -253,6 +264,6 @@
 @synthesize itemExtent;
 @synthesize selectedItemIndex;
 @synthesize orientation;
-@synthesize itemViews;
-@synthesize itemViewQueue;
+//@synthesize itemViews;
+@synthesize queue;
 @end

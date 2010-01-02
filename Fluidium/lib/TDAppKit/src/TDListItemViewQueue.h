@@ -20,6 +20,8 @@
     NSMutableDictionary *dict;
 }
 
-- (BOOL)enqueue:(TDListItemView *)rv withIdentifier:(NSString *)s;
+- (BOOL)enqueue:(TDListItemView *)itemView;
 - (TDListItemView *)dequeueWithIdentifier:(NSString *)s;
+- (NSUInteger)count;
+- (NSArray *)allObjects;
 @end

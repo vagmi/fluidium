@@ -33,6 +33,7 @@
 
 
 - (void)awakeFromNib {
+    listView.backgroundColor = [NSColor darkGrayColor];
     [listView reloadData];
 }
 
@@ -48,7 +49,7 @@
 - (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i {
     static NSString *sIdentifier = @"foo";
     
-    DemoListItemView *itemView = [listView dequeueReusableItemViewWithIdentifier:sIdentifier];
+    DemoListItemView *itemView = [listView dequeueReusableItemWithIdentifier:sIdentifier];
     
     if (!itemView) {
         itemView = [[[DemoListItemView alloc] initWithFrame:NSZeroRect reuseIdentifier:sIdentifier] autorelease];

@@ -97,12 +97,11 @@
 			isa = PBXGroup;
 			children = (
 				08FB77AEFE84172EC02AAC07 /* TDAppKit Framework */,
-				32C88DFF0371C24200C91783 /* Other Sources */,
 				D31CBFF010EFB9710013347D /* ListView Demo App */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				D31CC0AF10EFC9750013347D /* ListViewDemoMainMenu.xib */,
 			);
 			name = TDAppKit;
 			sourceTree = "<group>";
@@ -193,6 +192,7 @@
 				D31CBFF910EFBD360013347D /* DemoListItemView.m */,
 				D31CC05D10EFC80B0013347D /* main.m */,
 				D31CBFEB10EFB9630013347D /* ListViewDemoApp-Info.plist */,
+				D31CC0AF10EFC9750013347D /* ListViewDemoMainMenu.xib */,
 			);
 			name = "ListView Demo App";
 			sourceTree = "<group>";

@@ -33,12 +33,12 @@ typedef enum {
     NSInteger selectedItemIndex;
     TDListViewOrientation orientation;
     
-    NSMutableArray *itemViews;
-    TDListItemViewQueue *itemViewQueue;
+//    NSMutableArray *itemViews;
+    TDListItemViewQueue *queue;
 }
 
 - (void)reloadData;
-- (id)dequeueReusableItemViewWithIdentifier:(NSString *)s;
+- (id)dequeueReusableItemWithIdentifier:(NSString *)s;
 - (NSInteger)indexForItemAtPoint:(NSPoint)p;
 - (id)viewForItemAtIndex:(NSInteger)i;
 
@@ -46,9 +46,11 @@ typedef enum {
 @property (nonatomic, assign) id <TDListViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDListViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
-@property (nonatomic, assign) CGFloat itemExtent;
+@property (nonatomic, assign) CGFloat itemExtent; // height if isPortrait. width if isLandscape
 @property (nonatomic, assign) NSInteger selectedItemIndex;
 @property (nonatomic, assign) TDListViewOrientation orientation;
+
+// convenience
 @property (nonatomic, readonly, getter=isPortrait) BOOL portrait;
 @property (nonatomic, readonly, getter=isLandscape) BOOL landscape;
 @end

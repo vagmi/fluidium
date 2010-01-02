@@ -40,17 +40,18 @@
 }
 
 
-- (BOOL)enqueue:(TDListItemView *)rv withIdentifier:(NSString *)s {
+- (BOOL)enqueue:(TDListItemView *)itemView {
+    NSString *s = itemView.reuseIdentifier;
     NSMutableSet *set = [dict objectForKey:s];
     if (!set) {
         set = [NSMutableSet set];
         [dict setObject:set forKey:s];
     }
     
-    if ([set containsObject:rv]) {
+    if ([set containsObject:itemView]) {
         return NO;
     } else {
-        [set addObject:rv];
+        [set addObject:itemView];
         return YES;
     }
 }
@@ -71,6 +72,24 @@
     }
     
     return rv;
+}
+
+
+- (NSUInteger)count {
+    NSUInteger c = 0;
+    for (NSString *key in dict) {
+        c += [[dict objectForKey:key] count];
+    }
+    return c;
+}
+
+
+- (NSArray *)allObjects {
+    NSMutableArray *all = [NSMutableArray array];
+    for (NSString *key in dict) {
+        [all addObject:[dict objectForKey:key]];
+    }
+    return all;
 }
 
 @synthesize dict;

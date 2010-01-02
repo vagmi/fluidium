@@ -14,6 +14,10 @@
 
 #import <TDAppKit/TDListItemView.h>
 
+@interface TDListItemView ()
+@property (nonatomic) NSUInteger index;
+@end
+
 @implementation TDListItemView
 
 - (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
@@ -40,4 +44,5 @@
 }
 
 @synthesize reuseIdentifier;
+@synthesize index;
 @end
