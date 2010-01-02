@@ -77,6 +77,7 @@
 
 
 #pragma mark -
+#pragma mark Public
 
 - (void)save {
     NSError *err = nil;
@@ -87,6 +88,9 @@
     }
 }
 
+
+#pragma mark -
+#pragma mark Private
 
 - (void)setUpHistoryMenu {
     NSMenu *historyMenu = [[[NSApp mainMenu] itemWithTitle:NSLocalizedString(@"History", @"")] submenu];
@@ -109,7 +113,7 @@
             NSError *err = nil;
             [history loadFromURL:[NSURL fileURLWithPath:path] error:&err];
             if (err) {
-                NSLog(@"Fluidium.app encountered error reading webhistory on disk!");
+                NSLog(@"Fluidium encountered error reading webhistory on disk!");
                 history = [[[WebHistory alloc] init] autorelease];
             }
         }

@@ -14,25 +14,30 @@
 
 #import <TDAppKit/TDListItemView.h>
 
-@class FUTabModel;
-@class FUTabsViewController;
+@implementation TDListItemView
 
-@interface FUTabListItemView : TDListItemView {
-    FUTabModel *model;
-    NSButton *closeButton;
-    NSProgressIndicator *progressIndicator;
-    FUTabsViewController *viewController;
-    
-    NSTimer *drawHiRezTimer;
-    BOOL drawHiRez;
+- (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
+    if (self = [super initWithFrame:frame]) {
+        self.reuseIdentifier = s;
+    }
+    return self;
 }
 
-+ (NSString *)reuseIdentifier;
 
-- (void)drawHiRezLater;
+- (void)dealloc {
+    self.reuseIdentifier = nil;
+    [super dealloc];
+}
 
-@property (nonatomic, retain) FUTabModel *model;
-@property (nonatomic, retain) NSButton *closeButton;
-@property (nonatomic, retain) NSProgressIndicator *progressIndicator;
-@property (nonatomic, assign) FUTabsViewController *viewController;
+
+- (BOOL)isFlipped {
+    return YES;
+}
+
+
+- (void)prepareForReuse {
+    
+}
+
+@synthesize reuseIdentifier;
 @end

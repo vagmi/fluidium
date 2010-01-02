@@ -1,4 +1,4 @@
-//  Copyright 2009 Todd Ditchendorf
+//  Copyright 2010 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -13,7 +13,13 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
+#import <TDAppKit/TDAppKit.h>
 
-int main(int argc, char *argv[]) {
-    return NSApplicationMain(argc, (const char **)argv);
+@interface DemoListItemView : TDListItemView {
+    NSColor *color;
+    NSString *name;
 }
+
+@property (nonatomic, retain) NSColor *color;
+@property (nonatomic, copy) NSString *name;
+@end

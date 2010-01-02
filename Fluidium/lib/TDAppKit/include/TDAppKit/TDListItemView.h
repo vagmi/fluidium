@@ -14,6 +14,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-int main(int argc, char *argv[]) {
-    return NSApplicationMain(argc, (const char **)argv);
+@interface TDListItemView : NSView {
+    NSString *reuseIdentifier;
 }
+
+- (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s;
+
+- (void)prepareForReuse;
+
+@property (nonatomic, copy) NSString *reuseIdentifier;
+@end

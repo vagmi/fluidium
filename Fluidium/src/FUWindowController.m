@@ -34,11 +34,11 @@
 #import "FUNotifications.h"
 #import "NSString+FUAdditions.h"
 #import "NSEvent+FUAdditions.h"
-#import "TDUberView.h"
 #import "WebURLsWithTitles.h"
 #import "WebViewPrivate.h"
 #import <WebKit/WebKit.h>
 #import <PSMTabBarControl/PSMTabBarControl.h>
+#import <TDAppKit/TDUberView.h>
 
 #define MIN_COMBOBOX_WIDTH 100
 

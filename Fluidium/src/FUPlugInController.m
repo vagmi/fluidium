@@ -23,12 +23,12 @@
 #import "FUUserDefaults.h"
 #import "FUPlugInPreferences.h"
 #import "FUNotifications.h"
-#import "TDUberView.h"
 #import "NSFileManager+FUAdditions.h"
 #import <WebKit/WebKit.h>
 #import <OmniAppKit/OmniAppKit.h>
 #import <OmniAppKit/OAPreferenceController.h>
 #import <OmniAppKit/OAPreferenceClient.h>
+#import <TDAppKit/TDUberView.h>
 
 #define PLUGIN_MENU_INDEX 6
 #define MIN_PREFS_VIEW_WIDTH 427

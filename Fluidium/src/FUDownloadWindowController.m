@@ -167,7 +167,7 @@
 - (void)save {
     if ([downloadItems count]) {
         if (![NSKeyedArchiver archiveRootObject:downloadItems toFile:[[FUApplication instance] downloadArchiveFilePath]]) {
-            NSLog(@"Fluidium.app could not write download archive to disk");
+            NSLog(@"Fluidium could not write download archive to disk");
         }
     }
 }

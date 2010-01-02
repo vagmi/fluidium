@@ -1,4 +1,4 @@
-//  Copyright 2009 Todd Ditchendorf
+//  Copyright 2010 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -12,8 +12,27 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import "DemoListItemView.h"
 
-int main(int argc, char *argv[]) {
-    return NSApplicationMain(argc, (const char **)argv);
+@implementation DemoListItemView
+
+- (void)dealloc {
+    self.color = nil;
+    self.name = nil;
+    [super dealloc];
 }
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<ListItemView %@>", name];
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [color set];
+    NSRectFill(dirtyRect);
+}
+
+@synthesize color;
+@synthesize name;
+@end

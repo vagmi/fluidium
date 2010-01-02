@@ -1,4 +1,4 @@
-//  Copyright 2009 Todd Ditchendorf
+//  Copyright 2010 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -12,8 +12,6 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
-
-int main(int argc, char *argv[]) {
-    return NSApplicationMain(argc, (const char **)argv);
-}
+#import <TDAppKit/TDUberView.h>
+#import <TDAppKit/TDListView.h>
+#import <TDAppKit/TDListItemView.h>

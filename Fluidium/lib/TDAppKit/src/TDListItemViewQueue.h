@@ -14,6 +14,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-int main(int argc, char *argv[]) {
-    return NSApplicationMain(argc, (const char **)argv);
+@class TDListItemView;
+
+@interface TDListItemViewQueue : NSObject {
+    NSMutableDictionary *dict;
 }
+
+- (BOOL)enqueue:(TDListItemView *)rv withIdentifier:(NSString *)s;
+- (TDListItemView *)dequeueWithIdentifier:(NSString *)s;
+@end

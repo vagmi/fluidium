@@ -1,0 +1,502 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		D31CBFB010EFB7010013347D /* TDListItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFAA10EFB7010013347D /* TDListItemView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31CBFB110EFB7010013347D /* TDListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAB10EFB7010013347D /* TDListItemView.m */; };
+		D31CBFB310EFB7010013347D /* TDListItemViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAD10EFB7010013347D /* TDListItemViewQueue.m */; };
+		D31CBFB410EFB7010013347D /* TDListView.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFAE10EFB7010013347D /* TDListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31CBFB510EFB7010013347D /* TDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAF10EFB7010013347D /* TDListView.m */; };
+		D31CBFCA10EFB8180013347D /* TDUberView.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFC810EFB8180013347D /* TDUberView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31CBFCE10EFB8260013347D /* TDUberView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFCC10EFB8260013347D /* TDUberView.m */; };
+		D31CBFCF10EFB8260013347D /* TDUberViewSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFCD10EFB8260013347D /* TDUberViewSplitView.m */; };
+		D31CBFF410EFBA3C0013347D /* ListViewDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFF310EFBA3C0013347D /* ListViewDemoAppDelegate.m */; };
+		D31CBFFA10EFBD360013347D /* DemoListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFF910EFBD360013347D /* DemoListItemView.m */; };
+		D31CC01810EFC64E0013347D /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */; };
+		D31CC02410EFC6BB0013347D /* TDAppKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CC02310EFC6BB0013347D /* TDAppKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31CC05E10EFC80B0013347D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CC05D10EFC80B0013347D /* main.m */; };
+		D31CC0B010EFC9750013347D /* ListViewDemoMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31CC0AF10EFC9750013347D /* ListViewDemoMainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D31CC01610EFC6490013347D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = TDAppKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF5E0370ADEE00C91783 /* TDAppKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDAppKit_Prefix.pch; path = src/TDAppKit_Prefix.pch; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = res/conf/Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* TDAppKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDAppKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31CBFAA10EFB7010013347D /* TDListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItemView.h; path = include/TDAppKit/TDListItemView.h; sourceTree = "<group>"; };
+		D31CBFAB10EFB7010013347D /* TDListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItemView.m; path = src/TDListItemView.m; sourceTree = "<group>"; };
+		D31CBFAC10EFB7010013347D /* TDListItemViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItemViewQueue.h; path = src/TDListItemViewQueue.h; sourceTree = "<group>"; };
+		D31CBFAD10EFB7010013347D /* TDListItemViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItemViewQueue.m; path = src/TDListItemViewQueue.m; sourceTree = "<group>"; };
+		D31CBFAE10EFB7010013347D /* TDListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListView.h; path = include/TDAppKit/TDListView.h; sourceTree = "<group>"; };
+		D31CBFAF10EFB7010013347D /* TDListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListView.m; path = src/TDListView.m; sourceTree = "<group>"; };
+		D31CBFC810EFB8180013347D /* TDUberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberView.h; path = include/TDAppKit/TDUberView.h; sourceTree = "<group>"; };
+		D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberViewSplitView.m; path = src/TDUberViewSplitView.m; sourceTree = "<group>"; };
+		D31CBFCC10EFB8260013347D /* TDUberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberView.m; path = src/TDUberView.m; sourceTree = "<group>"; };
+		D31CBFCD10EFB8260013347D /* TDUberViewSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberViewSplitView.m; path = src/TDUberViewSplitView.m; sourceTree = "<group>"; };
+		D31CBFE910EFB9630013347D /* ListViewDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListViewDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31CBFEB10EFB9630013347D /* ListViewDemoApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ListViewDemoApp-Info.plist"; path = "demo/listview/ListViewDemoApp-Info.plist"; sourceTree = "<group>"; };
+		D31CBFF210EFBA3C0013347D /* ListViewDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListViewDemoAppDelegate.h; path = demo/listview/ListViewDemoAppDelegate.h; sourceTree = "<group>"; };
+		D31CBFF310EFBA3C0013347D /* ListViewDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListViewDemoAppDelegate.m; path = demo/listview/ListViewDemoAppDelegate.m; sourceTree = "<group>"; };
+		D31CBFF810EFBD360013347D /* DemoListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoListItemView.h; path = demo/listview/DemoListItemView.h; sourceTree = "<group>"; };
+		D31CBFF910EFBD360013347D /* DemoListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoListItemView.m; path = demo/listview/DemoListItemView.m; sourceTree = "<group>"; };
+		D31CC02310EFC6BB0013347D /* TDAppKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDAppKit.h; path = include/TDAppKit/TDAppKit.h; sourceTree = "<group>"; };
+		D31CC05D10EFC80B0013347D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = demo/listview/main.m; sourceTree = "<group>"; };
+		D31CC0AF10EFC9750013347D /* ListViewDemoMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ListViewDemoMainMenu.xib; path = demo/listview/ListViewDemoMainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31CBFE710EFB9630013347D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31CC01810EFC64E0013347D /* TDAppKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* TDAppKit.framework */,
+				D31CBFE910EFB9630013347D /* ListViewDemoApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* TDAppKit */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AEFE84172EC02AAC07 /* TDAppKit Framework */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				D31CBFF010EFB9710013347D /* ListView Demo App */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+				D31CC0AF10EFC9750013347D /* ListViewDemoMainMenu.xib */,
+			);
+			name = TDAppKit;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* TDAppKit Framework */ = {
+			isa = PBXGroup;
+			children = (
+				D31CC02310EFC6BB0013347D /* TDAppKit.h */,
+				D31CBFBA10EFB7E90013347D /* UberView */,
+				D31CBFA810EFB6F80013347D /* ListView */,
+			);
+			name = "TDAppKit Framework";
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF5E0370ADEE00C91783 /* TDAppKit_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		D31CBFA810EFB6F80013347D /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				D31CBFAE10EFB7010013347D /* TDListView.h */,
+				D31CBFAF10EFB7010013347D /* TDListView.m */,
+				D31CBFAA10EFB7010013347D /* TDListItemView.h */,
+				D31CBFAB10EFB7010013347D /* TDListItemView.m */,
+				D31CBFAC10EFB7010013347D /* TDListItemViewQueue.h */,
+				D31CBFAD10EFB7010013347D /* TDListItemViewQueue.m */,
+			);
+			name = ListView;
+			sourceTree = "<group>";
+		};
+		D31CBFBA10EFB7E90013347D /* UberView */ = {
+			isa = PBXGroup;
+			children = (
+				D31CBFC810EFB8180013347D /* TDUberView.h */,
+				D31CBFCC10EFB8260013347D /* TDUberView.m */,
+				D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */,
+				D31CBFCD10EFB8260013347D /* TDUberViewSplitView.m */,
+			);
+			name = UberView;
+			sourceTree = "<group>";
+		};
+		D31CBFF010EFB9710013347D /* ListView Demo App */ = {
+			isa = PBXGroup;
+			children = (
+				D31CBFF210EFBA3C0013347D /* ListViewDemoAppDelegate.h */,
+				D31CBFF310EFBA3C0013347D /* ListViewDemoAppDelegate.m */,
+				D31CBFF810EFBD360013347D /* DemoListItemView.h */,
+				D31CBFF910EFBD360013347D /* DemoListItemView.m */,
+				D31CC05D10EFC80B0013347D /* main.m */,
+				D31CBFEB10EFB9630013347D /* ListViewDemoApp-Info.plist */,
+			);
+			name = "ListView Demo App";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31CC02410EFC6BB0013347D /* TDAppKit.h in Headers */,
+				D31CBFCA10EFB8180013347D /* TDUberView.h in Headers */,
+				D31CBFB410EFB7010013347D /* TDListView.h in Headers */,
+				D31CBFB010EFB7010013347D /* TDListItemView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* TDAppKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "TDAppKit" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TDAppKit;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = TDAppKit;
+			productReference = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D31CBFE810EFB9630013347D /* ListViewDemoApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D31CBFEE10EFB9640013347D /* Build configuration list for PBXNativeTarget "ListViewDemoApp" */;
+			buildPhases = (
+				D31CBFE510EFB9630013347D /* Resources */,
+				D31CBFE610EFB9630013347D /* Sources */,
+				D31CBFE710EFB9630013347D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D31CC01710EFC6490013347D /* PBXTargetDependency */,
+			);
+			name = ListViewDemoApp;
+			productName = ListViewDemoApp;
+			productReference = D31CBFE910EFB9630013347D /* ListViewDemoApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TDAppKit" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* TDAppKit */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* TDAppKit */,
+				D31CBFE810EFB9630013347D /* ListViewDemoApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31CBFE510EFB9630013347D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31CC0B010EFC9750013347D /* ListViewDemoMainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31CBFCE10EFB8260013347D /* TDUberView.m in Sources */,
+				D31CBFCF10EFB8260013347D /* TDUberViewSplitView.m in Sources */,
+				D31CBFB510EFB7010013347D /* TDListView.m in Sources */,
+				D31CBFB110EFB7010013347D /* TDListItemView.m in Sources */,
+				D31CBFB310EFB7010013347D /* TDListItemViewQueue.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31CBFE610EFB9630013347D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31CBFF410EFBA3C0013347D /* ListViewDemoAppDelegate.m in Sources */,
+				D31CBFFA10EFBD360013347D /* DemoListItemView.m in Sources */,
+				D31CC05E10EFC80B0013347D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D31CC01710EFC6490013347D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* TDAppKit */;
+			targetProxy = D31CC01610EFC6490013347D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@executable_path/../Frameworks";
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = src/TDAppKit_Prefix.pch;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INFOPLIST_FILE = res/conf/Info.plist;
+				INSTALL_PATH = "build/$(CONFIGURATION)";
+				PRODUCT_NAME = TDAppKit;
+				SDKROOT = macosx10.5;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@executable_path/../Frameworks";
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = src/TDAppKit_Prefix.pch;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INFOPLIST_FILE = res/conf/Info.plist;
+				INSTALL_PATH = "build/$(CONFIGURATION)";
+				PRODUCT_NAME = TDAppKit;
+				SDKROOT = macosx10.5;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		D31CBFEC10EFB9640013347D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/include";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INFOPLIST_FILE = "demo/listview/ListViewDemoApp-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = ListViewDemoApp;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		D31CBFED10EFB9640013347D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/include";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INFOPLIST_FILE = "demo/listview/ListViewDemoApp-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = ListViewDemoApp;
+				SDKROOT = macosx10.5;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "TDAppKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TDAppKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D31CBFEE10EFB9640013347D /* Build configuration list for PBXNativeTarget "ListViewDemoApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31CBFEC10EFB9640013347D /* Debug */,
+				D31CBFED10EFB9640013347D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

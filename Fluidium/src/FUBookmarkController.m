@@ -107,7 +107,7 @@
 
 - (void)save {
     if (![NSKeyedArchiver archiveRootObject:bookmarks toFile:[[FUApplication instance] bookmarksFilePath]]) {
-        NSLog(@"Fluidium.app could not write bookmarks to disk");
+        NSLog(@"Fluidium could not write bookmarks to disk");
     }
 }
 
@@ -134,14 +134,6 @@
     NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     
     NSMenuItem *item = nil;
-    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open", @"")
-                                       action:@selector(bookmarkClicked:) 
-                                keyEquivalent:@""] autorelease];
-    [item setTarget:nil];
-    [item setRepresentedObject:bmark];
-    [item setOnStateImage:nil];
-    [menu addItem:item];
-    
     if ([[FUUserDefaults instance] tabbedBrowsingEnabled]) {
         item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open in New Tab", @"")
                                            action:@selector(openBookmarkInNewTab:) 
@@ -156,6 +148,14 @@
                                        action:@selector(openBookmarkInNewWindow:) 
                                 keyEquivalent:@""] autorelease];
     [item setTarget:self];
+    [item setRepresentedObject:bmark];
+    [item setOnStateImage:nil];
+    [menu addItem:item];
+    
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open", @"")
+                                       action:@selector(bookmarkClicked:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:nil];
     [item setRepresentedObject:bmark];
     [item setOnStateImage:nil];
     [menu addItem:item];
@@ -219,7 +219,7 @@
         @try {
             self.bookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         } @catch (NSException *e) {
-            NSLog(@"Fluidium.app encountered error reading bookmarks on disk!\n%@", [e reason]);
+            NSLog(@"Fluidium encountered error reading bookmarks on disk!\n%@", [e reason]);
         }
     }
     

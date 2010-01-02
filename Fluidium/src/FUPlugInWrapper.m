@@ -18,7 +18,7 @@
 #import "FUWindowController.h"
 #import "FUTabController.h"
 #import "FUNotifications.h"
-#import "TDUberView.h"
+#import <TDAppKit/TDUberView.h>
 
 @interface FUPlugInWrapper ()
 @property (nonatomic, retain, readwrite) id <FUPlugIn>plugIn;

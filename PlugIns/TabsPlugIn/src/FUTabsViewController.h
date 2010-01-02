@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-#import "TDListView.h"
+#import <TDAppKit/TDListView.h>
 
 @class FUTabsPlugIn;
 @protocol FUPlugInAPI;

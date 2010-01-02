@@ -26,6 +26,8 @@
 		D30BC47510E188840019816B /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
 		D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
 		D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
+		D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
+		D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
 		D32803F410CC7BFA00BB363B /* FUBookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32803F310CC7BFA00BB363B /* FUBookmarkController.m */; };
 		D328FADF10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D328FADE10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
@@ -145,8 +147,6 @@
 		D3E430A610CB52D900A5BDEF /* FUViewSourceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E430A210CB52D900A5BDEF /* FUViewSourceWindowController.m */; };
 		D3E430AB10CB537A00A5BDEF /* FUViewSourceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E430A910CB537A00A5BDEF /* FUViewSourceWindow.xib */; };
 		D3E432EE10CB70AC00A5BDEF /* FUFindPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E432ED10CB70AC00A5BDEF /* FUFindPanelView.m */; };
-		D3E4341510CB87A500A5BDEF /* TDUberView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4341210CB87A500A5BDEF /* TDUberView.m */; };
-		D3E4341610CB87A500A5BDEF /* TDUberViewSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4341410CB87A500A5BDEF /* TDUberViewSplitView.m */; };
 		D3E4346910CB8D4C00A5BDEF /* FUBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4345C10CB8D4C00A5BDEF /* FUBookmark.m */; };
 		D3E4346A10CB8D4C00A5BDEF /* FUBookmarkBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4345E10CB8D4C00A5BDEF /* FUBookmarkBar.m */; };
 		D3E4346B10CB8D4C00A5BDEF /* FUBookmarkBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4346010CB8D4C00A5BDEF /* FUBookmarkBarButton.m */; };
@@ -179,6 +179,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D31CC0C910EFCB590013347D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = TDAppKit;
+		};
+		D31CC0CB10EFCB590013347D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D31CBFE910EFB9630013347D;
+			remoteInfo = ListViewDemoApp;
+		};
+		D31CC0CD10EFCB770013347D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = TDAppKit;
+		};
 		D328FC9E10CC339F00BB363B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D328FC9410CC339E00BB363B /* PSMTabBarControl.xcodeproj */;
@@ -488,6 +509,7 @@
 				D30BC46610E187C10019816B /* Growl.framework in Copy Frameworks */,
 				D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */,
 				D346ED7010CF6CA100BA0B15 /* ShortcutRecorder.framework in Copy Frameworks */,
+				D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */,
 				D346E59A10CE43E500BA0B15 /* ParseKit.framework in Copy Frameworks */,
 				D346E59B10CE43E500BA0B15 /* UMEKit.framework in Copy Frameworks */,
 			);
@@ -532,6 +554,7 @@
 		D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptMenuItem.m; path = src/FUJavaScriptMenuItem.m; sourceTree = "<group>"; };
 		D30BC56910E1AC0E0019816B /* FUJavaScriptGrowlNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUJavaScriptGrowlNotification.h; path = src/FUJavaScriptGrowlNotification.h; sourceTree = "<group>"; };
 		D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptGrowlNotification.m; path = src/FUJavaScriptGrowlNotification.m; sourceTree = "<group>"; };
+		D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = "<group>"; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = src/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
 		D328FADD10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+PXRoundedRectangleAdditions.h"; path = "src/NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
@@ -705,10 +728,6 @@
 		D3E430AA10CB537A00A5BDEF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUViewSourceWindow.xib; sourceTree = "<group>"; };
 		D3E432EC10CB70AC00A5BDEF /* FUFindPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUFindPanelView.h; path = src/FUFindPanelView.h; sourceTree = "<group>"; };
 		D3E432ED10CB70AC00A5BDEF /* FUFindPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUFindPanelView.m; path = src/FUFindPanelView.m; sourceTree = "<group>"; };
-		D3E4341110CB87A500A5BDEF /* TDUberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberView.h; path = src/TDUberView.h; sourceTree = "<group>"; };
-		D3E4341210CB87A500A5BDEF /* TDUberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberView.m; path = src/TDUberView.m; sourceTree = "<group>"; };
-		D3E4341310CB87A500A5BDEF /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
-		D3E4341410CB87A500A5BDEF /* TDUberViewSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberViewSplitView.m; path = src/TDUberViewSplitView.m; sourceTree = "<group>"; };
 		D3E4345B10CB8D4C00A5BDEF /* FUBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmark.h; path = src/FUBookmark.h; sourceTree = "<group>"; };
 		D3E4345C10CB8D4C00A5BDEF /* FUBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmark.m; path = src/FUBookmark.m; sourceTree = "<group>"; };
 		D3E4345D10CB8D4C00A5BDEF /* FUBookmarkBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkBar.h; path = src/FUBookmarkBar.h; sourceTree = "<group>"; };
@@ -788,6 +807,7 @@
 				D30BC44F10E187A40019816B /* Growl.framework in Frameworks */,
 				D328FD5710CC33F500BB363B /* PSMTabBarControl.framework in Frameworks */,
 				D346ED7110CF6CB700BA0B15 /* ShortcutRecorder.framework in Frameworks */,
+				D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */,
 				D346E71210CE516800BA0B15 /* ParseKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -834,6 +854,7 @@
 				D346E6AF10CE4D5B00BA0B15 /* OmniAppKit.xcodeproj */,
 				D328FC9410CC339E00BB363B /* PSMTabBarControl.xcodeproj */,
 				D346ED5B10CF6C7600BA0B15 /* ShortcutRecorder.xcodeproj */,
+				D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */,
 				D346E48410CE434A00BA0B15 /* ParseKit.xcodeproj */,
 				D346E58310CE436000BA0B15 /* UMEKit.xcodeproj */,
 				D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */,
@@ -870,7 +891,6 @@
 				D35CC1FF10D411EF00DA1898 /* UserAgent */,
 				D346E68110CE4D0F00BA0B15 /* Preferences */,
 				D346E34910CE1FEB00BA0B15 /* PlugIns */,
-				D32800B210CC3CB600BB363B /* UberView */,
 				D3F4C58E10C8D62800E0B474 /* WebKit */,
 				D34B5E0210CF6EBD006E17C4 /* HotKey */,
 				D34B602610CF7477006E17C4 /* Custom App Icon */,
@@ -925,15 +945,13 @@
 			name = "JavaScript Bridge";
 			sourceTree = "<group>";
 		};
-		D32800B210CC3CB600BB363B /* UberView */ = {
+		D31CC0C110EFCB590013347D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D3E4341110CB87A500A5BDEF /* TDUberView.h */,
-				D3E4341210CB87A500A5BDEF /* TDUberView.m */,
-				D3E4341310CB87A500A5BDEF /* TDUberViewSplitView.h */,
-				D3E4341410CB87A500A5BDEF /* TDUberViewSplitView.m */,
+				D31CC0CA10EFCB590013347D /* TDAppKit.framework */,
+				D31CC0CC10EFCB590013347D /* ListViewDemoApp.app */,
 			);
-			name = UberView;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D328FC9510CC339E00BB363B /* Products */ = {
@@ -1500,6 +1518,7 @@
 				D346E6C310CE4D6900BA0B15 /* PBXTargetDependency */,
 				D328FF5010CC340C00BB363B /* PBXTargetDependency */,
 				D346ED6F10CF6C8100BA0B15 /* PBXTargetDependency */,
+				D31CC0CE10EFCB770013347D /* PBXTargetDependency */,
 				D346E58F10CE437800BA0B15 /* PBXTargetDependency */,
 				D346E58D10CE437800BA0B15 /* PBXTargetDependency */,
 				D3D3766710E4092500203EB2 /* PBXTargetDependency */,
@@ -1556,6 +1575,10 @@
 					ProjectRef = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
 				},
 				{
+					ProductGroup = D31CC0C110EFCB590013347D /* Products */;
+					ProjectRef = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
+				},
+				{
 					ProductGroup = D346E5CD10CE452000BA0B15 /* Products */;
 					ProjectRef = D346E5CC10CE452000BA0B15 /* TwitterPlugIn.xcodeproj */;
 				},
@@ -1572,6 +1595,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D31CC0CA10EFCB590013347D /* TDAppKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TDAppKit.framework;
+			remoteRef = D31CC0C910EFCB590013347D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D31CC0CC10EFCB590013347D /* ListViewDemoApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = ListViewDemoApp.app;
+			remoteRef = D31CC0CB10EFCB590013347D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D328FC9F10CC339F00BB363B /* PSMTabBarControl.palette */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -1921,8 +1958,6 @@
 				D3E430A510CB52D900A5BDEF /* TDSourceCodeTextView.m in Sources */,
 				D3E430A610CB52D900A5BDEF /* FUViewSourceWindowController.m in Sources */,
 				D3E432EE10CB70AC00A5BDEF /* FUFindPanelView.m in Sources */,
-				D3E4341510CB87A500A5BDEF /* TDUberView.m in Sources */,
-				D3E4341610CB87A500A5BDEF /* TDUberViewSplitView.m in Sources */,
 				D3E4346910CB8D4C00A5BDEF /* FUBookmark.m in Sources */,
 				D3E4346A10CB8D4C00A5BDEF /* FUBookmarkBar.m in Sources */,
 				D3E4346B10CB8D4C00A5BDEF /* FUBookmarkBarButton.m in Sources */,
@@ -1987,6 +2022,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D31CC0CE10EFCB770013347D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TDAppKit;
+			targetProxy = D31CC0CD10EFCB770013347D /* PBXContainerItemProxy */;
+		};
 		D328FF5010CC340C00BB363B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PSMTabBarControlFramework;
@@ -2211,6 +2251,7 @@
 					"\"$(SRCROOT)/lib/OmniGroup/Frameworks/OmniAppKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/PSMTabBarControl/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ShortcutRecorder/build/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/lib/TDAppKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ParseKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/Growl\"",
 					"\"$(SRCROOT)/build/Debug\"",
@@ -2248,6 +2289,7 @@
 					"\"$(SRCROOT)/lib/OmniGroup/Frameworks/OmniAppKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/PSMTabBarControl/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ShortcutRecorder/build/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/lib/TDAppKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/ParseKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/Growl\"",
 					"\"$(SRCROOT)/build/Debug\"",
