@@ -101,12 +101,15 @@
 - (id)viewForItemAtIndex:(NSInteger)i {
     id result = nil;
     
-    // this is not efficient. but i dont think we want to optimize the datastructure for this.
-    // i think this will not be commonly used and optimizing for it would also slow down insertion (which is very common).
-    for (TDListItemView *itemView in [queue allObjects]) {
-        i == itemView.index;
-        result = itemView;
-        break;
+    // fix this.
+    for (TDListItemView *itemView in [self subviews]) {
+        NSInteger currIndex = itemView.index;
+        if (i == currIndex) {
+            result = itemView;
+            break;
+        } else if (i < currIndex) {
+            break;
+        }
     }
     
     return result;
