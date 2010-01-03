@@ -196,7 +196,13 @@
     if (!canDrag) return;
     
     NSPoint offset = NSZeroPoint;
-    NSImage *dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&offset];
+    NSImage *dragImg = nil;
+    if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
+        dragImg = [delegate listView:self draggingImageForItemAtIndex:i withEvent:evt offset:&offset];
+    } else {
+        dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&offset];
+    }
+    
     p.x -= offset.x;
     p.y += offset.y;
 
@@ -211,40 +217,47 @@
 
 
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
-    NSImage *img = [NSImage imageNamed:@"dragImg"];
-//    TDListItemView *itemView = [self viewForItemAtIndex:i];
-//    NSRect r = [itemView bounds];
-//    NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:r];
-//    [self cacheDisplayInRect:r toBitmapImageRep:bitmap];
-//    
-    NSSize imgSize = [img size];
-//    NSImage *img = [[[NSImage alloc] initWithSize:imgSize] autorelease];
-//    [img addRepresentation:bitmap];
-//    
+    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    NSRect r = [itemView bounds];
+    NSBitmapImageRep *bitmap = [itemView bitmapImageRepForCachingDisplayInRect:r];
+    [itemView cacheDisplayInRect:r toBitmapImageRep:bitmap];
+    
+    NSSize imgSize = [bitmap size];
+    NSImage *img = [[[NSImage alloc] initWithSize:imgSize] autorelease];
+    [img addRepresentation:bitmap];
+    
+    NSImage *result = [[[NSImage alloc] initWithSize:imgSize] autorelease];
+    [result lockFocus];
+    NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
+    NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
+    [currentContext setImageInterpolation:NSImageInterpolationHigh];
+    [img drawInRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) fromRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) operation:NSCompositeSourceOver fraction:.5];
+    [currentContext setImageInterpolation:savedInterpolation];
+    [result unlockFocus];
+
     if (dragImageOffset) {
         NSPoint p = NSMakePoint(imgSize.width / 2, imgSize.height / 2);
         *dragImageOffset = p;
     }
     
-    return img;
+    return result;
 }
 
 
-//- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPoint operation:(NSDragOperation)op {
-//    NSPoint p = [[bookmarkBar window] convertScreenToBase:endPoint];
-//    CGFloat delta = ICON_SIDE / 2;
+- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPoint operation:(NSDragOperation)op {
+//    NSPoint p = [self convertScreenToBase:endPoint];
+//    CGFloat delta = 1 / 2;
 //    p.x += delta;
 //    p.y += delta;
 //
-//    if (!NSPointInRect(p, [bookmarkBar frame])) {
+//    if (!NSPointInRect(p, [self frame])) {
 //        endPoint.x += delta;
 //        endPoint.y += delta;
 //        [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
 //    }
 //
-//    [bookmarkBar finishedDraggingButton];
-//}
-//
+}
+
 
 
 #pragma mark -
