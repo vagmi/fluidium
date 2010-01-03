@@ -49,6 +49,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.scrollView = nil;
+    self.dataSource = nil;
+    self.delegate = nil;
     self.backgroundColor = nil;
     self.queue = nil;
     [super dealloc];
@@ -56,9 +58,10 @@
 
 
 - (void)awakeFromNib {
+    NSView *cv = [[self scrollView] contentView];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:self];
-    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:[[self scrollView] contentView]];
+    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:cv];
+    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:cv];
 }
 
 

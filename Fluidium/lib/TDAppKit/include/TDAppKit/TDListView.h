@@ -40,7 +40,7 @@ typedef enum {
 - (id)dequeueReusableItemWithIdentifier:(NSString *)s;
 - (NSInteger)indexForItemAtPoint:(NSPoint)p;
 
-@property (nonatomic, retain) IBOutlet NSScrollView *scrollView;
+@property (nonatomic, assign) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) id <TDListViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDListViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
