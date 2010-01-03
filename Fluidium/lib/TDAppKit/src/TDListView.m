@@ -40,8 +40,11 @@
         
         self.listItemViews = [NSMutableArray array];
         self.queue = [[[TDListItemViewQueue alloc] init] autorelease];
-            
+        
         [self setPostsBoundsChangedNotifications:YES];
+        
+        [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
+        [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
     }
     return self;
 }
@@ -151,13 +154,21 @@
 #pragma mark -
 #pragma mark Drag and Drop
 
-- (void)setDraggingSourceOperationMask:(NSDragOperation)dragOperationMask forLocal:(BOOL)localDestination {
-    
+- (void)setDraggingSourceOperationMask:(NSDragOperation)mask forLocal:(BOOL)localDestination {
+    if (localDestination) {
+        localDragOperationMask = mask;
+    } else {
+        nonLocalDragOperationMask = mask;
+    }
 }
 
 
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
-    return nil;
+    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    NSRect r = [itemView frame];
+    NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:r];
+    [self cacheDisplayInRect:r toBitmapImageRep:bitmap];
+    return [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
 }
 
 

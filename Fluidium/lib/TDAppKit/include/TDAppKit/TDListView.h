@@ -42,6 +42,10 @@ typedef enum {
     
     NSMutableArray *listItemViews;
     TDListItemViewQueue *queue;
+    
+    // drag and drop
+    NSDragOperation localDragOperationMask;
+    NSDragOperation nonLocalDragOperationMask;
 }
 
 - (void)reloadData;
@@ -58,7 +62,7 @@ typedef enum {
  is in an application outside the receiver's application. By default, NSDragOperationNone is returned. 
  NSCollectionView will save the values you set for each isLocal setting. You typically will invoke this method, and not override it.
  */
-- (void)setDraggingSourceOperationMask:(NSDragOperation)dragOperationMask forLocal:(BOOL)localDestination;
+- (void)setDraggingSourceOperationMask:(NSDragOperation)mask forLocal:(BOOL)localDestination;
 
 /* This method computes and returns an image to use for dragging. You can override this to return a custom drag image, 
  or call it from the delegate method to get the default drag image. 'indexes' contains the indexes of the items being dragged. 
