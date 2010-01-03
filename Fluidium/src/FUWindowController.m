@@ -442,8 +442,8 @@
     FUBookmark *bmark = nil;
     if (sender && [sender isKindOfClass:[NSMenuItem class]]) {
         bmark = [sender representedObject];
-    } else if (sender && [sender isKindOfClass:[FUBookmark class]]) {
-        bmark = sender;
+    } else if (sender) {
+        bmark = [[[FUBookmarkController instance] bookmarks] objectAtIndex:[sender tag]];
     } else {
         return;
     }

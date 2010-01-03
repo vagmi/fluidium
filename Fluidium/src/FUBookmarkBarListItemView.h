@@ -1,4 +1,4 @@
-//  Copyright 2009 Todd Ditchendorf
+//  Copyright 2010 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -13,20 +13,15 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
+#import <TDAppKit/TDListItemView.h>
 
-@class FUBookmarkBar;
-@class FUBookmark;
+@class FUBookmarkBarButton;
 
-@interface FUBookmarkBarButton : NSButton {
-    FUBookmarkBar *bookmarkBar;
-    FUBookmark *bookmark;
-    BOOL hovered;
-    NSTimer *timer;
+@interface FUBookmarkBarListItemView : TDListItemView {
+    FUBookmarkBarButton *button;
 }
 
-- (NSDictionary *)titleAttributes;
++ (NSString *)reuseIdentifier;
 
-@property (nonatomic, getter=isHovered) BOOL hovered;
-@property (nonatomic, assign) FUBookmarkBar *bookmarkBar;
-@property (nonatomic, retain) FUBookmark *bookmark;
+@property (nonatomic, retain) FUBookmarkBarButton *button;
 @end

@@ -85,7 +85,7 @@
 
 
 - (void)awakeFromNib {
-
+    listView.displaysTruncatedItems = YES;
 }
 
 
@@ -129,12 +129,12 @@
 #pragma mark -
 #pragma mark TDListViewDataSource
 
-- (NSInteger)numberOfItemsInListView:(TDListView *)tv {
+- (NSUInteger)numberOfItemsInListView:(TDListView *)tv {
     return [tabModels count];
 }
 
 
-- (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i {
+- (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSUInteger)i {
     FUTabListItemView *itemView = [lv dequeueReusableItemWithIdentifier:[FUTabListItemView reuseIdentifier]];
     
     if (!itemView) {
@@ -151,7 +151,7 @@
 #pragma mark -
 #pragma mark TDListViewDelegate
 
-- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i {
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
     NSSize scrollSize = [scrollView frame].size;
     
     if (listView.isPortrait) {
@@ -162,12 +162,12 @@
 }
 
 
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)itemView forItemAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)itemView forItemAtIndex:(NSUInteger)i {
     
 }
 
 
-- (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i {
     id wc = [self windowController];
     [wc setSelectedTabIndex:i];
 }

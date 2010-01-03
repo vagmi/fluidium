@@ -61,10 +61,9 @@
 
 
 - (void)awakeFromNib {
-    NSView *cv = [[self scrollView] contentView];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:cv];
-    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:cv];
+    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:[self superview]];
+    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:[self superview]];
 }
 
 
@@ -173,7 +172,7 @@
 #pragma mark Private
 
 - (NSRect)visibleRect {
-    return [[scrollView contentView] bounds];
+    return [[self superview] bounds];
 }
 
 
@@ -190,17 +189,16 @@
         [listItemViews removeLastObject];
     }
     
-    NSSize scrollContentSize = [scrollView contentSize];
+    NSRect viewportRect = [self visibleRect];
     BOOL isPortrait = self.isPortrait;
     
-    CGFloat x = 0;
+    CGFloat x = itemMargin;
     CGFloat y = 0;
-    CGFloat w = isPortrait ? scrollContentSize.width : 0;
-    CGFloat h = isPortrait ? 0 : scrollContentSize.height;
+    CGFloat w = isPortrait ? viewportRect.size.width : 0;
+    CGFloat h = isPortrait ? 0 : viewportRect.size.height;
     
     NSInteger c = [dataSource numberOfItemsInListView:self];
     BOOL respondsToExtentForItem = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);
-    NSRect viewportRect = [self visibleRect];
     
     NSInteger i = 0;
     for ( ; i < c; i++) {
@@ -214,7 +212,8 @@
         NSRect itemFrame = NSMakeRect(x, y, w, h);
         
         // if the item is visible...
-        if (NSIntersectsRect(viewportRect, itemFrame)) {
+        BOOL isItemVisible = displaysTruncatedItems ? NSIntersectsRect(viewportRect, itemFrame) : NSContainsRect(viewportRect, itemFrame);
+        if (isItemVisible) {
             TDListItemView *itemView = [dataSource listView:self viewForItemAtIndex:i];
             if (!itemView) {
                 [NSException raise:EXCEPTION_NAME format:@"nil list item view returned for index: %d by: %@", i, dataSource];
@@ -226,23 +225,23 @@
         }
 
         if (isPortrait) {
-            y += extent; // add height for next row
+            y += extent + itemMargin; // add height for next row
         } else {
-            x += extent;
+            x += extent + itemMargin;
         }
     }
     
     NSRect frame = [self frame];
     if (isPortrait) {
-        y = y < scrollContentSize.height ? scrollContentSize.height : y;
+        y = y < viewportRect.size.height ? viewportRect.size.height : y;
         frame.size.height = y;
     } else {
-        x = x < scrollContentSize.width ? scrollContentSize.width : x;
+        x = x < viewportRect.size.width ? viewportRect.size.width : x;
         frame.size.width = x;
     }
     [self setFrame:frame];
     
-    //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([[scrollView contentView] bounds]));
+    //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([superview bounds]));
     //NSLog(@"view count: %d, queue count: %d", [listItemViews count], [queue count]);
 }
 
@@ -251,8 +250,10 @@
 @synthesize delegate;
 @synthesize backgroundColor;
 @synthesize itemExtent;
+@synthesize itemMargin;
 @synthesize selectedItemIndex;
 @synthesize orientation;
 @synthesize listItemViews;
 @synthesize queue;
+@synthesize displaysTruncatedItems;
 @end

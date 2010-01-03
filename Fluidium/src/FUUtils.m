@@ -124,7 +124,7 @@ NSDictionary *FUMainTabTextAttributes() {
     static NSDictionary *attrs = nil;
     if (!attrs) {
         NSColor *foregroundColor = [NSColor colorWithCalibratedWhite:.2 alpha:1];
-        NSFont *font = [NSFont boldSystemFontOfSize:11.5];
+        NSFont *font = [NSFont boldSystemFontOfSize:11];
         NSMutableParagraphStyle *paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [paraStyle setAlignment:NSCenterTextAlignment];
         [paraStyle setLineBreakMode:NSLineBreakByTruncatingTail];
@@ -152,7 +152,7 @@ NSDictionary *FUNonMainTabTextAttributes() {
     static NSDictionary *attrs = nil;
     if (!attrs) {
         NSColor *foregroundColor = [NSColor colorWithCalibratedWhite:.4 alpha:1];
-        NSFont *font = [NSFont boldSystemFontOfSize:11.5];
+        NSFont *font = [NSFont boldSystemFontOfSize:11];
         NSMutableParagraphStyle *paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [paraStyle setAlignment:NSCenterTextAlignment];
         [paraStyle setLineBreakMode:NSLineBreakByTruncatingTail];

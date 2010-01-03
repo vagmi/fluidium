@@ -25,6 +25,7 @@
 #import "FUNotifications.h"
 #import "NSPasteboard+FUAdditions.h"
 #import "WebURLsWithTitles.h"
+#import <TDAppKit/TDBar.h>
 
 #define BUTTON_SPACING 4
 #define BUTTON_MARGIN_LEFT 2
@@ -48,15 +49,15 @@
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {        
-        self.overflowButton = [[[FUBookmarkBarOverflowButton alloc] init] autorelease];
-        [overflowButton setTarget:self];
+//        self.overflowButton = [[[FUBookmarkBarOverflowButton alloc] init] autorelease];
+//        [overflowButton setTarget:self];
 
         self.separator = [[[FUBookmarkButtonSeparator alloc] init] autorelease];
-        self.buttons = [NSMutableArray array];
+        //        self.buttons = [NSMutableArray array];
                 
         NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, nil];
         [self registerForDraggedTypes:types];
-        [self createOverflowMenu];
+        //        [self createOverflowMenu];
     }
     return self;
 }
@@ -76,48 +77,39 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self bookmarksDidChange:nil];
+    //    [self bookmarksDidChange:nil];
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(bookmarksDidChange:) name:FUBookmarksDidChangeNotification object:nil];
+    //    [nc addObserver:self selector:@selector(bookmarksDidChange:) name:FUBookmarksDidChangeNotification object:nil];
     [nc addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:[self window]];
     [nc addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:[self window]];    
 
+    TDBar *bar = [[[TDBar alloc] initWithFrame:[self bounds]] autorelease];
     NSColor *bgColor = FUMainTabBackgroundColor();
-    self.mainBgGradient = [[[NSGradient alloc] initWithStartingColor:[bgColor colorWithAlphaComponent:.65] endingColor:bgColor] autorelease];
+    bar.mainBgGradient = [[[NSGradient alloc] initWithStartingColor:[bgColor colorWithAlphaComponent:.65] endingColor:bgColor] autorelease];
     bgColor = FUNonMainTabBackgroundColor();
-    self.nonMainBgGradient = [[[NSGradient alloc] initWithStartingColor:[bgColor colorWithAlphaComponent:.45] endingColor:bgColor] autorelease];
-    self.mainTopBorderColor = [NSColor colorWithDeviceWhite:.4 alpha:1];
-    self.nonMainTopBorderColor = [NSColor colorWithDeviceWhite:.64 alpha:1];
-    self.mainTopBevelColor = [NSColor colorWithDeviceWhite:.75 alpha:1];
-    self.nonMainTopBevelColor = [NSColor colorWithDeviceWhite:.9 alpha:1];
-    self.mainBottomBevelColor = nil;
-    self.nonMainBottomBevelColor = nil;
+    bar.nonMainBgGradient = [[[NSGradient alloc] initWithStartingColor:[bgColor colorWithAlphaComponent:.45] endingColor:bgColor] autorelease];
+    bar.mainTopBorderColor = [NSColor colorWithDeviceWhite:.4 alpha:1];
+    bar.nonMainTopBorderColor = [NSColor colorWithDeviceWhite:.64 alpha:1];
+    bar.mainTopBevelColor = [NSColor colorWithDeviceWhite:.75 alpha:1];
+    bar.nonMainTopBevelColor = [NSColor colorWithDeviceWhite:.9 alpha:1];
+    bar.mainBottomBevelColor = nil;
+    bar.nonMainBottomBevelColor = nil;
+    
+    [bar setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    [self addSubview:bar];
 }
 
 
-- (void)mouseDown:(NSEvent *)evt {
-    if ([evt clickCount] > 1) {
-        [[FUBookmarkWindowController instance] showWindow:self];
-    } else {
-        [super mouseDown:evt];
-    }
-}
 
-
-- (void)rightMouseDown:(NSEvent *)evt {
-    [super rightMouseDown:evt];
-}
-
-
-- (void)otherMouseDown:(NSEvent *)evt {
-    NSPoint p = [self convertPointFromBase:evt.locationInWindow];
-    FUBookmarkBarButton *button = [self buttonAtX:p.x];
-    if (button) {
-        [self performActionForButton:button];
-    }
-    [super otherMouseDown:evt];
-}
+//- (void)otherMouseDown:(NSEvent *)evt {
+//    NSPoint p = [self convertPointFromBase:evt.locationInWindow];
+//    FUBookmarkBarButton *button = [self buttonAtX:p.x];
+//    if (button) {
+//        [self performActionForButton:button];
+//    }
+//    [super otherMouseDown:evt];
+//}
 
 
 #pragma mark -
@@ -231,19 +223,19 @@
 #pragma mark Private
 
 - (NSButton *)newButtonWithBookmark:(FUBookmark *)bmark {
-    NSButton *button = [[FUBookmarkBarButton alloc] initWithBookmarkBar:self bookmark:bmark];
-    [button setTarget:self];
-    [button setAction:@selector(performActionForButton:)];
-    [button sizeToFit];
+//    NSButton *button = [[FUBookmarkBarButton alloc] initWithBookmarkBar:self bookmark:bmark];
+//    [button setTarget:self];
+//    [button setAction:@selector(performActionForButton:)];
+//    [button sizeToFit];
+//    
+//    NSSize buttonSize = [button frame].size;
+//    buttonSize.width += 8;
+//    if (buttonSize.width > BUTTON_MAX_WIDTH) {
+//        buttonSize.width = BUTTON_MAX_WIDTH;
+//    }
+//    [button setFrameSize:buttonSize];
     
-    NSSize buttonSize = [button frame].size;
-    buttonSize.width += 8;
-    if (buttonSize.width > BUTTON_MAX_WIDTH) {
-        buttonSize.width = BUTTON_MAX_WIDTH;
-    }
-    [button setFrameSize:buttonSize];
-    
-    return button;
+    return nil;
 }
 
 
@@ -345,6 +337,7 @@
 
 
 - (void)layoutButtons {
+    return;
     for (FUBookmarkBarButton *b in buttons) {
         [b removeFromSuperview];
     }
@@ -403,6 +396,7 @@
 
 
 - (void)bookmarksDidChange:(NSNotification *)n {
+    return;
     [self removeAllButtons];
     for (FUBookmark *bmark in [[FUBookmarkController instance] bookmarks]) {
         [self addButtonForBookmark:bmark];

@@ -30,8 +30,10 @@ typedef enum {
     id <TDListViewDelegate>delegate;
     NSColor *backgroundColor;
     CGFloat itemExtent;
+    CGFloat itemMargin;
     NSInteger selectedItemIndex;
     TDListViewOrientation orientation;
+    BOOL displaysTruncatedItems;
     
     NSMutableArray *listItemViews;
     TDListItemViewQueue *queue;
@@ -46,8 +48,10 @@ typedef enum {
 @property (nonatomic, assign) id <TDListViewDelegate>delegate;
 @property (nonatomic, retain) NSColor *backgroundColor;
 @property (nonatomic, assign) CGFloat itemExtent; // height if isPortrait. width if isLandscape
+@property (nonatomic, assign) CGFloat itemMargin; // height if isPortrait. width if isLandscape
 @property (nonatomic, assign) NSInteger selectedItemIndex;
 @property (nonatomic, assign) TDListViewOrientation orientation;
+@property (nonatomic, assign) BOOL displaysTruncatedItems;
 
 // convenience
 @property (nonatomic, readonly, getter=isPortrait) BOOL portrait;
@@ -56,16 +60,17 @@ typedef enum {
 
 @protocol TDListViewDataSource <NSObject>
 @required
-- (NSInteger)numberOfItemsInListView:(TDListView *)tv;
-- (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i;
+- (NSUInteger)numberOfItemsInListView:(TDListView *)tv;
+- (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSUInteger)i;
 @end
 
 @protocol TDListViewDelegate <NSObject>
 @optional
-- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i; // should return height if isPortrait. shoud return width if isLandscape
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)itemView forItemAtIndex:(NSInteger)i;
-- (NSInteger)listView:(TDListView *)lv willSelectItemAtIndex:(NSInteger)i;
-- (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSInteger)i;
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i; // should return height if isPortrait. shoud return width if isLandscape
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)itemView forItemAtIndex:(NSUInteger)i;
+- (NSUInteger)listView:(TDListView *)lv willSelectItemAtIndex:(NSUInteger)i;
+- (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i;
 - (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt;
+- (NSMenu *)listView:(TDListView *)lv contextMenuForItemAtIndex:(NSUInteger)i;
 @end
 

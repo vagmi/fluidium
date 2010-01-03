@@ -18,6 +18,7 @@
 #import "FUBookmarkBarButtonCell.h"
 #import "FUBookmarkController.h"
 #import "FUUserDefaults.h"
+#import "FUUtils.h"
 #import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
 #import <WebKit/WebKit.h>
@@ -42,17 +43,14 @@
 }
 
 
-- (id)initWithBookmarkBar:(FUBookmarkBar *)bar bookmark:(FUBookmark *)bmark {
-    if (self = [super init]) {
-        self.bookmarkBar = bar;
-        self.bookmark = bmark;
-
+- (id)initWithFrame:(NSRect)frame {
+    if (self = [super initWithFrame:frame]) {
         if ([[FUUserDefaults instance] bookmarkBarShowsFavicons]) {
             [self setImagePosition:NSImageLeft];
             [self setImage:[[WebIconDatabase sharedIconDatabase] faviconForURL:bookmark.content]];
         }
         
-        [self setTitle:bookmark.title];
+        [self setFont:[NSFont boldSystemFontOfSize:11]];
         [self setBezelStyle:NSRecessedBezelStyle];
         [self setShowsBorderOnlyWhileMouseInside:YES];
     }
@@ -72,6 +70,18 @@
     if (timer) {
         [timer invalidate];
         self.timer = nil;
+    }
+}
+
+
+#pragma mark -
+#pragma mark Public
+
+- (NSDictionary *)titleAttributes {
+    if ([[self window] isMainWindow]) {
+        return FUMainTabTextAttributes();
+    } else {
+        return FUNonMainTabTextAttributes();
     }
 }
 
