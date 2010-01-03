@@ -18,8 +18,10 @@
 @interface DemoListItemView : TDListItemView {
     NSColor *color;
     NSString *name;
+    BOOL selected;
 }
 
 @property (nonatomic, retain) NSColor *color;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, getter=isSelected) BOOL selected;
 @end

@@ -15,9 +15,11 @@
 #import <Cocoa/Cocoa.h>
 
 @class TDListView;
+@class DemoListItemView;
 
 @interface ListViewDemoAppDelegate : NSObject {
     TDListView *listView;
+    DemoListItemView *selectedItemView;
 }
 
 @property (nonatomic, retain) IBOutlet TDListView *listView;

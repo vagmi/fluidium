@@ -33,6 +33,7 @@
 
 
 - (void)awakeFromNib {
+    listView.displaysTruncatedItems = YES;
     listView.backgroundColor = [NSColor darkGrayColor];
     [listView reloadData];
 }
@@ -94,6 +95,7 @@
     
     itemView.color = color;
     itemView.name = name;
+    itemView.selected = (listView.selectedItemIndex == i);
     
     return itemView;
 }
@@ -103,7 +105,7 @@
 #pragma mark TDListViewDelegate
 
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i {
-    return 100;
+    return 60 * (i + 1);
 }
 
 
@@ -118,7 +120,7 @@
 
 
 - (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSInteger)i {
-    
+
 }
 
 

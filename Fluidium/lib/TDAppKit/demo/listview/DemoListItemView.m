@@ -14,6 +14,10 @@
 
 #import "DemoListItemView.h"
 
+@interface TDListItemView ()
+@property (nonatomic, assign) NSUInteger index;
+@end
+
 @implementation DemoListItemView
 
 - (void)dealloc {
@@ -24,15 +28,20 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<ListItemView %@>", name];
+    return [NSString stringWithFormat:@"<ListItemView %@ %d>", name, self.index];
 }
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    [color set];
-    NSRectFill(dirtyRect);
+    if (selected) {
+        [[NSColor cyanColor] set];
+    } else {
+        [color set];
+    }
+    NSRectFill([self bounds]);
 }
 
 @synthesize color;
 @synthesize name;
+@synthesize selected;
 @end

@@ -111,7 +111,6 @@
         if (itemView.index == i) {
             return itemView;
         }
-        i++;
     }
     
     return nil;
@@ -154,6 +153,12 @@
 #pragma mark -
 #pragma mark Drag and Drop
 
+- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
+    return isLocal ? localDragOperationMask : nonLocalDragOperationMask;
+    //return (NSDragOperationMove|NSDragOperationDelete);
+}
+
+
 - (void)setDraggingSourceOperationMask:(NSDragOperation)mask forLocal:(BOOL)localDestination {
     if (localDestination) {
         localDragOperationMask = mask;
@@ -168,15 +173,59 @@
     NSRect r = [itemView frame];
     NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:r];
     [self cacheDisplayInRect:r toBitmapImageRep:bitmap];
-    NSImage *img = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
+
+    NSSize imgSize = [bitmap size];
+    NSImage *img = [[[NSImage alloc] initWithSize:imgSize] autorelease];
+    [img addRepresentation:bitmap];
+
     if (dragImageOffset) {
-        NSSize size = [img size];
-        NSPoint p = NSMakePoint(size.width / 2, size.height / 2);
+        NSPoint p = NSMakePoint(imgSize.width / 2, imgSize.height / 2);
         *dragImageOffset = p;
     }
+    
     return img;
 }
 
+
+- (void)mouseDragged:(NSEvent *)evt {
+    NSLog(@"%s", _cmd);
+    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    NSUInteger i = [self indexForItemAtPoint:p];
+    
+    p = NSZeroPoint;
+    NSImage *dragImage = [self draggingImageForItemAtIndex:i withEvent:evt offset:&p];
+    NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];
+
+    dragPosition.x -= p.x;
+    dragPosition.y += p.y;
+
+    [self dragImage:dragImage
+                 at:dragPosition
+             offset:NSZeroSize
+              event:evt
+         pasteboard:pboard
+             source:self
+          slideBack:NO];
+}
+
+
+//- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPoint operation:(NSDragOperation)op {
+//    NSPoint p = [[bookmarkBar window] convertScreenToBase:endPoint];
+//    CGFloat delta = ICON_SIDE / 2;
+//    p.x += delta;
+//    p.y += delta;
+//
+//    if (!NSPointInRect(p, [bookmarkBar frame])) {
+//        endPoint.x += delta;
+//        endPoint.y += delta;
+//        [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
+//    }
+//
+//    [bookmarkBar finishedDraggingButton];
+//}
+//
 
 #pragma mark -
 #pragma mark NSView
@@ -194,7 +243,8 @@
 - (void)mouseDown:(NSEvent *)evt {
     [super mouseDown:evt];
     
-    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    NSPoint pInWin = [evt locationInWindow];
+    NSPoint p = [self convertPoint:pInWin fromView:nil];
     
     NSInteger i = [self indexForItemAtPoint:p];
     if (NSNotFound == i) {
@@ -206,6 +256,30 @@
     } else {
         self.selectedItemIndex = i;
     }
+
+//    BOOL keepOn = YES;
+//    NSInteger radius = 20;
+//    NSRect r = NSMakeRect(pInWin.x - radius, pInWin.y - radius, radius * 2, radius * 2);
+//    
+//    while (keepOn) {
+//        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
+//        
+//        switch ([evt type]) {
+//            case NSLeftMouseDragged:
+//                if (NSPointInRect([evt locationInWindow], r)) {
+//                    break;
+//                }
+//                [self mouseDragged:evt];
+//                keepOn = NO;
+//                break;
+//            case NSLeftMouseUp:
+//                keepOn = NO;
+//                [super mouseDown:evt];
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 }
 
 
@@ -223,6 +297,7 @@
 }
 
 
+// TODO make -resizeSubviewsWithOldSize: ???
 - (void)layoutItems {
     if (!dataSource) {
         [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
@@ -259,7 +334,13 @@
         NSRect itemFrame = NSMakeRect(x, y, w, h);
         
         // if the item is visible...
-        BOOL isItemVisible = displaysTruncatedItems ? NSIntersectsRect(viewportRect, itemFrame) : NSContainsRect(viewportRect, itemFrame);
+        BOOL isItemVisible = NO;
+        if (displaysTruncatedItems) {
+            isItemVisible = NSIntersectsRect(viewportRect, itemFrame);
+        } else {
+            isItemVisible = NSContainsRect(viewportRect, itemFrame);
+        }
+
         if (isItemVisible) {
             TDListItemView *itemView = [dataSource listView:self viewForItemAtIndex:i];
             if (!itemView) {
