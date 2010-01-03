@@ -46,10 +46,11 @@
         self.listItemViews = [NSMutableArray array];
         self.queue = [[[TDListItemViewQueue alloc] init] autorelease];
         
+        self.displaysClippedItems = YES;
+        
         [self setPostsBoundsChangedNotifications:YES];
         
-        //        [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
-        [self setDraggingSourceOperationMask:NSDragOperationMove|NSDragOperationDelete forLocal:YES];
+        [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
         [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
     }
     return self;
@@ -249,9 +250,9 @@
     NSPoint endPointInWin = [[self window] convertScreenToBase:endPointInScreen];
 
     // get frame of visible portion of list view in window coords
-    NSRect visibleRect = [self convertRect:[self visibleRect] toView:nil];
+    NSRect dropZone = [self convertRect:[self visibleRect] toView:nil];
     
-    if (!NSPointInRect(endPointInWin, visibleRect)) {
+    if (!NSPointInRect(endPointInWin, dropZone)) {
         [NSToolbarPoofAnimator runPoofAtPoint:endPointInScreen];
     }
 }
@@ -261,9 +262,9 @@
 #pragma mark -
 #pragma mark NSDraggingDestination
 
-- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard = [sender draggingPasteboard];
-    NSDragOperation srcMask = [sender draggingSourceOperationMask];
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {
+    NSPasteboard *pboard = [dragInfo draggingPasteboard];
+    NSDragOperation srcMask = [dragInfo draggingSourceOperationMask];
     
     if ([[pboard types] containsObject:NSColorPboardType]) {
         if (srcMask & NSDragOperationMove) {
@@ -275,9 +276,78 @@
 }
 
 
-- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pboard = [sender draggingPasteboard];
-    NSDragOperation srcMask = [sender draggingSourceOperationMask];
+/* if the destination responded to draggingEntered: but not to draggingUpdated: the return value from draggingEntered: is used */
+- (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)dragInfo {
+    if (!delegate || ![delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
+        return NSDragOperationNone;
+    }
+    
+    NSDragOperation dragOp = NSDragOperationNone;
+    
+    NSPoint locInWin = [dragInfo draggingLocation];
+    NSPoint locInList = [self convertPoint:locInWin fromView:nil];
+    NSUInteger i = [self indexForItemAtPoint:locInList];
+    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    NSPoint locInItem = [itemView convertPoint:locInWin fromView:nil];
+
+    NSRect itemBounds = [itemView bounds];
+    NSRect front, back;
+    
+    if (self.isPortrait) {
+        front = NSMakeRect(itemBounds.origin.x, itemBounds.origin.y, itemBounds.size.width, itemBounds.size.height / 3);
+        back = NSMakeRect(itemBounds.origin.x, ceil(itemBounds.size.height * .66), itemBounds.size.width, itemBounds.size.height / 3);
+    } else {
+        front = NSMakeRect(itemBounds.origin.x, itemBounds.origin.y, itemBounds.size.width / 3, itemBounds.size.height);
+        back = NSMakeRect(ceil(itemBounds.size.width * .66), itemBounds.origin.y, itemBounds.size.width / 3, itemBounds.size.height);
+    }
+    
+    TDListViewDropOperation listDropOp = TDListViewDropOn;
+    if (NSPointInRect(locInItem, front)) {
+        // if p is in the first 1/3 of the itemView change the op to DropBefore
+        listDropOp = TDListViewDropBefore;
+        
+    } else if (NSPointInRect(locInItem, back)) {
+        // if p is in the last 1/3 of the item view change op to DropBefore and increment index
+        i++;
+        listDropOp = TDListViewDropBefore;
+    } else {
+        // if p is in the middle 1/3 of the item view leave as DropOn
+    }    
+
+    if (delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
+        dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&i dropOperation:&listDropOp];
+    }
+
+    //NSLog(@"over: %@. Drop %@ : %d", itemView, listDropOp == TDListViewDropOn ? @"On" : @"Before", i);
+    
+    //    NSPasteboard *pboard = [dragInfo draggingPasteboard];
+    
+    switch (dragOp) {
+        case NSDragOperationNone:
+            [dragInfo slideDraggedImageTo:lastMouseDownPoint];
+            break;
+//        case NSDragOperationGeneric:
+//        case NSDragOperationMove:
+//            [self performDragMoveOperation:listDropOp withPasteboard:pboard atIndex:i];
+//            break;
+//        case NSDragOperationLink:
+//        case NSDragOperationCopy:
+//            [self performDragCopyOperation:listDropOp withPasteboard:pboard atIndex:i];
+//            break;
+//        case NSDragOperationDelete:
+//            [self performDragDeleteOperationAtIndex:i];
+//            break;
+        default:
+            break;
+    }
+
+    return dragOp;
+}
+
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
+    NSPasteboard *pboard = [dragInfo draggingPasteboard];
+    NSDragOperation srcMask = [dragInfo draggingSourceOperationMask];
     
     if ([[pboard types] containsObject:NSColorPboardType] ) {
         if (srcMask & NSDragOperationMove) {
@@ -287,6 +357,26 @@
     
     return YES;
 }
+
+
+#pragma mark -
+
+- (void)performDragMoveOperation:(TDListViewDropOperation)listDropOp withPasteboard:(NSPasteboard *)pboard atIndex:(NSUInteger)i {
+    
+}
+
+
+- (void)performDragCopyOperation:(TDListViewDropOperation)listDropOp withPasteboard:(NSPasteboard *)pboard atIndex:(NSUInteger)i {
+    
+}
+
+
+- (void)performDragDeleteOperationAtIndex:(NSUInteger)i {
+    
+}
+
+
+
 
 
 #pragma mark -
@@ -400,7 +490,7 @@
         
         // if the item is visible...
         BOOL isItemVisible = NO;
-        if (displaysTruncatedItems) {
+        if (displaysClippedItems) {
             isItemVisible = NSIntersectsRect(viewportRect, itemFrame);
         } else {
             isItemVisible = NSContainsRect(viewportRect, itemFrame);
@@ -448,5 +538,5 @@
 @synthesize orientation;
 @synthesize listItemViews;
 @synthesize queue;
-@synthesize displaysTruncatedItems;
+@synthesize displaysClippedItems;
 @end

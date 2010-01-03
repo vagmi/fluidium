@@ -20,7 +20,14 @@
 
 - (id)init {
     if (self = [super init]) {
-        
+        self.colors = [NSMutableArray array];
+        [colors addObject:[NSColor magentaColor]];
+        [colors addObject:[NSColor redColor]];
+        [colors addObject:[NSColor orangeColor]];
+        [colors addObject:[NSColor yellowColor]];
+        [colors addObject:[NSColor greenColor]];
+        [colors addObject:[NSColor blueColor]];
+        [colors addObject:[NSColor purpleColor]];
     }
     return self;
 }
@@ -28,12 +35,19 @@
 
 - (void)dealloc {
     self.listView = nil;
+    self.colors = nil;
     [super dealloc];
 }
 
 
 - (void)awakeFromNib {
-    listView.displaysTruncatedItems = YES;
+    // setup drag and drop.
+    [listView registerForDraggedTypes:[NSArray arrayWithObjects:NSColorPboardType, nil]];
+    [listView setDraggingSourceOperationMask:NSDragOperationMove forLocal:YES];
+    [listView setDraggingSourceOperationMask:NSDragOperationDelete forLocal:NO];
+    
+    // setup ui.
+    listView.displaysClippedItems = YES;
     listView.backgroundColor = [NSColor darkGrayColor];
     [listView reloadData];
 }
@@ -56,45 +70,7 @@
         itemView = [[[DemoListItemView alloc] initWithFrame:NSZeroRect reuseIdentifier:sIdentifier] autorelease];
     }
     
-    NSColor *color = nil;
-    NSString *name = nil;
-    
-    switch (i) {
-        case 0:
-            color = [NSColor magentaColor];
-            name = @"magenta";
-            break;
-        case 1:
-            color = [NSColor redColor];
-            name = @"red";
-            break;
-        case 2:
-            color = [NSColor orangeColor];
-            name = @"orange";
-            break;
-        case 3:
-            color = [NSColor yellowColor];
-            name = @"yellow";
-            break;
-        case 4:
-            color = [NSColor greenColor];
-            name = @"green";
-            break;
-        case 5:
-            color = [NSColor blueColor];
-            name = @"blue";
-            break;
-        case 6:
-            color = [NSColor purpleColor];
-            name = @"purple";
-            break;
-        default:
-            NSAssert(0, @"unknown row");
-            break;
-    }
-    
-    itemView.color = color;
-    itemView.name = name;
+    itemView.color = [colors objectAtIndex:i];
     itemView.selected = (listView.selectedItemIndex == i);
     
     return itemView;
@@ -155,5 +131,16 @@
 }
 
 
+- (NSDragOperation)listView:(TDListView *)lv validateDrop:(id <NSDraggingInfo>)dragInfo proposedIndex:(NSUInteger *)proposedDropIndex dropOperation:(TDListViewDropOperation *)proposedDropOperation {
+    //NSLog(@"%s", _cmd);
+    return NSDragOperationMove;
+}
+
+
+- (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)dragInfo index:(NSUInteger)i dropOperation:(TDListViewDropOperation)dropOperation {
+    return YES;
+}
+
 @synthesize listView;
+@synthesize colors;
 @end

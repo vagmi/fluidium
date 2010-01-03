@@ -1320,12 +1320,12 @@
 										<object class="NSCustomView" id="397260940">
 											<reference key="NSNextResponder" ref="219397796"/>
 											<int key="NSvFlags">274</int>
-											<string key="NSFrameSize">{326, 302}</string>
+											<string key="NSFrameSize">{614, 522}</string>
 											<reference key="NSSuperview" ref="219397796"/>
 											<string key="NSClassName">TDListView</string>
 										</object>
 									</object>
-									<string key="NSFrameSize">{326, 302}</string>
+									<string key="NSFrameSize">{614, 522}</string>
 									<reference key="NSSuperview" ref="267546036"/>
 									<reference key="NSNextKeyView" ref="397260940"/>
 									<reference key="NSDocView" ref="397260940"/>
@@ -1343,7 +1343,7 @@
 								<object class="NSScroller" id="764602446">
 									<reference key="NSNextResponder" ref="267546036"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{326, 0}, {15, 302}}</string>
+									<string key="NSFrame">{{614, 0}, {15, 522}}</string>
 									<reference key="NSSuperview" ref="267546036"/>
 									<reference key="NSTarget" ref="267546036"/>
 									<string key="NSAction">_doScroller:</string>
@@ -1353,7 +1353,7 @@
 								<object class="NSScroller" id="443990397">
 									<reference key="NSNextResponder" ref="267546036"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{0, 302}, {326, 15}}</string>
+									<string key="NSFrame">{{0, 522}, {614, 15}}</string>
 									<reference key="NSSuperview" ref="267546036"/>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="267546036"/>
@@ -1361,7 +1361,7 @@
 									<double key="NSPercent">0.50602412223815918</double>
 								</object>
 							</object>
-							<string key="NSFrame">{{149, 127}, {341, 317}}</string>
+							<string key="NSFrameSize">{629, 537}</string>
 							<reference key="NSSuperview" ref="740409483"/>
 							<reference key="NSNextKeyView" ref="219397796"/>
 							<int key="NSsFlags">48</int>

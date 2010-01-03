@@ -20,7 +20,9 @@
 @interface ListViewDemoAppDelegate : NSObject {
     TDListView *listView;
     DemoListItemView *selectedItemView;
+    NSMutableArray *colors;
 }
 
 @property (nonatomic, retain) IBOutlet TDListView *listView;
+@property (nonatomic, retain) NSMutableArray *colors;
 @end

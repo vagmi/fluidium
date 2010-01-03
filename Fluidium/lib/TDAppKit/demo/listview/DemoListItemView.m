@@ -22,13 +22,12 @@
 
 - (void)dealloc {
     self.color = nil;
-    self.name = nil;
     [super dealloc];
 }
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<ListItemView %@ %d>", name, self.index];
+    return [NSString stringWithFormat:@"<ListItemView %@ %d>", color, self.index];
 }
 
 
@@ -42,11 +41,6 @@
 }
 
 
-- (id)representedObject {
-    return color;
-}
-
 @synthesize color;
-@synthesize name;
 @synthesize selected;
 @end

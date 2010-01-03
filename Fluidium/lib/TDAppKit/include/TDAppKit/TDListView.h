@@ -25,8 +25,8 @@ typedef enum {
 } TDListViewOrientation;
 
 typedef enum {
-    NSListViewDropOn = 0,
-    NSListViewDropBefore
+    TDListViewDropOn = 0,
+    TDListViewDropBefore
 } TDListViewDropOperation;
 
 @interface TDListView : NSView {
@@ -38,7 +38,7 @@ typedef enum {
     CGFloat itemMargin;
     NSInteger selectedItemIndex;
     TDListViewOrientation orientation;
-    BOOL displaysTruncatedItems;
+    BOOL displaysClippedItems;
     
     NSMutableArray *listItemViews;
     TDListItemViewQueue *queue;
@@ -84,7 +84,7 @@ typedef enum {
 @property (nonatomic, assign) CGFloat itemMargin; // height if isPortrait. width if isLandscape
 @property (nonatomic, assign) NSInteger selectedItemIndex;
 @property (nonatomic, assign) TDListViewOrientation orientation;
-@property (nonatomic, assign) BOOL displaysTruncatedItems;
+@property (nonatomic, assign) BOOL displaysClippedItems; // default=YES
 
 // convenience
 @property (nonatomic, readonly, getter=isPortrait) BOOL portrait;
