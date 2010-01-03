@@ -103,6 +103,23 @@
 }
 
 
+- (TDListItemView *)viewForItemAtIndex:(NSUInteger)i {
+    for (TDListItemView *itemView in listItemViews) {
+        if (itemView.index == i) {
+            return itemView;
+        }
+        i++;
+    }
+    
+    return nil;
+}
+
+
+- (NSRect)frameForItemAtIndex:(NSUInteger)i {
+    return [[self viewForItemAtIndex:i] frame];
+}
+
+
 - (void)setSelectedItemIndex:(NSInteger)i {
     if (i != selectedItemIndex) {
         if (delegate && [delegate respondsToSelector:@selector(listView:willSelectItemAtIndex:)]) {
@@ -128,6 +145,19 @@
 
 - (BOOL)isLandscape {
     return TDListViewOrientationLandscape == orientation;
+}
+
+
+#pragma mark -
+#pragma mark Drag and Drop
+
+- (void)setDraggingSourceOperationMask:(NSDragOperation)dragOperationMask forLocal:(BOOL)localDestination {
+    
+}
+
+
+- (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
+    return nil;
 }
 
 
