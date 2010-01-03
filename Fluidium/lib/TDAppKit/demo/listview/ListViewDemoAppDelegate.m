@@ -128,5 +128,32 @@
     
 }
 
+
+#pragma mark -
+#pragma mark TDListViewDelegate Drag and Drop
+
+- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt {
+    return YES;
+}
+
+/*
+ This method is called after it has been determined that a drag should begin, but before the drag has been started. 
+ To refuse the drag, return NO. To start the drag, declare the pasteboard types that you support with -[NSPasteboard declareTypes:owner:], 
+ place your data for the items at the given indexes on the pasteboard, and return YES from the method. 
+ The drag image and other drag related information will be set up and provided by the view once this call returns YES. 
+ You need to implement this method for your list view to be a drag source.
+ */
+- (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSInteger)i toPasteboard:(NSPasteboard *)pboard {
+    DemoListItemView *itemView = [listView viewForItemAtIndex:i];
+    if (itemView) {
+        [pboard declareTypes:[NSArray arrayWithObjects:NSColorPboardType, nil] owner:self];
+        [itemView.color writeToPasteboard:pboard];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+
 @synthesize listView;
 @end

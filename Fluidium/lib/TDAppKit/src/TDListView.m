@@ -178,13 +178,22 @@
 
 
 - (void)mouseDragged:(NSEvent *)evt {
-    NSLog(@"%s", _cmd);
-    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
     NSUInteger i = [self indexForItemAtPoint:p];
-    TDListItemView *itemView = [self viewForItemAtIndex:i];
-    [[itemView representedObject] writeToPasteboard:pboard];
+
+    BOOL canDrag = YES;
+    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
+        canDrag = [delegate listView:self canDragItemAtIndex:i withEvent:evt];
+    }
+    if (!canDrag) return;
+
+    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    
+    canDrag = NO;
+    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
+        canDrag = [delegate listView:self writeItemAtIndex:i toPasteboard:pboard];
+    }
+    if (!canDrag) return;
     
     NSPoint offset = NSZeroPoint;
     NSImage *dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&offset];
@@ -204,7 +213,7 @@
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
     NSImage *img = [NSImage imageNamed:@"dragImg"];
 //    TDListItemView *itemView = [self viewForItemAtIndex:i];
-//    NSRect r = [itemView frame];
+//    NSRect r = [itemView bounds];
 //    NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:r];
 //    [self cacheDisplayInRect:r toBitmapImageRep:bitmap];
 //    

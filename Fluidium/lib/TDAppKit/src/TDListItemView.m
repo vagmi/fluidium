@@ -43,12 +43,6 @@
     
 }
 
-
-- (id)representedObject {
-    NSAssert1(0, @"must override abstract method %s", __PRETTY_FUNCTION__);
-    return nil;
-}
-
 @synthesize reuseIdentifier;
 @synthesize index;
 @end
