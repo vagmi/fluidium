@@ -16,6 +16,7 @@
 #import <TDAppKit/TDListItemView.h>
 #import "TDListItemViewQueue.h"
 
+#define EXCEPTION_NAME @"TDListViewDataSourceException"
 #define DEFAULT_ITEM_EXTENT 44
 
 @interface TDListItemView ()
@@ -25,7 +26,6 @@
 @interface TDListView ()
 - (void)layoutItems;
 - (void)viewBoundsDidChange:(NSNotification *)n;
-- (NSInteger)subviewIndexForItemAtPoint:(NSPoint)p;
 
 @property (nonatomic, retain) TDListItemViewQueue *queue;
 @end
@@ -38,12 +38,8 @@
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
         self.queue = [[[TDListItemViewQueue alloc] init] autorelease];
-        
-        [self setPostsFrameChangedNotifications:YES];
+            
         [self setPostsBoundsChangedNotifications:YES];
-        
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:self];
     }
     return self;
 }
@@ -58,6 +54,16 @@
     [super dealloc];
 }
 
+
+- (void)awakeFromNib {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:self];
+    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:[[self scrollView] contentView]];
+}
+
+
+#pragma mark -
+#pragma mark Notifications
 
 - (void)viewBoundsDidChange:(NSNotification *)n {
     [self layoutItems];
@@ -92,46 +98,6 @@
 }
 
 
-#pragma mark -
-#pragma mark NSView
-
-- (BOOL)isFlipped {
-    return YES;
-}
-
-
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
-
-
-- (void)mouseDown:(NSEvent *)evt {
-    [super mouseDown:evt];
-    
-    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
-    
-    NSInteger i = [self subviewIndexForItemAtPoint:p];
-    if (NSNotFound == i) {
-        if ([evt clickCount] > 1) {
-            if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
-                [delegate listView:self emptyAreaWasDoubleClicked:evt];
-            }
-        }
-    } else {
-        self.selectedItemIndex = i;
-    }
-}
-
-
-- (void)drawRect:(NSRect)dirtyRect {
-    [backgroundColor set];
-    NSRectFill(dirtyRect);
-}
-
-
-#pragma mark -
-#pragma mark Public
-
 - (void)setSelectedItemIndex:(NSInteger)i {
     if (i != selectedItemIndex) {
         if (delegate && [delegate respondsToSelector:@selector(listView:willSelectItemAtIndex:)]) {
@@ -155,25 +121,50 @@
 }
 
 
-- (BOOL)landscape {
+- (BOOL)isLandscape {
     return TDListViewOrientationLandscape == orientation;
 }
 
 
 #pragma mark -
-#pragma mark Private
+#pragma mark NSView
 
-- (NSInteger)subviewIndexForItemAtPoint:(NSPoint)p {
-    NSInteger i = 0;
-    for (TDListItemView *itemView in [self subviews]) {
-        if (NSPointInRect(p, [itemView frame])) {
-            return i;
-        }
-        i++;
-    }
-    return NSNotFound;
+- (BOOL)isFlipped {
+    return YES;
 }
 
+
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+
+- (void)mouseDown:(NSEvent *)evt {
+    [super mouseDown:evt];
+    
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    
+    NSInteger i = [self indexForItemAtPoint:p];
+    if (NSNotFound == i) {
+        if ([evt clickCount] > 1) {
+            if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
+                [delegate listView:self emptyAreaWasDoubleClicked:evt];
+            }
+        }
+    } else {
+        self.selectedItemIndex = i;
+    }
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [backgroundColor set];
+    NSRectFill(dirtyRect);
+}
+
+
+#pragma mark -
+#pragma mark Private
 
 - (NSRect)visibleRect {
     return [[scrollView contentView] bounds];
@@ -181,7 +172,9 @@
 
 
 - (void)layoutItems {
-    NSAssert(dataSource, @"TDListView must have a dataSource before doing layout");
+    if (!dataSource) {
+        [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
+    }
 
     NSEnumerator *e = [[self subviews] reverseObjectEnumerator];
     TDListItemView *itemView = nil;
@@ -216,7 +209,9 @@
         // if the item is visible...
         if (NSIntersectsRect(viewportRect, itemFrame)) {
             TDListItemView *itemView = [dataSource listView:self viewForItemAtIndex:i];
-            NSAssert1(itemView, @"nil rowView returned for index: %d", i);
+            if (!itemView) {
+                [NSException raise:EXCEPTION_NAME format:@"nil list item view returned for index: %d by: %@", i, dataSource];
+            }
             [itemView setFrame:NSMakeRect(x, y, w, h)];
             itemView.index = i;            
             [self addSubview:itemView];

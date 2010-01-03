@@ -42,6 +42,11 @@
 
 - (BOOL)enqueue:(TDListItemView *)itemView {
     NSString *s = itemView.reuseIdentifier;
+    
+    if (![s length]) {
+        return NO;
+    }
+    
     NSMutableSet *set = [dict objectForKey:s];
     if (!set) {
         set = [NSMutableSet set];
@@ -81,15 +86,6 @@
         c += [[dict objectForKey:key] count];
     }
     return c;
-}
-
-
-- (NSArray *)allObjects {
-    NSMutableArray *all = [NSMutableArray array];
-    for (NSString *key in dict) {
-        [all addObject:[[dict objectForKey:key] allObjects]];
-    }
-    return all;
 }
 
 @synthesize dict;

@@ -23,5 +23,4 @@
 - (BOOL)enqueue:(TDListItemView *)itemView;
 - (TDListItemView *)dequeueWithIdentifier:(NSString *)s;
 - (NSUInteger)count;
-- (NSArray *)allObjects;
 @end
