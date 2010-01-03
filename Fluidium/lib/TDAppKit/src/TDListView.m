@@ -43,8 +43,12 @@
         
         [self setPostsBoundsChangedNotifications:YES];
         
-        [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
+        //        [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
+        [self setDraggingSourceOperationMask:NSDragOperationMove|NSDragOperationDelete forLocal:YES];
         [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
+
+        // TODO REMOVE
+        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSColorPboardType, nil]];
     }
     return self;
 }
@@ -151,7 +155,7 @@
 
 
 #pragma mark -
-#pragma mark Drag and Drop
+#pragma mark DraggingSource
 
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
     return isLocal ? localDragOperationMask : nonLocalDragOperationMask;
@@ -168,22 +172,8 @@
 }
 
 
-- (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
-    TDListItemView *itemView = [self viewForItemAtIndex:i];
-    NSRect r = [itemView frame];
-    NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:r];
-    [self cacheDisplayInRect:r toBitmapImageRep:bitmap];
-
-    NSSize imgSize = [bitmap size];
-    NSImage *img = [[[NSImage alloc] initWithSize:imgSize] autorelease];
-    [img addRepresentation:bitmap];
-
-    if (dragImageOffset) {
-        NSPoint p = NSMakePoint(imgSize.width / 2, imgSize.height / 2);
-        *dragImageOffset = p;
-    }
-    
-    return img;
+- (BOOL)ignoreModifierKeysWhileDragging {
+    return YES;
 }
 
 
@@ -193,21 +183,41 @@
     
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
     NSUInteger i = [self indexForItemAtPoint:p];
+    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    [[itemView representedObject] writeToPasteboard:pboard];
     
-    p = NSZeroPoint;
-    NSImage *dragImage = [self draggingImageForItemAtIndex:i withEvent:evt offset:&p];
-    NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];
+    NSPoint offset = NSZeroPoint;
+    NSImage *dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&offset];
+    p.x -= offset.x;
+    p.y += offset.y;
 
-    dragPosition.x -= p.x;
-    dragPosition.y += p.y;
-
-    [self dragImage:dragImage
-                 at:dragPosition
+    [self dragImage:dragImg
+                 at:p
              offset:NSZeroSize
               event:evt
          pasteboard:pboard
              source:self
           slideBack:NO];
+}
+
+
+- (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
+    NSImage *img = [NSImage imageNamed:@"dragImg"];
+//    TDListItemView *itemView = [self viewForItemAtIndex:i];
+//    NSRect r = [itemView frame];
+//    NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:r];
+//    [self cacheDisplayInRect:r toBitmapImageRep:bitmap];
+//    
+    NSSize imgSize = [img size];
+//    NSImage *img = [[[NSImage alloc] initWithSize:imgSize] autorelease];
+//    [img addRepresentation:bitmap];
+//    
+    if (dragImageOffset) {
+        NSPoint p = NSMakePoint(imgSize.width / 2, imgSize.height / 2);
+        *dragImageOffset = p;
+    }
+    
+    return img;
 }
 
 
@@ -226,6 +236,38 @@
 //    [bookmarkBar finishedDraggingButton];
 //}
 //
+
+
+#pragma mark -
+#pragma mark NSDraggingDestination
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSDragOperation srcMask = [sender draggingSourceOperationMask];
+    
+    if ([[pboard types] containsObject:NSColorPboardType]) {
+        if (srcMask & NSDragOperationMove) {
+            return NSDragOperationMove;
+        }
+    }
+
+    return NSDragOperationNone;
+}
+
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSDragOperation srcMask = [sender draggingSourceOperationMask];
+    
+    if ([[pboard types] containsObject:NSColorPboardType] ) {
+        if (srcMask & NSDragOperationMove) {
+            //NSColor *newColor = [NSColor colorFromPasteboard:pboard];
+        }
+    }
+    
+    return YES;
+}
+
 
 #pragma mark -
 #pragma mark NSView
@@ -257,29 +299,31 @@
         self.selectedItemIndex = i;
     }
 
-//    BOOL keepOn = YES;
-//    NSInteger radius = 20;
-//    NSRect r = NSMakeRect(pInWin.x - radius, pInWin.y - radius, radius * 2, radius * 2);
-//    
-//    while (keepOn) {
-//        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
-//        
-//        switch ([evt type]) {
-//            case NSLeftMouseDragged:
-//                if (NSPointInRect([evt locationInWindow], r)) {
-//                    break;
-//                }
-//                [self mouseDragged:evt];
-//                keepOn = NO;
-//                break;
-//            case NSLeftMouseUp:
-//                keepOn = NO;
-//                [super mouseDown:evt];
-//                break;
-//            default:
-//                break;
-//        }
-//    }
+    // this adds support for click-to-select + drag all in one click. 
+    // otherwise you have to click once to select and then click again to begin a drag, which sux.
+    BOOL dragging = YES;
+    NSInteger radius = 20;
+    NSRect r = NSMakeRect(pInWin.x - radius, pInWin.y - radius, radius * 2, radius * 2);
+    
+    while (dragging) {
+        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
+        
+        switch ([evt type]) {
+            case NSLeftMouseDragged:
+                if (NSPointInRect([evt locationInWindow], r)) {
+                    break;
+                }
+                [self mouseDragged:evt];
+                dragging = NO;
+                break;
+            case NSLeftMouseUp:
+                dragging = NO;
+                [super mouseDown:evt];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 

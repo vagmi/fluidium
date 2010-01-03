@@ -22,6 +22,7 @@
 - (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s;
 
 - (void)prepareForReuse;
+- (id)representedObject;
 
 @property (nonatomic, copy) NSString *reuseIdentifier;
 @end

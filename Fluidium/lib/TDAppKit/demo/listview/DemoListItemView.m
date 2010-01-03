@@ -41,6 +41,11 @@
     NSRectFill([self bounds]);
 }
 
+
+- (id)representedObject {
+    return color;
+}
+
 @synthesize color;
 @synthesize name;
 @synthesize selected;
