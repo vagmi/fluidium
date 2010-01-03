@@ -22,7 +22,7 @@
 @class FUProgressComboBox;
 @class FUShortcutController;
 @class FUBookmark;
-@class FULine;
+@class TDLine;
 
 @interface FUWindowController : NSWindowController 
 #if FU_BUILD_TARGET_SNOW_LEOPARD
@@ -35,7 +35,7 @@
     
     NSView *tabContainerView;
     PSMTabBarControl *tabBar;
-    FULine *emptyTabBarLine;
+    TDLine *emptyTabBarLine;
     NSView *bookmarkBar;
     TDUberView *uberView;
     NSView *statusBar;
@@ -113,13 +113,13 @@
 - (BOOL)isFindPanelVisible;
 
 - (FUTabController *)loadRequestInSelectedTab:(NSURLRequest *)req;
-- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabAndSelect:(BOOL)select; // shouldCreate = YES, respects FUNewTabsOpenInline pref
+- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabAndSelect:(BOOL)select; // shouldCreate=YES, index=count
 - (FUTabController *)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
 
 - (FUTabController *)addNewTabAndSelect:(BOOL)select;
 - (FUTabController *)addNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select;
 
-- (void)addTabController:(FUTabController *)tc; // respects FUNewTabsOpenInline pref
+- (void)addTabController:(FUTabController *)tc;
 - (void)addTabController:(FUTabController *)tc atIndex:(NSInteger)i;
 
 - (BOOL)removeTabController:(FUTabController *)tc;
@@ -138,7 +138,7 @@
 @property (nonatomic, retain) IBOutlet NSSearchField *searchField;
 @property (nonatomic, retain) IBOutlet NSView *tabContainerView;
 @property (nonatomic, retain) IBOutlet PSMTabBarControl *tabBar;
-@property (nonatomic, retain) IBOutlet FULine *emptyTabBarLine;
+@property (nonatomic, retain) IBOutlet TDLine *emptyTabBarLine;
 @property (nonatomic, retain) IBOutlet NSView *bookmarkBar;
 @property (nonatomic, retain) IBOutlet TDUberView *uberView;
 @property (nonatomic, retain) IBOutlet NSView *statusBar;

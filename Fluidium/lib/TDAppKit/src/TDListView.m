@@ -27,6 +27,7 @@
 - (void)layoutItems;
 - (void)viewBoundsDidChange:(NSNotification *)n;
 
+@property (nonatomic, retain) NSMutableArray *listItemViews;
 @property (nonatomic, retain) TDListItemViewQueue *queue;
 @end
 
@@ -37,6 +38,7 @@
         self.backgroundColor = [NSColor whiteColor];
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
+        self.listItemViews = [NSMutableArray array];
         self.queue = [[[TDListItemViewQueue alloc] init] autorelease];
             
         [self setPostsBoundsChangedNotifications:YES];
@@ -52,6 +54,7 @@
     self.dataSource = nil;
     self.delegate = nil;
     self.backgroundColor = nil;
+    self.listItemViews = nil;
     self.queue = nil;
     [super dealloc];
 }
@@ -91,7 +94,7 @@
 
 - (NSInteger)indexForItemAtPoint:(NSPoint)p {
     NSInteger i = 0;
-    for (TDListItemView *itemView in [self subviews]) {
+    for (TDListItemView *itemView in listItemViews) {
         if (NSPointInRect(p, [itemView frame])) {
             return itemView.index;
         }
@@ -179,11 +182,12 @@
         [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
     }
 
-    NSEnumerator *e = [[self subviews] reverseObjectEnumerator];
+    NSEnumerator *e = [listItemViews reverseObjectEnumerator];
     TDListItemView *itemView = nil;
     while (itemView = [e nextObject]) {
         [queue enqueue:itemView];
         [itemView removeFromSuperview];
+        [listItemViews removeLastObject];
     }
     
     NSSize scrollContentSize = [scrollView contentSize];
@@ -218,6 +222,7 @@
             [itemView setFrame:NSMakeRect(x, y, w, h)];
             itemView.index = i;            
             [self addSubview:itemView];
+            [listItemViews addObject:itemView];
         }
 
         if (isPortrait) {
@@ -238,7 +243,7 @@
     [self setFrame:frame];
     
     //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([[scrollView contentView] bounds]));
-    //NSLog(@"view count: %d, queue count: %d", [[self subviews] count], [queue count]);
+    //NSLog(@"view count: %d, queue count: %d", [listItemViews count], [queue count]);
 }
 
 @synthesize scrollView;
@@ -248,5 +253,6 @@
 @synthesize itemExtent;
 @synthesize selectedItemIndex;
 @synthesize orientation;
+@synthesize listItemViews;
 @synthesize queue;
 @end

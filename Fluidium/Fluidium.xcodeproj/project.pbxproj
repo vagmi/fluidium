@@ -113,7 +113,6 @@
 		D35CC25F10D41DD900DA1898 /* FUUserAgentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */; };
 		D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
-		D3A5246810EAC90F0021B801 /* FULine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A5246710EAC90F0021B801 /* FULine.m */; };
 		D3AF875C10CFA00A00C601A3 /* FUAppearancePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */; };
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
@@ -140,7 +139,6 @@
 		D3E42F3E10CB152000A5BDEF /* FUDownloadListButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3810CB152000A5BDEF /* FUDownloadListButtonCell.m */; };
 		D3E42F3F10CB152000A5BDEF /* FUDownloadWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3A10CB152000A5BDEF /* FUDownloadWindowController.m */; };
 		D3E42F4C10CB15E700A5BDEF /* NSImage+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */; };
-		D3E42FCE10CB1CC700A5BDEF /* FUBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42FCD10CB1CC700A5BDEF /* FUBar.m */; };
 		D3E42FDD10CB1E1600A5BDEF /* FUDownloadWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E42FDB10CB1E1600A5BDEF /* FUDownloadWindow.xib */; };
 		D3E430A310CB52D900A5BDEF /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4309C10CB52D900A5BDEF /* TDGutterView.m */; };
 		D3E430A510CB52D900A5BDEF /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E430A010CB52D900A5BDEF /* TDSourceCodeTextView.m */; };
@@ -682,8 +680,6 @@
 		D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMNode+FUAdditions.m"; path = "src/DOMNode+FUAdditions.m"; sourceTree = "<group>"; };
 		D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+FUAdditions.h"; path = "src/NSFileManager+FUAdditions.h"; sourceTree = "<group>"; };
 		D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+FUAdditions.m"; path = "src/NSFileManager+FUAdditions.m"; sourceTree = "<group>"; };
-		D3A5246610EAC90F0021B801 /* FULine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FULine.h; path = src/FULine.h; sourceTree = "<group>"; };
-		D3A5246710EAC90F0021B801 /* FULine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FULine.m; path = src/FULine.m; sourceTree = "<group>"; };
 		D3AF875A10CFA00A00C601A3 /* FUAppearancePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAppearancePreferences.h; path = src/FUAppearancePreferences.h; sourceTree = "<group>"; };
 		D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAppearancePreferences.m; path = src/FUAppearancePreferences.m; sourceTree = "<group>"; };
 		D3AF875D10CFA01E00C601A3 /* FUBehaviorPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBehaviorPreferences.h; path = src/FUBehaviorPreferences.h; sourceTree = "<group>"; };
@@ -716,8 +712,6 @@
 		D3E42F3A10CB152000A5BDEF /* FUDownloadWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDownloadWindowController.m; path = src/FUDownloadWindowController.m; sourceTree = "<group>"; };
 		D3E42F4A10CB15E700A5BDEF /* NSImage+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+FUAdditions.h"; path = "src/NSImage+FUAdditions.h"; sourceTree = "<group>"; };
 		D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+FUAdditions.m"; path = "src/NSImage+FUAdditions.m"; sourceTree = "<group>"; };
-		D3E42FCC10CB1CC700A5BDEF /* FUBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBar.h; path = src/FUBar.h; sourceTree = "<group>"; };
-		D3E42FCD10CB1CC700A5BDEF /* FUBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBar.m; path = src/FUBar.m; sourceTree = "<group>"; };
 		D3E42FDC10CB1E1600A5BDEF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUDownloadWindow.xib; sourceTree = "<group>"; };
 		D3E4309B10CB52D900A5BDEF /* TDGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGutterView.h; path = src/TDGutterView.h; sourceTree = "<group>"; };
 		D3E4309C10CB52D900A5BDEF /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = src/TDGutterView.m; sourceTree = "<group>"; };
@@ -1291,10 +1285,6 @@
 				D3051C9410CA3A4500AFF325 /* FUUtils.m */,
 				D3DB01F910D6141E0057D70C /* FUView.h */,
 				D3DB01FA10D6141E0057D70C /* FUView.m */,
-				D3E42FCC10CB1CC700A5BDEF /* FUBar.h */,
-				D3E42FCD10CB1CC700A5BDEF /* FUBar.m */,
-				D3A5246610EAC90F0021B801 /* FULine.h */,
-				D3A5246710EAC90F0021B801 /* FULine.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -1953,7 +1943,6 @@
 				D3E42F3E10CB152000A5BDEF /* FUDownloadListButtonCell.m in Sources */,
 				D3E42F3F10CB152000A5BDEF /* FUDownloadWindowController.m in Sources */,
 				D3E42F4C10CB15E700A5BDEF /* NSImage+FUAdditions.m in Sources */,
-				D3E42FCE10CB1CC700A5BDEF /* FUBar.m in Sources */,
 				D3E430A310CB52D900A5BDEF /* TDGutterView.m in Sources */,
 				D3E430A510CB52D900A5BDEF /* TDSourceCodeTextView.m in Sources */,
 				D3E430A610CB52D900A5BDEF /* FUViewSourceWindowController.m in Sources */,
@@ -2015,7 +2004,6 @@
 				D3B8BC0610E837E400271454 /* HMFoundationEx.m in Sources */,
 				D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */,
 				D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */,
-				D3A5246810EAC90F0021B801 /* FULine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

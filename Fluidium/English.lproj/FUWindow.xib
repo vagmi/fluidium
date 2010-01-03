@@ -73,7 +73,7 @@
 									<int key="NSvFlags">266</int>
 									<string key="NSFrame">{{0, 701}, {1087, 1}}</string>
 									<reference key="NSSuperview" ref="405679537"/>
-									<string key="NSClassName">FULine</string>
+									<string key="NSClassName">TDLine</string>
 								</object>
 							</object>
 							<string key="NSFrame">{{0, 16}, {1087, 702}}</string>
@@ -131,7 +131,7 @@
 							</object>
 							<string key="NSFrameSize">{1087, 16}</string>
 							<reference key="NSSuperview" ref="568628114"/>
-							<string key="NSClassName">FUBar</string>
+							<string key="NSClassName">TDBar</string>
 						</object>
 					</object>
 					<string key="NSFrameSize">{1087, 718}</string>
@@ -1454,24 +1454,8 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">FUBar</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUBar.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUBar</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBUserSource</string>
-						<string key="minorKey"/>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">FUBookmarkBar</string>
-					<string key="superclassName">FUBar</string>
+					<string key="superclassName">TDBar</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUBookmarkBar.h</string>
@@ -1491,14 +1475,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FULine</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FULine.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1643,7 +1619,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSView</string>
 							<string>NSWindow</string>
-							<string>FULine</string>
+							<string>TDLine</string>
 							<string>NSSearchField</string>
 							<string>NSView</string>
 							<string>FUProgressComboBox</string>
@@ -1760,6 +1736,22 @@
 							<string>NSTabView</string>
 						</object>
 					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TDBar</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TDLine</string>
+					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>

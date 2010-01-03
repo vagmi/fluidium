@@ -33,6 +33,7 @@ typedef enum {
     NSInteger selectedItemIndex;
     TDListViewOrientation orientation;
     
+    NSMutableArray *listItemViews;
     TDListItemViewQueue *queue;
 }
 

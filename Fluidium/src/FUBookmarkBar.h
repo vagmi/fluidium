@@ -12,14 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUBar.h"
+#import <TDAppKit/TDBar.h>
 
 @class FUBookmark;
 @class FUBookmarkBarButton;
 @class FUBookmarkButtonSeparator;
 @class FUBookmarkBarOverflowButton;
 
-@interface FUBookmarkBar : FUBar {
+@interface FUBookmarkBar : TDBar {
     FUBookmarkButtonSeparator *separator;
     NSMutableArray *buttons;
     NSInteger currDropIndex;

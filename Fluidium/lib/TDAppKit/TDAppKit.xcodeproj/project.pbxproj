@@ -16,13 +16,18 @@
 		D31CBFB510EFB7010013347D /* TDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAF10EFB7010013347D /* TDListView.m */; };
 		D31CBFCA10EFB8180013347D /* TDUberView.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFC810EFB8180013347D /* TDUberView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D31CBFCE10EFB8260013347D /* TDUberView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFCC10EFB8260013347D /* TDUberView.m */; };
-		D31CBFCF10EFB8260013347D /* TDUberViewSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFCD10EFB8260013347D /* TDUberViewSplitView.m */; };
 		D31CBFF410EFBA3C0013347D /* ListViewDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFF310EFBA3C0013347D /* ListViewDemoAppDelegate.m */; };
 		D31CBFFA10EFBD360013347D /* DemoListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFF910EFBD360013347D /* DemoListItemView.m */; };
 		D31CC01810EFC64E0013347D /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */; };
 		D31CC02410EFC6BB0013347D /* TDAppKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CC02310EFC6BB0013347D /* TDAppKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D31CC05E10EFC80B0013347D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CC05D10EFC80B0013347D /* main.m */; };
 		D31CC0B010EFC9750013347D /* ListViewDemoMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31CC0AF10EFC9750013347D /* ListViewDemoMainMenu.xib */; };
+		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
+		D371244810F0520800D7107B /* TDBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244210F051E800D7107B /* TDBar.m */; };
+		D371244910F0520D00D7107B /* TDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244310F051E800D7107B /* TDLine.m */; };
+		D371245410F0522700D7107B /* TDBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D371245210F0522700D7107B /* TDBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D371245510F0522700D7107B /* TDLine.h in Headers */ = {isa = PBXBuildFile; fileRef = D371245310F0522700D7107B /* TDLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D371246110F0526B00D7107B /* TDUberViewSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +57,6 @@
 		D31CBFC810EFB8180013347D /* TDUberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberView.h; path = include/TDAppKit/TDUberView.h; sourceTree = "<group>"; };
 		D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberViewSplitView.m; path = src/TDUberViewSplitView.m; sourceTree = "<group>"; };
 		D31CBFCC10EFB8260013347D /* TDUberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberView.m; path = src/TDUberView.m; sourceTree = "<group>"; };
-		D31CBFCD10EFB8260013347D /* TDUberViewSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUberViewSplitView.m; path = src/TDUberViewSplitView.m; sourceTree = "<group>"; };
 		D31CBFE910EFB9630013347D /* ListViewDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListViewDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31CBFEB10EFB9630013347D /* ListViewDemoApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ListViewDemoApp-Info.plist"; path = "demo/listview/ListViewDemoApp-Info.plist"; sourceTree = "<group>"; };
 		D31CBFF210EFBA3C0013347D /* ListViewDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListViewDemoAppDelegate.h; path = demo/listview/ListViewDemoAppDelegate.h; sourceTree = "<group>"; };
@@ -62,6 +66,11 @@
 		D31CC02310EFC6BB0013347D /* TDAppKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDAppKit.h; path = include/TDAppKit/TDAppKit.h; sourceTree = "<group>"; };
 		D31CC05D10EFC80B0013347D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = demo/listview/main.m; sourceTree = "<group>"; };
 		D31CC0AF10EFC9750013347D /* ListViewDemoMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ListViewDemoMainMenu.xib; path = demo/listview/ListViewDemoMainMenu.xib; sourceTree = "<group>"; };
+		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
+		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
+		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
+		D371245210F0522700D7107B /* TDBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBar.h; path = include/TDAppKit/TDBar.h; sourceTree = "<group>"; };
+		D371245310F0522700D7107B /* TDLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLine.h; path = include/TDAppKit/TDLine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +139,7 @@
 				D31CC02310EFC6BB0013347D /* TDAppKit.h */,
 				D31CBFBA10EFB7E90013347D /* UberView */,
 				D31CBFA810EFB6F80013347D /* ListView */,
+				D371244010F051D600D7107B /* Misc */,
 			);
 			name = "TDAppKit Framework";
 			sourceTree = "<group>";
@@ -177,8 +187,8 @@
 			children = (
 				D31CBFC810EFB8180013347D /* TDUberView.h */,
 				D31CBFCC10EFB8260013347D /* TDUberView.m */,
+				D371244610F0520300D7107B /* TDUberViewSplitView.h */,
 				D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */,
-				D31CBFCD10EFB8260013347D /* TDUberViewSplitView.m */,
 			);
 			name = UberView;
 			sourceTree = "<group>";
@@ -197,6 +207,17 @@
 			name = "ListView Demo App";
 			sourceTree = "<group>";
 		};
+		D371244010F051D600D7107B /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				D371245210F0522700D7107B /* TDBar.h */,
+				D371244210F051E800D7107B /* TDBar.m */,
+				D371245310F0522700D7107B /* TDLine.h */,
+				D371244310F051E800D7107B /* TDLine.m */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -208,6 +229,9 @@
 				D31CBFCA10EFB8180013347D /* TDUberView.h in Headers */,
 				D31CBFB410EFB7010013347D /* TDListView.h in Headers */,
 				D31CBFB010EFB7010013347D /* TDListItemView.h in Headers */,
+				D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */,
+				D371245410F0522700D7107B /* TDBar.h in Headers */,
+				D371245510F0522700D7107B /* TDLine.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,10 +319,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D31CBFCE10EFB8260013347D /* TDUberView.m in Sources */,
-				D31CBFCF10EFB8260013347D /* TDUberViewSplitView.m in Sources */,
 				D31CBFB510EFB7010013347D /* TDListView.m in Sources */,
 				D31CBFB110EFB7010013347D /* TDListItemView.m in Sources */,
 				D31CBFB310EFB7010013347D /* TDListItemViewQueue.m in Sources */,
+				D371244810F0520800D7107B /* TDBar.m in Sources */,
+				D371244910F0520D00D7107B /* TDLine.m in Sources */,
+				D371246110F0526B00D7107B /* TDUberViewSplitView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,7 +28,6 @@
 #import "FUActivation.h"
 #import "FUUtils.h"
 #import "FUWebView.h"
-#import "FULine.h"
 #import "FUTabBarControl.h"
 #import "FUPlugInController.h"
 #import "FUNotifications.h"
@@ -39,6 +38,7 @@
 #import <WebKit/WebKit.h>
 #import <PSMTabBarControl/PSMTabBarControl.h>
 #import <TDAppKit/TDUberView.h>
+#import <TDAppKit/TDLine.h>
 
 #define MIN_COMBOBOX_WIDTH 100
 
