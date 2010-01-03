@@ -25,6 +25,10 @@
     BOOL selected;
 }
 
++ (FUTabModel *)modelWithPlist:(NSDictionary *)plist;
+
+- (NSDictionary *)plist;
+
 @property (nonatomic, retain) NSImage *image;
 @property (nonatomic, retain) NSImage *scaledImage;
 @property (nonatomic, copy) NSString *title;

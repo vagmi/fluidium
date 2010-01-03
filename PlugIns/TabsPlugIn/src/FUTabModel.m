@@ -16,6 +16,26 @@
 
 @implementation FUTabModel
 
++ (FUTabModel *)modelWithPlist:(NSDictionary *)plist {
+    FUTabModel *m = [[[self alloc] init] autorelease];
+    m.title = [plist objectForKey:@"title"];
+    m.URLString = [plist objectForKey:@"URLString"];
+    m.index = [[plist objectForKey:@"index"] integerValue];
+    m.selected = [[plist objectForKey:@"selected"] boolValue];
+    return m;
+}
+
+
+- (NSDictionary *)plist {
+    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:3];
+    [d setObject:title forKey:@"title"];
+    [d setObject:URLString forKey:@"URLString"];
+    [d setObject:[NSNumber numberWithInteger:index] forKey:@"index"];
+    [d setObject:[NSNumber numberWithInteger:selected] forKey:@"selected"];
+    return d;
+}
+
+
 - (void)dealloc {
     self.image = nil;
     self.scaledImage = nil;

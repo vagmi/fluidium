@@ -33,7 +33,6 @@
 - (void)handleInternetOpenContentsEvent:(NSAppleEventDescriptor *)event replyEvent:(NSAppleEventDescriptor *)replyEvent;
 - (void)handleOpenContentsAppleEventWithURL:(NSString *)URLString;
 
-- (void)saveSession;
 - (void)restoreSession;
 @end
 

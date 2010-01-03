@@ -57,6 +57,8 @@ typedef enum {
 - (FUTabController *)frontTabController;
 - (WebView *)frontWebView;
 
+- (void)saveSession;
+
 @property (nonatomic, assign) NSWindow *hiddenWindow; // weak ref
 @property (nonatomic, retain) NSMutableArray *dockMenuItems;
 @end

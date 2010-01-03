@@ -20,6 +20,7 @@
 #import "FUAppearancePreferences.h"
 #import "FUPlugInPreferences.h"
 #import "TDSourceCodeTextView.h"
+#import "FUDocumentController.h"
 #import "FUWhitelistController.h"
 #import "FUUserscriptController.h"
 #import "FUUserstyleController.h"
@@ -251,6 +252,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 - (void)applicationWillResignActive:(NSNotification *)n {
     [[FUHistoryController instance] save];
+    [[FUDocumentController instance] saveSession];
 }
 
 @synthesize appName;
