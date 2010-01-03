@@ -168,7 +168,13 @@
     NSRect r = [itemView frame];
     NSBitmapImageRep *bitmap = [self bitmapImageRepForCachingDisplayInRect:r];
     [self cacheDisplayInRect:r toBitmapImageRep:bitmap];
-    return [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
+    NSImage *img = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
+    if (dragImageOffset) {
+        NSSize size = [img size];
+        NSPoint p = NSMakePoint(size.width / 2, size.height / 2);
+        *dragImageOffset = p;
+    }
+    return img;
 }
 
 
