@@ -44,6 +44,8 @@ typedef enum {
     TDListItemViewQueue *queue;
     
     // drag and drop
+    NSPoint lastMouseDownPoint;
+    NSPoint dragOffset;
     NSDragOperation localDragOperationMask;
     NSDragOperation nonLocalDragOperationMask;
 }
@@ -109,7 +111,7 @@ typedef enum {
 /* The return value indicates whether the list view can attempt to initiate a drag for the given event and items. 
  If the delegate does not implement this method, the list view will act as if it returned YES.
  */
-- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt;
+- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt;
 
 /*
  This method is called after it has been determined that a drag should begin, but before the drag has been started. 
@@ -118,7 +120,7 @@ typedef enum {
  The drag image and other drag related information will be set up and provided by the view once this call returns YES. 
  You need to implement this method for your list view to be a drag source.
  */
-- (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSInteger)i toPasteboard:(NSPasteboard *)pboard;
+- (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSUInteger)i toPasteboard:(NSPasteboard *)pboard;
 
 /* The delegate can support file promise drags by adding NSFilesPromisePboardType to the pasteboard in -collectionView:writeItemsAtIndexes:toPasteboard:. 
  NSCollectionView implements -namesOfPromisedFilesDroppedAtDestination: to return the results of this delegate method. 
@@ -126,7 +128,7 @@ typedef enum {
  For more information on file promise dragging, see documentation for the NSDraggingSource protocol and -namesOfPromisedFilesDroppedAtDestination:. 
  You do not need to implement this method for your list view to be a drag source.
  */
-- (NSArray *)listView:(TDListView *)lv namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropURL forDraggedItemAtIndex:(NSInteger)i;
+- (NSArray *)listView:(TDListView *)lv namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropURL forDraggedItemAtIndex:(NSUInteger)i;
 
 /* Allows the delegate to construct a custom dragging image for the items being dragged. 'indexes' contains the indexes of the items being dragged. 
  'event' is a reference to the  mouse down event that began the drag. 'dragImageOffset' is an in/out parameter. 
@@ -134,7 +136,7 @@ typedef enum {
  A dragImageOffset of NSZeroPoint will cause the image to be centered under the mouse. You can safely call -[NSCollectionView draggingImageForItemsAtIndexes:withEvent:offset:] from within this method. 
  You do not need to implement this method for your list view to be a drag source.
  */
-- (NSImage *)listView:(TDListView *)lv draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset;
+- (NSImage *)listView:(TDListView *)lv draggingImageForItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset;
 
 /* This method is used by the list view to determine a valid drop target. Based on the mouse position, the list view will suggest a proposed index and drop operation. 
  These values are in/out parameters and can be changed by the delegate to retarget the drop operation. 
@@ -145,13 +147,13 @@ typedef enum {
  Note: to receive drag messages, you must first send -registerForDraggedTypes: to the list view with the drag types you want to support (typically this is done in -awakeFromNib). 
  You must implement this method for your list view to be a drag destination.
  */
-- (NSDragOperation)listView:(TDListView *)lv validateDrop:(id <NSDraggingInfo>)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(TDListViewDropOperation *)proposedDropOperation;
+- (NSDragOperation)listView:(TDListView *)lv validateDrop:(id <NSDraggingInfo>)draggingInfo proposedIndex:(NSUInteger *)proposedDropIndex dropOperation:(TDListViewDropOperation *)proposedDropOperation;
 
 /* This method is called when the mouse is released over a list view that previously decided to allow a drop via the above validateDrop method. 
  At this time, the delegate should incorporate the data from the dragging pasteboard and update the list view's contents. 
  You must implement this method for your list view to be a drag destination.
  */
-- (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSInteger)index dropOperation:(TDListViewDropOperation)dropOperation;
+- (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)index dropOperation:(TDListViewDropOperation)dropOperation;
 
 @end
 

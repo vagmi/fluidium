@@ -18,6 +18,11 @@
 
 #define EXCEPTION_NAME @"TDListViewDataSourceException"
 #define DEFAULT_ITEM_EXTENT 44
+#define DRAG_RADIUS 10
+
+@interface NSToolbarPoofAnimator
++ (void)runPoofAtPoint:(NSPoint)p;
+@end
 
 @interface TDListItemView ()
 @property (nonatomic) NSUInteger index;
@@ -46,9 +51,6 @@
         //        [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
         [self setDraggingSourceOperationMask:NSDragOperationMove|NSDragOperationDelete forLocal:YES];
         [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
-
-        // TODO REMOVE
-        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSColorPboardType, nil]];
     }
     return self;
 }
@@ -178,8 +180,7 @@
 
 
 - (void)mouseDragged:(NSEvent *)evt {
-    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
-    NSUInteger i = [self indexForItemAtPoint:p];
+    NSUInteger i = self.selectedItemIndex;
 
     BOOL canDrag = YES;
     if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
@@ -195,24 +196,19 @@
     }
     if (!canDrag) return;
     
-    NSPoint offset = NSZeroPoint;
+    dragOffset = NSZeroPoint;
     NSImage *dragImg = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
-        dragImg = [delegate listView:self draggingImageForItemAtIndex:i withEvent:evt offset:&offset];
+        dragImg = [delegate listView:self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
     } else {
-        dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&offset];
+        dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
     }
     
-    p.x -= offset.x;
-    p.y += offset.y;
+    NSPoint p = lastMouseDownPoint;
+    p.x -= dragOffset.x;
+    p.y += dragOffset.y;
 
-    [self dragImage:dragImg
-                 at:p
-             offset:NSZeroSize
-              event:evt
-         pasteboard:pboard
-             source:self
-          slideBack:NO];
+    [self dragImage:dragImg at:p offset:NSZeroSize event:evt pasteboard:pboard source:self slideBack:NO];
 }
 
 
@@ -236,26 +232,28 @@
     [result unlockFocus];
 
     if (dragImageOffset) {
-        NSPoint p = NSMakePoint(imgSize.width / 2, imgSize.height / 2);
-        *dragImageOffset = p;
+        NSPoint p = [itemView convertPoint:[evt locationInWindow] fromView:nil];
+        *dragImageOffset = NSMakePoint(p.x, NSHeight([itemView frame]) - p.y);
     }
     
     return result;
 }
 
 
-- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPoint operation:(NSDragOperation)op {
-//    NSPoint p = [self convertScreenToBase:endPoint];
-//    CGFloat delta = 1 / 2;
-//    p.x += delta;
-//    p.y += delta;
-//
-//    if (!NSPointInRect(p, [self frame])) {
-//        endPoint.x += delta;
-//        endPoint.y += delta;
-//        [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
-//    }
-//
+- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPointInScreen operation:(NSDragOperation)op {
+    // screen origin is lower left
+    endPointInScreen.x += dragOffset.x;
+    endPointInScreen.y += dragOffset.y;
+
+    // window origin is lower left
+    NSPoint endPointInWin = [[self window] convertScreenToBase:endPointInScreen];
+
+    // get frame of visible portion of list view in window coords
+    NSRect visibleRect = [self convertRect:[self visibleRect] toView:nil];
+    
+    if (!NSPointInRect(endPointInWin, visibleRect)) {
+        [NSToolbarPoofAnimator runPoofAtPoint:endPointInScreen];
+    }
 }
 
 
@@ -309,6 +307,7 @@
     
     NSPoint pInWin = [evt locationInWindow];
     NSPoint p = [self convertPoint:pInWin fromView:nil];
+    lastMouseDownPoint = p;
     
     NSInteger i = [self indexForItemAtPoint:p];
     if (NSNotFound == i) {
@@ -324,7 +323,7 @@
     // this adds support for click-to-select + drag all in one click. 
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
     BOOL dragging = YES;
-    NSInteger radius = 20;
+    NSInteger radius = DRAG_RADIUS;
     NSRect r = NSMakeRect(pInWin.x - radius, pInWin.y - radius, radius * 2, radius * 2);
     
     while (dragging) {

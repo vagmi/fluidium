@@ -132,7 +132,7 @@
 #pragma mark -
 #pragma mark TDListViewDelegate Drag and Drop
 
-- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt {
+- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt {
     return YES;
 }
 
@@ -143,7 +143,7 @@
  The drag image and other drag related information will be set up and provided by the view once this call returns YES. 
  You need to implement this method for your list view to be a drag source.
  */
-- (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSInteger)i toPasteboard:(NSPasteboard *)pboard {
+- (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSUInteger)i toPasteboard:(NSPasteboard *)pboard {
     DemoListItemView *itemView = [listView viewForItemAtIndex:i];
     if (itemView) {
         [pboard declareTypes:[NSArray arrayWithObjects:NSColorPboardType, nil] owner:self];
