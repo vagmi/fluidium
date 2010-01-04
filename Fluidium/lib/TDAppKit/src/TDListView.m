@@ -30,7 +30,7 @@
 
 @interface TDListView ()
 - (void)layoutItems;
-- (void)viewBoundsDidChange:(NSNotification *)n;
+- (void)superviewRectDidChange:(NSNotification *)n;
 
 @property (nonatomic, retain) NSMutableArray *listItemViews;
 @property (nonatomic, retain) TDListItemViewQueue *queue;
@@ -72,15 +72,15 @@
 
 - (void)awakeFromNib {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:[self superview]];
-    [nc addObserver:self selector:@selector(viewBoundsDidChange:) name:NSViewBoundsDidChangeNotification object:[self superview]];
+    [nc addObserver:self selector:@selector(superviewRectDidChange:) name:NSViewFrameDidChangeNotification object:[self superview]];
+    [nc addObserver:self selector:@selector(superviewRectDidChange:) name:NSViewBoundsDidChangeNotification object:[self superview]];
 }
 
 
 #pragma mark -
 #pragma mark Notifications
 
-- (void)viewBoundsDidChange:(NSNotification *)n {
+- (void)superviewRectDidChange:(NSNotification *)n {
     [self layoutItems];
 }
 
@@ -119,7 +119,6 @@
             return itemView;
         }
     }
-    
     return nil;
 }
 
@@ -140,7 +139,7 @@
         selectedItemIndex = i;
         [self reloadData];
         
-        if (delegate && [delegate respondsToSelector:@selector(listView:didSelectItemAtIndex:)]) {
+        if (selectedItemIndex > -1 && delegate && [delegate respondsToSelector:@selector(listView:didSelectItemAtIndex:)]) {
             [delegate listView:self didSelectItemAtIndex:i];
         }
     }
@@ -286,8 +285,8 @@
     
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
-    NSUInteger i = [self indexForItemAtPoint:locInList];
-    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    dropIndex = [self indexForItemAtPoint:locInList];
+    TDListItemView *itemView = [self viewForItemAtIndex:dropIndex];
     NSPoint locInItem = [itemView convertPoint:locInWin fromView:nil];
 
     NSRect itemBounds = [itemView bounds];
@@ -301,48 +300,24 @@
         back = NSMakeRect(ceil(itemBounds.size.width * .66), itemBounds.origin.y, itemBounds.size.width / 3, itemBounds.size.height);
     }
     
-    TDListViewDropOperation listDropOp = TDListViewDropOn;
+    dropOp = TDListViewDropOn;
     if (NSPointInRect(locInItem, front)) {
         // if p is in the first 1/3 of the itemView change the op to DropBefore
-        listDropOp = TDListViewDropBefore;
+        dropOp = TDListViewDropBefore;
         
     } else if (NSPointInRect(locInItem, back)) {
         // if p is in the last 1/3 of the item view change op to DropBefore and increment index
-        i++;
-        listDropOp = TDListViewDropBefore;
+        dropIndex++;
+        dropOp = TDListViewDropBefore;
     } else {
         // if p is in the middle 1/3 of the item view leave as DropOn
     }    
 
     if (delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
-        dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&i dropOperation:&listDropOp];
+        dropOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     }
 
     //NSLog(@"over: %@. Drop %@ : %d", itemView, listDropOp == TDListViewDropOn ? @"On" : @"Before", i);
-    
-    dropIndex = i;
-    dropOp = listDropOp;
-    
-    //    NSPasteboard *pboard = [dragInfo draggingPasteboard];
-    
-//    switch (dragOp) {
-//        case NSDragOperationNone:
-//            [dragInfo slideDraggedImageTo:lastMouseDownPoint];
-//            break;
-////        case NSDragOperationGeneric:
-////        case NSDragOperationMove:
-////            [self performDragMoveOperation:listDropOp withPasteboard:pboard atIndex:i];
-////            break;
-////        case NSDragOperationLink:
-////        case NSDragOperationCopy:
-////            [self performDragCopyOperation:listDropOp withPasteboard:pboard atIndex:i];
-////            break;
-////        case NSDragOperationDelete:
-////            [self performDragDeleteOperationAtIndex:i];
-////            break;
-//        default:
-//            break;
-//    }
 
     return dragOp;
 }
@@ -354,35 +329,7 @@
     } else {
         return NO;
     }
-    
-    //    NSDragOperation srcMask = [dragInfo draggingSourceOperationMask];
-    
-//    if ([[pboard types] containsObject:NSColorPboardType] ) {
-//        if (srcMask & NSDragOperationMove) {
-//            
-//        }
-//    }
 }
-
-
-#pragma mark -
-
-- (void)performDragMoveOperation:(TDListViewDropOperation)listDropOp withPasteboard:(NSPasteboard *)pboard atIndex:(NSUInteger)i {
-    
-}
-
-
-- (void)performDragCopyOperation:(TDListViewDropOperation)listDropOp withPasteboard:(NSPasteboard *)pboard atIndex:(NSUInteger)i {
-    
-}
-
-
-- (void)performDragDeleteOperationAtIndex:(NSUInteger)i {
-    
-}
-
-
-
 
 
 #pragma mark -
