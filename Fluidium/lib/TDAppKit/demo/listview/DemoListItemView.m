@@ -36,12 +36,10 @@
     NSRectFill([self bounds]);
  
     if (selected) {
-        [[NSColor cyanColor] setStroke];
-        [NSBezierPath setDefaultLineWidth:10];
-        [NSBezierPath strokeRect:[self bounds]];
+        [[NSColor cyanColor] set];
+        NSFrameRectWithWidth([self bounds], 5);
     }
 }
-
 
 @synthesize color;
 @synthesize selected;

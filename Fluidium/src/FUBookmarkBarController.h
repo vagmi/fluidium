@@ -15,9 +15,15 @@
 #import <Cocoa/Cocoa.h>
 #import <TDAppKit/TDListView.h>
 
+@class FUBookmark;
+@class TDBar;
+
 @interface FUBookmarkBarController : NSObject <TDListViewDataSource, TDListViewDelegate> {
     TDListView *listView;
+    TDBar *bar;
+    FUBookmark *draggingBookmark;
 }
 
 @property (nonatomic, retain) IBOutlet TDListView *listView;
+@property (nonatomic, retain) IBOutlet TDBar *bar;
 @end

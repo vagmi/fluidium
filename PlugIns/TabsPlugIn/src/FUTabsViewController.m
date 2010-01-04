@@ -85,7 +85,7 @@
 
 
 - (void)awakeFromNib {
-    listView.displaysTruncatedItems = YES;
+    listView.displaysClippedItems = YES;
 }
 
 

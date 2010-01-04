@@ -109,7 +109,7 @@
         }
         i++;
     }
-    return NSNotFound;
+    return -1;
 }
 
 
@@ -326,11 +326,12 @@
 - (void)mouseDown:(NSEvent *)evt {
     [super mouseDown:evt];
     
-    NSPoint pInWin = [evt locationInWindow];
-    NSPoint p = [self convertPoint:pInWin fromView:nil];
-    lastMouseDownPoint = p;
+    NSPoint locInWin = [evt locationInWindow];
+    NSPoint p = [self convertPoint:locInWin fromView:nil];
+    lastMouseDownLocationInList = p;
     
     NSInteger i = [self indexForItemAtPoint:p];
+    draggingIndex = i;
     if (NSNotFound == i) {
         if ([evt clickCount] > 1) {
             if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
@@ -345,7 +346,7 @@
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
     BOOL dragging = YES;
     NSInteger radius = DRAG_RADIUS;
-    NSRect r = NSMakeRect(pInWin.x - radius, pInWin.y - radius, radius * 2, radius * 2);
+    NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
     
     while (dragging) {
         evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
@@ -370,20 +371,18 @@
 
 
 - (void)mouseDragged:(NSEvent *)evt {
-    NSUInteger i = self.selectedItemIndex;
-    
     // have to get the image before calling any delegate methods... they may rearrange or remove views which would cause us to have the wrong image
     dragOffset = NSZeroPoint;
     NSImage *dragImg = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
-        dragImg = [delegate listView:self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
+        dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
     } else {
-        dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
+        dragImg = [self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
     }
 
     BOOL canDrag = YES;
     if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
-        canDrag = [delegate listView:self canDragItemAtIndex:i withEvent:evt];
+        canDrag = [delegate listView:self canDragItemAtIndex:draggingIndex withEvent:evt];
     }
     if (!canDrag) return;
     
@@ -391,13 +390,13 @@
 
     canDrag = NO;
     if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
-        canDrag = [delegate listView:self writeItemAtIndex:i toPasteboard:pboard];
+        canDrag = [delegate listView:self writeItemAtIndex:draggingIndex toPasteboard:pboard];
     }
     if (!canDrag) return;
     
     self.selectedItemIndex = -1;
     
-    NSPoint p = lastMouseDownPoint;
+    NSPoint p = lastMouseDownLocationInList;
     p.x -= dragOffset.x;
     p.y += dragOffset.y;
     
@@ -408,6 +407,7 @@
 #pragma mark -
 #pragma mark Private
 
+// TODO remove
 - (NSRect)visibleRect {
     return [[self superview] bounds];
 }

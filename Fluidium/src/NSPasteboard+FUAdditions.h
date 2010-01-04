@@ -11,4 +11,5 @@
 @interface NSPasteboard (FUAdditions)
 - (BOOL)hasURLs;
 - (BOOL)hasWebURLs;
+- (BOOL)hasTypeFromArray:(NSArray *)types;
 @end

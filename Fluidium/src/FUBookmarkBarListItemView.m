@@ -37,5 +37,21 @@
     [super dealloc];
 }
 
+
+- (BOOL)isOpaque {
+    return NO;
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+//    [[NSColor cyanColor] set];
+//    NSFrameRectWithWidth([self bounds], 2);
+//    
+//    [[button title] drawInRect:[self bounds] withAttributes:nil];
+//    
+//    [[NSColor clearColor] set];
+//    NSRectFill(dirtyRect);
+}
+
 @synthesize button;
 @end

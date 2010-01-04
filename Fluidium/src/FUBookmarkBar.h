@@ -14,31 +14,17 @@
 
 #import <TDAppKit/TDListView.h>
 
-@class FUBookmark;
-@class FUBookmarkBarButton;
-@class FUBookmarkButtonSeparator;
-@class FUBookmarkBarOverflowButton;
+//@class FUBookmark;
+//@class FUBookmarkButtonSeparator;
+//@class FUBookmarkBarOverflowButton;
 
 @interface FUBookmarkBar : TDListView {
-    FUBookmarkButtonSeparator *separator;
-    NSMutableArray *buttons;
-    NSInteger currDropIndex;
-
-    FUBookmarkBarOverflowButton *overflowButton;
-    NSMenu *overflowMenu;
-    NSInteger visibleButtonCount;
-    
-    FUBookmarkBarButton *draggingButton;
-    
-    BOOL draggingExistingButton;
+//    FUBookmarkButtonSeparator *separator;
+//    FUBookmarkBarOverflowButton *overflowButton;
+//    NSMenu *overflowMenu;
 }
 
-- (void)startedDraggingButton:(FUBookmarkBarButton *)button;
-- (void)finishedDraggingButton;
-
-@property (nonatomic, retain) FUBookmarkButtonSeparator *separator;
-@property (nonatomic, retain) NSMutableArray *buttons;
-@property (nonatomic, retain) FUBookmarkBarOverflowButton *overflowButton;
-@property (nonatomic, retain) NSMenu *overflowMenu;
-@property (nonatomic, retain) FUBookmarkBarButton *draggingButton;
+//@property (nonatomic, retain) FUBookmarkButtonSeparator *separator;
+//@property (nonatomic, retain) FUBookmarkBarOverflowButton *overflowButton;
+//@property (nonatomic, retain) NSMenu *overflowMenu;
 @end

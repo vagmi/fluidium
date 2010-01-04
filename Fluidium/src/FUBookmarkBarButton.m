@@ -25,13 +25,13 @@
 
 #define ICON_SIDE 16
 
-@interface NSToolbarPoofAnimator
-+ (void)runPoofAtPoint:(NSPoint)p;
-@end
+//@interface NSToolbarPoofAnimator
+//+ (void)runPoofAtPoint:(NSPoint)p;
+//@end
 
 @interface FUBookmarkBarButton ()
 - (void)killTimer;
-- (void)displayMenu:(NSTimer *)t;
+//- (void)displayMenu:(NSTimer *)t;
 
 @property (nonatomic, retain) NSTimer *timer;
 @end
@@ -74,6 +74,10 @@
 }
 
 
+- (BOOL)acceptsFirstResponder {
+    return NO;
+}
+
 #pragma mark -
 #pragma mark Public
 
@@ -90,114 +94,116 @@
 #pragma mark Left Click
 
 - (void)mouseDown:(NSEvent *)evt {
-    [[self cell] setHighlighted:YES];
-    
-    BOOL keepOn = YES;
-    NSPoint p = [evt locationInWindow];
-    NSInteger radius = 20;
-    NSRect r = NSMakeRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
-    
-    while (keepOn) {
-        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
-        
-        switch ([evt type]) {
-            case NSLeftMouseDragged:
-                if (NSPointInRect([evt locationInWindow], r)) {
-                    break;
-                }
-                [self mouseDragged:evt];
-                keepOn = NO;
-                break;
-            case NSLeftMouseUp:
-                keepOn = NO;
-                [super mouseDown:evt];
-                break;
-            default:
-                break;
-        }
-    }
-    return;
+    [[self nextResponder] mouseDown:evt];
+//    [[self cell] setHighlighted:YES];
+//    
+//    BOOL keepOn = YES;
+//    NSPoint p = [evt locationInWindow];
+//    NSInteger radius = 10;
+//    NSRect r = NSMakeRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
+//    
+//    while (keepOn) {
+//        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
+//        
+//        switch ([evt type]) {
+//            case NSLeftMouseDragged:
+//                if (NSPointInRect([evt locationInWindow], r)) {
+//                    break;
+//                }
+//                [self mouseDragged:evt];
+//                keepOn = NO;
+//                break;
+//            case NSLeftMouseUp:
+//                keepOn = NO;
+//                [super mouseDown:evt];
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 }
 
 
-- (void)mouseDragged:(NSEvent *)evt {    
-    [bookmarkBar startedDraggingButton:self];
+- (void)mouseDragged:(NSEvent *)evt {
+    [[self nextResponder] mouseDragged:evt];
 
-    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    [bookmark writeWebURLsToPasteboard:pboard];
-    
-    NSImage *dragImage = [[WebIconDatabase sharedIconDatabase] defaultFavicon];
-    NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];
-
-    CGFloat delta = ICON_SIDE / 2;
-    dragPosition.x -= delta;
-    dragPosition.y += delta;
-
-    [self dragImage:dragImage
-                 at:dragPosition
-             offset:NSZeroSize
-              event:evt
-         pasteboard:pboard
-             source:self
-          slideBack:NO];
+    //    [bookmarkBar startedDraggingButton:self];
+//
+//    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+//    [bookmark writeWebURLsToPasteboard:pboard];
+//    
+//    NSImage *dragImage = [[WebIconDatabase sharedIconDatabase] defaultFavicon];
+//    NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];
+//
+//    CGFloat delta = ICON_SIDE / 2;
+//    dragPosition.x -= delta;
+//    dragPosition.y += delta;
+//
+//    [self dragImage:dragImage
+//                 at:dragPosition
+//             offset:NSZeroSize
+//              event:evt
+//         pasteboard:pboard
+//             source:self
+//          slideBack:NO];
 }
 
 
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-    return (NSDragOperationMove|NSDragOperationDelete);
-}
-
-
-- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPoint operation:(NSDragOperation)op {
-    NSPoint p = [[bookmarkBar window] convertScreenToBase:endPoint];
-    CGFloat delta = ICON_SIDE / 2;
-    p.x += delta;
-    p.y += delta;
-
-    if (!NSPointInRect(p, [bookmarkBar frame])) {
-        endPoint.x += delta;
-        endPoint.y += delta;
-        [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
-    }
-
-    [bookmarkBar finishedDraggingButton];
-}
-
+//- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
+//    return (NSDragOperationMove|NSDragOperationDelete);
+//}
+//
+//
+//- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPoint operation:(NSDragOperation)op {
+//    NSPoint p = [[bookmarkBar window] convertScreenToBase:endPoint];
+//    CGFloat delta = ICON_SIDE / 2;
+//    p.x += delta;
+//    p.y += delta;
+//
+//    if (!NSPointInRect(p, [bookmarkBar frame])) {
+//        endPoint.x += delta;
+//        endPoint.y += delta;
+//        [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
+//    }
+//
+//    [bookmarkBar finishedDraggingButton];
+//}
+//
 
 #pragma mark -
 #pragma mark Right Click
 
-- (void)rightMouseDown:(NSEvent *)evt { 
-    [self highlight:NO];
-    [self setImage:[NSImage imageNamed:@"OverflowButtonPressed"]];
-    
-    self.timer = [NSTimer timerWithTimeInterval:0 
-                                         target:self 
-                                       selector:@selector(displayMenu:) 
-                                       userInfo:evt 
-                                        repeats:NO];
-    
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-} 
-
-
-- (void)displayMenu:(NSTimer *)t {
-    NSEvent *evt = [timer userInfo];
-    
-    NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
-                                        location:[evt locationInWindow]
-                                   modifierFlags:[evt modifierFlags] 
-                                       timestamp:[evt timestamp] 
-                                    windowNumber:[evt windowNumber] 
-                                         context:[evt context]
-                                     eventNumber:[evt eventNumber] 
-                                      clickCount:[evt clickCount] 
-                                        pressure:[evt pressure]]; 
-    
-    NSMenu *menu = [[FUBookmarkController instance] contextMenuForBookmark:bookmark];
-    [NSMenu popUpContextMenu:menu withEvent:click forView:self];
-    [self killTimer];
-}
+//- (void)rightMouseDown:(NSEvent *)evt { 
+//    [self highlight:NO];
+//    [self setImage:[NSImage imageNamed:@"OverflowButtonPressed"]];
+//    
+//    self.timer = [NSTimer timerWithTimeInterval:0 
+//                                         target:self 
+//                                       selector:@selector(displayMenu:) 
+//                                       userInfo:evt 
+//                                        repeats:NO];
+//    
+//    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+//} 
+//
+//
+//- (void)displayMenu:(NSTimer *)t {
+//    NSEvent *evt = [timer userInfo];
+//    
+//    NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
+//                                        location:[evt locationInWindow]
+//                                   modifierFlags:[evt modifierFlags] 
+//                                       timestamp:[evt timestamp] 
+//                                    windowNumber:[evt windowNumber] 
+//                                         context:[evt context]
+//                                     eventNumber:[evt eventNumber] 
+//                                      clickCount:[evt clickCount] 
+//                                        pressure:[evt pressure]]; 
+//    
+//    NSMenu *menu = [[FUBookmarkController instance] contextMenuForBookmark:bookmark];
+//    [NSMenu popUpContextMenu:menu withEvent:click forView:self];
+//    [self killTimer];
+//}
 
 @synthesize hovered;
 @synthesize bookmarkBar;

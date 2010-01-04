@@ -44,7 +44,8 @@ typedef enum {
     TDListItemViewQueue *queue;
     
     // drag and drop
-    NSPoint lastMouseDownPoint;
+    NSPoint lastMouseDownLocationInList;
+    NSUInteger draggingIndex;
     NSPoint dragOffset;
     NSDragOperation localDragOperationMask;
     NSDragOperation nonLocalDragOperationMask;
