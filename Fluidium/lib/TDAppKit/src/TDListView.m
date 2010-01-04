@@ -130,9 +130,11 @@
 
 - (void)setSelectedItemIndex:(NSInteger)i {
     if (i != selectedItemIndex) {
-        if (delegate && [delegate respondsToSelector:@selector(listView:willSelectItemAtIndex:)]) {
-            if (-1 == [delegate listView:self willSelectItemAtIndex:i]) {
-                return;
+        if (-1 != i) { // dont consult delegate if we are deselecting
+            if (delegate && [delegate respondsToSelector:@selector(listView:willSelectItemAtIndex:)]) {
+                if (-1 == [delegate listView:self willSelectItemAtIndex:i]) {
+                    return;
+                }
             }
         }
         
@@ -176,39 +178,6 @@
 
 - (BOOL)ignoreModifierKeysWhileDragging {
     return YES;
-}
-
-
-- (void)mouseDragged:(NSEvent *)evt {
-    NSUInteger i = self.selectedItemIndex;
-
-    BOOL canDrag = YES;
-    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
-        canDrag = [delegate listView:self canDragItemAtIndex:i withEvent:evt];
-    }
-    if (!canDrag) return;
-
-    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    
-    canDrag = NO;
-    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
-        canDrag = [delegate listView:self writeItemAtIndex:i toPasteboard:pboard];
-    }
-    if (!canDrag) return;
-    
-    dragOffset = NSZeroPoint;
-    NSImage *dragImg = nil;
-    if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
-        dragImg = [delegate listView:self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
-    } else {
-        dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
-    }
-    
-    NSPoint p = lastMouseDownPoint;
-    p.x -= dragOffset.x;
-    p.y += dragOffset.y;
-
-    [self dragImage:dragImg at:p offset:NSZeroSize event:evt pasteboard:pboard source:self slideBack:NO];
 }
 
 
@@ -314,10 +283,10 @@
     }    
 
     if (delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
-        dropOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
+        dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     }
 
-    //NSLog(@"over: %@. Drop %@ : %d", itemView, listDropOp == TDListViewDropOn ? @"On" : @"Before", i);
+    //NSLog(@"over: %@. Drop %@ : %d", itemView, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
     return dragOp;
 }
@@ -344,6 +313,15 @@
     return YES;
 }
 
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [backgroundColor set];
+    NSRectFill(dirtyRect);
+}
+
+
+#pragma mark -
+#pragma mark NSResponder
 
 - (void)mouseDown:(NSEvent *)evt {
     [super mouseDown:evt];
@@ -391,9 +369,38 @@
 }
 
 
-- (void)drawRect:(NSRect)dirtyRect {
-    [backgroundColor set];
-    NSRectFill(dirtyRect);
+- (void)mouseDragged:(NSEvent *)evt {
+    NSUInteger i = self.selectedItemIndex;
+    
+    BOOL canDrag = YES;
+    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
+        canDrag = [delegate listView:self canDragItemAtIndex:i withEvent:evt];
+    }
+    if (!canDrag) return;
+    
+    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    
+    canDrag = NO;
+    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
+        canDrag = [delegate listView:self writeItemAtIndex:i toPasteboard:pboard];
+    }
+    if (!canDrag) return;
+    
+    self.selectedItemIndex = -1;
+    
+    dragOffset = NSZeroPoint;
+    NSImage *dragImg = nil;
+    if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
+        dragImg = [delegate listView:self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
+    } else {
+        dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
+    }
+    
+    NSPoint p = lastMouseDownPoint;
+    p.x -= dragOffset.x;
+    p.y += dragOffset.y;
+    
+    [self dragImage:dragImg at:p offset:NSZeroSize event:evt pasteboard:pboard source:self slideBack:NO];
 }
 
 
@@ -406,6 +413,7 @@
 
 
 // TODO make -resizeSubviewsWithOldSize: ???
+//- (void)resizeSubviewsWithOldSize:(NSSize)oldBoundsSize
 - (void)layoutItems {
     if (!dataSource) {
         [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];

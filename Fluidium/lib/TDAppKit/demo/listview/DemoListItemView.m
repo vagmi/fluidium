@@ -32,12 +32,14 @@
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    if (selected) {
-        [[NSColor cyanColor] set];
-    } else {
-        [color set];
-    }
+    [color set];
     NSRectFill([self bounds]);
+ 
+    if (selected) {
+        [[NSColor cyanColor] setStroke];
+        [NSBezierPath setDefaultLineWidth:10];
+        [NSBezierPath strokeRect:[self bounds]];
+    }
 }
 
 
