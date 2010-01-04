@@ -372,22 +372,7 @@
 - (void)mouseDragged:(NSEvent *)evt {
     NSUInteger i = self.selectedItemIndex;
     
-    BOOL canDrag = YES;
-    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
-        canDrag = [delegate listView:self canDragItemAtIndex:i withEvent:evt];
-    }
-    if (!canDrag) return;
-    
-    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    
-    canDrag = NO;
-    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
-        canDrag = [delegate listView:self writeItemAtIndex:i toPasteboard:pboard];
-    }
-    if (!canDrag) return;
-    
-    self.selectedItemIndex = -1;
-    
+    // have to get the image before calling any delegate methods... they may rearrange or remove views which would cause us to have the wrong image
     dragOffset = NSZeroPoint;
     NSImage *dragImg = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
@@ -395,6 +380,22 @@
     } else {
         dragImg = [self draggingImageForItemAtIndex:i withEvent:evt offset:&dragOffset];
     }
+
+    BOOL canDrag = YES;
+    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
+        canDrag = [delegate listView:self canDragItemAtIndex:i withEvent:evt];
+    }
+    if (!canDrag) return;
+    
+    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+
+    canDrag = NO;
+    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
+        canDrag = [delegate listView:self writeItemAtIndex:i toPasteboard:pboard];
+    }
+    if (!canDrag) return;
+    
+    self.selectedItemIndex = -1;
     
     NSPoint p = lastMouseDownPoint;
     p.x -= dragOffset.x;
