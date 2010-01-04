@@ -25,10 +25,6 @@
 
 #define ICON_SIDE 16
 
-//@interface NSToolbarPoofAnimator
-//+ (void)runPoofAtPoint:(NSPoint)p;
-//@end
-
 @interface FUBookmarkBarButton ()
 - (void)killTimer;
 //- (void)displayMenu:(NSTimer *)t;
@@ -94,12 +90,13 @@
 #pragma mark Left Click
 
 - (void)mouseDown:(NSEvent *)evt {
+    [super mouseDown:evt];
     [[self nextResponder] mouseDown:evt];
 //    [[self cell] setHighlighted:YES];
 //    
 //    BOOL keepOn = YES;
 //    NSPoint p = [evt locationInWindow];
-//    NSInteger radius = 10;
+//    NSInteger radius = 20;
 //    NSRect r = NSMakeRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
 //    
 //    while (keepOn) {
@@ -126,49 +123,8 @@
 
 - (void)mouseDragged:(NSEvent *)evt {
     [[self nextResponder] mouseDragged:evt];
-
-    //    [bookmarkBar startedDraggingButton:self];
-//
-//    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-//    [bookmark writeWebURLsToPasteboard:pboard];
-//    
-//    NSImage *dragImage = [[WebIconDatabase sharedIconDatabase] defaultFavicon];
-//    NSPoint dragPosition = [self convertPoint:[evt locationInWindow] fromView:nil];
-//
-//    CGFloat delta = ICON_SIDE / 2;
-//    dragPosition.x -= delta;
-//    dragPosition.y += delta;
-//
-//    [self dragImage:dragImage
-//                 at:dragPosition
-//             offset:NSZeroSize
-//              event:evt
-//         pasteboard:pboard
-//             source:self
-//          slideBack:NO];
 }
 
-
-//- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-//    return (NSDragOperationMove|NSDragOperationDelete);
-//}
-//
-//
-//- (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPoint operation:(NSDragOperation)op {
-//    NSPoint p = [[bookmarkBar window] convertScreenToBase:endPoint];
-//    CGFloat delta = ICON_SIDE / 2;
-//    p.x += delta;
-//    p.y += delta;
-//
-//    if (!NSPointInRect(p, [bookmarkBar frame])) {
-//        endPoint.x += delta;
-//        endPoint.y += delta;
-//        [NSToolbarPoofAnimator runPoofAtPoint:endPoint];
-//    }
-//
-//    [bookmarkBar finishedDraggingButton];
-//}
-//
 
 #pragma mark -
 #pragma mark Right Click

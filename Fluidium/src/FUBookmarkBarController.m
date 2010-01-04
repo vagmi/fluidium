@@ -71,7 +71,7 @@
     // setup ui.
     listView.displaysClippedItems = NO;
     
-    listView.itemMargin = 0;
+    listView.itemMargin = 2;
     listView.orientation = TDListViewOrientationLandscape;
     [listView reloadData];
     

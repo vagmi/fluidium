@@ -76,7 +76,7 @@
 @end
 
 @interface NSObject (FUAdditions)
-- (void)addNewTabInForeground:(id)sender;
+- (void)openTab:(id)sender;
 - (void)tabView:(NSTabView *)tv willCloseTabViewItem:(NSTabViewItem *)tabItem;
 @end
 // TODD END
@@ -1310,7 +1310,7 @@
     }
     // BEGIN FLUIDIUM
     else if ([theEvent clickCount] > 1) {
-        [[[self window] windowController] addNewTabInForeground:self];
+        [[[self window] windowController] openTab:self];
     }
     // END FLUIDIUM
 }

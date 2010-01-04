@@ -85,6 +85,12 @@
 
 
 - (void)awakeFromNib {
+    // setup drag and drop
+    [listView registerForDraggedTypes:[NSArray arrayWithObject:@"TDTabType"]];
+    [listView setDraggingSourceOperationMask:NSDragOperationMove forLocal:YES];
+    [listView setDraggingSourceOperationMask:NSDragOperationDelete forLocal:NO];
+
+    // setup ui
     listView.displaysClippedItems = YES;
 }
 
