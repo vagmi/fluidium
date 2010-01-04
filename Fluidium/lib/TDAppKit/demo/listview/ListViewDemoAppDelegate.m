@@ -138,6 +138,20 @@
 
 
 - (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)dragInfo index:(NSUInteger)i dropOperation:(TDListViewDropOperation)dropOperation {
+    NSPasteboard *pboard = [dragInfo draggingPasteboard];
+    
+    if (![[pboard types] containsObject:NSColorPboardType]) {
+        return NO;
+    }
+    
+    NSColor *color = [NSColor colorFromPasteboard:pboard];
+    if (i < [colors count]) {
+        [colors insertObject:color atIndex:i];
+    } else {
+        [colors addObject:color];
+    }
+    [listView reloadData];
+    
     return YES;
 }
 

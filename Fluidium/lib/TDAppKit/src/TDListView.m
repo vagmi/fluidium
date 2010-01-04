@@ -320,42 +320,48 @@
 
     //NSLog(@"over: %@. Drop %@ : %d", itemView, listDropOp == TDListViewDropOn ? @"On" : @"Before", i);
     
+    dropIndex = i;
+    dropOp = listDropOp;
+    
     //    NSPasteboard *pboard = [dragInfo draggingPasteboard];
     
-    switch (dragOp) {
-        case NSDragOperationNone:
-            [dragInfo slideDraggedImageTo:lastMouseDownPoint];
-            break;
-//        case NSDragOperationGeneric:
-//        case NSDragOperationMove:
-//            [self performDragMoveOperation:listDropOp withPasteboard:pboard atIndex:i];
+//    switch (dragOp) {
+//        case NSDragOperationNone:
+//            [dragInfo slideDraggedImageTo:lastMouseDownPoint];
 //            break;
-//        case NSDragOperationLink:
-//        case NSDragOperationCopy:
-//            [self performDragCopyOperation:listDropOp withPasteboard:pboard atIndex:i];
+////        case NSDragOperationGeneric:
+////        case NSDragOperationMove:
+////            [self performDragMoveOperation:listDropOp withPasteboard:pboard atIndex:i];
+////            break;
+////        case NSDragOperationLink:
+////        case NSDragOperationCopy:
+////            [self performDragCopyOperation:listDropOp withPasteboard:pboard atIndex:i];
+////            break;
+////        case NSDragOperationDelete:
+////            [self performDragDeleteOperationAtIndex:i];
+////            break;
+//        default:
 //            break;
-//        case NSDragOperationDelete:
-//            [self performDragDeleteOperationAtIndex:i];
-//            break;
-        default:
-            break;
-    }
+//    }
 
     return dragOp;
 }
 
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
-    NSPasteboard *pboard = [dragInfo draggingPasteboard];
-    NSDragOperation srcMask = [dragInfo draggingSourceOperationMask];
-    
-    if ([[pboard types] containsObject:NSColorPboardType] ) {
-        if (srcMask & NSDragOperationMove) {
-            //NSColor *newColor = [NSColor colorFromPasteboard:pboard];
-        }
+    if (delegate && [delegate respondsToSelector:@selector(listView:acceptDrop:index:dropOperation:)]) {
+        return [delegate listView:self acceptDrop:dragInfo index:dropIndex dropOperation:dropOp];
+    } else {
+        return NO;
     }
     
-    return YES;
+    //    NSDragOperation srcMask = [dragInfo draggingSourceOperationMask];
+    
+//    if ([[pboard types] containsObject:NSColorPboardType] ) {
+//        if (srcMask & NSDragOperationMove) {
+//            
+//        }
+//    }
 }
 
 

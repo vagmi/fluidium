@@ -48,6 +48,8 @@ typedef enum {
     NSPoint dragOffset;
     NSDragOperation localDragOperationMask;
     NSDragOperation nonLocalDragOperationMask;
+    NSUInteger dropIndex;
+    TDListViewDropOperation dropOp;
 }
 
 - (void)reloadData;
