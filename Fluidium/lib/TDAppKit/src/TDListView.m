@@ -332,7 +332,7 @@
     
     NSInteger i = [self indexForItemAtPoint:p];
     draggingIndex = i;
-    if (NSNotFound == i) {
+    if (-1 == i) {
         if ([evt clickCount] > 1) {
             if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
                 [delegate listView:self emptyAreaWasDoubleClicked:evt];

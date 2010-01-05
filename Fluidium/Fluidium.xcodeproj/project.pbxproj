@@ -112,8 +112,6 @@
 		D35CC20410D4126500DA1898 /* UserAgentStrings.plist in Resources */ = {isa = PBXBuildFile; fileRef = D35CC20310D4126500DA1898 /* UserAgentStrings.plist */; };
 		D35CC25F10D41DD900DA1898 /* FUUserAgentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */; };
 		D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */; };
-		D371249310F060CD00D7107B /* FUBookmarkBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D371249210F060CD00D7107B /* FUBookmarkBarController.m */; };
-		D371249E10F063F200D7107B /* FUBookmarkBarListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D371249D10F063F200D7107B /* FUBookmarkBarListItemView.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
 		D3AF875C10CFA00A00C601A3 /* FUAppearancePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */; };
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
@@ -680,10 +678,6 @@
 		D35CC25E10D41DD900DA1898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUUserAgentWindow.xib; sourceTree = "<group>"; };
 		D35CC54610D4829400DA1898 /* DOMNode+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMNode+FUAdditions.h"; path = "src/DOMNode+FUAdditions.h"; sourceTree = "<group>"; };
 		D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMNode+FUAdditions.m"; path = "src/DOMNode+FUAdditions.m"; sourceTree = "<group>"; };
-		D371249110F060CD00D7107B /* FUBookmarkBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkBarController.h; path = src/FUBookmarkBarController.h; sourceTree = "<group>"; };
-		D371249210F060CD00D7107B /* FUBookmarkBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkBarController.m; path = src/FUBookmarkBarController.m; sourceTree = "<group>"; };
-		D371249C10F063F200D7107B /* FUBookmarkBarListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkBarListItemView.h; path = src/FUBookmarkBarListItemView.h; sourceTree = "<group>"; };
-		D371249D10F063F200D7107B /* FUBookmarkBarListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkBarListItemView.m; path = src/FUBookmarkBarListItemView.m; sourceTree = "<group>"; };
 		D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+FUAdditions.h"; path = "src/NSFileManager+FUAdditions.h"; sourceTree = "<group>"; };
 		D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+FUAdditions.m"; path = "src/NSFileManager+FUAdditions.m"; sourceTree = "<group>"; };
 		D3AF875A10CFA00A00C601A3 /* FUAppearancePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAppearancePreferences.h; path = src/FUAppearancePreferences.h; sourceTree = "<group>"; };
@@ -1372,12 +1366,8 @@
 				D32803F310CC7BFA00BB363B /* FUBookmarkController.m */,
 				D3E4346710CB8D4C00A5BDEF /* FUBookmarkWindowController.h */,
 				D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */,
-				D371249110F060CD00D7107B /* FUBookmarkBarController.h */,
-				D371249210F060CD00D7107B /* FUBookmarkBarController.m */,
 				D3E4345D10CB8D4C00A5BDEF /* FUBookmarkBar.h */,
 				D3E4345E10CB8D4C00A5BDEF /* FUBookmarkBar.m */,
-				D371249C10F063F200D7107B /* FUBookmarkBarListItemView.h */,
-				D371249D10F063F200D7107B /* FUBookmarkBarListItemView.m */,
 				D3E4345F10CB8D4C00A5BDEF /* FUBookmarkBarButton.h */,
 				D3E4346010CB8D4C00A5BDEF /* FUBookmarkBarButton.m */,
 				D3E4346110CB8D4C00A5BDEF /* FUBookmarkBarButtonCell.h */,
@@ -2014,8 +2004,6 @@
 				D3B8BC0610E837E400271454 /* HMFoundationEx.m in Sources */,
 				D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */,
 				D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */,
-				D371249310F060CD00D7107B /* FUBookmarkBarController.m in Sources */,
-				D371249E10F063F200D7107B /* FUBookmarkBarListItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

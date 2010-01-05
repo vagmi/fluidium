@@ -121,29 +121,30 @@
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
     // Check dragging event
     NSEventType eventType = [[NSApp currentEvent] type];
-    if (NSLeftMouseDragged == eventType || NSRightMouseDragged == eventType) {
+    if (eventType == NSLeftMouseDragged || eventType == NSRightMouseDragged) {
         // Clear hovered
-        [(FUBookmarkBarButton *)controlView setHovered:NO];
+        [(FUBookmarkBarButton*)controlView setHovered:NO];
     } else {
         // Draw hoverd background
-        NSPoint p = [controlView convertPoint:[[controlView window] mouseLocationOutsideOfEventStream] fromView:nil];
+        NSPoint point = [[controlView window] mouseLocationOutsideOfEventStream];
+        point = [controlView convertPoint:point fromView:nil];
 
-        if (NSPointInRect(p, cellFrame)) {
+        id path = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(cellFrame, 0, 1)
+                                             cornerRadius:2.0
+                                                inCorners:OSTopLeftCorner|OSTopRightCorner|OSBottomLeftCorner|OSBottomRightCorner];
+        if (NSPointInRect(point, cellFrame)) {
             if ([self isHighlighted] || [self isSelected]) {
                 [[self pressedBackgroundColor] set];
             } else {
                 [[self highlightedBackgroundColor] set];
             }
-            id path = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(cellFrame, 0, 1)
-                                                 cornerRadius:2.0
-                                                    inCorners:OSTopLeftCorner|OSTopRightCorner|OSBottomLeftCorner|OSBottomRightCorner];
             [path fill];
             
             // Set hovered
-            [(FUBookmarkBarButton *)controlView setHovered:YES];
+            [(FUBookmarkBarButton*)controlView setHovered:YES];
         } else {
             // Clear hovered
-            [(FUBookmarkBarButton *)controlView setHovered:NO];
+            [(FUBookmarkBarButton*)controlView setHovered:NO];
         }
     }
 
@@ -153,21 +154,5 @@
     cellFrame.size.width -= 8;
     [self drawInteriorWithFrame:cellFrame inView:controlView];
 }
-
-
-//- (BOOL)trackMouse:(NSEvent *)evt inRect:(NSRect)cellFrame ofView:(NSView *)cv untilMouseUp:(BOOL)untilMouseUp {
-//    return [super trackMouse:evt inRect:cellFrame ofView:cv untilMouseUp:untilMouseUp];
-//}
-//
-//
-//- (BOOL)startTrackingAt:(NSPoint)startPoint inView:(NSView *)cv {
-//    return [super startTrackingAt:startPoint inView:cv];
-//}
-//
-//
-//- (BOOL)continueTracking:(NSPoint)lastPoint at:(NSPoint)currentPoint inView:(NSView *)cv {
-//    return [super continueTracking:lastPoint at:currentPoint inView:cv];
-//}
-
 
 @end

@@ -12,7 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100085"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -46,7 +45,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{94, 86}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -84,19 +83,9 @@
 						<object class="NSCustomView" id="633212648">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">-2147483382</int>
-							<object class="NSMutableArray" key="NSSubviews">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSCustomView" id="490634976">
-									<reference key="NSNextResponder" ref="633212648"/>
-									<int key="NSvFlags">266</int>
-									<string key="NSFrameSize">{1087, 22}</string>
-									<reference key="NSSuperview" ref="633212648"/>
-									<string key="NSClassName">FUBookmarkBar</string>
-								</object>
-							</object>
 							<string key="NSFrame">{{0, 696}, {1087, 22}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
-							<string key="NSClassName">TDBar</string>
+							<string key="NSClassName">FUBookmarkBar</string>
 						</object>
 						<object class="NSCustomView" id="860301874">
 							<reference key="NSNextResponder" ref="568628114"/>
@@ -146,7 +135,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{1087, 718}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{94, 108}</string>
@@ -616,9 +604,6 @@
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
-			<object class="NSCustomObject" id="404702489">
-				<string key="NSClassName">FUBookmarkBarController</string>
-			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -987,38 +972,6 @@
 					</object>
 					<int key="connectionID">100128</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">dataSource</string>
-						<reference key="source" ref="490634976"/>
-						<reference key="destination" ref="404702489"/>
-					</object>
-					<int key="connectionID">100134</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="490634976"/>
-						<reference key="destination" ref="404702489"/>
-					</object>
-					<int key="connectionID">100135</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">listView</string>
-						<reference key="source" ref="404702489"/>
-						<reference key="destination" ref="490634976"/>
-					</object>
-					<int key="connectionID">100136</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">bar</string>
-						<reference key="source" ref="404702489"/>
-						<reference key="destination" ref="633212648"/>
-					</object>
-					<int key="connectionID">100138</int>
-				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1258,12 +1211,7 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">100085</int>
 						<reference key="object" ref="633212648"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="490634976"/>
-						</object>
 						<reference key="parent" ref="568628114"/>
-						<string key="objectName">Bookmark Bar Container</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100099</int>
@@ -1353,16 +1301,6 @@
 						<reference key="object" ref="898544992"/>
 						<reference key="parent" ref="405679537"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100129</int>
-						<reference key="object" ref="404702489"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100133</int>
-						<reference key="object" ref="490634976"/>
-						<reference key="parent" ref="633212648"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1417,7 +1355,6 @@
 					<string>100116.IBPluginDependency</string>
 					<string>100117.IBPluginDependency</string>
 					<string>100127.IBPluginDependency</string>
-					<string>100133.IBPluginDependency</string>
 					<string>5.IBEditorWindowLastContentRect</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.IBWindowTemplateEditedContentRect</string>
@@ -1484,10 +1421,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{339, 46}, {1087, 718}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{388, 438}, {1087, 718}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{388, 438}, {1087, 718}}</string>
+					<string>{{339, 46}, {1087, 718}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
@@ -1512,38 +1448,17 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100138</int>
+			<int key="maxID">100128</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
 					<string key="className">FUBookmarkBar</string>
-					<string key="superclassName">TDListView</string>
+					<string key="superclassName">TDBar</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUBookmarkBar.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUBookmarkBarController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bar</string>
-							<string>listView</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>TDBar</string>
-							<string>TDListView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUBookmarkBarController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1619,6 +1534,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>actualSize:</string>
 							<string>addBookmark:</string>
+							<string>addNewTabInBackground:</string>
 							<string>bookmarkClicked:</string>
 							<string>emptyCache:</string>
 							<string>endEditBookmark:</string>
@@ -1649,6 +1565,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1840,30 +1757,47 @@
 						<string key="minorKey"/>
 					</object>
 				</object>
-			</object>
-			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.1+">
-				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">TDListView</string>
+					<string key="className">TDUberView</string>
 					<string key="superclassName">NSView</string>
-					<object class="NSMutableDictionary" key="outlets">
+					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>dataSource</string>
-							<string>delegate</string>
-							<string>scrollView</string>
+							<string>closeBottomView:</string>
+							<string>closeLeftView:</string>
+							<string>closeRightView:</string>
+							<string>closeTopView:</string>
+							<string>openBottomView:</string>
+							<string>openLeftView:</string>
+							<string>openRightView:</string>
+							<string>openTopView:</string>
+							<string>resetToPreferredSplitPositions:</string>
+							<string>toggleBottomView:</string>
+							<string>toggleLeftView:</string>
+							<string>toggleRightView:</string>
+							<string>toggleTopView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
-							<string>NSScrollView</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBDocumentRelativeSource</string>
-						<string key="minorKey">../lib/TDAppKit/include/TDAppKit/TDListView.h</string>
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/TDUberView.h</string>
 					</object>
 				</object>
 			</object>
@@ -2334,14 +2268,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSResponder.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSScrollView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSScrollView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
