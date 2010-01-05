@@ -91,7 +91,18 @@ typedef enum {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+
+    // taking some extra paranoid steps here with the webView to prevent crashing 
+    // on one of the many callbacks/notifications that can be sent to or received by webviews
+    // when the tab closes
+    [[NSNotificationCenter defaultCenter] removeObserver:webView];
+    [webView stopLoading:self];
+    [webView setFrameLoadDelegate:nil];
+    [webView setResourceLoadDelegate:nil];
+    [webView setDownloadDelegate:nil];
+    [webView setPolicyDelegate:nil];
+    [webView setUIDelegate:nil];
+        
     self.plugInAPI = nil;
     self.plugIn = nil;
     self.view = nil;
