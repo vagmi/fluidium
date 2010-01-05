@@ -24,14 +24,11 @@
 
 #define KEY_USERSCRIPT_SRC @"userscriptSrc"
 #define KEY_TABCONTROLLER @"tabController"
-#define KEY_COUNT @"count"
-
-#define MAX_TRIES 5
 
 @interface FUUserscriptController ()
 - (void)loadUserscripts;
 - (NSString *)userscriptSourceForURLString:(NSString *)URLString;
-- (void)tryToExecuteUserscript:(NSMutableDictionary *)args;
+- (void)executeUserscriptLater:(NSMutableDictionary *)args;
 - (void)executeUserscript:(NSString *)userscriptSrc inWebView:(WebView *)wv;
 @end
 
@@ -90,20 +87,12 @@
         return;
     }
     
-    // don't use a format string. this is safer
-    NSMutableString *ms = [NSMutableString stringWithString:@"(function (document) {\n"];
-    [ms appendString:userscriptSrc];
-    [ms appendString:@"\n});"];
-    
-    userscriptSrc = [[ms copy] autorelease];
-    
     NSMutableDictionary *args = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  userscriptSrc, KEY_USERSCRIPT_SRC,
                                  [n object], KEY_TABCONTROLLER,
-                                 [NSNumber numberWithInteger:0], KEY_COUNT,
                                  nil];
-
-    [self performSelector:@selector(tryToExecuteUserscript:) withObject:args afterDelay:0];
+    
+    [self performSelector:@selector(executeUserscriptLater:) withObject:args afterDelay:0];
 }
 
 
@@ -153,24 +142,22 @@ static NSInteger FUSortMatchedUserscripts(NSDictionary *a, NSDictionary *b, void
 }
 
 
-- (void)tryToExecuteUserscript:(NSMutableDictionary *)args {
+- (void)executeUserscriptLater:(NSMutableDictionary *)args {
     WebView *wv = [[args objectForKey:KEY_TABCONTROLLER] webView];
-    
-    NSString *readyState = [[wv mainFrameDocument] valueForKey:@"readyState"];
-    if ([readyState isEqualToString:@"loaded"] || [readyState isEqualToString:@"complete"]) {
-
-        [self executeUserscript:[args objectForKey:KEY_USERSCRIPT_SRC] inWebView:wv];
-
-    } else {
-        NSInteger count = [[args objectForKey:KEY_COUNT] integerValue];
-        //NSLog(@"tried %d times to run userscript for URL: %@", count, [wv mainFrameURL]);
-        if (count < MAX_TRIES) {
-            [args setObject:[NSNumber numberWithInteger:++count] forKey:KEY_COUNT];
-            [self performSelector:@selector(tryToExecuteUserscript:) withObject:args afterDelay:0.3];
-        } else {
-            NSLog(@"maxed out trying to run userscript for URL: %@", [wv mainFrameURL]);
-        }
-    }
+    NSMutableString *script = [NSMutableString string];
+    [script appendString:@"(function() {\n"];
+    [script appendString:@"    var f = function() {\n"];
+    [script appendString:@"        (function () {\n"];
+    [script appendString:[args objectForKey:KEY_USERSCRIPT_SRC]];
+    [script appendString:@"\n      })();\n"];
+    [script appendString:@"    };\n"];
+    [script appendString:@"    if (document.readyState === 'loaded' || document.readyState === 'complete') {\n"];
+    [script appendString:@"        f();\n"];
+    [script appendString:@"    } else {\n"];
+    [script appendString:@"        window.addEventListener('DOMContentLoaded', f, false);\n"];
+    [script appendString:@"    }\n"];
+    [script appendString:@"})();\n"];
+    [self executeUserscript:script inWebView:wv];
 }
 
 
