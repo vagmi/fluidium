@@ -57,7 +57,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<FUPlugInWrapper %p %@>", self, plugIn.identifier];
+    return [NSString stringWithFormat:@"<FUPlugInWrapper %p %@>", self, [plugIn identifier]];
 }
 
 

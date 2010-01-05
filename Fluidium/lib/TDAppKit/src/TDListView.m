@@ -113,7 +113,7 @@
 }
 
 
-- (TDListItemView *)viewForItemAtIndex:(NSUInteger)i {
+- (id)viewForItemAtIndex:(NSUInteger)i {
     for (TDListItemView *itemView in listItemViews) {
         if (itemView.index == i) {
             return itemView;
