@@ -32,7 +32,7 @@
 #define SEPARATOR_MIN_X 3
 
 @interface FUBookmarkBar (Private)
-- (NSButton *)newButtonWithBookmark:(id)item;
+- (NSButton *)newButtonWithBookmark:(FUBookmark *)bmark;
 - (void)performActionForButton:(id)sender;
 - (void)updateSeparatorForPoint:(NSPoint)p;
 - (FUBookmarkBarButton *)buttonAtX:(CGFloat)x;

@@ -57,6 +57,7 @@
     FUShortcutController *shortcutController;
 
     NSMutableSet *tabControllers;
+    FUTabController *selectedTabController;
     FUTabController *backgroundTabSpawnCount;
     
     NSString *currentTitle;

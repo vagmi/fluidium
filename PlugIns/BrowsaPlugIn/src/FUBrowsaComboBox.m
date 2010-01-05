@@ -89,26 +89,6 @@
 
 
 - (void)showPopUpWithItemCount:(NSInteger)count {
-    NSWindow *popUp = [(HMBrowsaImageComboBoxCell *)[self cell] popUp];
-    [popUp makeKeyAndOrderFront:self];
-    [popUp setOpaque:NO];
-    [popUp setAlphaValue:.88];
-    
-    NSRect winRect = [[self window] frame];
-    NSRect textRect = [self convertRect:[self frame] toView:nil];
-    
-    CGFloat w = textRect.size.width - 7.;
-    count++; // add 1 for "clear recent items" item
-    count = (count > MAX_VISIBLE_ITEMS) ? MAX_VISIBLE_ITEMS : count;
-    CGFloat h = 20 * count;
-    CGFloat x = textRect.origin.x + textRect.size.height + winRect.origin.x - 30;
-    CGFloat y = textRect.origin.y + winRect.origin.y - h + 3;
-    [popUp setFrame:NSMakeRect(x, y, w, h) display:YES];
-    
-    NSTableView *table = (NSTableView *)[popUp firstResponder];
-    [table selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-    showingPopUp = YES;
-    firstKeyDownHasHappened = NO;
 }
 
 
@@ -116,10 +96,6 @@
 #pragma mark NSTableViewDelegate
 
 - (void)hidePopUp {
-    NSWindow *popUp = [(HMBrowsaImageComboBoxCell *)self.cell popUp];
-    [popUp orderOut:nil];
-    firstKeyDownHasHappened = NO;
-    showingPopUp = NO;
 }
 
 
