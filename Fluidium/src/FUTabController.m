@@ -273,13 +273,17 @@ typedef enum {
 
 
 - (IBAction)showWebInspector:(id)sender {
-    self.inspector = [[[WebInspector alloc] initWithWebView:webView] autorelease];
+    if (!inspector) {
+        self.inspector = [[[WebInspector alloc] initWithWebView:webView] autorelease];
+    }
     [inspector show:sender];
 }
 
 
 - (IBAction)showErrorConsole:(id)sender {
-    self.inspector = [[[WebInspector alloc] initWithWebView:webView] autorelease];
+    if (!inspector) {
+        self.inspector = [[[WebInspector alloc] initWithWebView:webView] autorelease];
+    }
     [inspector showConsole:sender];
 }
 
