@@ -99,7 +99,6 @@
 #pragma mark -
 #pragma mark Events
 
-//#if BUILD_TARGET_SNOW_LEOPARD
 - (void)beginGestureWithEvent:(NSEvent *)evt {
     magnified = NO;
 }
@@ -157,7 +156,6 @@
         }
     }
 }
-//#endif
 
 
 #pragma mark -

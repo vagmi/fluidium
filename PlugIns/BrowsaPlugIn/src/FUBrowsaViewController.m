@@ -722,7 +722,7 @@ typedef enum {
     [webView setResourceLoadDelegate:self];
     [webView setFrameLoadDelegate:self];
     [webView setPolicyDelegate:self];
-    [webView setUIDelegate:[[NSDocumentController sharedDocumentController] frontTabController]];
+    [webView setUIDelegate:self]; // TODO implement the UIDelegate methods
     
     [self updateUserAgentString];
     
