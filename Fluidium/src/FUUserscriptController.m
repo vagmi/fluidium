@@ -28,7 +28,7 @@
 @interface FUUserscriptController ()
 - (void)loadUserscripts;
 - (NSString *)userscriptSourceForURLString:(NSString *)URLString;
-- (void)tryToExecuteUserscript:(NSMutableDictionary *)args;
+- (void)executeUserscriptLater:(NSMutableDictionary *)args;
 - (void)executeUserscript:(NSString *)userscriptSrc inWebView:(WebView *)wv;
 @end
 
@@ -92,7 +92,7 @@
                                  [n object], KEY_TABCONTROLLER,
                                  nil];
 
-    [self performSelector:@selector(tryToExecuteUserscript:) withObject:args afterDelay:0];
+    [self performSelector:@selector(executeUserscriptLater:) withObject:args afterDelay:0];
 }
 
 
@@ -142,9 +142,9 @@ static NSInteger FUSortMatchedUserscripts(NSDictionary *a, NSDictionary *b, void
 }
 
 
-- (void)tryToExecuteUserscript:(NSMutableDictionary *)args {
+- (void)executeUserscriptLater:(NSMutableDictionary *)args {
     WebView *wv = [[args objectForKey:KEY_TABCONTROLLER] webView];
-    NSMutableString *script = [[NSMutableString alloc] init];
+    NSMutableString *script = [NSMutableString string];
     [script appendString:@"(function() {\n"];
     [script appendString:@"    var f = function() {\n"];
     [script appendString:@"        (function () {\n"];
@@ -153,13 +153,11 @@ static NSInteger FUSortMatchedUserscripts(NSDictionary *a, NSDictionary *b, void
     [script appendString:@"    };\n"];
     [script appendString:@"    if (document.readyState === 'loaded' || document.readyState === 'complete') {\n"];
     [script appendString:@"        f();\n"];
-    [script appendString:@"    }\n"];
-    [script appendString:@"    else {\n"];
+    [script appendString:@"    } else {\n"];
     [script appendString:@"        window.addEventListener('DOMContentLoaded', f, false);\n"];
     [script appendString:@"    }\n"];
     [script appendString:@"})();\n"];
     [self executeUserscript:script inWebView:wv];
-    [script release];
 }
 
 
