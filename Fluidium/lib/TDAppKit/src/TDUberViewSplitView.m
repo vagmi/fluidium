@@ -110,14 +110,15 @@
     [path moveToPoint:NSMakePoint(NSMaxX(borderRect), NSMinY(borderRect))];
     
     CGFloat topHeight = 0;
-    if (uberView.isTopViewOpen) {
+    BOOL isTopViewOpen = uberView.isTopViewOpen;
+    if (isTopViewOpen) {
         topHeight = NSHeight([uberView.topView frame]);
         [path lineToPoint:NSMakePoint(NSMaxX(borderRect), topHeight)];
         [path moveToPoint:NSMakePoint(NSMaxX(borderRect), topHeight + divThickness)];
     }
     
     if (uberView.isBottomViewOpen) {
-        CGFloat y =  topHeight + divThickness + NSMaxY([uberView.midView frame]);
+        CGFloat y = topHeight + NSMaxY([uberView.midView frame]) + (isTopViewOpen ? divThickness : 0);
         [path lineToPoint:NSMakePoint(NSMaxX(borderRect), y)];
         [path moveToPoint:NSMakePoint(NSMaxX(borderRect), y + divThickness)];
     }
@@ -141,14 +142,15 @@
     [path moveToPoint:NSMakePoint(NSMinX(borderRect), NSMinY(borderRect))];
     
     CGFloat topHeight = 0;
-    if (uberView.isTopViewOpen) {
+    BOOL isTopViewOpen = uberView.isTopViewOpen;
+    if (isTopViewOpen) {
         topHeight = NSHeight([uberView.topView frame]);
         [path lineToPoint:NSMakePoint(NSMinX(borderRect), topHeight)];
         [path moveToPoint:NSMakePoint(NSMinX(borderRect), topHeight + divThickness)];
     }
     
     if (uberView.isBottomViewOpen) {
-        CGFloat y =  topHeight + divThickness + NSMaxY([uberView.midView frame]);
+        CGFloat y = topHeight + NSMaxY([uberView.midView frame]) + (isTopViewOpen ? divThickness : 0);
         [path lineToPoint:NSMakePoint(NSMinX(borderRect), y)];
         [path moveToPoint:NSMakePoint(NSMinX(borderRect), y + divThickness)];
     }
