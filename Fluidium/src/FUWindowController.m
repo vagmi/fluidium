@@ -65,6 +65,7 @@
 - (NSInteger)preferredIndexForNewTab;
 - (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
 
+- (void)temporarilyShowToolbarIfHidden;
 - (void)removeDocumentIconButton;
 - (void)displayEstimatedProgress;
 - (void)clearProgressInFuture;
@@ -271,12 +272,8 @@
 
 
 - (IBAction)openSearch:(id)sender {
-    NSWindow *win = [self window];
-    if (![[win toolbar] isVisible]) {
-        [win toggleToolbarShown:self];
-    }
-    
-    [win makeFirstResponder:searchField];
+    [self temporarilyShowToolbarIfHidden];
+    [[self window] performSelector:@selector(makeFirstResponder:) withObject:searchField];
 }
 
 
@@ -302,13 +299,8 @@
 
 
 - (IBAction)openLocation:(id)sender {
-    NSWindow *win = [self window];
-    if (![[win toolbar] isVisible]) {
-        [(FUWindowToolbar *)[[self window] toolbar] setSuppressNextToolbarShownChange:YES];
-        [win toggleToolbarShown:self];
-    }
-    
-    [win performSelector:@selector(makeFirstResponder:) withObject:locationComboBox];
+    [self temporarilyShowToolbarIfHidden];
+    [[self window] performSelector:@selector(makeFirstResponder:) withObject:locationComboBox];
 }
 
 
@@ -1361,6 +1353,14 @@
 
 - (void)clearProgress {
     locationComboBox.progress = 0;
+}
+
+
+- (void)temporarilyShowToolbarIfHidden {
+    NSWindow *win = [self window];
+    if (![[win toolbar] isVisible]) {
+        [(FUWindowToolbar *)[[self window] toolbar] showTemporarily];
+    }
 }
 
 

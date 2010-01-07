@@ -19,6 +19,7 @@
     BOOL suppressNextToolbarShownChange;
 }
 
+- (void)showTemporarily;
+
 @property (nonatomic, assign) NSWindow *window; // weakref
-@property (nonatomic, assign) BOOL suppressNextToolbarShownChange;
 @end

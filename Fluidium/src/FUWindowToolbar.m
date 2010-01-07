@@ -30,21 +30,35 @@
 }
 
 
+#pragma mark -
+#pragma mark NSToolbar
+
 - (void)setVisible:(BOOL)yn {
     [super setVisible:yn];
     if (suppressNextToolbarShownChange) {
         suppressNextToolbarShownChange = NO;
     } else {
         [[FUUserDefaults instance] setToolbarShown:yn];
-        [self performSelector:@selector(postToolbarShownNotification) withObject:nil afterDelay:0];
     }
+    [self performSelector:@selector(postToolbarShownNotification) withObject:nil afterDelay:0];
 }
 
+
+#pragma mark -
+#pragma mark Public
+
+- (void)showTemporarily {
+    suppressNextToolbarShownChange = YES;
+    [self setVisible:YES];
+}
+
+
+#pragma mark -
+#pragma mark Private
 
 - (void)postToolbarShownNotification {
     [[NSNotificationCenter defaultCenter] postNotificationName:FUToolbarShownDidChangeNotification object:window];
 }
 
 @synthesize window;
-@synthesize suppressNextToolbarShownChange;
 @end
