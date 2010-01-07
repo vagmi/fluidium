@@ -22,6 +22,8 @@
 @implementation FUWindowToolbar
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
     self.window = nil;
     [super dealloc];
 }
