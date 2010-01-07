@@ -12,8 +12,13 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUWindowController.h"
+#import <Cocoa/Cocoa.h>
 
-@interface FUWindowController (NSToolbarDelegate)
-- (void)setUpToolbar;
+@class FUWindowController;
+
+@interface FUToolbarController : NSObject {
+    FUWindowController *windowController;
+}
+
+@property (nonatomic, assign) IBOutlet FUWindowController *windowController; // weakref
 @end

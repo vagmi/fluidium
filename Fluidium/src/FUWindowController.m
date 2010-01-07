@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUWindowController.h"
-#import "FUWindowController+NSToolbarDelegate.h"
+#import "FUToolbarController.h"
 #import "FUDocumentController.h"
 #import "FUTabController.h"
 #import "FUWindow.h"
@@ -174,7 +174,6 @@
 
 
 - (void)windowDidLoad {
-    [self setUpToolbar];
     [self tabBarShownDidChange:nil];
     [self bookmarkBarShownDidChange:nil];
     [self statusBarShownDidChange:nil];
