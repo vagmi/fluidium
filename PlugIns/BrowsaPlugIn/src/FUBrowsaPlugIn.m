@@ -143,7 +143,7 @@ static NSInteger sTag = 0;
         [wv setFrame:[[vc view] frame]];
     }
     
-    [win makeFirstResponder:wv];
+    //[win makeFirstResponder:wv];
 }
 
 

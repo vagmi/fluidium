@@ -388,7 +388,8 @@ typedef enum {
     self.URLString = s;
     self.favicon = [self defaultFavicon];
     
-    [[self.view window] makeFirstResponder:webView];
+    // dont do this as it steals focus from the entire window
+    //[[self.view window] makeFirstResponder:webView];
 }
 
 
