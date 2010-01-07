@@ -26,6 +26,7 @@ extern NSString *const kFUContinuousSpellCheckingEnabledKey;
 extern NSString *const kFUZoomTextOnlyKey;
 
 // UI
+extern NSString *const kFUToolbarShownKey;
 extern NSString *const kFUBookmarkBarShownKey;
 extern NSString *const kFUBookmarkBarShowsFaviconsKey;
 extern NSString *const kFUStatusBarShownKey;
@@ -101,6 +102,7 @@ extern NSString *const kFUPlugInDrawerContentSizeStringKey;
 @property (nonatomic) BOOL zoomTextOnly;
 
 // UI
+@property (nonatomic) BOOL toolbarShown;
 @property (nonatomic) BOOL statusBarShown;
 @property (nonatomic) BOOL bookmarkBarShown;
 @property (nonatomic) BOOL bookmarkBarShowsFavicons;

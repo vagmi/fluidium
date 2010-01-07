@@ -27,6 +27,7 @@ NSString *const kFUContinuousSpellCheckingEnabledKey = @"FUContinuousSpellChecki
 NSString *const kFUZoomTextOnlyKey = @"FUZoomTextOnly";
 
 // UI
+NSString *const kFUToolbarShownKey = @"FUToolbarShown";
 NSString *const kFUBookmarkBarShownKey = @"FUBookmarkBarShown";
 NSString *const kFUBookmarkBarShowsFaviconsKey = @"FUBookmarkBarShowsFavicons";
 NSString *const kFUStatusBarShownKey = @"FUStatusBarShown";
@@ -190,6 +191,14 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 
 #pragma mark -
 #pragma mark UI
+
+- (BOOL)toolbarShown {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kFUToolbarShownKey];
+}
+- (void)setToolbarShown:(BOOL)yn {
+    [[NSUserDefaults standardUserDefaults] setBool:yn forKey:kFUToolbarShownKey];
+}
+
 
 - (BOOL)statusBarShown {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kFUStatusBarShownKey];

@@ -14,6 +14,7 @@
 
 #import "FUWindowToolbar.h"
 #import "FUNotifications.h"
+#import "FUUserDefaults.h"
 
 @interface FUWindowToolbar ()
 - (void)postToolbarShownNotification;
@@ -31,7 +32,12 @@
 
 - (void)setVisible:(BOOL)yn {
     [super setVisible:yn];
-    [self performSelector:@selector(postToolbarShownNotification) withObject:nil afterDelay:0];
+    if (suppressNextToolbarShownChange) {
+        suppressNextToolbarShownChange = NO;
+    } else {
+        [[FUUserDefaults instance] setToolbarShown:yn];
+        [self performSelector:@selector(postToolbarShownNotification) withObject:nil afterDelay:0];
+    }
 }
 
 
@@ -40,4 +46,5 @@
 }
 
 @synthesize window;
+@synthesize suppressNextToolbarShownChange;
 @end

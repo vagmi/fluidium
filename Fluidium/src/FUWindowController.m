@@ -29,6 +29,7 @@
 #import "FUUtils.h"
 #import "FUWebView.h"
 #import "FUTabBarControl.h"
+#import "FUWindowToolbar.h"
 #import "FUPlugInController.h"
 #import "FUNotifications.h"
 #import "NSString+FUAdditions.h"
@@ -303,6 +304,7 @@
 - (IBAction)openLocation:(id)sender {
     NSWindow *win = [self window];
     if (![[win toolbar] isVisible]) {
+        [(FUWindowToolbar *)[[self window] toolbar] setSuppressNextToolbarShownChange:YES];
         [win toggleToolbarShown:self];
     }
     
@@ -1143,8 +1145,14 @@
 
 
 - (void)tabControllerDidStartProvisionalLoad:(NSNotification *)n {
+    // hide find panel
     self.typingInFindPanel = NO;
     [self hideFindPanel:self];
+    
+    // hide toolbar if appropriate
+    if (![[FUUserDefaults instance] toolbarShown]) {
+        [[[self window] toolbar] setVisible:NO];
+    }
 }
 
 
