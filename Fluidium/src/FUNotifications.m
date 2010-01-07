@@ -15,6 +15,7 @@
 #import "FUNotifications.h"
 
 // FUUINotifications
+NSString *const FUToolbarShownDidChangeNotification = @"FUToolbarShownDidChangeNotification";
 NSString *const FUTabBarShownDidChangeNotification = @"FUTabBarShownDidChangeNotification";
 NSString *const FUTabBarHiddenForSingleTabDidChangeNotification = @"FUTabBarHiddenForSingleTabDidChangeNotification";
 NSString *const FUBookmarkBarShownDidChangeNotification = @"FUBookmarkBarShownDidChangeNotification";

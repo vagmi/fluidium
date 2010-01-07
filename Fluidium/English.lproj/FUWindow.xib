@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="5"/>
+			<integer value="6"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -606,7 +606,7 @@
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
-			<object class="NSCustomObject" id="202127617">
+			<object class="NSCustomObject" id="653046509">
 				<string key="NSClassName">FUToolbarController</string>
 			</object>
 		</object>
@@ -980,7 +980,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">windowController</string>
-						<reference key="source" ref="202127617"/>
+						<reference key="source" ref="653046509"/>
 						<reference key="destination" ref="512844837"/>
 					</object>
 					<int key="connectionID">100130</int>
@@ -1310,14 +1310,14 @@
 						<reference key="parent" ref="58043945"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">100129</int>
+						<reference key="object" ref="653046509"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">100127</int>
 						<reference key="object" ref="898544992"/>
 						<reference key="parent" ref="405679537"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">100129</int>
-						<reference key="object" ref="202127617"/>
-						<reference key="parent" ref="0"/>
 					</object>
 				</object>
 			</object>

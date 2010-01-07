@@ -96,6 +96,11 @@
 }
 
 
+- (BOOL)shouldDrawTopBorder {
+    return [[[self window] toolbar] isVisible];
+}
+
+
 - (void)mouseDown:(NSEvent *)evt {
     if ([evt clickCount] > 1) {
         [[FUBookmarkWindowController instance] showWindow:self];

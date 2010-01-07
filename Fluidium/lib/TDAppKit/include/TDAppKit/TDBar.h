@@ -25,6 +25,8 @@
     NSColor *nonMainBottomBevelColor;
 }
 
+- (BOOL)shouldDrawTopBorder;
+
 @property (nonatomic, retain) NSGradient *mainBgGradient;
 @property (nonatomic, retain) NSGradient *nonMainBgGradient;
 @property (nonatomic, retain) NSColor *mainTopBorderColor;

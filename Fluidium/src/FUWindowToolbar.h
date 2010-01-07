@@ -15,7 +15,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface FUWindowToolbar : NSToolbar {
-
+    NSWindow *window;
 }
 
+@property (nonatomic, assign) NSWindow *window; // weakref
 @end

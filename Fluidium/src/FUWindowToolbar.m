@@ -13,7 +13,29 @@
 //  limitations under the License.
 
 #import "FUWindowToolbar.h"
+#import "FUNotifications.h"
+
+@interface FUWindowToolbar ()
+- (void)postToolbarShownNotification;
+@end
 
 @implementation FUWindowToolbar
 
+- (void)dealloc {
+    self.window = nil;
+    [super dealloc];
+}
+
+
+- (void)setVisible:(BOOL)yn {
+    [super setVisible:yn];
+    [self performSelector:@selector(postToolbarShownNotification) withObject:nil afterDelay:0];
+}
+
+
+- (void)postToolbarShownNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:FUToolbarShownDidChangeNotification object:window];
+}
+
+@synthesize window;
 @end

@@ -78,6 +78,8 @@
 
 - (void)toggleFindPanel:(BOOL)show;
 - (BOOL)findPanelSearchField:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor;
+- (void)updateEmptyTabBarLineVisibility;
+- (void)updateUberViewHeight;
 @end
 
 @implementation FUWindowController
@@ -151,6 +153,11 @@
                name:NSWindowDidResignKeyNotification
              object:[self window]];
 
+    [nc addObserver:self
+           selector:@selector(toolbarShownDidChange:)
+               name:FUToolbarShownDidChangeNotification
+             object:[self window]];
+    
     [nc addObserver:self
            selector:@selector(bookmarkBarShownDidChange:)
                name:FUBookmarkBarShownDidChangeNotification
@@ -1391,30 +1398,22 @@
 }
 
 
-- (void)tabBarShownDidChange:(NSNotification *)n {    
-    NSRect tabBarFrame = [tabBar frame];
-    CGFloat tabBarHeight = tabBarFrame.size.height;
+- (void)toolbarShownDidChange:(NSNotification *)n {
+    [self updateUberViewHeight];
+    [self updateEmptyTabBarLineVisibility];
+    [tabBar setNeedsDisplay:YES];
+    [bookmarkBar setNeedsDisplay:YES];
+}
 
+
+- (void)tabBarShownDidChange:(NSNotification *)n {
     BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
     [tabBar setHidden:hiddenAlways];
     
-    NSRect uberFrame = [uberView frame];
-    if (hiddenAlways) {
-        BOOL isUberViewAlreadyExpanded = NSPointInRect(NSMakePoint(2, NSMaxY(uberFrame) - 2), tabBarFrame);
-        if (isUberViewAlreadyExpanded) {
-            // do nothing
-        } else {
-            uberFrame.size.height += tabBarHeight - 1;
-        }
-    } else {
-        uberFrame.size.height -= tabBarHeight - 1;
-    }
-
-    [uberView setFrame:uberFrame];
-    [uberView setNeedsDisplay:YES];
-    [emptyTabBarLine setNeedsDisplay:YES];
+    [self updateEmptyTabBarLineVisibility];
+    [self updateUberViewHeight];
     if ([tabBar superview]) [tabBar setNeedsDisplay:YES];
-}    
+}
 
 
 - (void)tabBarHiddenForSingleTabDidChange:(NSNotification *)n {
@@ -1444,10 +1443,12 @@
     }
     
     [tabContainerView setFrameSize:newContainerSize];
-    
+
+    [self updateEmptyTabBarLineVisibility];
+    [self updateUberViewHeight];
+
     [bookmarkBar setNeedsDisplay:YES];
     [tabBar setNeedsDisplay:YES];
-    [uberView setNeedsDisplay:YES];
 }
 
 
@@ -1488,6 +1489,42 @@
     [tabBar setNeedsDisplay:YES];
     [bookmarkBar setNeedsDisplay:YES];
     [[[self selectedTabController] webView] setNeedsDisplay:YES];
+}
+
+
+- (void)updateEmptyTabBarLineVisibility {
+    BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
+    BOOL toolbarShown = [[[self window] toolbar] isVisible];
+    
+    BOOL lineHidden = !bookmarkBarShown && !toolbarShown;
+    [emptyTabBarLine setHidden:lineHidden];
+    [emptyTabBarLine setNeedsDisplay:YES];    
+}
+
+
+- (void)updateUberViewHeight {
+    NSRect containerFrame = [tabContainerView frame];
+    CGFloat uberFrameHeight = containerFrame.size.height;
+    
+    BOOL tabBarShown = ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden] && [tabBar superview];
+    if (tabBarShown) {
+        CGFloat tabBarHeight = NSHeight([tabBar frame]);
+        uberFrameHeight -= tabBarHeight;
+    }
+    
+    BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
+    if (bookmarkBarShown && !tabBarShown) {
+        uberFrameHeight -= 1;
+    }
+    
+    BOOL toolbarShown = [[[self window] toolbar] isVisible];
+    if (toolbarShown && !bookmarkBarShown && !tabBarShown) {
+        uberFrameHeight -= 1;
+    }
+    
+    NSRect uberFrame = [uberView frame];
+    uberFrame.size.height = uberFrameHeight;
+    [uberView setFrame:uberFrame];
 }
 
 

@@ -49,13 +49,14 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
 
 
 - (void)awakeFromNib {
-    NSToolbar *toolbar = [[[FUWindowToolbar alloc] initWithIdentifier:@"FUWindowToolbar"] autorelease];
+    FUWindowToolbar *toolbar = [[[FUWindowToolbar alloc] initWithIdentifier:@"FUWindowToolbar"] autorelease];
     [toolbar setShowsBaselineSeparator:NO];
     [toolbar setDelegate:self];
     [toolbar setAllowsUserCustomization:YES];
     [toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
     [toolbar setAutosavesConfiguration:YES];
     [[windowController window] setToolbar:toolbar];
+    [toolbar setWindow:[windowController window]];
     [toolbar setVisible:YES];
 }
 

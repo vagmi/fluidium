@@ -17,12 +17,14 @@
 #pragma mark -
 #pragma mark FUUINotifications
 
+extern NSString *const FUToolbarShownDidChangeNotification;
 extern NSString *const FUTabBarShownDidChangeNotification;
 extern NSString *const FUTabBarHiddenForSingleTabDidChangeNotification;
 extern NSString *const FUBookmarkBarShownDidChangeNotification;
 extern NSString *const FUStatusBarShownDidChangeNotification;
 
 @interface NSObject (FUUINotifications)
+- (void)toolbarShownDidChange:(NSNotification *)n;
 - (void)tabBarShownDidChange:(NSNotification *)n;
 - (void)tabBarHiddenForSingleTabDidChange:(NSNotification *)n;
 - (void)bookmarkBarShownDidChange:(NSNotification *)n;

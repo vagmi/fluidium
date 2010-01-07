@@ -942,8 +942,15 @@
 		case PSMTabBarHorizontalOrientation:
 		{
 			rect.origin.y++;
-			[path moveToPoint:NSMakePoint(rect.origin.x, rect.origin.y)];
-			[path lineToPoint:NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y)];
+            // BEGIN FLUIDIUM
+            BOOL bookmarkBarShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"FUBookmarkBarShown"];
+            BOOL toolbarBarShown = [[[tabBar window] toolbar] isVisible];
+            if (toolbarBarShown || bookmarkBarShown) {
+                [path moveToPoint:NSMakePoint(rect.origin.x, rect.origin.y)];
+                [path lineToPoint:NSMakePoint(rect.origin.x + rect.size.width, rect.origin.y)];
+            }
+            // END FLUIDIUM
+                                        
 			[shadow setShadowOffset:NSMakeSize(2, -2)];
 			
 			[shadow set];

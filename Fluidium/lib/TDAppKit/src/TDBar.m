@@ -49,6 +49,11 @@
 }
 
 
+- (BOOL)shouldDrawTopBorder {
+    return YES;
+}
+
+
 - (void)windowDidBecomeMain:(NSNotification *)n {
     [self setNeedsDisplay:YES];
 }
@@ -99,14 +104,16 @@
     }
 
     // top border
-    if (topBorderColor) {
-        [topBorderColor set];
-        p1.y += 1.0;
-        p2.y += 1.0;
-        [path removeAllPoints];
-        [path moveToPoint:p1];
-        [path lineToPoint:p2];
-        [path stroke];
+    if ([self shouldDrawTopBorder]) {
+        if (topBorderColor) {
+            [topBorderColor set];
+            p1.y += 1.0;
+            p2.y += 1.0;
+            [path removeAllPoints];
+            [path moveToPoint:p1];
+            [path lineToPoint:p2];
+            [path stroke];
+        }
     }
 
     // bottom bevel
