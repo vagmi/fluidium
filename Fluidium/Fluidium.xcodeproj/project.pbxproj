@@ -26,7 +26,7 @@
 		D30BC47510E188840019816B /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
 		D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
 		D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
-		D3189B7D10F583CC00B6AA21 /* FUToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189B7C10F583CC00B6AA21 /* FUToolbarController.m */; };
+		D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */; };
 		D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
@@ -552,8 +552,8 @@
 		D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptMenuItem.m; path = src/FUJavaScriptMenuItem.m; sourceTree = "<group>"; };
 		D30BC56910E1AC0E0019816B /* FUJavaScriptGrowlNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUJavaScriptGrowlNotification.h; path = src/FUJavaScriptGrowlNotification.h; sourceTree = "<group>"; };
 		D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptGrowlNotification.m; path = src/FUJavaScriptGrowlNotification.m; sourceTree = "<group>"; };
-		D3189B7B10F583CC00B6AA21 /* FUToolbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUToolbarController.h; path = src/FUToolbarController.h; sourceTree = "<group>"; };
-		D3189B7C10F583CC00B6AA21 /* FUToolbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUToolbarController.m; path = src/FUToolbarController.m; sourceTree = "<group>"; };
+		D3189D6A10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+NSToolbarDelegate.h"; path = "src/FUWindowController+NSToolbarDelegate.h"; sourceTree = "<group>"; };
+		D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+NSToolbarDelegate.m"; path = "src/FUWindowController+NSToolbarDelegate.m"; sourceTree = "<group>"; };
 		D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = "<group>"; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = src/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
@@ -1402,8 +1402,8 @@
 		D3F4C56310C8D3AF00E0B474 /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
-				D3189B7B10F583CC00B6AA21 /* FUToolbarController.h */,
-				D3189B7C10F583CC00B6AA21 /* FUToolbarController.m */,
+				D3189D6A10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.h */,
+				D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */,
 				D3F4C53410C8CF4600E0B474 /* FUWindowToolbar.h */,
 				D3F4C53510C8CF4600E0B474 /* FUWindowToolbar.m */,
 				D3F4C56C10C8D3EF00E0B474 /* FUBackForwardPopUpButton.h */,
@@ -2003,7 +2003,7 @@
 				D3B8BC0610E837E400271454 /* HMFoundationEx.m in Sources */,
 				D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */,
 				D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */,
-				D3189B7D10F583CC00B6AA21 /* FUToolbarController.m in Sources */,
+				D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

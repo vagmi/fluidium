@@ -606,9 +606,6 @@
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
-			<object class="NSCustomObject" id="653046509">
-				<string key="NSClassName">FUToolbarController</string>
-			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -977,14 +974,6 @@
 					</object>
 					<int key="connectionID">100128</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">windowController</string>
-						<reference key="source" ref="653046509"/>
-						<reference key="destination" ref="512844837"/>
-					</object>
-					<int key="connectionID">100130</int>
-				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1310,11 +1299,6 @@
 						<reference key="parent" ref="58043945"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">100129</int>
-						<reference key="object" ref="653046509"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">100127</int>
 						<reference key="object" ref="898544992"/>
 						<reference key="parent" ref="405679537"/>
@@ -1373,7 +1357,6 @@
 					<string>100116.IBPluginDependency</string>
 					<string>100117.IBPluginDependency</string>
 					<string>100127.IBPluginDependency</string>
-					<string>100129.IBPluginDependency</string>
 					<string>5.IBEditorWindowLastContentRect</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.IBWindowTemplateEditedContentRect</string>
@@ -1430,7 +1413,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{609, 526}, {240, 129}}</string>
 					<boolean value="NO"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1527,18 +1509,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">FUToolbarController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">windowController</string>
-						<string key="NS.object.0">FUWindowController</string>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUToolbarController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">FUWindow</string>
 					<string key="superclassName">NSWindow</string>
 					<object class="NSMutableDictionary" key="actions">
@@ -1548,6 +1518,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUWindow.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FUWindowController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUWindowController+NSToolbarDelegate.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

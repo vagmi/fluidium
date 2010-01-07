@@ -12,7 +12,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUToolbarController.h"
+#import "FUWindowController+NSToolbarDelegate.h"
 #import "FUWindowController.h"
 #import "FUApplication.h"
 #import "FUWindowToolbar.h"
@@ -32,7 +32,7 @@ static NSString *const FUBrowsaPlugInItemIdentifier = @"com.fluidapp.BrowsaPlugI
 static NSString *const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPlugIn";
 static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
 
-@interface FUToolbarController ()
+@interface FUWindowController (NSToolbarDelegatePrivate)
 - (NSToolbarItem *)plugInButtonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
 - (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
 - (NSToolbarItem *)viewToolbarItemWithIdentifier:(NSString *)itemID view:(NSView *)view label:(NSString *)label target:(id)target action:(SEL)sel;
@@ -40,23 +40,17 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
 - (NSArray *)allPlugInToolbarItemIdentifiers;
 @end
 
-@implementation FUToolbarController
+@implementation FUWindowController (NSToolbarDelegate)
 
-- (void)dealloc {
-    self.windowController = nil;
-    [super dealloc];
-}
-
-
-- (void)awakeFromNib {
+- (void)setUpToolbar {
     FUWindowToolbar *toolbar = [[[FUWindowToolbar alloc] initWithIdentifier:@"FUWindowToolbar"] autorelease];
     [toolbar setShowsBaselineSeparator:NO];
     [toolbar setDelegate:self];
     [toolbar setAllowsUserCustomization:YES];
     [toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
     [toolbar setAutosavesConfiguration:YES];
-    [[windowController window] setToolbar:toolbar];
-    [toolbar setWindow:[windowController window]];
+    [[self window] setToolbar:toolbar];
+    [toolbar setWindow:[self window]];
     [toolbar setVisible:YES];
 }
 
@@ -108,42 +102,41 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
 
     if ([itemID isEqualToString:FUBackItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_back" : NSImageNameGoLeftTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Back", @"") target:windowController action:@selector(goBack:) tag:0];
-        [[item view] bind:@"enabled" toObject:self withKeyPath:@"windowController.selectedTabController.webView.canGoBack" options:nil];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Back", @"") target:self action:@selector(goBack:) tag:0];
+        [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canGoBack" options:nil];
 
     } else if ([itemID isEqualToString:FUForwardItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_fwd" : NSImageNameGoRightTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Forward", @"") target:windowController action:@selector(goForward:) tag:0];
-        [[item view] bind:@"enabled" toObject:self withKeyPath:@"windowController.selectedTabController.webView.canGoForward" options:nil];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Forward", @"") target:self action:@selector(goForward:) tag:0];
+        [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canGoForward" options:nil];
 
     } else if ([itemID isEqualToString:FUReloadItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_reload" : NSImageNameRefreshTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Reload", @"") target:windowController action:@selector(reload:) tag:0];
-        [[item view] bind:@"enabled" toObject:self withKeyPath:@"windowController.selectedTabController.canReload" options:nil];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Reload", @"") target:self action:@selector(reload:) tag:0];
+        [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.canReload" options:nil];
 
     } else if ([itemID isEqualToString:FUStopItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_stop" : NSImageNameStopProgressTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Stop", @"") target:windowController action:@selector(stopLoading:) tag:0];
-        [[item view] bind:@"enabled" toObject:self withKeyPath:@"windowController.selectedTabController.webView.isLoading" options:nil];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Stop", @"") target:self action:@selector(stopLoading:) tag:0];
+        [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.isLoading" options:nil];
 
     } else if ([itemID isEqualToString:FUHomeItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_home" : @"toolbar_button_home";
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Home", @"") target:windowController action:@selector(goHome:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Home", @"") target:self action:@selector(goHome:) tag:0];
 
     } else if ([itemID isEqualToString:FUTextSmallerItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_smaller" : NSImageNameRemoveTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Smaller", @"") target:windowController action:@selector(zoomOut:) tag:0];
-        [[item view] bind:@"enabled" toObject:self withKeyPath:@"windowController.selectedTabController.webView.canMakeTextSmaller" options:nil];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Smaller", @"") target:self action:@selector(zoomOut:) tag:0];
+        [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canMakeTextSmaller" options:nil];
 
     } else if ([itemID isEqualToString:FUTextLargerItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_larger" : NSImageNameAddTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Larger", @"") target:windowController action:@selector(zoomIn:) tag:0];
-        [[item view] bind:@"enabled" toObject:self withKeyPath:@"windowController.selectedTabController.webView.canMakeTextLarger" options:nil];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Larger", @"") target:self action:@selector(zoomIn:) tag:0];
+        [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canMakeTextLarger" options:nil];
 
     } else if ([itemID isEqualToString:FULocationItemIdentifier]) {
-        NSSplitView *sv = windowController.locationSplitView;
-        item = [self viewToolbarItemWithIdentifier:itemID view:sv label:NSLocalizedString(@"Address / Search", @"") target:windowController action:nil];
-        [sv resizeSubviewsWithOldSize:NSMakeSize(0, 0)];
+        item = [self viewToolbarItemWithIdentifier:itemID view:locationSplitView label:NSLocalizedString(@"Address / Search", @"") target:self action:nil];
+        [locationSplitView resizeSubviewsWithOldSize:NSMakeSize(0, 0)];
         
     } else if ([itemID hasPrefix:FUBrowsaPlugInItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_browsa" : @"toolbar_button_browsa";
@@ -222,5 +215,4 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
     return [[FUPlugInController instance] allPlugInIdentifiers];
 }
 
-@synthesize windowController;
 @end
