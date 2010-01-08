@@ -337,6 +337,8 @@
 
 
 - (IBAction)openTab:(id)sender {
+    [self temporarilyShowToolbarIfHidden];
+    
     // reset all backgroundTabSpawnCounts. not sure if i like this. matches Chrome behavior
     for (FUTabController *tc in [self tabControllers]) {
         [tc setBackgroundTabSpawnCount:0];

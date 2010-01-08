@@ -115,7 +115,7 @@
     //NSLog(@"%@", notif);
     [GrowlApplicationBridge notifyWithTitle:note.title
                                 description:note.desc 
-                           notificationName:@"JavaScript Notification"
+                           notificationName:note.name
                                    iconData:note.iconData 
                                    priority:note.priority 
                                    isSticky:note.isSticky

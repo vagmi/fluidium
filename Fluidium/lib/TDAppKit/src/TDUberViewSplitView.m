@@ -76,12 +76,12 @@
         
         [NSBezierPath strokeRect:borderRect];
 
-        // cover up rendering glitch
-        borderRect = NSOffsetRect(divRect, -1, -.5);
-        borderRect.size.width += 2;
-        borderRect.size.height += 1;
-        [[NSColor whiteColor] set];
-        [NSBezierPath strokeRect:borderRect];
+//        // cover up rendering glitch
+//        borderRect = NSOffsetRect(divRect, -1, -.5);
+//        borderRect.size.width += 2;
+//        borderRect.size.height += 1;
+//        [[NSColor whiteColor] set];
+//        [NSBezierPath strokeRect:borderRect];
     }
 }
 

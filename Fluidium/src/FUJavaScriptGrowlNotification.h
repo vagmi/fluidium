@@ -18,6 +18,7 @@
     NSString *identifier;
     NSString *title;
     NSString *desc;
+    NSString *name;
     NSData *iconData;
     NSInteger priority;
     BOOL sticky;
@@ -29,6 +30,7 @@
 @property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, retain) NSData *iconData;
 @property (nonatomic) NSInteger priority;
 @property (nonatomic, getter=isSticky) BOOL sticky;

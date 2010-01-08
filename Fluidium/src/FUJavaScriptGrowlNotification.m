@@ -92,6 +92,7 @@
     if (self = [super init]) {
         self.title = @"";
         self.desc = @"";
+        self.name = @"JavaScript Notification";
     }
     return self;
 }
@@ -101,6 +102,7 @@
     self.identifier = nil;
     self.title = nil;
     self.desc = nil;
+    self.name = nil;
     self.iconData = nil;
     self.onclick = nil;
     [super dealloc];
@@ -114,6 +116,7 @@
 @synthesize identifier;
 @synthesize title;
 @synthesize desc;
+@synthesize name;
 @synthesize iconData;
 @synthesize priority;
 @synthesize sticky;
