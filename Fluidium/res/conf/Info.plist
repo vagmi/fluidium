@@ -434,11 +434,13 @@
 	<string>0.10</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>SUFeedURL</key>
+	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.fluidapp.FluidInstance</string>
+			<string>com.fluidapp.Fluidium</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>http</string>

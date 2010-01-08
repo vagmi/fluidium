@@ -27,6 +27,8 @@
 		D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
 		D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
 		D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */; };
+		D3189E8F10F6FFFA00B6AA21 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
+		D3189E9810F7000F00B6AA21 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
 		D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
@@ -505,6 +507,7 @@
 				D346E71010CE514300BA0B15 /* OmniFoundation.framework in Copy Frameworks */,
 				D346E71110CE514300BA0B15 /* OmniAppKit.framework in Copy Frameworks */,
 				D30BC46610E187C10019816B /* Growl.framework in Copy Frameworks */,
+				D3189E9810F7000F00B6AA21 /* Sparkle.framework in Copy Frameworks */,
 				D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */,
 				D346ED7010CF6CA100BA0B15 /* ShortcutRecorder.framework in Copy Frameworks */,
 				D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */,
@@ -554,6 +557,7 @@
 		D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptGrowlNotification.m; path = src/FUJavaScriptGrowlNotification.m; sourceTree = "<group>"; };
 		D3189D6A10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+NSToolbarDelegate.h"; path = "src/FUWindowController+NSToolbarDelegate.h"; sourceTree = "<group>"; };
 		D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+NSToolbarDelegate.m"; path = "src/FUWindowController+NSToolbarDelegate.m"; sourceTree = "<group>"; };
+		D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = lib/Sparkle/Sparkle.framework; sourceTree = "<group>"; };
 		D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = "<group>"; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = src/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
@@ -566,7 +570,7 @@
 		D332221210C8C19500151693 /* FUDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDocument.m; path = src/FUDocument.m; sourceTree = "<group>"; };
 		D332221410C8C1A500151693 /* Fluidium_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fluidium_Prefix.pch; path = src/Fluidium_Prefix.pch; sourceTree = "<group>"; };
 		D332221510C8C1A500151693 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/main.m; sourceTree = "<group>"; };
-		D332221810C8C1FB00151693 /* Fluidium-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Fluidium-Info.plist"; path = "res/conf/Fluidium-Info.plist"; sourceTree = "<group>"; };
+		D332221810C8C1FB00151693 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = res/conf/Info.plist; sourceTree = "<group>"; };
 		D332222C10C8C2A100151693 /* FUWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWindowController.h; path = src/FUWindowController.h; sourceTree = "<group>"; };
 		D332222D10C8C2A100151693 /* FUWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUWindowController.m; path = src/FUWindowController.m; sourceTree = "<group>"; };
 		D332223A10C8C34B00151693 /* FUWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWindow.h; path = src/FUWindow.h; sourceTree = "<group>"; };
@@ -739,7 +743,6 @@
 		D3E4346710CB8D4C00A5BDEF /* FUBookmarkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkWindowController.h; path = src/FUBookmarkWindowController.h; sourceTree = "<group>"; };
 		D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkWindowController.m; path = src/FUBookmarkWindowController.m; sourceTree = "<group>"; };
 		D3F292ED10E7B32500CCB392 /* WebFrameViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebFrameViewPrivate.h; path = src/WebFrameViewPrivate.h; sourceTree = "<group>"; };
-		D3F2942D10E7C35700CCB392 /* HMShared-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "HMShared-Info.plist"; path = "res/conf/HMShared-Info.plist"; sourceTree = "<group>"; };
 		D3F4C3D310C8C7A300E0B474 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D3F4C53410C8CF4600E0B474 /* FUWindowToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWindowToolbar.h; path = src/FUWindowToolbar.h; sourceTree = "<group>"; };
 		D3F4C53510C8CF4600E0B474 /* FUWindowToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUWindowToolbar.m; path = src/FUWindowToolbar.m; sourceTree = "<group>"; };
@@ -799,6 +802,7 @@
 				D346E70D10CE512E00BA0B15 /* OmniFoundation.framework in Frameworks */,
 				D346E70E10CE512E00BA0B15 /* OmniAppKit.framework in Frameworks */,
 				D30BC44F10E187A40019816B /* Growl.framework in Frameworks */,
+				D3189E8F10F6FFFA00B6AA21 /* Sparkle.framework in Frameworks */,
 				D328FD5710CC33F500BB363B /* PSMTabBarControl.framework in Frameworks */,
 				D346ED7110CF6CB700BA0B15 /* ShortcutRecorder.framework in Frameworks */,
 				D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */,
@@ -817,6 +821,7 @@
 				D3F4C3D310C8C7A300E0B474 /* WebKit.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				D30BC44E10E187A40019816B /* Growl.framework */,
+				D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -969,8 +974,7 @@
 		D332221710C8C1EA00151693 /* Conf */ = {
 			isa = PBXGroup;
 			children = (
-				D332221810C8C1FB00151693 /* Fluidium-Info.plist */,
-				D3F2942D10E7C35700CCB392 /* HMShared-Info.plist */,
+				D332221810C8C1FB00151693 /* Info.plist */,
 				D3F4C6B610C8E51200E0B474 /* DefaultValues.plist */,
 				D346E8C810CEC1BC00BA0B15 /* PlugInClientRecord.plist */,
 				D35CC20310D4126500DA1898 /* UserAgentStrings.plist */,
@@ -2243,6 +2247,7 @@
 					"\"$(SRCROOT)/lib/ParseKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/Growl\"",
 					"\"$(SRCROOT)/build/Debug\"",
+					"\"$(SRCROOT)/lib/Sparkle\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -2254,7 +2259,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				INFOPLIST_FILE = "res/conf/Fluidium-Info.plist";
+				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Fluidium;
 				SDKROOT = macosx10.5;
@@ -2281,6 +2286,7 @@
 					"\"$(SRCROOT)/lib/ParseKit/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/Growl\"",
 					"\"$(SRCROOT)/build/Debug\"",
+					"\"$(SRCROOT)/lib/Sparkle\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2290,7 +2296,7 @@
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				INFOPLIST_FILE = "res/conf/Fluidium-Info.plist";
+				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Fluidium;
 				SDKROOT = macosx10.5;

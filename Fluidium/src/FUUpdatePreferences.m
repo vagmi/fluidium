@@ -13,13 +13,12 @@
 //  limitations under the License.
 
 #import "FUUpdatePreferences.h"
-#import "FUApplication.h"
-//#import <Sparkle/Sparkle.h>
+#import <Sparkle/Sparkle.h>
 
 @implementation FUUpdatePreferences
 
 - (IBAction)checkForUpdates:(id)sender {
-//    [[[FUApplication instance] updater] checkForUpdates:self];
+    [[SUUpdater sharedUpdater] checkForUpdates:sender];
 }
 
 @end
