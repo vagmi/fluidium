@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="6"/>
+			<integer value="100068"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -93,10 +93,19 @@
 							<int key="NSvFlags">290</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSProgressIndicator" id="676211866">
+									<reference key="NSNextResponder" ref="860301874"/>
+									<int key="NSvFlags">-2147482335</int>
+									<object class="NSPSMatrix" key="NSDrawMatrix"/>
+									<string key="NSFrame">{{973, 1}, {96, 12}}</string>
+									<reference key="NSSuperview" ref="860301874"/>
+									<int key="NSpiFlags">24840</int>
+									<double key="NSMaxValue">1</double>
+								</object>
 								<object class="NSTextField" id="365288497">
 									<reference key="NSNextResponder" ref="860301874"/>
 									<int key="NSvFlags">290</int>
-									<string key="NSFrame">{{5, -4}, {912, 17}}</string>
+									<string key="NSFrame">{{5, -4}, {964, 17}}</string>
 									<reference key="NSSuperview" ref="860301874"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="736912571">
@@ -974,6 +983,30 @@
 					</object>
 					<int key="connectionID">100128</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: locationComboBox.progress</string>
+						<reference key="source" ref="676211866"/>
+						<reference key="destination" ref="512844837"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="676211866"/>
+							<reference key="NSDestination" ref="512844837"/>
+							<string key="NSLabel">value: locationComboBox.progress</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">locationComboBox.progress</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100136</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">statusProgressIndicator</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="676211866"/>
+					</object>
+					<int key="connectionID">100137</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1171,6 +1204,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="365288497"/>
+							<reference ref="676211866"/>
 						</object>
 						<reference key="parent" ref="568628114"/>
 						<string key="objectName">Status Bar</string>
@@ -1303,6 +1337,11 @@
 						<reference key="object" ref="898544992"/>
 						<reference key="parent" ref="405679537"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100131</int>
+						<reference key="object" ref="676211866"/>
+						<reference key="parent" ref="860301874"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1357,6 +1396,7 @@
 					<string>100116.IBPluginDependency</string>
 					<string>100117.IBPluginDependency</string>
 					<string>100127.IBPluginDependency</string>
+					<string>100131.IBPluginDependency</string>
 					<string>5.IBEditorWindowLastContentRect</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.IBWindowTemplateEditedContentRect</string>
@@ -1423,9 +1463,10 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{231, -63}, {1087, 718}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{231, -63}, {1087, 718}}</string>
+					<string>{{326, 322}, {1087, 718}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{326, 322}, {1087, 718}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
@@ -1450,7 +1491,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100130</int>
+			<int key="maxID">100137</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1610,6 +1651,7 @@
 							<string>locationSplitView</string>
 							<string>searchField</string>
 							<string>statusBar</string>
+							<string>statusProgressIndicator</string>
 							<string>statusTextField</string>
 							<string>tabBar</string>
 							<string>tabContainerView</string>
@@ -1626,6 +1668,7 @@
 							<string>NSSplitView</string>
 							<string>NSSearchField</string>
 							<string>NSView</string>
+							<string>NSProgressIndicator</string>
 							<string>NSTextField</string>
 							<string>PSMTabBarControl</string>
 							<string>NSView</string>
@@ -2224,6 +2267,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">WebKit.framework/Headers/WebUIDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSProgressIndicator</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSProgressIndicator.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

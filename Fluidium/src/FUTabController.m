@@ -322,6 +322,17 @@ typedef enum {
 }
 
 
+- (CGFloat)estimatedProgress {
+    CGFloat progress = [webView estimatedProgress];
+
+    if ([webView isLoading] && progress < .10) {
+        progress = .10;
+    }
+    
+    return progress;
+}
+
+
 - (void)loadRequest:(NSURLRequest *)req {
     [[webView mainFrame] loadRequest:req];
 }

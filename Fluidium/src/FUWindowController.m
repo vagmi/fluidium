@@ -116,6 +116,7 @@
     self.uberView = nil;
     self.statusBar = nil;
     self.statusTextField = nil;
+    self.statusProgressIndicator = nil;
     self.findPanelView = nil;
     self.findPanelSearchField = nil;
     self.editBookmarkSheet = nil;
@@ -1342,7 +1343,12 @@
 
 
 - (void)displayEstimatedProgress {
-    locationComboBox.progress = [[[self selectedTabController] webView] estimatedProgress];
+    CGFloat progress = [[self selectedTabController] estimatedProgress];
+    locationComboBox.progress = progress;
+    
+    if (![[[self window] toolbar] isVisible]) {
+        [statusProgressIndicator setHidden:NO];
+    }
 }
 
 
@@ -1353,6 +1359,7 @@
 
 - (void)clearProgress {
     locationComboBox.progress = 0;
+    [statusProgressIndicator setHidden:YES];
 }
 
 
@@ -1588,6 +1595,7 @@
 @synthesize uberView;
 @synthesize statusBar;
 @synthesize statusTextField;
+@synthesize statusProgressIndicator;
 @synthesize findPanelView;
 @synthesize findPanelSearchField;
 @synthesize editBookmarkSheet;

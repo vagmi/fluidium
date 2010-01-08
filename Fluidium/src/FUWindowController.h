@@ -40,6 +40,7 @@
     TDUberView *uberView;
     NSView *statusBar;
     NSTextField *statusTextField;
+    NSProgressIndicator *statusProgressIndicator;
     
     NSView *findPanelView;
     NSSearchField *findPanelSearchField;
@@ -144,6 +145,7 @@
 @property (nonatomic, retain) IBOutlet TDUberView *uberView;
 @property (nonatomic, retain) IBOutlet NSView *statusBar;
 @property (nonatomic, retain) IBOutlet NSTextField *statusTextField;
+@property (nonatomic, retain) IBOutlet NSProgressIndicator *statusProgressIndicator;
 @property (nonatomic, retain) IBOutlet NSView *findPanelView;
 @property (nonatomic, retain) IBOutlet NSSearchField *findPanelSearchField;
 @property (nonatomic, retain) IBOutlet NSWindow *editBookmarkSheet;

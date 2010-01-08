@@ -75,6 +75,8 @@
 - (void)loadView;
 - (BOOL)isViewLoaded;
 
+- (CGFloat)estimatedProgress;
+
 - (void)loadRequest:(NSURLRequest *)req;
 
 @property (nonatomic, assign, readonly) FUWindowController *windowController; // weak ref
