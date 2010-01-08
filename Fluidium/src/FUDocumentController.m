@@ -90,14 +90,23 @@
 }
 
 
-// support for opening a new window on ⌘-T when there are no existing windows
-- (IBAction)openTab:(id)sender {
+// support for opening a new window on ⌘-L when there are no existing windows
+- (IBAction)openLocation:(id)sender {
     [self newDocument:sender];
 }
 
 
-// support for opening a new window on ⌘-L when there are no existing windows
-- (IBAction)openLocation:(id)sender {
+// support for opening a new window on ⌘⎇-F when there are no existing windows
+- (IBAction)openSearch:(id)sender {
+    FUDocument *doc = [self openUntitledDocumentAndDisplay:YES error:nil];
+    if (doc) {
+        [[doc windowController] openSearch:sender];
+    }
+}
+
+
+// support for opening a new window on ⌘-T when there are no existing windows
+- (IBAction)openTab:(id)sender {
     [self newDocument:sender];
 }
 
