@@ -37,6 +37,7 @@
 - (void)dealloc {
     self.dockBadge = nil;
     self.menuItems = nil;
+    self.onclick = nil;
     [super dealloc];
 }
 
