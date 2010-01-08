@@ -149,13 +149,18 @@
     NSMutableString *mfmt = [[fmt mutableCopy] autorelease];
     CFStringTrimWhitespace((CFMutableStringRef)mfmt);
     
-    NSString *result = nil;
+    [mfmt replaceOccurrencesOfString:@"%" withString:@"%%" options:0 range:NSMakeRange(0, [mfmt length])];
+    [mfmt replaceOccurrencesOfString:@"%%@" withString:@"%@" options:0 range:NSMakeRange(0, [mfmt length])];
+    
+    NSMutableString *result = nil;
 
     if ([q length]) {
-        result = [NSString stringWithFormat:mfmt, q];
+        result = [NSMutableString stringWithFormat:mfmt, q];
     } else {
         result = mfmt;
     }
+
+    [result replaceOccurrencesOfString:@"%%" withString:@"%" options:0 range:NSMakeRange(0, [result length])];
 
     return result;
 }
