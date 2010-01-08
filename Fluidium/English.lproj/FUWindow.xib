@@ -71,7 +71,7 @@
 								</object>
 								<object class="NSCustomView" id="898544992">
 									<reference key="NSNextResponder" ref="405679537"/>
-									<int key="NSvFlags">266</int>
+									<int key="NSvFlags">-2147483382</int>
 									<string key="NSFrame">{{0, 701}, {1087, 1}}</string>
 									<reference key="NSSuperview" ref="405679537"/>
 									<string key="NSClassName">TDLine</string>
@@ -1423,9 +1423,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{339, 46}, {1087, 718}}</string>
+					<string>{{231, -63}, {1087, 718}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{339, 46}, {1087, 718}}</string>
+					<string>{{231, -63}, {1087, 718}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
@@ -2140,6 +2140,20 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Growl.framework/Headers/GrowlApplicationBridge.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">Sparkle.framework/Headers/SUAppcast.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">Sparkle.framework/Headers/SUUpdater.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
