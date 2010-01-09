@@ -65,7 +65,7 @@
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSTableView" id="219997393">
 														<reference key="NSNextResponder" ref="410085910"/>
-														<int key="NSvFlags">256</int>
+														<int key="NSvFlags">4352</int>
 														<string key="NSFrameSize">{180, 220}</string>
 														<reference key="NSSuperview" ref="410085910"/>
 														<bool key="NSEnabled">YES</bool>
