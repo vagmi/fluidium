@@ -14,8 +14,8 @@
 
 #import "FUBasePreferences.h"
 
-// Abstract base class for FUUserthingPreferences and FUUserstylePreferences
-@interface FUUserthingPreferences : FUBasePreferences {
+// Abstract base class for FUUserscriptViewController and FUUserstyleViewController
+@interface FUUserthingViewController : NSViewController {
     NSArrayController *arrayController;
     NSTextView *textView;
     NSMutableArray *userthings;

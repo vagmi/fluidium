@@ -16,6 +16,7 @@
 #import "FUUserDefaults.h"
 #import "FUDownloadWindowController.h"
 #import "FUBookmarkWindowController.h"
+#import "FUUserthingWindowController.h"
 #import "PTHotKey.h"
 #import "FUAppearancePreferences.h"
 #import "FUPlugInPreferences.h"
@@ -92,6 +93,16 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 - (IBAction)showBookmarksWindow:(id)sender {
     [[FUBookmarkWindowController instance] showWindow:sender];
+}
+
+
+- (IBAction)showUserscriptsWindow:(id)sender {
+    [[FUUserthingWindowController instance] showUserscripts:sender];
+}
+
+
+- (IBAction)showUserstylesWindow:(id)sender {
+    [[FUUserthingWindowController instance] showUserstyles:sender];
 }
 
 

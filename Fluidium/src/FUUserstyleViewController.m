@@ -12,18 +12,18 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUUserscriptPreferences.h"
-#import "FUUserscriptController.h"
+#import "FUUserstyleViewController.h"
+#import "FUUserstyleController.h"
 
-@implementation FUUserscriptPreferences
+@implementation FUUserstyleViewController
 
 - (void)loadUserthings {
-    self.userthings = [[FUUserscriptController instance] userscripts];
+    self.userthings = [[FUUserstyleController instance] userstyles];
 }
 
 
 - (void)storeUserthings {
-    [[FUUserscriptController instance] save];
+    [[FUUserstyleController instance] save];
 }
 
 
@@ -37,7 +37,7 @@
         
         [old autorelease];
         userthings = [new retain];
-        [[FUUserscriptController instance] setUserscripts:new];
+        [[FUUserstyleController instance] setUserstyles:new];
         
         for (id rule in new) {
             [self startObservingRule:rule];

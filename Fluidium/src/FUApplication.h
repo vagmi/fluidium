@@ -37,6 +37,9 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
 
 - (IBAction)showDownloadsWindow:(id)sender;
 - (IBAction)showBookmarksWindow:(id)sender;
+- (IBAction)showUserscriptsWindow:(id)sender;
+- (IBAction)showUserstylesWindow:(id)sender;
+
 - (IBAction)globalShortcutActivated:(id)sender;
 
 // font panel support

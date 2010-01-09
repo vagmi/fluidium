@@ -12,14 +12,27 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUUserthingPreferences.h"
+#import "FUUserthingViewController.h"
 #import "FUApplication.h"
 
-@interface FUUserthingPreferences ()
+@interface FUUserthingViewController ()
 - (void)changeKeyPath:(NSString *)keyPath ofObject:(id)obj toValue:(id)inValue;
 @end
 
-@implementation FUUserthingPreferences
+@implementation FUUserthingViewController
+
+- (id)init {
+    return [self initWithNibName:@"FUUserthingView" bundle:nil];
+}
+
+
+- (id)initWithNibName:(NSString *)name bundle:(NSBundle *)b {
+    if (self = [super initWithNibName:name bundle:b]) {
+        
+    }
+    return self;
+}
+
 
 - (void)dealloc {
     self.arrayController = nil;
@@ -36,7 +49,7 @@
 
 
 - (void)insertObject:(NSMutableDictionary *)dict inUserthingsAtIndex:(NSInteger)i {
-    NSUndoManager *undoManager = [[[self controlBox] window] undoManager];
+    NSUndoManager *undoManager = [[self.view window] undoManager];
     [[undoManager prepareWithInvocationTarget:self] removeObjectFromUserthingsAtIndex:i];
     
     [self startObservingRule:dict];
@@ -48,7 +61,7 @@
 - (void)removeObjectFromUserthingsAtIndex:(NSInteger)i {
     NSMutableDictionary *rule = [self.userthings objectAtIndex:i];
     
-    NSUndoManager *undoManager = [[[self controlBox] window] undoManager];
+    NSUndoManager *undoManager = [[self.view window] undoManager];
     [[undoManager prepareWithInvocationTarget:self] insertObject:rule inUserthingsAtIndex:i];
     
     [self stopObservingRule:rule];
@@ -87,7 +100,7 @@
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)obj change:(NSDictionary *)change context:(void *)ctx {
-    NSUndoManager *undoManager = [[[self controlBox] window] undoManager];
+    NSUndoManager *undoManager = [[self.view window] undoManager];
     id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
     [[undoManager prepareWithInvocationTarget:self] changeKeyPath:keyPath ofObject:obj toValue:oldValue];
     [self storeUserthings];
