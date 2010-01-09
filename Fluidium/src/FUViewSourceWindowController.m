@@ -13,8 +13,8 @@
 //  limitations under the License.
 
 #import "FUViewSourceWindowController.h"
-#import "TDSourceCodeTextView.h"
 #import "TDHtmlSyntaxHighlighter.h"
+#import <TDAppKit/TDSourceCodeTextView.h>
 
 @interface FUViewSourceWindowController ()
 @end
