@@ -146,7 +146,7 @@
     CGFloat dividerThickness = [sv dividerThickness];
     NSRect newFrame = [sv frame];
     
-	leftRect.size.height = newFrame.size.height;
+    leftRect.size.height = newFrame.size.height;
 	leftRect.origin = NSMakePoint(0, 0);
 	rightRect.size.width = newFrame.size.width - leftRect.size.width - dividerThickness;
 	rightRect.size.height = newFrame.size.height;
