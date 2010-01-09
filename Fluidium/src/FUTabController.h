@@ -38,8 +38,6 @@
     BOOL isProcessing; // the 'is' is necessary here to match PSMTabBarControl
     BOOL canReload;
     BOOL didReceiveTitle;
-    
-    NSInteger backgroundTabSpawnCount;
 }
 
 - (id)initWithWindowController:(FUWindowController *)wc;
@@ -95,5 +93,4 @@
 
 @property (nonatomic) BOOL isProcessing;
 @property (nonatomic) BOOL canReload;
-@property (nonatomic) NSInteger backgroundTabSpawnCount;
 @end

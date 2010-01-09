@@ -339,11 +339,6 @@
 - (IBAction)openTab:(id)sender {
     [self temporarilyShowToolbarIfHidden];
     
-    // reset all backgroundTabSpawnCounts. not sure if i like this. matches Chrome behavior
-    for (FUTabController *tc in [self tabControllers]) {
-        [tc setBackgroundTabSpawnCount:0];
-    }
-    
     // always open a tab at the end in response to this action (which only comes from the File menu/cmd-T)
     NSInteger i = [tabView numberOfTabViewItems];
     [self addNewTabAtIndex:i andSelect:YES];
@@ -1320,13 +1315,7 @@
     inTab = act.isOptionKeyPressed ? !inTab : inTab;
     
     if (inTab) {
-        NSInteger i = self.selectedTabIndex + 1;
-        if (!select) {
-            NSInteger spawnCount = [[self selectedTabController] backgroundTabSpawnCount];
-            i += spawnCount;
-            spawnCount++;
-            [[self selectedTabController] setBackgroundTabSpawnCount:spawnCount];
-        }
+        NSInteger i = [tabView numberOfTabViewItems];
         [self loadRequest:req inNewTab:YES atIndex:i andSelect:select];
     } else {
         [[FUDocumentController instance] openDocumentWithRequest:req makeKey:select];
