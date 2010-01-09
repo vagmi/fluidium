@@ -42,7 +42,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 @interface FUApplication ()
 - (void)readInfoPlist;
 - (BOOL)setUpAppSupportDir;
-- (BOOL)setUpUserthingDirs;
+- (void)setUpUserthingDirs;
 - (BOOL)createDirAtPathIfDoesntExist:(NSString *)path;
 - (void)updateAppNameInMainMenu;
 - (void)checkForVersionChange;
@@ -242,21 +242,16 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 }
 
 
-- (BOOL)setUpUserthingDirs {
+- (void)setUpUserthingDirs {
     NSString *contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents"];
-    BOOL success = [self createDirAtPathIfDoesntExist:contentsPath];
-    
-    if (success) {
-        self.userscriptDirPath = [contentsPath stringByAppendingPathComponent:@"Userscripts"];
-        [self createDirAtPathIfDoesntExist:userscriptDirPath];
-        self.userscriptFilePath = [[userscriptDirPath stringByAppendingPathComponent:@"Userscripts"] stringByAppendingPathExtension:@"plist"];
+
+    self.userscriptDirPath = [contentsPath stringByAppendingPathComponent:@"Userscripts"];
+    [self createDirAtPathIfDoesntExist:userscriptDirPath];
+    self.userscriptFilePath = [[userscriptDirPath stringByAppendingPathComponent:@"Userscripts"] stringByAppendingPathExtension:@"plist"];
         
-        self.userstyleDirPath = [contentsPath stringByAppendingPathComponent:@"Userstyles"];
-        [self createDirAtPathIfDoesntExist:userstyleDirPath];
-        self.userstyleFilePath = [[userstyleDirPath stringByAppendingPathComponent:@"Userstyles"] stringByAppendingPathExtension:@"plist"];
-    }
-    
-    return success;
+    self.userstyleDirPath = [contentsPath stringByAppendingPathComponent:@"Userstyles"];
+    [self createDirAtPathIfDoesntExist:userstyleDirPath];
+    self.userstyleFilePath = [[userstyleDirPath stringByAppendingPathComponent:@"Userstyles"] stringByAppendingPathExtension:@"plist"];
 }
 
 
