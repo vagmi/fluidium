@@ -16,6 +16,7 @@
 
 // Abstract base class for FUUserscriptViewController and FUUserstyleViewController
 @interface FUUserthingViewController : NSViewController {
+    NSSplitView *splitView;
     NSArrayController *arrayController;
     NSTextView *textView;
     NSMutableArray *userthings;
@@ -29,7 +30,8 @@
 
 - (void)loadUserthings;
 - (void)storeUserthings;
-    
+
+@property (nonatomic, retain) IBOutlet NSSplitView *splitView;
 @property (nonatomic, retain) IBOutlet NSArrayController *arrayController;
 @property (nonatomic, retain) IBOutlet NSTextView *textView;
 @property (nonatomic, retain) NSMutableArray *userthings;

@@ -15,6 +15,8 @@
 #import "FUUserthingViewController.h"
 #import "FUApplication.h"
 
+#define MIN_TABLE_WIDTH 100
+
 @interface FUUserthingViewController ()
 - (void)changeKeyPath:(NSString *)keyPath ofObject:(id)obj toValue:(id)inValue;
 @end
@@ -35,6 +37,7 @@
 
 
 - (void)dealloc {
+    self.splitView = nil;
     self.arrayController = nil;
     self.textView = nil;
     self.userthings = nil;
@@ -129,6 +132,41 @@
     NSAssert(0, @"abstract method. must override");
 }
 
+
+#pragma mark -
+#pragma mark NSSplitViewDelegate
+
+- (void)splitView:(NSSplitView *)sv resizeSubviewsWithOldSize:(NSSize)oldSize {
+    NSArray *views = [sv subviews];
+    NSView *leftView = [views objectAtIndex:0];
+    NSView *rightView = [views objectAtIndex:1];
+    NSRect leftRect = [leftView frame];
+    NSRect rightRect = [rightView frame];
+                    
+    CGFloat dividerThickness = [sv dividerThickness];
+    NSRect newFrame = [sv frame];
+    
+	leftRect.size.height = newFrame.size.height;
+	leftRect.origin = NSMakePoint(0, 0);
+	rightRect.size.width = newFrame.size.width - leftRect.size.width - dividerThickness;
+	rightRect.size.height = newFrame.size.height;
+	rightRect.origin.x = leftRect.size.width + dividerThickness;
+    
+	[leftView setFrame:leftRect];
+	[rightView setFrame:rightRect];
+}
+
+
+- (CGFloat)splitView:(NSSplitView *)sv constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)i {
+	return MIN_TABLE_WIDTH;
+}
+
+
+- (CGFloat)splitView:(NSSplitView *)sv constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)i {
+	return NSWidth([sv frame]) - MIN_TABLE_WIDTH;
+}
+
+@synthesize splitView;
 @synthesize arrayController;
 @synthesize textView;
 @synthesize userthings;

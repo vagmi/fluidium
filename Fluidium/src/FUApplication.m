@@ -20,7 +20,6 @@
 #import "PTHotKey.h"
 #import "FUAppearancePreferences.h"
 #import "FUPlugInPreferences.h"
-#import "TDSourceCodeTextView.h"
 #import "FUDocumentController.h"
 #import "FUWhitelistController.h"
 #import "FUUserscriptController.h"
@@ -31,6 +30,7 @@
 #import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
 #import "FUBookmarkController.h"
+
 #import <OmniAppKit/OAPreferenceController.h>
 
 NSString *const FUApplicationVersionDidChangeNotification = @"FUApplicationVersionDidChangeNotification";
@@ -116,7 +116,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     NSWindow *win = [NSApp mainWindow];
     
     BOOL prefWinIsMain = [[win className] isEqualToString:@"OAPreferencesWindow"];
-    BOOL viewSourceWinIsMain = [win isKindOfClass:[TDSourceCodeTextView class]];
+    BOOL viewSourceWinIsMain = NO; //[win isKindOfClass:[TDSourceCodeTextView class]];
     
     if (prefWinIsMain) {
         OAPreferenceClient *client = [[OAPreferenceController sharedPreferenceController] currentClient];

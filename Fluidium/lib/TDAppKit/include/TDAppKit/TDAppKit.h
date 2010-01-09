@@ -12,6 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
+#import <TDAppKit/TDGutterView.h>
+#import <TDAppKit/TDSourceCodeTextView.h>
 #import <TDAppKit/TDUberView.h>
 #import <TDAppKit/TDListView.h>
 #import <TDAppKit/TDListItemView.h>

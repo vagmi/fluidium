@@ -607,40 +607,6 @@
 				<key>title</key>
 				<string>Software Update</string>
 			</dict>
-			<key>FUUserscriptPreferences</key>
-			<dict>
-				<key>category</key>
-				<string>Application</string>
-				<key>defaultsDictionary</key>
-				<dict/>
-				<key>icon</key>
-				<string>prefpane_icon_userscript</string>
-				<key>nib</key>
-				<string>FUUserthingPreferences</string>
-				<key>ordering</key>
-				<integer>53</integer>
-				<key>shortTitle</key>
-				<string>Userscripts</string>
-				<key>title</key>
-				<string>Userscript</string>
-			</dict>
-			<key>FUUserstylePreferences</key>
-			<dict>
-				<key>category</key>
-				<string>Application</string>
-				<key>defaultsDictionary</key>
-				<dict/>
-				<key>icon</key>
-				<string>prefpane_icon_userstyle</string>
-				<key>nib</key>
-				<string>FUUserthingPreferences</string>
-				<key>ordering</key>
-				<integer>55</integer>
-				<key>shortTitle</key>
-				<string>Userstyles</string>
-				<key>title</key>
-				<string>Userstyle</string>
-			</dict>
 			<key>FUWhitelistPreferences</key>
 			<dict>
 				<key>category</key>

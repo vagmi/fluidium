@@ -12,8 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "TDSourceCodeTextView.h"
-#import "TDGutterView.h"
+#import <TDAppKit/TDSourceCodeTextView.h>
+#import <TDAppKit/TDGutterView.h>
 
 @interface TDSourceCodeTextView ()
 - (void)registerForNotifications;

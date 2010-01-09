@@ -29,6 +29,8 @@
 		D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */; };
 		D3189E8F10F6FFFA00B6AA21 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
 		D3189E9810F7000F00B6AA21 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
+		D3189FA410F83DF100B6AA21 /* FUUserthingWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3189FA210F83DF100B6AA21 /* FUUserthingWindow.xib */; };
+		D3189FAE10F83F9000B6AA21 /* FUUserthingWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189FAD10F83F9000B6AA21 /* FUUserthingWindowController.m */; };
 		D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
@@ -62,7 +64,7 @@
 		D33E6E3A10D0A9BA00D76BBB /* location_field_progress_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D33E6E3910D0A9BA00D76BBB /* location_field_progress_indicator.png */; };
 		D33E6FC910D0CF0200D76BBB /* FUShortcutCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E6FC810D0CF0200D76BBB /* FUShortcutCommand.m */; };
 		D33E708110D0EB3D00D76BBB /* FUAllPlugInPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E707E10D0EB3D00D76BBB /* FUAllPlugInPreferences.m */; };
-		D33E708210D0EB3D00D76BBB /* FUUserstylePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E708010D0EB3D00D76BBB /* FUUserstylePreferences.m */; };
+		D33E708210D0EB3D00D76BBB /* FUUserstyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E708010D0EB3D00D76BBB /* FUUserstyleViewController.m */; };
 		D33E709110D0ED5400D76BBB /* FUWhitelistPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E709010D0ED5400D76BBB /* FUWhitelistPreferences.m */; };
 		D33E709A10D0EE7100D76BBB /* FUUserstyleController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E709910D0EE7100D76BBB /* FUUserstyleController.m */; };
 		D33E70A110D0EF2100D76BBB /* FUWhitelistController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E70A010D0EF2100D76BBB /* FUWhitelistController.m */; };
@@ -108,9 +110,9 @@
 		D34B610110CF92B7006E17C4 /* prefpane_icon_appearance.png in Resources */ = {isa = PBXBuildFile; fileRef = D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */; };
 		D34B610910CF92DD006E17C4 /* FUAppearancePreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34B610710CF92DD006E17C4 /* FUAppearancePreferences.xib */; };
 		D35CBD2110D35CCB00DA1898 /* FUUserscriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */; };
-		D35CBD7A10D3652600DA1898 /* FUUserscriptPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD7910D3652600DA1898 /* FUUserscriptPreferences.m */; };
-		D35CBD8B10D3664000DA1898 /* FUUserthingPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD8A10D3664000DA1898 /* FUUserthingPreferences.m */; };
-		D35CBDB910D36A9B00DA1898 /* FUUserthingPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35CBDB710D36A9B00DA1898 /* FUUserthingPreferences.xib */; };
+		D35CBD7A10D3652600DA1898 /* FUUserscriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD7910D3652600DA1898 /* FUUserscriptViewController.m */; };
+		D35CBD8B10D3664000DA1898 /* FUUserthingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD8A10D3664000DA1898 /* FUUserthingViewController.m */; };
+		D35CBDB910D36A9B00DA1898 /* FUUserthingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35CBDB710D36A9B00DA1898 /* FUUserthingView.xib */; };
 		D35CC20210D411FA00DA1898 /* FUUserAgentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CC20110D411FA00DA1898 /* FUUserAgentWindowController.m */; };
 		D35CC20410D4126500DA1898 /* UserAgentStrings.plist in Resources */ = {isa = PBXBuildFile; fileRef = D35CC20310D4126500DA1898 /* UserAgentStrings.plist */; };
 		D35CC25F10D41DD900DA1898 /* FUUserAgentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */; };
@@ -143,8 +145,6 @@
 		D3E42F3F10CB152000A5BDEF /* FUDownloadWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3A10CB152000A5BDEF /* FUDownloadWindowController.m */; };
 		D3E42F4C10CB15E700A5BDEF /* NSImage+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */; };
 		D3E42FDD10CB1E1600A5BDEF /* FUDownloadWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E42FDB10CB1E1600A5BDEF /* FUDownloadWindow.xib */; };
-		D3E430A310CB52D900A5BDEF /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4309C10CB52D900A5BDEF /* TDGutterView.m */; };
-		D3E430A510CB52D900A5BDEF /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E430A010CB52D900A5BDEF /* TDSourceCodeTextView.m */; };
 		D3E430A610CB52D900A5BDEF /* FUViewSourceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E430A210CB52D900A5BDEF /* FUViewSourceWindowController.m */; };
 		D3E430AB10CB537A00A5BDEF /* FUViewSourceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E430A910CB537A00A5BDEF /* FUViewSourceWindow.xib */; };
 		D3E432EE10CB70AC00A5BDEF /* FUFindPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E432ED10CB70AC00A5BDEF /* FUFindPanelView.m */; };
@@ -558,6 +558,9 @@
 		D3189D6A10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+NSToolbarDelegate.h"; path = "src/FUWindowController+NSToolbarDelegate.h"; sourceTree = "<group>"; };
 		D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+NSToolbarDelegate.m"; path = "src/FUWindowController+NSToolbarDelegate.m"; sourceTree = "<group>"; };
 		D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = lib/Sparkle/Sparkle.framework; sourceTree = "<group>"; };
+		D3189FA310F83DF100B6AA21 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUUserthingWindow.xib; sourceTree = "<group>"; };
+		D3189FAC10F83F9000B6AA21 /* FUUserthingWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserthingWindowController.h; path = src/FUUserthingWindowController.h; sourceTree = "<group>"; };
+		D3189FAD10F83F9000B6AA21 /* FUUserthingWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserthingWindowController.m; path = src/FUUserthingWindowController.m; sourceTree = "<group>"; };
 		D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = "<group>"; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = src/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
@@ -604,8 +607,8 @@
 		D33E6FC810D0CF0200D76BBB /* FUShortcutCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUShortcutCommand.m; path = src/FUShortcutCommand.m; sourceTree = "<group>"; };
 		D33E707D10D0EB3D00D76BBB /* FUAllPlugInPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAllPlugInPreferences.h; path = src/FUAllPlugInPreferences.h; sourceTree = "<group>"; };
 		D33E707E10D0EB3D00D76BBB /* FUAllPlugInPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAllPlugInPreferences.m; path = src/FUAllPlugInPreferences.m; sourceTree = "<group>"; };
-		D33E707F10D0EB3D00D76BBB /* FUUserstylePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserstylePreferences.h; path = src/FUUserstylePreferences.h; sourceTree = "<group>"; };
-		D33E708010D0EB3D00D76BBB /* FUUserstylePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserstylePreferences.m; path = src/FUUserstylePreferences.m; sourceTree = "<group>"; };
+		D33E707F10D0EB3D00D76BBB /* FUUserstyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserstyleViewController.h; path = src/FUUserstyleViewController.h; sourceTree = "<group>"; };
+		D33E708010D0EB3D00D76BBB /* FUUserstyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserstyleViewController.m; path = src/FUUserstyleViewController.m; sourceTree = "<group>"; };
 		D33E708F10D0ED5400D76BBB /* FUWhitelistPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWhitelistPreferences.h; path = src/FUWhitelistPreferences.h; sourceTree = "<group>"; };
 		D33E709010D0ED5400D76BBB /* FUWhitelistPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUWhitelistPreferences.m; path = src/FUWhitelistPreferences.m; sourceTree = "<group>"; };
 		D33E709810D0EE7100D76BBB /* FUUserstyleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserstyleController.h; path = src/FUUserstyleController.h; sourceTree = "<group>"; };
@@ -673,11 +676,11 @@
 		D34B610810CF92DD006E17C4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUAppearancePreferences.xib; sourceTree = "<group>"; };
 		D35CBD1F10D35CCB00DA1898 /* FUUserscriptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptController.h; path = src/FUUserscriptController.h; sourceTree = "<group>"; };
 		D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserscriptController.m; path = src/FUUserscriptController.m; sourceTree = "<group>"; };
-		D35CBD7810D3652600DA1898 /* FUUserscriptPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptPreferences.h; path = src/FUUserscriptPreferences.h; sourceTree = "<group>"; };
-		D35CBD7910D3652600DA1898 /* FUUserscriptPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserscriptPreferences.m; path = src/FUUserscriptPreferences.m; sourceTree = "<group>"; };
-		D35CBD8910D3664000DA1898 /* FUUserthingPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserthingPreferences.h; path = src/FUUserthingPreferences.h; sourceTree = "<group>"; };
-		D35CBD8A10D3664000DA1898 /* FUUserthingPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserthingPreferences.m; path = src/FUUserthingPreferences.m; sourceTree = "<group>"; };
-		D35CBDB810D36A9B00DA1898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUUserthingPreferences.xib; sourceTree = "<group>"; };
+		D35CBD7810D3652600DA1898 /* FUUserscriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptViewController.h; path = src/FUUserscriptViewController.h; sourceTree = "<group>"; };
+		D35CBD7910D3652600DA1898 /* FUUserscriptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserscriptViewController.m; path = src/FUUserscriptViewController.m; sourceTree = "<group>"; };
+		D35CBD8910D3664000DA1898 /* FUUserthingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserthingViewController.h; path = src/FUUserthingViewController.h; sourceTree = "<group>"; };
+		D35CBD8A10D3664000DA1898 /* FUUserthingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserthingViewController.m; path = src/FUUserthingViewController.m; sourceTree = "<group>"; };
+		D35CBDB810D36A9B00DA1898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUUserthingView.xib; sourceTree = "<group>"; };
 		D35CC20010D411FA00DA1898 /* FUUserAgentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserAgentWindowController.h; path = src/FUUserAgentWindowController.h; sourceTree = "<group>"; };
 		D35CC20110D411FA00DA1898 /* FUUserAgentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserAgentWindowController.m; path = src/FUUserAgentWindowController.m; sourceTree = "<group>"; };
 		D35CC20310D4126500DA1898 /* UserAgentStrings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserAgentStrings.plist; path = res/conf/UserAgentStrings.plist; sourceTree = "<group>"; };
@@ -719,10 +722,6 @@
 		D3E42F4A10CB15E700A5BDEF /* NSImage+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+FUAdditions.h"; path = "src/NSImage+FUAdditions.h"; sourceTree = "<group>"; };
 		D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+FUAdditions.m"; path = "src/NSImage+FUAdditions.m"; sourceTree = "<group>"; };
 		D3E42FDC10CB1E1600A5BDEF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUDownloadWindow.xib; sourceTree = "<group>"; };
-		D3E4309B10CB52D900A5BDEF /* TDGutterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDGutterView.h; path = src/TDGutterView.h; sourceTree = "<group>"; };
-		D3E4309C10CB52D900A5BDEF /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = src/TDGutterView.m; sourceTree = "<group>"; };
-		D3E4309F10CB52D900A5BDEF /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = src/TDSourceCodeTextView.h; sourceTree = "<group>"; };
-		D3E430A010CB52D900A5BDEF /* TDSourceCodeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSourceCodeTextView.m; path = src/TDSourceCodeTextView.m; sourceTree = "<group>"; };
 		D3E430A110CB52D900A5BDEF /* FUViewSourceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUViewSourceWindowController.h; path = src/FUViewSourceWindowController.h; sourceTree = "<group>"; };
 		D3E430A210CB52D900A5BDEF /* FUViewSourceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUViewSourceWindowController.m; path = src/FUViewSourceWindowController.m; sourceTree = "<group>"; };
 		D3E430AA10CB537A00A5BDEF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUViewSourceWindow.xib; sourceTree = "<group>"; };
@@ -884,8 +883,7 @@
 				D3E4303810CB226600A5BDEF /* History */,
 				D3E4345910CB8D1300A5BDEF /* Bookmarks */,
 				D33E6E0510D0A46000D76BBB /* Shortcuts */,
-				D33E709610D0EE3800D76BBB /* Userstyle */,
-				D35CBD1D10D35CB400DA1898 /* Userscript */,
+				D3189F9510F83C6000B6AA21 /* Userthings */,
 				D33E709710D0EE4100D76BBB /* Whitelist */,
 				D35CC1FF10D411EF00DA1898 /* UserAgent */,
 				D346E68110CE4D0F00BA0B15 /* Preferences */,
@@ -944,6 +942,25 @@
 			name = "JavaScript Bridge";
 			sourceTree = "<group>";
 		};
+		D3189F9510F83C6000B6AA21 /* Userthings */ = {
+			isa = PBXGroup;
+			children = (
+				D35CBD1F10D35CCB00DA1898 /* FUUserscriptController.h */,
+				D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */,
+				D33E709810D0EE7100D76BBB /* FUUserstyleController.h */,
+				D33E709910D0EE7100D76BBB /* FUUserstyleController.m */,
+				D3189FAC10F83F9000B6AA21 /* FUUserthingWindowController.h */,
+				D3189FAD10F83F9000B6AA21 /* FUUserthingWindowController.m */,
+				D35CBD8910D3664000DA1898 /* FUUserthingViewController.h */,
+				D35CBD8A10D3664000DA1898 /* FUUserthingViewController.m */,
+				D35CBD7810D3652600DA1898 /* FUUserscriptViewController.h */,
+				D35CBD7910D3652600DA1898 /* FUUserscriptViewController.m */,
+				D33E707F10D0EB3D00D76BBB /* FUUserstyleViewController.h */,
+				D33E708010D0EB3D00D76BBB /* FUUserstyleViewController.m */,
+			);
+			name = Userthings;
+			sourceTree = "<group>";
+		};
 		D31CC0C110EFCB590013347D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -994,6 +1011,8 @@
 				D3E430A910CB537A00A5BDEF /* FUViewSourceWindow.xib */,
 				D328FB1110CB9E2600BB363B /* FUBookmarkWindow.xib */,
 				D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */,
+				D3189FA210F83DF100B6AA21 /* FUUserthingWindow.xib */,
+				D35CBDB710D36A9B00DA1898 /* FUUserthingView.xib */,
 				D346E80610CE557700BA0B15 /* Prefs */,
 			);
 			name = Nib;
@@ -1033,15 +1052,6 @@
 			);
 			name = Toolbar;
 			path = res/img/toolbar;
-			sourceTree = "<group>";
-		};
-		D33E709610D0EE3800D76BBB /* Userstyle */ = {
-			isa = PBXGroup;
-			children = (
-				D33E709810D0EE7100D76BBB /* FUUserstyleController.h */,
-				D33E709910D0EE7100D76BBB /* FUUserstyleController.m */,
-			);
-			name = Userstyle;
 			sourceTree = "<group>";
 		};
 		D33E709710D0EE4100D76BBB /* Whitelist */ = {
@@ -1129,12 +1139,6 @@
 				D33E6D8010D09C3600D76BBB /* FUSecurityPreferences.m */,
 				D33E6D8310D09C3600D76BBB /* FUShortcutPreferences.h */,
 				D33E6D8410D09C3600D76BBB /* FUShortcutPreferences.m */,
-				D35CBD8910D3664000DA1898 /* FUUserthingPreferences.h */,
-				D35CBD8A10D3664000DA1898 /* FUUserthingPreferences.m */,
-				D35CBD7810D3652600DA1898 /* FUUserscriptPreferences.h */,
-				D35CBD7910D3652600DA1898 /* FUUserscriptPreferences.m */,
-				D33E707F10D0EB3D00D76BBB /* FUUserstylePreferences.h */,
-				D33E708010D0EB3D00D76BBB /* FUUserstylePreferences.m */,
 				D33E708F10D0ED5400D76BBB /* FUWhitelistPreferences.h */,
 				D33E709010D0ED5400D76BBB /* FUWhitelistPreferences.m */,
 				D33E6D8510D09C3600D76BBB /* FUUpdatePreferences.h */,
@@ -1187,7 +1191,6 @@
 				D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */,
 				D33E6E2510D0A6FF00D76BBB /* FUSecurityPreferences.xib */,
 				D33E6E2710D0A6FF00D76BBB /* FUShortcutPreferences.xib */,
-				D35CBDB710D36A9B00DA1898 /* FUUserthingPreferences.xib */,
 				D33E6E2910D0A6FF00D76BBB /* FUUpdatePreferences.xib */,
 				D33E70E710D0F4A000D76BBB /* FUWhitelistPreferences.xib */,
 				D33E70E910D0F4A000D76BBB /* FUAllPlugInPreferences.xib */,
@@ -1254,15 +1257,6 @@
 			);
 			name = "Custom App Icon";
 			path = src/IconFamily;
-			sourceTree = "<group>";
-		};
-		D35CBD1D10D35CB400DA1898 /* Userscript */ = {
-			isa = PBXGroup;
-			children = (
-				D35CBD1F10D35CCB00DA1898 /* FUUserscriptController.h */,
-				D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */,
-			);
-			name = Userscript;
 			sourceTree = "<group>";
 		};
 		D35CC1FF10D411EF00DA1898 /* UserAgent */ = {
@@ -1353,10 +1347,6 @@
 				D3E430A210CB52D900A5BDEF /* FUViewSourceWindowController.m */,
 				D346E81210CE5A4300BA0B15 /* TDHtmlSyntaxHighlighter.h */,
 				D346E81310CE5A4300BA0B15 /* TDHtmlSyntaxHighlighter.m */,
-				D3E4309B10CB52D900A5BDEF /* TDGutterView.h */,
-				D3E4309C10CB52D900A5BDEF /* TDGutterView.m */,
-				D3E4309F10CB52D900A5BDEF /* TDSourceCodeTextView.h */,
-				D3E430A010CB52D900A5BDEF /* TDSourceCodeTextView.m */,
 			);
 			name = "View Source";
 			sourceTree = "<group>";
@@ -1849,7 +1839,7 @@
 				D33E6E2B10D0A6FF00D76BBB /* FUSecurityPreferences.xib in Resources */,
 				D33E6E2C10D0A6FF00D76BBB /* FUShortcutPreferences.xib in Resources */,
 				D33E6E2D10D0A6FF00D76BBB /* FUUpdatePreferences.xib in Resources */,
-				D35CBDB910D36A9B00DA1898 /* FUUserthingPreferences.xib in Resources */,
+				D35CBDB910D36A9B00DA1898 /* FUUserthingView.xib in Resources */,
 				D33E70ED10D0F4A000D76BBB /* FUWhitelistPreferences.xib in Resources */,
 				D33E70EE10D0F4A000D76BBB /* FUAllPlugInPreferences.xib in Resources */,
 				D346E80C10CE55EC00BA0B15 /* FUPlugInPreferences.xib in Resources */,
@@ -1893,6 +1883,7 @@
 				D3D3775910E42DB000203EB2 /* toolbar_button_reader.png in Resources */,
 				D3BDE6F410E45E1800858E44 /* prefpane_icon_browsa.png in Resources */,
 				D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */,
+				D3189FA410F83DF100B6AA21 /* FUUserthingWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1946,8 +1937,6 @@
 				D3E42F3E10CB152000A5BDEF /* FUDownloadListButtonCell.m in Sources */,
 				D3E42F3F10CB152000A5BDEF /* FUDownloadWindowController.m in Sources */,
 				D3E42F4C10CB15E700A5BDEF /* NSImage+FUAdditions.m in Sources */,
-				D3E430A310CB52D900A5BDEF /* TDGutterView.m in Sources */,
-				D3E430A510CB52D900A5BDEF /* TDSourceCodeTextView.m in Sources */,
 				D3E430A610CB52D900A5BDEF /* FUViewSourceWindowController.m in Sources */,
 				D3E432EE10CB70AC00A5BDEF /* FUFindPanelView.m in Sources */,
 				D3E4346910CB8D4C00A5BDEF /* FUBookmark.m in Sources */,
@@ -1984,15 +1973,15 @@
 				D33E6D8A10D09C3600D76BBB /* FUUpdatePreferences.m in Sources */,
 				D33E6FC910D0CF0200D76BBB /* FUShortcutCommand.m in Sources */,
 				D33E708110D0EB3D00D76BBB /* FUAllPlugInPreferences.m in Sources */,
-				D33E708210D0EB3D00D76BBB /* FUUserstylePreferences.m in Sources */,
+				D33E708210D0EB3D00D76BBB /* FUUserstyleViewController.m in Sources */,
 				D33E709110D0ED5400D76BBB /* FUWhitelistPreferences.m in Sources */,
 				D33E709A10D0EE7100D76BBB /* FUUserstyleController.m in Sources */,
 				D33E70A110D0EF2100D76BBB /* FUWhitelistController.m in Sources */,
 				D33E70A810D0F0BB00D76BBB /* FUWildcardPattern.m in Sources */,
 				D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */,
 				D35CBD2110D35CCB00DA1898 /* FUUserscriptController.m in Sources */,
-				D35CBD7A10D3652600DA1898 /* FUUserscriptPreferences.m in Sources */,
-				D35CBD8B10D3664000DA1898 /* FUUserthingPreferences.m in Sources */,
+				D35CBD7A10D3652600DA1898 /* FUUserscriptViewController.m in Sources */,
+				D35CBD8B10D3664000DA1898 /* FUUserthingViewController.m in Sources */,
 				D35CC20210D411FA00DA1898 /* FUUserAgentWindowController.m in Sources */,
 				D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */,
 				D3DB01FB10D6141E0057D70C /* FUView.m in Sources */,
@@ -2008,6 +1997,7 @@
 				D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */,
 				D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */,
 				D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */,
+				D3189FAE10F83F9000B6AA21 /* FUUserthingWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2104,6 +2094,14 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
+		D3189FA210F83DF100B6AA21 /* FUUserthingWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3189FA310F83DF100B6AA21 /* English */,
+			);
+			name = FUUserthingWindow.xib;
+			sourceTree = "<group>";
+		};
 		D328FB1110CB9E2600BB363B /* FUBookmarkWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2184,12 +2182,12 @@
 			name = FUAppearancePreferences.xib;
 			sourceTree = "<group>";
 		};
-		D35CBDB710D36A9B00DA1898 /* FUUserthingPreferences.xib */ = {
+		D35CBDB710D36A9B00DA1898 /* FUUserthingView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D35CBDB810D36A9B00DA1898 /* English */,
 			);
-			name = FUUserthingPreferences.xib;
+			name = FUUserthingView.xib;
 			sourceTree = "<group>";
 		};
 		D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */ = {
