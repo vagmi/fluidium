@@ -15,6 +15,18 @@
 #import <Foundation/Foundation.h>
 
 #pragma mark -
+#pragma mark FUApplicationNotifications
+
+extern NSString *const FUHomeURLStringDidChangeNotification;
+extern NSString *const FUApplicationVersionDidChangeNotification;
+
+@interface NSObject (FUApplicationNotifications)
+- (void)homeURLStringDidChange:(NSNotification *)n;
+- (void)applicationVersionDidChange:(NSNotification *)n;
+@end
+
+
+#pragma mark -
 #pragma mark FUUINotifications
 
 extern NSString *const FUToolbarShownDidChangeNotification;

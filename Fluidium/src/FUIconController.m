@@ -14,11 +14,11 @@
 
 #import "FUIconController.h"
 #import "FUApplication.h"
+#import "FUNotifications.h"
 #import "IconFamily.h"
 
 @interface FUIconController ()
 - (void)generateIcnsFile;
-- (void)applicationVerisonDidChange:(NSNotification *)n;
 @end
 
 @implementation FUIconController
@@ -43,7 +43,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationVerisonDidChange:) name:FUApplicationVersionDidChangeNotification object:NSApp];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationVersionDidChange:) name:FUApplicationVersionDidChangeNotification object:NSApp];
     }
     return self;
 }
@@ -168,7 +168,7 @@
 #pragma mark -
 #pragma mark Notifications
 
-- (void)applicationVerisonDidChange:(NSNotification *)n {
+- (void)applicationVersionDidChange:(NSNotification *)n {
     [self performSelectorInBackground:@selector(generateIcnsFile) withObject:nil];
 }
 

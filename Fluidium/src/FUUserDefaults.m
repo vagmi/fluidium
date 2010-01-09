@@ -15,8 +15,6 @@
 #import "FUUserDefaults.h"
 #import "WebIconDatabase.h"
 
-NSString *const FUHomeURLStringDidChangeNotification = @"FUHomeURLStringDidChangeNotification";
-
 // Browser
 NSString *const kFUWebIconDatabaseDirectoryDefaultsKey = @"WebIconDatabaseDirectoryDefaults";
 NSString *const kFURecentURLStringsKey = @"FURecentURLStrings";

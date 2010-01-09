@@ -14,6 +14,7 @@
 
 #import "FUApplication.h"
 #import "FUUserDefaults.h"
+#import "FUNotifications.h"
 #import "FUDownloadWindowController.h"
 #import "FUBookmarkWindowController.h"
 #import "FUUserthingWindowController.h"
@@ -30,14 +31,17 @@
 #import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
 #import "FUBookmarkController.h"
-
 #import <OmniAppKit/OAPreferenceController.h>
 
-NSString *const FUApplicationVersionDidChangeNotification = @"FUApplicationVersionDidChangeNotification";
+#define ABOUT_ITEM_TAG 547
+#define HIDE_ITEM_TAG 647
+#define QUIT_MENU_TAG 747
 
 static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastVersionString";
 
 @interface FUApplication ()
+- (void)readInfoPlist;
+- (void)updateAppNameInMainMenu;
 - (BOOL)createDirAtPathIfDoesntExist:(NSString *)path;
 - (void)checkForVersionChange;
 @end
@@ -51,9 +55,8 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 - (id)init {
     if (self = [super init]) {
-        self.versionString = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"];
-
-        [self createAppSupportDir];
+        [self readInfoPlist];
+        [self setUpAppSupportDir];
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:self];
@@ -80,6 +83,13 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     self.plugInDirPath = nil;
     self.plugInSupportDirPath = nil;
     [super dealloc];
+}
+
+
+- (void)awakeFromNib {
+    if (isFluidSSB) {
+        [self updateAppNameInMainMenu];
+    }
 }
 
 
@@ -154,8 +164,48 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 }
 
 
-- (BOOL)createAppSupportDir {
-    NSArray *pathComps = [NSArray arrayWithObjects:@"~", @"Library", @"Application Support", @"Fluidium", nil];
+- (void)readInfoPlist {
+    NSDictionary *infoPlist = [[NSBundle mainBundle] infoDictionary];
+
+    // version
+    self.versionString = [infoPlist valueForKey:@"CFBundleVersion"];
+    
+    // appName
+    NSString *name = [infoPlist valueForKey:@"FUAppName"];
+    if ([name length]) {
+        isFluidSSB = YES;
+    } else {
+        name = [infoPlist valueForKey:@"CFBundleName"];
+    }
+    self.appName = name;
+}
+
+
+- (void)updateAppNameInMainMenu {
+    NSMenu *appMenu = [[[self mainMenu] itemAtIndex:0] submenu];
+
+    if (appMenu) {        
+        NSArray *items = [appMenu itemArray];
+        NSMenuItem *aboutItem = [items objectAtIndex:[appMenu indexOfItemWithTag:ABOUT_ITEM_TAG]];
+        [aboutItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"About %@", @""), appName]];
+        NSMenuItem *hideItem = [items objectAtIndex:[appMenu indexOfItemWithTag:HIDE_ITEM_TAG]];
+        [hideItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"Hide %@", @""), appName]];
+        NSMenuItem *quitItem = [items objectAtIndex:[appMenu indexOfItemWithTag:QUIT_MENU_TAG]];
+        [quitItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), appName]];
+    }
+
+    NSMenu *helpMenu = [[[[self mainMenu] itemArray] lastObject] submenu];
+    if (helpMenu) {
+        NSArray *items = [helpMenu itemArray];
+        NSMenuItem *helpItem = [items lastObject];
+        [helpItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Help", @""), appName]];
+    }
+}
+
+
+- (BOOL)setUpAppSupportDir {
+    NSString *dirName = isFluidSSB ? @"Fluid" : appName;
+    NSArray *pathComps = [NSArray arrayWithObjects:@"~", @"Library", @"Application Support", dirName, nil];
     NSString *path = [[NSString pathWithComponents:pathComps] stringByExpandingTildeInPath];
     self.appSupportDirPath = path;
     self.plugInDirPath = [appSupportDirPath stringByAppendingPathComponent:@"PlugIns"];
@@ -264,6 +314,14 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 - (void)applicationWillResignActive:(NSNotification *)n {
     [[FUHistoryController instance] save];
     [[FUDocumentController instance] saveSession];
+}
+
+
+- (void)applicationDidLaunchWithPristinePerferences:(NSNotification *)n {
+    NSString *s = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"FUHomeURLString"];
+    if ([s length]) {
+        [[FUUserDefaults instance] setHomeURLString:s];
+    }    
 }
 
 @synthesize appName;

@@ -15,9 +15,8 @@
 #import <Cocoa/Cocoa.h>
 #import <OmniAppkit/OAApplication.h>
 
-extern NSString *const FUApplicationVersionDidChangeNotification;
-
 @interface FUApplication : OAApplication {
+    BOOL isFluidSSB;
     NSString *appName;
     NSString *versionString;
     NSString *appSupportDirPath;
@@ -52,7 +51,7 @@ extern NSString *const FUApplicationVersionDidChangeNotification;
 
 - (BOOL)isFullScreen;
 
-- (BOOL)createAppSupportDir;
+- (BOOL)setUpAppSupportDir;
 
 @property (nonatomic, copy) NSString *appName;
 @property (nonatomic, copy) NSString *versionString;

@@ -185,10 +185,10 @@
 
 - (void)windowDidLoad {
     [self setUpToolbar];
+    [self setUpTabBar];
     [self tabBarShownDidChange:nil];
     [self bookmarkBarShownDidChange:nil];
     [self statusBarShownDidChange:nil];
-    [self setUpTabBar];
 
     [[self window] setFrameFromString:[[FUUserDefaults instance] windowFrameString]];
     
@@ -1406,8 +1406,8 @@
 
 
 - (void)toolbarShownDidChange:(NSNotification *)n {
-    [self updateUberViewHeight];
     [self updateEmptyTabBarLineVisibility];
+    [self performSelector:@selector(updateUberViewHeight) withObject:nil afterDelay:0];
     [tabBar setNeedsDisplay:YES];
     [bookmarkBar setNeedsDisplay:YES];
 }
@@ -1418,7 +1418,7 @@
     [tabBar setHidden:hiddenAlways];
     
     [self updateEmptyTabBarLineVisibility];
-    [self updateUberViewHeight];
+    [self performSelector:@selector(updateUberViewHeight) withObject:nil afterDelay:0];
     if ([tabBar superview]) [tabBar setNeedsDisplay:YES];
 }
 
@@ -1452,7 +1452,7 @@
     [tabContainerView setFrameSize:newContainerSize];
 
     [self updateEmptyTabBarLineVisibility];
-    [self updateUberViewHeight];
+    [self performSelector:@selector(updateUberViewHeight) withObject:nil afterDelay:0];
 
     [bookmarkBar setNeedsDisplay:YES];
     [tabBar setNeedsDisplay:YES];
@@ -1513,7 +1513,8 @@
     NSRect containerFrame = [tabContainerView frame];
     CGFloat uberFrameHeight = containerFrame.size.height;
     
-    BOOL tabBarShown = ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden] && [tabBar superview];
+    BOOL hasMultipleTabs = [tabBar numberOfVisibleTabs] > 1;
+    BOOL tabBarShown = hasMultipleTabs && ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden] && [tabBar superview];
     if (tabBarShown) {
         CGFloat tabBarHeight = NSHeight([tabBar frame]);
         uberFrameHeight -= tabBarHeight;
@@ -1532,6 +1533,7 @@
     NSRect uberFrame = [uberView frame];
     uberFrame.size.height = uberFrameHeight;
     [uberView setFrame:uberFrame];
+    [uberView setNeedsDisplay:YES];
 }
 
 

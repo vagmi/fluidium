@@ -14,8 +14,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString *const FUHomeURLStringDidChangeNotification;
-
 // Browser
 extern NSString *const kFUWebIconDatabaseDirectoryDefaultsKey;
 extern NSString *const kFURecentURLStringsKey;

@@ -15,6 +15,7 @@
 #import "FUWindowController+NSToolbarDelegate.h"
 #import "FUWindowController.h"
 #import "FUApplication.h"
+#import "FUUserDefaults.h"
 #import "FUWindowToolbar.h"
 #import "FUBackForwardPopUpButton.h"
 #import "FUPlugInController.h"
@@ -51,7 +52,7 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
     [toolbar setAutosavesConfiguration:YES];
     [[self window] setToolbar:toolbar];
     [toolbar setWindow:[self window]];
-    [toolbar setVisible:YES];
+    [toolbar setVisible:[[FUUserDefaults instance] toolbarShown]];
 }
 
 

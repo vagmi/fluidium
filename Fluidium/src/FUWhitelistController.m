@@ -14,12 +14,12 @@
 
 #import "FUWhitelistController.h"
 #import "FUUserDefaults.h"
+#import "FUNotifications.h"
 #import "FUWildcardPattern.h"
 
 #define MIN_INF_LOOP_DELAY .5
 
 @interface FUWhitelistController ()
-- (void)homeURLStringDidChange:(NSNotification *)n;
 - (void)loadSpecialCases;
 @end
 

@@ -19,6 +19,8 @@
     <false/>
 
     <!-- UI -->
+    <key>FUToolbarShown</key>
+    <true/>
     <key>FUBookmarkBarShown</key>
     <false/>
     <key>FUBookmarkBarShowsFavicons</key>

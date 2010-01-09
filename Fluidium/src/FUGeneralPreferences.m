@@ -18,6 +18,7 @@
 #import "FUWindowController.h"
 #import "FUUserDefaults.h"
 #import "FUApplication.h"
+#import "FUNotifications.h"
 #import "FUIconController.h"
 #import <WebKit/WebKit.h>
 #import <OmniAppKit/OmniAppKit.h>

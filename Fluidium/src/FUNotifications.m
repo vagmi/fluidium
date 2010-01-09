@@ -15,6 +15,10 @@
 #import "FUNotifications.h"
 
 // FUUINotifications
+NSString *const FUHomeURLStringDidChangeNotification = @"FUHomeURLStringDidChangeNotification";
+NSString *const FUApplicationVersionDidChangeNotification = @"FUApplicationVersionDidChangeNotification";
+
+// FUUINotifications
 NSString *const FUToolbarShownDidChangeNotification = @"FUToolbarShownDidChangeNotification";
 NSString *const FUTabBarShownDidChangeNotification = @"FUTabBarShownDidChangeNotification";
 NSString *const FUTabBarHiddenForSingleTabDidChangeNotification = @"FUTabBarHiddenForSingleTabDidChangeNotification";
