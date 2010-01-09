@@ -34,8 +34,6 @@
 - (void)beep;
 - (void)playSoundNamed:(id)obj;
 
-- (NSString *)toString;
-
 @property (nonatomic, copy) id dockBadge;
 @property (nonatomic, readonly) BOOL isGrowlRunning;
 @property (nonatomic, retain) NSMutableArray *menuItems;

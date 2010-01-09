@@ -51,8 +51,6 @@
 
 - (BOOL)isFullScreen;
 
-- (BOOL)setUpAppSupportDir;
-
 @property (nonatomic, copy) NSString *appName;
 @property (nonatomic, copy) NSString *versionString;
 @property (nonatomic, copy) NSString *appSupportDirPath;

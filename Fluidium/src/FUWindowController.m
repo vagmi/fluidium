@@ -187,6 +187,7 @@
     [self setUpToolbar];
     [self setUpTabBar];
     [self tabBarShownDidChange:nil];
+    [self toolbarShownDidChange:nil];
     [self bookmarkBarShownDidChange:nil];
     [self statusBarShownDidChange:nil];
 
@@ -886,7 +887,8 @@
 
 
 - (NSString *)comboBox:(NSComboBox *)cb completedString:(NSString *)uncompletedString {
-    if (locationComboBox == cb) {
+    NSWindow *win = [self window];
+    if ([win isKeyWindow] && [[win toolbar] isVisible] && locationComboBox == cb) {
         [[FURecentURLController instance] resetMatchingRecentURLs];
         
         for (NSString *URLString in [self recentURLs]) {
@@ -1007,6 +1009,15 @@
             }
         }
     }
+}
+
+
+- (void)tabViewDidChangeNumberOfTabViewItems:(NSTabView *)tv {
+    BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
+    BOOL hasMultiTabs = [tabBar numberOfVisibleTabs] > 1;
+    
+    BOOL hidden = hiddenAlways || !hasMultiTabs;
+    [tabBar setHidden:hidden];
 }
 
 
@@ -1514,7 +1525,7 @@
     CGFloat uberFrameHeight = containerFrame.size.height;
     
     BOOL hasMultipleTabs = [tabBar numberOfVisibleTabs] > 1;
-    BOOL tabBarShown = hasMultipleTabs && ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden] && [tabBar superview];
+    BOOL tabBarShown = hasMultipleTabs && ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden];
     if (tabBarShown) {
         CGFloat tabBarHeight = NSHeight([tabBar frame]);
         uberFrameHeight -= tabBarHeight;

@@ -90,6 +90,9 @@
 
 
 - (void)showPopUpWithItemCount:(NSInteger)count {
+    NSWindow *win = [self window];
+    if (![win isKeyWindow] || ![[win toolbar] isVisible]) return;
+    
     NSWindow *popUp = [(HMImageComboBoxCell *)[self cell] popUp];
     [popUp makeKeyAndOrderFront:self];
     [popUp setOpaque:NO];

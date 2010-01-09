@@ -42,6 +42,11 @@
 }
 
 
+- (NSString *)description {
+    return @"[object Fluid]";
+}
+
+
 #pragma mark -
 #pragma mark Public
 
@@ -163,11 +168,6 @@
     } else {
         NSLog(@"Fluidium couldn't find sound named: '%@'", name);
     }
-}
-
-
-- (NSString *)toString {
-    return @"[object Fluid]";
 }
 
 

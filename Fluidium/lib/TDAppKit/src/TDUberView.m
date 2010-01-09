@@ -155,6 +155,11 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 }
 
 
+- (void)drawRect:(NSRect)dirtyRect {
+    NSEraseRect(dirtyRect); // fills with white
+}
+
+
 #pragma mark -
 #pragma mark Actions
 

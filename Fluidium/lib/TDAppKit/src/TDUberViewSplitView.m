@@ -46,42 +46,54 @@
 
 - (CGFloat)dividerThickness {
     CGFloat result = [super dividerThickness];
-    if (result > 2) {
-        result -= 2;
+
+    if (NSSplitViewDividerStyleThick == [uberView splitViewDividerStyle]) {
+        if (result > 2) {
+            result -= 2;
+        }
     }
+    
     return result;
 }
 
 
 - (void)drawDividerInRect:(NSRect)divRect {
+    if (NSSplitViewDividerStyleThin == [uberView splitViewDividerStyle]) {
+        [super drawDividerInRect:divRect]; 
+        return;
+    }
+    
     BOOL isVert = self.isVertical;
 
     if (isVert) {
         // blend the vert and horiz dividers together
         BOOL isLeft = NSMinX(divRect) <= NSMaxX([uberView.leftView frame]);
-        if (isLeft) {
+        if (isLeft && uberView.isLeftViewOpen) {
             [self.gradient drawInRect:divRect angle:0];
             [self drawLeftDividerInRect:divRect];
-        } else {
+        } else if (uberView.isRightViewOpen) {
             [self.gradient drawInRect:divRect angle:180];
             [self drawRightDividerInRect:divRect];
         }
     } else {
-        // horiz is simple
-        [self.gradient drawInRect:divRect angle:90];
-        [borderColor set];
+        BOOL isTop = NSMinY(divRect) <= NSMaxY([uberView.midView frame]);
+        if ((isTop && uberView.isTopViewOpen) || (!isTop && uberView.isBottomViewOpen)) {
 
-        NSRect borderRect = NSOffsetRect(divRect, -1, 0);
-        borderRect.size.width += 2;
-        
-        [NSBezierPath strokeRect:borderRect];
-
-//        // cover up rendering glitch
-//        borderRect = NSOffsetRect(divRect, -1, -.5);
-//        borderRect.size.width += 2;
-//        borderRect.size.height += 1;
-//        [[NSColor whiteColor] set];
-//        [NSBezierPath strokeRect:borderRect];
+            [self.gradient drawInRect:divRect angle:90];
+            [borderColor set];
+            
+            NSRect borderRect = NSOffsetRect(divRect, -1, 0);
+            borderRect.size.width += 2;
+            
+            [NSBezierPath strokeRect:borderRect];
+            
+            //        // cover up rendering glitch
+            //        borderRect = NSOffsetRect(divRect, -1, -.5);
+            //        borderRect.size.width += 2;
+            //        borderRect.size.height += 1;
+            //        [[NSColor whiteColor] set];
+            //        [NSBezierPath strokeRect:borderRect];
+        }
     }
 }
 

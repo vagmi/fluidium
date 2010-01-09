@@ -41,8 +41,10 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 @interface FUApplication ()
 - (void)readInfoPlist;
-- (void)updateAppNameInMainMenu;
+- (BOOL)setUpAppSupportDir;
+- (BOOL)setUpUserthingDirs;
 - (BOOL)createDirAtPathIfDoesntExist:(NSString *)path;
+- (void)updateAppNameInMainMenu;
 - (void)checkForVersionChange;
 @end
 
@@ -57,6 +59,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     if (self = [super init]) {
         [self readInfoPlist];
         [self setUpAppSupportDir];
+        [self setUpUserthingDirs];
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:self];
@@ -217,17 +220,9 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
         path = [path stringByAppendingPathComponent:@"SSB"];
         [self createDirAtPathIfDoesntExist:path];
         
-        path = [path stringByAppendingPathComponent:[[NSProcessInfo processInfo] processName]];
+        path = [path stringByAppendingPathComponent:appName];
         self.ssbSupportDirPath = path;
         [self createDirAtPathIfDoesntExist:ssbSupportDirPath];
-
-        self.userscriptDirPath = [ssbSupportDirPath stringByAppendingPathComponent:@"Userscripts"];
-        [self createDirAtPathIfDoesntExist:userscriptDirPath];
-        self.userscriptFilePath = [[userscriptDirPath stringByAppendingPathComponent:@"Userscripts"] stringByAppendingPathExtension:@"plist"];
-        
-        self.userstyleDirPath = [ssbSupportDirPath stringByAppendingPathComponent:@"Userstyles"];
-        [self createDirAtPathIfDoesntExist:userstyleDirPath];
-        self.userstyleFilePath = [[userstyleDirPath stringByAppendingPathComponent:@"Userstyles"] stringByAppendingPathExtension:@"plist"];
         
         self.downloadArchiveFilePath = [ssbSupportDirPath stringByAppendingPathComponent:@"DownloadArchive"];
         self.bookmarksFilePath = [ssbSupportDirPath stringByAppendingPathComponent:@"Bookmarks"];
@@ -241,6 +236,24 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
             // must set value for this WebKit user defaults key in the user defaults or else favicons will never be created
             [[FUUserDefaults instance] setWebIconDatabaseDirectoryDefaults:path];
         }
+    }
+    
+    return success;
+}
+
+
+- (BOOL)setUpUserthingDirs {
+    NSString *contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents"];
+    BOOL success = [self createDirAtPathIfDoesntExist:contentsPath];
+    
+    if (success) {
+        self.userscriptDirPath = [contentsPath stringByAppendingPathComponent:@"Userscripts"];
+        [self createDirAtPathIfDoesntExist:userscriptDirPath];
+        self.userscriptFilePath = [[userscriptDirPath stringByAppendingPathComponent:@"Userscripts"] stringByAppendingPathExtension:@"plist"];
+        
+        self.userstyleDirPath = [contentsPath stringByAppendingPathComponent:@"Userstyles"];
+        [self createDirAtPathIfDoesntExist:userstyleDirPath];
+        self.userstyleFilePath = [[userstyleDirPath stringByAppendingPathComponent:@"Userstyles"] stringByAppendingPathExtension:@"plist"];
     }
     
     return success;
