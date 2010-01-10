@@ -45,6 +45,12 @@
     <string>~/Downloads</string>
     
     <!-- Appearance -->
+    <key>FUWindowLevel</key>
+    <integer>0</integer>
+    <key>FUWindowOpacity</key>
+    <real>1.0</real>
+    <key>FUWindowsHaveShadow</key>
+    <true/>
     <key>FULoadsImagesAutomatically</key>
     <integer>1</integer>
 

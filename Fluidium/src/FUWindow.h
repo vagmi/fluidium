@@ -14,6 +14,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum {
+    FUWindowLevelNormal = 0,
+    FUWindowLevelFloating,
+    FUWindowLevelBelowDesktop
+} FUWindowLevel;
+
 @interface FUWindow : NSWindow {
 
 }

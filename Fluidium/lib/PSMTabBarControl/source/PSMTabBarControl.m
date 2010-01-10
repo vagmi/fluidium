@@ -1768,7 +1768,7 @@
         NSRect myFrame = [self frame];
 		if ([self orientation] == PSMTabBarHorizontalOrientation) {
 			if (partnerView) {
-                                // BEGIN FLUIDIUM
+                // BEGIN FLUIDIUM
 				//NSRect partnerFrame = [partnerView frame];
 				// above or below me?
 				if (myFrame.origin.y - 22 > [partnerView frame].origin.y) {

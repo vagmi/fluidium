@@ -21,15 +21,19 @@
     BOOL selectingStandard;
 }
 
+- (IBAction)windowLevelChange:(id)sender;
+- (IBAction)windowOpacityChange:(id)sender;
+- (IBAction)windowsHaveShadowChange:(id)sender;
 - (IBAction)runFontPanel:(id)sender;
 - (IBAction)toggleSetLoadsImagesAutomatically:(id)sender;
-
+- (IBAction)changeFont:(id)sender;
+    
 - (NSFont *)standardFont;
 - (NSFont *)fixedWidthFont;
 - (NSString *)standardFontDisplayString;
 - (NSString *)fixedWidthFontDisplayString;
 
-- (void)changeFont:(id)sender;
+- (BOOL)windowLevelsEnabled;
 
 @property (nonatomic, retain) IBOutlet NSTextField *standardFontTextField;
 @property (nonatomic, retain) IBOutlet NSTextField *fixedWidthFontTextField;

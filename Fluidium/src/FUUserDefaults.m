@@ -41,6 +41,9 @@ NSString *const kFUGlobalShortcutKeyComboCodeKey = @"FUGlobalShortcutKeyComboCod
 NSString *const kFUGlobalShortcutKeyComboFlagsKey = @"FUGlobalShortcutKeyComboFlags";
 
 // Appearance Prefs
+NSString *const kFUWindowLevelKey = @"FUWindowLevel";
+NSString *const kFUWindowsHaveShadowKey = @"FUWindowsHaveShadow";
+NSString *const kFUWindowOpacityKey = @"FUWindowOpacity";
 NSString *const kFUStandardFontFamilyKey = @"FUStandardFontFamily";
 NSString *const kFUDefaultFontSizeKey = @"FUDefaultFontSize";
 NSString *const kFUFixedFontFamilyKey = @"FUFixedFontFamily";
@@ -261,6 +264,30 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 
 #pragma mark -
 #pragma mark Appearance Prefs
+
+- (NSInteger)windowLevel {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:kFUWindowLevelKey];
+}
+- (void)setWindowLevel:(NSInteger)i {
+    [[NSUserDefaults standardUserDefaults] setInteger:i forKey:kFUWindowLevelKey];
+}
+
+
+- (BOOL)windowsHaveShadow {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kFUWindowsHaveShadowKey];
+}
+- (void)setWindowsHaveShadow:(BOOL)yn {
+    [[NSUserDefaults standardUserDefaults] setBool:yn forKey:kFUWindowsHaveShadowKey];
+}
+
+
+- (CGFloat)windowOpacity {
+    return [[NSUserDefaults standardUserDefaults] floatForKey:kFUWindowOpacityKey];
+}
+- (void)setWindowOpacity:(CGFloat)i {
+    [[NSUserDefaults standardUserDefaults] setFloat:i forKey:kFUWindowOpacityKey];
+}
+
 
 - (NSString *)standardFontFamily {
     return [[NSUserDefaults standardUserDefaults] stringForKey:kFUStandardFontFamilyKey];

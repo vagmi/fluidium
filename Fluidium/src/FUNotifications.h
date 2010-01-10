@@ -99,9 +99,15 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
 #pragma mark FUWindowNotifications
 
 extern NSString *const FUSpacesBehaviorDidChangeNotification;
-
+extern NSString *const FUWindowLevelDidChangeNotification;
+extern NSString *const FUWindowOpacityDidChangeNotification;
+extern NSString *const FUWindowsHaveShadowDidChangeNotification;
+    
 @interface NSObject (FUWindowNotifications)
 - (void)spacesBehaviorDidChange:(NSNotification *)n;
+- (void)windowLevelDidChange:(NSNotification *)n;
+- (void)windowOpacityDidChange:(NSNotification *)n;
+- (void)windowsHaveShadowDidChange:(NSNotification *)n;
 @end
 
 

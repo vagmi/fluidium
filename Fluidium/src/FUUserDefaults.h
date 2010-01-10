@@ -41,6 +41,9 @@ extern NSString *const kFUGlobalShortcutKeyComboFlagsKey;
 extern NSString *const kFULoadsImagesAutomaticallyKey;
 
 // Appearance Prefs
+extern NSString *const kFUWindowLevelKey;
+extern NSString *const kFUWindowsHaveShadowKey;
+extern NSString *const kFUWindowOpacityKey;
 extern NSString *const kFUStandardFontFamilyKey;
 extern NSString *const kFUDefaultFontSizeKey;
 extern NSString *const kFUFixedFontFamilyKey;
@@ -114,6 +117,9 @@ extern NSString *const kFUPlugInDrawerContentSizeStringKey;
 @property (nonatomic, copy) NSString *downloadDirPath;
 
 // Appearance Prefs
+@property (nonatomic) NSInteger windowLevel;
+@property (nonatomic) BOOL windowsHaveShadow;
+@property (nonatomic) CGFloat windowOpacity;
 @property (nonatomic, copy) NSString *standardFontFamily;
 @property (nonatomic) int defaultFontSize;
 @property (nonatomic, copy) NSString *fixedFontFamily;

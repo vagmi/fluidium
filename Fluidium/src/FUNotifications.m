@@ -51,6 +51,9 @@ NSString *const FUTabControllerDidClearWindowObjectNotification = @"FUTabControl
 
 // FUWindowNotifications
 NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidChangeNotification";
+NSString *const FUWindowLevelDidChangeNotification = @"FUWindowLevelDidChangeNotification";
+NSString *const FUWindowOpacityDidChangeNotification = @"FUWindowOpacityDidChangeNotification";
+NSString *const FUWindowsHaveShadowDidChangeNotification = @"FUWindowsHaveShadowDidChangeNotification";
 
 // FUWebViewNotifications
 NSString *const FUWebPreferencesDidChangeNotification = @"FUWebPreferencesDidChangeNotification";

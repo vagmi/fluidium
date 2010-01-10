@@ -18,6 +18,7 @@
 #import "FUPlugInWrapper.h"
 #import "FUUserDefaults.h"
 #import "FUNotifications.h"
+#import "FUApplication.h"
 #import "NSEvent+FUAdditions.h"
 
 #define CLOSE_CURLY 30
@@ -34,8 +35,16 @@
 
 - (id)initWithContentRect:(NSRect)rect styleMask:(NSUInteger)style backing:(NSBackingStoreType)type defer:(BOOL)flag {
     if (self = [super initWithContentRect:rect styleMask:style backing:type defer:flag]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(spacesBehaviorDidChange:) name:FUSpacesBehaviorDidChangeNotification object:nil];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(spacesBehaviorDidChange:) name:FUSpacesBehaviorDidChangeNotification object:nil];
+        [nc addObserver:self selector:@selector(windowLevelDidChange:) name:FUWindowLevelDidChangeNotification object:nil];
+        [nc addObserver:self selector:@selector(windowsHaveShadowDidChange:) name:FUWindowsHaveShadowDidChangeNotification object:nil];
+        [nc addObserver:self selector:@selector(windowOpacityDidChange:) name:FUWindowOpacityDidChangeNotification object:nil];
+
         [self spacesBehaviorDidChange:nil];
+        [self windowLevelDidChange:nil];
+        [self windowsHaveShadowDidChange:nil];
+        [self windowOpacityDidChange:nil];
     }
     return self;
 }
@@ -127,6 +136,42 @@
     }
     
     [self setCollectionBehavior:flag];
+}
+
+
+- (void)windowLevelDidChange:(NSNotification *)n {
+    NSInteger level = [[FUUserDefaults instance] windowLevel];
+    
+    if ([[FUApplication instance] isFullScreen]) {
+        level = FUWindowLevelNormal;
+    }
+    
+    NSUInteger flag = NSNormalWindowLevel;
+    
+    if (FUWindowLevelFloating == level) {
+        flag = NSFloatingWindowLevel;
+    } else if (FUWindowLevelBelowDesktop == level) {
+        BOOL appearInAllSpaces = [[FUUserDefaults instance] spacesBehavior];
+        if (appearInAllSpaces) {
+            flag = CGWindowLevelForKey(kCGDesktopWindowLevelKey); // below dtop
+        } else {
+            flag = CGWindowLevelForKey(kCGBackstopMenuLevelKey); // above dtop
+        }
+    }
+    
+    [self setLevel:flag];
+}
+
+
+
+- (void)windowOpacityDidChange:(NSNotification *)n {
+	[self setAlphaValue:[[FUUserDefaults instance] windowOpacity]];
+}
+
+
+- (void)windowsHaveShadowDidChange:(NSNotification *)n {
+	[self setHasShadow:[[FUUserDefaults instance] windowsHaveShadow]];
+	[self invalidateShadow];
 }
 
 
