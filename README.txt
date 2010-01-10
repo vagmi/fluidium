@@ -21,8 +21,6 @@ Stuff from Fluid/Cruz which is not currently included:
 
 - MenuExtra SSB/Embedded SSB : this is cruft i wanted to remove. i might re-add these features by rewriting them. anyone is welcome to fork me and add this if they miss it, but for now, I don't :|
 
-- custom window levels, opacity : this was dumb. do not want.
-
 - short url expansion/creation : I will re-add this very soon.
 
 - thumbnail-image-enhanced google search results : I will re-add this eventually.
