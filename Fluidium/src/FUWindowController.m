@@ -66,7 +66,7 @@
 - (NSInteger)preferredIndexForNewTab;
 - (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
 
-- (void)temporarilyShowToolbarIfHidden;
+- (void)showToolbarTemporarilyIfHidden;
 - (void)removeDocumentIconButton;
 - (void)displayEstimatedProgress;
 - (void)clearProgressInFuture;
@@ -202,8 +202,6 @@
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenNotification object:self];
-    
-    hasWindowLoaded = YES;
 }
 
 
@@ -278,8 +276,8 @@
 
 
 - (IBAction)openSearch:(id)sender {
-    [self temporarilyShowToolbarIfHidden];
-    [[self window] performSelector:@selector(makeFirstResponder:) withObject:searchField];
+    [self showToolbarTemporarilyIfHidden];
+    [[self window] performSelector:@selector(makeFirstResponder:) withObject:searchField afterDelay:0.1];
 }
 
 
@@ -305,8 +303,8 @@
 
 
 - (IBAction)openLocation:(id)sender {
-    [self temporarilyShowToolbarIfHidden];
-    [[self window] performSelector:@selector(makeFirstResponder:) withObject:locationComboBox];
+    [self showToolbarTemporarilyIfHidden];
+    [[self window] performSelector:@selector(makeFirstResponder:) withObject:locationComboBox afterDelay:0.1];
 }
 
 
@@ -342,9 +340,12 @@
 
 
 - (IBAction)openTab:(id)sender {
-    //[self temporarilyShowToolbarIfHidden];
+    if (![[[self window] toolbar] isVisible]) {
+        [self showToolbarTemporarily];
+        [self performSelector:@selector(openTab:) withObject:sender afterDelay:0.1];
+        return;
+    }
     
-    // always open a tab at the end in response to this action (which only comes from the File menu/cmd-T)
     NSInteger i = [tabView numberOfTabViewItems];
     [self addNewTabAtIndex:i andSelect:YES];
 }
@@ -1072,16 +1073,14 @@
 
 
 - (void)tabViewDidChangeNumberOfTabViewItems:(NSTabView *)tv {
-    if (hasWindowLoaded) {
-        BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
-        BOOL hasMultiTabs = [tabBar numberOfVisibleTabs] > 1;
-        
-        BOOL hidden = hiddenAlways || !hasMultiTabs;
-        [tabBar setHidden:hidden];
-        
-        [self updateEmptyTabBarLineVisibility];
-        [self updateUberViewHeight];
-    }
+    BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
+    BOOL hasMultiTabs = [tabBar numberOfVisibleTabs] > 1;
+    
+    BOOL hidden = hiddenAlways || !hasMultiTabs;
+    [tabBar setHidden:hidden];
+    
+    [self updateEmptyTabBarLineVisibility];
+    [self updateUberViewHeight];
 }
 
 
@@ -1430,11 +1429,16 @@
 }
 
 
-- (void)temporarilyShowToolbarIfHidden {
+- (void)showToolbarTemporarilyIfHidden {
     NSWindow *win = [self window];
     if (![[win toolbar] isVisible]) {
-        [(FUWindowToolbar *)[[self window] toolbar] showTemporarily];
+        [self showToolbarTemporarily];
     }
+}
+
+
+- (void)showToolbarTemporarily {
+    [(FUWindowToolbar *)[[self window] toolbar] showTemporarily];
 }
 
 
