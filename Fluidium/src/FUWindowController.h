@@ -70,6 +70,8 @@
     
     // the index of the tab selected prior to the current selected index
     NSInteger priorSelectedTabIndex;
+    
+    BOOL hasWindowLoaded;
 }
 
 - (IBAction)goBack:(id)sender;

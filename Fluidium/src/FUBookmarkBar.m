@@ -97,7 +97,7 @@
 
 
 - (BOOL)shouldDrawTopBorder {
-    return [[[self window] toolbar] isVisible];
+    return YES; //[[[self window] toolbar] isVisible];
 }
 
 

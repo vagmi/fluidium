@@ -42,6 +42,7 @@
 #import <TDAppKit/TDLine.h>
 
 #define MIN_COMBOBOX_WIDTH 60
+#define TOOLBAR_HEIGHT 36
 
 @interface NSObject (FUAdditions)
 - (void)noop:(id)sender;
@@ -200,6 +201,8 @@
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenNotification object:self];
+    
+    hasWindowLoaded = YES;
 }
 
 
@@ -1068,14 +1071,16 @@
 
 
 - (void)tabViewDidChangeNumberOfTabViewItems:(NSTabView *)tv {
-    BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
-    BOOL hasMultiTabs = [tabBar numberOfVisibleTabs] > 1;
-    
-    BOOL hidden = hiddenAlways || !hasMultiTabs;
-    [tabBar setHidden:hidden];
-
-    [self updateEmptyTabBarLineVisibility];
-    [self updateUberViewHeight];
+    if (hasWindowLoaded) {
+        BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
+        BOOL hasMultiTabs = [tabBar numberOfVisibleTabs] > 1;
+        
+        BOOL hidden = hiddenAlways || !hasMultiTabs;
+        [tabBar setHidden:hidden];
+        
+        [self updateEmptyTabBarLineVisibility];
+        [self updateUberViewHeight];
+    }
 }
 
 
@@ -1478,20 +1483,18 @@
     [self updateEmptyTabBarLineVisibility];
     [self updateUberViewHeight];
     
-//    NSWindow *win = [self window];
-//    NSRect contentFrame = [[win contentView] frame];
-//    //NSRect winFrame = [win frame];
-//    //CGFloat contentHeight = NSHeight([NSWindow contentRectForFrameRect:winFrame styleMask:[win styleMask]]);
-//
-//    if ([[[self window] toolbar] isVisible]) {
-//        contentFrame.origin.y = 0;
-//        //contentFrame.size.height = contentHeight;
-//    } else {
-//        contentFrame.origin.y = 1;
-//        //contentFrame.size.height = contentHeight + 2;
-//    }
-//    [[win contentView] setFrame:contentFrame];
-//    [[win contentView] setNeedsDisplay:YES];
+    NSWindow *win = [self window];
+    NSRect contentFrame = [[win contentView] frame];
+    NSRect winFrame = [win frame];
+    CGFloat contentHeight = NSHeight([NSWindow contentRectForFrameRect:winFrame styleMask:[win styleMask]]);
+
+    if ([[[self window] toolbar] isVisible]) {
+        contentFrame.size.height = contentHeight - TOOLBAR_HEIGHT;
+    } else {
+        contentFrame.size.height = contentHeight + 1;
+    }
+    [[win contentView] setFrame:contentFrame];
+    [[win contentView] setNeedsDisplay:YES];
     
     [tabBar setNeedsDisplay:YES];
     [bookmarkBar setNeedsDisplay:YES];
@@ -1501,10 +1504,10 @@
 - (void)tabBarShownDidChange:(NSNotification *)n {
     BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
     [tabBar setHidden:hiddenAlways];
+    [tabBar setNeedsDisplay:YES];
     
     [self updateEmptyTabBarLineVisibility];
     [self updateUberViewHeight];
-    if ([tabBar superview]) [tabBar setNeedsDisplay:YES];
 }
 
 
@@ -1585,26 +1588,15 @@
 
 
 - (void)updateEmptyTabBarLineVisibility {
-    BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
+    //BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
     BOOL toolbarShown = [[[self window] toolbar] isVisible];
     BOOL hasMultipleTabs = [tabBar numberOfVisibleTabs] > 1;
     BOOL tabBarShown = hasMultipleTabs && ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden];
     
     BOOL lineShown = NO;
-    
-// for FUThemeFrame
-//    if (!toolbarShown && !bookmarkBarShown && !tabBarShown) {
-//        lineShown = YES;
-//    } else if (bookmarkBarShown && !tabBarShown) {
-//        lineShown = YES;
-//    } else if (toolbarShown && !bookmarkBarShown && !tabBarShown) {
-//        lineShown = YES;
-//    }
-    
-    // for NSThemeFrame
     if (toolbarShown && !tabBarShown) {
         lineShown = YES;
-    } else if (!toolbarShown && !tabBarShown && bookmarkBarShown) {
+    } else if (!toolbarShown && !tabBarShown) {
         lineShown = YES;
     }
 
@@ -1617,11 +1609,13 @@
     NSRect containerFrame = [tabContainerView frame];
     CGFloat uberFrameHeight = containerFrame.size.height;
     
-    BOOL hasMultipleTabs = [tabView numberOfTabViewItems] > 1;
-    BOOL tabBarShown = hasMultipleTabs && ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden];
+    NSInteger num = [tabBar numberOfVisibleTabs];
+    BOOL hasMultipleTabs = num > 1;
+    BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
+    BOOL tabBarShown = hasMultipleTabs && !hiddenAlways;
     if (tabBarShown) {
-        CGFloat tabBarHeight = NSHeight([tabBar frame]);
-        uberFrameHeight -= tabBarHeight;
+        //CGFloat tabBarHeight = NSHeight([tabBar frame]);
+        uberFrameHeight -= 22;
     }
 
     BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
@@ -1629,12 +1623,13 @@
         uberFrameHeight -= 1;
     }
     
-    BOOL toolbarShown = [[[self window] toolbar] isVisible];
-    if (toolbarShown && !bookmarkBarShown && !tabBarShown) {
+    //BOOL toolbarShown = [[[self window] toolbar] isVisible];
+    if (!bookmarkBarShown && !tabBarShown) {
         uberFrameHeight -= 1;
     }
 
-    // uberFrameHeight -= 1;
+    
+    //uberFrameHeight -= 1;
     
     NSRect uberFrame = [uberView frame];
     uberFrame.size.height = uberFrameHeight;
