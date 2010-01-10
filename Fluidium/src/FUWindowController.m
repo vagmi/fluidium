@@ -342,7 +342,7 @@
 
 
 - (IBAction)openTab:(id)sender {
-    [self temporarilyShowToolbarIfHidden];
+    //[self temporarilyShowToolbarIfHidden];
     
     // always open a tab at the end in response to this action (which only comes from the File menu/cmd-T)
     NSInteger i = [tabView numberOfTabViewItems];
@@ -1602,10 +1602,10 @@
     NSInteger num = [tabBar numberOfVisibleTabs];
     BOOL hasMultipleTabs = num > 1;
     BOOL hiddenAlways = [[FUUserDefaults instance] tabBarHiddenAlways];
-    BOOL tabBarShown = hasMultipleTabs && !hiddenAlways;
+    BOOL tabBarShown = hasMultipleTabs && !hiddenAlways && ![tabBar isHidden];
     if (tabBarShown) {
-        //CGFloat tabBarHeight = NSHeight([tabBar frame]);
-        uberFrameHeight -= 22;
+        CGFloat tabBarHeight = NSHeight([tabBar frame]);
+        uberFrameHeight -= tabBarHeight;
     }
 
     BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
