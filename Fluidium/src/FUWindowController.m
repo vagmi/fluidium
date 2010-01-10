@@ -66,7 +66,9 @@
 - (NSInteger)preferredIndexForNewTab;
 - (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
 
+- (BOOL)isToolbarVisible;
 - (void)showToolbarTemporarilyIfHidden;
+- (void)showToolbarTemporarily;
 - (void)removeDocumentIconButton;
 - (void)displayEstimatedProgress;
 - (void)clearProgressInFuture;
@@ -154,11 +156,6 @@
              object:locationComboBox];
     
     [nc addObserver:self
-           selector:@selector(windowDidResignKey:)
-               name:NSWindowDidResignKeyNotification
-             object:[self window]];
-
-    [nc addObserver:self
            selector:@selector(toolbarShownDidChange:)
                name:FUToolbarShownDidChangeNotification
              object:[self window]];
@@ -188,10 +185,10 @@
 - (void)windowDidLoad {
     [self setUpToolbar];
     [self setUpTabBar];
-    [self toolbarShownDidChange:nil];
-    [self bookmarkBarShownDidChange:nil];
-    [self statusBarShownDidChange:nil];
-    [self tabBarShownDidChange:nil];
+//    [self toolbarShownDidChange:nil];
+//    [self bookmarkBarShownDidChange:nil];
+//    [self statusBarShownDidChange:nil];
+//    [self tabBarShownDidChange:nil];
 
     [[self window] setFrameFromString:[[FUUserDefaults instance] windowFrameString]];
     
@@ -340,7 +337,7 @@
 
 
 - (IBAction)openTab:(id)sender {
-    if (![[[self window] toolbar] isVisible]) {
+    if (![self isToolbarVisible]) {
         [self showToolbarTemporarily];
         [self performSelector:@selector(openTab:) withObject:sender afterDelay:0.1];
         return;
@@ -947,8 +944,7 @@
 
 
 - (NSString *)comboBox:(NSComboBox *)cb completedString:(NSString *)uncompletedString {
-    NSWindow *win = [self window];
-    if ([win isKeyWindow] && [[win toolbar] isVisible] && locationComboBox == cb) {
+    if ([[self window] isKeyWindow] && [self isToolbarVisible] && locationComboBox == cb) {
         [[FURecentURLController instance] resetMatchingRecentURLs];
         
         for (NSString *URLString in [self recentURLs]) {
@@ -1412,7 +1408,7 @@
     CGFloat progress = [[self selectedTabController] estimatedProgress];
     locationComboBox.progress = progress;
     
-    if (![[[self window] toolbar] isVisible]) {
+    if (![self isToolbarVisible]) {
         [statusProgressIndicator setHidden:NO];
     }
 }
@@ -1429,9 +1425,13 @@
 }
 
 
+- (BOOL)isToolbarVisible {
+    return [[[self window] toolbar] isVisible];
+}
+
+
 - (void)showToolbarTemporarilyIfHidden {
-    NSWindow *win = [self window];
-    if (![[win toolbar] isVisible]) {
+    if (![self isToolbarVisible]) {
         [self showToolbarTemporarily];
     }
 }
@@ -1583,7 +1583,7 @@
 
 - (void)updateEmptyTabBarLineVisibility {
     //BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
-    BOOL toolbarShown = [[[self window] toolbar] isVisible];
+    BOOL toolbarShown = [self isToolbarVisible];
     BOOL hasMultipleTabs = [tabBar numberOfVisibleTabs] > 1;
     BOOL tabBarShown = hasMultipleTabs && ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden];
     
@@ -1617,7 +1617,6 @@
         uberFrameHeight -= 1;
     }
     
-    //BOOL toolbarShown = [[[self window] toolbar] isVisible];
     if (!bookmarkBarShown && !tabBarShown) {
         uberFrameHeight -= 1;
     }
@@ -1635,7 +1634,7 @@
     NSRect winFrame = [win frame];
     CGFloat contentHeight = NSHeight([NSWindow contentRectForFrameRect:winFrame styleMask:[win styleMask]]);
     
-    if ([[[self window] toolbar] isVisible]) {
+    if ([self isToolbarVisible]) {
         contentFrame.size.height = contentHeight - TOOLBAR_HEIGHT;
     } else {
         contentFrame.size.height = contentHeight + 1;

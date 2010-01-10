@@ -750,10 +750,11 @@
     if (!_awakenedFromNib || (_isHidden && hide) || (!_isHidden && !hide) || (_currentStep != kPSMIsNotBeingResized)) {
         return;
 	}
-	
+    // BEGIN FLUIDIUM
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FUTabBarHiddenAlways"]) {
         return;
     }
+    // END FLUIDIUM
     
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
@@ -1767,16 +1768,18 @@
         NSRect myFrame = [self frame];
 		if ([self orientation] == PSMTabBarHorizontalOrientation) {
 			if (partnerView) {
-				NSRect partnerFrame = [partnerView frame];
+                                // BEGIN FLUIDIUM
+				//NSRect partnerFrame = [partnerView frame];
 				// above or below me?
 				if (myFrame.origin.y - 22 > [partnerView frame].origin.y) {
 					// partner is below me
 					[self setFrame:NSMakeRect(myFrame.origin.x, myFrame.origin.y + 21, myFrame.size.width, myFrame.size.height - 21)];
-					[partnerView setFrame:NSMakeRect(partnerFrame.origin.x, partnerFrame.origin.y, partnerFrame.size.width, partnerFrame.size.height + 21)];
+					//[partnerView setFrame:NSMakeRect(partnerFrame.origin.x, partnerFrame.origin.y, partnerFrame.size.width, partnerFrame.size.height + 21)];
 				} else {
 					// partner is above me
 					[self setFrame:NSMakeRect(myFrame.origin.x, myFrame.origin.y, myFrame.size.width, myFrame.size.height - 21)];
-					[partnerView setFrame:NSMakeRect(partnerFrame.origin.x, partnerFrame.origin.y - 21, partnerFrame.size.width, partnerFrame.size.height + 21)];
+					//[partnerView setFrame:NSMakeRect(partnerFrame.origin.x, partnerFrame.origin.y - 21, partnerFrame.size.width, partnerFrame.size.height + 21)];
+                                // END FLUIDIUM
 				}
 				[partnerView setNeedsDisplay:YES];
 				[self setNeedsDisplay:YES];
