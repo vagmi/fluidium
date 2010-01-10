@@ -809,11 +809,10 @@ typedef enum {
 
 
 - (BOOL)willRetryWithTLDAdded:(WebView *)wv {
-    NSURL *URL = [NSURL URLWithString:[wv mainFrameURL]];
-    NSString *host = [URL host];
+    NSString *host = [[NSURL URLWithString:[wv mainFrameURL]] host];
     
     if (![host hasTLDSuffix]) {
-        self.URLString = [[wv mainFrameURL] stringByEnsuringTLDSuffix];
+        self.URLString = [host stringByEnsuringTLDSuffix];
         [self goToLocation:self];
         return YES;
     } else {
