@@ -1473,7 +1473,7 @@
 
 - (void)toolbarShownDidChange:(NSNotification *)n {
     [self updateEmptyTabBarLineVisibility];
-    [self performSelector:@selector(updateUberViewHeight) withObject:nil afterDelay:0];
+    [self updateUberViewHeight];
     [tabBar setNeedsDisplay:YES];
     [bookmarkBar setNeedsDisplay:YES];
 }
@@ -1484,7 +1484,7 @@
     [tabBar setHidden:hiddenAlways];
     
     [self updateEmptyTabBarLineVisibility];
-    [self performSelector:@selector(updateUberViewHeight) withObject:nil afterDelay:0];
+    [self updateUberViewHeight];
     if ([tabBar superview]) [tabBar setNeedsDisplay:YES];
 }
 
@@ -1518,7 +1518,7 @@
     [tabContainerView setFrameSize:newContainerSize];
 
     [self updateEmptyTabBarLineVisibility];
-    [self performSelector:@selector(updateUberViewHeight) withObject:nil afterDelay:0];
+    [self updateUberViewHeight];
 
     [bookmarkBar setNeedsDisplay:YES];
     [tabBar setNeedsDisplay:YES];
