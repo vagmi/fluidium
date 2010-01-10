@@ -41,7 +41,7 @@
 #import <TDAppKit/TDUberView.h>
 #import <TDAppKit/TDLine.h>
 
-#define MIN_COMBOBOX_WIDTH 100
+#define MIN_COMBOBOX_WIDTH 60
 
 @interface NSObject (FUAdditions)
 - (void)noop:(id)sender;
@@ -701,6 +701,61 @@
 
 #pragma mark -
 #pragma mark NSSplitViewDelegate
+
+- (BOOL)splitView:(NSSplitView *)sv canCollapseSubview:(NSView *)subview {
+    return subview == [[sv subviews] objectAtIndex:1];
+}
+
+
+- (BOOL)splitView:(NSSplitView *)sv shouldHideDividerAtIndex:(NSInteger)dividerIndex {
+    return NO;
+}
+
+
+- (void)splitView:(NSSplitView *)sv resizeSubviewsWithOldSize:(NSSize)oldSize {
+    NSArray *views = [sv subviews];
+    NSView *leftView = [views objectAtIndex:0];
+    NSView *rightView = [views objectAtIndex:1];
+    NSRect leftRect = [leftView frame];
+    NSRect rightRect = [rightView frame];
+    
+    CGFloat dividerThickness = [sv dividerThickness];
+    NSRect newFrame = [sv frame];
+
+    leftRect.size.height = newFrame.size.height;
+    rightRect.size.height = newFrame.size.height;
+    leftRect.origin = NSMakePoint(0, 0);
+
+    BOOL collapsed = NO;
+    if (newFrame.size.width < 250) {
+        collapsed = YES;
+        leftRect.size.width = newFrame.size.width - dividerThickness;
+        if (leftRect.size.width < MIN_COMBOBOX_WIDTH) {
+            leftRect.size.width = MIN_COMBOBOX_WIDTH;
+        }
+        rightRect.origin = NSMakePoint(leftRect.size.width + dividerThickness, 0);
+        rightRect.size.width = 0;
+    } else {
+        leftRect.size.width = newFrame.size.width - rightRect.size.width - dividerThickness;
+        if (leftRect.size.width < MIN_COMBOBOX_WIDTH) {
+            leftRect.size.width = MIN_COMBOBOX_WIDTH;
+        }
+        rightRect.origin.x = leftRect.size.width + dividerThickness;
+    }
+    
+	[leftView setFrame:leftRect];
+	[rightView setFrame:rightRect];
+
+    if (collapsed) {
+        NSRect locFrame = [locationComboBox frame];
+        locFrame.size.width = NSInsetRect([leftView bounds], 4, 0).size.width;
+        [locationComboBox setFrame:locFrame];
+        
+        [searchField setFrame:NSInsetRect([rightView bounds], 4, 0)];
+    }
+    
+}
+
 
 - (CGFloat)splitView:(NSSplitView *)sv constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset {
     return MIN_COMBOBOX_WIDTH;
