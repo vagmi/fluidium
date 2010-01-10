@@ -86,7 +86,7 @@
         BOOL isInfiniteLoop = [lastDate timeIntervalSinceNow] < MIN_INF_LOOP_DELAY && [URLString isEqualToString:lastURLString];
         if (isInfiniteLoop) {
             NSRunAlertPanel(NSLocalizedString(@"Infinite Loop Detected", @""), 
-                            NSLocalizedString(@"This SSB is set as your default browser, but you have disallowed browsing to %@", @""),
+                            NSLocalizedString(@"This Fluid App is set as your default browser, but you have disallowed browsing to %@", @""),
                             NSLocalizedString(@"OK", @""),
                             nil,
                             nil,

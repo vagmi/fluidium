@@ -186,10 +186,10 @@
 - (void)windowDidLoad {
     [self setUpToolbar];
     [self setUpTabBar];
-    [self tabBarShownDidChange:nil];
     [self toolbarShownDidChange:nil];
     [self bookmarkBarShownDidChange:nil];
     [self statusBarShownDidChange:nil];
+    [self tabBarShownDidChange:nil];
 
     [[self window] setFrameFromString:[[FUUserDefaults instance] windowFrameString]];
     

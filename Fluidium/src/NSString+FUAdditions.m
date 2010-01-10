@@ -42,6 +42,14 @@
 }
 
 
+- (NSString *)stringByEnsuringTLDSuffix {
+    if (![self hasTLDSuffix]) {
+        return [NSString stringWithFormat:@"%@.com", self];
+    }
+    return self;
+}
+
+
 - (BOOL)hasHTTPSchemePrefix {
     return [self hasPrefix:kFUHTTPSchemePrefix] || [self hasPrefix:kFUHTTPSSchemePrefix];
 }
@@ -59,6 +67,11 @@
         || [self hasPrefix:@"data:"] 
         || [self hasPrefix:@"file:"] 
         || [self hasJavaScriptSchemePrefix];
+}
+
+
+- (BOOL)hasTLDSuffix {
+    return (NSNotFound != [self rangeOfString:@"."].location);
 }
 
 @end

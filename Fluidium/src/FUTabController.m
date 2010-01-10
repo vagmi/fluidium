@@ -812,8 +812,8 @@ typedef enum {
     NSURL *URL = [NSURL URLWithString:[wv mainFrameURL]];
     NSString *host = [URL host];
     
-    if (NSNotFound == [host rangeOfString:@"."].location) {
-        self.URLString = [NSString stringWithFormat:@"%@.com", host];
+    if (![host hasTLDSuffix]) {
+        self.URLString = [[wv mainFrameURL] stringByEnsuringTLDSuffix];
         [self goToLocation:self];
         return YES;
     } else {

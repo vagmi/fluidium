@@ -17,7 +17,9 @@
 @interface NSString (FUAdditions)
 - (NSString *)stringByEnsuringURLSchemePrefix;
 - (NSString *)stringByTrimmingURLSchemePrefix;
+- (NSString *)stringByEnsuringTLDSuffix;
 - (BOOL)hasHTTPSchemePrefix;
 - (BOOL)hasSupportedSchemePrefix;
 - (BOOL)hasJavaScriptSchemePrefix;
+- (BOOL)hasTLDSuffix;
 @end
