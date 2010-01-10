@@ -1474,6 +1474,22 @@
 - (void)toolbarShownDidChange:(NSNotification *)n {
     [self updateEmptyTabBarLineVisibility];
     [self updateUberViewHeight];
+    
+//    NSWindow *win = [self window];
+//    NSRect contentFrame = [[win contentView] frame];
+//    //NSRect winFrame = [win frame];
+//    //CGFloat contentHeight = NSHeight([NSWindow contentRectForFrameRect:winFrame styleMask:[win styleMask]]);
+//
+//    if ([[[self window] toolbar] isVisible]) {
+//        contentFrame.origin.y = 0;
+//        //contentFrame.size.height = contentHeight;
+//    } else {
+//        contentFrame.origin.y = 1;
+//        //contentFrame.size.height = contentHeight + 2;
+//    }
+//    [[win contentView] setFrame:contentFrame];
+//    [[win contentView] setNeedsDisplay:YES];
+    
     [tabBar setNeedsDisplay:YES];
     [bookmarkBar setNeedsDisplay:YES];
 }
@@ -1566,11 +1582,28 @@
 
 
 - (void)updateEmptyTabBarLineVisibility {
-    BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
+//    BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
     BOOL toolbarShown = [[[self window] toolbar] isVisible];
+    BOOL hasMultipleTabs = [tabBar numberOfVisibleTabs] > 1;
+    BOOL tabBarShown = hasMultipleTabs && ![[FUUserDefaults instance] tabBarHiddenAlways] && ![tabBar isHidden];
     
-    BOOL lineHidden = !bookmarkBarShown && !toolbarShown;
-    [emptyTabBarLine setHidden:lineHidden];
+    BOOL lineShown = NO;
+    
+// for FUThemeFrame
+//    if (!toolbarShown && !bookmarkBarShown && !tabBarShown) {
+//        lineShown = YES;
+//    } else if (bookmarkBarShown && !tabBarShown) {
+//        lineShown = YES;
+//    } else if (toolbarShown && !bookmarkBarShown && !tabBarShown) {
+//        lineShown = YES;
+//    }
+    
+    // for NSThemeFrame
+    if (toolbarShown && !tabBarShown) {
+        lineShown = YES;
+    }
+
+    [emptyTabBarLine setHidden:!lineShown];
     [emptyTabBarLine setNeedsDisplay:YES];    
 }
 
@@ -1585,7 +1618,7 @@
         CGFloat tabBarHeight = NSHeight([tabBar frame]);
         uberFrameHeight -= tabBarHeight;
     }
-    
+
     BOOL bookmarkBarShown = [[FUUserDefaults instance] bookmarkBarShown];
     if (bookmarkBarShown && !tabBarShown) {
         uberFrameHeight -= 1;

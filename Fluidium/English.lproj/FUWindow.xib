@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100051"/>
+			<integer value="5"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -55,6 +55,13 @@
 							<int key="NSvFlags">274</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSCustomView" id="898544992">
+									<reference key="NSNextResponder" ref="405679537"/>
+									<int key="NSvFlags">-2147483382</int>
+									<string key="NSFrame">{{0, 701}, {1087, 1}}</string>
+									<reference key="NSSuperview" ref="405679537"/>
+									<string key="NSClassName">TDLine</string>
+								</object>
 								<object class="NSCustomView" id="955961763">
 									<reference key="NSNextResponder" ref="405679537"/>
 									<int key="NSvFlags">274</int>
@@ -68,13 +75,6 @@
 									<string key="NSFrame">{{0, 680}, {1087, 22}}</string>
 									<reference key="NSSuperview" ref="405679537"/>
 									<string key="NSClassName">FUTabBarControl</string>
-								</object>
-								<object class="NSCustomView" id="898544992">
-									<reference key="NSNextResponder" ref="405679537"/>
-									<int key="NSvFlags">-2147483382</int>
-									<string key="NSFrame">{{0, 701}, {1087, 1}}</string>
-									<reference key="NSSuperview" ref="405679537"/>
-									<string key="NSClassName">TDLine</string>
 								</object>
 							</object>
 							<string key="NSFrame">{{0, 16}, {1087, 702}}</string>
@@ -1464,9 +1464,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{326, 322}, {1087, 718}}</string>
+					<string>{{387, 177}, {1087, 718}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{326, 322}, {1087, 718}}</string>
+					<string>{{387, 177}, {1087, 718}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
