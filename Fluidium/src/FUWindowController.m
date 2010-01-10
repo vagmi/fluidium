@@ -83,6 +83,7 @@
 - (BOOL)findPanelSearchField:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor;
 - (void)updateEmptyTabBarLineVisibility;
 - (void)updateUberViewHeight;
+- (void)updateContentViewFrame;
 @end
 
 @implementation FUWindowController
@@ -1163,6 +1164,7 @@
 
 
 - (void)windowDidResize:(NSNotification *)n {
+    [self updateContentViewFrame];
     [self saveFrameString];
 }
 
@@ -1482,19 +1484,7 @@
 - (void)toolbarShownDidChange:(NSNotification *)n {
     [self updateEmptyTabBarLineVisibility];
     [self updateUberViewHeight];
-    
-    NSWindow *win = [self window];
-    NSRect contentFrame = [[win contentView] frame];
-    NSRect winFrame = [win frame];
-    CGFloat contentHeight = NSHeight([NSWindow contentRectForFrameRect:winFrame styleMask:[win styleMask]]);
-
-    if ([[[self window] toolbar] isVisible]) {
-        contentFrame.size.height = contentHeight - TOOLBAR_HEIGHT;
-    } else {
-        contentFrame.size.height = contentHeight + 1;
-    }
-    [[win contentView] setFrame:contentFrame];
-    [[win contentView] setNeedsDisplay:YES];
+    [self updateContentViewFrame];
     
     [tabBar setNeedsDisplay:YES];
     [bookmarkBar setNeedsDisplay:YES];
@@ -1628,13 +1618,26 @@
         uberFrameHeight -= 1;
     }
 
-    
-    //uberFrameHeight -= 1;
-    
     NSRect uberFrame = [uberView frame];
     uberFrame.size.height = uberFrameHeight;
     [uberView setFrame:uberFrame];
     [uberView setNeedsDisplay:YES];
+}
+
+
+- (void)updateContentViewFrame {
+    NSWindow *win = [self window];
+    NSRect contentFrame = [[win contentView] frame];
+    NSRect winFrame = [win frame];
+    CGFloat contentHeight = NSHeight([NSWindow contentRectForFrameRect:winFrame styleMask:[win styleMask]]);
+    
+    if ([[[self window] toolbar] isVisible]) {
+        contentFrame.size.height = contentHeight - TOOLBAR_HEIGHT;
+    } else {
+        contentFrame.size.height = contentHeight + 1;
+    }
+    [[win contentView] setFrame:contentFrame];
+    [[win contentView] setNeedsDisplay:YES];
 }
 
 
