@@ -26,6 +26,7 @@ static NSDictionary *sSelectedTitleAttrs = nil;
 static NSDictionary *sTitleAttrs = nil;
 
 static NSGradient *sSelectedOuterRectFillGradient = nil;
+static NSGradient *sInnerRectFillGradient = nil;
 
 static NSColor *sSelectedOuterRectStrokeColor = nil;
 
@@ -82,7 +83,9 @@ static NSColor *sInnerRectStrokeColor = nil;
         NSColor *fillTopColor = [NSColor colorWithDeviceRed:134.0/255.0 green:147.0/255.0 blue:169.0/255.0 alpha:1.0];
         NSColor *fillBottomColor = [NSColor colorWithDeviceRed:108.0/255.0 green:120.0/255.0 blue:141.0/255.0 alpha:1.0];
         sSelectedOuterRectFillGradient = [[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor];
-        
+
+        sInnerRectFillGradient = [[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor whiteColor]];
+
         // outer round rect stroke
         sSelectedOuterRectStrokeColor = [[NSColor colorWithDeviceRed:91.0/255.0 green:100.0/255.0 blue:115.0/255.0 alpha:1.0] retain];
 
@@ -206,7 +209,7 @@ static NSColor *sInnerRectStrokeColor = nil;
 
     if (!img) {
         NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
-        FUDrawRoundRect(roundRect, NORMAL_RADIUS, 1, nil, strokeColor);
+        FUDrawRoundRect(roundRect, NORMAL_RADIUS, 1, sInnerRectFillGradient, strokeColor);
         return;
     }
 

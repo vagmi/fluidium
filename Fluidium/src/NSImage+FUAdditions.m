@@ -41,14 +41,30 @@
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clippingPath:(NSBezierPath *)path {
     NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
     [result lockFocus];
+    
+    // get context
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
+    
+    // store previous state
+    BOOL savedAntialias = [currentContext shouldAntialias];
     NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
+    
+    // set new state
+    [currentContext setShouldAntialias:YES];
     NSImageInterpolation rez = hiRez ? NSImageInterpolationHigh : NSImageInterpolationDefault;
     [currentContext setImageInterpolation:rez];
+
+    // set clip
     [path setClip];
+    
+    // draw image
     NSSize fromSize = [self size];
     [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:alpha];
+    
+    // restore state
+    [currentContext setShouldAntialias:savedAntialias];
     [currentContext setImageInterpolation:savedInterpolation];
+    
     [result unlockFocus];
     return result;
 }
