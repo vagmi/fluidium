@@ -18,4 +18,6 @@
 - (NSImage *)scaledImageOfSize:(NSSize)size; // alpha=1, hiRez=YES
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha; // hiRez=YES
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clippingPath:(NSBezierPath *)path;
 @end

@@ -25,7 +25,8 @@ BOOL FUIsCommandKeyPressed(NSInteger modifierFlags);
 BOOL FUIsShiftKeyPressed(NSInteger modifierFlags);
 BOOL FUIsOptionKeyPressed(NSInteger modifierFlags);
 
-NSBezierPath *FUDrawRoundRect(NSRect r, CGFloat radius, NSGradient *fillGradient, NSColor *strokeColor, CGFloat lineWidth);
+NSBezierPath *FUGetRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth);
+NSBezierPath *FUDrawRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth, NSGradient *fillGradient, NSColor *strokeColor);
 
 NSColor *FUMainTabBackgroundColor();
 NSColor *FUNonMainTabBackgroundColor();

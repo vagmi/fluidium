@@ -20,7 +20,7 @@
 #define NORMAL_RADIUS 4
 #define SMALL_RADIUS 3
 #define BGCOLOR_INSET 2
-#define THUMBNAIL_DIFF 6
+#define THUMBNAIL_DIFF 0
 
 static NSDictionary *sSelectedTitleAttrs = nil;
 static NSDictionary *sTitleAttrs = nil;
@@ -29,8 +29,6 @@ static NSGradient *sSelectedOuterRectFillGradient = nil;
 
 static NSColor *sSelectedOuterRectStrokeColor = nil;
 
-static NSGradient *sInnerRectFillGradient = nil;
-
 static NSColor *sSelectedInnerRectStrokeColor = nil;
 static NSColor *sInnerRectStrokeColor = nil;
 
@@ -38,6 +36,7 @@ static NSColor *sInnerRectStrokeColor = nil;
 - (NSImage *)scaledImageOfSize:(NSSize)size;
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
 @end
 
 @interface FUTabListItemView ()
@@ -87,9 +86,7 @@ static NSColor *sInnerRectStrokeColor = nil;
         // outer round rect stroke
         sSelectedOuterRectStrokeColor = [[NSColor colorWithDeviceRed:91.0/255.0 green:100.0/255.0 blue:115.0/255.0 alpha:1.0] retain];
 
-        // inner round rect fill
-        sInnerRectFillGradient = [[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor whiteColor]];
-        
+        // inner round rect stroke
         sSelectedInnerRectStrokeColor = [[sSelectedOuterRectStrokeColor colorWithAlphaComponent:.8] retain];
         sInnerRectStrokeColor = [[NSColor colorWithDeviceWhite:.7 alpha:1] retain];
     }
@@ -163,7 +160,7 @@ static NSColor *sInnerRectStrokeColor = nil;
     
     if (model.isSelected) {
         CGFloat radius = (bounds.size.width < 32) ? SMALL_RADIUS : NORMAL_RADIUS;
-        FUDrawRoundRect(roundRect, radius, sSelectedOuterRectFillGradient, sSelectedOuterRectStrokeColor, 1);
+        FUDrawRoundRect(roundRect, radius, 1, sSelectedOuterRectFillGradient, sSelectedOuterRectStrokeColor);
     }
 
     // title
@@ -198,38 +195,28 @@ static NSColor *sInnerRectStrokeColor = nil;
         
         [model.image setFlipped:[self isFlipped]];
         
-        img = [model.image scaledImageOfSize:imgSize alpha:alpha hiRez:hiRez];
+        img = [model.image scaledImageOfSize:imgSize alpha:alpha hiRez:hiRez cornerRadius:NORMAL_RADIUS];
         model.scaledImage = img;
     }
     
-    NSGradient *grad = nil;
     imgSize = [img size];
 
-    if (img) {
-        NSBitmapImageRep *bitmap = [[model.image representations] objectAtIndex:0];
-
-        NSColor *fillTopColor = [bitmap colorAtX:imgSize.width - BGCOLOR_INSET y:BGCOLOR_INSET];
-        fillTopColor = fillTopColor ? fillTopColor : [NSColor whiteColor];
-
-        NSColor *fillBottomColor = [bitmap colorAtX:BGCOLOR_INSET y:imgSize.height - BGCOLOR_INSET];
-        fillBottomColor = fillBottomColor ? fillBottomColor : [NSColor whiteColor];
-        grad = [[[NSGradient alloc] initWithStartingColor:fillTopColor endingColor:fillBottomColor] autorelease];
-    } else {
-        grad = sInnerRectFillGradient;
-    }
-
-    NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
-    FUDrawRoundRect(roundRect, NORMAL_RADIUS, grad, strokeColor, 1);
-    
     // draw image
     if (bounds.size.width < 64.0) return; // dont draw anymore when you're really small. looks bad.
 
-    if (!img) return;
+    if (!img) {
+        NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
+        FUDrawRoundRect(roundRect, NORMAL_RADIUS, 1, nil, strokeColor);
+        return;
+    }
 
     NSRect srcRect = NSMakeRect(0, 0, imgSize.width, imgSize.height);
     NSRect destRect = NSOffsetRect(srcRect, floor(roundRect.origin.x + THUMBNAIL_DIFF/2), floor(roundRect.origin.y + THUMBNAIL_DIFF/2));
     [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
     
+    NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
+    FUDrawRoundRect(roundRect, NORMAL_RADIUS, 1, nil, strokeColor);
+
     if (model.isLoading) {
         [progressIndicator setFrameOrigin:NSMakePoint(NSMaxX(bounds) - 26, 20)];
         [progressIndicator startAnimation:self];

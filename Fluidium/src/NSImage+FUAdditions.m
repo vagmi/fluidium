@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "NSImage+FUAdditions.h"
+#import "FUUtils.h"
 
 @implementation NSImage (FUAdditions)
 
@@ -27,12 +28,24 @@
 
 
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez {
+    return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clippingPath:nil];
+}
+
+
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius {
+    NSBezierPath *path = FUGetRoundRect(NSMakeRect(0, 0, size.width, size.height), radius, 1);
+    return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clippingPath:path];
+}
+
+
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clippingPath:(NSBezierPath *)path {
     NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
     [result lockFocus];
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
     NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
     NSImageInterpolation rez = hiRez ? NSImageInterpolationHigh : NSImageInterpolationDefault;
     [currentContext setImageInterpolation:rez];
+    [path setClip];
     NSSize fromSize = [self size];
     [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:alpha];
     [currentContext setImageInterpolation:savedInterpolation];

@@ -42,16 +42,7 @@ BOOL FUIsOptionKeyPressed(NSInteger modifierFlags) {
 }
 
 
-NSBezierPath *FUDrawRoundRect(NSRect r, CGFloat radius, NSGradient *fillGradient, NSColor *strokeColor, CGFloat lineWidth) {
-    CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
-
-    CGContextSetLineWidth(c, lineWidth);
-    
-//    NSLog(@"before r: %@", NSStringFromRect(r));
-//    r = CGContextConvertRectToDeviceSpace(c, r);
-//    NSLog(@"after r: %@", NSStringFromRect(r));
-    
-    // create rounded rect path
+NSBezierPath *FUGetRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth) {
     CGFloat minX = NSMinX(r);
     CGFloat midX = NSMidX(r);
     CGFloat maxX = NSMaxX(r);
@@ -68,6 +59,20 @@ NSBezierPath *FUDrawRoundRect(NSRect r, CGFloat radius, NSGradient *fillGradient
     [path appendBezierPathWithArcFromPoint:NSMakePoint(minX, maxY) toPoint:NSMakePoint(minX, midY) radius:radius];
     [path closePath];
     
+    return path;
+}
+
+
+NSBezierPath *FUDrawRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth, NSGradient *fillGradient, NSColor *strokeColor) {
+//    CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
+//
+//    CGContextSetLineWidth(c, lineWidth);
+    
+//    NSLog(@"before r: %@", NSStringFromRect(r));
+//    r = CGContextConvertRectToDeviceSpace(c, r);
+//    NSLog(@"after r: %@", NSStringFromRect(r));
+        
+    NSBezierPath *path = FUGetRoundRect(r, radius, lineWidth);
     [fillGradient drawInBezierPath:path angle:90.0];
 
     [strokeColor setStroke];
