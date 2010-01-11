@@ -337,11 +337,11 @@
 
 
 - (IBAction)openTab:(id)sender {
-    if (![self isToolbarVisible]) {
-        [self showToolbarTemporarily];
-        [self performSelector:@selector(openTab:) withObject:sender afterDelay:0.1];
-        return;
-    }
+//    if (![self isToolbarVisible]) {
+//        [self showToolbarTemporarily];
+//        [self performSelector:@selector(openTab:) withObject:sender afterDelay:0.1];
+//        return;
+//    }
     
     NSInteger i = [tabView numberOfTabViewItems];
     [self addNewTabAtIndex:i andSelect:YES];
