@@ -94,11 +94,18 @@
     <key>FUCookieAcceptPolicy</key>
     <integer>2</integer>
     
-    <!-- Advanced -->
+    <!-- Whitelist -->
     <key>FUAllowBrowsingToAnyDomain</key>
     <true/>
     <key>FUInvertWhitelist</key>
     <false/>
+    <key>FUWhitelistURLPatternStrings</key>
+    <array>
+        <!-- 
+        <key>value</key>
+        <string>*XXX.com*</string>
+        -->
+    </array>
     
     <!-- PlugIns -->
     <key>FUNumberOfBrowsaPlugIns</key>

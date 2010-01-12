@@ -38,69 +38,73 @@
 
 - (FUShortcutCommand *)commandForInput:(NSString *)commandString {
     NSMutableArray *URLStrings = [NSMutableArray array];
-
-    // fetch non-parameterized replacement (e.g. 'g' for "http://google.com")
-    NSString *replacementString = [self replacementStringForshortcutKey:commandString];
-    NSString *query = nil;
-    
-
-    // fetch parameterized replacement (e.g. 'g xxx' for "http://google.com/q=%@")
-    BOOL isIndexed = NO;
-    if (![replacementString length]) {
-        NSRange r = [commandString rangeOfString:@" "];
-        if (NSNotFound == r.location) {
-            return nil;
-        }
-        
-        NSInteger index = r.location;
-        NSString *shortcutKey = [commandString substringToIndex:index];
-        
-        replacementString = [self replacementFormatForshortcutKey:shortcutKey isIndexed:&isIndexed];
-        if ([commandString length] > index + 1) {
-            query = [commandString substringFromIndex:index+1];
-        }
-    }
-
     BOOL isTabbed = NO;
     BOOL isPiped = NO;
     
-    if ([replacementString length]) {
-        // ??
-        //replacementString = [replacementString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        //
-        isTabbed = (NSNotFound != [replacementString rangeOfString:@","].location);
-        isPiped = (NSNotFound != [replacementString rangeOfString:@"|"].location);
+    if ([commandString hasPrefix:@"@"] && [commandString length] > 1) {
+        [URLStrings addObject:[NSString stringWithFormat:@"http://twitter.com/%@", [commandString substringFromIndex:1]]];
+        isTabbed = NO;
+        isPiped = NO;
+    } else {
+        // fetch non-parameterized replacement (e.g. 'g' for "http://google.com")
+        NSString *replacementString = [self replacementStringForshortcutKey:commandString];
+        NSString *query = nil;
         
-        NSMutableArray *toks = nil;
-        if (isIndexed) {
-            toks = [NSMutableArray array];
-            PKTokenizer *t = [PKTokenizer tokenizerWithString:query];
-            PKToken *eof = [PKToken EOFToken];
-            PKToken *tok = nil;
-            while ((tok = [t nextToken]) != eof) {
-                [toks addObject:tok];
+        // fetch parameterized replacement (e.g. 'g xxx' for "http://google.com/q=%@")
+        BOOL isIndexed = NO;
+        if (![replacementString length]) {
+            NSRange r = [commandString rangeOfString:@" "];
+            if (NSNotFound == r.location) {
+                return nil;
+            }
+            
+            NSInteger index = r.location;
+            NSString *shortcutKey = [commandString substringToIndex:index];
+            
+            replacementString = [self replacementFormatForshortcutKey:shortcutKey isIndexed:&isIndexed];
+            if ([commandString length] > index + 1) {
+                query = [commandString substringFromIndex:index+1];
             }
         }
-        
-        if (isTabbed || isPiped) {
-            NSArray *replacementStrings = [replacementString componentsSeparatedByString:(isPiped ? @"|" : @",")];
+
+        if ([replacementString length]) {
+            // ??
+            //replacementString = [replacementString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            //
+            isTabbed = (NSNotFound != [replacementString rangeOfString:@","].location);
+            isPiped = (NSNotFound != [replacementString rangeOfString:@"|"].location);
             
-            for (NSString *fmt in replacementStrings) {
-                if (isIndexed) {
-                    [URLStrings addObject:[self URLStringWithFormat:fmt queryTokens:toks]];
-                } else {
-                    [URLStrings addObject:[self URLStringWithFormat:fmt query:query]];
+            NSMutableArray *toks = nil;
+            if (isIndexed) {
+                toks = [NSMutableArray array];
+                PKTokenizer *t = [PKTokenizer tokenizerWithString:query];
+                PKToken *eof = [PKToken EOFToken];
+                PKToken *tok = nil;
+                while ((tok = [t nextToken]) != eof) {
+                    [toks addObject:tok];
                 }
             }
-        } else {
-            if (isIndexed) {
-                [URLStrings addObject:[self URLStringWithFormat:replacementString queryTokens:toks]];
+            
+            if (isTabbed || isPiped) {
+                NSArray *replacementStrings = [replacementString componentsSeparatedByString:(isPiped ? @"|" : @",")];
+                
+                for (NSString *fmt in replacementStrings) {
+                    if (isIndexed) {
+                        [URLStrings addObject:[self URLStringWithFormat:fmt queryTokens:toks]];
+                    } else {
+                        [URLStrings addObject:[self URLStringWithFormat:fmt query:query]];
+                    }
+                }
             } else {
-                [URLStrings addObject:[self URLStringWithFormat:replacementString query:query]];
+                if (isIndexed) {
+                    [URLStrings addObject:[self URLStringWithFormat:replacementString queryTokens:toks]];
+                } else {
+                    [URLStrings addObject:[self URLStringWithFormat:replacementString query:query]];
+                }
             }
         }
     }
-    
+        
     if (![URLStrings count]) {
         return nil;
     }
