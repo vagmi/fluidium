@@ -28,17 +28,17 @@
 
 
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez {
-    return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clippingPath:nil];
+    return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clip:nil];
 }
 
 
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius {
     NSBezierPath *path = FUGetRoundRect(NSMakeRect(0, 0, size.width, size.height), radius, 1);
-    return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clippingPath:path];
+    return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clip:path];
 }
 
 
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clippingPath:(NSBezierPath *)path {
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clip:(NSBezierPath *)path {
     NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
     [result lockFocus];
     
@@ -51,8 +51,7 @@
     
     // set new state
     [currentContext setShouldAntialias:YES];
-    NSImageInterpolation rez = hiRez ? NSImageInterpolationHigh : NSImageInterpolationDefault;
-    [currentContext setImageInterpolation:rez];
+    [currentContext setImageInterpolation:hiRez ? NSImageInterpolationHigh : NSImageInterpolationDefault];
 
     // set clip
     [path setClip];
