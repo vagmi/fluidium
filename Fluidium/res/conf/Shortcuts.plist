@@ -242,6 +242,12 @@
 			<key>shortcut</key>
 			<string>ff</string>
 			<key>replacement</key>
+			<string>friendfeed.com</string>
+		</dict>
+		<dict>
+			<key>shortcut</key>
+			<string>ff</string>
+			<key>replacement</key>
 			<string>friendfeed.com/search?q=%@</string>
 		</dict>
 		<dict>
