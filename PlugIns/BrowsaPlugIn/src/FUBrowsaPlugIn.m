@@ -48,7 +48,6 @@ static NSInteger sTag = 0;
 
 @property (nonatomic, copy) NSString *toolbarIconImageNameNormal;
 @property (nonatomic, copy) NSString *preferencesIconImageName;
-@property (nonatomic, copy) NSString *iconBundleClassName;
 @end
 
 @implementation FUBrowsaPlugIn
@@ -60,9 +59,7 @@ static NSInteger sTag = 0;
         self.identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", tag];
         self.localizedTitle = [self makeLocalizedTitle];
         self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
-        
         self.preferencesIconImageName = @"prefpane_icon_browsa";
-        self.iconBundleClassName = [self className];
         
         self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
                                          FUPlugInViewPlacementSplitViewLeft|
@@ -123,11 +120,8 @@ static NSInteger sTag = 0;
     self.defaultsDictionary = nil;
     self.preferencesViewController = nil;
     self.aboutInfoDictionary = nil;
-
     self.toolbarIconImageNameNormal = nil;
     self.preferencesIconImageName = nil;
-    self.iconBundleClassName = nil;
-    
     self.viewControllers = nil;
     [super dealloc];
 }
@@ -180,7 +174,7 @@ static NSInteger sTag = 0;
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
         NSString *applicationName = @"Fluidium Browsa Plug-in";
         
-        NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(self.iconBundleClassName)];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];
         NSImage  *applicationIcon = [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];
 
@@ -381,11 +375,8 @@ static NSInteger sTag = 0;
 @synthesize preferredViewPlacementMask;
 @synthesize preferredMenuItemKeyEquivalent;
 @synthesize preferredMenuItemKeyEquivalentModifierMask;
-
 @synthesize toolbarIconImageNameNormal;
 @synthesize preferencesIconImageName;
-@synthesize iconBundleClassName;
-
 @synthesize defaultsDictionary;
 @synthesize aboutInfoDictionary;
 @synthesize preferredVerticalSplitPosition;

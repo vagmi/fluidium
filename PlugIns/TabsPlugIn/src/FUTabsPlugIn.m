@@ -30,7 +30,6 @@
 @property (nonatomic, readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
 @property (nonatomic, readwrite, copy) NSString *toolbarIconImageName;
 @property (nonatomic, readwrite, copy) NSString *preferencesIconImageName;
-@property (nonatomic, readwrite, copy) NSString *iconBundleClassName;
 @property (nonatomic, readwrite, retain) NSMutableDictionary *defaultsDictionary;
 @property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
 @property (nonatomic, readwrite) CGFloat preferredVerticalSplitPosition;
@@ -46,7 +45,6 @@
         self.localizedTitle = NSLocalizedString(@"Tabs", @"");
         self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
         self.preferencesIconImageName = NSImageNameIconViewTemplate;
-        self.iconBundleClassName = [self className];
         self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
                                          FUPlugInViewPlacementSplitViewLeft|
                                          FUPlugInViewPlacementSplitViewRight|
@@ -77,7 +75,6 @@
     self.preferredMenuItemKeyEquivalent = nil;
     self.toolbarIconImageName = nil;
     self.preferencesIconImageName = nil;
-    self.iconBundleClassName = nil;
     self.defaultsDictionary = nil;
     self.preferencesViewController = nil;
     self.aboutInfoDictionary = nil;
@@ -115,7 +112,7 @@
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
         NSString *applicationName = @"Fluidium Tabs Plug-in";
 
-        NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(self.iconBundleClassName)];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];
         NSImage  *applicationIcon = [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];        
         
@@ -145,7 +142,6 @@
 @synthesize preferredMenuItemKeyEquivalentModifierMask;
 @synthesize toolbarIconImageName;
 @synthesize preferencesIconImageName;
-@synthesize iconBundleClassName;
 @synthesize defaultsDictionary;
 @synthesize aboutInfoDictionary;
 @synthesize preferredVerticalSplitPosition;

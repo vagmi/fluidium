@@ -42,7 +42,6 @@ typedef enum {
 
     NSString *toolbarIconImageNameNormal;
     NSString *preferencesIconImageName;
-    NSString *iconBundleClassName;
     
     NSMutableDictionary *defaultsDictionary;
     NSDictionary *aboutInfoDictionary;

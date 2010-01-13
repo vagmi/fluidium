@@ -324,7 +324,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     [desc setObject:[NSNumber numberWithInteger:1000] forKey:@"ordering"];
     
     [desc setObject:wrap.preferencesIconImageName forKey:@"icon"];
-    [desc setObject:wrap.iconBundleClassName forKey:@"iconBundleClassName"];
+    [desc setObject:NSStringFromClass([wrap.plugIn class]) forKey:@"iconBundleClassName"];
     [desc setObject:identifier forKey:@"identifier"];
     [desc setObject:title forKey:@"shortTitle"];
     [desc setObject:[NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), title] forKey:@"title"];

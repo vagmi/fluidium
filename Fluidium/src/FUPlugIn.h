@@ -100,10 +100,6 @@ typedef enum {
 // this string should not include the file extension.
 - (NSString *)preferencesIconImageName;
 
-// the name of a class which is in the same bundle in which the plugin's iconImages can be found.
-// usually the plugin bundle.
-- (NSString *)iconBundleClassName;
-
 // values in this dictionary will be added to NSUserDefaults for the currently running SSB.
 // the keys in this dictionary should be carefully namespaced
 - (NSDictionary *)defaultsDictionary;

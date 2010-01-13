@@ -31,7 +31,6 @@ extern NSString *CRTwitterPlugInSelectedUsernameDidChangeNotification;
     NSUInteger preferredMenuItemKeyEquivalentModifierMask;
     NSString *toolbarIconImageName;
     NSString *preferencesIconImageName;
-    NSString *iconBundleClassName;
     NSDictionary *defaultsDictionary;
     NSDictionary *aboutInfoDictionary;
     CGFloat preferredVerticalSplitPosition;

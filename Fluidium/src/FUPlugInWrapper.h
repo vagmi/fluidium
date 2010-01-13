@@ -45,7 +45,6 @@
 @property (nonatomic, readonly) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
 @property (nonatomic, readonly) NSString *toolbarIconImageName;
 @property (nonatomic, readonly) NSString *preferencesIconImageName;
-@property (nonatomic, readonly) NSString *iconBundleClassName;
 @property (nonatomic, readonly) NSDictionary *defaultsDictionary;
 @property (nonatomic, readonly) NSDictionary *aboutInfoDictionary;
 @property (nonatomic, readonly) CGFloat preferredVerticalSplitPosition;

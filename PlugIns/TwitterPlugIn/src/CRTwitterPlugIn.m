@@ -34,7 +34,6 @@ static CRTwitterPlugIn *instance = nil;
 @property (nonatomic, readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
 @property (nonatomic, readwrite, copy) NSString *toolbarIconImageName;
 @property (nonatomic, readwrite, copy) NSString *preferencesIconImageName;
-@property (nonatomic, readwrite, copy) NSString *iconBundleClassName;
 @property (nonatomic, readwrite, retain) NSDictionary *defaultsDictionary;
 @property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
 @property (nonatomic) CGFloat preferredVerticalSplitPosition;
@@ -77,7 +76,6 @@ static CRTwitterPlugIn *instance = nil;
         self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
         self.toolbarIconImageName = @"toolbar_button_twitter";
         self.preferencesIconImageName = @"toolbar_button_twitter";
-        self.iconBundleClassName = [self className];
         self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
                                          FUPlugInViewPlacementUtilityPanel|
                                          FUPlugInViewPlacementFloatingUtilityPanel|
@@ -111,7 +109,6 @@ static CRTwitterPlugIn *instance = nil;
     self.preferredMenuItemKeyEquivalent = nil;
     self.toolbarIconImageName = nil;
     self.preferencesIconImageName = nil;
-    self.iconBundleClassName = nil;
     self.defaultsDictionary = nil;
     self.aboutInfoDictionary = nil;
     self.preferencesViewController = nil;
@@ -135,7 +132,7 @@ static CRTwitterPlugIn *instance = nil;
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
         NSString *applicationName = @"Fluidium Twitter Plug-in";
 
-        NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(self.iconBundleClassName)];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];
         NSImage  *applicationIcon = [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];
         
@@ -329,7 +326,6 @@ static CRTwitterPlugIn *instance = nil;
 @synthesize preferredMenuItemKeyEquivalentModifierMask;
 @synthesize toolbarIconImageName;
 @synthesize preferencesIconImageName;
-@synthesize iconBundleClassName;
 @synthesize defaultsDictionary;
 @synthesize preferredVerticalSplitPosition;
 @synthesize preferredHorizontalSplitPosition;
