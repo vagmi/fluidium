@@ -932,7 +932,7 @@ static NSComparisonResult OAPreferenceControllerCompareCategoryNames(id name1, i
 {
     OAPreferenceClientRecord *newRecord;
     NSDictionary *defaultsDictionary;
-    NSString *titleEnglish, *title, *iconName, *nibName, *identifier, *shortTitleEnglish, *shortTitle;
+    NSString *titleEnglish, *title, *iconName, *iconBundleClassName, *nibName, *identifier, *shortTitleEnglish, *shortTitle;
     NSBundle *classBundle = [OFBundledClass bundleForClassNamed:className];
 
     defaultsDictionary = [description objectForKey:@"defaultsDictionary"];
@@ -964,6 +964,7 @@ static NSComparisonResult OAPreferenceControllerCompareCategoryNames(id name1, i
     iconName = [description objectForKey:@"icon"];
     if (iconName == nil || [iconName isEqualToString:@""])
         iconName = className;
+    iconBundleClassName = [description objectForKey:@"iconBundleClassName"];
     nibName = [description objectForKey:@"nib"];
     if (nibName == nil || [nibName isEqualToString:@""])
         nibName = className;
@@ -999,6 +1000,7 @@ static NSComparisonResult OAPreferenceControllerCompareCategoryNames(id name1, i
     [newRecord setTitle:title];
     [newRecord setShortTitle:shortTitle];
     [newRecord setIconName:iconName];
+    [newRecord setIconBundleClassName:iconBundleClassName];
     [newRecord setNibName:nibName];
     [newRecord setHelpURL:[description objectForKey:@"helpURL"]];
     [newRecord setOrdering:[description objectForKey:@"ordering"]];

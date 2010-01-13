@@ -18,7 +18,7 @@
 @implementation CRTwitterPlugInViewController
 
 - (id)init {
-	return [self initWithNibName:@"CRTwitterView" bundle:[NSBundle bundleForClass:[self class]]];
+    return [self initWithNibName:@"CRTwitterView" bundle:[NSBundle bundleForClass:[self class]]];
 }
 
 

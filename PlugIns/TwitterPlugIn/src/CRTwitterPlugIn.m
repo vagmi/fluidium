@@ -25,19 +25,20 @@ static CRTwitterPlugIn *instance = nil;
 @interface CRTwitterPlugIn ()
 @property (nonatomic, retain) NSMutableArray *viewControllers;
 
-@property (readwrite, retain) NSViewController *preferencesViewController;
-@property (readwrite, copy) NSString *identifier;
-@property (readwrite, copy) NSString *localizedTitle;
-@property (readwrite) NSInteger allowedViewPlacementMask;
-@property (readwrite) NSInteger preferredViewPlacementMask;
-@property (readwrite, copy) NSString *preferredMenuItemKeyEquivalent;
-@property (readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-@property (readwrite, copy) NSString *toolbarIconImageName;
-@property (readwrite, copy) NSString *preferencesIconImageName;
-@property (readwrite, retain) NSDictionary *defaultsDictionary;
-@property (readwrite, retain) NSDictionary *aboutInfoDictionary;
-@property CGFloat preferredVerticalSplitPosition;
-@property CGFloat preferredHorizontalSplitPosition;
+@property (nonatomic, readwrite, retain) NSViewController *preferencesViewController;
+@property (nonatomic, readwrite, copy) NSString *identifier;
+@property (nonatomic, readwrite, copy) NSString *localizedTitle;
+@property (nonatomic, readwrite) NSInteger allowedViewPlacementMask;
+@property (nonatomic, readwrite) NSInteger preferredViewPlacementMask;
+@property (nonatomic, readwrite, copy) NSString *preferredMenuItemKeyEquivalent;
+@property (nonatomic, readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
+@property (nonatomic, readwrite, copy) NSString *toolbarIconImageName;
+@property (nonatomic, readwrite, copy) NSString *preferencesIconImageName;
+@property (nonatomic, readwrite, copy) NSString *iconBundleClassName;
+@property (nonatomic, readwrite, retain) NSDictionary *defaultsDictionary;
+@property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
+@property (nonatomic) CGFloat preferredVerticalSplitPosition;
+@property (nonatomic) CGFloat preferredHorizontalSplitPosition;
 @end
 
 @implementation CRTwitterPlugIn
@@ -62,7 +63,7 @@ static CRTwitterPlugIn *instance = nil;
 
 
 - (id)initWithPlugInAPI:(id <FUPlugInAPI>)api {
-	if (self = [super init]) {
+    if (self = [super init]) {
         
         // set instance
         instance = self;
@@ -70,33 +71,34 @@ static CRTwitterPlugIn *instance = nil;
         self.plugInAPI = api;
         self.viewControllers = [NSMutableArray array];
         
-		self.identifier = @"com.fluidapp.TwitterPlugIn";
-		self.localizedTitle = @"Twitter";
-		self.preferredMenuItemKeyEquivalent = @"t";
-		self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
-		self.toolbarIconImageName = @"toolbar_button_twitter";
-		self.preferencesIconImageName = @"toolbar_button_twitter";
-		self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
-										 FUPlugInViewPlacementUtilityPanel|
-										 FUPlugInViewPlacementFloatingUtilityPanel|
-										 FUPlugInViewPlacementHUDPanel|
-										 FUPlugInViewPlacementFloatingHUDPanel|
-										 FUPlugInViewPlacementSplitViewLeft|
-										 FUPlugInViewPlacementSplitViewRight|
-										 FUPlugInViewPlacementSplitViewTop|
-										 FUPlugInViewPlacementSplitViewBottom);
+        self.identifier = @"com.fluidapp.TwitterPlugIn";
+        self.localizedTitle = @"Twitter";
+        self.preferredMenuItemKeyEquivalent = @"t";
+        self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
+        self.toolbarIconImageName = @"toolbar_button_twitter";
+        self.preferencesIconImageName = @"toolbar_button_twitter";
+        self.iconBundleClassName = [self className];
+        self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
+                                         FUPlugInViewPlacementUtilityPanel|
+                                         FUPlugInViewPlacementFloatingUtilityPanel|
+                                         FUPlugInViewPlacementHUDPanel|
+                                         FUPlugInViewPlacementFloatingHUDPanel|
+                                         FUPlugInViewPlacementSplitViewLeft|
+                                         FUPlugInViewPlacementSplitViewRight|
+                                         FUPlugInViewPlacementSplitViewTop|
+                                         FUPlugInViewPlacementSplitViewBottom);
         
-		self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewLeft;
-		
-		self.preferencesViewController = [[[CRTwitterPlugInPrefsViewController alloc] init] autorelease];
+        self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewLeft;
         
-		NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-		NSString *path = [bundle pathForResource:@"CRTwitterDefaultValues" ofType:@"plist"];
-		self.defaultsDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-		self.preferredVerticalSplitPosition = 320;
-		self.preferredHorizontalSplitPosition = 160;
+        self.preferencesViewController = [[[CRTwitterPlugInPrefsViewController alloc] init] autorelease];
+        
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSString *path = [bundle pathForResource:@"CRTwitterDefaultValues" ofType:@"plist"];
+        self.defaultsDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+        self.preferredVerticalSplitPosition = 320;
+        self.preferredHorizontalSplitPosition = 160;
     }
-	return self;
+    return self;
 }
 
 
@@ -104,18 +106,19 @@ static CRTwitterPlugIn *instance = nil;
     self.plugInAPI = nil;
     self.viewControllers = nil;
     
-	self.identifier = nil;
-	self.localizedTitle = nil;
-	self.preferredMenuItemKeyEquivalent = nil;
-	self.toolbarIconImageName = nil;
-	self.preferencesIconImageName = nil;
-	self.defaultsDictionary = nil;
-	self.aboutInfoDictionary = nil;
-	self.preferencesViewController = nil;
+    self.identifier = nil;
+    self.localizedTitle = nil;
+    self.preferredMenuItemKeyEquivalent = nil;
+    self.toolbarIconImageName = nil;
+    self.preferencesIconImageName = nil;
+    self.iconBundleClassName = nil;
+    self.defaultsDictionary = nil;
+    self.aboutInfoDictionary = nil;
+    self.preferencesViewController = nil;
     self.frontViewController = nil;
     self.selectedUsername = nil;
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
 }
 
 
@@ -128,24 +131,28 @@ static CRTwitterPlugIn *instance = nil;
 
 
 - (NSDictionary *)aboutInfoDictionary {
-	if (!aboutInfoDictionary) {
-		NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
-		NSString *applicationName = @"Fluidium Twitter Plug-in";
-		NSImage  *applicationIcon = [NSImage imageNamed:self.preferencesIconImageName];
-		NSString *version = @"1.0";
-		NSString *copyright = @"Todd Ditchendorf 2009";
-		NSString *applicationVersion = @"1.0";
-		
-		self.aboutInfoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-									credits, @"Credits",
-									applicationName, @"ApplicationName",
-									applicationIcon, @"ApplicationIcon",
-									version, @"Version",
-									copyright, @"Copyright",
-									applicationVersion, @"ApplicationVersion",
-									nil];
-	}
-	return aboutInfoDictionary;
+    if (!aboutInfoDictionary) {
+        NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
+        NSString *applicationName = @"Fluidium Twitter Plug-in";
+
+        NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(self.iconBundleClassName)];
+        NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];
+        NSImage  *applicationIcon = [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];
+        
+        NSString *version = @"1.0";
+        NSString *copyright = @"Todd Ditchendorf 2010";
+        NSString *applicationVersion = @"1.0";
+        
+        self.aboutInfoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    credits, @"Credits",
+                                    applicationName, @"ApplicationName",
+                                    applicationIcon, @"ApplicationIcon",
+                                    version, @"Version",
+                                    copyright, @"Copyright",
+                                    applicationVersion, @"ApplicationVersion",
+                                    nil];
+    }
+    return aboutInfoDictionary;
 }
 
 
@@ -215,20 +222,20 @@ static CRTwitterPlugIn *instance = nil;
 
 
 - (BOOL)wasCommandKeyPressed:(NSInteger)modifierFlags {
-	NSInteger commandKeyWasPressed = (NSCommandKeyMask & modifierFlags);
-	return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
+    NSInteger commandKeyWasPressed = (NSCommandKeyMask & modifierFlags);
+    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
 }
 
 
 - (BOOL)wasShiftKeyPressed:(NSInteger)modifierFlags {
-	NSInteger commandKeyWasPressed = (NSShiftKeyMask & modifierFlags);
-	return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
+    NSInteger commandKeyWasPressed = (NSShiftKeyMask & modifierFlags);
+    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
 }
 
 
 - (BOOL)wasOptionKeyPressed:(NSInteger)modifierFlags {
-	NSInteger commandKeyWasPressed = (NSAlternateKeyMask & modifierFlags);
-	return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
+    NSInteger commandKeyWasPressed = (NSAlternateKeyMask & modifierFlags);
+    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
 }
 
 
@@ -253,11 +260,11 @@ static CRTwitterPlugIn *instance = nil;
 #pragma mark FUPlugIn
 
 - (NSViewController *)newPlugInViewController {
-	CRTwitterPlugInViewController *vc = [[CRTwitterPlugInViewController alloc] init];
-	vc.plugIn = self;
+    CRTwitterPlugInViewController *vc = [[CRTwitterPlugInViewController alloc] init];
+    vc.plugIn = self;
     self.frontViewController = vc;
     [viewControllers addObject:vc];
-	return vc;
+    return vc;
 }
 
 
@@ -322,6 +329,7 @@ static CRTwitterPlugIn *instance = nil;
 @synthesize preferredMenuItemKeyEquivalentModifierMask;
 @synthesize toolbarIconImageName;
 @synthesize preferencesIconImageName;
+@synthesize iconBundleClassName;
 @synthesize defaultsDictionary;
 @synthesize preferredVerticalSplitPosition;
 @synthesize preferredHorizontalSplitPosition;

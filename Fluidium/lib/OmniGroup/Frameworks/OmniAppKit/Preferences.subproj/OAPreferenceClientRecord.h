@@ -21,6 +21,7 @@
     NSString *title;
     NSString *shortTitle;
     NSString *iconName;
+    NSString *iconBundleClassName;
     NSString *nibName;
     NSString *helpURL;
     NSNumber *ordering;
@@ -40,6 +41,7 @@
 - (NSString *)title;
 - (NSString *)shortTitle;
 - (NSString *)iconName;
+- (NSString *)iconBundleClassName;
 - (NSString *)nibName;
 - (NSString *)helpURL;
 - (NSNumber *)ordering;
@@ -51,6 +53,7 @@
 - (void)setTitle:(NSString *)newTitle;
 - (void)setShortTitle:(NSString *)newShortTitle;
 - (void)setIconName:(NSString *)newIconName;
+- (void)setIconBundleClassName:(NSString *)newIconBundleClassName;
 - (void)setNibName:(NSString *)newNibName;
 - (void)setHelpURL:(NSString *)newHelpURL;
 - (void)setOrdering:(NSNumber *)newOrdering;

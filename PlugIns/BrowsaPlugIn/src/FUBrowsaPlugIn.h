@@ -39,8 +39,11 @@ typedef enum {
     NSInteger preferredViewPlacementMask;
     NSString *preferredMenuItemKeyEquivalent;
     NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-    NSString *toolbarIconImageName;
+
+    NSString *toolbarIconImageNameNormal;
     NSString *preferencesIconImageName;
+    NSString *iconBundleClassName;
+    
     NSMutableDictionary *defaultsDictionary;
     NSDictionary *aboutInfoDictionary;
     CGFloat preferredVerticalSplitPosition;

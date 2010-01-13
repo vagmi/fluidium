@@ -19,6 +19,7 @@
 #import "FUWindowToolbar.h"
 #import "FUBackForwardPopUpButton.h"
 #import "FUPlugInController.h"
+#import "FUPlugInWrapper.h"
 
 static NSString *const FUBackItemIdentifier = @"FUBackItemIdentifier";
 static NSString *const FUForwardItemIdentifier = @"FUForwardItemIdentifier";
@@ -29,13 +30,10 @@ static NSString *const FULocationItemIdentifier = @"FULocationItemIdentifier";
 static NSString *const FUTextSmallerItemIdentifier = @"FUTextSmallerItemIdentifier";
 static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier";
 
-static NSString *const FUBrowsaPlugInItemIdentifier = @"com.fluidapp.BrowsaPlugIn";
-static NSString *const FUTwitterPlugInItemIdentifier = @"com.fluidapp.TwitterPlugIn";
-static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
-
 @interface FUWindowController (NSToolbarDelegatePrivate)
-- (NSToolbarItem *)plugInButtonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
+- (NSToolbarItem *)toolbarItemForPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
+- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID image:(NSImage *)img label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
 - (NSToolbarItem *)viewToolbarItemWithIdentifier:(NSString *)itemID view:(NSView *)view label:(NSString *)label target:(id)target action:(SEL)sel;
 - (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier label:(NSString *)label;
 - (NSArray *)allPlugInToolbarItemIdentifiers;
@@ -138,18 +136,9 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
     } else if ([itemID isEqualToString:FULocationItemIdentifier]) {
         item = [self viewToolbarItemWithIdentifier:itemID view:locationSplitView label:NSLocalizedString(@"Address / Search", @"") target:self action:nil];
         [locationSplitView resizeSubviewsWithOldSize:NSMakeSize(0, 0)];
-        
-    } else if ([itemID hasPrefix:FUBrowsaPlugInItemIdentifier]) {
-        name = isFullScreen ? @"fullscreen_toolbar_button_browsa" : @"toolbar_button_browsa";
-        item = [self plugInButtonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Browsa", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
 
-    } else if ([itemID isEqualToString:FUTwitterPlugInItemIdentifier]) {
-        name = isFullScreen ? @"fullscreen_toolbar_button_browsa" : @"toolbar_button_twitter";
-        item = [self plugInButtonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Twitter", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
-
-    } else if ([itemID isEqualToString:FUTabsPlugInItemIdentifier]) {
-        name = isFullScreen ? @"fullscreen_toolbar_button_tabs" : NSImageNameIconViewTemplate;
-        item = [self plugInButtonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Tabs", @"") target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:0];
+    } else {
+        item = [self toolbarItemForPlugInWrapper:[[FUPlugInController instance] plugInWrapperForIdentifier:itemID]];
 
     } 
     
@@ -160,14 +149,33 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
 #pragma mark -
 #pragma mark Private
 
-- (NSToolbarItem *)plugInButtonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t {
-    FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:itemID];
-    NSInteger tag = [[[FUPlugInController instance] plugInWrappers] indexOfObject:wrap];
-    return [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:label target:target action:sel tag:tag];
+- (NSToolbarItem *)toolbarItemForPlugInWrapper:(FUPlugInWrapper *)wrap {
+    if (!wrap) return nil;
+    
+    NSInteger tag = [[[FUPlugInController instance] plugInWrappers] indexOfObject:wrap]; // TODO
+    NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(wrap.iconBundleClassName)];
+    NSString *path = [bundle pathForImageResource:wrap.toolbarIconImageName];
+    NSImage *img = nil;
+    
+    if ([path length]) {
+        NSURL *URL = [NSURL fileURLWithPath:path];
+        img = [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];
+    } 
+    
+    if (!img) {
+        img = [NSImage imageNamed:wrap.toolbarIconImageName];
+    }
+    
+    return [self buttonToolbarItemWithIdentifier:wrap.identifier image:img label:[wrap localizedTitle] target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:tag];
 }
 
 
 - (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t {
+    return [self buttonToolbarItemWithIdentifier:itemID image:[NSImage imageNamed:name] label:label target:target action:sel tag:t];
+}
+
+
+- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID image:(NSImage *)img label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t {
     NSToolbarItem *item = [self toolbarItemWithIdentifier:itemID label:label];
     
     Class buttonClass = nil;
@@ -189,7 +197,7 @@ static NSString *const FUTabsPlugInItemIdentifier = @"com.fluidapp.TabsPlugIn";
         [b setBezelStyle:NSTexturedRoundedBezelStyle];
     }
     
-    [b setImage:[NSImage imageNamed:name]];
+    [b setImage:img];
     [item setView:b];
     return item;
 }

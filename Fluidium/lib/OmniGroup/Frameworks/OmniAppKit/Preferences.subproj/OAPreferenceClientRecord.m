@@ -37,6 +37,7 @@ RCS_ID("$Id$")
     [title release];
     [shortTitle release];
     [iconName release];
+    [iconBundleClassName release];
     [nibName release];
     [helpURL release];
     [defaultsDictionary release];
@@ -65,7 +66,11 @@ static NSString * const OAPreferenceClientRecordIconNameAppPrefix = @"app:"; // 
             iconImage = [[[NSWorkspace sharedWorkspace] iconForFile:appPath] retain];
         }
     } else {
-        NSBundle *bundle = [OFBundledClass bundleForClassNamed:className];
+        NSString *cls = iconBundleClassName;
+        if (![cls length]) {
+            cls = className;
+        }
+        NSBundle *bundle = [OFBundledClass bundleForClassNamed:cls];
         iconImage = [[NSImage imageNamed:iconName inBundle:bundle] retain];
     }
 
@@ -105,6 +110,11 @@ static NSString * const OAPreferenceClientRecordIconNameAppPrefix = @"app:"; // 
 - (NSString *)iconName;
 {
     return iconName;
+}
+
+- (NSString *)iconBundleClassName;
+{
+    return iconBundleClassName;
 }
 
 - (NSString *)nibName;
@@ -171,6 +181,14 @@ static NSString * const OAPreferenceClientRecordIconNameAppPrefix = @"app:"; // 
         return;
     [iconName release];
     iconName = [newIconName retain];
+}
+
+- (void)setIconBundleClassName:(NSString *)newIconBundleClassName;
+{
+    if (iconBundleClassName == newIconBundleClassName)
+        return;
+    [iconBundleClassName release];
+    iconBundleClassName = [newIconBundleClassName retain];
 }
 
 - (void)setNibName:(NSString *)newNibName;
@@ -277,6 +295,8 @@ static NSString * const OAPreferenceClientRecordIconNameAppPrefix = @"app:"; // 
         [dict setObject:shortTitle forKey:@"shortTitle"];
     if (iconName)
         [dict setObject:iconName forKey:@"iconName"];
+    if (iconBundleClassName)
+        [dict setObject:iconName forKey:@"iconBundleClassName"];
     if (nibName)
         [dict setObject:nibName forKey:@"nibName"];
     if (defaultsDictionary)

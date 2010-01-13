@@ -89,7 +89,7 @@ NSString *CRMarkedUpStatus(NSString *inStatus, NSArray **outMentions) {
         
         [ms appendString:s];
     }
-	
+    
     if (mentions) {
         *outMentions = mentions;
     }

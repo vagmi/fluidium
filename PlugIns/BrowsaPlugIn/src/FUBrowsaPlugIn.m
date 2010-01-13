@@ -40,13 +40,15 @@ static NSInteger sTag = 0;
 @property (nonatomic, readwrite) NSInteger preferredViewPlacementMask;
 @property (nonatomic, readwrite, copy) NSString *preferredMenuItemKeyEquivalent;
 @property (nonatomic, readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-@property (nonatomic, readwrite, copy) NSString *toolbarIconImageName;
-@property (nonatomic, readwrite, copy) NSString *preferencesIconImageName;
 @property (nonatomic, readwrite, retain) NSMutableDictionary *defaultsDictionary;
 @property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
 @property (nonatomic, readwrite) CGFloat preferredVerticalSplitPosition;
 @property (nonatomic, readwrite) CGFloat preferredHorizontalSplitPosition;
 @property (nonatomic, readwrite) NSInteger tag;
+
+@property (nonatomic, copy) NSString *toolbarIconImageNameNormal;
+@property (nonatomic, copy) NSString *preferencesIconImageName;
+@property (nonatomic, copy) NSString *iconBundleClassName;
 @end
 
 @implementation FUBrowsaPlugIn
@@ -58,7 +60,10 @@ static NSInteger sTag = 0;
         self.identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", tag];
         self.localizedTitle = [self makeLocalizedTitle];
         self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
+        
         self.preferencesIconImageName = @"prefpane_icon_browsa";
+        self.iconBundleClassName = [self className];
+        
         self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
                                          FUPlugInViewPlacementSplitViewLeft|
                                          FUPlugInViewPlacementSplitViewRight|
@@ -91,8 +96,8 @@ static NSInteger sTag = 0;
         self.preferredMenuItemKeyEquivalent = key;
         
         // get defaults from disk, but be sure to store them using the 'tagged key' or else they're useless
-        NSString *path = [[NSBundle bundleForClass:[FUBrowsaPlugIn class]] pathForResource:@"DefaultValues" ofType:@"plist"];
-        NSDictionary *tdict = [NSDictionary dictionaryWithContentsOfFile:path];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]]; 
+        NSDictionary *tdict = [NSDictionary dictionaryWithContentsOfFile:[bundle pathForResource:@"DefaultValues" ofType:@"plist"]];
         NSMutableDictionary *mdict = [NSMutableDictionary dictionaryWithCapacity:[tdict count]];
         for (NSString *key in tdict) {
             [mdict setObject:[tdict objectForKey:key] forKey:[self taggedKey:key]];
@@ -115,11 +120,14 @@ static NSInteger sTag = 0;
     self.identifier = nil;
     self.localizedTitle = nil;
     self.preferredMenuItemKeyEquivalent = nil;
-    self.toolbarIconImageName = nil;
-    self.preferencesIconImageName = nil;
     self.defaultsDictionary = nil;
     self.preferencesViewController = nil;
     self.aboutInfoDictionary = nil;
+
+    self.toolbarIconImageNameNormal = nil;
+    self.preferencesIconImageName = nil;
+    self.iconBundleClassName = nil;
+    
     self.viewControllers = nil;
     [super dealloc];
 }
@@ -171,9 +179,13 @@ static NSInteger sTag = 0;
     if (!aboutInfoDictionary) {
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
         NSString *applicationName = @"Fluidium Browsa Plug-in";
-        NSImage  *applicationIcon = [NSImage imageNamed:self.preferencesIconImageName];
+        
+        NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(self.iconBundleClassName)];
+        NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];
+        NSImage  *applicationIcon = [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];
+
         NSString *version = @"1.0";
-        NSString *copyright = @"Todd Ditchendorf 2009";
+        NSString *copyright = @"Todd Ditchendorf 2010";
         NSString *applicationVersion = @"1.0";
         
         self.aboutInfoDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -224,8 +236,6 @@ static NSInteger sTag = 0;
         } else if ([host hasSuffix:@"hahlo.com"]) {
             result = @"Hahlo";
         } else if ([host hasSuffix:@"socialthing.com"]) {
-            result = @"Socialthing";
-        } else if ([host hasSuffix:@"reader.google.com"] || ([host hasSuffix:@"google.com"] && [path hasPrefix:@"/reader"])) {
             result = @"Reader";
         } else if ([host hasSuffix:@"mail.google.com"] || ([host hasSuffix:@"google.com"] && [path hasPrefix:@"/mail"])) {
             result = @"Gmail";
@@ -262,8 +272,8 @@ static NSInteger sTag = 0;
 #pragma mark - 
 #pragma mark Properties
 
-- (NSString *)toolbarIconImageName {
-    if (!toolbarIconImageName) {
+- (NSString *)toolbarIconImageNameNormal {
+    if (!toolbarIconImageNameNormal) {
         NSString *name = @"browsa";
         
         NSString *URLString = self.homeURLString;
@@ -279,8 +289,6 @@ static NSInteger sTag = 0;
                 name = @"digg";
             } else if ([host hasSuffix:@"hahlo.com"]) {
                 name = @"hahlo";
-            } else if ([host hasSuffix:@"socialthing.com"]) {
-                name = @"socialthing";
             } else if ([host hasSuffix:@"reader.google.com"] || ([host hasSuffix:@"google.com"] && [[homeURL path] hasPrefix:@"/reader"])) {
                 name = @"greader";
             } else if ([host hasSuffix:@"friendfeed.com"]) {
@@ -292,9 +300,18 @@ static NSInteger sTag = 0;
             }
             
         }
-        self.toolbarIconImageName = [NSString stringWithFormat:@"toolbar_button_%@", name];
+        self.toolbarIconImageNameNormal = [NSString stringWithFormat:@"toolbar_button_%@", name];
     }
-    return toolbarIconImageName;
+    return toolbarIconImageNameNormal;
+}
+
+
+- (NSString *)toolbarIconImageName {
+    if ([plugInAPI isFullScreen]) {
+        return @"fullscreen_toolbar_button_browsa";
+    } else {
+        return [self toolbarIconImageNameNormal];
+    }
 }
 
 
@@ -364,8 +381,11 @@ static NSInteger sTag = 0;
 @synthesize preferredViewPlacementMask;
 @synthesize preferredMenuItemKeyEquivalent;
 @synthesize preferredMenuItemKeyEquivalentModifierMask;
-@synthesize toolbarIconImageName;
+
+@synthesize toolbarIconImageNameNormal;
 @synthesize preferencesIconImageName;
+@synthesize iconBundleClassName;
+
 @synthesize defaultsDictionary;
 @synthesize aboutInfoDictionary;
 @synthesize preferredVerticalSplitPosition;

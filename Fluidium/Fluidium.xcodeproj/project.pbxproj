@@ -44,7 +44,6 @@
 		D332223C10C8C34B00151693 /* FUWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D332223B10C8C34B00151693 /* FUWindow.m */; };
 		D332225110C8C3DB00151693 /* FUDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = D332225010C8C3DB00151693 /* FUDocumentController.m */; };
 		D339359F10D4DC4D000FC7C1 /* SpecialCases.plist in Resources */ = {isa = PBXBuildFile; fileRef = D339359E10D4DC4D000FC7C1 /* SpecialCases.plist */; };
-		D3393B3B10D5B28C000FC7C1 /* toolbar_button_twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = D3393B3A10D5B28C000FC7C1 /* toolbar_button_twitter.png */; };
 		D3393B3F10D5B2C9000FC7C1 /* appl.icns in Resources */ = {isa = PBXBuildFile; fileRef = D3393B3E10D5B2C9000FC7C1 /* appl.icns */; };
 		D33E6D8710D09C3600D76BBB /* FUSecurityPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E6D8010D09C3600D76BBB /* FUSecurityPreferences.m */; };
 		D33E6D8810D09C3600D76BBB /* FUShortcutController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33E6D8210D09C3600D76BBB /* FUShortcutController.m */; };
@@ -96,7 +95,6 @@
 		D346E8A410CEBE4100BA0B15 /* FUTabsPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E8A310CEBE4100BA0B15 /* FUTabsPreferences.m */; };
 		D346E8C010CEC02100BA0B15 /* prefpane_icon_showall.png in Resources */ = {isa = PBXBuildFile; fileRef = D346E8BF10CEC02100BA0B15 /* prefpane_icon_showall.png */; };
 		D346E8C310CEC05300BA0B15 /* FUTabsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D346E8C110CEC05300BA0B15 /* FUTabsPreferences.xib */; };
-		D346E8C910CEC1BC00BA0B15 /* PlugInClientRecord.plist in Resources */ = {isa = PBXBuildFile; fileRef = D346E8C810CEC1BC00BA0B15 /* PlugInClientRecord.plist */; };
 		D346ED7010CF6CA100BA0B15 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D346ED6D10CF6C7600BA0B15 /* ShortcutRecorder.framework */; };
 		D346ED7110CF6CB700BA0B15 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346ED6D10CF6C7600BA0B15 /* ShortcutRecorder.framework */; };
 		D34B5E0B10CF6EBD006E17C4 /* PTHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = D34B5E0410CF6EBD006E17C4 /* PTHotKey.m */; };
@@ -129,14 +127,7 @@
 		D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60310C8D90C00E0B474 /* HMImageComboBox.m */; };
 		D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60510C8D90C00E0B474 /* HMImageComboBoxCell.m */; };
 		D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */; };
-		D3BDE6F410E45E1800858E44 /* prefpane_icon_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3BDE6F310E45E1800858E44 /* prefpane_icon_browsa.png */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
-		D3D3774C10E42CC300203EB2 /* toolbar_button_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */; };
-		D3D3775510E42DB000203EB2 /* toolbar_button_bkite.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775010E42DB000203EB2 /* toolbar_button_bkite.png */; };
-		D3D3775610E42DB000203EB2 /* toolbar_button_digg.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775110E42DB000203EB2 /* toolbar_button_digg.png */; };
-		D3D3775710E42DB000203EB2 /* toolbar_button_flickr.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775210E42DB000203EB2 /* toolbar_button_flickr.png */; };
-		D3D3775810E42DB000203EB2 /* toolbar_button_friendfeed.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775310E42DB000203EB2 /* toolbar_button_friendfeed.png */; };
-		D3D3775910E42DB000203EB2 /* toolbar_button_reader.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3775410E42DB000203EB2 /* toolbar_button_reader.png */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
 		D3E42F3B10CB152000A5BDEF /* FUDownloadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3210CB152000A5BDEF /* FUDownloadItem.m */; };
 		D3E42F3C10CB152000A5BDEF /* FUDownloadListBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3410CB152000A5BDEF /* FUDownloadListBackgroundView.m */; };
@@ -581,7 +572,6 @@
 		D332224F10C8C3DB00151693 /* FUDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocumentController.h; path = src/FUDocumentController.h; sourceTree = "<group>"; };
 		D332225010C8C3DB00151693 /* FUDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDocumentController.m; path = src/FUDocumentController.m; sourceTree = "<group>"; };
 		D339359E10D4DC4D000FC7C1 /* SpecialCases.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SpecialCases.plist; path = res/conf/SpecialCases.plist; sourceTree = "<group>"; };
-		D3393B3A10D5B28C000FC7C1 /* toolbar_button_twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_twitter.png; sourceTree = "<group>"; };
 		D3393B3E10D5B2C9000FC7C1 /* appl.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = appl.icns; path = res/img/appl.icns; sourceTree = "<group>"; };
 		D33E6D7F10D09C3600D76BBB /* FUSecurityPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSecurityPreferences.h; path = src/FUSecurityPreferences.h; sourceTree = "<group>"; };
 		D33E6D8010D09C3600D76BBB /* FUSecurityPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSecurityPreferences.m; path = src/FUSecurityPreferences.m; sourceTree = "<group>"; };
@@ -696,17 +686,10 @@
 		D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_behavior.png; path = res/img/prefpanes/prefpane_icon_behavior.png; sourceTree = "<group>"; };
 		D3AF878410CFA34300C601A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBehaviorPreferences.xib; sourceTree = "<group>"; };
 		D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = prefpane_icon_tabs.tiff; path = res/img/prefpanes/prefpane_icon_tabs.tiff; sourceTree = "<group>"; };
-		D3BDE6F310E45E1800858E44 /* prefpane_icon_browsa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_browsa.png; path = res/img/prefpanes/prefpane_icon_browsa.png; sourceTree = "<group>"; };
 		D3D3731F10E3D32300203EB2 /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = src/FUNotifications.h; sourceTree = "<group>"; };
 		D3D3732010E3D32300203EB2 /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = src/FUNotifications.m; sourceTree = "<group>"; };
 		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
 		D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BrowsaPlugIn.xcodeproj; path = ../PlugIns/BrowsaPlugIn/BrowsaPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
-		D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_browsa.png; sourceTree = "<group>"; };
-		D3D3775010E42DB000203EB2 /* toolbar_button_bkite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_bkite.png; sourceTree = "<group>"; };
-		D3D3775110E42DB000203EB2 /* toolbar_button_digg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_digg.png; sourceTree = "<group>"; };
-		D3D3775210E42DB000203EB2 /* toolbar_button_flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_flickr.png; sourceTree = "<group>"; };
-		D3D3775310E42DB000203EB2 /* toolbar_button_friendfeed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_friendfeed.png; sourceTree = "<group>"; };
-		D3D3775410E42DB000203EB2 /* toolbar_button_reader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_button_reader.png; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
 		D3DB01FA10D6141E0057D70C /* FUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUView.m; path = src/FUView.m; sourceTree = "<group>"; };
 		D3E42F3110CB152000A5BDEF /* FUDownloadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadItem.h; path = src/FUDownloadItem.h; sourceTree = "<group>"; };
@@ -1042,13 +1025,6 @@
 			isa = PBXGroup;
 			children = (
 				D33E6E3310D0A99C00D76BBB /* toolbar_button_home.png */,
-				D3D3774B10E42CC300203EB2 /* toolbar_button_browsa.png */,
-				D3D3775010E42DB000203EB2 /* toolbar_button_bkite.png */,
-				D3D3775110E42DB000203EB2 /* toolbar_button_digg.png */,
-				D3D3775210E42DB000203EB2 /* toolbar_button_flickr.png */,
-				D3D3775310E42DB000203EB2 /* toolbar_button_friendfeed.png */,
-				D3D3775410E42DB000203EB2 /* toolbar_button_reader.png */,
-				D3393B3A10D5B28C000FC7C1 /* toolbar_button_twitter.png */,
 			);
 			name = Toolbar;
 			path = res/img/toolbar;
@@ -1202,7 +1178,6 @@
 		D346E8A910CEBF3200BA0B15 /* Preference Panes */ = {
 			isa = PBXGroup;
 			children = (
-				D3BDE6F310E45E1800858E44 /* prefpane_icon_browsa.png */,
 				D346E8BF10CEC02100BA0B15 /* prefpane_icon_showall.png */,
 				D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */,
 				D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */,
@@ -1847,7 +1822,6 @@
 				D33E6DF310D0A2C700D76BBB /* Shortcuts.plist in Resources */,
 				D339359F10D4DC4D000FC7C1 /* SpecialCases.plist in Resources */,
 				D35CC20410D4126500DA1898 /* UserAgentStrings.plist in Resources */,
-				D346E8C910CEC1BC00BA0B15 /* PlugInClientRecord.plist in Resources */,
 				D30BC47010E188260019816B /* Growl Registration Ticket.growlRegDict in Resources */,
 				D33E70B910D0F1E800D76BBB /* default.css in Resources */,
 				D33E70BA10D0F1E800D76BBB /* LoadFailed.html in Resources */,
@@ -1873,15 +1847,7 @@
 				D33E6E1A10D0A67200D76BBB /* prefpane_icon_userscript.png in Resources */,
 				D33E6E1B10D0A67200D76BBB /* prefpane_icon_userstyle.tiff in Resources */,
 				D33E6E3410D0A99C00D76BBB /* toolbar_button_home.png in Resources */,
-				D3393B3B10D5B28C000FC7C1 /* toolbar_button_twitter.png in Resources */,
 				D33E6E3A10D0A9BA00D76BBB /* location_field_progress_indicator.png in Resources */,
-				D3D3774C10E42CC300203EB2 /* toolbar_button_browsa.png in Resources */,
-				D3D3775510E42DB000203EB2 /* toolbar_button_bkite.png in Resources */,
-				D3D3775610E42DB000203EB2 /* toolbar_button_digg.png in Resources */,
-				D3D3775710E42DB000203EB2 /* toolbar_button_flickr.png in Resources */,
-				D3D3775810E42DB000203EB2 /* toolbar_button_friendfeed.png in Resources */,
-				D3D3775910E42DB000203EB2 /* toolbar_button_reader.png in Resources */,
-				D3BDE6F410E45E1800858E44 /* prefpane_icon_browsa.png in Resources */,
 				D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */,
 				D3189FA410F83DF100B6AA21 /* FUUserthingWindow.xib in Resources */,
 			);

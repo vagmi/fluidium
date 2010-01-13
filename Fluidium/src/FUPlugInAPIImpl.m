@@ -73,6 +73,11 @@
 }
 
 
+- (BOOL)isFullScreen {
+    return [[FUApplication instance] isFullScreen];
+}
+
+
 - (WebView *)frontWebView {
     return [[FUDocumentController instance] frontWebView];
 }

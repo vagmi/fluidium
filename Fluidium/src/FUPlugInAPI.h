@@ -28,6 +28,8 @@ typedef enum {
 - (NSString *)defaultUserAgentString;
 - (NSArray *)allUserAgentStrings;
 
+- (BOOL)isFullScreen;
+
 - (WebView *)frontWebView;
 
 - (WebView *)selectedWebViewForWindow:(NSWindow *)win;

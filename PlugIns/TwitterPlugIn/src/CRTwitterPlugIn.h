@@ -22,19 +22,20 @@ extern NSString *CRTwitterPlugInSelectedUsernameDidChangeNotification;
     id <FUPlugInAPI>plugInAPI; // weakref
     NSMutableArray *viewControllers;
 
-	CRTwitterPlugInPrefsViewController *preferencesViewController;
-	NSString *identifier;
-	NSString *localizedTitle;
-	NSInteger allowedViewPlacementMask;
-	NSInteger preferredViewPlacementMask;
-	NSString *preferredMenuItemKeyEquivalent;
-	NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-	NSString *toolbarIconImageName;
-	NSString *preferencesIconImageName;
-	NSDictionary *defaultsDictionary;
-	NSDictionary *aboutInfoDictionary;
-	CGFloat preferredVerticalSplitPosition;
-	CGFloat preferredHorizontalSplitPosition;
+    CRTwitterPlugInPrefsViewController *preferencesViewController;
+    NSString *identifier;
+    NSString *localizedTitle;
+    NSInteger allowedViewPlacementMask;
+    NSInteger preferredViewPlacementMask;
+    NSString *preferredMenuItemKeyEquivalent;
+    NSUInteger preferredMenuItemKeyEquivalentModifierMask;
+    NSString *toolbarIconImageName;
+    NSString *preferencesIconImageName;
+    NSString *iconBundleClassName;
+    NSDictionary *defaultsDictionary;
+    NSDictionary *aboutInfoDictionary;
+    CGFloat preferredVerticalSplitPosition;
+    CGFloat preferredHorizontalSplitPosition;
     
     CRTwitterPlugInViewController *frontViewController;
     

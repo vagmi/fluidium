@@ -225,6 +225,11 @@
 }
 
 
+- (NSString *)iconBundleClassName {
+    return [plugIn iconBundleClassName];
+}
+
+
 - (NSDictionary *)defaultsDictionary {
     return [plugIn defaultsDictionary];
 }

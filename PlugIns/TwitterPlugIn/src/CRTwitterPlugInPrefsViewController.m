@@ -37,7 +37,7 @@
 @implementation CRTwitterPlugInPrefsViewController
 
 - (id)init {
-	return [self initWithNibName:@"CRTwitterPrefsView" bundle:[NSBundle bundleForClass:[self class]]];
+    return [self initWithNibName:@"CRTwitterPrefsView" bundle:[NSBundle bundleForClass:[self class]]];
 }
 
 
@@ -50,8 +50,8 @@
 
 
 - (void)dealloc {
-	[self storeUserAccounts];
-	[self storeAccountsInKeychain];
+    [self storeUserAccounts];
+    [self storeAccountsInKeychain];
     self.accounts = nil;
     self.accountIDs;
     [super dealloc];
@@ -143,35 +143,35 @@
 
 
 - (void)insertObject:(NSMutableDictionary *)dict inAccountsAtIndex:(NSInteger)i {
-	NSUndoManager *undoManager = [[[self view] window] undoManager];
-	[[undoManager prepareWithInvocationTarget:self] removeObjectFromAccountsAtIndex:i];
-	
-	[self startObservingRule:dict];
+    NSUndoManager *undoManager = [[[self view] window] undoManager];
+    [[undoManager prepareWithInvocationTarget:self] removeObjectFromAccountsAtIndex:i];
+    
+    [self startObservingRule:dict];
 
-	[self.accounts insertObject:dict atIndex:i];
+    [self.accounts insertObject:dict atIndex:i];
     [self.accountIDs insertObject:[[self newUniqueID] autorelease] atIndex:i];
-	
+    
     [self storeUserAccounts];
 }
 
 
 - (void)removeObjectFromAccountsAtIndex:(NSInteger)i {
-	NSMutableDictionary *rule = [self.accounts objectAtIndex:i];
-	
-	NSUndoManager *undoManager = [[[self view] window] undoManager];
-	[[undoManager prepareWithInvocationTarget:self] insertObject:rule inAccountsAtIndex:i];
-	
-	[self stopObservingRule:rule];
+    NSMutableDictionary *rule = [self.accounts objectAtIndex:i];
+    
+    NSUndoManager *undoManager = [[[self view] window] undoManager];
+    [[undoManager prepareWithInvocationTarget:self] insertObject:rule inAccountsAtIndex:i];
+    
+    [self stopObservingRule:rule];
 
-	[self.accounts removeObjectAtIndex:i];
+    [self.accounts removeObjectAtIndex:i];
     [self.accountIDs removeObjectAtIndex:i];
-	
+    
     [self storeUserAccounts];
 }
 
 
 - (void)storeUserAccounts {
-	[[NSUserDefaults standardUserDefaults] setObject:self.accountIDs forKey:kCRTwitterAccountIDsKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.accountIDs forKey:kCRTwitterAccountIDsKey];
     
     [self storeAccountsInKeychain];
 }
@@ -203,14 +203,14 @@
 
 
 - (void)startObservingRule:(NSMutableDictionary *)rule {
-	[rule addObserver:self
-		   forKeyPath:@"username"
-			  options:NSKeyValueObservingOptionOld
-			  context:NULL];
-	[rule addObserver:self
-		   forKeyPath:@"password"
-			  options:NSKeyValueObservingOptionOld
-			  context:NULL];
+    [rule addObserver:self
+           forKeyPath:@"username"
+              options:NSKeyValueObservingOptionOld
+              context:NULL];
+    [rule addObserver:self
+           forKeyPath:@"password"
+              options:NSKeyValueObservingOptionOld
+              context:NULL];
 }
 
 
@@ -226,37 +226,37 @@
 
 
 - (void)changeKeyPath:(NSString *)path ofObject:(id)obj toValue:(id)v {
-	[obj setValue:v forKeyPath:path];
-	[self storeUserAccounts];
+    [obj setValue:v forKeyPath:path];
+    [self storeUserAccounts];
 }
 
 
 - (void)observeValueForKeyPath:(NSString *)path ofObject:(id)obj change:(NSDictionary *)change context:(void *)context {
-	NSUndoManager *undoManager = [[[self view] window] undoManager];
-	id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
-	[[undoManager prepareWithInvocationTarget:self] changeKeyPath:path ofObject:obj toValue:oldValue];
-	[self storeUserAccounts];
+    NSUndoManager *undoManager = [[[self view] window] undoManager];
+    id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
+    [[undoManager prepareWithInvocationTarget:self] changeKeyPath:path ofObject:obj toValue:oldValue];
+    [self storeUserAccounts];
 }
 
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-	[self storeUserAccounts];
+    [self storeUserAccounts];
 }
 
 
 - (void)setAccounts:(NSMutableArray *)inArray {
-	if (accounts != inArray) {
-		for (id rule in accounts) {
-			[self stopObservingRule:rule];
-		}
-		
-		[accounts autorelease];
-		accounts = [inArray retain];
-		
-		for (id rule in accounts) {
-			[self startObservingRule:rule];
-		}
-	}
+    if (accounts != inArray) {
+        for (id rule in accounts) {
+            [self stopObservingRule:rule];
+        }
+        
+        [accounts autorelease];
+        accounts = [inArray retain];
+        
+        for (id rule in accounts) {
+            [self startObservingRule:rule];
+        }
+    }
 }
 
 @synthesize accounts;

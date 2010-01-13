@@ -28,6 +28,7 @@
     NSUInteger preferredMenuItemKeyEquivalentModifierMask;
     NSString *toolbarIconImageName;
     NSString *preferencesIconImageName;
+    NSString *iconBundleClassName;
     NSMutableDictionary *defaultsDictionary;
     NSDictionary *aboutInfoDictionary;
     CGFloat preferredVerticalSplitPosition;

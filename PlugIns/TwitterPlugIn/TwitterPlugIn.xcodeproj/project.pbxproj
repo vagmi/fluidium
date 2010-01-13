@@ -21,6 +21,7 @@
 		D30C0A2D10899DF5001FEE05 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D30C0A0410899DF5001FEE05 /* NSData+Base64.m */; };
 		D30C0A2E10899DF5001FEE05 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = D30C0A0610899DF5001FEE05 /* NSString+UUID.m */; };
 		D30C0A3B10899F2D001FEE05 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D30C0A3A10899F2D001FEE05 /* libxml2.dylib */; };
+		D30CCA1C10FD81C10036D2A3 /* toolbar_button_twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = D30CCA1B10FD81C10036D2A3 /* toolbar_button_twitter.png */; };
 		D31FE2781090C64E00840969 /* CRBarButtonItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE2771090C64E00840969 /* CRBarButtonItemView.m */; };
 		D33931DC10D492F8000FC7C1 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33930D510D4929F000FC7C1 /* ParseKit.framework */; };
 		D33931DF10D49301000FC7C1 /* UMEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33930C810D4928D000FC7C1 /* UMEKit.framework */; };
@@ -154,6 +155,7 @@
 		D30C0A0510899DF5001FEE05 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
 		D30C0A0610899DF5001FEE05 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 		D30C0A3A10899F2D001FEE05 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
+		D30CCA1B10FD81C10036D2A3 /* toolbar_button_twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolbar_button_twitter.png; path = res/toolbar_button_twitter.png; sourceTree = "<group>"; };
 		D31FE2761090C64E00840969 /* CRBarButtonItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRBarButtonItemView.h; path = src/CRBarButtonItemView.h; sourceTree = "<group>"; };
 		D31FE2771090C64E00840969 /* CRBarButtonItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRBarButtonItemView.m; path = src/CRBarButtonItemView.m; sourceTree = "<group>"; };
 		D346E45410CE422200BA0B15 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = ../../Fluidium/src/FUPlugIn.h; sourceTree = SOURCE_ROOT; };
@@ -462,6 +464,7 @@
 		D3F5AA8E108A5FBF00F64184 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				D30CCA1B10FD81C10036D2A3 /* toolbar_button_twitter.png */,
 				D3F5AA92108A5FC600F64184 /* default_profile_pic.png */,
 			);
 			name = images;
@@ -611,6 +614,7 @@
 				D3A08E5310A734160078FCE0 /* CRThreadView.xib in Resources */,
 				D3A08E9110A73C010078FCE0 /* timeline.css in Resources */,
 				D3A090BB10A7B0770078FCE0 /* status.html in Resources */,
+				D30CCA1C10FD81C10036D2A3 /* toolbar_button_twitter.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

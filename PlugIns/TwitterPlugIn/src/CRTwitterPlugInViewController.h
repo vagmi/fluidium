@@ -14,7 +14,7 @@
 @class CRNoAccountsViewController;
 
 @interface CRTwitterPlugInViewController : NSViewController {
-	CRTwitterPlugIn *plugIn;
+    CRTwitterPlugIn *plugIn;
         
     UMETabBarController *tabBarController;
 

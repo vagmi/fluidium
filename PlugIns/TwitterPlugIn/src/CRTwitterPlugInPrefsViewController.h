@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CRTwitterPlugInPrefsViewController : NSViewController {
-	IBOutlet NSArrayController *arrayController;
+    IBOutlet NSArrayController *arrayController;
     NSMutableArray *accounts;
     NSMutableArray *accountIDs;
 }

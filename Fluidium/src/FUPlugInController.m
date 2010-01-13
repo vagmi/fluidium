@@ -59,7 +59,6 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)setUpMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)setUpPrefPanesForPlugInWrappers;
 - (void)setUpPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap;
-- (void)copyIconImageNamed:(NSString *)iconImageName forPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleDrawerPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
 - (void)toggleUtilityPanelPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleFloatingUtilityPanelPlugInWrapper:(FUPlugInWrapper *)wrap;
@@ -319,19 +318,18 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     NSString *identifier = wrap.identifier;
     NSString *title = wrap.localizedTitle;
     
-    [self copyIconImageNamed:wrap.toolbarIconImageName forPlugInWrapper:wrap];
-    [self copyIconImageNamed:wrap.preferencesIconImageName forPlugInWrapper:wrap];
-    
-    NSString *path = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"PlugInClientRecord"] stringByAppendingPathExtension:@"plist"];
-    
     NSMutableDictionary *desc = [NSMutableDictionary dictionary];
-    [desc addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
+    [desc setObject:@"Plug-ins" forKey:@"category"];
+    [desc setObject:@"nib" forKey:@"FUPlugInPreferences"];
+    [desc setObject:[NSNumber numberWithInteger:1000] forKey:@"ordering"];
+    
     [desc setObject:wrap.preferencesIconImageName forKey:@"icon"];
+    [desc setObject:wrap.iconBundleClassName forKey:@"iconBundleClassName"];
     [desc setObject:identifier forKey:@"identifier"];
     [desc setObject:title forKey:@"shortTitle"];
     [desc setObject:[NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), title] forKey:@"title"];
 
-    // hardcode ordering for mulitple BrowsaBrowsa plugins. ensures they show up in prefpane in order we want. otherwise the get jumbled. :0[
+    // hardcode ordering for mulitple BrowsaBrowsa plugins. ensures they show up in prefpane in order we want. otherwise they get jumbled. :0[
     if ([identifier hasPrefix:@"com.fluidapp.BrowsaPlugIn"]) {
         NSInteger ordering = 0;
         if ([identifier isEqualToString:@"com.fluidapp.BrowsaPlugIn0"]) {
@@ -348,26 +346,10 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
         [desc setObject:[NSNumber numberWithInteger:ordering] forKey:@"ordering"];
     }
 
-    
     NSDictionary *defaultsDictionary = [NSDictionary dictionaryWithDictionary:wrap.defaultsDictionary];
     [desc setObject:defaultsDictionary forKey:@"defaultsDictionary"];
     
     [OAPreferenceController registerItemName:@"FUPlugInPreferences" bundle:[NSBundle mainBundle] description:[[desc copy] autorelease]];
-}
-
-
-- (void)copyIconImageNamed:(NSString *)iconImageName forPlugInWrapper:(FUPlugInWrapper *)wrap {
-    NSString *imageStartPath = [[NSBundle bundleForClass:[wrap.plugIn class]] pathForResource:iconImageName ofType:@"png"];
-    NSString *imageEndPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:iconImageName] stringByAppendingPathExtension:@"png"];
-    
-    NSFileManager *mgr = [NSFileManager defaultManager];
-    BOOL exists = [mgr fileExistsAtPath:imageEndPath];
-    
-    if (!exists && imageStartPath) {        
-        [mgr copyItemAtPath:imageStartPath toPath:imageEndPath error:nil];
-        // on first run, this generic app icon will have to do. on second run, icon will appear
-        //iconImageName = @"NSApplicationIcon";
-    }
 }
 
 

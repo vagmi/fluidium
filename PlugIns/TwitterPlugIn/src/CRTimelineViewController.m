@@ -326,22 +326,22 @@
 
 
 - (IBAction)showAccountsPopUp:(id)sender {
-	NSEvent *evt = [NSApp currentEvent];
+    NSEvent *evt = [NSApp currentEvent];
     
     NSRect frame = [[self view] frame];
     NSPoint p = [[self view] convertPointToBase:frame.origin];
     p.y += NSHeight(frame) + 2;
     p.x += 5;
     
-	NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
-										location:p
-								   modifierFlags:[evt modifierFlags] 
-									   timestamp:[evt timestamp] 
-									windowNumber:[evt windowNumber] 
-										 context:[evt context]
-									 eventNumber:[evt eventNumber] 
-									  clickCount:[evt clickCount] 
-										pressure:[evt pressure]]; 
+    NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
+                                        location:p
+                                   modifierFlags:[evt modifierFlags] 
+                                       timestamp:[evt timestamp] 
+                                    windowNumber:[evt windowNumber] 
+                                         context:[evt context]
+                                     eventNumber:[evt eventNumber] 
+                                      clickCount:[evt clickCount] 
+                                        pressure:[evt pressure]]; 
     
     NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 
@@ -780,17 +780,17 @@
 #pragma mark WebUIDelegate
 
 - (void)webView:(WebView *)wv mouseDidMoveOverElement:(NSDictionary *)d modifierFlags:(NSUInteger)modifierFlags {
-	if (wv != webView) return;	
+    if (wv != webView) return;    
     
     NSString *titleAttr = [d objectForKey:WebElementLinkTitleKey];
     if ([titleAttr isEqualToString:@"nostatus"]) {
         return;
     }
     
-	NSURL *URL = [d objectForKey:WebElementLinkURLKey];
-	NSString *statusText = nil;
+    NSURL *URL = [d objectForKey:WebElementLinkURLKey];
+    NSString *statusText = nil;
     
-	if (URL) {
+    if (URL) {
         NSString *URLString = CRStringByTrimmingCruzPrefixFromURL(URL);
         
         BOOL tabsEnabled = [[CRTwitterPlugIn instance] tabbedBrowsingEnabled];
@@ -801,10 +801,10 @@
             fmt = NSLocalizedString(@"Open \"%@\" in a new window", @"");
         }
                 
-		statusText = [NSString stringWithFormat:fmt, URLString];
-	} else {
-		statusText = @"";
-	}
+        statusText = [NSString stringWithFormat:fmt, URLString];
+    } else {
+        statusText = @"";
+    }
     
     [[CRTwitterPlugIn instance] showStatusText:statusText];
 }
@@ -857,7 +857,7 @@
 - (void)openLinkInNewTab:(BOOL)inTab {
     NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
     [self openURL:URL inNewTab:inTab];
-	self.lastClickedElementInfo = nil;
+    self.lastClickedElementInfo = nil;
 }
 
 
@@ -891,7 +891,7 @@
                         toPasteboard:pboard];
     }
     
-	self.lastClickedElementInfo = nil;
+    self.lastClickedElementInfo = nil;
 }    
 
 
