@@ -276,7 +276,7 @@ enum {
     }
     
     [iconImage512x512 lockFocus];
-    iconBitmap512x512 = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 512, 512)];
+    iconBitmap512x512 = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 512, 512)] autorelease];
     [iconImage512x512 unlockFocus];
     if (!iconBitmap512x512) {
       [self release];
@@ -288,7 +288,7 @@ enum {
     // particularly if it is large.  It produces a slightly different result, but
     // the difference is minor and should not be objectionable...)
     
-    bitmappedIconImage512x512 = [[NSImage alloc] initWithSize:NSMakeSize(512, 512)];
+    bitmappedIconImage512x512 = [[[NSImage alloc] initWithSize:NSMakeSize(512, 512)] autorelease];
     [bitmappedIconImage512x512 addRepresentation:iconBitmap512x512];
     
     if (!bitmappedIconImage512x512) {
@@ -297,29 +297,26 @@ enum {
     }
     
     [self setIconFamilyElement:kIconServices512PixelDataARGB fromBitmapImageRep:iconBitmap512x512];
-    [iconBitmap512x512 release];   
     
     iconImage256x256 = [IconFamily resampleImage:bitmappedIconImage512x512 toIconWidth:256 usingImageInterpolation:imageInterpolation];
     if (iconImage256x256) {
       [iconImage256x256 lockFocus];
-      iconBitmap256x256 = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 256, 256)];
+      iconBitmap256x256 = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 256, 256)] autorelease];
       [iconImage256x256 unlockFocus];
       if (iconBitmap256x256) {
         [self setIconFamilyElement:kIconServices256PixelDataARGB fromBitmapImageRep:iconBitmap256x256];
-        [iconBitmap256x256 release];
       }
     }
     
     iconImage128x128 = [IconFamily resampleImage:bitmappedIconImage512x512 toIconWidth:128 usingImageInterpolation:imageInterpolation];
     if (iconImage128x128) {
       [iconImage128x128 lockFocus];
-      iconBitmap128x128 = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 128, 128)];
+      iconBitmap128x128 = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 128, 128)] autorelease];
       [iconImage128x128 unlockFocus];
       
       if (iconBitmap128x128) {
         [self setIconFamilyElement:kThumbnail32BitData fromBitmapImageRep:iconBitmap128x128];
         [self setIconFamilyElement:kThumbnail8BitMask  fromBitmapImageRep:iconBitmap128x128];
-        [iconBitmap128x128 release];
       }
     }
     
@@ -328,14 +325,13 @@ enum {
     iconImage32x32 = [IconFamily resampleImage:bitmappedIconImage512x512 toIconWidth:32 usingImageInterpolation:imageInterpolation];
     if (iconImage32x32) {
       [iconImage32x32 lockFocus];
-      iconBitmap32x32 = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 32, 32)];
+      iconBitmap32x32 = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 32, 32)] autorelease];
       [iconImage32x32 unlockFocus];
       if (iconBitmap32x32) {
         [self setIconFamilyElement:kLarge32BitData fromBitmapImageRep:iconBitmap32x32];
         [self setIconFamilyElement:kLarge8BitData fromBitmapImageRep:iconBitmap32x32];
         [self setIconFamilyElement:kLarge8BitMask fromBitmapImageRep:iconBitmap32x32];
         [self setIconFamilyElement:kLarge1BitMask fromBitmapImageRep:iconBitmap32x32];
-        [iconBitmap32x32 release];
       }
     }
     
@@ -344,20 +340,16 @@ enum {
     iconImage16x16 = [IconFamily resampleImage:bitmappedIconImage512x512 toIconWidth:16 usingImageInterpolation:imageInterpolation];
     if (iconImage16x16) {
       [iconImage16x16 lockFocus];
-      iconBitmap16x16 = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 16, 16)];
+      iconBitmap16x16 = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, 16, 16)] autorelease];
       [iconImage16x16 unlockFocus];
       if (iconBitmap16x16) {
         [self setIconFamilyElement:kSmall32BitData fromBitmapImageRep:iconBitmap16x16];
         [self setIconFamilyElement:kSmall8BitData fromBitmapImageRep:iconBitmap16x16];
         [self setIconFamilyElement:kSmall8BitMask fromBitmapImageRep:iconBitmap16x16];
         [self setIconFamilyElement:kSmall1BitMask fromBitmapImageRep:iconBitmap16x16];
-        [iconBitmap16x16 release];
       }
     }
-    
-    // Release the icon.
-    [bitmappedIconImage512x512 release];
-        
+            
     // Return the new icon family!
     return self;
 }
