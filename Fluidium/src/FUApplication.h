@@ -13,9 +13,10 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-#import <OmniAppkit/OAApplication.h>
+//#import <OmniAppkit/OAApplication.h>
 
-@interface FUApplication : OAApplication {
+@interface FUApplication : NSApplication //OAApplication 
+{
     BOOL isFluidSSB;
     NSString *appName;
     NSString *versionString;
@@ -33,6 +34,8 @@
 }
 
 + (FUApplication *)instance;
+
+- (IBAction)showPreferencesPanel:(id)sender;
 
 - (IBAction)showDownloadsWindow:(id)sender;
 - (IBAction)showBookmarksWindow:(id)sender;

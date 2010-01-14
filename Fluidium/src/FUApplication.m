@@ -99,6 +99,11 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 #pragma mark -
 #pragma mark Actions
 
+- (IBAction)showPreferencesPanel:(id)sender {
+    [[OAPreferenceController sharedPreferenceController] showPreferencesPanel:nil];
+}
+
+
 - (IBAction)showDownloadsWindow:(id)sender {
     [[FUDownloadWindowController instance] showWindow:sender];
 }
