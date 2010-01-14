@@ -610,7 +610,7 @@ static NSString *windowFrameSaveName = @"Preferences";
     if (window != nil)
         return;    
 
-    [[OAPreferenceController bundle] loadNibNamed:@"OAPreferences.nib" owner:self];
+    [[OAPreferenceController bundle] loadNibNamed:@"OAPreferencesWindow" owner:self];
 
     // These don't seem to get set by the nib.  We want autosizing on so that clients can resize the window by a delta (though it'd be nicer for us to have API for that).
     [preferenceBox setAutoresizesSubviews:YES];
