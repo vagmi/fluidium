@@ -54,8 +54,8 @@
         self.preferredMenuItemKeyEquivalent = @"a";
         
         // get defaults from disk
-        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"DefaultValues" ofType:@"plist"];
-        self.defaultsDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+//        NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"DefaultValues" ofType:@"plist"];
+//        self.defaultsDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
         
         self.preferencesViewController = [[[FUTabsPreferencesViewController alloc] init] autorelease];
         
