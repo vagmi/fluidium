@@ -44,6 +44,7 @@
         self.identifier = @"com.fluidapp.TabsPlugIn";
         self.localizedTitle = NSLocalizedString(@"Tabs", @"");
         self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
+        self.toolbarIconImageName = NSImageNameIconViewTemplate;
         self.preferencesIconImageName = NSImageNameIconViewTemplate;
         self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
                                          FUPlugInViewPlacementSplitViewLeft|
@@ -112,9 +113,7 @@
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
         NSString *applicationName = [NSString stringWithFormat:@"%@ Tabs Plug-in", [plugInAPI appName]];
 
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-        NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];
-        NSImage  *applicationIcon = [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];        
+        NSImage  *applicationIcon = [NSImage imageNamed:self.preferencesIconImageName];
         
         NSString *version = @"1.0";
         NSString *copyright = @"Todd Ditchendorf 2010";

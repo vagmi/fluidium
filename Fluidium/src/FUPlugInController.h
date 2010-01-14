@@ -25,8 +25,7 @@
     NSMenu *plugInMenu;
     NSMutableDictionary *windowsForPlugInIdentifier;
     id <FUPlugInAPI>plugInAPI;
-    NSMutableArray *plugInWrappers;
-    NSMutableArray *allPlugInIdentifiers;
+    NSMutableDictionary *allPlugInWrappersTable;
     BOOL plugInsLoaded;
 }
 
@@ -50,7 +49,7 @@
 
 @property (nonatomic, retain) NSMenu *plugInMenu;
 @property (nonatomic, retain) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, retain) NSMutableArray *plugInWrappers;
-@property (nonatomic, retain) NSMutableArray *allPlugInIdentifiers;
+@property (nonatomic, readonly, retain) NSArray *plugInWrappers;
+@property (nonatomic, readonly, retain) NSArray *allPlugInIdentifiers;
 @property (nonatomic, retain) NSMutableDictionary *windowsForPlugInIdentifier;
 @end

@@ -73,6 +73,8 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)toggleSplitViewPluginWrapper:(FUPlugInWrapper *)plugInWrapper isVertical:(BOOL)isVertical isFirst:(BOOL)isFirst inWindow:(NSWindow *)window;
 - (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc;
 - (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc userInfo:(NSMutableDictionary *)userInfo;
+
+@property (nonatomic, retain) NSMutableDictionary *allPlugInWrappersTable;
 @end
 
 @implementation FUPlugInController
@@ -92,8 +94,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     if (self = [super init]) {
         self.windowsForPlugInIdentifier = [NSMutableDictionary dictionary];
         self.plugInAPI = [[[FUPlugInAPIImpl alloc] init] autorelease];
-        self.plugInWrappers = [NSMutableArray array];
-        self.allPlugInIdentifiers = [NSMutableArray array];
+        self.allPlugInWrappersTable = [NSMutableDictionary dictionary];
         
         [self loadPlugIns];
         
@@ -110,8 +111,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     self.plugInMenu = nil;
     self.windowsForPlugInIdentifier = nil;
     self.plugInAPI = nil;
-    self.plugInWrappers = nil;
-    self.allPlugInIdentifiers = nil;
+    self.allPlugInWrappersTable = nil;
     [super dealloc];
 }
 
@@ -185,16 +185,14 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 - (void)loadPlugIn:(id <FUPlugIn>)plugIn {
     NSString *identifier = [plugIn identifier];
-    if ([allPlugInIdentifiers containsObject:identifier]) {
+    
+    if ([allPlugInWrappersTable objectForKey:identifier]) {
         NSLog(@"already loaded plugin with identifier: %@, ignoring", identifier);
         return;
     }
-    
-    [allPlugInIdentifiers addObject:identifier];
-    
+        
     FUPlugInWrapper *wrap = [[[FUPlugInWrapper alloc] initWithPlugIn:plugIn] autorelease];
-    
-    [plugInWrappers addObject:wrap];
+    [allPlugInWrappersTable setObject:wrap forKey:identifier];
     
     [self registerNotificationsOnPlugInWrapper:wrap];
 }
@@ -203,7 +201,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)setUpMenuItemsForPlugIns {
     plugInMenu = [[[NSApp mainMenu] itemAtIndex:PLUGIN_MENU_INDEX] submenu];
     
-    for (FUPlugInWrapper *wrap in plugInWrappers) {
+    for (FUPlugInWrapper *wrap in [self plugInWrappers]) {
         [self setUpMenuItemsForPlugInWrapper:wrap];
     }
 }
@@ -250,9 +248,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (@selector(plugInAboutMenuItemAction:) == [menuItem action]) {
-        NSMenu *menu = [menuItem menu];
-        NSInteger i = [[menu itemArray] indexOfObject:menuItem];
-        FUPlugInWrapper *wrap = [plugInWrappers objectAtIndex:i];
+        FUPlugInWrapper *wrap = [self plugInWrapperForIdentifier:[menuItem representedObject]];
         
         return (nil != wrap.aboutInfoDictionary);
     } else {
@@ -262,14 +258,14 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 
 - (void)setUpMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap {
-    static NSInteger tag = 0;
-    
+    NSString *identifier = wrap.identifier;
     NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), wrap.localizedTitle];
     
     NSMenuItem *aboutMenuItem = [[[NSMenuItem alloc] initWithTitle:title
                                                             action:@selector(plugInAboutMenuItemAction:)
                                                      keyEquivalent:@""] autorelease];
     [aboutMenuItem setTarget:self];
+    [aboutMenuItem setRepresentedObject:identifier];
     [[[plugInMenu itemAtIndex:0] submenu] addItem:aboutMenuItem];
     
     NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title
@@ -277,7 +273,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
                                                 keyEquivalent:wrap.preferredMenuItemKeyEquivalent] autorelease];
     [menuItem setKeyEquivalentModifierMask:wrap.preferredMenuItemKeyEquivalentModifierMask];
     [menuItem setTarget:self];
-    [menuItem setTag:tag++];
+    [menuItem setRepresentedObject:identifier];
     //[menuItem setImage:[NSImage imageNamed:[plugIn iconImageName]]];
     [plugInMenu addItem:menuItem];
 }
@@ -286,11 +282,11 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)setUpPrefPanesForPlugInWrappers {
     //[OAPreferenceController sharedPreferenceController];
     
-    for (FUPlugInWrapper *wrap in plugInWrappers) {
+    for (FUPlugInWrapper *wrap in [self plugInWrappers]) {
         [self setUpPrefPaneForPlugInWrapper:wrap];
     }
     
-    for (FUPlugInWrapper *wrap in plugInWrappers) {
+    for (FUPlugInWrapper *wrap in [self plugInWrappers]) {
         NSString *identifier = wrap.identifier;
         FUPlugInPreferences *client = (FUPlugInPreferences *)[[OAPreferenceController sharedPreferenceController] clientWithIdentifier:identifier];
         client.plugInWrapper = wrap;
@@ -354,24 +350,19 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 
 - (FUPlugInWrapper *)plugInWrapperForIdentifier:(NSString *)identifier {
-    for (FUPlugInWrapper *wrap in plugInWrappers) {
-        if ([wrap.identifier isEqualToString:identifier]) {
-            return wrap;
-        }
-    }
-    return nil;
+    return [allPlugInWrappersTable objectForKey:identifier];
 }
 
 
 - (void)plugInMenuItemAction:(id)sender {
-    BOOL isToolbarItem = [sender isKindOfClass:[NSToolbarItem class]];
-    
     FUPlugInWrapper *wrap = nil;
-    if (isToolbarItem) {
-        wrap = [self plugInWrapperForIdentifier:[sender itemIdentifier]];
+    NSString *identifier = nil;
+    if ([sender isKindOfClass:[NSButton class]]) {
+        identifier = [[sender cell] representedObject];
     } else {
-        wrap = [plugInWrappers objectAtIndex:[sender tag]];
+        identifier = [sender representedObject];
     }
+    wrap = [self plugInWrapperForIdentifier:identifier];
     
     FUPlugInViewPlacementMask mask = wrap.viewPlacementMask;
     
@@ -393,9 +384,8 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 
 - (void)plugInAboutMenuItemAction:(id)sender {
-    NSMenu *menu = [sender menu];
-    NSInteger i = [menu indexOfItem:sender];
-    FUPlugInWrapper *wrap = [plugInWrappers objectAtIndex:i];
+    NSString *identifier = [sender representedObject];
+    FUPlugInWrapper *wrap = [self plugInWrapperForIdentifier:identifier];
     [NSApp orderFrontStandardAboutPanelWithOptions:wrap.aboutInfoDictionary];
 }
 
@@ -650,7 +640,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 //    NSPanel *panel = (NSPanel *)window;
 //    NSInteger windowNumber = [panel windowNumber];
     
-    for (FUPlugInWrapper *wrap in plugInWrappers) {
+    for (FUPlugInWrapper *wrap in [self plugInWrappers]) {
         NSViewController *vc = [wrap plugInViewControllerForWindowNumber:-1];
         if (vc) {
             if (![wrap isVisibleInWindowNumber:-1]) {
@@ -791,9 +781,21 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:vc userInfo:[[userInfo copy] autorelease]];
 }
 
+
+#pragma mark -
+#pragma mark Properties
+
+- (NSArray *)plugInWrappers {
+    return [allPlugInWrappersTable allValues];
+}
+
+
+- (NSArray *)allPlugInIdentifiers {
+    return [allPlugInWrappersTable allKeys];
+}
+
 @synthesize plugInMenu;
 @synthesize windowsForPlugInIdentifier;
 @synthesize plugInAPI;
-@synthesize plugInWrappers;
-@synthesize allPlugInIdentifiers;
+@synthesize allPlugInWrappersTable;
 @end

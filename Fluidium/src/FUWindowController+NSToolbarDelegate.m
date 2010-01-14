@@ -32,8 +32,8 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
 
 @interface FUWindowController (NSToolbarDelegatePrivate)
 - (NSToolbarItem *)toolbarItemForPlugInWrapper:(FUPlugInWrapper *)wrap;
-- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
-- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID image:(NSImage *)img label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t;
+- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel;
+- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID image:(NSImage *)img label:(NSString *)label target:(id)target action:(SEL)sel;
 - (NSToolbarItem *)viewToolbarItemWithIdentifier:(NSString *)itemID view:(NSView *)view label:(NSString *)label target:(id)target action:(SEL)sel;
 - (NSToolbarItem *)toolbarItemWithIdentifier:(NSString *)identifier label:(NSString *)label;
 - (NSArray *)allPlugInToolbarItemIdentifiers;
@@ -101,36 +101,36 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
 
     if ([itemID isEqualToString:FUBackItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_back" : NSImageNameGoLeftTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Back", @"") target:self action:@selector(goBack:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Back", @"") target:self action:@selector(goBack:)];
         [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canGoBack" options:nil];
 
     } else if ([itemID isEqualToString:FUForwardItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_fwd" : NSImageNameGoRightTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Forward", @"") target:self action:@selector(goForward:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Forward", @"") target:self action:@selector(goForward:)];
         [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canGoForward" options:nil];
 
     } else if ([itemID isEqualToString:FUReloadItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_reload" : NSImageNameRefreshTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Reload", @"") target:self action:@selector(reload:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Reload", @"") target:self action:@selector(reload:)];
         [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.canReload" options:nil];
 
     } else if ([itemID isEqualToString:FUStopItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_stop" : NSImageNameStopProgressTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Stop", @"") target:self action:@selector(stopLoading:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Stop", @"") target:self action:@selector(stopLoading:)];
         [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.isLoading" options:nil];
 
     } else if ([itemID isEqualToString:FUHomeItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_home" : @"toolbar_button_home";
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Home", @"") target:self action:@selector(goHome:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Home", @"") target:self action:@selector(goHome:)];
 
     } else if ([itemID isEqualToString:FUTextSmallerItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_smaller" : NSImageNameRemoveTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Smaller", @"") target:self action:@selector(zoomOut:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Smaller", @"") target:self action:@selector(zoomOut:)];
         [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canMakeTextSmaller" options:nil];
 
     } else if ([itemID isEqualToString:FUTextLargerItemIdentifier]) {
         name = isFullScreen ? @"fullscreen_toolbar_button_larger" : NSImageNameAddTemplate;
-        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Larger", @"") target:self action:@selector(zoomIn:) tag:0];
+        item = [self buttonToolbarItemWithIdentifier:itemID imageNamed:name label:NSLocalizedString(@"Larger", @"") target:self action:@selector(zoomIn:)];
         [[item view] bind:@"enabled" toObject:self withKeyPath:@"selectedTabController.webView.canMakeTextLarger" options:nil];
 
     } else if ([itemID isEqualToString:FULocationItemIdentifier]) {
@@ -152,7 +152,6 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
 - (NSToolbarItem *)toolbarItemForPlugInWrapper:(FUPlugInWrapper *)wrap {
     if (!wrap) return nil;
     
-    NSInteger tag = [[[FUPlugInController instance] plugInWrappers] indexOfObject:wrap]; // TODO
     NSBundle *bundle = [NSBundle bundleForClass:[wrap.plugIn class]];
     NSString *path = [bundle pathForImageResource:wrap.toolbarIconImageName];
     NSImage *img = nil;
@@ -166,16 +165,16 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
         img = [NSImage imageNamed:wrap.toolbarIconImageName];
     }
     
-    return [self buttonToolbarItemWithIdentifier:wrap.identifier image:img label:[wrap localizedTitle] target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:) tag:tag];
+    return [self buttonToolbarItemWithIdentifier:wrap.identifier image:img label:[wrap localizedTitle] target:[FUPlugInController instance] action:@selector(plugInMenuItemAction:)];
 }
 
 
-- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t {
-    return [self buttonToolbarItemWithIdentifier:itemID image:[NSImage imageNamed:name] label:label target:target action:sel tag:t];
+- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID imageNamed:(NSString *)name label:(NSString *)label target:(id)target action:(SEL)sel {
+    return [self buttonToolbarItemWithIdentifier:itemID image:[NSImage imageNamed:name] label:label target:target action:sel];
 }
 
 
-- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID image:(NSImage *)img label:(NSString *)label target:(id)target action:(SEL)sel tag:(NSInteger)t {
+- (NSToolbarItem *)buttonToolbarItemWithIdentifier:(NSString *)itemID image:(NSImage *)img label:(NSString *)label target:(id)target action:(SEL)sel {
     NSToolbarItem *item = [self toolbarItemWithIdentifier:itemID label:label];
     
     Class buttonClass = nil;
@@ -186,10 +185,10 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
     }
     
     NSButton *b = [[[buttonClass alloc] initWithFrame:NSMakeRect(0, 0, 28, 23)] autorelease];
+    [[b cell] setRepresentedObject:itemID];
     [b setButtonType:NSMomentaryPushInButton];
     [b setTarget:target];
     [b setAction:sel];
-    [b setTag:t];
     
     if ([[FUApplication instance] isFullScreen]) {
         [b setBordered:NO];
