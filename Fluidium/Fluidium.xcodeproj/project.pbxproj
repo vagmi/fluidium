@@ -81,9 +81,6 @@
 		D346E59B10CE43E500BA0B15 /* UMEKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D346E58910CE436000BA0B15 /* UMEKit.framework */; };
 		D346E68010CE4D0C00BA0B15 /* FUPlugInPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E67F10CE4D0C00BA0B15 /* FUPlugInPreferences.m */; };
 		D346E6D010CE4E4000BA0B15 /* FUBasePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E6CF10CE4E4000BA0B15 /* FUBasePreferences.m */; };
-		D346E70F10CE514300BA0B15 /* OmniBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D346E68D10CE4D3A00BA0B15 /* OmniBase.framework */; };
-		D346E71010CE514300BA0B15 /* OmniFoundation.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D346E6A210CE4D4B00BA0B15 /* OmniFoundation.framework */; };
-		D346E71110CE514300BA0B15 /* OmniAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D346E6BB10CE4D5B00BA0B15 /* OmniAppKit.framework */; };
 		D346E71210CE516800BA0B15 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346E48F10CE434A00BA0B15 /* ParseKit.framework */; };
 		D346E7E810CE542A00BA0B15 /* FUGeneralPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E7E710CE542A00BA0B15 /* FUGeneralPreferences.m */; };
 		D346E80510CE557200BA0B15 /* FUGeneralPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D346E80310CE557200BA0B15 /* FUGeneralPreferences.xib */; };
@@ -497,9 +494,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D346E70F10CE514300BA0B15 /* OmniBase.framework in Copy Frameworks */,
-				D346E71010CE514300BA0B15 /* OmniFoundation.framework in Copy Frameworks */,
-				D346E71110CE514300BA0B15 /* OmniAppKit.framework in Copy Frameworks */,
 				D30BC46610E187C10019816B /* Growl.framework in Copy Frameworks */,
 				D3189E9810F7000F00B6AA21 /* Sparkle.framework in Copy Frameworks */,
 				D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */,
