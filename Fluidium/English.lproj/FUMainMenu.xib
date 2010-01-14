@@ -3491,7 +3491,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
 					<string key="className">FUApplication</string>
-					<string key="superclassName">OAApplication</string>
+					<string key="superclassName">NSApplication</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -3500,11 +3500,13 @@
 							<string>globalShortcutActivated:</string>
 							<string>showBookmarksWindow:</string>
 							<string>showDownloadsWindow:</string>
+							<string>showPreferencesPanel:</string>
 							<string>showUserscriptsWindow:</string>
 							<string>showUserstylesWindow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3826,6 +3828,20 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/OAPreferences/NSObject-OFExtensions.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/OAPreferences/OBObject.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
 					<reference key="sourceIdentifier" ref="1036056561"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3886,13 +3902,6 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="885118645">
-						<string key="majorKey">IBDocumentRelativeSource</string>
-						<string key="minorKey">../lib/OmniGroup/Frameworks/OmniAppKit/OAApplication.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBDocumentRelativeSource</string>
 						<string key="minorKey">../lib/Sparkle/Sparkle.framework/Versions/A/Headers/SUAppcast.h</string>
@@ -3904,32 +3913,6 @@
 						<string key="majorKey">IBDocumentRelativeSource</string>
 						<string key="minorKey">../lib/Sparkle/Sparkle.framework/Versions/A/Headers/SUUpdater.h</string>
 					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSResponder</string>
-					<reference key="sourceIdentifier" ref="885118645"/>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">OAApplication</string>
-					<string key="superclassName">NSApplication</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>closeAllMainWindows:</string>
-							<string>cycleToNextMainWindow:</string>
-							<string>cycleToPreviousMainWindow:</string>
-							<string>showPreferencesPanel:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<reference key="sourceIdentifier" ref="885118645"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">SUUpdater</string>
