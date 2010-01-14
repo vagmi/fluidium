@@ -24,6 +24,7 @@ typedef enum {
 } FUPlugInDestinationType;
 
 @protocol FUPlugInAPI
+- (NSString *)appName;
 - (NSString *)version;
 - (NSString *)defaultUserAgentString;
 - (NSArray *)allUserAgentStrings;

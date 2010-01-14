@@ -265,7 +265,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
         NSError *err = nil;
         success = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&err];
         if (!success) {
-            NSLog(@"Fluidium could not create dir at path: %@: %@", path, err);
+            NSLog(@"%@ could not create dir at path: %@: %@", [self appName], path, err);
         }
     }
     

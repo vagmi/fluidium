@@ -110,7 +110,7 @@
 - (NSDictionary *)aboutInfoDictionary {
     if (!aboutInfoDictionary) {
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
-        NSString *applicationName = @"Fluidium Tabs Plug-in";
+        NSString *applicationName = [NSString stringWithFormat:@"%@ Tabs Plug-in", [plugInAPI appName]];
 
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];

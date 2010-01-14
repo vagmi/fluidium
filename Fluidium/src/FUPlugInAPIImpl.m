@@ -57,6 +57,11 @@
 }
 
 
+- (NSString *)appName {
+    return [[FUApplication instance] appName];
+}
+
+
 - (NSString *)defaultUserAgentString {
     return [[FUUserAgentWindowController instance] defaultUserAgentString];
 }

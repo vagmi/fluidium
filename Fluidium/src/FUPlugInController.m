@@ -158,7 +158,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
         @try {
             [self loadPlugInAtPath:path];
         } @catch (NSException *e) {
-            NSLog(@"Fluidium couldn't load Plug-in at path: %@\n%@", path, [e reason]);
+            NSLog(@"%@ couldn't load Plug-in at path: %@\n%@", [[FUApplication instance] appName], path, [e reason]);
         }
     }
 }

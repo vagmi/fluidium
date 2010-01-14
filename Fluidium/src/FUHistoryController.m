@@ -84,7 +84,7 @@
     [[WebHistory optionalSharedHistory] saveToURL:[NSURL fileURLWithPath:webHistoryFilePath] error:&err];
     
     if (err) {
-        NSLog(@"Fluidium could not write history to disk");
+        NSLog(@"%@ could not write history to disk", [[FUApplication instance] appName]);
     }
 }
 
@@ -113,7 +113,7 @@
             NSError *err = nil;
             [history loadFromURL:[NSURL fileURLWithPath:path] error:&err];
             if (err) {
-                NSLog(@"Fluidium encountered error reading webhistory on disk!");
+                NSLog(@"%@ encountered error reading webhistory on disk!", [[FUApplication instance] appName]);
                 history = [[[WebHistory alloc] init] autorelease];
             }
         }

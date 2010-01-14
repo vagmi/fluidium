@@ -172,7 +172,7 @@ static NSInteger sTag = 0;
 - (NSDictionary *)aboutInfoDictionary {
     if (!aboutInfoDictionary) {
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
-        NSString *applicationName = @"Fluidium Browsa Plug-in";
+        NSString *applicationName = [NSString stringWithFormat:@"%@ Browsa Plug-in", [plugInAPI appName]];
         
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];

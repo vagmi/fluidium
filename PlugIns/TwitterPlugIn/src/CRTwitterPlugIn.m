@@ -130,7 +130,7 @@ static CRTwitterPlugIn *instance = nil;
 - (NSDictionary *)aboutInfoDictionary {
     if (!aboutInfoDictionary) {
         NSString *credits = [[[NSAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
-        NSString *applicationName = @"Fluidium Twitter Plug-in";
+        NSString *applicationName = [NSString stringWithFormat:@"%@ Twitter Plug-in", [plugInAPI appName]];
 
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *URL = [NSURL fileURLWithPath:[bundle pathForImageResource:self.preferencesIconImageName]];

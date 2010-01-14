@@ -17,6 +17,7 @@
 #import "FUJavaScriptGrowlNotification.h"
 #import "FUIconController.h"
 #import "FUDocumentController.h"
+#import "FUApplication.h"
 #import "FUUtils.h"
 #import <Growl/Growl.h>
 
@@ -166,7 +167,7 @@
     if (sound) {
         [sound play];
     } else {
-        NSLog(@"Fluidium couldn't find sound named: '%@'", name);
+        NSLog(@"%@ couldn't find sound named: '%@'", [[FUApplication instance] appName], name);
     }
 }
 

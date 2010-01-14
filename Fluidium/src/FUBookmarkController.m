@@ -107,7 +107,7 @@
 
 - (void)save {
     if (![NSKeyedArchiver archiveRootObject:bookmarks toFile:[[FUApplication instance] bookmarksFilePath]]) {
-        NSLog(@"Fluidium could not write bookmarks to disk");
+        NSLog(@"%@ could not write bookmarks to disk", [[FUApplication instance] appName]);
     }
 }
 
@@ -219,7 +219,7 @@
         @try {
             self.bookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         } @catch (NSException *e) {
-            NSLog(@"Fluidium encountered error reading bookmarks on disk!\n%@", [e reason]);
+            NSLog(@"%@ encountered error reading bookmarks on disk!\n%@", [[FUApplication instance] appName], [e reason]);
         }
     }
     
