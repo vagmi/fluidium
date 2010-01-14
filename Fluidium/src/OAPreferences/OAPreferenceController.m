@@ -44,6 +44,10 @@ static OAPreferenceClientRecord *_ClientRecordWithValueForKey(NSArray *records, 
     return nil;											\
 }
 
+@interface OAPreferenceController ()
++ (void)registerItemName:(NSString *)itemName bundle:(NSBundle *)bundle description:(NSDictionary *)description;
+@end
+
 @interface OAPreferenceController (Private)
 - (void)_loadInterface;
 - (void)_createShowAllItemsView;
@@ -94,6 +98,13 @@ static NSString *windowFrameSaveName = @"Preferences";
     if (![NSString isEmptyString:paneID])
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(_showPane:) userInfo:paneID repeats:NO];
 #endif
+    
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSDictionary *registrations = [[[bundle infoDictionary] objectForKey:@"OFRegistrations"] objectForKey:@"OAPreferenceController"];
+    for (NSString *name in registrations) {
+        [self registerItemName:name bundle:bundle description:[registrations objectForKey:name]];
+    }
+
 }
 
 #ifdef DEBUG
