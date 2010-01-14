@@ -110,6 +110,7 @@
 		D35CC25F10D41DD900DA1898 /* FUUserAgentWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */; };
 		D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
+		D3778DFE10FF1F4900EEA25F /* OAPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3778DFC10FF1F4900EEA25F /* OAPreferencesWindow.xib */; };
 		D3A3269510FEFF6E00032B66 /* OAPreferenceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */; };
 		D3A3269610FEFF6E00032B66 /* OAPreferenceClientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268A10FEFF6E00032B66 /* OAPreferenceClientRecord.m */; };
 		D3A3269710FEFF6E00032B66 /* OAPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268C10FEFF6E00032B66 /* OAPreferenceController.m */; };
@@ -128,7 +129,6 @@
 		D3A3277510FF0C8600032B66 /* OFPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3277410FF0C8600032B66 /* OFPreference.m */; };
 		D3A3279610FF0E4B00032B66 /* OFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3279510FF0E4B00032B66 /* OFObject.m */; };
 		D3A327A310FF0E7200032B66 /* OBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A327A210FF0E7200032B66 /* OBObject.m */; };
-		D3A3280910FF0FA100032B66 /* OAPreferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = D3A3280710FF0FA100032B66 /* OAPreferences.nib */; };
 		D3A3282E10FF101500032B66 /* OAAction.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282610FF101500032B66 /* OAAction.png */; };
 		D3A3282F10FF101500032B66 /* OAForwardArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282710FF101500032B66 /* OAForwardArrow.png */; };
 		D3A3283010FF101500032B66 /* OAGear.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282810FF101500032B66 /* OAGear.png */; };
@@ -589,6 +589,7 @@
 		D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMNode+FUAdditions.m"; path = "src/DOMNode+FUAdditions.m"; sourceTree = "<group>"; };
 		D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+FUAdditions.h"; path = "src/NSFileManager+FUAdditions.h"; sourceTree = "<group>"; };
 		D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+FUAdditions.m"; path = "src/NSFileManager+FUAdditions.m"; sourceTree = "<group>"; };
+		D3778DFD10FF1F4900EEA25F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/OAPreferencesWindow.xib; sourceTree = "<group>"; };
 		D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClient.h; sourceTree = "<group>"; };
 		D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAPreferenceClient.m; sourceTree = "<group>"; };
 		D3A3268910FEFF6E00032B66 /* OAPreferenceClientRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClientRecord.h; sourceTree = "<group>"; };
@@ -597,8 +598,8 @@
 		D3A3268C10FEFF6E00032B66 /* OAPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAPreferenceController.m; sourceTree = "<group>"; };
 		D3A3268D10FEFF6E00032B66 /* OAPreferencesIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferencesIconView.h; sourceTree = "<group>"; };
 		D3A3268E10FEFF6E00032B66 /* OAPreferencesIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAPreferencesIconView.m; sourceTree = "<group>"; };
-		D3A3268F10FEFF6E00032B66 /* OAPreferencesNextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAPreferencesNextButton.png; sourceTree = "<group>"; };
-		D3A3269010FEFF6E00032B66 /* OAPreferencesPreviousButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAPreferencesPreviousButton.png; sourceTree = "<group>"; };
+		D3A3268F10FEFF6E00032B66 /* OAPreferencesNextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OAPreferencesNextButton.png; path = ../../../src/OAPreferences/OAPreferencesNextButton.png; sourceTree = "<group>"; };
+		D3A3269010FEFF6E00032B66 /* OAPreferencesPreviousButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OAPreferencesPreviousButton.png; path = ../../../src/OAPreferences/OAPreferencesPreviousButton.png; sourceTree = "<group>"; };
 		D3A3269110FEFF6E00032B66 /* OAPreferencesToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferencesToolbar.h; sourceTree = "<group>"; };
 		D3A3269210FEFF6E00032B66 /* OAPreferencesToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAPreferencesToolbar.m; sourceTree = "<group>"; };
 		D3A3269310FEFF6E00032B66 /* OAPreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferencesWindow.h; sourceTree = "<group>"; };
@@ -623,7 +624,6 @@
 		D3A3279510FF0E4B00032B66 /* OFObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFObject.m; sourceTree = "<group>"; };
 		D3A327A110FF0E7200032B66 /* OBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBObject.h; sourceTree = "<group>"; };
 		D3A327A210FF0E7200032B66 /* OBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBObject.m; sourceTree = "<group>"; };
-		D3A3280810FF0FA100032B66 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/OAPreferences.nib; sourceTree = "<group>"; };
 		D3A3282610FF101500032B66 /* OAAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAAction.png; sourceTree = "<group>"; };
 		D3A3282710FF101500032B66 /* OAForwardArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAForwardArrow.png; sourceTree = "<group>"; };
 		D3A3282810FF101500032B66 /* OAGear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAGear.png; sourceTree = "<group>"; };
@@ -800,7 +800,6 @@
 		2A37F4ABFDCFA73011CA2CEA /* Fluidium Source */ = {
 			isa = PBXGroup;
 			children = (
-				D3A3268610FEFF6E00032B66 /* OAPreferences */,
 				D3F4C55210C8D1D300E0B474 /* FUApplication.h */,
 				D3F4C55310C8D1D300E0B474 /* FUApplication.m */,
 				D3F4C6AD10C8E28E00E0B474 /* FUUserDefaults.h */,
@@ -936,7 +935,6 @@
 		D332223610C8C30C00151693 /* Nib */ = {
 			isa = PBXGroup;
 			children = (
-				D3A3280710FF0FA100032B66 /* OAPreferences.nib */,
 				1DDD582A0DA1D0D100B32029 /* FUMainMenu.xib */,
 				1DDD58280DA1D0D100B32029 /* FUWindow.xib */,
 				D3E42FDB10CB1E1600A5BDEF /* FUDownloadWindow.xib */,
@@ -1048,6 +1046,7 @@
 		D346E68110CE4D0F00BA0B15 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				D3A3268610FEFF6E00032B66 /* OAPreferences */,
 				D346E6CE10CE4E4000BA0B15 /* FUBasePreferences.h */,
 				D346E6CF10CE4E4000BA0B15 /* FUBasePreferences.m */,
 				D346E7E610CE542A00BA0B15 /* FUGeneralPreferences.h */,
@@ -1077,6 +1076,7 @@
 		D346E80610CE557700BA0B15 /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
+				D3778DFC10FF1F4900EEA25F /* OAPreferencesWindow.xib */,
 				D346E80310CE557200BA0B15 /* FUGeneralPreferences.xib */,
 				D34B610710CF92DD006E17C4 /* FUAppearancePreferences.xib */,
 				D346E8C110CEC05300BA0B15 /* FUTabsPreferences.xib */,
@@ -1172,8 +1172,6 @@
 				D3A3268C10FEFF6E00032B66 /* OAPreferenceController.m */,
 				D3A3268D10FEFF6E00032B66 /* OAPreferencesIconView.h */,
 				D3A3268E10FEFF6E00032B66 /* OAPreferencesIconView.m */,
-				D3A3268F10FEFF6E00032B66 /* OAPreferencesNextButton.png */,
-				D3A3269010FEFF6E00032B66 /* OAPreferencesPreviousButton.png */,
 				D3A3269110FEFF6E00032B66 /* OAPreferencesToolbar.h */,
 				D3A3269210FEFF6E00032B66 /* OAPreferencesToolbar.m */,
 				D3A3269310FEFF6E00032B66 /* OAPreferencesWindow.h */,
@@ -1204,6 +1202,8 @@
 		D3A3282510FF101500032B66 /* OAPrefs */ = {
 			isa = PBXGroup;
 			children = (
+				D3A3268F10FEFF6E00032B66 /* OAPreferencesNextButton.png */,
+				D3A3269010FEFF6E00032B66 /* OAPreferencesPreviousButton.png */,
 				D3A3282610FF101500032B66 /* OAAction.png */,
 				D3A3282710FF101500032B66 /* OAForwardArrow.png */,
 				D3A3282810FF101500032B66 /* OAGear.png */,
@@ -1728,7 +1728,6 @@
 				D3189FA410F83DF100B6AA21 /* FUUserthingWindow.xib in Resources */,
 				D3A3269910FEFF6E00032B66 /* OAPreferencesNextButton.png in Resources */,
 				D3A3269A10FEFF6E00032B66 /* OAPreferencesPreviousButton.png in Resources */,
-				D3A3280910FF0FA100032B66 /* OAPreferences.nib in Resources */,
 				D3A3282E10FF101500032B66 /* OAAction.png in Resources */,
 				D3A3282F10FF101500032B66 /* OAForwardArrow.png in Resources */,
 				D3A3283010FF101500032B66 /* OAGear.png in Resources */,
@@ -1737,6 +1736,7 @@
 				D3A3283310FF101500032B66 /* OAMiniAction.png in Resources */,
 				D3A3283410FF101500032B66 /* OAMiniAdd.png in Resources */,
 				D3A3283510FF101500032B66 /* OAMiniRemove.png in Resources */,
+				D3778DFE10FF1F4900EEA25F /* OAPreferencesWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2052,12 +2052,12 @@
 			name = FUUserAgentWindow.xib;
 			sourceTree = "<group>";
 		};
-		D3A3280710FF0FA100032B66 /* OAPreferences.nib */ = {
+		D3778DFC10FF1F4900EEA25F /* OAPreferencesWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D3A3280810FF0FA100032B66 /* English */,
+				D3778DFD10FF1F4900EEA25F /* English */,
 			);
-			name = OAPreferences.nib;
+			name = OAPreferencesWindow.xib;
 			sourceTree = "<group>";
 		};
 		D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */ = {
