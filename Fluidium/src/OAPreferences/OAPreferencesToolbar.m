@@ -8,10 +8,6 @@
 #import "OAPreferencesToolbar.h"
 
 #import <Cocoa/Cocoa.h>
-#import <OmniBase/rcsid.h>
-
-;
-
 
 @implementation OAPreferencesToolbar
 

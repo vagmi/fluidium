@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-#import <OmniAppKit/OAPreferenceClient.h>
+#import "OAPreferenceClient.h"
 
 @interface FUBasePreferences : OAPreferenceClient {
     BOOL defaultsHaveChanged;

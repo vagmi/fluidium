@@ -25,9 +25,8 @@
 #import "FUNotifications.h"
 #import "NSFileManager+FUAdditions.h"
 #import <WebKit/WebKit.h>
-#import <OmniAppKit/OmniAppKit.h>
-#import <OmniAppKit/OAPreferenceController.h>
-#import <OmniAppKit/OAPreferenceClient.h>
+#import "OAPreferenceController.h"
+#import "OAPreferenceClient.h"
 #import <TDAppKit/TDUberView.h>
 
 #define PLUGIN_MENU_INDEX 6

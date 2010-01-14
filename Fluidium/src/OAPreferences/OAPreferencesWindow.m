@@ -8,9 +8,6 @@
 #import "OAPreferencesWindow.h"
 
 #import <Cocoa/Cocoa.h>
-#import <OmniBase/rcsid.h>
-
-;
 
 @implementation OAPreferencesWindow
 

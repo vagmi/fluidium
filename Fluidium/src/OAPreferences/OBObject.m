@@ -5,7 +5,7 @@
 // distributed with this project and can also be found at
 // <http://www.omnigroup.com/developer/sourcecode/sourcelicense/>.
 
-#import <OmniBase/OBObject.h>
+#import "OBObject.h"
 
 @implementation OBObject
 @end

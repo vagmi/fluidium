@@ -5,7 +5,7 @@
 // distributed with this project and can also be found at
 // <http://www.omnigroup.com/developer/sourcecode/sourcelicense/>.
 
-#import <OmniAppKit/OAPreferenceController.h>
+#import "OAPreferenceController.h"
 
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h> // For AESend

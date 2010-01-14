@@ -5,16 +5,9 @@
 // distributed with this project and can also be found at
 // <http://www.omnigroup.com/developer/sourcecode/sourcelicense/>.
 
-#import <OmniAppKit/OAPreferenceClient.h>
-
-#import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
-//#import <OmniBase/OmniBase.h>
-//#import <OmniFoundation/OmniFoundation.h>
-
-#import <OmniAppKit/OAPreferenceController.h>
-#import <OmniAppKit/OAPreferenceClientRecord.h>
-
+#import "OAPreferenceClient.h"
+#import "OAPreferenceController.h"
+#import "OAPreferenceClientRecord.h"
 #import "NSString-OFSimpleMatching.h"
 #import "NSArray-OFExtensions.h"
 

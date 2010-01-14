@@ -20,8 +20,8 @@
 #import "FUApplication.h"
 #import "FUNotifications.h"
 #import "FUIconController.h"
+#import "OAPreferenceController.h"
 #import <WebKit/WebKit.h>
-#import <OmniAppKit/OmniAppKit.h>
 #import <ShortcutRecorder/ShortcutRecorder.h>
 
 #define NUM_MENU_ITEMS 3

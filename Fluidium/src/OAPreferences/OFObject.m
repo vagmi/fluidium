@@ -5,12 +5,9 @@
 // distributed with this project and can also be found at
 // <http://www.omnigroup.com/developer/sourcecode/sourcelicense/>.
 
-#import <OmniFoundation/OFObject.h>
+#import "OFObject.h"
 
-#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 #import <Foundation/NSDebug.h>
-#endif
-
 #import <libkern/OSAtomic.h>
 
 #if OFOBJECT_USE_INTERNAL_EXTRA_REF_COUNT

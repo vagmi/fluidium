@@ -7,8 +7,8 @@
 //
 // $Id$
 
-#import <AppKit/NSUserDefaultsController.h>
-#import <OmniFoundation/OFPreference.h> // Lots of subclasses don't import OmniFoundation.h
+#import <Cocoa/Cocoa.h>
+#import "OFPreference.h" // Lots of subclasses don't import OmniFoundation.h
 
 @class NSArray, NSMutableArray, NSDictionary, NSNotification, NSString;
 @class NSBox, NSTextField, NSView;

@@ -31,7 +31,7 @@
 #import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
 #import "FUBookmarkController.h"
-#import <OmniAppKit/OAPreferenceController.h>
+#import "OAPreferenceController.h"
 
 #define ABOUT_ITEM_TAG 547
 #define HIDE_ITEM_TAG 647
