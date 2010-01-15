@@ -199,7 +199,7 @@
     self.draggingTabController = [wc tabControllerAtIndex:i];
     NSURL *URL = [NSURL URLWithString:[draggingTabController URLString]];
 
-    if (URL && [wc removeTabController:draggingTabController]) {
+    if (URL) {
         [pboard declareTypes:[NSArray arrayWithObjects:TDTabPboardType, nil] owner:self];
         return YES;
     }
@@ -233,10 +233,12 @@
     NSArray *types = [pboard types];
     NSURL *URL = nil;
     if ([types containsObject:TDTabPboardType]) {
+        [wc removeTabController:draggingTabController];
         [wc addTabController:draggingTabController atIndex:i];
         self.draggingTabController = nil;
 
         [self updateAllTabModelsFromIndex:i];
+        [wc setSelectedTabIndex:i];
         return YES;
 
     } else {

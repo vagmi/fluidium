@@ -55,6 +55,7 @@
         
         [self setPostsBoundsChangedNotifications:YES];
         
+        draggingIndex = -1;
         [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
         [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
     }
@@ -164,6 +165,114 @@
 
 
 #pragma mark -
+#pragma mark NSView
+
+- (BOOL)isFlipped {
+    return YES;
+}
+
+
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [backgroundColor set];
+    NSRectFill(dirtyRect);
+}
+
+
+#pragma mark -
+#pragma mark NSResponder
+
+- (void)mouseDown:(NSEvent *)evt {
+    [super mouseDown:evt];
+    
+    NSPoint locInWin = [evt locationInWindow];
+    NSPoint p = [self convertPoint:locInWin fromView:nil];
+    self.lastMouseDownEvent = evt;
+    
+    NSInteger i = [self indexForItemAtPoint:p];
+    draggingIndex = i;
+    if (-1 == i) {
+        if ([evt clickCount] > 1) {
+            if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
+                [delegate listView:self emptyAreaWasDoubleClicked:evt];
+            }
+        }
+    } else {
+        self.selectedItemIndex = i;
+    }
+    
+    // this adds support for click-to-select + drag all in one click. 
+    // otherwise you have to click once to select and then click again to begin a drag, which sux.
+    BOOL dragging = YES;
+    NSInteger radius = DRAG_RADIUS;
+    NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
+    
+    while (dragging) {
+        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
+        
+        switch ([evt type]) {
+            case NSLeftMouseDragged:
+                if (NSPointInRect([evt locationInWindow], r)) {
+                    break;
+                }
+                [self mouseDragged:evt];
+                dragging = NO;
+                break;
+            case NSLeftMouseUp:
+                dragging = NO;
+                [super mouseDown:evt];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+- (void)mouseDragged:(NSEvent *)evt {
+    // have to get the image before calling any delegate methods... they may rearrange or remove views which would cause us to have the wrong image
+    dragOffset = NSZeroPoint;
+    NSImage *dragImg = nil;
+    if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
+        dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingIndex withEvent:lastMouseDownEvent offset:&dragOffset];
+    } else {
+        dragImg = [self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
+    }
+    
+    BOOL canDrag = YES;
+    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
+        canDrag = [delegate listView:self canDragItemAtIndex:draggingIndex withEvent:evt];
+    }
+    if (!canDrag) return;
+    
+    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    
+    canDrag = NO;
+    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
+        canDrag = [delegate listView:self writeItemAtIndex:draggingIndex toPasteboard:pboard];
+    }
+    if (!canDrag) return;
+    
+    self.selectedItemIndex = -1;
+    
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    
+    dragOffset.x = dragOffset.x - ([evt locationInWindow].x - [lastMouseDownEvent locationInWindow].x);
+    dragOffset.y = dragOffset.y + ([evt locationInWindow].y - [lastMouseDownEvent locationInWindow].y);
+    
+    p.x -= dragOffset.x;
+    p.y -= dragOffset.y;
+    
+    NSSize ignored = NSZeroSize;
+    [self dragImage:dragImg at:p offset:ignored event:evt pasteboard:pboard source:self slideBack:NO];
+}
+
+
+#pragma mark -
 #pragma mark DraggingSource
 
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
@@ -254,7 +363,7 @@
 }
 
 
-/* if the destination responded to draggingEntered: but not to draggingUpdated: the return value from draggingEntered: is used */
+/* TODO if the destination responded to draggingEntered: but not to draggingUpdated: the return value from draggingEntered: should be used */
 - (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)dragInfo {
     if (!delegate || ![delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
         return NSDragOperationNone;
@@ -301,6 +410,8 @@
         dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     }
     
+    //NSLog(@"over: %@. Drop %@ : %d", itemView, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
+
     NSUInteger i = 0;
     CGFloat n = 0;
     for ( ; i <= itemCount; i++) {
@@ -311,6 +422,9 @@
         } else {
             frame.origin.y = n;
         }
+        
+        [itemView setHidden:i == draggingIndex];
+
         if (i >= dropIndex) {
             if (self.isLandscape) {
                 frame.origin.x += frame.size.width;
@@ -319,20 +433,27 @@
             }
         }
         [itemView setFrame:frame];
-        if (self.isLandscape) {
-            n += frame.size.width;
-        } else {
-            n += frame.size.height;
+        if (i != draggingIndex) {
+            if (self.isLandscape) {
+                n += frame.size.width;
+            } else {
+                n += frame.size.height;
+            }
         }
     }
     
-    //NSLog(@"over: %@. Drop %@ : %d", itemView, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
     return dragOp;
 }
 
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
+    for (TDListItemView *itemView in listItemViews) {
+        [itemView setHidden:NO];
+    }
+    if (dropIndex > draggingIndex) {
+        dropIndex--;
+    }
     self.itemFrames = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:acceptDrop:index:dropOperation:)]) {
         return [delegate listView:self acceptDrop:dragInfo index:dropIndex dropOperation:dropOp];
@@ -343,121 +464,17 @@
 
 
 #pragma mark -
-#pragma mark NSView
-
-- (BOOL)isFlipped {
-    return YES;
-}
-
-
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
-
-
-- (void)drawRect:(NSRect)dirtyRect {
-    [backgroundColor set];
-    NSRectFill(dirtyRect);
-}
-
-
-#pragma mark -
-#pragma mark NSResponder
-
-- (void)mouseDown:(NSEvent *)evt {
-    [super mouseDown:evt];
-    
-    NSPoint locInWin = [evt locationInWindow];
-    NSPoint p = [self convertPoint:locInWin fromView:nil];
-    self.lastMouseDownEvent = evt;
-    
-    NSInteger i = [self indexForItemAtPoint:p];
-    draggingIndex = i;
-    if (-1 == i) {
-        if ([evt clickCount] > 1) {
-            if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
-                [delegate listView:self emptyAreaWasDoubleClicked:evt];
-            }
-        }
-    } else {
-        self.selectedItemIndex = i;
-    }
-
-    // this adds support for click-to-select + drag all in one click. 
-    // otherwise you have to click once to select and then click again to begin a drag, which sux.
-    BOOL dragging = YES;
-    NSInteger radius = DRAG_RADIUS;
-    NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
-    
-    while (dragging) {
-        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
-        
-        switch ([evt type]) {
-            case NSLeftMouseDragged:
-                if (NSPointInRect([evt locationInWindow], r)) {
-                    break;
-                }
-                [self mouseDragged:evt];
-                dragging = NO;
-                break;
-            case NSLeftMouseUp:
-                dragging = NO;
-                [super mouseDown:evt];
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-
-- (void)mouseDragged:(NSEvent *)evt {
-    // have to get the image before calling any delegate methods... they may rearrange or remove views which would cause us to have the wrong image
-    dragOffset = NSZeroPoint;
-    NSImage *dragImg = nil;
-    if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
-        dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingIndex withEvent:lastMouseDownEvent offset:&dragOffset];
-    } else {
-        dragImg = [self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
-    }
-
-    BOOL canDrag = YES;
-    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
-        canDrag = [delegate listView:self canDragItemAtIndex:draggingIndex withEvent:evt];
-    }
-    if (!canDrag) return;
-    
-    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-
-    canDrag = NO;
-    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
-        canDrag = [delegate listView:self writeItemAtIndex:draggingIndex toPasteboard:pboard];
-    }
-    if (!canDrag) return;
-    
-    self.selectedItemIndex = -1;
-
-    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
-    
-    dragOffset.x = dragOffset.x - ([evt locationInWindow].x - [lastMouseDownEvent locationInWindow].x);
-    dragOffset.y = dragOffset.y + ([evt locationInWindow].y - [lastMouseDownEvent locationInWindow].y);
-
-    p.x -= dragOffset.x;
-    p.y -= dragOffset.y;
-
-    NSSize ignored = NSZeroSize;
-    [self dragImage:dragImg at:p offset:ignored event:evt pasteboard:pboard source:self slideBack:NO];
-}
-
-
-#pragma mark -
 #pragma mark Private
 
 - (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
     NSInteger i = 0;
     for (NSValue *v in itemFrames) {
         if (NSPointInRect(p, [v rectValue])) {
-            return i;
+            if (i > draggingIndex) {
+                return i + 1;
+            } else {
+                return i;
+            }
         }
         i++;
     }
