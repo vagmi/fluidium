@@ -8,14 +8,3 @@
 
 #define FU_BUILD_TARGET_SNOW_LEOPARD defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6)
 #define FU_BUILD_TARGET_LEOPARD !defined(MAC_OS_X_VERSION_10_6) || (defined(MAC_OS_X_VERSION_10_6) && (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6))
-
-// This macro ensures that we call [super initialize] in our +initialize (since this behavior is necessary for some classes in Cocoa), but it keeps custom class initialization from executing more than once.
-#define OBINITIALIZE \
-    do { \
-        static BOOL hasBeenInitialized = NO; \
-        [super initialize]; \
-        if (hasBeenInitialized) \
-            return; \
-        hasBeenInitialized = YES;\
-    } while (0);
-

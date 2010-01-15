@@ -677,6 +677,9 @@
 		D3E4346610CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkButtonSeparator.m; path = src/FUBookmarkButtonSeparator.m; sourceTree = "<group>"; };
 		D3E4346710CB8D4C00A5BDEF /* FUBookmarkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkWindowController.h; path = src/FUBookmarkWindowController.h; sourceTree = "<group>"; };
 		D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkWindowController.m; path = src/FUBookmarkWindowController.m; sourceTree = "<group>"; };
+		D3EB1C811100130800633715 /* NSToolbar-OAExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSToolbar-OAExtensions.h"; sourceTree = "<group>"; };
+		D3EB1C821100130800633715 /* NSToolbar-OAExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSToolbar-OAExtensions.m"; sourceTree = "<group>"; };
+		D3EB1CA71100146000633715 /* OBDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDefines.h; sourceTree = "<group>"; };
 		D3F292ED10E7B32500CCB392 /* WebFrameViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebFrameViewPrivate.h; path = src/WebFrameViewPrivate.h; sourceTree = "<group>"; };
 		D3F4C3D310C8C7A300E0B474 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D3F4C53410C8CF4600E0B474 /* FUWindowToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWindowToolbar.h; path = src/FUWindowToolbar.h; sourceTree = "<group>"; };
@@ -1162,6 +1165,8 @@
 		D3A3268610FEFF6E00032B66 /* OAPreferences */ = {
 			isa = PBXGroup;
 			children = (
+				D3EB1C811100130800633715 /* NSToolbar-OAExtensions.h */,
+				D3EB1C821100130800633715 /* NSToolbar-OAExtensions.m */,
 				D3A3277310FF0C8600032B66 /* OFPreference.h */,
 				D3A3277410FF0C8600032B66 /* OFPreference.m */,
 				D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */,
@@ -1190,6 +1195,7 @@
 				D3A3270E10FF05E600032B66 /* NSImage-OAExtensions.m */,
 				D3A3271E10FF074200032B66 /* NSBundle-OAExtensions.h */,
 				D3A3271F10FF074200032B66 /* NSBundle-OAExtensions.m */,
+				D3EB1CA71100146000633715 /* OBDefines.h */,
 				D3A327A110FF0E7200032B66 /* OBObject.h */,
 				D3A327A210FF0E7200032B66 /* OBObject.m */,
 				D3A3279410FF0E4B00032B66 /* OFObject.h */,

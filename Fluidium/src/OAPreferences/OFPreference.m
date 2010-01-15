@@ -10,17 +10,11 @@
 //#import <OmniFoundation/OFEnumNameTable.h>
 //#import <OmniFoundation/OFNull.h>
 #import "NSObject-OFExtensions.h"
+#import "OBDefines.h"
 
-#if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
 //#import <OmniFoundation/NSUserDefaults-OFExtensions.h>
 #import <Foundation/NSScriptCommand.h>
 #import <Foundation/NSScriptObjectSpecifiers.h>
-#endif
-
-#define OFNOTNULL(ptr)   ((ptr) != nil && ![[ptr className] isEqualToString:@"OFNull"])
-#define OFISNULL(ptr)    ((ptr) == nil || [[ptr className] isEqualToString:@"OFNull"])
-#define OFISEQUAL(a, b)    ((a) == (b) || (OFISNULL(a) && OFISNULL(b)) || [(a) isEqual: (b)])
-#define OFNOTEQUAL(a, b)   (!OFISEQUAL(a, b))
 
 //#define DEBUG_PREFERENCES
 

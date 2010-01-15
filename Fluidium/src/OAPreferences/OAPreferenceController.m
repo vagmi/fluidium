@@ -27,6 +27,7 @@
 #import "NSImage-OAExtensions.h"
 #import "NSMutableArray-OFExtensions.h"
 #import "NSBundle-OAExtensions.h"
+#import "OBDefines.h"
 
 @interface OAPreferenceClientRecord ()
 - (NSComparisonResult)compareOrdering:(OAPreferenceClientRecord *)other;
