@@ -29,18 +29,22 @@
 @end
 
 @interface TDListView ()
+- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
 - (void)layoutItems;
 - (void)superviewRectDidChange:(NSNotification *)n;
 
 @property (nonatomic, retain) NSMutableArray *listItemViews;
 @property (nonatomic, retain) TDListItemViewQueue *queue;
 @property (nonatomic, retain) NSEvent *lastMouseDownEvent;
+@property (nonatomic, retain) NSMutableArray *itemFrames;
 @end
 
 @implementation TDListView
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
+        [self setWantsLayer:NO];
+        
         self.backgroundColor = [NSColor whiteColor];
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
@@ -68,6 +72,7 @@
     self.listItemViews = nil;
     self.queue = nil;
     self.lastMouseDownEvent = nil;
+    self.itemFrames = nil;
     [super dealloc];
 }
 
@@ -104,12 +109,10 @@
 
 
 - (NSInteger)indexForItemAtPoint:(NSPoint)p {
-    NSInteger i = 0;
     for (TDListItemView *itemView in listItemViews) {
         if (NSPointInRect(p, [itemView frame])) {
             return itemView.index;
         }
-        i++;
     }
     return -1;
 }
@@ -224,6 +227,7 @@
     
     if (!NSPointInRect(endPointInWin, dropZone)) {
         [NSToolbarPoofAnimator runPoofAtPoint:endPointInScreen];
+        [self layoutItems];
     }
 }
 
@@ -233,6 +237,11 @@
 #pragma mark NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {
+    self.itemFrames = [NSMutableArray arrayWithCapacity:[listItemViews count]];
+    for (TDListItemView *itemView in listItemViews) {
+        [itemFrames addObject:[NSValue valueWithRect:[itemView frame]]];
+    }
+    
     NSPasteboard *pboard = [dragInfo draggingPasteboard];
     NSDragOperation srcMask = [dragInfo draggingSourceOperationMask];
     
@@ -256,9 +265,11 @@
     
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
-    dropIndex = [self indexForItemAtPoint:locInList];
-    if (dropIndex < 0 || dropIndex > [listItemViews count]) {
-        dropIndex = [listItemViews count];
+    dropIndex = [self indexForItemWhileDraggingAtPoint:locInList];
+    
+    NSUInteger itemCount = [listItemViews count];
+    if (dropIndex < 0 || dropIndex > itemCount) {
+        dropIndex = itemCount;
     }
     TDListItemView *itemView = [self viewForItemAtIndex:dropIndex];
     NSPoint locInItem = [itemView convertPoint:locInWin fromView:nil];
@@ -291,6 +302,31 @@
         dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     }
     
+    NSUInteger i = 0;
+    CGFloat n = 0;
+    for ( ; i <= itemCount; i++) {
+        itemView = [self viewForItemAtIndex:i];
+        NSRect frame = [itemView frame];
+        if (self.isLandscape) {
+            frame.origin.x = n;
+        } else {
+            frame.origin.y = n;
+        }
+        if (i >= dropIndex) {
+            if (self.isLandscape) {
+                frame.origin.x += frame.size.width;
+            } else {
+                frame.origin.y += frame.size.height;
+            }
+        }
+        [itemView setFrame:frame];
+        if (self.isLandscape) {
+            n += frame.size.width;
+        } else {
+            n += frame.size.height;
+        }
+    }
+    
     //NSLog(@"over: %@. Drop %@ : %d", itemView, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
     return dragOp;
@@ -298,6 +334,7 @@
 
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
+    self.itemFrames = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:acceptDrop:index:dropOperation:)]) {
         return [delegate listView:self acceptDrop:dragInfo index:dropIndex dropOperation:dropOp];
     } else {
@@ -417,6 +454,18 @@
 #pragma mark -
 #pragma mark Private
 
+- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
+    NSInteger i = 0;
+    for (NSValue *v in itemFrames) {
+        if (NSPointInRect(p, [v rectValue])) {
+            return i;
+        }
+        i++;
+    }
+    return -1;
+}
+
+
 // TODO remove
 - (NSRect)visibleRect {
     return [[self superview] bounds];
@@ -512,4 +561,5 @@
 @synthesize queue;
 @synthesize displaysClippedItems;
 @synthesize lastMouseDownEvent;
+@synthesize itemFrames;
 @end

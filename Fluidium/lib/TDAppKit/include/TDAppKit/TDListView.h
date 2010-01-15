@@ -51,6 +51,7 @@ typedef enum {
     NSDragOperation nonLocalDragOperationMask;
     NSUInteger dropIndex;
     TDListViewDropOperation dropOp;
+    NSMutableArray *itemFrames;
 }
 
 - (void)reloadData;
