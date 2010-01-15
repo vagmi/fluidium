@@ -214,7 +214,7 @@
 - (void)draggedImage:(NSImage *)image endedAt:(NSPoint)endPointInScreen operation:(NSDragOperation)op {
     // screen origin is lower left
     endPointInScreen.x += dragOffset.x;
-    endPointInScreen.y += dragOffset.y;
+    endPointInScreen.y -= dragOffset.y;
 
     // window origin is lower left
     NSPoint endPointInWin = [[self window] convertScreenToBase:endPointInScreen];
@@ -401,8 +401,12 @@
     self.selectedItemIndex = -1;
 
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
-    p.x -= dragOffset.x - ([evt locationInWindow].x - [lastMouseDownEvent locationInWindow].x);
-    p.y -= dragOffset.y + ([evt locationInWindow].y - [lastMouseDownEvent locationInWindow].y);
+    
+    dragOffset.x = dragOffset.x - ([evt locationInWindow].x - [lastMouseDownEvent locationInWindow].x);
+    dragOffset.y = dragOffset.y + ([evt locationInWindow].y - [lastMouseDownEvent locationInWindow].y);
+
+    p.x -= dragOffset.x;
+    p.y -= dragOffset.y;
 
     NSSize ignored = NSZeroSize;
     [self dragImage:dragImg at:p offset:ignored event:evt pasteboard:pboard source:self slideBack:NO];
