@@ -19,6 +19,7 @@
 #import "FUTabsPlugIn.h"
 #import "FUTabModel.h"
 #import "FUTabListItemView.h"
+#import "WebURLsWithTitles.h"
 #import <WebKit/WebKit.h>
 
 #define KEY_SELECTION_INDEXES @"selectionIndexes"
@@ -86,9 +87,9 @@
 
 - (void)awakeFromNib {
     // setup drag and drop
-    [listView registerForDraggedTypes:[NSArray arrayWithObject:@"TDTabType"]];
-    [listView setDraggingSourceOperationMask:NSDragOperationMove forLocal:YES];
-    [listView setDraggingSourceOperationMask:NSDragOperationDelete forLocal:NO];
+    [listView registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, WebURLsWithTitlesPboardType, nil]];
+    [listView setDraggingSourceOperationMask:NSDragOperationMove|NSDragOperationDelete forLocal:YES];
+    [listView setDraggingSourceOperationMask:NSDragOperationLink|NSDragOperationCopy forLocal:NO];
 
     // setup ui
     listView.displaysClippedItems = YES;
@@ -181,6 +182,45 @@
 
 - (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt {
     [[[self.view window] windowController] openTab:self];
+}
+
+
+#pragma mark -
+#pragma mark TDListViewDelegate Drag and Drop
+
+- (NSDragOperation)listView:(TDListView *)lv validateDrop:(id <NSDraggingInfo>)draggingInfo proposedIndex:(NSUInteger *)proposedDropIndex dropOperation:(TDListViewDropOperation *)proposedDropOperation {
+    NSPasteboard *pboard = [draggingInfo draggingPasteboard];
+
+    NSArray *types = [pboard types];
+    
+    if ([types containsObject:NSURLPboardType] || [types containsObject:WebURLsWithTitlesPboardType]) {
+        return NSDragOperationLink|NSDragOperationCopy;
+    } else {
+        return NSDragOperationNone;
+    }
+}
+
+
+- (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)index dropOperation:(TDListViewDropOperation)dropOperation {
+    NSPasteboard *pboard = [draggingInfo draggingPasteboard];
+    
+    NSArray *types = [pboard types];
+    NSURL *URL = nil;
+    if ([types containsObject:NSURLPboardType]) {
+        URL = [NSURL URLFromPasteboard:pboard];
+    } else if ([types containsObject:WebURLsWithTitlesPboardType]) {
+        NSArray *URLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
+        if ([URLs count]) {
+            URL = [URLs objectAtIndex:0];
+        }
+    }
+
+    if (URL) {
+        [plugInAPI loadRequest:[NSURLRequest requestWithURL:URL] destinationType:FUPlugInDestinationTypeTab inForeground:YES];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 
