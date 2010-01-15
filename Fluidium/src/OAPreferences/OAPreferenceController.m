@@ -744,7 +744,7 @@ static NSString *windowFrameSaveName = @"Preferences";
     defaultToolbarItems = [allClients retain];
     [allClients release];
     
-    toolbar = [[[OAPreferencesToolbar alloc] initWithIdentifier:@"OAPreferencesWindow"] autorelease];
+    toolbar = [[OAPreferencesToolbar alloc] initWithIdentifier:@"OAPreferencesWindow"];
     [toolbar setAllowsUserCustomization:NO];
     [toolbar setAutosavesConfiguration:NO]; // Don't store the configured items or new items won't show up!
     [toolbar setDelegate:self];
