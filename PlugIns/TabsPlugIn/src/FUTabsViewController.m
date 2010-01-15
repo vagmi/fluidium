@@ -35,7 +35,8 @@
 - (void)setSelectedTabIndex:(NSInteger)i;
 - (NSArray *)tabControllers;
 - (id)tabControllerAtIndex:(NSInteger)i;
-- (void)removeTabController:(id)tc;
+- (BOOL)removeTabController:(id)tc;
+- (id)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
 @end
 
 @interface WebView ()
@@ -186,7 +187,34 @@
 
 
 #pragma mark -
-#pragma mark TDListViewDelegate Drag and Drop
+#pragma mark TDListViewDelegate Drag
+
+- (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSUInteger)i toPasteboard:(NSPasteboard *)pboard {
+    NSString *URLString = [[[self webViews] objectAtIndex:i] mainFrameURL];
+    NSURL *URL = [NSURL URLWithString:URLString];
+    if (URL) {
+        id wc = [self windowController];
+        id tc = [wc tabControllerAtIndex:i];
+
+        if ([wc removeTabController:tc]) {
+            [pboard declareTypes:[NSArray arrayWithObjects:NSURLPboardType, nil] owner:self];
+            [URL writeToPasteboard:pboard];
+            return YES;
+        }
+        
+    }
+    
+    return NO;
+}
+
+
+//- (NSImage *)listView:(TDListView *)lv draggingImageForItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
+//    
+//}
+
+
+#pragma mark -
+#pragma mark TDListViewDelegate Drop
 
 - (NSDragOperation)listView:(TDListView *)lv validateDrop:(id <NSDraggingInfo>)draggingInfo proposedIndex:(NSUInteger *)proposedDropIndex dropOperation:(TDListViewDropOperation *)proposedDropOperation {
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
@@ -201,7 +229,7 @@
 }
 
 
-- (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)index dropOperation:(TDListViewDropOperation)dropOperation {
+- (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)i dropOperation:(TDListViewDropOperation)dropOperation {
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
     
     NSArray *types = [pboard types];
@@ -216,7 +244,7 @@
     }
 
     if (URL) {
-        [plugInAPI loadRequest:[NSURLRequest requestWithURL:URL] destinationType:FUPlugInDestinationTypeTab inForeground:YES];
+        [[self windowController] loadRequest:[NSURLRequest requestWithURL:URL] inNewTab:YES atIndex:i andSelect:YES];
         return YES;
     } else {
         return NO;
