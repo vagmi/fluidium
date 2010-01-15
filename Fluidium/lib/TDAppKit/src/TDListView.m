@@ -34,6 +34,7 @@
 
 @property (nonatomic, retain) NSMutableArray *listItemViews;
 @property (nonatomic, retain) TDListItemViewQueue *queue;
+@property (nonatomic, retain) NSEvent *lastMouseDownEvent;
 @end
 
 @implementation TDListView
@@ -66,6 +67,7 @@
     self.backgroundColor = nil;
     self.listItemViews = nil;
     self.queue = nil;
+    self.lastMouseDownEvent = nil;
     [super dealloc];
 }
 
@@ -202,7 +204,7 @@
 
     if (dragImageOffset) {
         NSPoint p = [itemView convertPoint:[evt locationInWindow] fromView:nil];
-        *dragImageOffset = NSMakePoint(p.x, NSHeight([itemView frame]) - p.y);
+        *dragImageOffset = NSMakePoint(p.x, p.y - NSHeight([itemView frame]));
     }
     
     return result;
@@ -285,6 +287,8 @@
     if (delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
         dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     }
+    
+    //NSAssert(dropIndex != -1, @"woops");
 
     //NSLog(@"over: %@. Drop %@ : %d", itemView, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
@@ -328,7 +332,7 @@
     
     NSPoint locInWin = [evt locationInWindow];
     NSPoint p = [self convertPoint:locInWin fromView:nil];
-    lastMouseDownLocationInList = p;
+    self.lastMouseDownEvent = evt;
     
     NSInteger i = [self indexForItemAtPoint:p];
     draggingIndex = i;
@@ -375,7 +379,7 @@
     dragOffset = NSZeroPoint;
     NSImage *dragImg = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
-        dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
+        dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingIndex withEvent:lastMouseDownEvent offset:&dragOffset];
     } else {
         dragImg = [self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
     }
@@ -395,12 +399,13 @@
     if (!canDrag) return;
     
     self.selectedItemIndex = -1;
-    
-    NSPoint p = lastMouseDownLocationInList;
-    p.x -= dragOffset.x;
-    p.y += dragOffset.y;
-    
-    [self dragImage:dragImg at:p offset:NSZeroSize event:evt pasteboard:pboard source:self slideBack:NO];
+
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    p.x -= dragOffset.x - ([evt locationInWindow].x - [lastMouseDownEvent locationInWindow].x);
+    p.y -= dragOffset.y + ([evt locationInWindow].y - [lastMouseDownEvent locationInWindow].y);
+
+    NSSize ignored = NSZeroSize;
+    [self dragImage:dragImg at:p offset:ignored event:evt pasteboard:pboard source:self slideBack:NO];
 }
 
 
@@ -501,4 +506,5 @@
 @synthesize listItemViews;
 @synthesize queue;
 @synthesize displaysClippedItems;
+@synthesize lastMouseDownEvent;
 @end

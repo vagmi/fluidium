@@ -44,7 +44,7 @@ typedef enum {
     TDListItemViewQueue *queue;
     
     // drag and drop
-    NSPoint lastMouseDownLocationInList;
+    NSEvent *lastMouseDownEvent;
     NSUInteger draggingIndex;
     NSPoint dragOffset;
     NSDragOperation localDragOperationMask;
@@ -70,7 +70,7 @@ typedef enum {
 - (void)setDraggingSourceOperationMask:(NSDragOperation)mask forLocal:(BOOL)localDestination;
 
 /* This method computes and returns an image to use for dragging. You can override this to return a custom drag image, 
- or call it from the delegate method to get the default drag image. 'indexes' contains the indexes of the items being dragged. 
+ or call it from the delegate method to get the default drag image. 'index' contains the index of the item being dragged. 
  'event' is a reference to the mouse down event that began the drag. 'dragImageOffset' is an in/out parameter. 
  This method will be called with dragImageOffset set to NSZeroPoint, but it can be modified to re-position the returned image. 
  A dragImageOffset of NSZeroPoint will cause the image to be centered under the mouse. 
