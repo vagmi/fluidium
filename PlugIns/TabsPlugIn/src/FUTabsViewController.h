@@ -31,6 +31,7 @@
     NSInteger changeCount;
 
     NSDrawer *drawer;
+    id draggingTabController;
 }
 
 - (void)viewWillAppear;
@@ -45,4 +46,5 @@
 @property (nonatomic, assign) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *tabModels;
 @property (nonatomic, retain) NSDrawer *drawer;
+@property (nonatomic, retain) id draggingTabController;
 @end

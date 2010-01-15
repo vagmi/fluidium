@@ -28,14 +28,18 @@
 
 #define ASPECT_RATIO .7
 
+#define TDTabPboardType @"TDTabPboardType"
+
 @interface NSObject ()
 // FUWindowController
+- (NSTabView *)tabView;
 - (void)openTab:(id)sender;
 - (NSInteger)selectedTabIndex;
 - (void)setSelectedTabIndex:(NSInteger)i;
 - (NSArray *)tabControllers;
 - (id)tabControllerAtIndex:(NSInteger)i;
 - (BOOL)removeTabController:(id)tc;
+- (void)addTabController:(id)tc atIndex:(NSInteger)i;
 - (id)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
 @end
 
@@ -56,7 +60,7 @@
 - (void)startObserveringTabController:(id)tc;
 - (void)stopObserveringTabController:(id)tc;
 - (BOOL)isVertical;
-- (BOOL)isHorizontal;    
+- (BOOL)isHorizontal;
 @end
 
 @implementation FUTabsViewController
@@ -82,13 +86,14 @@
     self.plugInAPI = nil;
     self.tabModels = nil;
     self.drawer = nil;
+    self.draggingTabController = nil;
     [super dealloc];
 }
 
 
 - (void)awakeFromNib {
     // setup drag and drop
-    [listView registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, WebURLsWithTitlesPboardType, nil]];
+    [listView registerForDraggedTypes:[NSArray arrayWithObjects:TDTabPboardType, WebURLsWithTitlesPboardType, NSURLPboardType, nil]];
     [listView setDraggingSourceOperationMask:NSDragOperationMove|NSDragOperationDelete forLocal:YES];
     [listView setDraggingSourceOperationMask:NSDragOperationLink|NSDragOperationCopy forLocal:NO];
 
@@ -190,27 +195,17 @@
 #pragma mark TDListViewDelegate Drag
 
 - (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSUInteger)i toPasteboard:(NSPasteboard *)pboard {
-    NSString *URLString = [[[self webViews] objectAtIndex:i] mainFrameURL];
-    NSURL *URL = [NSURL URLWithString:URLString];
-    if (URL) {
-        id wc = [self windowController];
-        id tc = [wc tabControllerAtIndex:i];
+    id wc = [self windowController];
+    self.draggingTabController = [wc tabControllerAtIndex:i];
+    NSURL *URL = [NSURL URLWithString:[draggingTabController URLString]];
 
-        if ([wc removeTabController:tc]) {
-            [pboard declareTypes:[NSArray arrayWithObjects:NSURLPboardType, nil] owner:self];
-            [URL writeToPasteboard:pboard];
-            return YES;
-        }
-        
+    if (URL && [wc removeTabController:draggingTabController]) {
+        [pboard declareTypes:[NSArray arrayWithObjects:TDTabPboardType, nil] owner:self];
+        return YES;
     }
     
     return NO;
 }
-
-
-//- (NSImage *)listView:(TDListView *)lv draggingImageForItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
-//    
-//}
 
 
 #pragma mark -
@@ -221,7 +216,9 @@
 
     NSArray *types = [pboard types];
     
-    if ([types containsObject:NSURLPboardType] || [types containsObject:WebURLsWithTitlesPboardType]) {
+    if ([types containsObject:TDTabPboardType]) {
+        return NSDragOperationMove|NSDragOperationDelete;
+    } else if ([types containsObject:NSURLPboardType] || [types containsObject:WebURLsWithTitlesPboardType]) {
         return NSDragOperationLink|NSDragOperationCopy;
     } else {
         return NSDragOperationNone;
@@ -232,23 +229,38 @@
 - (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)i dropOperation:(TDListViewDropOperation)dropOperation {
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
     
-    NSArray *types = [pboard types];
-    NSURL *URL = nil;
-    if ([types containsObject:NSURLPboardType]) {
-        URL = [NSURL URLFromPasteboard:pboard];
-    } else if ([types containsObject:WebURLsWithTitlesPboardType]) {
-        NSArray *URLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
-        if ([URLs count]) {
-            URL = [URLs objectAtIndex:0];
-        }
+    id wc = [self windowController];
+    NSUInteger c = [[wc tabControllers] count];
+    if (i < 0 || i > c) {
+        i = c;
     }
 
-    if (URL) {
-        [[self windowController] loadRequest:[NSURLRequest requestWithURL:URL] inNewTab:YES atIndex:i andSelect:YES];
+    NSArray *types = [pboard types];
+    NSURL *URL = nil;
+    if ([types containsObject:TDTabPboardType]) {
+        [wc addTabController:draggingTabController atIndex:i];
+        self.draggingTabController = nil;
+
+        [self updateAllTabModelsFromIndex:i];
         return YES;
+
     } else {
-        return NO;
+        if ([types containsObject:NSURLPboardType]) {
+            URL = [NSURL URLFromPasteboard:pboard];
+        } else if ([types containsObject:WebURLsWithTitlesPboardType]) {
+            NSArray *URLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
+            if ([URLs count]) {
+                URL = [URLs objectAtIndex:0];
+            }
+        }
+        
+        if (URL) {
+            [[self windowController] loadRequest:[NSURLRequest requestWithURL:URL] inNewTab:YES atIndex:i andSelect:YES];
+            return YES;
+        }
     }
+    
+    return NO;
 }
 
 
@@ -384,10 +396,12 @@
         selectedModel.selected = NO;
     }
     
-    selectedModel = [tabModels objectAtIndex:selectedIndex];
-    selectedModel.selected = YES;
-    
-    [listView setSelectedItemIndex:selectedIndex];
+    if (selectedIndex >= 0 && selectedIndex < [tabModels count]) {
+        selectedModel = [tabModels objectAtIndex:selectedIndex];
+        selectedModel.selected = YES;
+        
+        [listView setSelectedItemIndex:selectedIndex];
+    }
 }
 
 
@@ -460,4 +474,5 @@
 @synthesize plugInAPI;
 @synthesize tabModels;
 @synthesize drawer;
+@synthesize draggingTabController;
 @end
