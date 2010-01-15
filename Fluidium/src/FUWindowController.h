@@ -50,6 +50,7 @@
 
     NSTabView *tabView;
     FUTabController *departingTabController;
+    NSUInteger draggingTabIndex;
  
     BOOL typingInFindPanel;
     NSString *findPanelTerm;

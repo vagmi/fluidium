@@ -1098,6 +1098,7 @@
 
 
 - (BOOL)tabView:(NSTabView *)tv shouldDragTabViewItem:(NSTabViewItem *)tabItem fromTabBar:(PSMTabBarControl *)tabBarControl {
+    draggingTabIndex = [tabView indexOfTabViewItem:tabItem];
     return [tabView numberOfTabViewItems] > 1;
 }
 
@@ -1119,17 +1120,23 @@
 
 
 - (void)tabView:(NSTabView *)tv didDropTabViewItem:(NSTabViewItem *)tabItem inTabBar:(PSMTabBarControl *)tabBarControl {
-    if (tabBarControl == tabBar) { // dropped on originating window. nothing to do.
-        return;
+    if (tabBarControl == tabBar) { // dropped on originating window.
+        NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [tabItem identifier], FUTabControllerKey,
+                              [NSNumber numberWithInteger:[tabView indexOfTabViewItem:tabItem]], FUIndexKey,
+                              [NSNumber numberWithInteger:draggingTabIndex], FUPriorIndexKey,
+                              nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidChangeTabOrderNotification object:self userInfo:info];
+
+    } else { // dropped on other window
+        [self tabControllerWasRemovedFromTabBar:departingTabController];
+        
+        FUWindowController *wc = [(FUTabBarControl *)tabBarControl windowController];
+        [wc tabControllerWasDroppedOnTabBar:departingTabController];
+        
+        // must call this manually
+        [wc tabView:wc.tabView didSelectTabViewItem:[wc tabViewItemForTabController:departingTabController]];
     }
-
-    [self tabControllerWasRemovedFromTabBar:departingTabController];
-
-    FUWindowController *wc = [(FUTabBarControl *)tabBarControl windowController];
-    [wc tabControllerWasDroppedOnTabBar:departingTabController];
-    
-    // must call this manually
-    [wc tabView:wc.tabView didSelectTabViewItem:[wc tabViewItemForTabController:departingTabController]];
 }
 
 

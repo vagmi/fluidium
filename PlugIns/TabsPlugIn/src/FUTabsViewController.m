@@ -293,6 +293,15 @@
 }
 
 
+- (void)windowControllerDidChangeTabOrder:(NSNotification *)n {
+    NSUInteger index = [[[n userInfo] objectForKey:@"FUIndex"] unsignedIntegerValue];
+    NSUInteger priorIndex = [[[n userInfo] objectForKey:@"FUPriorIndex"] unsignedIntegerValue];
+    
+    NSUInteger i = index < priorIndex ? index : priorIndex;
+    [self updateAllTabModelsFromIndex:i];
+}
+
+
 #pragma mark -
 #pragma mark FUTabControllerNotifcations
 
