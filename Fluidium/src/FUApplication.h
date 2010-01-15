@@ -13,10 +13,8 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-//#import <OmniAppkit/OAApplication.h>
 
-@interface FUApplication : NSApplication //OAApplication 
-{
+@interface FUApplication : NSApplication {
     BOOL isFluidSSB;
     NSString *appName;
     NSString *versionString;
