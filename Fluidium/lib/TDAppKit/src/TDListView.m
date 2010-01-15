@@ -257,6 +257,9 @@
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
     dropIndex = [self indexForItemAtPoint:locInList];
+    if (dropIndex < 0 || dropIndex > [listItemViews count]) {
+        dropIndex = [listItemViews count];
+    }
     TDListItemView *itemView = [self viewForItemAtIndex:dropIndex];
     NSPoint locInItem = [itemView convertPoint:locInWin fromView:nil];
 
@@ -288,8 +291,6 @@
         dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     }
     
-    //NSAssert(dropIndex != -1, @"woops");
-
     //NSLog(@"over: %@. Drop %@ : %d", itemView, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
     return dragOp;

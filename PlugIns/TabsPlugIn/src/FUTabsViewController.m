@@ -230,11 +230,6 @@
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
     
     id wc = [self windowController];
-    NSUInteger c = [[wc tabControllers] count];
-    if (i < 0 || i > c) {
-        i = c;
-    }
-
     NSArray *types = [pboard types];
     NSURL *URL = nil;
     if ([types containsObject:TDTabPboardType]) {
