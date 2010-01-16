@@ -57,7 +57,7 @@ typedef enum {
 
 - (void)reloadData;
 - (id)dequeueReusableItemWithIdentifier:(NSString *)s;
-- (NSInteger)indexForItemAtPoint:(NSPoint)p;
+- (NSUInteger)indexForItemAtPoint:(NSPoint)p;
 - (id)itemAtIndex:(NSUInteger)i;
 - (NSRect)frameForItemAtIndex:(NSUInteger)index;
 

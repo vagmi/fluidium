@@ -47,7 +47,6 @@
         self.backgroundColor = [NSColor whiteColor];
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
-        self.items = [NSMutableArray array];
         self.queue = [[[TDListItemQueue alloc] init] autorelease];
         
         self.displaysClippedItems = YES;
@@ -108,23 +107,22 @@
 }
 
 
-- (NSInteger)indexForItemAtPoint:(NSPoint)p {
+- (NSUInteger)indexForItemAtPoint:(NSPoint)p {
+    NSUInteger i = 0;
     for (TDListItem *item in items) {
         if (NSPointInRect(p, [item frame])) {
-            return item.index;
+            return i;
         }
+        i++;
     }
     return -1;
 }
 
 
 - (id)itemAtIndex:(NSUInteger)i {
-    for (TDListItem *item in items) {
-        if (item.index == i) {
-            return item;
-        }
-    }
-    return nil;
+    if (i < 0 || i >= [items count]) return nil;
+    
+    return [items objectAtIndex:i];
 }
 
 
@@ -457,13 +455,12 @@
         [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
     }
 
-    NSEnumerator *e = [items reverseObjectEnumerator];
-    TDListItem *item = nil;
-    while (item = [e nextObject]) {
+    for (TDListItem *item in items) {
         [queue enqueue:item];
         [item removeFromSuperview];
-        [items removeLastObject];
     }
+    
+    self.items = [NSMutableArray array];
     
     NSRect viewportRect = [self visibleRect];
     BOOL isPortrait = self.isPortrait;
@@ -505,7 +502,6 @@
             }
             //[[item animator] setFrame:NSMakeRect(x, y, w, h)];
             [item setFrame:NSMakeRect(x, y, w, h)];
-            item.index = i;            
             [self addSubview:item];
             [items addObject:item];
         }
