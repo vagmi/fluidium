@@ -184,11 +184,9 @@
 #pragma mark NSResponder
 
 - (void)mouseDown:(NSEvent *)evt {
-    [super mouseDown:evt];
-    
-    self.lastMouseDownEvent = evt;
     NSPoint locInWin = [evt locationInWindow];
-    
+    self.lastMouseDownEvent = evt;
+
     NSInteger i = [self indexForItemAtPoint:[self convertPoint:locInWin fromView:nil]];
     if (-1 == i) {
         if ([evt clickCount] > 1) { // handle double-click
@@ -607,7 +605,7 @@
 - (void)draggingSourceDragWillBeginAtIndex:(NSUInteger)i {
     draggingIndex = i;
     draggingItem = [self itemAtIndex:i];
-    draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);                    
+    draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
 }
 
 
@@ -615,6 +613,8 @@
     draggingIndex = -1;
     draggingExtent = 0;
     draggingItem = nil;
+
+    self.lastMouseDownEvent = nil;
 }
 
 @synthesize scrollView;
