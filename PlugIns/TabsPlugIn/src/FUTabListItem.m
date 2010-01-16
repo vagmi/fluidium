@@ -39,16 +39,23 @@ static NSImage *sProgressImage = nil;
 
 @interface NSImage (FUAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
+//- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
+//- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
+//- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
 @end
 
 @interface NSImage (FUTabAdditions)
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius progress:(CGFloat)progress;
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clip:(NSBezierPath *)path progress:(CGFloat)progress;
 @end
 
 @implementation NSImage (FUTabAdditions)
+
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius progress:(CGFloat)progress {
+    NSBezierPath *path = TDGetRoundRect(NSMakeRect(0, 0, size.width, size.height), radius, 1);
+    return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clip:path progress:progress];
+}
+
 
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clip:(NSBezierPath *)path progress:(CGFloat)progress {
     NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
@@ -71,6 +78,9 @@ static NSImage *sProgressImage = nil;
     // draw image
     NSSize fromSize = [self size];
     [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:alpha];
+    
+    fromSize = [sProgressImage size];
+    [sProgressImage drawInRect:NSMakeRect(0, 0, size.width * progress, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:.5];
     
     // restore state
     [currentContext setShouldAntialias:savedAntialias];
@@ -135,7 +145,7 @@ static NSImage *sProgressImage = nil;
         sSelectedInnerRectStrokeColor = [[sSelectedOuterRectStrokeColor colorWithAlphaComponent:.8] retain];
         sInnerRectStrokeColor = [[NSColor colorWithDeviceWhite:.7 alpha:1] retain];
         
-        sProgressImage = [NSImage imageNamed:@"progress_indicator.png" inBundleForClass:self];
+        sProgressImage = [[NSImage imageNamed:@"progress_indicator.png" inBundleForClass:self] retain];
     }
 }
 
@@ -236,13 +246,13 @@ static NSImage *sProgressImage = nil;
         CGFloat alpha = 1;
         BOOL hiRez = YES;
         if (/*!drawHiRez || */model.isLoading) {
-            alpha = .4;
+            //alpha = .4;
             hiRez = NO;
         }
         
         [model.image setFlipped:[self isFlipped]];
         
-        img = [model.image scaledImageOfSize:imgSize alpha:alpha hiRez:hiRez cornerRadius:NORMAL_RADIUS];
+        img = [model.image scaledImageOfSize:imgSize alpha:alpha hiRez:hiRez cornerRadius:NORMAL_RADIUS progress:model.estimatedProgress];
         model.scaledImage = img;
     }
     
