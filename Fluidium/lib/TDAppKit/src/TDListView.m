@@ -183,23 +183,25 @@
 #pragma mark -
 #pragma mark NSResponder
 
-- (void)mouseDown:(NSEvent *)evt {    
-    NSPoint locInWin = [evt locationInWindow];
-    NSPoint p = [self convertPoint:locInWin fromView:nil];
-    self.lastMouseDownEvent = evt;
+- (void)mouseDown:(NSEvent *)evt {
+    [super mouseDown:evt];
     
-    NSInteger i = [self indexForItemAtPoint:p];
+    self.lastMouseDownEvent = evt;
+    NSPoint locInWin = [evt locationInWindow];
+    
+    NSInteger i = [self indexForItemAtPoint:[self convertPoint:locInWin fromView:nil]];
     if (-1 == i) {
-        if ([evt clickCount] > 1) {
+        if ([evt clickCount] > 1) { // handle double-click
             if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
                 [delegate listView:self emptyAreaWasDoubleClicked:evt];
+                return;
             }
         }
     } else {
         self.selectedItemIndex = i;
     }
     
-    // this adds support for click-to-select + drag all in one click. 
+    // this adds support for click-to-select-and-drag all in one click. 
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
     BOOL dragging = YES;
         
@@ -207,7 +209,7 @@
     NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
     
     while (dragging) {
-        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
+        evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask|NSPeriodicMask];
         
         switch ([evt type]) {
             case NSLeftMouseDragged:
@@ -223,7 +225,7 @@
             case NSLeftMouseUp:
                 dragging = NO;
                 [self draggingSourceDragDidEnd];
-                [super mouseDown:evt];
+                [self mouseUp:evt];
                 break;
             default:
                 break;

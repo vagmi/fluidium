@@ -82,6 +82,8 @@ typedef enum {
  */
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset;
 
+- (BOOL)ignoreModifierKeysWhileDragging;
+
 @property (nonatomic, assign) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, assign) id <TDListViewDataSource>dataSource;
 @property (nonatomic, assign) id <TDListViewDelegate>delegate;
