@@ -200,7 +200,7 @@
     NSURL *URL = [NSURL URLWithString:[draggingTabController URLString]];
 
     if (URL) {
-        [pboard declareTypes:[NSArray arrayWithObjects:TDTabPboardType, nil] owner:self];
+        [pboard declareTypes:[NSArray arrayWithObjects:TDTabPboardType, TDListItemPboardType, nil] owner:self];
         return YES;
     }
     

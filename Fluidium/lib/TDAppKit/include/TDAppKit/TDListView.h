@@ -29,6 +29,8 @@ typedef enum {
     TDListViewDropBefore
 } TDListViewDropOperation;
 
+extern NSString *const TDListItemPboardType;
+
 @interface TDListView : NSView {
     NSScrollView *scrollView;
     id <TDListViewDataSource>dataSource;
@@ -45,9 +47,7 @@ typedef enum {
     
     // drag and drop
     NSEvent *lastMouseDownEvent;
-    TDListItem *draggingItem;
     NSUInteger draggingIndex;
-    CGFloat draggingExtent;
     NSPoint dragOffset;
     NSDragOperation localDragOperationMask;
     NSDragOperation nonLocalDragOperationMask;

@@ -20,6 +20,8 @@
 #define DEFAULT_ITEM_EXTENT 44
 #define DRAG_RADIUS 20
 
+NSString *const TDListItemPboardType = @"TDListItemPboardType";
+
 @interface NSToolbarPoofAnimator
 + (void)runPoofAtPoint:(NSPoint)p;
 @end
@@ -29,7 +31,6 @@
 - (void)layoutItemsWhileDragging;
 - (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
 - (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i;
-- (void)draggingSourceDragWillBeginAtIndex:(NSUInteger)i;
 - (void)draggingSourceDragDidEnd;
 
 @property (nonatomic, retain) NSMutableArray *items;
@@ -184,10 +185,10 @@
 #pragma mark NSResponder
 
 - (void)mouseDown:(NSEvent *)evt {
-    NSPoint locInWin = [evt locationInWindow];
+    NSPoint p = [evt locationInWindow];
     self.lastMouseDownEvent = evt;
 
-    NSInteger i = [self indexForItemAtPoint:[self convertPoint:locInWin fromView:nil]];
+    NSInteger i = [self indexForItemAtPoint:[self convertPoint:p fromView:nil]];
     if (-1 == i) {
         if ([evt clickCount] > 1) { // handle double-click
             if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
@@ -201,12 +202,12 @@
     
     // this adds support for click-to-select-and-drag all in one click. 
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
-    BOOL dragging = YES;
+    BOOL withinDragRadius = YES;
         
     NSInteger radius = DRAG_RADIUS;
-    NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
+    NSRect r = NSMakeRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
     
-    while (dragging) {
+    while (withinDragRadius) {
         evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask|NSPeriodicMask];
         
         switch ([evt type]) {
@@ -214,14 +215,12 @@
                 if (NSPointInRect([evt locationInWindow], r)) {
                     break;
                 }
-                if (!draggingItem) {
-                    [self draggingSourceDragWillBeginAtIndex:i];
-                }
+                draggingIndex = i;
                 [self mouseDragged:evt];
-                dragging = NO;
+                withinDragRadius = NO;
                 break;
             case NSLeftMouseUp:
-                dragging = NO;
+                withinDragRadius = NO;
                 [self draggingSourceDragDidEnd];
                 [self mouseUp:evt];
                 break;
@@ -249,6 +248,7 @@
     if (!canDrag) return;
     
     NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    [pboard declareTypes:[NSArray arrayWithObject:TDListItemPboardType] owner:self];
     
     canDrag = NO;
     if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
@@ -371,10 +371,16 @@
     }
     
     NSDragOperation dragOp = NSDragOperationNone;
+    BOOL isDraggingListItem = (draggingIndex > -1 || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
     
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
-    dropIndex = [self indexForItemWhileDraggingAtPoint:locInList];
+    
+    if (isDraggingListItem) {
+        dropIndex = [self indexForItemWhileDraggingAtPoint:locInList];
+    } else {
+        dropIndex = [self indexForItemAtPoint:locInList];
+    }
     
     NSUInteger itemCount = [items count];
     if (dropIndex < 0 || dropIndex > itemCount) {
@@ -396,17 +402,19 @@
     }
     
     dropOp = TDListViewDropOn;
-    if (draggingItem && NSPointInRect(locInItem, front)) {
-        // if p is in the first 1/3 of the item change the op to DropBefore
-        dropOp = TDListViewDropBefore;
-        
-    } else if (draggingItem && NSPointInRect(locInItem, back)) {
-        // if p is in the last 1/3 of the item view change op to DropBefore and increment index
-        dropIndex++;
-        dropOp = TDListViewDropBefore;
-    } else {
-        // if p is in the middle 1/3 of the item view leave as DropOn
-    }    
+    if (isDraggingListItem) {
+        if (NSPointInRect(locInItem, front)) {
+            // if p is in the first 1/3 of the item change the op to DropBefore
+            dropOp = TDListViewDropBefore;
+            
+        } else if (NSPointInRect(locInItem, back)) {
+            // if p is in the last 1/3 of the item view change op to DropBefore and increment index
+            dropIndex++;
+            dropOp = TDListViewDropBefore;
+        } else {
+            // if p is in the middle 1/3 of the item view leave as DropOn
+        }    
+    }
 
     if (delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
         dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
@@ -414,7 +422,9 @@
     
     //NSLog(@"over: %@. Drop %@ : %d", item, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
-    [self layoutItemsWhileDragging];
+    if (isDraggingListItem) {
+        [self layoutItemsWhileDragging];
+    }
     
     return dragOp;
 }
@@ -527,13 +537,12 @@
 
 
 - (void)layoutItemsWhileDragging {
-    if (!draggingItem) {
-        return;
-    }
-    
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
+    TDListItem *draggingItem = [self itemAtIndex:draggingIndex];
+    CGFloat draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
+
     //[NSAnimationContext beginGrouping];
     //[[NSAnimationContext currentContext] setDuration:.075];
     
@@ -570,10 +579,6 @@
 
 
 - (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
-    if (!draggingItem) {
-        return [self indexForItemAtPoint:p];
-    }
-    
     NSInteger i = 0;
     for (NSValue *v in itemFrames) {
         if (NSPointInRect(p, [v rectValue])) {
@@ -591,6 +596,8 @@
 
 - (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i {
     TDListItem *item = [self itemAtIndex:i];
+    TDListItem *draggingItem = [self itemAtIndex:draggingIndex];
+                                
     if (item == draggingItem) {
         TDListItem *nextItem = [self itemAtIndex:i + 1];
         item = nextItem ? nextItem : item;
@@ -602,18 +609,8 @@
 }
 
 
-- (void)draggingSourceDragWillBeginAtIndex:(NSUInteger)i {
-    draggingIndex = i;
-    draggingItem = [self itemAtIndex:i];
-    draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
-}
-
-
 - (void)draggingSourceDragDidEnd {
     draggingIndex = -1;
-    draggingExtent = 0;
-    draggingItem = nil;
-
     self.lastMouseDownEvent = nil;
 }
 
