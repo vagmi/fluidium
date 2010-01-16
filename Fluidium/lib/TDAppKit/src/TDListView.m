@@ -183,9 +183,7 @@
 #pragma mark -
 #pragma mark NSResponder
 
-- (void)mouseDown:(NSEvent *)evt {
-    [super mouseDown:evt];
-    
+- (void)mouseDown:(NSEvent *)evt {    
     NSPoint locInWin = [evt locationInWindow];
     NSPoint p = [self convertPoint:locInWin fromView:nil];
     self.lastMouseDownEvent = evt;
