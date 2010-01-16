@@ -40,7 +40,7 @@ typedef enum {
     TDListViewOrientation orientation;
     BOOL displaysClippedItems;
     
-    NSMutableArray *listItemViews;
+    NSMutableArray *items;
     TDListItemQueue *queue;
     
     // drag and drop
