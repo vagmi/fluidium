@@ -95,7 +95,7 @@
     // setup drag and drop
     [listView registerForDraggedTypes:[NSArray arrayWithObjects:TDTabPboardType, WebURLsWithTitlesPboardType, NSURLPboardType, nil]];
     [listView setDraggingSourceOperationMask:NSDragOperationMove|NSDragOperationDelete forLocal:YES];
-    [listView setDraggingSourceOperationMask:NSDragOperationLink|NSDragOperationCopy forLocal:NO];
+    [listView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 
     // setup ui
     listView.displaysClippedItems = YES;
@@ -219,7 +219,7 @@
     if ([types containsObject:TDTabPboardType]) {
         return NSDragOperationMove|NSDragOperationDelete;
     } else if ([types containsObject:NSURLPboardType] || [types containsObject:WebURLsWithTitlesPboardType]) {
-        return NSDragOperationLink|NSDragOperationCopy;
+        return NSDragOperationCopy;
     } else {
         return NSDragOperationNone;
     }
@@ -252,7 +252,7 @@
         }
         
         if (URL) {
-            [[self windowController] loadRequest:[NSURLRequest requestWithURL:URL] inNewTab:YES atIndex:i andSelect:YES];
+            [[self windowController] loadRequest:[NSURLRequest requestWithURL:URL] inNewTab:NO atIndex:i andSelect:YES];
             return YES;
         }
     }

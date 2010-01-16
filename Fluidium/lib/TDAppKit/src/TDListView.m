@@ -29,11 +29,12 @@
 @end
 
 @interface TDListView ()
-- (void)superviewRectDidChange:(NSNotification *)n;
 - (void)layoutItems;
 - (void)layoutItemsWhileDragging;
 - (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
 - (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i;
+- (void)draggingSourceDragWillBeginAtIndex:(NSUInteger)i;
+- (void)draggingSourceDragDidEnd;
 
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, retain) TDListItemQueue *queue;
@@ -79,15 +80,14 @@
 
 - (void)awakeFromNib {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(superviewRectDidChange:) name:NSViewFrameDidChangeNotification object:[self superview]];
-    [nc addObserver:self selector:@selector(superviewRectDidChange:) name:NSViewBoundsDidChangeNotification object:[self superview]];
+    [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:[self superview]];
 }
 
 
 #pragma mark -
 #pragma mark Notifications
 
-- (void)superviewRectDidChange:(NSNotification *)n {
+- (void)viewBoundsChanged:(NSNotification *)n {
     [self layoutItems];
 }
 
@@ -165,6 +165,11 @@
 #pragma mark -
 #pragma mark NSView
 
+- (void)resizeSubviewsWithOldSize:(NSSize)oldBoundsSize {
+    [self layoutItems];
+}
+
+
 - (BOOL)isFlipped {
     return YES;
 }
@@ -205,11 +210,7 @@
     // this adds support for click-to-select + drag all in one click. 
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
     BOOL dragging = YES;
-    
-    draggingIndex = i;
-    draggingItem = [self itemAtIndex:i];
-    draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
-    
+        
     NSInteger radius = DRAG_RADIUS;
     NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
     
@@ -221,11 +222,15 @@
                 if (NSPointInRect([evt locationInWindow], r)) {
                     break;
                 }
+                if (!draggingItem) {
+                    [self draggingSourceDragWillBeginAtIndex:i];
+                }
                 [self mouseDragged:evt];
                 dragging = NO;
                 break;
             case NSLeftMouseUp:
                 dragging = NO;
+                [self draggingSourceDragDidEnd];
                 [super mouseDown:evt];
                 break;
             default:
@@ -340,6 +345,8 @@
     }
 
     [self layoutItems];
+
+    [self draggingSourceDragDidEnd];
 }
 
 
@@ -397,11 +404,11 @@
     }
     
     dropOp = TDListViewDropOn;
-    if (NSPointInRect(locInItem, front)) {
+    if (draggingItem && NSPointInRect(locInItem, front)) {
         // if p is in the first 1/3 of the item change the op to DropBefore
         dropOp = TDListViewDropBefore;
         
-    } else if (NSPointInRect(locInItem, back)) {
+    } else if (draggingItem && NSPointInRect(locInItem, back)) {
         // if p is in the last 1/3 of the item view change op to DropBefore and increment index
         dropIndex++;
         dropOp = TDListViewDropBefore;
@@ -446,8 +453,6 @@
 }
 
 
-// TODO make -resizeSubviewsWithOldSize: ???
-//- (void)resizeSubviewsWithOldSize:(NSSize)oldBoundsSize
 - (void)layoutItems {
     if (!dataSource) {
         [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
@@ -530,6 +535,10 @@
 
 
 - (void)layoutItemsWhileDragging {
+    if (!draggingItem) {
+        return;
+    }
+    
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
@@ -569,6 +578,10 @@
 
 
 - (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
+    if (!draggingItem) {
+        return [self indexForItemAtPoint:p];
+    }
+    
     NSInteger i = 0;
     for (NSValue *v in itemFrames) {
         if (NSPointInRect(p, [v rectValue])) {
@@ -594,6 +607,20 @@
         item = (i < 0) ? [items objectAtIndex:0] : [items lastObject];
     }
     return item;
+}
+
+
+- (void)draggingSourceDragWillBeginAtIndex:(NSUInteger)i {
+    draggingIndex = i;
+    draggingItem = [self itemAtIndex:i];
+    draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);                    
+}
+
+
+- (void)draggingSourceDragDidEnd {
+    draggingIndex = -1;
+    draggingExtent = 0;
+    draggingItem = nil;
 }
 
 @synthesize scrollView;

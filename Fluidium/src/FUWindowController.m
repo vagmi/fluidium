@@ -529,7 +529,10 @@
     if (shouldCreate) {
         tc = [self addNewTabAtIndex:i andSelect:select];
     } else {
-        tc = [self selectedTabController];
+        tc = [self tabControllerAtIndex:i];
+        if (!tc) {
+            tc = [self selectedTabController];
+        }
     }
     
     [[[tc webView] mainFrame] loadRequest:req];
