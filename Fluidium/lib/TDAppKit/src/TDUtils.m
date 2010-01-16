@@ -13,25 +13,30 @@
 //  limitations under the License.
 
 #import <TDAppKit/TDUtils.h>
+#import <TDAppKit/NSBezierPath+TDAdditions.h>
 
 NSBezierPath *TDGetRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth) {
-    CGFloat minX = NSMinX(r);
-    CGFloat midX = NSMidX(r);
-    CGFloat maxX = NSMaxX(r);
-    CGFloat minY = NSMinY(r);
-    CGFloat midY = NSMidY(r);
-    CGFloat maxY = NSMaxY(r);
-    
-    NSBezierPath *path = [NSBezierPath bezierPath];
+    NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:r radius:radius];
     [path setLineWidth:lineWidth];
-    [path moveToPoint:NSMakePoint(minX, midY)];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(minX, minY) toPoint:NSMakePoint(midX, minY) radius:radius];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(maxX, minY) toPoint:NSMakePoint(maxX, midY) radius:radius];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(maxX, maxY) toPoint:NSMakePoint(midX, maxY) radius:radius];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(minX, maxY) toPoint:NSMakePoint(minX, midY) radius:radius];
-    [path closePath];
-    
     return path;
+    
+//    CGFloat minX = NSMinX(r);
+//    CGFloat midX = NSMidX(r);
+//    CGFloat maxX = NSMaxX(r);
+//    CGFloat minY = NSMinY(r);
+//    CGFloat midY = NSMidY(r);
+//    CGFloat maxY = NSMaxY(r);
+//    
+//    NSBezierPath *path = [NSBezierPath bezierPath];
+//    [path setLineWidth:lineWidth];
+//    [path moveToPoint:NSMakePoint(minX, midY)];
+//    [path appendBezierPathWithArcFromPoint:NSMakePoint(minX, minY) toPoint:NSMakePoint(midX, minY) radius:radius];
+//    [path appendBezierPathWithArcFromPoint:NSMakePoint(maxX, minY) toPoint:NSMakePoint(maxX, midY) radius:radius];
+//    [path appendBezierPathWithArcFromPoint:NSMakePoint(maxX, maxY) toPoint:NSMakePoint(midX, maxY) radius:radius];
+//    [path appendBezierPathWithArcFromPoint:NSMakePoint(minX, maxY) toPoint:NSMakePoint(minX, midY) radius:radius];
+//    [path closePath];
+//    
+//    return path;
 }
 
 

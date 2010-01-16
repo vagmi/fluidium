@@ -35,7 +35,6 @@
 		D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
 		D32803F410CC7BFA00BB363B /* FUBookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32803F310CC7BFA00BB363B /* FUBookmarkController.m */; };
-		D328FADF10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D328FADE10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
 		D328FB1310CB9E2600BB363B /* FUBookmarkWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D328FB1110CB9E2600BB363B /* FUBookmarkWindow.xib */; };
 		D328FD5710CC33F500BB363B /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
 		D332221310C8C19500151693 /* FUDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D332221210C8C19500151693 /* FUDocument.m */; };
@@ -467,8 +466,6 @@
 		D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = "<group>"; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = src/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
-		D328FADD10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+PXRoundedRectangleAdditions.h"; path = "src/NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
-		D328FADE10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath+PXRoundedRectangleAdditions.m"; path = "src/NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
 		D328FB1210CB9E2600BB363B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBookmarkWindow.xib; sourceTree = "<group>"; };
 		D328FC9410CC339E00BB363B /* PSMTabBarControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PSMTabBarControl.xcodeproj; path = lib/PSMTabBarControl/PSMTabBarControl.xcodeproj; sourceTree = "<group>"; };
 		D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TabsPlugIn.xcodeproj; path = ../PlugIns/TabsPlugIn/TabsPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -1390,8 +1387,6 @@
 				D30BC3AF10E11D920019816B /* NSPasteboard+FUAdditions.m */,
 				D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */,
 				D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */,
-				D328FADD10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.h */,
-				D328FADE10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m */,
 				D3051E2410CADB3F00AFF325 /* WebIconDatabase+FUAdditions.h */,
 				D3051E2510CADB3F00AFF325 /* WebIconDatabase+FUAdditions.m */,
 				D35CC54610D4829400DA1898 /* DOMNode+FUAdditions.h */,
@@ -1799,7 +1794,6 @@
 				D3E4346D10CB8D4C00A5BDEF /* FUBookmarkBarOverflowButton.m in Sources */,
 				D3E4346E10CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m in Sources */,
 				D3E4346F10CB8D4C00A5BDEF /* FUBookmarkWindowController.m in Sources */,
-				D328FADF10CB9B9200BB363B /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
 				D32803F410CC7BFA00BB363B /* FUBookmarkController.m in Sources */,
 				D346E18F10CCE91B00BA0B15 /* FUTabBarControl.m in Sources */,
 				D346E32910CD7C6600BA0B15 /* FUActivation.m in Sources */,
