@@ -447,6 +447,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="299104705">
+				<object class="NSMutableArray" key="NSDeclaredKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>TDUberViewSplitViewDividerStyle</string>
+				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
@@ -503,22 +507,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedIndex: values.TDUberView_splitViewDividerStyle</string>
-						<reference key="source" ref="342821334"/>
-						<reference key="destination" ref="299104705"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="342821334"/>
-							<reference key="NSDestination" ref="299104705"/>
-							<string key="NSLabel">selectedIndex: values.TDUberView_splitViewDividerStyle</string>
-							<string key="NSBinding">selectedIndex</string>
-							<string key="NSKeyPath">values.TDUberView_splitViewDividerStyle</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">35</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.FUShowVisiblePlugInsInNewWindows</string>
 						<reference key="source" ref="763983696"/>
 						<reference key="destination" ref="299104705"/>
@@ -568,6 +556,22 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</object>
 					<int key="connectionID">38</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedIndex: values.TDUberViewSplitViewDividerStyle</string>
+						<reference key="source" ref="342821334"/>
+						<reference key="destination" ref="299104705"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="342821334"/>
+							<reference key="NSDestination" ref="299104705"/>
+							<string key="NSLabel">selectedIndex: values.TDUberViewSplitViewDividerStyle</string>
+							<string key="NSBinding">selectedIndex</string>
+							<string key="NSKeyPath">values.TDUberViewSplitViewDividerStyle</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">39</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -811,7 +815,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">38</int>
+			<int key="maxID">39</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

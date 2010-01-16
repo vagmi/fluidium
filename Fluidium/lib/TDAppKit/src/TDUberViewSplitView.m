@@ -59,7 +59,8 @@
 
 - (void)drawDividerInRect:(NSRect)divRect {
     if (NSSplitViewDividerStyleThin == [uberView splitViewDividerStyle]) {
-        [super drawDividerInRect:divRect]; 
+        [[[self window] isMainWindow] ? [NSColor darkGrayColor] : [NSColor grayColor] set];
+        NSRectFill(divRect);
         return;
     }
     

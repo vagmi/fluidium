@@ -381,6 +381,7 @@
     if (dropIndex < 0 || dropIndex > itemCount) {
         dropIndex = itemCount;
     }
+
     TDListItem *item = [self itemWhileDraggingAtIndex:dropIndex];
     NSPoint locInItem = [item convertPoint:locInWin fromView:nil];
 
