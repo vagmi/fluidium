@@ -29,9 +29,10 @@
 @end
 
 @interface TDListView ()
-- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
-- (void)layoutItems;
 - (void)superviewRectDidChange:(NSNotification *)n;
+- (void)layoutItems;
+- (void)layoutItemsWhileDragging;
+- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
 
 @property (nonatomic, retain) NSMutableArray *listItemViews;
 @property (nonatomic, retain) TDListItemViewQueue *queue;
@@ -42,9 +43,7 @@
 @implementation TDListView
 
 - (id)initWithFrame:(NSRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        [self setWantsLayer:NO];
-        
+    if (self = [super initWithFrame:frame]) {        
         self.backgroundColor = [NSColor whiteColor];
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
@@ -194,7 +193,6 @@
     self.lastMouseDownEvent = evt;
     
     NSInteger i = [self indexForItemAtPoint:p];
-    draggingIndex = i;
     if (-1 == i) {
         if ([evt clickCount] > 1) {
             if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
@@ -208,6 +206,15 @@
     // this adds support for click-to-select + drag all in one click. 
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
     BOOL dragging = YES;
+    
+    draggingIndex = i;
+    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    if (self.isPortrait) {
+        draggingExtent = NSHeight([itemView frame]);
+    } else {
+        draggingExtent = NSWidth([itemView frame]);
+    }
+    
     NSInteger radius = DRAG_RADIUS;
     NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
     
@@ -277,7 +284,6 @@
 
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
     return isLocal ? localDragOperationMask : nonLocalDragOperationMask;
-    //return (NSDragOperationMove|NSDragOperationDelete);
 }
 
 
@@ -336,8 +342,9 @@
     
     if (!NSPointInRect(endPointInWin, dropZone)) {
         [NSToolbarPoofAnimator runPoofAtPoint:endPointInScreen];
-        [self layoutItems];
     }
+
+    [self layoutItems];
 }
 
 
@@ -412,37 +419,8 @@
     
     //NSLog(@"over: %@. Drop %@ : %d", itemView, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
-    NSUInteger i = 0;
-    CGFloat n = 0;
-    for ( ; i <= itemCount; i++) {
-        itemView = [self viewForItemAtIndex:i];
-        NSRect frame = [itemView frame];
-        if (self.isLandscape) {
-            frame.origin.x = n;
-        } else {
-            frame.origin.y = n;
-        }
-        
-        [itemView setHidden:i == draggingIndex];
-
-        if (i >= dropIndex) {
-            if (self.isLandscape) {
-                frame.origin.x += frame.size.width;
-            } else {
-                frame.origin.y += frame.size.height;
-            }
-        }
-        [itemView setFrame:frame];
-        if (i != draggingIndex) {
-            if (self.isLandscape) {
-                n += frame.size.width;
-            } else {
-                n += frame.size.height;
-            }
-        }
-    }
+    [self layoutItemsWhileDragging];
     
-
     return dragOp;
 }
 
@@ -465,22 +443,6 @@
 
 #pragma mark -
 #pragma mark Private
-
-- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
-    NSInteger i = 0;
-    for (NSValue *v in itemFrames) {
-        if (NSPointInRect(p, [v rectValue])) {
-            if (i > draggingIndex) {
-                return i + 1;
-            } else {
-                return i;
-            }
-        }
-        i++;
-    }
-    return -1;
-}
-
 
 // TODO remove
 - (NSRect)visibleRect {
@@ -514,6 +476,9 @@
     NSInteger c = [dataSource numberOfItemsInListView:self];
     BOOL respondsToExtentForItem = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);
     
+    //[NSAnimationContext beginGrouping];
+    //[[NSAnimationContext currentContext] setDuration:0];
+    
     NSInteger i = 0;
     for ( ; i < c; i++) {
         // determine item frame
@@ -538,6 +503,7 @@
             if (!itemView) {
                 [NSException raise:EXCEPTION_NAME format:@"nil list item view returned for index: %d by: %@", i, dataSource];
             }
+            //[[itemView animator] setFrame:NSMakeRect(x, y, w, h)];
             [itemView setFrame:NSMakeRect(x, y, w, h)];
             itemView.index = i;            
             [self addSubview:itemView];
@@ -559,10 +525,68 @@
         x = x < viewportRect.size.width ? viewportRect.size.width : x;
         frame.size.width = x;
     }
+    
+    //[NSAnimationContext endGrouping];
+
     [self setFrame:frame];
     
     //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([superview bounds]));
     //NSLog(@"view count: %d, queue count: %d", [listItemViews count], [queue count]);
+}
+
+
+- (void)layoutItemsWhileDragging {
+    NSUInteger itemCount = [listItemViews count];
+    TDListItemView *itemView = nil;
+    
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:.075];
+    
+    CGFloat extent = 0;
+    NSUInteger i = 0;
+    for ( ; i <= itemCount; i++) {
+        itemView = [self viewForItemAtIndex:i];
+        NSRect frame = [itemView frame];
+        if (self.isLandscape) {
+            frame.origin.x = extent;
+        } else {
+            frame.origin.y = extent;
+        }
+        
+        [itemView setHidden:i == draggingIndex];
+        
+        if (i >= dropIndex) {
+            if (self.isPortrait) {
+                frame.origin.y += draggingExtent;
+            } else {
+                frame.origin.x += draggingExtent;
+            }
+        }
+        
+        //[[itemView animator] setFrame:frame];
+        [itemView setFrame:frame];
+        if (i != draggingIndex) {
+            extent += self.isPortrait ? frame.size.height : frame.size.width;
+        }
+    }
+
+    [NSAnimationContext endGrouping];
+}
+
+
+- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
+    NSInteger i = 0;
+    for (NSValue *v in itemFrames) {
+        if (NSPointInRect(p, [v rectValue])) {
+            if (i > draggingIndex) {
+                return i + 1;
+            } else {
+                return i;
+            }
+        }
+        i++;
+    }
+    return -1;
 }
 
 @synthesize scrollView;
