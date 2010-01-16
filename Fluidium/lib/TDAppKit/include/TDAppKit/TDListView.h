@@ -45,6 +45,7 @@ typedef enum {
     
     // drag and drop
     NSEvent *lastMouseDownEvent;
+    TDListItem *draggingItem;
     NSUInteger draggingIndex;
     CGFloat draggingExtent;
     NSPoint dragOffset;

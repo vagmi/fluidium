@@ -33,6 +33,7 @@
 - (void)layoutItems;
 - (void)layoutItemsWhileDragging;
 - (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
+- (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i;
 
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, retain) TDListItemQueue *queue;
@@ -206,12 +207,8 @@
     BOOL dragging = YES;
     
     draggingIndex = i;
-    TDListItem *item = [self itemAtIndex:i];
-    if (self.isPortrait) {
-        draggingExtent = NSHeight([item frame]);
-    } else {
-        draggingExtent = NSWidth([item frame]);
-    }
+    draggingItem = [self itemAtIndex:i];
+    draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
     
     NSInteger radius = DRAG_RADIUS;
     NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
@@ -384,7 +381,7 @@
     if (dropIndex < 0 || dropIndex > itemCount) {
         dropIndex = itemCount;
     }
-    TDListItem *item = [self itemAtIndex:dropIndex];
+    TDListItem *item = [self itemWhileDraggingAtIndex:dropIndex];
     NSPoint locInItem = [item convertPoint:locInWin fromView:nil];
 
     NSRect itemBounds = [item bounds];
@@ -535,8 +532,8 @@
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
-    [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:.075];
+    //[NSAnimationContext beginGrouping];
+    //[[NSAnimationContext currentContext] setDuration:.075];
     
     CGFloat extent = 0;
     NSUInteger i = 0;
@@ -566,7 +563,7 @@
         }
     }
 
-    [NSAnimationContext endGrouping];
+    //[NSAnimationContext endGrouping];
 }
 
 
@@ -574,7 +571,7 @@
     NSInteger i = 0;
     for (NSValue *v in itemFrames) {
         if (NSPointInRect(p, [v rectValue])) {
-            if (i > draggingIndex) {
+            if (i >= draggingIndex) {
                 return i + 1;
             } else {
                 return i;
@@ -583,6 +580,19 @@
         i++;
     }
     return -1;
+}
+
+
+- (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i {
+    TDListItem *item = [self itemAtIndex:i];
+    if (item == draggingItem) {
+        TDListItem *nextItem = [self itemAtIndex:i + 1];
+        item = nextItem ? nextItem : item;
+    }
+    if (!item) {
+        item = (i < 0) ? [items objectAtIndex:0] : [items lastObject];
+    }
+    return item;
 }
 
 @synthesize scrollView;
