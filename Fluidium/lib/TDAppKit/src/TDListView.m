@@ -49,8 +49,6 @@
         
         self.displaysClippedItems = YES;
         
-        [self setPostsBoundsChangedNotifications:YES];
-        
         draggingIndex = -1;
         [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
         [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
