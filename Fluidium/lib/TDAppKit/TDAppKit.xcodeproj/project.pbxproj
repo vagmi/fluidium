@@ -13,9 +13,9 @@
 		D318A05110F8570E00B6AA21 /* TDGutterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D318A04D10F8570E00B6AA21 /* TDGutterView.m */; };
 		D318A05210F8570E00B6AA21 /* TDSourceCodeTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = D318A04E10F8570E00B6AA21 /* TDSourceCodeTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D318A05310F8570E00B6AA21 /* TDSourceCodeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D318A04F10F8570E00B6AA21 /* TDSourceCodeTextView.m */; };
-		D31CBFB010EFB7010013347D /* TDListItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFAA10EFB7010013347D /* TDListItemView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D31CBFB110EFB7010013347D /* TDListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAB10EFB7010013347D /* TDListItemView.m */; };
-		D31CBFB310EFB7010013347D /* TDListItemViewQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAD10EFB7010013347D /* TDListItemViewQueue.m */; };
+		D31CBFB010EFB7010013347D /* TDListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFAA10EFB7010013347D /* TDListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31CBFB110EFB7010013347D /* TDListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAB10EFB7010013347D /* TDListItem.m */; };
+		D31CBFB310EFB7010013347D /* TDListItemQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAD10EFB7010013347D /* TDListItemQueue.m */; };
 		D31CBFB410EFB7010013347D /* TDListView.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFAE10EFB7010013347D /* TDListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D31CBFB510EFB7010013347D /* TDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFAF10EFB7010013347D /* TDListView.m */; };
 		D31CBFCA10EFB8180013347D /* TDUberView.h in Headers */ = {isa = PBXBuildFile; fileRef = D31CBFC810EFB8180013347D /* TDUberView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,10 +58,10 @@
 		D318A04D10F8570E00B6AA21 /* TDGutterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDGutterView.m; path = src/TDGutterView.m; sourceTree = "<group>"; };
 		D318A04E10F8570E00B6AA21 /* TDSourceCodeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSourceCodeTextView.h; path = include/TDAppKit/TDSourceCodeTextView.h; sourceTree = "<group>"; };
 		D318A04F10F8570E00B6AA21 /* TDSourceCodeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSourceCodeTextView.m; path = src/TDSourceCodeTextView.m; sourceTree = "<group>"; };
-		D31CBFAA10EFB7010013347D /* TDListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItemView.h; path = include/TDAppKit/TDListItemView.h; sourceTree = "<group>"; };
-		D31CBFAB10EFB7010013347D /* TDListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItemView.m; path = src/TDListItemView.m; sourceTree = "<group>"; };
-		D31CBFAC10EFB7010013347D /* TDListItemViewQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItemViewQueue.h; path = src/TDListItemViewQueue.h; sourceTree = "<group>"; };
-		D31CBFAD10EFB7010013347D /* TDListItemViewQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItemViewQueue.m; path = src/TDListItemViewQueue.m; sourceTree = "<group>"; };
+		D31CBFAA10EFB7010013347D /* TDListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItem.h; path = include/TDAppKit/TDListItem.h; sourceTree = "<group>"; };
+		D31CBFAB10EFB7010013347D /* TDListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItem.m; path = src/TDListItem.m; sourceTree = "<group>"; };
+		D31CBFAC10EFB7010013347D /* TDListItemQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListItemQueue.h; path = src/TDListItemQueue.h; sourceTree = "<group>"; };
+		D31CBFAD10EFB7010013347D /* TDListItemQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListItemQueue.m; path = src/TDListItemQueue.m; sourceTree = "<group>"; };
 		D31CBFAE10EFB7010013347D /* TDListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDListView.h; path = include/TDAppKit/TDListView.h; sourceTree = "<group>"; };
 		D31CBFAF10EFB7010013347D /* TDListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDListView.m; path = src/TDListView.m; sourceTree = "<group>"; };
 		D31CBFC810EFB8180013347D /* TDUberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberView.h; path = include/TDAppKit/TDUberView.h; sourceTree = "<group>"; };
@@ -200,10 +200,10 @@
 			children = (
 				D31CBFAE10EFB7010013347D /* TDListView.h */,
 				D31CBFAF10EFB7010013347D /* TDListView.m */,
-				D31CBFAA10EFB7010013347D /* TDListItemView.h */,
-				D31CBFAB10EFB7010013347D /* TDListItemView.m */,
-				D31CBFAC10EFB7010013347D /* TDListItemViewQueue.h */,
-				D31CBFAD10EFB7010013347D /* TDListItemViewQueue.m */,
+				D31CBFAA10EFB7010013347D /* TDListItem.h */,
+				D31CBFAB10EFB7010013347D /* TDListItem.m */,
+				D31CBFAC10EFB7010013347D /* TDListItemQueue.h */,
+				D31CBFAD10EFB7010013347D /* TDListItemQueue.m */,
 			);
 			name = ListView;
 			sourceTree = "<group>";
@@ -254,7 +254,7 @@
 				D31CC02410EFC6BB0013347D /* TDAppKit.h in Headers */,
 				D31CBFCA10EFB8180013347D /* TDUberView.h in Headers */,
 				D31CBFB410EFB7010013347D /* TDListView.h in Headers */,
-				D31CBFB010EFB7010013347D /* TDListItemView.h in Headers */,
+				D31CBFB010EFB7010013347D /* TDListItem.h in Headers */,
 				D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */,
 				D371245410F0522700D7107B /* TDBar.h in Headers */,
 				D371245510F0522700D7107B /* TDLine.h in Headers */,
@@ -348,8 +348,8 @@
 			files = (
 				D31CBFCE10EFB8260013347D /* TDUberView.m in Sources */,
 				D31CBFB510EFB7010013347D /* TDListView.m in Sources */,
-				D31CBFB110EFB7010013347D /* TDListItemView.m in Sources */,
-				D31CBFB310EFB7010013347D /* TDListItemViewQueue.m in Sources */,
+				D31CBFB110EFB7010013347D /* TDListItem.m in Sources */,
+				D31CBFB310EFB7010013347D /* TDListItemQueue.m in Sources */,
 				D371244810F0520800D7107B /* TDBar.m in Sources */,
 				D371244910F0520D00D7107B /* TDLine.m in Sources */,
 				D371246110F0526B00D7107B /* TDUberViewSplitView.m in Sources */,

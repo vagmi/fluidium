@@ -14,7 +14,7 @@
 
 #import "DemoListItemView.h"
 
-@interface TDListItemView ()
+@interface TDListItem ()
 @property (nonatomic, assign) NSUInteger index;
 @end
 

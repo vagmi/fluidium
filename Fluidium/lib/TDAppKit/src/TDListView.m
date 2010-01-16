@@ -13,8 +13,8 @@
 //  limitations under the License.
 
 #import <TDAppKit/TDListView.h>
-#import <TDAppKit/TDListItemView.h>
-#import "TDListItemViewQueue.h"
+#import <TDAppKit/TDListItem.h>
+#import "TDListItemQueue.h"
 
 #define EXCEPTION_NAME @"TDListViewDataSourceException"
 #define DEFAULT_ITEM_EXTENT 44
@@ -24,7 +24,7 @@
 + (void)runPoofAtPoint:(NSPoint)p;
 @end
 
-@interface TDListItemView ()
+@interface TDListItem ()
 @property (nonatomic) NSUInteger index;
 @end
 
@@ -35,7 +35,7 @@
 - (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
 
 @property (nonatomic, retain) NSMutableArray *listItemViews;
-@property (nonatomic, retain) TDListItemViewQueue *queue;
+@property (nonatomic, retain) TDListItemQueue *queue;
 @property (nonatomic, retain) NSEvent *lastMouseDownEvent;
 @property (nonatomic, retain) NSMutableArray *itemFrames;
 @end
@@ -48,7 +48,7 @@
         self.itemExtent = DEFAULT_ITEM_EXTENT;
         
         self.listItemViews = [NSMutableArray array];
-        self.queue = [[[TDListItemViewQueue alloc] init] autorelease];
+        self.queue = [[[TDListItemQueue alloc] init] autorelease];
         
         self.displaysClippedItems = YES;
         
@@ -102,14 +102,14 @@
 
 
 - (id)dequeueReusableItemWithIdentifier:(NSString *)s {
-    TDListItemView *itemView = [queue dequeueWithIdentifier:s];
+    TDListItem *itemView = [queue dequeueWithIdentifier:s];
     [itemView prepareForReuse];
     return itemView;
 }
 
 
 - (NSInteger)indexForItemAtPoint:(NSPoint)p {
-    for (TDListItemView *itemView in listItemViews) {
+    for (TDListItem *itemView in listItemViews) {
         if (NSPointInRect(p, [itemView frame])) {
             return itemView.index;
         }
@@ -118,8 +118,8 @@
 }
 
 
-- (id)viewForItemAtIndex:(NSUInteger)i {
-    for (TDListItemView *itemView in listItemViews) {
+- (id)itemAtIndex:(NSUInteger)i {
+    for (TDListItem *itemView in listItemViews) {
         if (itemView.index == i) {
             return itemView;
         }
@@ -129,7 +129,7 @@
 
 
 - (NSRect)frameForItemAtIndex:(NSUInteger)i {
-    return [[self viewForItemAtIndex:i] frame];
+    return [[self itemAtIndex:i] frame];
 }
 
 
@@ -208,7 +208,7 @@
     BOOL dragging = YES;
     
     draggingIndex = i;
-    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    TDListItem *itemView = [self itemAtIndex:i];
     if (self.isPortrait) {
         draggingExtent = NSHeight([itemView frame]);
     } else {
@@ -302,7 +302,7 @@
 
 
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
-    TDListItemView *itemView = [self viewForItemAtIndex:i];
+    TDListItem *itemView = [self itemAtIndex:i];
     NSRect r = [itemView bounds];
     NSBitmapImageRep *bitmap = [itemView bitmapImageRepForCachingDisplayInRect:r];
     [itemView cacheDisplayInRect:r toBitmapImageRep:bitmap];
@@ -353,7 +353,7 @@
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {
     self.itemFrames = [NSMutableArray arrayWithCapacity:[listItemViews count]];
-    for (TDListItemView *itemView in listItemViews) {
+    for (TDListItem *itemView in listItemViews) {
         [itemFrames addObject:[NSValue valueWithRect:[itemView frame]]];
     }
     
@@ -386,7 +386,7 @@
     if (dropIndex < 0 || dropIndex > itemCount) {
         dropIndex = itemCount;
     }
-    TDListItemView *itemView = [self viewForItemAtIndex:dropIndex];
+    TDListItem *itemView = [self itemAtIndex:dropIndex];
     NSPoint locInItem = [itemView convertPoint:locInWin fromView:nil];
 
     NSRect itemBounds = [itemView bounds];
@@ -426,7 +426,7 @@
 
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
-    for (TDListItemView *itemView in listItemViews) {
+    for (TDListItem *itemView in listItemViews) {
         [itemView setHidden:NO];
     }
     if (dropIndex > draggingIndex) {
@@ -458,7 +458,7 @@
     }
 
     NSEnumerator *e = [listItemViews reverseObjectEnumerator];
-    TDListItemView *itemView = nil;
+    TDListItem *itemView = nil;
     while (itemView = [e nextObject]) {
         [queue enqueue:itemView];
         [itemView removeFromSuperview];
@@ -499,7 +499,7 @@
         }
 
         if (isItemVisible) {
-            TDListItemView *itemView = [dataSource listView:self viewForItemAtIndex:i];
+            TDListItem *itemView = [dataSource listView:self viewForItemAtIndex:i];
             if (!itemView) {
                 [NSException raise:EXCEPTION_NAME format:@"nil list item view returned for index: %d by: %@", i, dataSource];
             }
@@ -537,7 +537,7 @@
 
 - (void)layoutItemsWhileDragging {
     NSUInteger itemCount = [listItemViews count];
-    TDListItemView *itemView = nil;
+    TDListItem *itemView = nil;
     
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:.075];
@@ -545,7 +545,7 @@
     CGFloat extent = 0;
     NSUInteger i = 0;
     for ( ; i <= itemCount; i++) {
-        itemView = [self viewForItemAtIndex:i];
+        itemView = [self itemAtIndex:i];
         NSRect frame = [itemView frame];
         if (self.isLandscape) {
             frame.origin.x = extent;

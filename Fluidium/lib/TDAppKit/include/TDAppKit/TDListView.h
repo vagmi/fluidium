@@ -14,8 +14,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class TDListItemView;
-@class TDListItemViewQueue;
+@class TDListItem;
+@class TDListItemQueue;
 @protocol TDListViewDataSource;
 @protocol TDListViewDelegate;
 
@@ -41,7 +41,7 @@ typedef enum {
     BOOL displaysClippedItems;
     
     NSMutableArray *listItemViews;
-    TDListItemViewQueue *queue;
+    TDListItemQueue *queue;
     
     // drag and drop
     NSEvent *lastMouseDownEvent;
@@ -58,7 +58,7 @@ typedef enum {
 - (void)reloadData;
 - (id)dequeueReusableItemWithIdentifier:(NSString *)s;
 - (NSInteger)indexForItemAtPoint:(NSPoint)p;
-- (id)viewForItemAtIndex:(NSUInteger)i;
+- (id)itemAtIndex:(NSUInteger)i;
 - (NSRect)frameForItemAtIndex:(NSUInteger)index;
 
 /* Drag and drop support */
@@ -99,13 +99,13 @@ typedef enum {
 @protocol TDListViewDataSource <NSObject>
 @required
 - (NSUInteger)numberOfItemsInListView:(TDListView *)tv;
-- (TDListItemView *)listView:(TDListView *)lv viewForItemAtIndex:(NSUInteger)i;
+- (TDListItem *)listView:(TDListView *)lv viewForItemAtIndex:(NSUInteger)i;
 @end
 
 @protocol TDListViewDelegate <NSObject>
 @optional
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i; // should return height if isPortrait. shoud return width if isLandscape
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItemView *)itemView forItemAtIndex:(NSUInteger)i;
+- (void)listView:(TDListView *)lv willDisplayView:(TDListItem *)itemView forItemAtIndex:(NSUInteger)i;
 - (NSUInteger)listView:(TDListView *)lv willSelectItemAtIndex:(NSUInteger)i;
 - (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i;
 - (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt;

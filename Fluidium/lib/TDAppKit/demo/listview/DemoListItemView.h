@@ -15,7 +15,7 @@
 #import <Cocoa/Cocoa.h>
 #import <TDAppKit/TDAppKit.h>
 
-@interface DemoListItemView : TDListItemView {
+@interface DemoListItemView : TDListItem {
     NSColor *color;
     BOOL selected;
 }

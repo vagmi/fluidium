@@ -16,6 +16,6 @@
 #import <TDAppKit/TDSourceCodeTextView.h>
 #import <TDAppKit/TDUberView.h>
 #import <TDAppKit/TDListView.h>
-#import <TDAppKit/TDListItemView.h>
+#import <TDAppKit/TDListItem.h>
 #import <TDAppKit/TDBar.h>
 #import <TDAppKit/TDLine.h>
