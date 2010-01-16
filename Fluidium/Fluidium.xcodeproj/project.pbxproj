@@ -155,7 +155,6 @@
 		D3E42F3D10CB152000A5BDEF /* FUDownloadListButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3610CB152000A5BDEF /* FUDownloadListButton.m */; };
 		D3E42F3E10CB152000A5BDEF /* FUDownloadListButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3810CB152000A5BDEF /* FUDownloadListButtonCell.m */; };
 		D3E42F3F10CB152000A5BDEF /* FUDownloadWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3A10CB152000A5BDEF /* FUDownloadWindowController.m */; };
-		D3E42F4C10CB15E700A5BDEF /* NSImage+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */; };
 		D3E42FDD10CB1E1600A5BDEF /* FUDownloadWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E42FDB10CB1E1600A5BDEF /* FUDownloadWindow.xib */; };
 		D3E430A610CB52D900A5BDEF /* FUViewSourceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E430A210CB52D900A5BDEF /* FUViewSourceWindowController.m */; };
 		D3E430AB10CB537A00A5BDEF /* FUViewSourceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E430A910CB537A00A5BDEF /* FUViewSourceWindow.xib */; };
@@ -655,8 +654,6 @@
 		D3E42F3810CB152000A5BDEF /* FUDownloadListButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDownloadListButtonCell.m; path = src/FUDownloadListButtonCell.m; sourceTree = "<group>"; };
 		D3E42F3910CB152000A5BDEF /* FUDownloadWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadWindowController.h; path = src/FUDownloadWindowController.h; sourceTree = "<group>"; };
 		D3E42F3A10CB152000A5BDEF /* FUDownloadWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDownloadWindowController.m; path = src/FUDownloadWindowController.m; sourceTree = "<group>"; };
-		D3E42F4A10CB15E700A5BDEF /* NSImage+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+FUAdditions.h"; path = "src/NSImage+FUAdditions.h"; sourceTree = "<group>"; };
-		D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+FUAdditions.m"; path = "src/NSImage+FUAdditions.m"; sourceTree = "<group>"; };
 		D3E42FDC10CB1E1600A5BDEF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUDownloadWindow.xib; sourceTree = "<group>"; };
 		D3E430A110CB52D900A5BDEF /* FUViewSourceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUViewSourceWindowController.h; path = src/FUViewSourceWindowController.h; sourceTree = "<group>"; };
 		D3E430A210CB52D900A5BDEF /* FUViewSourceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUViewSourceWindowController.m; path = src/FUViewSourceWindowController.m; sourceTree = "<group>"; };
@@ -1387,8 +1384,6 @@
 				D305199C10C978E300AFF325 /* NSString+FUAdditions.m */,
 				D3F4C5A310C8D6A400E0B474 /* NSArray+FUAdditions.h */,
 				D3F4C5A410C8D6A400E0B474 /* NSArray+FUAdditions.m */,
-				D3E42F4A10CB15E700A5BDEF /* NSImage+FUAdditions.h */,
-				D3E42F4B10CB15E700A5BDEF /* NSImage+FUAdditions.m */,
 				D3051C9010CA3A0200AFF325 /* NSEvent+FUAdditions.h */,
 				D3051C9110CA3A0200AFF325 /* NSEvent+FUAdditions.m */,
 				D30BC3AE10E11D920019816B /* NSPasteboard+FUAdditions.h */,
@@ -1795,7 +1790,6 @@
 				D3E42F3D10CB152000A5BDEF /* FUDownloadListButton.m in Sources */,
 				D3E42F3E10CB152000A5BDEF /* FUDownloadListButtonCell.m in Sources */,
 				D3E42F3F10CB152000A5BDEF /* FUDownloadWindowController.m in Sources */,
-				D3E42F4C10CB15E700A5BDEF /* NSImage+FUAdditions.m in Sources */,
 				D3E430A610CB52D900A5BDEF /* FUViewSourceWindowController.m in Sources */,
 				D3E432EE10CB70AC00A5BDEF /* FUFindPanelView.m in Sources */,
 				D3E4346910CB8D4C00A5BDEF /* FUBookmark.m in Sources */,

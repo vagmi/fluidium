@@ -34,6 +34,10 @@
 		D371246110F0526B00D7107B /* TDUberViewSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */; };
 		D3EB212A11013C4E00633715 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EB212911013C4E00633715 /* QuartzCore.framework */; };
 		D3EB212D11013C5300633715 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EB212911013C4E00633715 /* QuartzCore.framework */; };
+		D3EB233E1101632B00633715 /* NSImage+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EB233C1101632B00633715 /* NSImage+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3EB233F1101632B00633715 /* NSImage+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EB233D1101632B00633715 /* NSImage+TDAdditions.m */; };
+		D3EB2343110163F700633715 /* TDUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EB2341110163F700633715 /* TDUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3EB2344110163F700633715 /* TDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EB2342110163F700633715 /* TDUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +86,10 @@
 		D371245210F0522700D7107B /* TDBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBar.h; path = include/TDAppKit/TDBar.h; sourceTree = "<group>"; };
 		D371245310F0522700D7107B /* TDLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLine.h; path = include/TDAppKit/TDLine.h; sourceTree = "<group>"; };
 		D3EB212911013C4E00633715 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D3EB233C1101632B00633715 /* NSImage+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+TDAdditions.h"; path = "include/TDAppKit/NSImage+TDAdditions.h"; sourceTree = "<group>"; };
+		D3EB233D1101632B00633715 /* NSImage+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+TDAdditions.m"; path = "src/NSImage+TDAdditions.m"; sourceTree = "<group>"; };
+		D3EB2341110163F700633715 /* TDUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtils.h; path = include/TDAppKit/TDUtils.h; sourceTree = "<group>"; };
+		D3EB2342110163F700633715 /* TDUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtils.m; path = src/TDUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,10 +158,13 @@
 			isa = PBXGroup;
 			children = (
 				D31CC02310EFC6BB0013347D /* TDAppKit.h */,
+				D3EB2341110163F700633715 /* TDUtils.h */,
+				D3EB2342110163F700633715 /* TDUtils.m */,
+				D3EB233A1101631300633715 /* AppKit Categories */,
 				D318A04A10F856FA00B6AA21 /* SourceCodeTextView */,
 				D31CBFBA10EFB7E90013347D /* UberView */,
 				D31CBFA810EFB6F80013347D /* ListView */,
-				D371244010F051D600D7107B /* Misc */,
+				D371244010F051D600D7107B /* Misc Views */,
 			);
 			name = "TDAppKit Framework";
 			sourceTree = "<group>";
@@ -233,7 +244,7 @@
 			name = "ListView Demo App";
 			sourceTree = "<group>";
 		};
-		D371244010F051D600D7107B /* Misc */ = {
+		D371244010F051D600D7107B /* Misc Views */ = {
 			isa = PBXGroup;
 			children = (
 				D371245210F0522700D7107B /* TDBar.h */,
@@ -241,7 +252,16 @@
 				D371245310F0522700D7107B /* TDLine.h */,
 				D371244310F051E800D7107B /* TDLine.m */,
 			);
-			name = Misc;
+			name = "Misc Views";
+			sourceTree = "<group>";
+		};
+		D3EB233A1101631300633715 /* AppKit Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D3EB233C1101632B00633715 /* NSImage+TDAdditions.h */,
+				D3EB233D1101632B00633715 /* NSImage+TDAdditions.m */,
+			);
+			name = "AppKit Categories";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +280,8 @@
 				D371245510F0522700D7107B /* TDLine.h in Headers */,
 				D318A05010F8570E00B6AA21 /* TDGutterView.h in Headers */,
 				D318A05210F8570E00B6AA21 /* TDSourceCodeTextView.h in Headers */,
+				D3EB233E1101632B00633715 /* NSImage+TDAdditions.h in Headers */,
+				D3EB2343110163F700633715 /* TDUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +377,8 @@
 				D371246110F0526B00D7107B /* TDUberViewSplitView.m in Sources */,
 				D318A05110F8570E00B6AA21 /* TDGutterView.m in Sources */,
 				D318A05310F8570E00B6AA21 /* TDSourceCodeTextView.m in Sources */,
+				D3EB233F1101632B00633715 /* NSImage+TDAdditions.m in Sources */,
+				D3EB2344110163F700633715 /* TDUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,10 +12,12 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUTabListItemView.h"
+#import "FUTabListItem.h"
 #import "FUTabModel.h"
 #import "FUUtils.h"
 #import "FUTabsViewController.h"
+#import <TDAppKit/TDUtils.h>
+#import <TDAppKit/NSImage+TDAdditions.h>
 
 #define NORMAL_RADIUS 4
 #define SMALL_RADIUS 3
@@ -33,6 +35,8 @@ static NSColor *sSelectedOuterRectStrokeColor = nil;
 static NSColor *sSelectedInnerRectStrokeColor = nil;
 static NSColor *sInnerRectStrokeColor = nil;
 
+static NSImage *sProgressImage = nil;
+
 @interface NSImage (FUAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size;
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
@@ -40,7 +44,45 @@ static NSColor *sInnerRectStrokeColor = nil;
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
 @end
 
-@interface FUTabListItemView ()
+@interface NSImage (FUTabAdditions)
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clip:(NSBezierPath *)path progress:(CGFloat)progress;
+@end
+
+@implementation NSImage (FUTabAdditions)
+
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clip:(NSBezierPath *)path progress:(CGFloat)progress {
+    NSImage *result = [[[NSImage alloc] initWithSize:size] autorelease];
+    [result lockFocus];
+    
+    // get context
+    NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
+    
+    // store previous state
+    BOOL savedAntialias = [currentContext shouldAntialias];
+    NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
+    
+    // set new state
+    [currentContext setShouldAntialias:YES];
+    [currentContext setImageInterpolation:hiRez ? NSImageInterpolationHigh : NSImageInterpolationDefault];
+    
+    // set clip
+    [path setClip];
+    
+    // draw image
+    NSSize fromSize = [self size];
+    [self drawInRect:NSMakeRect(0, 0, size.width, size.height) fromRect:NSMakeRect(0, 0, fromSize.width, fromSize.height) operation:NSCompositeSourceOver fraction:alpha];
+    
+    // restore state
+    [currentContext setShouldAntialias:savedAntialias];
+    [currentContext setImageInterpolation:savedInterpolation];
+    
+    [result unlockFocus];
+    return result;
+}
+
+@end
+
+@interface FUTabListItem ()
 - (NSImage *)imageNamed:(NSString *)name scaledToSize:(NSSize)size;
 - (void)startObserveringModel:(FUTabModel *)m;
 - (void)stopObserveringModel:(FUTabModel *)m;
@@ -52,10 +94,10 @@ static NSColor *sInnerRectStrokeColor = nil;
 @property (nonatomic, retain) NSTimer *drawHiRezTimer;
 @end
 
-@implementation FUTabListItemView
+@implementation FUTabListItem
 
 + (void)initialize {
-    if ([FUTabListItemView class] == self) {
+    if ([FUTabListItem class] == self) {
         
         NSMutableParagraphStyle *paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [paraStyle setAlignment:NSLeftTextAlignment];
@@ -92,6 +134,8 @@ static NSColor *sInnerRectStrokeColor = nil;
         // inner round rect stroke
         sSelectedInnerRectStrokeColor = [[sSelectedOuterRectStrokeColor colorWithAlphaComponent:.8] retain];
         sInnerRectStrokeColor = [[NSColor colorWithDeviceWhite:.7 alpha:1] retain];
+        
+        sProgressImage = [NSImage imageNamed:@"progress_indicator.png" inBundleForClass:self];
     }
 }
 
@@ -163,7 +207,7 @@ static NSColor *sInnerRectStrokeColor = nil;
     
     if (model.isSelected) {
         CGFloat radius = (bounds.size.width < 32) ? SMALL_RADIUS : NORMAL_RADIUS;
-        FUDrawRoundRect(roundRect, radius, 1, sSelectedOuterRectFillGradient, sSelectedOuterRectStrokeColor);
+        TDDrawRoundRect(roundRect, radius, 1, sSelectedOuterRectFillGradient, sSelectedOuterRectStrokeColor);
     }
 
     // title
@@ -209,7 +253,7 @@ static NSColor *sInnerRectStrokeColor = nil;
 
     if (!img) {
         NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
-        FUDrawRoundRect(roundRect, NORMAL_RADIUS, 1, sInnerRectFillGradient, strokeColor);
+        TDDrawRoundRect(roundRect, NORMAL_RADIUS, 1, sInnerRectFillGradient, strokeColor);
         return;
     }
 
@@ -218,7 +262,7 @@ static NSColor *sInnerRectStrokeColor = nil;
     [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
     
     NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
-    FUDrawRoundRect(roundRect, NORMAL_RADIUS, 1, nil, strokeColor);
+    TDDrawRoundRect(roundRect, NORMAL_RADIUS, 1, nil, strokeColor);
 
     if (model.isLoading) {
         [progressIndicator setFrameOrigin:NSMakePoint(NSMaxX(bounds) - 26, 20)];

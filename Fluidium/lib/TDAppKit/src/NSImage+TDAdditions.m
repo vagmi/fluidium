@@ -1,4 +1,4 @@
-//  Copyright 2009 Todd Ditchendorf
+//  Copyright 2010 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -12,10 +12,17 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "NSImage+FUAdditions.h"
-#import "FUUtils.h"
+#import <TDAppKit/NSImage+TDAdditions.h>
+#import <TDAppKit/TDUtils.h>
 
-@implementation NSImage (FUAdditions)
+@implementation NSImage (TDAdditions)
+
++ (NSImage *)imageNamed:(NSString *)name inBundleForClass:(Class)cls {
+    NSBundle *bundle = [NSBundle bundleForClass:cls];
+    NSURL *URL = [NSURL URLWithString:[bundle pathForImageResource:name]];
+    return [[[NSImage alloc] initWithContentsOfURL:URL] autorelease];
+}
+
 
 - (NSImage *)scaledImageOfSize:(NSSize)size {
     return [self scaledImageOfSize:size alpha:1];
@@ -33,7 +40,7 @@
 
 
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius {
-    NSBezierPath *path = FUGetRoundRect(NSMakeRect(0, 0, size.width, size.height), radius, 1);
+    NSBezierPath *path = TDGetRoundRect(NSMakeRect(0, 0, size.width, size.height), radius, 1);
     return [self scaledImageOfSize:size alpha:alpha hiRez:hiRez clip:path];
 }
 
@@ -52,7 +59,7 @@
     // set new state
     [currentContext setShouldAntialias:YES];
     [currentContext setImageInterpolation:hiRez ? NSImageInterpolationHigh : NSImageInterpolationDefault];
-
+    
     // set clip
     [path setClip];
     

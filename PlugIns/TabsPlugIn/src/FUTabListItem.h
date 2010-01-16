@@ -17,7 +17,7 @@
 @class FUTabModel;
 @class FUTabsViewController;
 
-@interface FUTabListItemView : TDListItem {
+@interface FUTabListItem : TDListItem {
     FUTabModel *model;
     NSButton *closeButton;
     NSProgressIndicator *progressIndicator;

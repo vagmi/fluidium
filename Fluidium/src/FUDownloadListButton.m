@@ -14,7 +14,7 @@
 
 #import "FUDownloadListButton.h"
 #import "FUDownloadListButtonCell.h"
-#import "NSImage+FUAdditions.h"
+#import <TDAppKit/NSImage+TDAdditions.h>
 
 #define STOP_PROGRESS_BUTTON_TAG 2
 

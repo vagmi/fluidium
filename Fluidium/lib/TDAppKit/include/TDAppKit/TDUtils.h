@@ -1,4 +1,4 @@
-//  Copyright 2009 Todd Ditchendorf
+//  Copyright 2010 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -14,10 +14,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSImage (FUAdditions)
-- (NSImage *)scaledImageOfSize:(NSSize)size; // alpha=1, hiRez=YES
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha; // hiRez=YES
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
-- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clip:(NSBezierPath *)path;
-@end
+NSBezierPath *TDGetRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth);
+NSBezierPath *TDDrawRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth, NSGradient *fillGradient, NSColor *strokeColor);

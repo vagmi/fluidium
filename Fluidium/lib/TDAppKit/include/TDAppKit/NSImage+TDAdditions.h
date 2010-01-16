@@ -12,12 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <TDAppKit/TDUtils.h>
-#import <TDAppKit/NSImage+TDAdditions.h>
-#import <TDAppKit/TDGutterView.h>
-#import <TDAppKit/TDSourceCodeTextView.h>
-#import <TDAppKit/TDUberView.h>
-#import <TDAppKit/TDListView.h>
-#import <TDAppKit/TDListItem.h>
-#import <TDAppKit/TDBar.h>
-#import <TDAppKit/TDLine.h>
+#import <Cocoa/Cocoa.h>
+
+@interface NSImage (TDAdditions)
++ (NSImage *)imageNamed:(NSString *)name inBundleForClass:(Class)cls;
+
+- (NSImage *)scaledImageOfSize:(NSSize)size; // alpha=1, hiRez=YES
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha; // hiRez=YES
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
+- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez clip:(NSBezierPath *)path;
+@end

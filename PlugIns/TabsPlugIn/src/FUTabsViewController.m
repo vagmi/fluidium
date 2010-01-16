@@ -18,7 +18,7 @@
 #import "FUPlugInAPI.h"
 #import "FUTabsPlugIn.h"
 #import "FUTabModel.h"
-#import "FUTabListItemView.h"
+#import "FUTabListItem.h"
 #import "WebURLsWithTitles.h"
 #import <WebKit/WebKit.h>
 
@@ -148,10 +148,10 @@
 
 
 - (TDListItem *)listView:(TDListView *)lv viewForItemAtIndex:(NSUInteger)i {
-    FUTabListItemView *itemView = [lv dequeueReusableItemWithIdentifier:[FUTabListItemView reuseIdentifier]];
+    FUTabListItem *itemView = [lv dequeueReusableItemWithIdentifier:[FUTabListItem reuseIdentifier]];
     
     if (!itemView) {
-        itemView = [[[FUTabListItemView alloc] init] autorelease];
+        itemView = [[[FUTabListItem alloc] init] autorelease];
     }
     
     itemView.viewController = self;

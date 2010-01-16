@@ -42,57 +42,6 @@ BOOL FUIsOptionKeyPressed(NSInteger modifierFlags) {
 }
 
 
-NSBezierPath *FUGetRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth) {
-    CGFloat minX = NSMinX(r);
-    CGFloat midX = NSMidX(r);
-    CGFloat maxX = NSMaxX(r);
-    CGFloat minY = NSMinY(r);
-    CGFloat midY = NSMidY(r);
-    CGFloat maxY = NSMaxY(r);
-    
-    NSBezierPath *path = [NSBezierPath bezierPath];
-    [path setLineWidth:lineWidth];
-    [path moveToPoint:NSMakePoint(minX, midY)];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(minX, minY) toPoint:NSMakePoint(midX, minY) radius:radius];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(maxX, minY) toPoint:NSMakePoint(maxX, midY) radius:radius];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(maxX, maxY) toPoint:NSMakePoint(midX, maxY) radius:radius];
-    [path appendBezierPathWithArcFromPoint:NSMakePoint(minX, maxY) toPoint:NSMakePoint(minX, midY) radius:radius];
-    [path closePath];
-    
-    return path;
-}
-
-
-NSBezierPath *FUDrawRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth, NSGradient *fillGradient, NSColor *strokeColor) {
-//    CGContextRef c = [[NSGraphicsContext currentContext] graphicsPort];
-//
-//    CGContextSetLineWidth(c, lineWidth);
-    
-//    NSLog(@"before r: %@", NSStringFromRect(r));
-//    r = CGContextConvertRectToDeviceSpace(c, r);
-//    NSLog(@"after r: %@", NSStringFromRect(r));
-        
-    NSBezierPath *path = FUGetRoundRect(r, radius, lineWidth);
-    [fillGradient drawInBezierPath:path angle:90.0];
-
-    [strokeColor setStroke];
-    [path stroke];
-    
-    return path;
-
-//    CGContextSetLineWidth(c, lineWidth);
-//    
-//    CGContextBeginPath(c);
-//    CGContextMoveToPoint(c, minX, midY);
-//    CGContextAddArcToPoint(c, minX, minY, midX, minY, radius);
-//    CGContextAddArcToPoint(c, maxX, minY, maxX, midY, radius);
-//    CGContextAddArcToPoint(c, maxX, maxY, midX, maxY, radius);
-//    CGContextAddArcToPoint(c, minX, maxY, minX, midY, radius);
-//    CGContextClosePath(c);
-//    CGContextDrawPath(c, kCGPathFillStroke);
-}
-
-
 NSColor *FUMainTabBackgroundColor() {
     static NSColor *color = nil;
     if (!color) {

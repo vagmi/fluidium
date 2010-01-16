@@ -19,7 +19,7 @@
 		D32E8C1B10E5937300445B4C /* FUTabsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32E8C1910E5937300445B4C /* FUTabsView.xib */; };
 		D32E8C1E10E5938200445B4C /* FUTabsPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32E8C1C10E5938200445B4C /* FUTabsPreferencesView.xib */; };
 		D3442EC010EFCD6A00855FD9 /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3442EAC10EFCD4D00855FD9 /* TDAppKit.framework */; };
-		D3A522DC10EA98D40021B801 /* FUTabListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A522DB10EA98D40021B801 /* FUTabListItemView.m */; };
+		D3A522DC10EA98D40021B801 /* FUTabListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A522DB10EA98D40021B801 /* FUTabListItem.m */; };
 		D3A5236510EA9E1D0021B801 /* close_button_hover.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236210EA9E1D0021B801 /* close_button_hover.tif */; };
 		D3A5236610EA9E1D0021B801 /* close_button_pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236310EA9E1D0021B801 /* close_button_pressed.tif */; };
 		D3A5236710EA9E1D0021B801 /* close_button.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236410EA9E1D0021B801 /* close_button.tif */; };
@@ -78,8 +78,8 @@
 		D32E8C1A10E5937300445B4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUTabsView.xib; sourceTree = "<group>"; };
 		D32E8C1D10E5938200445B4C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUTabsPreferencesView.xib; sourceTree = "<group>"; };
 		D3442EA610EFCD4D00855FD9 /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = ../../Fluidium/lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = SOURCE_ROOT; };
-		D3A522DA10EA98D40021B801 /* FUTabListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabListItemView.h; path = src/FUTabListItemView.h; sourceTree = "<group>"; };
-		D3A522DB10EA98D40021B801 /* FUTabListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabListItemView.m; path = src/FUTabListItemView.m; sourceTree = "<group>"; };
+		D3A522DA10EA98D40021B801 /* FUTabListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabListItem.h; path = src/FUTabListItem.h; sourceTree = "<group>"; };
+		D3A522DB10EA98D40021B801 /* FUTabListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabListItem.m; path = src/FUTabListItem.m; sourceTree = "<group>"; };
 		D3A5236210EA9E1D0021B801 /* close_button_hover.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button_hover.tif; path = res/img/close_button_hover.tif; sourceTree = "<group>"; };
 		D3A5236310EA9E1D0021B801 /* close_button_pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button_pressed.tif; path = res/img/close_button_pressed.tif; sourceTree = "<group>"; };
 		D3A5236410EA9E1D0021B801 /* close_button.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = close_button.tif; path = res/img/close_button.tif; sourceTree = "<group>"; };
@@ -147,8 +147,8 @@
 				D32E8BDF10E58F8A00445B4C /* FUTabsViewController.m */,
 				D3B8C14E10E8738B00271454 /* FUTabModel.h */,
 				D3B8C14F10E8738B00271454 /* FUTabModel.m */,
-				D3A522DA10EA98D40021B801 /* FUTabListItemView.h */,
-				D3A522DB10EA98D40021B801 /* FUTabListItemView.m */,
+				D3A522DA10EA98D40021B801 /* FUTabListItem.h */,
+				D3A522DB10EA98D40021B801 /* FUTabListItem.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -331,7 +331,7 @@
 				D32E8BE010E58F8A00445B4C /* FUTabsViewController.m in Sources */,
 				D32E8BE710E5915600445B4C /* FUTabsPreferencesViewController.m in Sources */,
 				D3B8C15010E8738B00271454 /* FUTabModel.m in Sources */,
-				D3A522DC10EA98D40021B801 /* FUTabListItemView.m in Sources */,
+				D3A522DC10EA98D40021B801 /* FUTabListItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
