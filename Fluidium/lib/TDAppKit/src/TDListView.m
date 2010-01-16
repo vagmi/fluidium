@@ -24,10 +24,6 @@
 + (void)runPoofAtPoint:(NSPoint)p;
 @end
 
-@interface TDListItem ()
-@property (nonatomic) NSUInteger index;
-@end
-
 @interface TDListView ()
 - (void)layoutItems;
 - (void)layoutItemsWhileDragging;
