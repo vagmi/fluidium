@@ -14,10 +14,10 @@
 
 #import "FUTabListItem.h"
 #import "FUTabModel.h"
-#import "FUUtils.h"
 #import "FUTabsViewController.h"
 #import <TDAppKit/TDUtils.h>
 #import <TDAppKit/NSImage+TDAdditions.h>
+#import <Fluidium/FUUtils.h>
 
 #define NORMAL_RADIUS 4
 #define SMALL_RADIUS 3
@@ -36,13 +36,6 @@ static NSColor *sSelectedInnerRectStrokeColor = nil;
 static NSColor *sInnerRectStrokeColor = nil;
 
 static NSImage *sProgressImage = nil;
-
-@interface NSImage (FUAdditions)
-- (NSImage *)scaledImageOfSize:(NSSize)size;
-//- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha;
-//- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez;
-//- (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius;
-@end
 
 @interface NSImage (FUTabAdditions)
 - (NSImage *)scaledImageOfSize:(NSSize)size alpha:(CGFloat)alpha hiRez:(BOOL)hiRez cornerRadius:(CGFloat)radius progress:(CGFloat)progress;

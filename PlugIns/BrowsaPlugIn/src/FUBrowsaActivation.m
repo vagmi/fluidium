@@ -13,9 +13,9 @@
 //  limitations under the License.
 
 #import "FUBrowsaActivation.h"
-#import "FUUtils.h"
 #import "NSEvent+FUAdditions.h"
 #import <WebKit/WebKit.h>
+#import <Fluidium/FUUtils.h>
 
 @interface FUBrowsaActivation ()
 @property (nonatomic, readwrite, getter=isCommandClick) BOOL isCommandKeyPressed;

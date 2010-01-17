@@ -13,11 +13,11 @@
 //  limitations under the License.
 
 #import "FUTabsPlugIn.h"
-#import "FUNotifications.h"
 #import "FUPlugIn.h"
 #import "FUPlugInAPI.h"
 #import "FUTabsViewController.h"
 #import "FUTabsPreferencesViewController.h"
+#import <Fluidium/FUNotifications.h>
 
 @interface FUTabsPlugIn ()
 @property (nonatomic, readwrite, retain) id <FUPlugInAPI>plugInAPI;

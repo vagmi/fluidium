@@ -13,7 +13,6 @@
 //  limitations under the License.
 
 #import "FUTabsViewController.h"
-#import "FUNotifications.h"
 #import "FUPlugIn.h"
 #import "FUPlugInAPI.h"
 #import "FUTabsPlugIn.h"
@@ -21,6 +20,9 @@
 #import "FUTabListItem.h"
 #import "WebURLsWithTitles.h"
 #import <WebKit/WebKit.h>
+#import <Fluidium/FUWindowController.h>
+#import <Fluidium/FUTabController.h>
+#import <Fluidium/FUNotifications.h>
 
 #define KEY_SELECTION_INDEXES @"selectionIndexes"
 #define KEY_TAB_CONTROLLER @"FUTabController"
@@ -29,19 +31,6 @@
 #define ASPECT_RATIO .7
 
 #define TDTabPboardType @"TDTabPboardType"
-
-@interface NSObject ()
-// FUWindowController
-- (NSTabView *)tabView;
-- (void)openTab:(id)sender;
-- (NSInteger)selectedTabIndex;
-- (void)setSelectedTabIndex:(NSInteger)i;
-- (NSArray *)tabControllers;
-- (id)tabControllerAtIndex:(NSInteger)i;
-- (BOOL)removeTabController:(id)tc;
-- (void)addTabController:(id)tc atIndex:(NSInteger)i;
-- (id)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
-@end
 
 @interface WebView ()
 - (NSImage *)documentViewImageWithCurrentAspectRatio;
@@ -103,8 +92,8 @@
 
 
 - (IBAction)closeTabButtonClick:(id)sender {
-    id wc = [self windowController];
-    id tc = [wc tabControllerAtIndex:[sender tag]];
+    FUWindowController *wc = [self windowController];
+    FUTabController *tc = [wc tabControllerAtIndex:[sender tag]];
     [wc removeTabController:tc];
 }
 
@@ -181,7 +170,7 @@
 
 
 - (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i {
-    id wc = [self windowController];
+    FUWindowController *wc = [self windowController];
     [wc setSelectedTabIndex:i];
 }
 
@@ -195,7 +184,7 @@
 #pragma mark TDListViewDelegate Drag
 
 - (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSUInteger)i toPasteboard:(NSPasteboard *)pboard {
-    id wc = [self windowController];
+    FUWindowController *wc = [self windowController];
     self.draggingTabController = [wc tabControllerAtIndex:i];
     NSURL *URL = [NSURL URLWithString:[draggingTabController URLString]];
 
@@ -229,7 +218,7 @@
 - (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)i dropOperation:(TDListViewDropOperation)dropOperation {
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
     
-    id wc = [self windowController];
+    FUWindowController *wc = [self windowController];
     NSArray *types = [pboard types];
     NSURL *URL = nil;
     if ([types containsObject:TDTabPboardType]) {
@@ -268,13 +257,13 @@
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [self updateAllTabModelsFromIndex:i];
     
-    id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
+    FUTabController *tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self startObserveringTabController:tc];
 }
 
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
-    id tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
+    FUTabController *tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self stopObserveringTabController:tc];
 }
 
@@ -384,8 +373,8 @@
     
     self.tabModels = newModels;
     
-    id wc = [self windowController];
-    for (id tc in [wc tabControllers]) {
+    FUWindowController *wc = [self windowController];
+    for (FUTabController *tc in [wc tabControllers]) {
         [self startObserveringTabController:tc];
     }
     

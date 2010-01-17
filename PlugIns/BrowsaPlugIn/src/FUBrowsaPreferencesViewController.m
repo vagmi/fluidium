@@ -16,8 +16,8 @@
 #import "FUPlugInAPI.h"
 #import "FUBrowsaPlugIn.h"
 #import "FUBrowsaViewController.h"
-#import "FUUtils.h"
 #import <WebKit/WebKit.h>
+#import <Fluidium/FUUtils.h>
 
 @interface FUBrowsaPreferencesViewController ()
 - (void)loadUserAgentStrings;

@@ -714,6 +714,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				BUNDLE_LOADER = "$(SRCROOT)/../../Fluidium/build/$(CONFIGURATION)/Fluidium.app/Contents/MacOS/Fluidium";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -725,6 +726,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					/usr/include/libxml2,
+					"\"$(SRCROOT)/../../Fluidium/include\"",
 					"\"$(SRCROOT)/../../Fluidium/lib/UMEKit/include\"",
 					"\"$(SRCROOT)/../../Fluidium/lib/ParseKit/include\"",
 					"\"$(SRCROOT)/frameworks/yajl/include\"",
@@ -746,6 +748,7 @@
 					i386,
 					ppc,
 				);
+				BUNDLE_LOADER = "$(SRCROOT)/../../Fluidium/build/$(CONFIGURATION)/Fluidium.app/Contents/MacOS/Fluidium";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_MODEL_TUNING = G5;
@@ -753,6 +756,7 @@
 				GCC_PREFIX_HEADER = TwitterPlugIn_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
 					/usr/include/libxml2,
+					"\"$(SRCROOT)/../../Fluidium/include\"",
 					"\"$(SRCROOT)/../../Fluidium/lib/UMEKit/include\"",
 					"\"$(SRCROOT)/../../Fluidium/lib/ParseKit/include\"",
 					"\"$(SRCROOT)/frameworks/yajl/include\"",
