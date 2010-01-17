@@ -18,7 +18,7 @@
 #import "PSMTabDragAssistant.h"
 #import "PSMTabBarController.h"
 // BEGIN FLUIDIUM
-#import "FUWindowController.h"
+#import <Fluidium/FUWindowController.h>
 #import "WebURLsWithTitles.h"
 // END FLUIDIUM
 

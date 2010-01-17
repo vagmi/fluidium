@@ -9,9 +9,9 @@
 #import "PSMMetalTabStyle.h"
 #import "PSMTabBarCell.h"
 #import "PSMTabBarControl.h"
-// TODD BEGIN
-#import "FUUtils.h"
-// TODD END
+// FLUIDIUM BEGIN
+#import <Fluidium/FUUtils.h>
+// FLUIDIUM END
 
 #define kPSMMetalObjectCounterRadius 7.0
 #define kPSMMetalCounterMinWidth 20

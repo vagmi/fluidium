@@ -10,7 +10,9 @@
 #import "PSMTabBarCell.h"
 #import "PSMTabBarControl.h"
 #import "NSBezierPath_AMShading.h"
-#import "FUUtils.h"
+// FLUIDIUM BEGIN
+#import <Fluidium/FUUtils.h>
+// FLUIDIUM END
 
 #define Adium_CellPadding 4
 #define Adium_MARGIN_X 4

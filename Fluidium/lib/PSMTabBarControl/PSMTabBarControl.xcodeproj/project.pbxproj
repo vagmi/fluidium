@@ -127,9 +127,9 @@
 		A2D98B0C0A2B432C0064C6F8 /* PSMUnifiedTabStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D98B080A2B432C0064C6F8 /* PSMUnifiedTabStyle.m */; };
 		A2D98B130A2B43FA0064C6F8 /* NSBezierPath_AMShading.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D98B100A2B43FA0064C6F8 /* NSBezierPath_AMShading.m */; };
 		A2D98B140A2B43FA0064C6F8 /* NSBezierPath_AMShading.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D98B100A2B43FA0064C6F8 /* NSBezierPath_AMShading.m */; };
-		D328076410CCB03300BB363B /* FUUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D328076010CCB03300BB363B /* FUUtils.h */; };
-		D328076510CCB03300BB363B /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D328076110CCB03300BB363B /* FUUtils.m */; };
 		D3280A2E10CCCCE400BB363B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3280A2D10CCCCE400BB363B /* WebKit.framework */; };
+		D38422091102D1CE00605809 /* FUUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D38422071102D1CE00605809 /* FUUtils.h */; };
+		D384220A1102D1CE00605809 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D38422081102D1CE00605809 /* FUUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,9 +281,9 @@
 		A2D98B080A2B432C0064C6F8 /* PSMUnifiedTabStyle.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PSMUnifiedTabStyle.m; path = source/PSMUnifiedTabStyle.m; sourceTree = "<group>"; };
 		A2D98B0F0A2B43FA0064C6F8 /* NSBezierPath_AMShading.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NSBezierPath_AMShading.h; path = source/NSBezierPath_AMShading.h; sourceTree = "<group>"; };
 		A2D98B100A2B43FA0064C6F8 /* NSBezierPath_AMShading.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = NSBezierPath_AMShading.m; path = source/NSBezierPath_AMShading.m; sourceTree = "<group>"; };
-		D328076010CCB03300BB363B /* FUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUtils.h; path = ../../src/FUUtils.h; sourceTree = SOURCE_ROOT; };
-		D328076110CCB03300BB363B /* FUUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUtils.m; path = ../../src/FUUtils.m; sourceTree = SOURCE_ROOT; };
 		D3280A2D10CCCCE400BB363B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		D38422071102D1CE00605809 /* FUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUtils.h; path = ../../include/Fluidium/FUUtils.h; sourceTree = SOURCE_ROOT; };
+		D38422081102D1CE00605809 /* FUUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUtils.m; path = ../../src/FUUtils.m; sourceTree = SOURCE_ROOT; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -417,6 +417,8 @@
 		32DBCF9F0370C38200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D38422071102D1CE00605809 /* FUUtils.h */,
+				D38422081102D1CE00605809 /* FUUtils.m */,
 				32DBCF980370C29C00C91783 /* PSMTabBarControl_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -460,8 +462,6 @@
 		54D33B2C06778E4400C9C163 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				D328076010CCB03300BB363B /* FUUtils.h */,
-				D328076110CCB03300BB363B /* FUUtils.m */,
 				318F2ED20C7D185700DE79A7 /* Framework_Prefix.pch */,
 				3767A55A0A2C0449005F7522 /* Styles */,
 				0259C57AFE90428111CA0C5A /* PSMTabBarControl.h */,
@@ -575,7 +575,7 @@
 				37A9FB6E0C25FE2B0062045C /* PSMTabDragView.h in Headers */,
 				37A9009F0C279CAD0062045C /* PSMTabDragWindowController.h in Headers */,
 				347545B00C4944DA003E81B8 /* NSString_AITruncation.h in Headers */,
-				D328076410CCB03300BB363B /* FUUtils.h in Headers */,
+				D38422091102D1CE00605809 /* FUUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,7 +748,7 @@
 				37A900A00C279CAD0062045C /* PSMTabDragWindowController.m in Sources */,
 				347545B10C4944DB003E81B8 /* NSString_AITruncation.m in Sources */,
 				3482DF100C5BF90700426F15 /* PSMAdiumTabStyle.m in Sources */,
-				D328076510CCB03300BB363B /* FUUtils.m in Sources */,
+				D384220A1102D1CE00605809 /* FUUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,6 +920,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
+				BUNDLE_LOADER = "";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -931,7 +932,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = source/Framework_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../src\"";
+				HEADER_SEARCH_PATHS = (
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../include\"";
+				HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../src\"";
 				INFOPLIST_FILE = "PSMTabBarControlFramework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
@@ -951,6 +957,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				BUNDLE_LOADER = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -959,6 +966,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = source/Framework_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../include\"";
+				HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../src\"";
 				INFOPLIST_FILE = "PSMTabBarControlFramework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.5;
