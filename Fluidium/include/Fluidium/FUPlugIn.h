@@ -35,14 +35,6 @@ extern NSString *const FUPlugInViewControllerDrawerKey; // NSDrawer -- this is o
 - (void)plugInViewControllerDidDisappear:(NSNotification *)n;
 @end
 
-#define FUPlugInViewPlacementIsVerticalSplitView(mask)  (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight
-#define FUPlugInViewPlacementIsHorizontalSplitView(mask)  (mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewTop
-#define FUPlugInViewPlacementIsSplitView(mask)  ((mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight || (mask) == FUPlugInViewPlacementSplitViewTop)
-#define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)
-#define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawer)
-
-@protocol FUPlugInAPI;
-
 typedef enum {
     FUPlugInViewPlacementDrawer = 1 << 1,
     FUPlugInViewPlacementUtilityPanel = 1 << 2,
@@ -58,6 +50,16 @@ typedef enum {
 #define FUPlugInViewPlacementAny (FUPlugInViewPlacementDrawer|FUPlugInViewPlacementUtilityPanel|FUPlugInViewPlacementFloatingUtilityPanel|FUPlugInViewPlacementHUDPanel|FUPlugInViewPlacementFloatingHUDPanel|FUPlugInViewPlacementSplitViewLeft|FUPlugInViewPlacementSplitViewRight|FUPlugInViewPlacementSplitViewTop|FUPlugInViewPlacementSplitViewBottom)
 #define FUPlugInViewPlacementSplitView (FUPlugInViewPlacementSplitViewLeft|FUPlugInViewPlacementSplitViewRight|FUPlugInViewPlacementSplitViewTop|FUPlugInViewPlacementSplitViewBottom)
 #define FUPlugInViewPlacementPanel (FUPlugInViewPlacementUtilityPanel|FUPlugInViewPlacementFloatingUtilityPanel|FUPlugInViewPlacementHUDPanel|FUPlugInViewPlacementFloatingHUDPanel)
+
+#define FUPlugInViewPlacementIsVerticalSplitView(mask)  (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight
+#define FUPlugInViewPlacementIsHorizontalSplitView(mask)  (mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewTop
+#define FUPlugInViewPlacementIsSplitView(mask)  ((mask) == FUPlugInViewPlacementSplitViewBottom || (mask) == FUPlugInViewPlacementSplitViewLeft || (mask) == FUPlugInViewPlacementSplitViewRight || (mask) == FUPlugInViewPlacementSplitViewTop)
+#define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)
+#define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawer)
+
+#pragma GCC visibility pop
+
+@protocol FUPlugInAPI;
 
 // note that your impl of this protocol will be registered (by the Fluid SSB) for the four PlugInViewController notifications below
 // your impl will also be registered (by the Fluid SSB) for all NSWindow Notifications on the window with which it is associated, if it responds to the appropriate callback selectors
@@ -132,5 +134,3 @@ typedef enum {
 
 @property (nonatomic, assign) CGFloat preferredHorizontalSplitPosition;
 @end
-
-#pragma GCC visibility pop

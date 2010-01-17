@@ -25,6 +25,7 @@
 		D31FE2781090C64E00840969 /* CRBarButtonItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31FE2771090C64E00840969 /* CRBarButtonItemView.m */; };
 		D33931DC10D492F8000FC7C1 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33930D510D4929F000FC7C1 /* ParseKit.framework */; };
 		D33931DF10D49301000FC7C1 /* UMEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33930C810D4928D000FC7C1 /* UMEKit.framework */; };
+		D3414D0A1103966800CCC986 /* FUPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3414D091103966800CCC986 /* FUPlugIn.m */; };
 		D34763EA108C49C6006EFB3F /* AGKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = D34763E9108C49C6006EFB3F /* AGKeychain.m */; };
 		D3476409108C4BE4006EFB3F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3476408108C4BE4006EFB3F /* Security.framework */; };
 		D38F0F401088D9F3008375F4 /* CRTwitterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38F0F3F1088D9F3008375F4 /* CRTwitterView.xib */; };
@@ -158,6 +159,8 @@
 		D30CCA1B10FD81C10036D2A3 /* toolbar_button_twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolbar_button_twitter.png; path = res/toolbar_button_twitter.png; sourceTree = "<group>"; };
 		D31FE2761090C64E00840969 /* CRBarButtonItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRBarButtonItemView.h; path = src/CRBarButtonItemView.h; sourceTree = "<group>"; };
 		D31FE2771090C64E00840969 /* CRBarButtonItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRBarButtonItemView.m; path = src/CRBarButtonItemView.m; sourceTree = "<group>"; };
+		D3414D081103966800CCC986 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = ../../Fluidium/include/Fluidium/FUPlugIn.h; sourceTree = SOURCE_ROOT; };
+		D3414D091103966800CCC986 /* FUPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUPlugIn.m; path = ../../Fluidium/src/FUPlugIn.m; sourceTree = SOURCE_ROOT; };
 		D346E45610CE422200BA0B15 /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = ../../Fluidium/src/WebURLsWithTitles.h; sourceTree = SOURCE_ROOT; };
 		D34763E8108C49C6006EFB3F /* AGKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGKeychain.h; path = src/AGKeychain.h; sourceTree = "<group>"; };
 		D34763E9108C49C6006EFB3F /* AGKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGKeychain.m; path = src/AGKeychain.m; sourceTree = "<group>"; };
@@ -434,6 +437,8 @@
 		D3F5AA5D108A5BC100F64184 /* Fluidium */ = {
 			isa = PBXGroup;
 			children = (
+				D3414D081103966800CCC986 /* FUPlugIn.h */,
+				D3414D091103966800CCC986 /* FUPlugIn.m */,
 				D346E45610CE422200BA0B15 /* WebURLsWithTitles.h */,
 			);
 			name = Fluidium;
@@ -648,6 +653,7 @@
 				D3C61FFD10A291200071A723 /* CRColorView.m in Sources */,
 				D3A08E3E10A732D60078FCE0 /* CRThreadViewController.m in Sources */,
 				D3A090E810A7B4630078FCE0 /* CRBaseViewController.m in Sources */,
+				D3414D0A1103966800CCC986 /* FUPlugIn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
