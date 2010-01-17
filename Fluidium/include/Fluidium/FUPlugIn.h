@@ -60,10 +60,12 @@ typedef enum {
 #define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)
 #define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawer)
 
-// note that your impl of this protocol will be registered (by the Fluid SSB) for the four PlugInViewController notifications below
+// note that your FUPlugIn subclass will be registered (by the Fluid SSB) for the four PlugInViewController notifications below
 // your impl will also be registered (by the Fluid SSB) for all NSWindow Notifications on the window with which it is associated, if it responds to the appropriate callback selectors
 // you can implement the NSWindowNotification callback methods if you like. they will be called if you do.
-FU_EXTERN @interface FUPlugIn : NSObject {
+FU_EXTERN
+extern @interface FUPlugIn : NSObject {
+@public
     NSViewController *preferencesViewController;
     NSString *identifier;
     NSString *localizedTitle;
