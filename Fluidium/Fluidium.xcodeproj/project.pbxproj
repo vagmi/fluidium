@@ -11,12 +11,10 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = D38423031102D3E300605809 /* Build configuration list for PBXAggregateTarget "PlugIns" */;
 			buildPhases = (
-				D3F941931102FADE00267DA0 /* Copy Frameworks */,
 				D38422F91102D3BC00605809 /* Copy PlugIns */,
 			);
 			dependencies = (
 				D38422F01102D39200605809 /* PBXTargetDependency */,
-				D3F941901102FABE00267DA0 /* PBXTargetDependency */,
 				D38422F21102D3A500605809 /* PBXTargetDependency */,
 				D38422F41102D3A500605809 /* PBXTargetDependency */,
 				D38422F61102D3A500605809 /* PBXTargetDependency */,
@@ -102,6 +100,8 @@
 		D33E70BA10D0F1E800D76BBB /* LoadFailed.html in Resources */ = {isa = PBXBuildFile; fileRef = D33E70B810D0F1E800D76BBB /* LoadFailed.html */; };
 		D33E70ED10D0F4A000D76BBB /* FUWhitelistPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33E70E710D0F4A000D76BBB /* FUWhitelistPreferences.xib */; };
 		D33E70EE10D0F4A000D76BBB /* FUAllPlugInPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33E70E910D0F4A000D76BBB /* FUAllPlugInPreferences.xib */; };
+		D3414BC11103884000CCC986 /* UMEKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D346E58910CE436000BA0B15 /* UMEKit.framework */; };
+		D3414BD81103889B00CCC986 /* UMEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346E58910CE436000BA0B15 /* UMEKit.framework */; };
 		D346E18F10CCE91B00BA0B15 /* FUTabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E18E10CCE91B00BA0B15 /* FUTabBarControl.m */; };
 		D346E32910CD7C6600BA0B15 /* FUActivation.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E32810CD7C6600BA0B15 /* FUActivation.m */; };
 		D346E35E10CE1FFD00BA0B15 /* FUPlugInAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E35B10CE1FFD00BA0B15 /* FUPlugInAPIImpl.m */; };
@@ -285,6 +285,13 @@
 			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = TabsPlugIn;
 		};
+		D3414BBF1103883100CCC986 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D346E58310CE436000BA0B15 /* UMEKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* UMEKit */;
+			remoteInfo = UMEKit;
+		};
 		D346E48E10CE434A00BA0B15 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D346E48410CE434A00BA0B15 /* ParseKit.xcodeproj */;
@@ -404,13 +411,6 @@
 			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = BrowsaPlugIn;
 		};
-		D3F9418F1102FABE00267DA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D346E58310CE436000BA0B15 /* UMEKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* UMEKit */;
-			remoteInfo = UMEKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -426,6 +426,7 @@
 				D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */,
 				D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */,
 				D346E59A10CE43E500BA0B15 /* ParseKit.framework in Copy Frameworks */,
+				D3414BC11103884000CCC986 /* UMEKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,6 +769,7 @@
 				D328FD5710CC33F500BB363B /* PSMTabBarControl.framework in Frameworks */,
 				D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */,
 				D346E71210CE516800BA0B15 /* ParseKit.framework in Frameworks */,
+				D3414BD81103889B00CCC986 /* UMEKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1467,6 +1469,7 @@
 				D328FF5010CC340C00BB363B /* PBXTargetDependency */,
 				D31CC0CE10EFCB770013347D /* PBXTargetDependency */,
 				D346E58F10CE437800BA0B15 /* PBXTargetDependency */,
+				D3414BC01103883100CCC986 /* PBXTargetDependency */,
 			);
 			name = Fluidium;
 			productInstallPath = "$(HOME)/Applications";
@@ -1732,20 +1735,6 @@
 			shellPath = /bin/sh;
 			shellScript = "cp -pR \"../PlugIns/BrowsaPlugIn/build/${BUILD_STYLE}/Browsa.fluidplugin\" \"${TARGET_BUILD_DIR}/Fluidium.app/Contents/PlugIns\"\ncp -pR \"../PlugIns/TwitterPlugIn/build/${BUILD_STYLE}/Twitter.fluidplugin\" \"${TARGET_BUILD_DIR}/Fluidium.app/Contents/PlugIns\"\ncp -pR \"../PlugIns/TabsPlugIn/build/${BUILD_STYLE}/Tabs.fluidplugin\" \"${TARGET_BUILD_DIR}/Fluidium.app/Contents/PlugIns\"\n\n#cp -pR \"../PlugIns/TabsPlugIn/build/${BUILD_STYLE}/Tabs.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\n";
 		};
-		D3F941931102FADE00267DA0 /* Copy Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cp -pR \"../Fluidium/lib/UMEKit/build/${BUILD_STYLE}/UMEKit.framework\" \"${TARGET_BUILD_DIR}/Fluidium.app/Contents/Frameworks\"\n\n#cp -pR \"../PlugIns/TabsPlugIn/build/${BUILD_STYLE}/Tabs.fluidplugin\" \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Contents/PlugIns\"\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1870,6 +1859,11 @@
 			name = PSMTabBarControlFramework;
 			targetProxy = D328FF4F10CC340C00BB363B /* PBXContainerItemProxy */;
 		};
+		D3414BC01103883100CCC986 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UMEKit;
+			targetProxy = D3414BBF1103883100CCC986 /* PBXContainerItemProxy */;
+		};
 		D346E58F10CE437800BA0B15 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ParseKit;
@@ -1899,11 +1893,6 @@
 			isa = PBXTargetDependency;
 			target = D38422EC1102D38B00605809 /* PlugIns */;
 			targetProxy = D38423191102D51B00605809 /* PBXContainerItemProxy */;
-		};
-		D3F941901102FABE00267DA0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = UMEKit;
-			targetProxy = D3F9418F1102FABE00267DA0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
