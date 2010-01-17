@@ -14,6 +14,8 @@
 
 #import <Foundation/Foundation.h>
 
+#pragma GCC visibility push(default)
+
 #pragma mark -
 #pragma mark FUApplicationNotifications
 
@@ -135,3 +137,5 @@ extern NSString *const FUBookmarksDidChangeNotification;
 @interface NSObject (FUBookmarkNotifications)
 - (void)bookmarksDidChange:(NSNotification *)n;
 @end
+
+#pragma GCC visibility pop

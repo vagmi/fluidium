@@ -14,6 +14,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#pragma GCC visibility push(default)
+
 extern NSString *const kFUHTTPSchemePrefix;
 extern NSString *const kFUHTTPSSchemePrefix;
 extern NSString *const kFUFileSchemePrefix;
@@ -44,3 +46,5 @@ void FUWriteAllToPasteboard(NSString *URLString, NSString *title, NSPasteboard *
 
 #define FUIsWebUndefined(obj) ([(obj) isKindOfClass:[WebUndefined class]])
 #define FUIsWebScriptObject(obj) ([(obj) isKindOfClass:[WebScriptObject class]])
+
+#pragma GCC visibility pop
