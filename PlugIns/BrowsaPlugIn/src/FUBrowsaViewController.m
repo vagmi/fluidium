@@ -124,6 +124,40 @@ typedef enum {
 }
 
 
+- (void)awakeFromNib {
+    [locationComboBox bind:@"image" toObject:self withKeyPath:@"favicon" options:nil];
+    
+    NSString *path = [[NSBundle mainBundle] pathForImageResource:@"toolbar_button_home.png"];
+    NSImage *img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
+    [homeButton setImage:img];
+    
+    self.webView = [[plugInAPI newWebViewForPlugIn:self.plugIn] autorelease];
+    
+    [self setUpWebView];
+    
+    [self.view addSubview:webView];
+    
+    BOOL loadHomeURL = plugIn.newWindowsOpenWith;
+    if (loadHomeURL) {
+        self.URLString = plugIn.homeURLString;
+        if ([URLString length]) {
+            [self goToLocation:self];
+        }
+    }
+    
+}
+
+
+- (void)didAppear {
+    [self performSelector:@selector(updateNavBar) withObject:nil afterDelay:0];
+}
+
+
+- (void)willDisappear {
+    
+}
+
+
 #pragma mark -
 #pragma mark Actions
 
@@ -312,40 +346,6 @@ typedef enum {
 #pragma mark -
 #pragma mark Public
 
-- (void)awakeFromNib {
-    [locationComboBox bind:@"image" toObject:self withKeyPath:@"favicon" options:nil];
-    
-    NSString *path = [[NSBundle mainBundle] pathForImageResource:@"toolbar_button_home.png"];
-    NSImage *img = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]] autorelease];
-    [homeButton setImage:img];
-
-    self.webView = [[plugInAPI newWebViewForPlugIn:self.plugIn] autorelease];
-    
-    [self setUpWebView];
-    
-    [self.view addSubview:webView];
-    
-    BOOL loadHomeURL = plugIn.newWindowsOpenWith;
-    if (loadHomeURL) {
-        self.URLString = plugIn.homeURLString;
-        if ([URLString length]) {
-            [self goToLocation:self];
-        }
-    }
-    
-}
-
-
-- (void)didAppear {
-    [self performSelector:@selector(updateNavBar) withObject:nil afterDelay:0];
-}
-
-
-- (void)willDisappear {
-    
-}
-
-
 - (void)loadRequest:(NSURLRequest *)req {
     [[webView mainFrame] loadRequest:req];
 }
@@ -411,6 +411,7 @@ typedef enum {
     if (frame != [webView mainFrame]) return;
     
     [self setValue:[NSNumber numberWithBool:YES] forKey:@"canReload"];
+    [self performSelector:@selector(updateNavBar) withObject:nil afterDelay:0];    
 }
 
 
