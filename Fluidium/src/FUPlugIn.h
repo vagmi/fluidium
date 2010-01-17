@@ -14,6 +14,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#pragma GCC visibility push(default)
+
 // Notification names
 extern NSString *const FUPlugInViewControllerWillAppearNotifcation;
 extern NSString *const FUPlugInViewControllerDidAppearNotifcation;
@@ -112,3 +114,5 @@ typedef enum {
 - (CGFloat)preferredVerticalSplitPosition;
 - (CGFloat)preferredHorizontalSplitPosition;
 @end
+
+#pragma GCC visibility pop

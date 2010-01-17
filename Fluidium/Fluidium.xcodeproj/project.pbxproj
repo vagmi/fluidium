@@ -2234,7 +2234,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Fluidium;
 				SDKROOT = macosx10.5;
-				STRIP_STYLE = debugging;
+				STRIP_STYLE = all;
 			};
 			name = Release;
 		};
