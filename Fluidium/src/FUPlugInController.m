@@ -51,7 +51,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)windowControllerDidOpen:(NSNotification *)n;
 - (void)showVisiblePlugInsInWindow:(NSWindow *)win;
 
-- (void)loadPlugIn:(id <FUPlugIn>)plugIn;
+- (void)loadPlugIn:(FUPlugIn *)plugIn;
 - (void)loadPlugInAtPath:(NSString *)path;
 - (void)loadPlugInsAtPath:(NSString *)dirPath;
 - (void)registerNotificationsOnPlugInWrapper:(FUPlugInWrapper *)wrap;
@@ -166,7 +166,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)loadPlugInAtPath:(NSString *)path {
     NSBundle *bundle = [NSBundle bundleWithPath:path];
 
-    id <FUPlugIn>plugIn = nil;
+    FUPlugIn *plugIn = nil;
 
     if ([[bundle bundleIdentifier] hasPrefix:@"com.fluidapp.BrowsaPlugIn"]) {
         NSInteger num = [[FUUserDefaults instance] numberOfBrowsaPlugIns];
@@ -182,7 +182,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 }
 
 
-- (void)loadPlugIn:(id <FUPlugIn>)plugIn {
+- (void)loadPlugIn:(FUPlugIn *)plugIn {
     NSString *identifier = [plugIn identifier];
     
     if ([allPlugInWrappersTable objectForKey:identifier]) {
@@ -270,7 +270,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title
                                                        action:@selector(plugInMenuItemAction:)
                                                 keyEquivalent:wrap.preferredMenuItemKeyEquivalent] autorelease];
-    [menuItem setKeyEquivalentModifierMask:wrap.preferredMenuItemKeyEquivalentModifierMask];
+    [menuItem setKeyEquivalentModifierMask:wrap.preferredMenuItemKeyEquivalentModifierFlags];
     [menuItem setTarget:self];
     [menuItem setRepresentedObject:identifier];
     //[menuItem setImage:[NSImage imageNamed:[plugIn iconImageName]]];
@@ -363,7 +363,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     }
     wrap = [self plugInWrapperForIdentifier:identifier];
     
-    FUPlugInViewPlacementMask mask = wrap.viewPlacementMask;
+    FUPlugInViewPlacement mask = wrap.viewPlacementMask;
     
     NSWindow *window = nil;
     if (!FUPlugInViewPlacementIsPanel(mask)) {
@@ -460,7 +460,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 }
 
 
-- (void)hidePlugInWrapperWithViewPlacementMask:(FUPlugInViewPlacementMask)mask inWindow:(NSWindow *)win {
+- (void)hidePlugInWrapperWithViewPlacementMask:(FUPlugInViewPlacement)mask inWindow:(NSWindow *)win {
     for (FUPlugInWrapper *wrap in [self visiblePlugInWrappers]) {
         if (mask == wrap.viewPlacementMask) {
             if ([wrap isVisibleInWindowNumber:[win windowNumber]]) {

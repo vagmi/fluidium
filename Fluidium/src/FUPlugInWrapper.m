@@ -21,14 +21,14 @@
 #import <TDAppKit/TDUberView.h>
 
 @interface FUPlugInWrapper ()
-@property (nonatomic, retain, readwrite) id <FUPlugIn>plugIn;
+@property (nonatomic, retain, readwrite) FUPlugIn *plugIn;
 @property (nonatomic, copy, readwrite) NSString *viewPlacementMaskKey;
 @property (nonatomic, retain) NSMutableSet *visibleWindowNumbers;
 @end
 
 @implementation FUPlugInWrapper
 
-- (id)initWithPlugIn:(id <FUPlugIn>)aPlugIn {
+- (id)initWithPlugIn:(FUPlugIn *)aPlugIn {
     if (self = [super init]) {
         self.plugIn = aPlugIn;
         self.viewControllers = [NSMutableDictionary dictionary];
@@ -37,7 +37,7 @@
         
         id existingValue = [[NSUserDefaults standardUserDefaults] objectForKey:self.viewPlacementMaskKey];
         if (!existingValue) {
-            self.viewPlacementMask = self.preferredViewPlacementMask;
+            self.viewPlacementMask = self.preferredViewPlacement;
         }
     }
     return self;
@@ -196,13 +196,13 @@
 }
 
 
-- (NSInteger)allowedViewPlacementMask {
-    return [plugIn allowedViewPlacementMask];
+- (NSInteger)allowedViewPlacement {
+    return [plugIn allowedViewPlacement];
 }
 
 
-- (NSInteger)preferredViewPlacementMask {
-    return [plugIn preferredViewPlacementMask];
+- (NSInteger)preferredViewPlacement {
+    return [plugIn preferredViewPlacement];
 }
 
 
@@ -211,8 +211,8 @@
 }
 
 
-- (NSUInteger)preferredMenuItemKeyEquivalentModifierMask {
-    return [plugIn preferredMenuItemKeyEquivalentModifierMask];
+- (NSUInteger)preferredMenuItemKeyEquivalentModifierFlags {
+    return [plugIn preferredMenuItemKeyEquivalentModifierFlags];
 }
 
 
@@ -237,31 +237,13 @@
 
 
 - (CGFloat)preferredHorizontalSplitPosition {
-    if ([plugIn respondsToSelector:@selector(preferredHorizontalSplitPosition)]) {
-        return [plugIn preferredHorizontalSplitPosition];
-    } else {
-        return 220.;
-    }
+    return [plugIn preferredHorizontalSplitPosition];
 }
 
 
 - (CGFloat)preferredVerticalSplitPosition {
-    if ([plugIn respondsToSelector:@selector(preferredVerticalSplitPosition)]) {
-        return [plugIn preferredVerticalSplitPosition];
-    } else {
-        return 220.;
-    }
+    return [plugIn preferredVerticalSplitPosition];
 }
-
-
-- (NSInteger)preferredToolbarButtonType {
-    if ([plugIn respondsToSelector:@selector(preferredToolbarButtonType)]) {
-        return [plugIn preferredVerticalSplitPosition];
-    } else {
-        return 0;
-    }
-}
-
 
 @synthesize plugIn;
 @synthesize viewControllers;

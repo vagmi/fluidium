@@ -12,11 +12,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUPlugIn.h"
+#import <Fluidium/FUPlugIn.h>
 
 extern NSString *const FUBrowsaUserAgentStringDidChangeNotification;
-
-@class FUBrowsaPreferencesViewController;
 
 extern NSString *const kFUBrowsaHomeURLStringKey;
 extern NSString *const kFUBrowsaNewWindowsOpenWithKey;
@@ -30,23 +28,10 @@ typedef enum {
     FUShowNavBarNever
 } FUShowNavBar;
 
-@interface FUBrowsaPlugIn : NSObject <FUPlugIn> {
+@interface FUBrowsaPlugIn : FUPlugIn {
     id <FUPlugInAPI>plugInAPI;
-    FUBrowsaPreferencesViewController *preferencesViewController;
-    NSString *identifier;
-    NSString *localizedTitle;
-    NSInteger allowedViewPlacementMask;
-    NSInteger preferredViewPlacementMask;
-    NSString *preferredMenuItemKeyEquivalent;
-    NSUInteger preferredMenuItemKeyEquivalentModifierMask;
 
     NSString *toolbarIconImageNameNormal;
-    NSString *preferencesIconImageName;
-    
-    NSMutableDictionary *defaultsDictionary;
-    NSDictionary *aboutInfoDictionary;
-    CGFloat preferredVerticalSplitPosition;
-    CGFloat preferredHorizontalSplitPosition;
     
     NSMutableArray *viewControllers;
     NSInteger tag;

@@ -113,7 +113,7 @@
 }
 
 
-- (WebView *)newWebViewForPlugIn:(id <FUPlugIn>)plugIn {
+- (WebView *)newWebViewForPlugIn:(FUPlugIn *)plugIn {
     return [[FUWebView alloc] initWithFrame:NSZeroRect];
 }
 

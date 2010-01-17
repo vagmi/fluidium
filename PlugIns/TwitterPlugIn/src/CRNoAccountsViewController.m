@@ -9,7 +9,7 @@
 #import "CRNoAccountsViewController.h"
 #import "CRTwitterPlugIn.h"
 #import "CRTwitterPlugInPrefsViewController.h"
-#import "FUPlugInAPI.h"
+#import <Fluidium/FUPlugInAPI.h>
 
 @implementation CRNoAccountsViewController
 

@@ -13,11 +13,11 @@
 //  limitations under the License.
 
 #import "FUBrowsaPlugIn.h"
-#import "FUPlugInAPI.h"
 #import "FUBrowsaViewController.h"
 #import "FUBrowsaPreferencesViewController.h"
 #import "NSString+FUAdditions.h"
 #import <WebKit/WebKit.h>
+#import <Fluidium/FUPlugInAPI.h>
 
 NSString *const FUBrowsaUserAgentStringDidChangeNotification = @"FUBrowsaUserAgentStringDidChangeNotification";
 
@@ -33,21 +33,9 @@ static NSInteger sTag = 0;
 
 @interface FUBrowsaPlugIn ()
 @property (nonatomic, readwrite, retain) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, readwrite, retain) NSViewController *preferencesViewController;
-@property (nonatomic, readwrite, copy) NSString *identifier;
-@property (nonatomic, readwrite, copy) NSString *localizedTitle;
-@property (nonatomic, readwrite) NSInteger allowedViewPlacementMask;
-@property (nonatomic, readwrite) NSInteger preferredViewPlacementMask;
-@property (nonatomic, readwrite, copy) NSString *preferredMenuItemKeyEquivalent;
-@property (nonatomic, readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-@property (nonatomic, readwrite, retain) NSMutableDictionary *defaultsDictionary;
-@property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
-@property (nonatomic, readwrite) CGFloat preferredVerticalSplitPosition;
-@property (nonatomic, readwrite) CGFloat preferredHorizontalSplitPosition;
 @property (nonatomic, readwrite) NSInteger tag;
 
 @property (nonatomic, copy) NSString *toolbarIconImageNameNormal;
-@property (nonatomic, copy) NSString *preferencesIconImageName;
 @end
 
 @implementation FUBrowsaPlugIn
@@ -58,14 +46,10 @@ static NSInteger sTag = 0;
         self.plugInAPI = api;
         self.identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", tag];
         self.localizedTitle = [self makeLocalizedTitle];
-        self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
+        self.preferredMenuItemKeyEquivalentModifierFlags = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
         self.preferencesIconImageName = @"prefpane_icon_browsa";
         
-        self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
-                                         FUPlugInViewPlacementSplitViewLeft|
-                                         FUPlugInViewPlacementSplitViewRight|
-                                         FUPlugInViewPlacementSplitViewTop|
-                                         FUPlugInViewPlacementSplitViewBottom);
+        self.allowedViewPlacement = (FUPlugInViewPlacementDrawer|FUPlugInViewPlacementSplitView);
         
         NSUInteger mask = 0;
         NSString *key = nil;
@@ -89,7 +73,7 @@ static NSInteger sTag = 0;
             default:
                 break;
         }
-        self.preferredViewPlacementMask = mask;
+        self.preferredViewPlacement = mask;
         self.preferredMenuItemKeyEquivalent = key;
         
         // get defaults from disk, but be sure to store them using the 'tagged key' or else they're useless
@@ -368,19 +352,7 @@ static NSInteger sTag = 0;
 }
 
 @synthesize plugInAPI;
-@synthesize preferencesViewController;
-@synthesize identifier;
-@synthesize localizedTitle;
-@synthesize allowedViewPlacementMask;
-@synthesize preferredViewPlacementMask;
-@synthesize preferredMenuItemKeyEquivalent;
-@synthesize preferredMenuItemKeyEquivalentModifierMask;
 @synthesize toolbarIconImageNameNormal;
-@synthesize preferencesIconImageName;
-@synthesize defaultsDictionary;
-@synthesize aboutInfoDictionary;
-@synthesize preferredVerticalSplitPosition;
-@synthesize preferredHorizontalSplitPosition;
 @synthesize viewControllers;
 @synthesize tag;
 @end

@@ -14,16 +14,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-@protocol FUPlugIn;
+@class FUPlugIn;
 
 @interface FUPlugInWrapper : NSObject {
-    id <FUPlugIn>plugIn;
+    FUPlugIn *plugIn;
     NSMutableDictionary *viewControllers;
     NSMutableSet *visibleWindowNumbers;
     NSString *viewPlacementMaskKey;
 }
 
-- (id)initWithPlugIn:(id <FUPlugIn>)aPlugIn;
+- (id)initWithPlugIn:(FUPlugIn *)aPlugIn;
 
 - (NSViewController *)plugInViewControllerForWindowNumber:(NSInteger)num;
 - (NSViewController *)newViewControllerForWindowNumber:(NSInteger)num;
@@ -31,7 +31,7 @@
 - (BOOL)isVisibleInWindowNumber:(NSInteger)num;
 - (void)setVisible:(BOOL)visible inWindowNumber:(NSInteger)num;
 
-@property (nonatomic, retain, readonly) id <FUPlugIn> plugIn;
+@property (nonatomic, retain, readonly) FUPlugIn *plugIn;
 @property (nonatomic) NSUInteger viewPlacementMask;
 @property (nonatomic, copy, readonly) NSString *viewPlacementMaskKey;
 @property (nonatomic, retain) NSMutableDictionary *viewControllers;
@@ -39,15 +39,14 @@
 @property (nonatomic, readonly) NSViewController *preferencesViewController;
 @property (nonatomic, readonly) NSString *identifier;
 @property (nonatomic, readonly) NSString *localizedTitle;
-@property (nonatomic, readonly) NSInteger allowedViewPlacementMask;
-@property (nonatomic, readonly) NSInteger preferredViewPlacementMask;
+@property (nonatomic, readonly) NSInteger allowedViewPlacement;
+@property (nonatomic, readonly) NSInteger preferredViewPlacement;
 @property (nonatomic, readonly) NSString *preferredMenuItemKeyEquivalent;
-@property (nonatomic, readonly) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
+@property (nonatomic, readonly) NSUInteger preferredMenuItemKeyEquivalentModifierFlags;
 @property (nonatomic, readonly) NSString *toolbarIconImageName;
 @property (nonatomic, readonly) NSString *preferencesIconImageName;
 @property (nonatomic, readonly) NSDictionary *defaultsDictionary;
 @property (nonatomic, readonly) NSDictionary *aboutInfoDictionary;
 @property (nonatomic, readonly) CGFloat preferredVerticalSplitPosition;
 @property (nonatomic, readonly) CGFloat preferredHorizontalSplitPosition;
-@property (nonatomic, readonly) NSInteger preferredToolbarButtonType;
 @end

@@ -16,7 +16,7 @@
 
 @class WebView;
 @class FUActivation;
-@protocol FUPlugIn;
+@class FUPlugIn;
 
 typedef enum {
     FUPlugInDestinationTypeWindow,
@@ -38,15 +38,15 @@ typedef enum {
 - (NSArray *)webViewsForDrawer:(NSDrawer *)drawer;
 
 // create and setup a new WebView for use in a plugin view controller. must be released by caller.
-- (WebView *)newWebViewForPlugIn:(id <FUPlugIn>)plugIn;
+- (WebView *)newWebViewForPlugIn:(FUPlugIn *)plugIn;
 
 - (NSString *)plugInSupportDirPath;
 
 - (NSUInteger)viewPlacementForPlugInIdentifier:(NSString *)s;
 
-- (void)loadRequest:(NSURLRequest *)request; // prefers tabs
-- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type; // respects FUSelectTabsAndWindowsAsCreated
-- (void)loadRequest:(NSURLRequest *)request destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
+- (void)loadRequest:(NSURLRequest *)req; // prefers tabs
+- (void)loadRequest:(NSURLRequest *)req destinationType:(FUPlugInDestinationType)type; // respects FUSelectTabsAndWindowsAsCreated
+- (void)loadRequest:(NSURLRequest *)req destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground;
 
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
 

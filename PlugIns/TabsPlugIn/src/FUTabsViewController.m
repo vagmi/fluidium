@@ -13,8 +13,8 @@
 //  limitations under the License.
 
 #import "FUTabsViewController.h"
-#import "FUPlugIn.h"
-#import "FUPlugInAPI.h"
+#import <Fluidium/FUPlugIn.h>
+#import <Fluidium/FUPlugInAPI.h>
 #import "FUTabsPlugIn.h"
 #import "FUTabModel.h"
 #import "FUTabListItem.h"

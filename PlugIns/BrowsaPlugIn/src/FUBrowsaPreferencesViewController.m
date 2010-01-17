@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUBrowsaPreferencesViewController.h"
-#import "FUPlugInAPI.h"
+#import <Fluidium/FUPlugInAPI.h>
 #import "FUBrowsaPlugIn.h"
 #import "FUBrowsaViewController.h"
 #import <WebKit/WebKit.h>

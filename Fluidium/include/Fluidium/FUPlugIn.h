@@ -24,7 +24,7 @@ extern NSString *const FUPlugInViewControllerDidDisappearNotifcation;
 
 // keys for the userInfo dictionary of Notifications sent with names from above
 extern NSString *const FUPlugInViewPlacementMaskKey;    // NSInteger
-extern NSString *const FUPlugInKey;                     // id <FUPlugIn>
+extern NSString *const FUPlugInKey;                     // FUPlugIn *
 extern NSString *const FUPlugInViewControllerKey;       // NSViewController
 extern NSString *const FUPlugInViewControllerDrawerKey; // NSDrawer -- this is only sent for view controllers currently in a drawer position
 
@@ -53,12 +53,30 @@ typedef enum {
     FUPlugInViewPlacementSplitViewLeft = 1 << 7,
     FUPlugInViewPlacementSplitViewRight = 1 << 8,
     FUPlugInViewPlacementSplitViewTop = 1 << 9,
-} FUPlugInViewPlacementMask;
+} FUPlugInViewPlacement;
+
+#define FUPlugInViewPlacementAny (FUPlugInViewPlacementDrawer|FUPlugInViewPlacementUtilityPanel|FUPlugInViewPlacementFloatingUtilityPanel|FUPlugInViewPlacementHUDPanel|FUPlugInViewPlacementFloatingHUDPanel|FUPlugInViewPlacementSplitViewLeft|FUPlugInViewPlacementSplitViewRight|FUPlugInViewPlacementSplitViewTop|FUPlugInViewPlacementSplitViewBottom)
+#define FUPlugInViewPlacementSplitView (FUPlugInViewPlacementSplitViewLeft|FUPlugInViewPlacementSplitViewRight|FUPlugInViewPlacementSplitViewTop|FUPlugInViewPlacementSplitViewBottom)
+#define FUPlugInViewPlacementPanel (FUPlugInViewPlacementUtilityPanel|FUPlugInViewPlacementFloatingUtilityPanel|FUPlugInViewPlacementHUDPanel|FUPlugInViewPlacementFloatingHUDPanel)
 
 // note that your impl of this protocol will be registered (by the Fluid SSB) for the four PlugInViewController notifications below
 // your impl will also be registered (by the Fluid SSB) for all NSWindow Notifications on the window with which it is associated, if it responds to the appropriate callback selectors
 // you can implement the NSWindowNotification callback methods if you like. they will be called if you do.
-@protocol FUPlugIn <NSObject>
+@interface FUPlugIn : NSObject {
+    NSViewController *preferencesViewController;
+    NSString *identifier;
+    NSString *localizedTitle;
+    NSUInteger allowedViewPlacement;
+    NSUInteger preferredViewPlacement;
+    NSString *preferredMenuItemKeyEquivalent;
+    NSUInteger preferredMenuItemKeyEquivalentModifierFlags;
+    NSString *toolbarIconImageName;
+    NSString *preferencesIconImageName;
+    NSDictionary *defaultsDictionary;
+    NSDictionary *aboutInfoDictionary;
+    CGFloat preferredVerticalSplitPosition;
+    CGFloat preferredHorizontalSplitPosition;
+}
 
 // the plugInController is this plugin's API back to the Fluid SSB application.
 - (id)initWithPlugInAPI:(id <FUPlugInAPI>)api;
@@ -72,47 +90,47 @@ typedef enum {
 // return the single NSViewController which will control the 'Preferences' view that will appear in the Fluid Preferences window.
 // only one should ever be created. you should probably create it lazily in your implementation of this method.
 // returned object should be autoreleased.
-- (NSViewController *)preferencesViewController;
+@property (nonatomic, retain) NSViewController *preferencesViewController;
 
 // unique reverse domain. e.g.: com.fluidapp.FoobarPlugIn
-- (NSString *)identifier;
+@property (nonatomic, copy) NSString *identifier;
 
 // the display string title for this plugin. do not include 'Plug-in' in this string. Just the name of this plugin
 // e.g.: 'Clipboard' rather than 'Clipboard Plug-in'.
-- (NSString *)localizedTitle;
+@property (nonatomic, copy) NSString *localizedTitle;
 
 // an or'ed mask containing the UI placements allowed for this plugin
-- (NSUInteger)allowedViewPlacementMask;
+@property (nonatomic, assign) NSUInteger allowedViewPlacement;
 
 // a single UI placement maks stating where this plugin should appear by default
-- (NSUInteger)preferredViewPlacementMask;
+@property (nonatomic, assign) NSUInteger preferredViewPlacement;
 
 // a string that will be used as the 'keyboard shortcut' in the main menu item for this plugin
-- (NSString *)preferredMenuItemKeyEquivalent;
+@property (nonatomic, copy) NSString *preferredMenuItemKeyEquivalent;
 
 // an or'd mask of modifiers to be usind in the keyboard shortcut in the main menu item for this plugin
 // e.g.: (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)
-- (NSUInteger)preferredMenuItemKeyEquivalentModifierMask;
+@property (nonatomic, assign) NSUInteger preferredMenuItemKeyEquivalentModifierFlags;
 
 // a string matching the filename of an image in this plugin bundle's Resources dir.
 // this string should not include the file extension.
-- (NSString *)toolbarIconImageName;
+@property (nonatomic, copy) NSString *toolbarIconImageName;
 
 // a string matching the filename of an image in this plugin bundle's Resources dir.
 // this string should not include the file extension.
-- (NSString *)preferencesIconImageName;
+@property (nonatomic, copy) NSString *preferencesIconImageName;
 
 // values in this dictionary will be added to NSUserDefaults for the currently running SSB.
 // the keys in this dictionary should be carefully namespaced
-- (NSDictionary *)defaultsDictionary;
+@property (nonatomic, retain) NSDictionary *defaultsDictionary;
 
 // a dictionary containing the standard keys and values provided as the 'options' arg to:
 // -[NSApplication orderFrontStandardAboutPanelWithOptions:]. See Apple's documentation for that method.
-- (NSDictionary *)aboutInfoDictionary;
+@property (nonatomic, retain) NSDictionary *aboutInfoDictionary;
 
-@optional
-- (CGFloat)preferredVerticalSplitPosition;
-- (CGFloat)preferredHorizontalSplitPosition;
+@property (nonatomic, assign) CGFloat preferredVerticalSplitPosition;
+
+@property (nonatomic, assign) CGFloat preferredHorizontalSplitPosition;
 @end
 
 #pragma GCC visibility pop

@@ -68,8 +68,6 @@
 		D30CCA8110FD8D9D0036D2A3 /* toolbar_button_reader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolbar_button_reader.png; path = res/img/toolbar_button_reader.png; sourceTree = "<group>"; };
 		D30CCA8210FD8D9D0036D2A3 /* toolbar_button_twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolbar_button_twitter.png; path = res/img/toolbar_button_twitter.png; sourceTree = "<group>"; };
 		D33932A510D49F54000FC7C1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		D33932AF10D49FD8000FC7C1 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = ../../Fluidium/src/FUPlugIn.h; sourceTree = SOURCE_ROOT; };
-		D33932B010D49FD8000FC7C1 /* FUPlugInAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPI.h; path = ../../Fluidium/src/FUPlugInAPI.h; sourceTree = SOURCE_ROOT; };
 		D33932B110D49FD8000FC7C1 /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = ../../Fluidium/src/WebURLsWithTitles.h; sourceTree = SOURCE_ROOT; };
 		D33932B510D4A0AE000FC7C1 /* FUBrowsaPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaPlugIn.h; path = src/FUBrowsaPlugIn.h; sourceTree = "<group>"; };
 		D33932B810D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaPreferencesViewController.h; path = src/FUBrowsaPreferencesViewController.h; sourceTree = "<group>"; };
@@ -230,8 +228,6 @@
 		D33932AE10D49FC5000FC7C1 /* Fluidium */ = {
 			isa = PBXGroup;
 			children = (
-				D33932AF10D49FD8000FC7C1 /* FUPlugIn.h */,
-				D33932B010D49FD8000FC7C1 /* FUPlugInAPI.h */,
 				D339331910D4ADA5000FC7C1 /* NSString+FUAdditions.h */,
 				D3D377A610E4316F00203EB2 /* NSEvent+FUAdditions.h */,
 				D339339F10D4C0F9000FC7C1 /* DOMNode+FUAdditions.h */,

@@ -13,27 +13,14 @@
 //  limitations under the License.
 
 #import "FUTabsPlugIn.h"
-#import "FUPlugIn.h"
-#import "FUPlugInAPI.h"
 #import "FUTabsViewController.h"
 #import "FUTabsPreferencesViewController.h"
+#import <Fluidium/FUPlugIn.h>
+#import <Fluidium/FUPlugInAPI.h>
 #import <Fluidium/FUNotifications.h>
 
 @interface FUTabsPlugIn ()
 @property (nonatomic, readwrite, retain) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, readwrite, retain) NSViewController *preferencesViewController;
-@property (nonatomic, readwrite, copy) NSString *identifier;
-@property (nonatomic, readwrite, copy) NSString *localizedTitle;
-@property (nonatomic, readwrite) NSInteger allowedViewPlacementMask;
-@property (nonatomic, readwrite) NSInteger preferredViewPlacementMask;
-@property (nonatomic, readwrite, copy) NSString *preferredMenuItemKeyEquivalent;
-@property (nonatomic, readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-@property (nonatomic, readwrite, copy) NSString *toolbarIconImageName;
-@property (nonatomic, readwrite, copy) NSString *preferencesIconImageName;
-@property (nonatomic, readwrite, retain) NSMutableDictionary *defaultsDictionary;
-@property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
-@property (nonatomic, readwrite) CGFloat preferredVerticalSplitPosition;
-@property (nonatomic, readwrite) CGFloat preferredHorizontalSplitPosition;
 @end
 
 @implementation FUTabsPlugIn
@@ -43,15 +30,15 @@
         self.plugInAPI = api;
         self.identifier = @"com.fluidapp.TabsPlugIn";
         self.localizedTitle = NSLocalizedString(@"Tabs", @"");
-        self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
+        self.preferredMenuItemKeyEquivalentModifierFlags = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
         self.toolbarIconImageName = NSImageNameIconViewTemplate;
         self.preferencesIconImageName = NSImageNameIconViewTemplate;
-        self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
+        self.allowedViewPlacement = (FUPlugInViewPlacementDrawer|
                                          FUPlugInViewPlacementSplitViewLeft|
                                          FUPlugInViewPlacementSplitViewRight|
                                          FUPlugInViewPlacementSplitViewTop|
                                          FUPlugInViewPlacementSplitViewBottom);
-        self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewBottom;
+        self.preferredViewPlacement = FUPlugInViewPlacementSplitViewBottom;
         self.preferredMenuItemKeyEquivalent = @"a";
         
         // get defaults from disk
@@ -71,14 +58,6 @@
 
 - (void)dealloc {
     self.plugInAPI = nil;
-    self.identifier = nil;
-    self.localizedTitle = nil;
-    self.preferredMenuItemKeyEquivalent = nil;
-    self.toolbarIconImageName = nil;
-    self.preferencesIconImageName = nil;
-    self.defaultsDictionary = nil;
-    self.preferencesViewController = nil;
-    self.aboutInfoDictionary = nil;
     self.viewControllers = nil;
     [super dealloc];
 }
@@ -132,18 +111,5 @@
 }
 
 @synthesize plugInAPI;
-@synthesize preferencesViewController;
-@synthesize identifier;
-@synthesize localizedTitle;
-@synthesize allowedViewPlacementMask;
-@synthesize preferredViewPlacementMask;
-@synthesize preferredMenuItemKeyEquivalent;
-@synthesize preferredMenuItemKeyEquivalentModifierMask;
-@synthesize toolbarIconImageName;
-@synthesize preferencesIconImageName;
-@synthesize defaultsDictionary;
-@synthesize aboutInfoDictionary;
-@synthesize preferredVerticalSplitPosition;
-@synthesize preferredHorizontalSplitPosition;
 @synthesize viewControllers;
 @end

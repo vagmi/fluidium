@@ -61,7 +61,6 @@
 		D32CE86510E59A9600F28812 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		D32E8AD610E52C4600445B4C /* FUTabsPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabsPlugIn.h; path = src/FUTabsPlugIn.h; sourceTree = "<group>"; };
 		D32E8AD710E52C4600445B4C /* FUTabsPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabsPlugIn.m; path = src/FUTabsPlugIn.m; sourceTree = "<group>"; };
-		D32E8AE010E52C5F00445B4C /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = ../../Fluidium/src/FUPlugIn.h; sourceTree = SOURCE_ROOT; };
 		D32E8AE110E52C5F00445B4C /* FUPlugInAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPI.h; path = ../../Fluidium/src/FUPlugInAPI.h; sourceTree = SOURCE_ROOT; };
 		D32E8AF110E52D2E00445B4C /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = ../../Fluidium/src/WebURLsWithTitles.h; sourceTree = SOURCE_ROOT; };
 		D32E8B0010E52D6800445B4C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -186,7 +185,6 @@
 		D32E8ADB10E52C5000445B4C /* Fluidium */ = {
 			isa = PBXGroup;
 			children = (
-				D32E8AE010E52C5F00445B4C /* FUPlugIn.h */,
 				D32E8AE110E52C5F00445B4C /* FUPlugInAPI.h */,
 				D32E8AF110E52D2E00445B4C /* WebURLsWithTitles.h */,
 			);

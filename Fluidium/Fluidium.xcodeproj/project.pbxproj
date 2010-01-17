@@ -102,6 +102,9 @@
 		D33E70EE10D0F4A000D76BBB /* FUAllPlugInPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33E70E910D0F4A000D76BBB /* FUAllPlugInPreferences.xib */; };
 		D3414BC11103884000CCC986 /* UMEKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D346E58910CE436000BA0B15 /* UMEKit.framework */; };
 		D3414BD81103889B00CCC986 /* UMEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346E58910CE436000BA0B15 /* UMEKit.framework */; };
+		D3414BE211038A4500CCC986 /* FUPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3414BE111038A4500CCC986 /* FUPlugIn.m */; };
+		D3414C3811038E4300CCC986 /* FUPlugIn.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3414C3711038E3900CCC986 /* FUPlugIn.h */; };
+		D3414C3F11038E5C00CCC986 /* FUPlugInAPI.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3414C3E11038E5800CCC986 /* FUPlugInAPI.h */; };
 		D346E18F10CCE91B00BA0B15 /* FUTabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E18E10CCE91B00BA0B15 /* FUTabBarControl.m */; };
 		D346E32910CD7C6600BA0B15 /* FUActivation.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E32810CD7C6600BA0B15 /* FUActivation.m */; };
 		D346E35E10CE1FFD00BA0B15 /* FUPlugInAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E35B10CE1FFD00BA0B15 /* FUPlugInAPIImpl.m */; };
@@ -447,6 +450,8 @@
 				D38420D11102BEE600605809 /* FUActivation.h in Copy Public Headers */,
 				D38420D21102BF0100605809 /* FUBookmarkController.h in Copy Public Headers */,
 				D38420D31102BF0C00605809 /* FUBookmark.h in Copy Public Headers */,
+				D3414C3811038E4300CCC986 /* FUPlugIn.h in Copy Public Headers */,
+				D3414C3F11038E5C00CCC986 /* FUPlugInAPI.h in Copy Public Headers */,
 			);
 			name = "Copy Public Headers";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,12 +556,13 @@
 		D33E70B810D0F1E800D76BBB /* LoadFailed.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = LoadFailed.html; path = res/markup/LoadFailed.html; sourceTree = "<group>"; };
 		D33E70E810D0F4A000D76BBB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUWhitelistPreferences.xib; sourceTree = "<group>"; };
 		D33E70EA10D0F4A000D76BBB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUAllPlugInPreferences.xib; sourceTree = "<group>"; };
+		D3414BE111038A4500CCC986 /* FUPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUPlugIn.m; path = src/FUPlugIn.m; sourceTree = "<group>"; };
+		D3414C3711038E3900CCC986 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = include/Fluidium/FUPlugIn.h; sourceTree = "<group>"; };
+		D3414C3E11038E5800CCC986 /* FUPlugInAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPI.h; path = include/Fluidium/FUPlugInAPI.h; sourceTree = "<group>"; };
 		D346E18D10CCE91B00BA0B15 /* FUTabBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabBarControl.h; path = src/FUTabBarControl.h; sourceTree = "<group>"; };
 		D346E18E10CCE91B00BA0B15 /* FUTabBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabBarControl.m; path = src/FUTabBarControl.m; sourceTree = "<group>"; };
 		D346E32710CD7C6600BA0B15 /* FUActivation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUActivation.h; path = include/Fluidium/FUActivation.h; sourceTree = "<group>"; };
 		D346E32810CD7C6600BA0B15 /* FUActivation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUActivation.m; path = src/FUActivation.m; sourceTree = "<group>"; };
-		D346E35810CE1FFD00BA0B15 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = src/FUPlugIn.h; sourceTree = "<group>"; };
-		D346E35910CE1FFD00BA0B15 /* FUPlugInAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPI.h; path = src/FUPlugInAPI.h; sourceTree = "<group>"; };
 		D346E35A10CE1FFD00BA0B15 /* FUPlugInAPIImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInAPIImpl.h; path = src/FUPlugInAPIImpl.h; sourceTree = "<group>"; };
 		D346E35B10CE1FFD00BA0B15 /* FUPlugInAPIImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUPlugInAPIImpl.m; path = src/FUPlugInAPIImpl.m; sourceTree = "<group>"; };
 		D346E35C10CE1FFD00BA0B15 /* FUPlugInWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugInWrapper.h; path = src/FUPlugInWrapper.h; sourceTree = "<group>"; };
@@ -1032,8 +1038,9 @@
 		D346E34910CE1FEB00BA0B15 /* PlugIns */ = {
 			isa = PBXGroup;
 			children = (
-				D346E35810CE1FFD00BA0B15 /* FUPlugIn.h */,
-				D346E35910CE1FFD00BA0B15 /* FUPlugInAPI.h */,
+				D3414C3711038E3900CCC986 /* FUPlugIn.h */,
+				D3414BE111038A4500CCC986 /* FUPlugIn.m */,
+				D3414C3E11038E5800CCC986 /* FUPlugInAPI.h */,
 				D346E35A10CE1FFD00BA0B15 /* FUPlugInAPIImpl.h */,
 				D346E35B10CE1FFD00BA0B15 /* FUPlugInAPIImpl.m */,
 				D346E35C10CE1FFD00BA0B15 /* FUPlugInWrapper.h */,
@@ -1843,6 +1850,7 @@
 				D3F9413E1102F35B00267DA0 /* PTHotKeyCenter.m in Sources */,
 				D3F9413F1102F35B00267DA0 /* PTKeyCodeTranslator.m in Sources */,
 				D3F941401102F35B00267DA0 /* PTKeyCombo.m in Sources */,
+				D3414BE211038A4500CCC986 /* FUPlugIn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

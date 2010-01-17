@@ -40,7 +40,7 @@
 - (void)toggleVisibilityOfPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
 
 - (void)showPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
-- (void)hidePlugInWrapperWithViewPlacementMask:(FUPlugInViewPlacementMask)mask inWindow:(NSWindow *)window;
+- (void)hidePlugInWrapperWithViewPlacementMask:(FUPlugInViewPlacement)mask inWindow:(NSWindow *)window;
 - (void)hidePlugInWrapperInAllWindows:(FUPlugInWrapper *)wrap;
 
 - (NSArray *)visiblePlugInWrappers;

@@ -7,12 +7,12 @@
 //
 
 #import "CRTwitterPlugIn.h"
-#import "FUPlugInAPI.h"
 #import "CRTwitterPlugInViewController.h"
 #import "CRTimelineViewController.h"
 #import "CRTwitterPlugInPrefsViewController.h"
 #import "CRTwitterUtils.h"
 #import <WebKit/WebKit.h>
+#import <Fluidium/FUPlugInAPI.h>
 
 NSString *kCRTwitterDisplayUsernamesKey = @"CRTwitterDisplayUsernames";
 NSString *kCRTwitterAccountIDsKey = @"CRTwitterAccountIDs";
@@ -24,20 +24,6 @@ static CRTwitterPlugIn *instance = nil;
 
 @interface CRTwitterPlugIn ()
 @property (nonatomic, retain) NSMutableArray *viewControllers;
-
-@property (nonatomic, readwrite, retain) NSViewController *preferencesViewController;
-@property (nonatomic, readwrite, copy) NSString *identifier;
-@property (nonatomic, readwrite, copy) NSString *localizedTitle;
-@property (nonatomic, readwrite) NSInteger allowedViewPlacementMask;
-@property (nonatomic, readwrite) NSInteger preferredViewPlacementMask;
-@property (nonatomic, readwrite, copy) NSString *preferredMenuItemKeyEquivalent;
-@property (nonatomic, readwrite) NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-@property (nonatomic, readwrite, copy) NSString *toolbarIconImageName;
-@property (nonatomic, readwrite, copy) NSString *preferencesIconImageName;
-@property (nonatomic, readwrite, retain) NSDictionary *defaultsDictionary;
-@property (nonatomic, readwrite, retain) NSDictionary *aboutInfoDictionary;
-@property (nonatomic) CGFloat preferredVerticalSplitPosition;
-@property (nonatomic) CGFloat preferredHorizontalSplitPosition;
 @end
 
 @implementation CRTwitterPlugIn
@@ -73,20 +59,12 @@ static CRTwitterPlugIn *instance = nil;
         self.identifier = @"com.fluidapp.TwitterPlugIn";
         self.localizedTitle = @"Twitter";
         self.preferredMenuItemKeyEquivalent = @"t";
-        self.preferredMenuItemKeyEquivalentModifierMask = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
+        self.preferredMenuItemKeyEquivalentModifierFlags = (NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
         self.toolbarIconImageName = @"toolbar_button_twitter";
         self.preferencesIconImageName = @"toolbar_button_twitter";
-        self.allowedViewPlacementMask = (FUPlugInViewPlacementDrawer|
-                                         FUPlugInViewPlacementUtilityPanel|
-                                         FUPlugInViewPlacementFloatingUtilityPanel|
-                                         FUPlugInViewPlacementHUDPanel|
-                                         FUPlugInViewPlacementFloatingHUDPanel|
-                                         FUPlugInViewPlacementSplitViewLeft|
-                                         FUPlugInViewPlacementSplitViewRight|
-                                         FUPlugInViewPlacementSplitViewTop|
-                                         FUPlugInViewPlacementSplitViewBottom);
+        self.allowedViewPlacement = FUPlugInViewPlacementAny;
         
-        self.preferredViewPlacementMask = FUPlugInViewPlacementSplitViewLeft;
+        self.preferredViewPlacement = FUPlugInViewPlacementSplitViewLeft;
         
         self.preferencesViewController = [[[CRTwitterPlugInPrefsViewController alloc] init] autorelease];
         
@@ -104,14 +82,6 @@ static CRTwitterPlugIn *instance = nil;
     self.plugInAPI = nil;
     self.viewControllers = nil;
     
-    self.identifier = nil;
-    self.localizedTitle = nil;
-    self.preferredMenuItemKeyEquivalent = nil;
-    self.toolbarIconImageName = nil;
-    self.preferencesIconImageName = nil;
-    self.defaultsDictionary = nil;
-    self.aboutInfoDictionary = nil;
-    self.preferencesViewController = nil;
     self.frontViewController = nil;
     self.selectedUsername = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -293,12 +263,12 @@ static CRTwitterPlugIn *instance = nil;
 
 
 - (NSArray *)usernames {
-    return [preferencesViewController usernames];
+    return [(CRTwitterPlugInPrefsViewController *)preferencesViewController usernames];
 }
 
 
 - (NSString *)passwordFor:(NSString *)username {
-    return [preferencesViewController passwordFor:username];
+    return [(CRTwitterPlugInPrefsViewController *)preferencesViewController passwordFor:username];
 }
 
 
@@ -317,18 +287,6 @@ static CRTwitterPlugIn *instance = nil;
 
 @synthesize plugInAPI;
 @synthesize viewControllers;
-@synthesize preferencesViewController;
-@synthesize identifier;
-@synthesize localizedTitle;
-@synthesize allowedViewPlacementMask;
-@synthesize preferredViewPlacementMask;
-@synthesize preferredMenuItemKeyEquivalent;
-@synthesize preferredMenuItemKeyEquivalentModifierMask;
-@synthesize toolbarIconImageName;
-@synthesize preferencesIconImageName;
-@synthesize defaultsDictionary;
-@synthesize preferredVerticalSplitPosition;
-@synthesize preferredHorizontalSplitPosition;
 @synthesize frontViewController;
 @synthesize selectedUsername;
 @end

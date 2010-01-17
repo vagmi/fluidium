@@ -15,7 +15,7 @@
 #import "FUBrowsaViewController.h"
 #import "FUBrowsaPlugIn.h"
 #import "FUBrowsaPreferencesViewController.h"
-#import "FUPlugInAPI.h"
+#import <Fluidium/FUPlugInAPI.h>
 #import "FUBrowsaActivation.h"
 #import "FUBrowsaComboBox.h"
 #import "NSString+FUAdditions.h"

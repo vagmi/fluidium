@@ -87,7 +87,7 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     NSInteger tag = [menuItem tag];
-    NSUInteger mask = plugInWrapper.allowedViewPlacementMask;
+    NSUInteger mask = plugInWrapper.allowedViewPlacement;
 
 //    NSLog(@"tag %d, mask: %d, result:%d", tag, mask, (mask&(1 << tag)));
     return ((NSInteger)(mask & (1 << tag))) > 0;

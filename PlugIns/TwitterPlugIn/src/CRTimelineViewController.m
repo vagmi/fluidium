@@ -11,7 +11,7 @@
 #import "CRTwitterPlugIn.h"
 #import "CRThreadViewController.h"
 #import "CRBarButtonItemView.h"
-#import "FUPlugInAPI.h"
+#import <Fluidium/FUPlugInAPI.h>
 #import "MGTemplateEngine.h"
 #import "ICUTemplateMatcher.h"
 #import "WebURLsWithTitles.h"

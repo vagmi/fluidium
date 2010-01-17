@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "FUPlugIn.h"
+#import <Fluidium/FUPlugIn.h>
 
 @class CRTwitterPlugInViewController;
 @class CRTwitterPlugInPrefsViewController;
@@ -18,28 +18,15 @@ extern NSString *kCRTwitterSelectNewTabsAndWindowsKey;
 
 extern NSString *CRTwitterPlugInSelectedUsernameDidChangeNotification;
 
-@interface CRTwitterPlugIn : NSObject <FUPlugIn> {
+@interface CRTwitterPlugIn : FUPlugIn {
     id <FUPlugInAPI>plugInAPI; // weakref
     NSMutableArray *viewControllers;
 
-    CRTwitterPlugInPrefsViewController *preferencesViewController;
-    NSString *identifier;
-    NSString *localizedTitle;
-    NSInteger allowedViewPlacementMask;
-    NSInteger preferredViewPlacementMask;
-    NSString *preferredMenuItemKeyEquivalent;
-    NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-    NSString *toolbarIconImageName;
-    NSString *preferencesIconImageName;
-    NSDictionary *defaultsDictionary;
-    NSDictionary *aboutInfoDictionary;
-    CGFloat preferredVerticalSplitPosition;
-    CGFloat preferredHorizontalSplitPosition;
-    
     CRTwitterPlugInViewController *frontViewController;
     
     NSString *selectedUsername;
 }
+
 + (id)instance;
 
 - (void)showPrefs:(id)sender;

@@ -13,30 +13,14 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-#import "FUPlugIn.h"
+#import <Fluidium/FUPlugIn.h>
 
 @class FUTabsPreferencesViewController;
 
-@interface FUTabsPlugIn : NSObject <FUPlugIn> {
-    id <FUPlugInAPI>plugInAPI;
-    FUTabsPreferencesViewController *preferencesViewController;
-    NSString *identifier;
-    NSString *localizedTitle;
-    NSInteger allowedViewPlacementMask;
-    NSInteger preferredViewPlacementMask;
-    NSString *preferredMenuItemKeyEquivalent;
-    NSUInteger preferredMenuItemKeyEquivalentModifierMask;
-    NSString *toolbarIconImageName;
-    NSString *preferencesIconImageName;
-    NSMutableDictionary *defaultsDictionary;
-    NSDictionary *aboutInfoDictionary;
-    CGFloat preferredVerticalSplitPosition;
-    CGFloat preferredHorizontalSplitPosition;
-    
+@interface FUTabsPlugIn : FUPlugIn {
+    id <FUPlugInAPI>plugInAPI;    
     NSMutableArray *viewControllers;
 }
-
-- (id)initWithPlugInAPI:(id <FUPlugInAPI>)api;
 
 @property (nonatomic, retain, readonly) id <FUPlugInAPI>plugInAPI;
 @property (nonatomic, retain) NSMutableArray *viewControllers;
