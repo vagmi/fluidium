@@ -14,6 +14,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol FUPlugInAPI;
+
+#define FU_EXTERN __attribute__((visibility("default"))) 
 #pragma GCC visibility push(default)
 
 // Notification names
@@ -57,14 +60,10 @@ typedef enum {
 #define FUPlugInViewPlacementIsPanel(mask)  ((mask) == FUPlugInViewPlacementUtilityPanel || (mask) == FUPlugInViewPlacementFloatingUtilityPanel || (mask) == FUPlugInViewPlacementHUDPanel || (mask) == FUPlugInViewPlacementFloatingHUDPanel)
 #define FUPlugInViewPlacementIsDrawer(mask)  ((mask) == FUPlugInViewPlacementDrawer)
 
-#pragma GCC visibility pop
-
-@protocol FUPlugInAPI;
-
 // note that your impl of this protocol will be registered (by the Fluid SSB) for the four PlugInViewController notifications below
 // your impl will also be registered (by the Fluid SSB) for all NSWindow Notifications on the window with which it is associated, if it responds to the appropriate callback selectors
 // you can implement the NSWindowNotification callback methods if you like. they will be called if you do.
-@interface FUPlugIn : NSObject {
+FU_EXTERN @interface FUPlugIn : NSObject {
     NSViewController *preferencesViewController;
     NSString *identifier;
     NSString *localizedTitle;
@@ -134,3 +133,5 @@ typedef enum {
 
 @property (nonatomic, assign) CGFloat preferredHorizontalSplitPosition;
 @end
+
+#pragma GCC visibility pop
