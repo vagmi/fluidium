@@ -124,43 +124,6 @@ typedef enum {
 }
 
 
-- (FourCharCode)classCode {
-    return 'fuTa';
-}
-
-
-- (NSScriptObjectSpecifier *)objectSpecifier {
-    NSUInteger i = [windowController indexOfTabController:self];
-    
-    if (NSNotFound == i) {
-        return nil;
-    } else {
-        NSScriptObjectSpecifier *docSpec = [[windowController document] objectSpecifier];
-        
-        return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[docSpec keyClassDescription]
-                                                         containerSpecifier:docSpec 
-                                                                        key:@"tabs" 
-                                                                      index:i] autorelease];
-    }
-}
-
-
-- (NSUInteger)orderedIndex {
-    return [windowController indexOfTabController:self] + 1;
-}
-
-
-- (BOOL)isSelected {
-    return self == [windowController selectedTabController];
-}
-
-
-- (id)handleCloseScriptCommand:(NSCloseCommand *)command {
-    [windowController removeTabController:self];
-    return nil;
-}
-
-
 #pragma mark -
 #pragma mark Actions
 

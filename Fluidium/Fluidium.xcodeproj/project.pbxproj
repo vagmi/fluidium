@@ -175,6 +175,8 @@
 		D3A3283510FF101500032B66 /* OAMiniRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282D10FF101500032B66 /* OAMiniRemove.png */; };
 		D3ADF98F11045B870064C070 /* FUDoJavaScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */; };
 		D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */; };
+		D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */; };
+		D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */; };
 		D3AF875C10CFA00A00C601A3 /* FUAppearancePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */; };
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
@@ -664,6 +666,10 @@
 		D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDoJavaScriptCommand.m; path = src/FUDoJavaScriptCommand.m; sourceTree = "<group>"; };
 		D3ADF9D011045FDB0064C070 /* FULoadURLCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FULoadURLCommand.h; path = src/FULoadURLCommand.h; sourceTree = "<group>"; };
 		D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FULoadURLCommand.m; path = src/FULoadURLCommand.m; sourceTree = "<group>"; };
+		D3ADFA9E110468450064C070 /* FUDocument+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUDocument+Scripting.h"; path = "src/FUDocument+Scripting.h"; sourceTree = "<group>"; };
+		D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUDocument+Scripting.m"; path = "src/FUDocument+Scripting.m"; sourceTree = "<group>"; };
+		D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUTabController+Scripting.h"; path = "src/FUTabController+Scripting.h"; sourceTree = "<group>"; };
+		D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUTabController+Scripting.m"; path = "src/FUTabController+Scripting.m"; sourceTree = "<group>"; };
 		D3AF875A10CFA00A00C601A3 /* FUAppearancePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAppearancePreferences.h; path = src/FUAppearancePreferences.h; sourceTree = "<group>"; };
 		D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAppearancePreferences.m; path = src/FUAppearancePreferences.m; sourceTree = "<group>"; };
 		D3AF875D10CFA01E00C601A3 /* FUBehaviorPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBehaviorPreferences.h; path = src/FUBehaviorPreferences.h; sourceTree = "<group>"; };
@@ -1242,6 +1248,10 @@
 		D3ADF97E11045AF80064C070 /* Scripting */ = {
 			isa = PBXGroup;
 			children = (
+				D3ADFA9E110468450064C070 /* FUDocument+Scripting.h */,
+				D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */,
+				D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */,
+				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
 				D3ADF98D11045B870064C070 /* FUDoJavaScriptCommand.h */,
 				D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */,
 				D3ADF9D011045FDB0064C070 /* FULoadURLCommand.h */,
@@ -1873,6 +1883,8 @@
 				D3414BE211038A4500CCC986 /* FUPlugIn.m in Sources */,
 				D3ADF98F11045B870064C070 /* FUDoJavaScriptCommand.m in Sources */,
 				D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */,
+				D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */,
+				D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

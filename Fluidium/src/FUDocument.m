@@ -35,46 +35,6 @@
 }
 
 
-- (NSScriptObjectSpecifier *)objectSpecifier {
-    NSUInteger i = [[NSApp orderedDocuments] indexOfObjectIdenticalTo:self];
-    
-    if (NSNotFound == i) {
-        return nil;
-    } else {
-        return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[NSScriptClassDescription classDescriptionForClass:[NSApp class]]
-                                                         containerSpecifier:nil 
-                                                                        key:@"orderedDocuments" 
-                                                                      index:i] autorelease];
-    }
-}
-
-
-- (NSArray *)orderedTabControllers {
-    NSTabView *tabView = [windowController tabView];
-    NSMutableArray *tabs = [NSMutableArray arrayWithCapacity:[tabView numberOfTabViewItems]];
-    for (NSTabViewItem *tabItem in [tabView tabViewItems]) {
-        [tabs addObject:[tabItem identifier]];
-    }
-    return [[tabs copy] autorelease];
-}
-
-
-- (NSUInteger)selectedTabIndex {
-    return [windowController selectedTabIndex] + 1;
-}
-
-
-- (void)setSelectedTabIndex:(NSUInteger)i {
-    [windowController setSelectedTabIndex:i - 1];
-}
-
-
-- (id)handleCloseScriptCommand:(NSCloseCommand *)command {
-    [windowController performClose:self];
-    return nil;
-}
-
-
 #pragma mark -
 #pragma mark NSDocument
 

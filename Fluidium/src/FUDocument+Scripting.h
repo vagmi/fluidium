@@ -19,5 +19,14 @@
 
 @interface FUDocument (Scripting)
 
+// Properties
+- (NSUInteger)selectedTabIndex;
+- (void)setSelectedTabIndex:(NSUInteger)i;
+
+// Elements
+- (NSArray *)orderedTabControllers;
+
+// Commands
+- (id)handleCloseScriptCommand:(NSCloseCommand *)command;
 
 @end

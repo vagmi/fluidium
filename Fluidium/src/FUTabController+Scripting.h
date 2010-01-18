@@ -17,5 +17,11 @@
 
 @interface FUTabController (Scripting)
 
+// Properties
+- (NSUInteger)orderedIndex;
+- (BOOL)isSelected;
+
+// Commands
+- (id)handleCloseScriptCommand:(NSCloseCommand *)command;
 
 @end
