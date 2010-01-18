@@ -121,6 +121,32 @@ typedef enum {
 }
 
 
+
+#pragma mark -
+#pragma mark Cocoa scripting
+
+- (NSScriptObjectSpecifier *)objectSpecifier {
+    NSUInteger i = [windowController indexOfTabController:self];
+    
+    if (NSNotFound == i) {
+        return nil;
+    } else {
+        NSScriptObjectSpecifier *docSpec = [[windowController document] objectSpecifier];
+
+        return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[docSpec keyClassDescription]
+                                                         containerSpecifier:docSpec 
+                                                                        key:@"tabs" 
+                                                                      index:i] autorelease];
+    }
+}
+
+
+- (id)handleCloseScriptCommand:(NSCloseCommand *)command {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+
 #pragma mark -
 #pragma mark Actions
 

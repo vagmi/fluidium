@@ -20,5 +20,8 @@
     FUWindowController *windowController;
 }
 
+// scripting
+- (NSArray *)tabs;
+
 @property (nonatomic, retain) FUWindowController *windowController;
 @end

@@ -186,6 +186,7 @@
 		D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
+		D3E13271110420EA007FE89E /* Fluidium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = D3E13270110420EA007FE89E /* Fluidium.sdef */; };
 		D3E42F3B10CB152000A5BDEF /* FUDownloadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3210CB152000A5BDEF /* FUDownloadItem.m */; };
 		D3E42F3C10CB152000A5BDEF /* FUDownloadListBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3410CB152000A5BDEF /* FUDownloadListBackgroundView.m */; };
 		D3E42F3D10CB152000A5BDEF /* FUDownloadListButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3610CB152000A5BDEF /* FUDownloadListButton.m */; };
@@ -615,7 +616,6 @@
 		D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+FUAdditions.m"; path = "src/NSFileManager+FUAdditions.m"; sourceTree = "<group>"; };
 		D3778DFD10FF1F4900EEA25F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/OAPreferencesWindow.xib; sourceTree = "<group>"; };
 		D38421491102C95900605809 /* FUDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocumentController.h; path = include/Fluidium/FUDocumentController.h; sourceTree = "<group>"; };
-		D38422E71102D2F600605809 /* Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info copy.plist"; path = "res/conf/Info copy.plist"; sourceTree = "<group>"; };
 		D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClient.h; sourceTree = "<group>"; };
 		D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAPreferenceClient.m; sourceTree = "<group>"; };
 		D3A3268910FEFF6E00032B66 /* OAPreferenceClientRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClientRecord.h; sourceTree = "<group>"; };
@@ -671,6 +671,7 @@
 		D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BrowsaPlugIn.xcodeproj; path = ../PlugIns/BrowsaPlugIn/BrowsaPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
 		D3DB01FA10D6141E0057D70C /* FUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUView.m; path = src/FUView.m; sourceTree = "<group>"; };
+		D3E13270110420EA007FE89E /* Fluidium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; name = Fluidium.sdef; path = res/conf/Fluidium.sdef; sourceTree = "<group>"; };
 		D3E42F3110CB152000A5BDEF /* FUDownloadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadItem.h; path = src/FUDownloadItem.h; sourceTree = "<group>"; };
 		D3E42F3210CB152000A5BDEF /* FUDownloadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDownloadItem.m; path = src/FUDownloadItem.m; sourceTree = "<group>"; };
 		D3E42F3310CB152000A5BDEF /* FUDownloadListBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadListBackgroundView.h; path = src/FUDownloadListBackgroundView.h; sourceTree = "<group>"; };
@@ -965,7 +966,7 @@
 				D33E6DF210D0A2C700D76BBB /* Shortcuts.plist */,
 				D339359E10D4DC4D000FC7C1 /* SpecialCases.plist */,
 				D30BC46F10E188260019816B /* Growl Registration Ticket.growlRegDict */,
-				D38422E71102D2F600605809 /* Info copy.plist */,
+				D3E13270110420EA007FE89E /* Fluidium.sdef */,
 			);
 			name = Conf;
 			sourceTree = "<group>";
@@ -1664,6 +1665,7 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* FUWindow.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* FUMainMenu.xib in Resources */,
+				D3778DFE10FF1F4900EEA25F /* OAPreferencesWindow.xib in Resources */,
 				D3E42FDD10CB1E1600A5BDEF /* FUDownloadWindow.xib in Resources */,
 				D3E430AB10CB537A00A5BDEF /* FUViewSourceWindow.xib in Resources */,
 				D35CC25F10D41DD900DA1898 /* FUUserAgentWindow.xib in Resources */,
@@ -1675,10 +1677,12 @@
 				D33E6E2B10D0A6FF00D76BBB /* FUSecurityPreferences.xib in Resources */,
 				D33E6E2C10D0A6FF00D76BBB /* FUShortcutPreferences.xib in Resources */,
 				D33E6E2D10D0A6FF00D76BBB /* FUUpdatePreferences.xib in Resources */,
+				D3189FA410F83DF100B6AA21 /* FUUserthingWindow.xib in Resources */,
 				D35CBDB910D36A9B00DA1898 /* FUUserthingView.xib in Resources */,
 				D33E70ED10D0F4A000D76BBB /* FUWhitelistPreferences.xib in Resources */,
 				D33E70EE10D0F4A000D76BBB /* FUAllPlugInPreferences.xib in Resources */,
 				D346E80C10CE55EC00BA0B15 /* FUPlugInPreferences.xib in Resources */,
+				D3E13271110420EA007FE89E /* Fluidium.sdef in Resources */,
 				D3F4C6B710C8E51200E0B474 /* DefaultValues.plist in Resources */,
 				D33E6DF310D0A2C700D76BBB /* Shortcuts.plist in Resources */,
 				D339359F10D4DC4D000FC7C1 /* SpecialCases.plist in Resources */,
@@ -1710,7 +1714,6 @@
 				D33E6E3410D0A99C00D76BBB /* toolbar_button_home.png in Resources */,
 				D33E6E3A10D0A9BA00D76BBB /* location_field_progress_indicator.png in Resources */,
 				D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */,
-				D3189FA410F83DF100B6AA21 /* FUUserthingWindow.xib in Resources */,
 				D3A3269910FEFF6E00032B66 /* OAPreferencesNextButton.png in Resources */,
 				D3A3269A10FEFF6E00032B66 /* OAPreferencesPreviousButton.png in Resources */,
 				D3A3282E10FF101500032B66 /* OAAction.png in Resources */,
@@ -1721,7 +1724,6 @@
 				D3A3283310FF101500032B66 /* OAMiniAction.png in Resources */,
 				D3A3283410FF101500032B66 /* OAMiniAdd.png in Resources */,
 				D3A3283510FF101500032B66 /* OAMiniRemove.png in Resources */,
-				D3778DFE10FF1F4900EEA25F /* OAPreferencesWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

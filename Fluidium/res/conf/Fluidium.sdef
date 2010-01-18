@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="Fluidium Terminology">
+
+<suite name="Standard Suite" code="????" description="Common classes and commands for all applications.">
+
+	<command name="open" code="aevtodoc" description="Open a document.">
+		<direct-parameter description="The file(s) to be opened.">
+			<type type="file"/>
+			<type type="file" list="yes"/>
+		</direct-parameter>
+		<result description="The opened document(s).">
+			<type type="document"/>
+			<type type="document" list="yes"/>
+		</result>
+	</command>
+
+	<command name="close" code="coreclos" description="Close a document.">
+		<cocoa class="NSCloseCommand"/>
+		<direct-parameter type="specifier" description="the document(s) or window(s) to close."/>
+		<parameter name="saving" code="savo" type="save options" optional="yes" description="Should changes be saved before closing?">
+			<cocoa key="SaveOptions"/>
+		</parameter>
+		<parameter name="saving in" code="kfil" type="file" optional="yes" description="The file in which to save the document, if so.">
+			<cocoa key="File"/>
+		</parameter>
+	</command>
+
+
+	<command name="quit" code="aevtquit" description="Quit the application.">
+		<cocoa class="NSQuitCommand"/>
+		<parameter name="saving" code="savo" type="save options" optional="yes" description="Should changes be saved before quitting?">
+			<cocoa key="SaveOptions"/>
+		</parameter>
+	</command>
+
+	<command name="count" code="corecnte" description="Return the number of elements of a particular class within an object.">
+		<cocoa class="NSCountCommand"/>
+		<direct-parameter type="specifier" description="The objects to be counted."/>
+		<parameter name="each" code="kocl" type="type" optional="yes" description="The class of objects to be counted." hidden="yes">
+			<cocoa key="ObjectClass"/>
+		</parameter>
+		<result type="integer" description="The count."/>
+	</command>
+
+	<command name="delete" code="coredelo" description="Delete an object.">
+		<cocoa class="NSDeleteCommand"/>
+		<direct-parameter type="specifier" description="The object(s) to delete."/>
+	</command>
+
+	<command name="move" code="coremove" description="Move an object to a new location.">
+		<cocoa class="NSMoveCommand"/>
+		<direct-parameter type="specifier" description="The object(s) to move."/>
+		<parameter name="to" code="insh" type="location specifier" description="The new location for the object(s).">
+			<cocoa key="ToLocation"/>
+		</parameter>
+	</command>
+
+	<class name="application" code="capp" description="The application's top-level scripting object.">
+		<cocoa class="NSApplication"/>
+		<property name="name" code="pnam" type="text" access="r" description="The name of the application."/>
+		<property name="frontmost" code="pisf" type="boolean" access="r" description="Is this the active application?">
+			<cocoa key="isActive"/>
+		</property>
+		<property name="version" code="vers" type="text" access="r" description="The version number of the application."/>
+		<element type="browser window">
+			<cocoa key="orderedDocuments"/>
+		</element>
+		<element type="window" access="r">
+			<cocoa key="orderedWindows"/>
+		</element>
+		<responds-to command="open">
+			<cocoa method="handleOpenScriptCommand:"/>
+		</responds-to>
+		<responds-to command="print">
+			<cocoa method="handlePrintScriptCommand:"/>
+		</responds-to>
+		<responds-to command="quit">
+			<cocoa method="handleQuitScriptCommand:"/>
+		</responds-to>
+	</class>
+
+	<class name="window" code="cwin" description="A window.">
+		<cocoa class="NSWindow"/>
+		<property name="name" code="pnam" type="text" access="r" description="The title of the window.">
+			<cocoa key="title"/>
+		</property>
+		<property name="id" code="ID  " type="integer" access="r" description="The unique identifier of the window.">
+			<cocoa key="uniqueID"/>
+		</property>
+		<property name="index" code="pidx" type="integer" description="The index of the window, ordered front to back.">
+			<cocoa key="orderedIndex"/>
+		</property>
+		<property name="bounds" code="pbnd" type="rectangle" description="The bounding rectangle of the window.">
+			<cocoa key="boundsAsQDRect"/>
+		</property>
+		<property name="closeable" code="hclb" type="boolean" access="r" description="Does the window have a close button?">
+			<cocoa key="hasCloseBox"/>
+		</property>
+		<property name="miniaturizable" code="ismn" type="boolean" access="r" description="Does the window have a minimize button?">
+			<cocoa key="isMiniaturizable"/>
+		</property>
+		<property name="miniaturized" code="pmnd" type="boolean" description="Is the window minimized right now?">
+			<cocoa key="isMiniaturized"/>
+		</property>
+		<property name="resizable" code="prsz" type="boolean" access="r" description="Can the window be resized?">
+			<cocoa key="isResizable"/>
+		</property>
+		<property name="visible" code="pvis" type="boolean" description="Is the window visible right now?">
+			<cocoa key="isVisible"/>
+		</property>
+		<property name="zoomable" code="iszm" type="boolean" access="r" description="Does the window have a zoom button?">
+			<cocoa key="isZoomable"/>
+		</property>
+		<property name="zoomed" code="pzum" type="boolean" description="Is the window zoomed right now?">
+			<cocoa key="isZoomed"/>
+		</property>
+		<property name="document" code="docu" type="document" access="r" description="The document whose contents are displayed in the window."/>
+		<responds-to command="close">
+			<cocoa method="handleCloseScriptCommand:"/>
+		</responds-to>
+		<responds-to command="print">
+			<cocoa method="handlePrintScriptCommand:"/>
+		</responds-to>
+		<responds-to command="save">
+			<cocoa method="handleSaveScriptCommand:"/>
+		</responds-to>
+	</class>
+
+</suite>
+
+
+<suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
+
+    <class name="browser window" code="Fubw" description="A browser window.">
+    	<cocoa class="FUDocument"/>
+    	<property name="title" code="pnam" type="text" access="r" description="The title of the selected tab.">
+    		<cocoa key="displayName"/>
+    	</property>
+    	<!--
+    	<responds-to command="close">
+    		<cocoa method="handleCloseScriptCommand:"/>
+    	</responds-to>
+    	<responds-to command="print">
+    		<cocoa method="handlePrintScriptCommand:"/>
+    	</responds-to>
+    	<responds-to command="save">
+    		<cocoa method="handleSaveScriptCommand:"/>
+    	</responds-to>
+	-->
+    	<element type="tab" access="r"/>
+    </class>
+
+
+
+    <class name="tab" code="Futa" description="A browser tab.">
+    	<cocoa class="FUTabController"/>
+    	
+    	<property name="page title" code="pTtl" type="text" access="r" description="Its title.">
+    		<cocoa key="title"/>
+    	</property>
+
+    	<property name="URL" code="pURL" type="text" access="r" description="Its URL.">
+    		<cocoa key="URLString"/>
+    	</property>
+    	
+
+    	<responds-to command="close">
+    		<cocoa method="handleCloseScriptCommand:"/>
+    	</responds-to>
+    </class>
+    
+</suite>￼
+
+</dictionary>
