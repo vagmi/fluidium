@@ -261,10 +261,66 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
 
-    <command name="reload" code="FuSSReld" description="Load a URL.">
+    <command name="go back" code="FuSSBack" description="Go back.">
+        <cocoa name="go back" class="FUGoBackCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go back.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <command name="go forward" code="FuSSFwrd" description="Go forward.">
+        <cocoa name="go forward" class="FUGoForwardCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go forward.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <command name="go home" code="FuSSHome" description="Go home.">
+        <cocoa name="go home" class="FUGoHomeCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go home.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <command name="reload" code="FuSSReld" description="Reload a URL.">
         <cocoa name="reload" class="FUReloadCommand"/>
         <!-- <direct-parameter type="text" description="Reload the current page."/> -->
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should be reloaded.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <command name="stop loading" code="FuSSStop" description="Stop loading a URL.">
+        <cocoa name="stop loading" class="FUStopLoadingCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should stop loading.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <command name="zoom in" code="FuSSZoIn" description="Zoom in contents of the page.">
+        <cocoa name="zoom in" class="FUZoomInCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <command name="zoom out" code="FuSSZoOt" description="Zoom out contents of the page.">
+        <cocoa name="zoom out" class="FUZoomOutCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <command name="make actual size" code="FuSSActS" description="Zoom contents of the page to actual size.">
+        <cocoa name="make actual size" class="FUActualSizeCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
             <cocoa key="tabController"/>
         </parameter>
     </command>

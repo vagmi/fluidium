@@ -12,18 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUStopCommand.h"
-#import "FUTabController.h"
+#import "FUDocumentController.h"
 
-@implementation FUStopCommand
+@interface FUDocumentController (Scripting)
 
-- (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
-    
-    id sender = [args objectForKey:@"sender"];
-    [NSApp sendAction:@selector(stopLoading:) to:nil from:sender];
-    
-    return nil;
-}
+- (IBAction)newDocumentScriptAction:(id)sender;
 
 @end

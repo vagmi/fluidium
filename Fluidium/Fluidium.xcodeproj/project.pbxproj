@@ -186,7 +186,7 @@
 		D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */; };
 		D3ADFB001104E22B0064C070 /* FUGoForwardCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFF1104E22B0064C070 /* FUGoForwardCommand.m */; };
 		D3ADFB031104E2340064C070 /* FUGoHomeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB021104E2340064C070 /* FUGoHomeCommand.m */; };
-		D3ADFB061104E23E0064C070 /* FUStopCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB051104E23E0064C070 /* FUStopCommand.m */; };
+		D3ADFB061104E23E0064C070 /* FUStopLoadingCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB051104E23E0064C070 /* FUStopLoadingCommand.m */; };
 		D3ADFB0A1104E24C0064C070 /* FUReloadCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB091104E24C0064C070 /* FUReloadCommand.m */; };
 		D3ADFB0D1104E2540064C070 /* FUActualSizeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB0C1104E2540064C070 /* FUActualSizeCommand.m */; };
 		D3ADFB101104E25C0064C070 /* FUZoomInCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB0F1104E25C0064C070 /* FUZoomInCommand.m */; };
@@ -195,7 +195,8 @@
 		D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB181104E2760064C070 /* FUSelectPreviousTabCommand.m */; };
 		D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */; };
 		D3ADFBE31104EA710064C070 /* FUWindowController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFBE21104EA710064C070 /* FUWindowController+Scripting.m */; };
-		D3ADFC731104FA2F0064C070 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3ADFC721104FA2F0064C070 /* ApplicationServices.framework */; };
+		D3ADFC87110508030064C070 /* FUScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFC86110508030064C070 /* FUScriptCommand.m */; };
+		D3ADFC8A110508500064C070 /* FUScriptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFC89110508500064C070 /* FUScriptUtils.m */; };
 		D3AF875C10CFA00A00C601A3 /* FUAppearancePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */; };
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
@@ -707,8 +708,8 @@
 		D3ADFAFF1104E22B0064C070 /* FUGoForwardCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUGoForwardCommand.m; path = src/FUGoForwardCommand.m; sourceTree = "<group>"; };
 		D3ADFB011104E2340064C070 /* FUGoHomeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUGoHomeCommand.h; path = src/FUGoHomeCommand.h; sourceTree = "<group>"; };
 		D3ADFB021104E2340064C070 /* FUGoHomeCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUGoHomeCommand.m; path = src/FUGoHomeCommand.m; sourceTree = "<group>"; };
-		D3ADFB041104E23E0064C070 /* FUStopCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUStopCommand.h; path = src/FUStopCommand.h; sourceTree = "<group>"; };
-		D3ADFB051104E23E0064C070 /* FUStopCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUStopCommand.m; path = src/FUStopCommand.m; sourceTree = "<group>"; };
+		D3ADFB041104E23E0064C070 /* FUStopLoadingCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUStopLoadingCommand.h; path = src/FUStopLoadingCommand.h; sourceTree = "<group>"; };
+		D3ADFB051104E23E0064C070 /* FUStopLoadingCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUStopLoadingCommand.m; path = src/FUStopLoadingCommand.m; sourceTree = "<group>"; };
 		D3ADFB081104E24C0064C070 /* FUReloadCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUReloadCommand.h; path = src/FUReloadCommand.h; sourceTree = "<group>"; };
 		D3ADFB091104E24C0064C070 /* FUReloadCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUReloadCommand.m; path = src/FUReloadCommand.m; sourceTree = "<group>"; };
 		D3ADFB0B1104E2540064C070 /* FUActualSizeCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUActualSizeCommand.h; path = src/FUActualSizeCommand.h; sourceTree = "<group>"; };
@@ -725,7 +726,10 @@
 		D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUDocumentController+Scripting.m"; path = "src/FUDocumentController+Scripting.m"; sourceTree = "<group>"; };
 		D3ADFBE11104EA710064C070 /* FUWindowController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+Scripting.h"; path = "src/FUWindowController+Scripting.h"; sourceTree = "<group>"; };
 		D3ADFBE21104EA710064C070 /* FUWindowController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+Scripting.m"; path = "src/FUWindowController+Scripting.m"; sourceTree = "<group>"; };
-		D3ADFC721104FA2F0064C070 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		D3ADFC85110508030064C070 /* FUScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUScriptCommand.h; path = src/FUScriptCommand.h; sourceTree = "<group>"; };
+		D3ADFC86110508030064C070 /* FUScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUScriptCommand.m; path = src/FUScriptCommand.m; sourceTree = "<group>"; };
+		D3ADFC88110508500064C070 /* FUScriptUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUScriptUtils.h; path = src/FUScriptUtils.h; sourceTree = "<group>"; };
+		D3ADFC89110508500064C070 /* FUScriptUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUScriptUtils.m; path = src/FUScriptUtils.m; sourceTree = "<group>"; };
 		D3AF875A10CFA00A00C601A3 /* FUAppearancePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAppearancePreferences.h; path = src/FUAppearancePreferences.h; sourceTree = "<group>"; };
 		D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAppearancePreferences.m; path = src/FUAppearancePreferences.m; sourceTree = "<group>"; };
 		D3AF875D10CFA01E00C601A3 /* FUBehaviorPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBehaviorPreferences.h; path = src/FUBehaviorPreferences.h; sourceTree = "<group>"; };
@@ -845,7 +849,6 @@
 				D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */,
 				D346E71210CE516800BA0B15 /* ParseKit.framework in Frameworks */,
 				D3414BD81103889B00CCC986 /* UMEKit.framework in Frameworks */,
-				D3ADFC731104FA2F0064C070 /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,7 +865,6 @@
 				D30BC44E10E187A40019816B /* Growl.framework */,
 				D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */,
 				D3F9415D1102F3A500267DA0 /* ShortcutRecorder.framework */,
-				D3ADFC721104FA2F0064C070 /* ApplicationServices.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1308,6 +1310,8 @@
 			children = (
 				D3ADFAE61104E1660064C070 /* Script Action Commands */,
 				D3ADFAD41104E0860064C070 /* Script Only Script Commands */,
+				D3ADFC88110508500064C070 /* FUScriptUtils.h */,
+				D3ADFC89110508500064C070 /* FUScriptUtils.m */,
 				D3ADFBC91104E9440064C070 /* FUDocumentController+Scripting.h */,
 				D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */,
 				D3ADFA9E110468450064C070 /* FUDocument+Scripting.h */,
@@ -1334,6 +1338,8 @@
 		D3ADFAE61104E1660064C070 /* Script Action Commands */ = {
 			isa = PBXGroup;
 			children = (
+				D3ADFC85110508030064C070 /* FUScriptCommand.h */,
+				D3ADFC86110508030064C070 /* FUScriptCommand.m */,
 				D3ADFAE91104E1870064C070 /* FUNewWindowCommand.h */,
 				D3ADFAEA1104E1870064C070 /* FUNewWindowCommand.m */,
 				D3ADFAEC1104E1970064C070 /* FUNewTabCommand.h */,
@@ -1352,8 +1358,8 @@
 				D3ADFAFF1104E22B0064C070 /* FUGoForwardCommand.m */,
 				D3ADFB011104E2340064C070 /* FUGoHomeCommand.h */,
 				D3ADFB021104E2340064C070 /* FUGoHomeCommand.m */,
-				D3ADFB041104E23E0064C070 /* FUStopCommand.h */,
-				D3ADFB051104E23E0064C070 /* FUStopCommand.m */,
+				D3ADFB041104E23E0064C070 /* FUStopLoadingCommand.h */,
+				D3ADFB051104E23E0064C070 /* FUStopLoadingCommand.m */,
 				D3ADFB081104E24C0064C070 /* FUReloadCommand.h */,
 				D3ADFB091104E24C0064C070 /* FUReloadCommand.m */,
 				D3ADFB0B1104E2540064C070 /* FUActualSizeCommand.h */,
@@ -2004,7 +2010,7 @@
 				D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */,
 				D3ADFB001104E22B0064C070 /* FUGoForwardCommand.m in Sources */,
 				D3ADFB031104E2340064C070 /* FUGoHomeCommand.m in Sources */,
-				D3ADFB061104E23E0064C070 /* FUStopCommand.m in Sources */,
+				D3ADFB061104E23E0064C070 /* FUStopLoadingCommand.m in Sources */,
 				D3ADFB0A1104E24C0064C070 /* FUReloadCommand.m in Sources */,
 				D3ADFB0D1104E2540064C070 /* FUActualSizeCommand.m in Sources */,
 				D3ADFB101104E25C0064C070 /* FUZoomInCommand.m in Sources */,
@@ -2013,6 +2019,8 @@
 				D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */,
 				D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */,
 				D3ADFBE31104EA710064C070 /* FUWindowController+Scripting.m in Sources */,
+				D3ADFC87110508030064C070 /* FUScriptCommand.m in Sources */,
+				D3ADFC8A110508500064C070 /* FUScriptUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

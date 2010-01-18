@@ -12,10 +12,16 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import "FUDocumentController+Scripting.h"
+#import "FUNewWindowCommand.h"
 
-@interface FUStopCommand : NSScriptCommand {
+@implementation FUDocumentController (Scripting)
 
+- (IBAction)newDocumentScriptAction:(id)sender {
+//    NSScriptCommandDescription *desc = [[[NSScriptCommandDescription alloc] initWithSuiteName:@"FuSS" commandName:@" dictionary:<#(NSDictionary *)commandDeclaration#>
+//    FUNewWindowCommand *cmd = [[[FUNewWindowCommand alloc] initWithCommandDescription:desc] autorelease];
+//    [cmd setArguments:[NSDictionary dictionaryWithObject:sender forKey:@"sender"]];
+//    [cmd executeCommand];
 }
 
 @end
