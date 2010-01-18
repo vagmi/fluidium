@@ -128,6 +128,11 @@ typedef enum {
 #pragma mark -
 #pragma mark Cocoa scripting
 
+- (FourCharCode)classCode {
+    return 'fuTa';
+}
+
+
 - (NSScriptObjectSpecifier *)objectSpecifier {
     NSUInteger i = [windowController indexOfTabController:self];
     
@@ -155,7 +160,16 @@ typedef enum {
 
 
 - (id)handleCloseScriptCommand:(NSCloseCommand *)command {
+    [windowController removeTabController:self];
+    return nil;
+}
+
+
+- (id)handleLoadScriptCommand:(NSScriptCommand *)command {
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSDictionary *args = [command evaluatedArguments];
+    self.URLString = [args objectForKey:@"URLString"];
+    [self goToLocation:self];
     return nil;
 }
 

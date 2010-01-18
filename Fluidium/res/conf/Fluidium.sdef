@@ -132,16 +132,20 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
 
+    <command name="load" code="FuSSLoad" description="Load a URL.">
+        <direct-parameter type="tab"/>
+        <parameter name="URL" code="tURL" type="text" description="Loads a URL.">
+            <cocoa key="URLString"/>
+        </parameter>
+    </command>
+
     <class name="browser window" code="fuBw" description="A browser window.">
     	<cocoa class="FUDocument"/>
+
     	<property name="title" code="pnam" type="text" access="r" description="The current title of this window (same as the title of the selected tab).">
     		<cocoa key="displayName"/>
     	</property>
-<!--
-    	<property name="selected tab" code="fuTa" type="tab" access="rw" description="The selected tab in this window.">
-    		<cocoa key="selectedTabController"/>
-    	</property>
--->
+
 		<property name="selected tab index" code="bwSi" type="integer" access="rw" description="The index of the selected tab in its window.">
 			<cocoa key="selectedTabIndex"/>
 		</property>
@@ -150,10 +154,10 @@
 			<cocoa key="orderedTabControllers"/>
 		</element>
 
-    	<!--
     	<responds-to command="close">
     		<cocoa method="handleCloseScriptCommand:"/>
     	</responds-to>
+    	<!--
     	<responds-to command="print">
     		<cocoa method="handlePrintScriptCommand:"/>
     	</responds-to>
@@ -191,6 +195,9 @@
 
     	<responds-to command="close">
     		<cocoa method="handleCloseScriptCommand:"/>
+    	</responds-to>
+    	<responds-to command="load">
+    		<cocoa method="handleLoadScriptCommand:"/>
     	</responds-to>
     </class>
     
