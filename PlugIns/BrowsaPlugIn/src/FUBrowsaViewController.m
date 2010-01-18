@@ -15,8 +15,6 @@
 #import "FUBrowsaViewController.h"
 #import "FUBrowsaPlugIn.h"
 #import "FUBrowsaPreferencesViewController.h"
-#import <Fluidium/FUPlugInAPI.h>
-#import "FUBrowsaActivation.h"
 #import "FUBrowsaComboBox.h"
 #import "NSString+FUAdditions.h"
 #import "NSEvent+FUAdditions.h"
@@ -26,7 +24,10 @@
 #import "WebViewPrivate.h"
 #import <WebKit/WebKit.h>
 #import <Fluidium/FUUtils.h>
+#import <Fluidium/FUPlugInAPI.h>
 #import <Fluidium/FUNotifications.h>
+#import <Fluidium/FUWindowController.h>
+#import <Fluidium/FUActivation.h>
 
 NSString *const kFUZoomTextOnlyKey = @"FUZoomTextOnly";
 NSString *const kFUTargetedClicksCreateTabsKey = @"FUTargetedClicksCreateTabs";
@@ -41,10 +42,11 @@ typedef enum {
 
 @interface NSObject (FUCompiler)
 - (id)frontTabController;
-- (void)handleCommandClick:(id)activation request:(NSURLRequest *)req forWindow:(NSWindow *)win;
+- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
 @end
 
 @interface FUBrowsaViewController ()
+- (FUWindowController *)windowController;
 - (void)setUpWebView;
 - (void)updateNavBar;
 - (void)handleLoadFail:(NSError *)err;
@@ -439,12 +441,31 @@ typedef enum {
     }
     
     if ([WebView _canHandleRequest:req]) {
-        FUBrowsaActivation *act = [FUBrowsaActivation activationFromWebActionInfo:info];
+        FUActivation *act = [FUActivation activationFromWebActionInfo:info];
         if (act.isCommandKeyPressed) {
             [listener ignore];
-            [(id)plugInAPI handleCommandClick:act request:req forWindow:[self.view window]];
+            [[self windowController] handleCommandClick:act request:req];
         } else {
-            [listener use];
+            switch (plugIn.sendLinksTo) {
+                case FUBrowsaSendLinksToThisPlugIn:
+                    [listener use];
+                    break;
+                case FUBrowsaSendLinksToCurrentTab:
+                    [[self windowController] loadRequestInSelectedTab:req];
+                    [listener ignore];
+                    break;
+                case FUBrowsaSendLinksToNewTab:
+                    [[self windowController] loadRequest:req inNewTabAndSelect:YES];
+                    [listener ignore];
+                    break;
+                case FUBrowsaSendLinksToDefaultBrowser:
+                    [[NSWorkspace sharedWorkspace] openURL:[req URL]];
+                    [listener ignore];
+                    break;
+                default:
+                    NSAssert(0, @"unknown sendLinksTo value");
+                    break;
+            }
         }
     } else if (WebNavigationTypePlugInRequest == navType) {
         [listener use];
@@ -465,10 +486,10 @@ typedef enum {
         return;
     }
     
-    FUBrowsaActivation *act = [FUBrowsaActivation activationFromWebActionInfo:info];
+    FUActivation *act = [FUActivation activationFromWebActionInfo:info];
     if (act.isCommandKeyPressed) {
         [listener ignore];
-        [(id)plugInAPI handleCommandClick:act request:req forWindow:[self.view window]];
+        [[self windowController] handleCommandClick:act request:req];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUTargetedClicksCreateTabsKey]) {
         [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeTab inForeground:YES];
     } else {
@@ -719,6 +740,11 @@ typedef enum {
 #pragma mark -
 #pragma mark Private
 
+- (FUWindowController *)windowController {
+    return [plugIn windowControllerForViewController:self];
+}
+
+
 - (void)setUpWebView {
     // delegates
     [webView setResourceLoadDelegate:self];
@@ -739,7 +765,7 @@ typedef enum {
 
 
 - (void)updateNavBar {
-    if (!hasUpdatedNavBar || FUShowNavBarAlways == plugIn.showNavBar) {
+    if (!hasUpdatedNavBar || FUBrowsaShowNavBarAlways == plugIn.showNavBar) {
         hasUpdatedNavBar = YES;
         [self showNavBar:self];
     } else {

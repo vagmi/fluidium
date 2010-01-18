@@ -67,7 +67,7 @@
     NSInteger showNavbar = plugIn.showNavBar;
     
     for (FUBrowsaViewController *vc in plugIn.viewControllers) {
-        if (FUShowNavBarAlways == showNavbar) {
+        if (FUBrowsaShowNavBarAlways == showNavbar) {
             [vc showNavBar:sender];
         } else {
             [vc hideNavBar:sender];

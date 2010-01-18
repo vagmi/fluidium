@@ -118,11 +118,6 @@
 }
 
 
-- (void)handleCommandClick:(id)activation request:(NSURLRequest *)req forWindow:(NSWindow *)win {
-    [[self windowControllerForWindow:win] handleCommandClick:activation request:req];
-}
-
-
 - (void)loadRequest:(NSURLRequest *)req {
     [[FUDocumentController instance] loadRequest:req];
 }

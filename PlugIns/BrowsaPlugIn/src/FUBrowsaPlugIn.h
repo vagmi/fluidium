@@ -23,10 +23,17 @@ extern NSString *const kFUBrowsaShowNavBarKey;
 extern NSString *const kFUBrowsaSendLinksToKey;
 
 typedef enum {
-    FUShowNavBarWhenMousedOver = 0,
-    FUShowNavBarAlways,
-    FUShowNavBarNever
-} FUShowNavBar;
+    FUBrowsaSendLinksToThisPlugIn = 0,
+    FUBrowsaSendLinksToCurrentTab,
+    FUBrowsaSendLinksToNewTab,
+    FUBrowsaSendLinksToDefaultBrowser
+} FUBrowsaSendLinksTo;
+
+typedef enum {
+    FUBrowsaShowNavBarWhenMousedOver = 0,
+    FUBrowsaShowNavBarAlways,
+    FUBrowsaShowNavBarNever
+} FUBrowsaShowNavBar;
 
 @interface FUBrowsaPlugIn : FUPlugIn {
     id <FUPlugInAPI>plugInAPI;

@@ -10,7 +10,6 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D32CE86610E59A9600F28812 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32CE86510E59A9600F28812 /* Quartz.framework */; };
-		D32E8AD810E52C4600445B4C /* FUTabsPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8AD710E52C4600445B4C /* FUTabsPlugIn.m */; };
 		D32E8B0110E52D6800445B4C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32E8B0010E52D6800445B4C /* WebKit.framework */; };
 		D32E8BE010E58F8A00445B4C /* FUTabsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8BDF10E58F8A00445B4C /* FUTabsViewController.m */; };
 		D32E8BE710E5915600445B4C /* FUTabsPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8BE610E5915600445B4C /* FUTabsPreferencesViewController.m */; };
@@ -23,6 +22,7 @@
 		D3A5236710EA9E1D0021B801 /* close_button.tif in Resources */ = {isa = PBXBuildFile; fileRef = D3A5236410EA9E1D0021B801 /* close_button.tif */; };
 		D3A5291310EBFAD90021B801 /* progress_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A5291210EBFAD90021B801 /* progress_indicator.png */; };
 		D3B8C15010E8738B00271454 /* FUTabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8C14F10E8738B00271454 /* FUTabModel.m */; };
+		D3E130F91103E4B0007FE89E /* FUTabsPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E130F81103E4B0007FE89E /* FUTabsPlugIn.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,8 +59,6 @@
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = res/conf/Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		D32CE86510E59A9600F28812 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		D32E8AD610E52C4600445B4C /* FUTabsPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabsPlugIn.h; path = src/FUTabsPlugIn.h; sourceTree = "<group>"; };
-		D32E8AD710E52C4600445B4C /* FUTabsPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabsPlugIn.m; path = src/FUTabsPlugIn.m; sourceTree = "<group>"; };
 		D32E8AF110E52D2E00445B4C /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = ../../Fluidium/src/WebURLsWithTitles.h; sourceTree = SOURCE_ROOT; };
 		D32E8B0010E52D6800445B4C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D32E8BDE10E58F8A00445B4C /* FUTabsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabsViewController.h; path = src/FUTabsViewController.h; sourceTree = "<group>"; };
@@ -78,6 +76,8 @@
 		D3A5291210EBFAD90021B801 /* progress_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = progress_indicator.png; path = res/img/progress_indicator.png; sourceTree = "<group>"; };
 		D3B8C14E10E8738B00271454 /* FUTabModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabModel.h; path = src/FUTabModel.h; sourceTree = "<group>"; };
 		D3B8C14F10E8738B00271454 /* FUTabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabModel.m; path = src/FUTabModel.m; sourceTree = "<group>"; };
+		D3E130F71103E4B0007FE89E /* FUTabsPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUTabsPlugIn.h; path = src/FUTabsPlugIn.h; sourceTree = "<group>"; };
+		D3E130F81103E4B0007FE89E /* FUTabsPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUTabsPlugIn.m; path = src/FUTabsPlugIn.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,8 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				D32E8ADB10E52C5000445B4C /* Fluidium */,
-				D32E8AD610E52C4600445B4C /* FUTabsPlugIn.h */,
-				D32E8AD710E52C4600445B4C /* FUTabsPlugIn.m */,
+				D3E130F71103E4B0007FE89E /* FUTabsPlugIn.h */,
+				D3E130F81103E4B0007FE89E /* FUTabsPlugIn.m */,
 				D32E8BE510E5915600445B4C /* FUTabsPreferencesViewController.h */,
 				D32E8BE610E5915600445B4C /* FUTabsPreferencesViewController.m */,
 				D32E8BDE10E58F8A00445B4C /* FUTabsViewController.h */,
@@ -311,11 +311,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D32E8AD810E52C4600445B4C /* FUTabsPlugIn.m in Sources */,
 				D32E8BE010E58F8A00445B4C /* FUTabsViewController.m in Sources */,
 				D32E8BE710E5915600445B4C /* FUTabsPreferencesViewController.m in Sources */,
 				D3B8C15010E8738B00271454 /* FUTabModel.m in Sources */,
 				D3A522DC10EA98D40021B801 /* FUTabListItem.m in Sources */,
+				D3E130F91103E4B0007FE89E /* FUTabsPlugIn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

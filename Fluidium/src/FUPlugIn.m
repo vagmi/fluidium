@@ -13,6 +13,9 @@
 //  limitations under the License.
 
 #import "FUPlugIn.h"
+#import "FUWindow.h"
+#import "FUWindowController.h"
+#import "FUDocumentController.h"
 
 @implementation FUPlugIn
 
@@ -41,6 +44,16 @@
 - (NSViewController *)newPlugInViewController {
     NSAssert2(0, @"-[FUPlugIn %s] is abstract and must be overridden in %@", _cmd, [self className]);
     return nil;
+}
+
+
+- (FUWindowController *)windowControllerForViewController:(NSViewController *)vc {
+    NSWindow *win = [vc.view window];
+    if ([win isMemberOfClass:[FUWindow class]]) {
+        return [win windowController];
+    } else {
+        return [[FUDocumentController instance] frontWindowController];
+    }
 }
 
 @synthesize preferencesViewController;

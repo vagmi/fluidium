@@ -22,7 +22,6 @@
 		D33932A610D49F54000FC7C1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33932A510D49F54000FC7C1 /* WebKit.framework */; };
 		D33932BA10D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932B910D4A0D1000FC7C1 /* FUBrowsaPreferencesViewController.m */; };
 		D33932BD10D4A0E0000FC7C1 /* FUBrowsaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33932BC10D4A0E0000FC7C1 /* FUBrowsaViewController.m */; };
-		D3414D071103966200CCC986 /* FUPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3414D061103966200CCC986 /* FUPlugIn.m */; };
 		D3B8BC3210E8389A00271454 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2710E8389A00271454 /* HMAppKitEx.m */; };
 		D3B8BC3310E8389A00271454 /* HMBrowsaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2910E8389A00271454 /* HMBrowsaButton.m */; };
 		D3B8BC3410E8389A00271454 /* HMBrowsaButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B8BC2B10E8389A00271454 /* HMBrowsaButtonCell.m */; };
@@ -36,7 +35,6 @@
 		D3D3761F10E405D500203EB2 /* FUBrowsaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D3761C10E405D500203EB2 /* FUBrowsaView.xib */; };
 		D3D3762410E4065300203EB2 /* FUBrowsaBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762310E4065300203EB2 /* FUBrowsaBackgroundView.m */; };
 		D3D3762C10E4068E00203EB2 /* FUBrowsaNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3762B10E4068E00203EB2 /* FUBrowsaNavBar.m */; };
-		D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,8 +77,6 @@
 		D339337110D4BB55000FC7C1 /* WebViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewPrivate.h; path = ../../Fluidium/src/WebViewPrivate.h; sourceTree = SOURCE_ROOT; };
 		D339339F10D4C0F9000FC7C1 /* DOMNode+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMNode+FUAdditions.h"; path = "../../Fluidium/src/DOMNode+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
 		D33933BB10D4C1B9000FC7C1 /* WebIconDatabase+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebIconDatabase+FUAdditions.h"; path = "../../Fluidium/src/WebIconDatabase+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
-		D3414D051103966200CCC986 /* FUPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUPlugIn.h; path = ../../Fluidium/include/Fluidium/FUPlugIn.h; sourceTree = SOURCE_ROOT; };
-		D3414D061103966200CCC986 /* FUPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUPlugIn.m; path = ../../Fluidium/src/FUPlugIn.m; sourceTree = SOURCE_ROOT; };
 		D3B8BC2610E8389A00271454 /* HMAppKitEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAppKitEx.h; sourceTree = "<group>"; };
 		D3B8BC2710E8389A00271454 /* HMAppKitEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAppKitEx.m; sourceTree = "<group>"; };
 		D3B8BC2810E8389A00271454 /* HMBrowsaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMBrowsaButton.h; sourceTree = "<group>"; };
@@ -105,8 +101,6 @@
 		D3D3762310E4065300203EB2 /* FUBrowsaBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaBackgroundView.m; path = src/FUBrowsaBackgroundView.m; sourceTree = "<group>"; };
 		D3D3762A10E4068E00203EB2 /* FUBrowsaNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaNavBar.h; path = src/FUBrowsaNavBar.h; sourceTree = "<group>"; };
 		D3D3762B10E4068E00203EB2 /* FUBrowsaNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaNavBar.m; path = src/FUBrowsaNavBar.m; sourceTree = "<group>"; };
-		D3D3779E10E430EE00203EB2 /* FUBrowsaActivation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBrowsaActivation.h; path = src/FUBrowsaActivation.h; sourceTree = "<group>"; };
-		D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBrowsaActivation.m; path = src/FUBrowsaActivation.m; sourceTree = "<group>"; };
 		D3D377A610E4316F00203EB2 /* NSEvent+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSEvent+FUAdditions.h"; path = "../../Fluidium/src/NSEvent+FUAdditions.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -169,8 +163,6 @@
 				D3D3762310E4065300203EB2 /* FUBrowsaBackgroundView.m */,
 				D3D3762A10E4068E00203EB2 /* FUBrowsaNavBar.h */,
 				D3D3762B10E4068E00203EB2 /* FUBrowsaNavBar.m */,
-				D3D3779E10E430EE00203EB2 /* FUBrowsaActivation.h */,
-				D3D3779F10E430EE00203EB2 /* FUBrowsaActivation.m */,
 				D33932B410D4A061000FC7C1 /* Prefs */,
 			);
 			name = Classes;
@@ -231,8 +223,6 @@
 		D33932AE10D49FC5000FC7C1 /* Fluidium */ = {
 			isa = PBXGroup;
 			children = (
-				D3414D051103966200CCC986 /* FUPlugIn.h */,
-				D3414D061103966200CCC986 /* FUPlugIn.m */,
 				D339331910D4ADA5000FC7C1 /* NSString+FUAdditions.h */,
 				D3D377A610E4316F00203EB2 /* NSEvent+FUAdditions.h */,
 				D339339F10D4C0F9000FC7C1 /* DOMNode+FUAdditions.h */,
@@ -405,7 +395,6 @@
 				D3D371BB10E3BE2500203EB2 /* FUBrowsaPlugIn.m in Sources */,
 				D3D3762410E4065300203EB2 /* FUBrowsaBackgroundView.m in Sources */,
 				D3D3762C10E4068E00203EB2 /* FUBrowsaNavBar.m in Sources */,
-				D3D377A010E430EE00203EB2 /* FUBrowsaActivation.m in Sources */,
 				D3BDE7A810E4638100858E44 /* FUBrowsaComboBox.m in Sources */,
 				D3B8BC3210E8389A00271454 /* HMAppKitEx.m in Sources */,
 				D3B8BC3310E8389A00271454 /* HMBrowsaButton.m in Sources */,
@@ -413,7 +402,6 @@
 				D3B8BC3510E8389A00271454 /* HMFoundationEx.m in Sources */,
 				D3B8BC3610E8389A00271454 /* HMBrowsaImageComboBox.m in Sources */,
 				D3B8BC3710E8389A00271454 /* HMBrowsaImageComboBoxCell.m in Sources */,
-				D3414D071103966200CCC986 /* FUPlugIn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class FUWindowController;
 @protocol FUPlugInAPI;
 
 #define FU_EXTERN __attribute__((visibility("default"))) 
@@ -89,6 +90,8 @@ extern @interface FUPlugIn : NSObject {
 // Fluid will release it when its window is destroyed.
 // This may be called multiple times - once for every window in which the user views your plugin.
 - (NSViewController *)newPlugInViewController;
+
+- (FUWindowController *)windowControllerForViewController:(NSViewController *)vc;
 
 // return the single NSViewController which will control the 'Preferences' view that will appear in the Fluid Preferences window.
 // only one should ever be created. you should probably create it lazily in your implementation of this method.

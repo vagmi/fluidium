@@ -47,7 +47,7 @@
 - (void)mouseMoved:(NSEvent *)evt {
     [self setNeedsDisplay:YES];
 
-    if (FUShowNavBarWhenMousedOver != viewController.plugIn.showNavBar) {
+    if (FUBrowsaShowNavBarWhenMousedOver != viewController.plugIn.showNavBar) {
         return;
     }
     
