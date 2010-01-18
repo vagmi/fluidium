@@ -21,3 +21,4 @@
 #import <TDAppKit/TDListItem.h>
 #import <TDAppKit/TDBar.h>
 #import <TDAppKit/TDLine.h>
+#import <TDAppKit/TDColorView.h>

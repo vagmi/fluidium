@@ -20,7 +20,7 @@
 //  Copyright 2005 Open Sword Group. All rights reserved.
 //
 
-#import "NSBezierPath+TDAdditions.h"
+#import <TDAppKit/NSBezierPath+TDAdditions.h>
 
 @implementation NSBezierPath (TDAdditions)
 
