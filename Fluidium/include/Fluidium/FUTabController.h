@@ -70,6 +70,7 @@
 - (BOOL)canActualSize;
 
 - (CGFloat)estimatedProgress;
+- (NSString *)documentSource;
 
 - (void)loadRequest:(NSURLRequest *)req;
 

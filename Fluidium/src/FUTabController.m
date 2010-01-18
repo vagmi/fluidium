@@ -343,6 +343,11 @@ typedef enum {
 }
 
 
+- (NSString *)documentSource {
+    return [[[[webView mainFrame] dataSource] representation] documentSource];
+}
+
+
 - (void)loadRequest:(NSURLRequest *)req {
     [[webView mainFrame] loadRequest:req];
 }

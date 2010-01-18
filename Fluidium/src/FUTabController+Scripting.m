@@ -13,12 +13,13 @@
 //  limitations under the License.
 
 #import "FUTabController+Scripting.h"
+#import "FUDocument.h"
 #import "FUWindowController.h"
 
 @implementation FUTabController (Scripting)
 
 - (FourCharCode)classCode {
-    return 'fuTa';
+    return 'fTab';
 }
 
 
@@ -30,9 +31,9 @@
     } else {
         NSScriptObjectSpecifier *docSpec = [[windowController document] objectSpecifier];
         
-        return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[docSpec keyClassDescription]
+        return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[NSScriptClassDescription classDescriptionForClass:[FUDocument class]]
                                                          containerSpecifier:docSpec 
-                                                                        key:@"tabs" 
+                                                                        key:@"orderedTabControllers" 
                                                                       index:i] autorelease];
     }
 }

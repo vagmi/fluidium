@@ -310,7 +310,7 @@
         self.viewSourceController = [[[FUViewSourceWindowController alloc] init] autorelease];
     }
     
-    NSString *sourceString = [[[[[[self selectedTabController] webView] mainFrame] dataSource] representation] documentSource];
+    NSString *sourceString = [[self selectedTabController] documentSource];
     [viewSourceController displaySourceString:sourceString];
     
     [[self document] addWindowController:viewSourceController];

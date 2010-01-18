@@ -376,7 +376,7 @@
         <result type="any"/>
     </command>
 
-    <class name="browser window" code="fuBw" description="A browser window.">
+    <class name="browser window" plural="browser windows" inherits="document" code="fuBw" description="A browser window.">
     	<cocoa class="FUDocument"/>
 
     	<property name="title" code="pnam" type="text" access="r" description="The current title of this window (same as the title of the selected tab).">
@@ -398,28 +398,32 @@
 
 
 
-    <class name="tab" code="fuTa" description="A browser tab.">
+    <class name="tab" plural="tabs" code="fTab" description="A browser tab.">
     	<cocoa class="FUTabController"/>
     	
 		<property name="index" code="pidx" type="integer" access="r" description="The index of this tab in its window.">
 			<cocoa key="orderedIndex"/>
 		</property>
 
-    	<property name="title" code="pnam" type="text" access="r" description="Its title.">
+    	<property name="title" code="pnam" type="text" access="r" description="The title of the web page currently loaded in this tab.">
     		<cocoa key="title"/>
     	</property>
 
-    	<property name="URL" code="tURL" type="text" access="r" description="Its URL.">
+    	<property name="URL" code="tURL" type="text" access="r" description="The URL of the web page currently loaded in this tab.">
     		<cocoa key="URLString"/>
     	</property>
     	
-    	<property name="loading" code="tLdg" type="boolean" access="r" description="True if this tab's webpage is currently loading. Otherwise false.">
+    	<property name="loading" code="tLdg" type="boolean" access="r" description="True if this tab's web page is currently loading. Otherwise false.">
     		<cocoa key="isProcessing"/>
     	</property>
 
     	<property name="selected" code="tSel" type="boolean" access="r" description="True if this is the selected tab in its window. Otherwise false.">
     		<cocoa key="isSelected"/>
     	</property>
+    	
+    	<property name="source" code="conT" type="text" access="r" description="The HTML source of the web page currently loaded in this tab.">
+            <cocoa key="documentSource"/>
+        </property>
 
     	<responds-to command="close">
     		<cocoa method="handleCloseScriptCommand:"/>

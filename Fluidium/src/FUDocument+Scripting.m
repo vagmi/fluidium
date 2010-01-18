@@ -18,6 +18,11 @@
 
 @implementation FUDocument (Scripting)
 
+- (FourCharCode)classCode {
+    return 'fuBw';
+}
+
+
 - (NSScriptObjectSpecifier *)objectSpecifier {
     NSUInteger i = [[NSApp orderedDocuments] indexOfObjectIdenticalTo:self];
     
