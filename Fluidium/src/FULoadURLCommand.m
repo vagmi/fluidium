@@ -12,24 +12,24 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import "FULoadURLCommand.h"
+#import "FUDocumentController.h"
+#import "FUTabController.h"
+#import <WebKit/WebKit.h>
 
-@class FUWindowController;
-@class FUTabController;
+@implementation FULoadURLCommand
 
-@interface FUDocument : NSDocument {
-    FUWindowController *windowController;
+- (id)performDefaultImplementation {
+    NSDictionary *args = [self evaluatedArguments];
+    
+    FUTabController *tc = [args objectForKey:@"tabController"];
+    tc = tc ? tc : [[FUDocumentController instance] frontTabController];
+    
+    NSString *URLString = [self directParameter];
+    
+    [[tc webView] setMainFrameURL:URLString];
+    
+    return nil;
 }
 
-// Properties
-- (NSUInteger)selectedTabIndex;
-- (void)setSelectedTabIndex:(NSUInteger)i;
-
-// Elements
-- (NSArray *)orderedTabControllers;
-
-// Commands
-- (id)handleCloseScriptCommand:(NSCloseCommand *)command;
-
-@property (nonatomic, retain) FUWindowController *windowController;
 @end

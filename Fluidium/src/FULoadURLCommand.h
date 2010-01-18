@@ -14,22 +14,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FUWindowController;
-@class FUTabController;
+@interface FULoadURLCommand : NSScriptCommand {
 
-@interface FUDocument : NSDocument {
-    FUWindowController *windowController;
 }
 
-// Properties
-- (NSUInteger)selectedTabIndex;
-- (void)setSelectedTabIndex:(NSUInteger)i;
-
-// Elements
-- (NSArray *)orderedTabControllers;
-
-// Commands
-- (id)handleCloseScriptCommand:(NSCloseCommand *)command;
-
-@property (nonatomic, retain) FUWindowController *windowController;
 @end

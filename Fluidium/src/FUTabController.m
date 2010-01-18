@@ -124,10 +124,6 @@ typedef enum {
 }
 
 
-
-#pragma mark -
-#pragma mark Cocoa scripting
-
 - (FourCharCode)classCode {
     return 'fuTa';
 }
@@ -140,7 +136,7 @@ typedef enum {
         return nil;
     } else {
         NSScriptObjectSpecifier *docSpec = [[windowController document] objectSpecifier];
-
+        
         return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[docSpec keyClassDescription]
                                                          containerSpecifier:docSpec 
                                                                         key:@"tabs" 
@@ -161,15 +157,6 @@ typedef enum {
 
 - (id)handleCloseScriptCommand:(NSCloseCommand *)command {
     [windowController removeTabController:self];
-    return nil;
-}
-
-
-- (id)handleLoadScriptCommand:(NSScriptCommand *)command {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSDictionary *args = [command evaluatedArguments];
-    self.URLString = [args objectForKey:@"URLString"];
-    [self goToLocation:self];
     return nil;
 }
 

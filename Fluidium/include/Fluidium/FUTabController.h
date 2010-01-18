@@ -72,9 +72,12 @@
 
 - (void)loadRequest:(NSURLRequest *)req;
 
-// scripting
+// Properties
 - (NSUInteger)orderedIndex;
 - (BOOL)isSelected;
+
+// Commands
+- (id)handleCloseScriptCommand:(NSCloseCommand *)command;
 
 @property (nonatomic, assign, readonly) FUWindowController *windowController; // weak ref
 @property (nonatomic, retain) NSView *view;

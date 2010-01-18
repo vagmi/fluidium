@@ -12,24 +12,11 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import "FUDocument+Scripting.h"
+#import "FUWindowController.h"
+#import "FUTabController.h"
 
-@class FUWindowController;
-@class FUTabController;
+@implementation FUDocument (Scripting)
 
-@interface FUDocument : NSDocument {
-    FUWindowController *windowController;
-}
 
-// Properties
-- (NSUInteger)selectedTabIndex;
-- (void)setSelectedTabIndex:(NSUInteger)i;
-
-// Elements
-- (NSArray *)orderedTabControllers;
-
-// Commands
-- (id)handleCloseScriptCommand:(NSCloseCommand *)command;
-
-@property (nonatomic, retain) FUWindowController *windowController;
 @end

@@ -14,6 +14,8 @@
 
 #import "FUDocument.h"
 #import "FUWindowController.h"
+#import "FUTabController.h"
+#import "FUWebView.h"
 #import <WebKit/WebKit.h>
 
 @interface FUDocument ()
@@ -32,9 +34,6 @@
     return [NSString stringWithFormat:@"<FUDocument %p %@>", self, [[windowController window] title]];
 }
 
-
-#pragma mark -
-#pragma mark Cocoa scripting
 
 - (NSScriptObjectSpecifier *)objectSpecifier {
     NSUInteger i = [[NSApp orderedDocuments] indexOfObjectIdenticalTo:self];
@@ -67,6 +66,12 @@
 
 - (void)setSelectedTabIndex:(NSUInteger)i {
     [windowController setSelectedTabIndex:i - 1];
+}
+
+
+- (id)handleCloseScriptCommand:(NSCloseCommand *)command {
+    [windowController performClose:self];
+    return nil;
 }
 
 
