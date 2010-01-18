@@ -12,10 +12,21 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import "FUGoForwardCommand.h"
+#import "FUDocumentController.h"
+#import "FUTabController.h"
 
-@interface FUDoJavaScriptCommand : NSScriptCommand {
+@implementation FUGoForwardCommand
 
+- (id)performDefaultImplementation {
+    NSDictionary *args = [self evaluatedArguments];
+    
+    FUTabController *tc = [args objectForKey:@"tabController"];
+    tc = tc ? tc : [[FUDocumentController instance] frontTabController];
+    
+    //NSString *XXX = [self directParameter];
+    
+    return nil;
 }
 
 @end

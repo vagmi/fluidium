@@ -14,7 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FUDoJavaScriptCommand : NSScriptCommand {
+@interface FUNewTabCommand : NSScriptCommand {
 
 }
 
