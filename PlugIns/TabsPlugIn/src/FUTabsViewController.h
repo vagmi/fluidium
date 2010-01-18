@@ -28,8 +28,6 @@
     NSMutableArray *tabModels;
     FUTabModel *selectedModel;
     
-    NSInteger changeCount;
-
     NSDrawer *drawer;
     id draggingTabController;
 }

@@ -23,11 +23,14 @@
     CGFloat estimatedProgress;
     BOOL loading;
     BOOL selected;
+    NSUInteger changeCount;
 }
 
 + (FUTabModel *)modelWithPlist:(NSDictionary *)plist;
 
 - (NSDictionary *)plist;
+
+- (BOOL)wantsNewImage;
 
 @property (nonatomic, retain) NSImage *image;
 @property (nonatomic, retain) NSImage *scaledImage;

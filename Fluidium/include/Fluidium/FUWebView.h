@@ -23,8 +23,8 @@
     BOOL magnified;
 }
 
-- (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
 - (NSImage *)documentViewImageWithCurrentAspectRatio;
+- (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
 
 @property (nonatomic, readonly, retain) NSImage *documentViewImage;
 @end

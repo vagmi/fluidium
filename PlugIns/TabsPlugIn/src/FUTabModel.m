@@ -14,6 +14,10 @@
 
 #import "FUTabModel.h"
 
+@interface FUTabModel ()
+- (NSUInteger)incrementChangeCount;
+@end
+
 @implementation FUTabModel
 
 + (FUTabModel *)modelWithPlist:(NSDictionary *)plist {
@@ -23,16 +27,6 @@
     m.index = [[plist objectForKey:@"index"] integerValue];
     m.selected = [[plist objectForKey:@"selected"] boolValue];
     return m;
-}
-
-
-- (NSDictionary *)plist {
-    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:3];
-    [d setObject:title forKey:@"title"];
-    [d setObject:URLString forKey:@"URLString"];
-    [d setObject:[NSNumber numberWithInteger:index] forKey:@"index"];
-    [d setObject:[NSNumber numberWithInteger:selected] forKey:@"selected"];
-    return d;
 }
 
 
@@ -47,6 +41,33 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<FUTabModel %p %@>", self, title];
+}
+
+
+- (NSDictionary *)plist {
+    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:3];
+    [d setObject:title forKey:@"title"];
+    [d setObject:URLString forKey:@"URLString"];
+    [d setObject:[NSNumber numberWithInteger:index] forKey:@"index"];
+    [d setObject:[NSNumber numberWithInteger:selected] forKey:@"selected"];
+    return d;
+}
+
+
+- (NSUInteger)incrementChangeCount {
+    return ++changeCount;
+}
+
+
+- (BOOL)wantsNewImage {
+    [self incrementChangeCount];
+    if (estimatedProgress > .9) {
+        self.estimatedProgress = 1.0;
+        return YES;
+    } else {
+        // only update web image every third notification
+        return (0 == changeCount % 3);
+    }
 }
 
 @synthesize image;

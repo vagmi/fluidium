@@ -68,6 +68,8 @@
 
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
     self.view = nil;
     self.listView = nil;
     self.scrollView = nil;
@@ -292,10 +294,8 @@
 #pragma mark FUTabControllerNotifcations
 
 - (void)tabControllerProgressDidChange:(NSNotification *)n {
-    if (0 == ++changeCount % 3) { // only update web image every third notification
-        NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-        [self updateTabModelAtIndex:i];
-    }
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
+    [self updateTabModelAtIndex:i];
 }
 
 
@@ -431,10 +431,22 @@
     }
     model.title = title;
     model.URLString = [wv mainFrameURL];
-    model.estimatedProgress = [wv estimatedProgress];
+    
+    CGFloat progress = [wv estimatedProgress];
 
-    model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, ASPECT_RATIO)];
-    model.scaledImage = nil;
+    // this handles cases like Gmail ajax refresh where the page can sit at 100% forever cuz there's not 'didFinishLoad' fired for ajax refreshes.
+    if (progress > .95) {
+        model.loading = NO;
+        model.estimatedProgress = 0;
+        [self performSelector:@selector(updateTabModelLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:2];
+    }
+
+    model.estimatedProgress = progress;
+
+    if ([model wantsNewImage]) {
+        model.image = [wv documentViewImageWithAspectRatio:NSMakeSize(1, ASPECT_RATIO)];
+        model.scaledImage = nil;
+    }
 }
 
 
