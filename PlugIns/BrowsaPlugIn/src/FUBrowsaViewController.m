@@ -434,7 +434,7 @@ typedef enum {
 
 - (void)webView:(WebView *)wv decidePolicyForNavigationAction:(NSDictionary *)info request:(NSURLRequest *)req frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
     WebNavigationType navType = [[info objectForKey:WebActionNavigationTypeKey] integerValue];
-    
+
     if (![self shouldHandleRequest:req]) {
         [listener ignore];
         return;
@@ -445,7 +445,7 @@ typedef enum {
         if (act.isCommandKeyPressed) {
             [listener ignore];
             [[self windowController] handleCommandClick:act request:req];
-        } else {
+        } else if (WebNavigationTypeLinkClicked == navType) {
             switch (plugIn.sendLinksTo) {
                 case FUBrowsaSendLinksToThisPlugIn:
                     [listener use];
@@ -466,6 +466,8 @@ typedef enum {
                     NSAssert(0, @"unknown sendLinksTo value");
                     break;
             }
+        } else {
+            [listener use];
         }
     } else if (WebNavigationTypePlugInRequest == navType) {
         [listener use];
