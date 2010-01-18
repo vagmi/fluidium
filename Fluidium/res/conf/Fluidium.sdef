@@ -261,6 +261,14 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
 
+    <command name="reload" code="FuSSReld" description="Load a URL.">
+        <cocoa name="reload" class="FUReloadCommand"/>
+        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should be reloaded.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
     <command name="load URL" code="FuSSLoad" description="Load a URL.">
         <cocoa name="LoadURL" class="FULoadURLCommand"/>
         <direct-parameter type="text" description="The URL to load."/>

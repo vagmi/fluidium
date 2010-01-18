@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="492"/>
+			<integer value="296"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1681,14 +1681,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">reload:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="328673759"/>
-					</object>
-					<int key="connectionID">556</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">goBack:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="118298410"/>
@@ -1950,6 +1942,14 @@
 						<reference key="destination" ref="231369512"/>
 					</object>
 					<int key="connectionID">718</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">reloadScriptAction:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="328673759"/>
+					</object>
+					<int key="connectionID">719</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3306,17 +3306,17 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{786, 445}, {241, 253}}</string>
+					<string>{{958, 740}, {241, 253}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{638, 735}, {598, 20}}</string>
+					<string>{{492, 993}, {598, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
 					<string>{{11, 977}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{499, 425}, {234, 273}}</string>
+					<string>{{671, 720}, {234, 273}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3336,7 +3336,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{620, 677}, {178, 103}}</string>
+					<string>{{721, 890}, {178, 103}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{786, 257}, {170, 63}}</string>
@@ -3352,7 +3352,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{1175, 712}, {166, 23}}</string>
+					<string>{{1029, 970}, {166, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3408,13 +3408,13 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{972, 727}, {228, 53}}</string>
+					<string>{{788, 940}, {228, 53}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{490, 780}, {93, 33}}</string>
+					<string>{{882, 960}, {93, 33}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{583, 807}, {64, 6}}</string>
@@ -3456,7 +3456,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{431, 590}, {204, 223}}</string>
+					<string>{{585, 770}, {204, 223}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{155, 774}, {199, 203}}</string>
@@ -3484,7 +3484,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">718</int>
+			<int key="maxID">719</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3517,7 +3517,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUApplication.h</string>
+						<string key="minorKey">include/Fluidium/FUApplication.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3548,7 +3548,18 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUDocumentController.h</string>
+						<string key="minorKey">include/Fluidium/FUDocumentController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FUDocumentController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">newDocumentScriptAction:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUDocumentController+Scripting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3578,6 +3589,7 @@
 							<string>downloadLinkAsFromMenu:</string>
 							<string>goBack:</string>
 							<string>goForward:</string>
+							<string>goHome:</string>
 							<string>goToLocation:</string>
 							<string>openFrameInNewWindowFromMenu:</string>
 							<string>openImageInNewWindowFromMenu:</string>
@@ -3609,11 +3621,19 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUTabController.h</string>
+						<string key="minorKey">include/Fluidium/FUTabController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FUTabController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUTabController+Scripting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3645,13 +3665,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUViewSourceWindowController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUWindowController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUWindowController+NSToolbarDelegate.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3763,7 +3776,25 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUWindowController.h</string>
+						<string key="minorKey">include/Fluidium/FUWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FUWindowController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUWindowController+NSToolbarDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FUWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">reloadScriptAction:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUWindowController+Scripting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3774,11 +3805,13 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>openTab:</string>
+							<string>reloadScriptAction:</string>
 							<string>showErrorConsole:</string>
 							<string>showWebInspector:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3816,14 +3849,14 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUNotifications.h</string>
+						<string key="minorKey">include/Fluidium/FUNotifications.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUPlugIn.h</string>
+						<string key="minorKey">include/Fluidium/FUPlugIn.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
