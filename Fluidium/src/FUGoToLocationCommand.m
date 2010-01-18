@@ -13,18 +13,15 @@
 //  limitations under the License.
 
 #import "FUGoToLocationCommand.h"
-#import "FUDocumentController.h"
-#import "FUTabController.h"
+#import "FUWindowController.h"
 
 @implementation FUGoToLocationCommand
 
 - (id)performDefaultImplementation {
     NSDictionary *args = [self evaluatedArguments];
     
-    FUTabController *tc = [args objectForKey:@"tabController"];
-    tc = tc ? tc : [[FUDocumentController instance] frontTabController];
-    
-    //NSString *XXX = [self directParameter];
+    id sender = [args objectForKey:@"sender"];
+    [NSApp sendAction:@selector(goToLocation:) to:nil from:sender];
     
     return nil;
 }

@@ -226,8 +226,7 @@
 
 
 - (IBAction)goHome:(id)sender {
-    [locationComboBox setStringValue:[[FUUserDefaults instance] homeURLString]];
-    [self goToLocation:self];
+    [[self selectedTabController] goHome:sender];
 }
 
 

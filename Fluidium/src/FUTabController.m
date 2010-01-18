@@ -162,6 +162,13 @@ typedef enum {
 }
 
 
+- (IBAction)goHome:(id)sender {
+    self.URLString = [[FUUserDefaults instance] homeURLString];
+    [self goToLocation:self];
+    
+}
+
+
 - (IBAction)zoomIn:(id)sender {
     if ([[FUUserDefaults instance] zoomTextOnly]) {
         [webView makeTextLarger:sender];

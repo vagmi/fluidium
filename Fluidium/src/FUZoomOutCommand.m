@@ -13,7 +13,6 @@
 //  limitations under the License.
 
 #import "FUZoomOutCommand.h"
-#import "FUDocumentController.h"
 #import "FUTabController.h"
 
 @implementation FUZoomOutCommand
@@ -21,11 +20,9 @@
 - (id)performDefaultImplementation {
     NSDictionary *args = [self evaluatedArguments];
     
-    FUTabController *tc = [args objectForKey:@"tabController"];
-    tc = tc ? tc : [[FUDocumentController instance] frontTabController];
-    
-    //NSString *XXX = [self directParameter];
-    
+    id sender = [args objectForKey:@"sender"];
+    [NSApp sendAction:@selector(zoomOut:) to:nil from:sender];
+
     return nil;
 }
 

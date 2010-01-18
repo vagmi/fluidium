@@ -48,6 +48,7 @@
 - (IBAction)stopLoading:(id)sender;
 
 - (IBAction)goToLocation:(id)sender;
+- (IBAction)goHome:(id)sender;
 
 // context menu actions
 - (IBAction)openLinkInNewTabFromMenu:(id)sender;
