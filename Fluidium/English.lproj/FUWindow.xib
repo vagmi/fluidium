@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="100035"/>
 			<integer value="100051"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -156,7 +157,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSSplitView" id="612320548">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">4394</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -168,7 +169,7 @@
 							<object class="NSComboBox" id="825151495">
 								<reference key="NSNextResponder" ref="27386928"/>
 								<int key="NSvFlags">298</int>
-								<string key="NSFrame">{{5, 2}, {391, 26}}</string>
+								<string key="NSFrame">{{5, 2}, {288, 26}}</string>
 								<reference key="NSSuperview" ref="27386928"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSComboBoxCell" key="NSCell" id="258081880">
@@ -273,7 +274,7 @@
 								<nil key="NSDataSource"/>
 							</object>
 						</object>
-						<string key="NSFrameSize">{399, 30}</string>
+						<string key="NSFrameSize">{296, 30}</string>
 						<reference key="NSSuperview" ref="612320548"/>
 						<string key="NSClassName">NSView</string>
 					</object>
@@ -285,7 +286,7 @@
 							<object class="NSSearchField" id="906949325">
 								<reference key="NSNextResponder" ref="1051110115"/>
 								<int key="NSvFlags">298</int>
-								<string key="NSFrame">{{5, 5}, {81, 22}}</string>
+								<string key="NSFrame">{{5, 5}, {184, 22}}</string>
 								<reference key="NSSuperview" ref="1051110115"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSSearchFieldCell" key="NSCell" id="361827936">
@@ -345,12 +346,13 @@
 								</object>
 							</object>
 						</object>
-						<string key="NSFrame">{{408, 0}, {92, 30}}</string>
+						<string key="NSFrame">{{305, 0}, {195, 30}}</string>
 						<reference key="NSSuperview" ref="612320548"/>
 						<string key="NSClassName">NSView</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 30}</string>
+				<reference key="NSSuperview"/>
 				<bool key="NSIsVertical">YES</bool>
 			</object>
 			<object class="NSCustomView" id="870163162">
@@ -1563,13 +1565,6 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">FUWindowController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUWindowController+NSToolbarDelegate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUWindowController</string>
 					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1677,7 +1672,14 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUWindowController.h</string>
+						<string key="minorKey">include/Fluidium/FUWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FUWindowController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUWindowController+NSToolbarDelegate.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1727,14 +1729,28 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUNotifications.h</string>
+						<string key="minorKey">include/Fluidium/FUNotifications.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUPlugIn.h</string>
+						<string key="minorKey">include/Fluidium/FUPlugIn.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/OAPreferences/NSObject-OFExtensions.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/OAPreferences/OBObject.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2183,6 +2199,27 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Growl.framework/Headers/GrowlApplicationBridge.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">ShortcutRecorder.framework/Headers/SRRecorderCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">ShortcutRecorder.framework/Headers/SRRecorderControl.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">ShortcutRecorder.framework/Headers/SRValidator.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
