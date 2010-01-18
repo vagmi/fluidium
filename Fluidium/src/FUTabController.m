@@ -594,7 +594,9 @@ typedef enum {
 
 
 - (void)webView:(WebView *)wv setToolbarsVisible:(BOOL)visible {
-    [[[wv window] toolbar] setVisible:visible];
+    if (![[FUUserDefaults instance] targetedClicksCreateTabs]) {
+        [[[wv window] toolbar] setVisible:visible];
+    }
 }
 
 
@@ -604,7 +606,9 @@ typedef enum {
 
 
 - (void)webView:(WebView *)wv setStatusBarVisible:(BOOL)visible {
-    [[FUUserDefaults instance] setStatusBarShown:visible];
+    if (![[FUUserDefaults instance] targetedClicksCreateTabs]) {
+        [[FUUserDefaults instance] setStatusBarShown:visible];
+    }
 }
 
 
@@ -615,13 +619,17 @@ typedef enum {
 
 
 - (void)webView:(WebView *)wv setResizable:(BOOL)resizable {
-    // TODO
+    if (![[FUUserDefaults instance] targetedClicksCreateTabs]) {
+        // TODO
+    }
 }
 
 
 - (void)webView:(WebView *)wv setFrame:(NSRect)frame {
-    windowController.suppressNextFrameStringSave = YES;
-    [[windowController window] setFrame:frame display:YES];
+    if (![[FUUserDefaults instance] targetedClicksCreateTabs]) {
+        windowController.suppressNextFrameStringSave = YES;
+        [[windowController window] setFrame:frame display:YES];
+    }
 }
 
 
