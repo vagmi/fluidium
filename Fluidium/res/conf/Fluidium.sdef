@@ -137,9 +137,15 @@
     	<property name="title" code="pnam" type="text" access="r" description="The current title of this window (same as the title of the selected tab).">
     		<cocoa key="displayName"/>
     	</property>
-    	<property name="selected tab" code="bwSt" type="tab" access="r" description="The selected tab in this window.">
+<!--
+    	<property name="selected tab" code="fuTa" type="tab" access="rw" description="The selected tab in this window.">
     		<cocoa key="selectedTabController"/>
     	</property>
+-->
+		<property name="selected tab index" code="bwSi" type="integer" access="rw" description="The index of the selected tab in its window.">
+			<cocoa key="selectedTabIndex"/>
+		</property>
+    	
 	    <element type="tab" access="r">
 			<cocoa key="orderedTabControllers"/>
 		</element>

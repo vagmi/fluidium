@@ -23,7 +23,9 @@
 
 // scripting
 - (NSArray *)orderedTabControllers;
-- (FUTabController *)selectedTabController;
+
+- (NSUInteger)selectedTabIndex;
+- (void)setSelectedTabIndex:(NSUInteger)i;
 
 @property (nonatomic, retain) FUWindowController *windowController;
 @end

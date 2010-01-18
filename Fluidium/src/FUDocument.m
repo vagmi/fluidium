@@ -60,11 +60,16 @@
 }
 
 
-- (FUTabController *)selectedTabController {
-    return [windowController selectedTabController];
+- (NSUInteger)selectedTabIndex {
+    return [windowController selectedTabIndex] + 1;
 }
-                  
-                  
+
+
+- (void)setSelectedTabIndex:(NSUInteger)i {
+    [windowController setSelectedTabIndex:i - 1];
+}
+
+
 #pragma mark -
 #pragma mark NSDocument
 
