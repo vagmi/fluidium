@@ -15,6 +15,10 @@
 #import "TDUberViewSplitView.h"
 #import "TDUberView.h"
 
+@interface TDUberView ()
+@property (nonatomic, retain) NSView *midSuperview;
+@end
+
 @interface TDUberViewSplitView ()
 - (void)drawLeftDividerInRect:(NSRect)divRect;
 - (void)drawRightDividerInRect:(NSRect)divRect;
@@ -76,8 +80,8 @@
             [self.gradient drawInRect:divRect angle:180];
             [self drawRightDividerInRect:divRect];
         }
-    } else {
-        BOOL isTop = NSMinY(divRect) <= NSMaxY([uberView.midView frame]);
+    } else {        
+        BOOL isTop = NSMinY(divRect) <= NSMaxY([uberView.midSuperview frame]);
         if ((isTop && uberView.isTopViewOpen) || (!isTop && uberView.isBottomViewOpen)) {
 
             [self.gradient drawInRect:divRect angle:90];
