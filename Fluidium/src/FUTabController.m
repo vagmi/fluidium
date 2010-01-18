@@ -43,6 +43,9 @@ typedef enum {
 @end
 
 @interface FUTabController ()
+- (void)loadView;
+- (BOOL)isViewLoaded;
+
 - (void)setUpWebView;
 - (void)handleLoadFail:(NSError *)err;
 - (BOOL)willRetryWithTLDAdded:(WebView *)wv;
@@ -138,6 +141,16 @@ typedef enum {
                                                                         key:@"tabs" 
                                                                       index:i] autorelease];
     }
+}
+
+
+- (NSUInteger)orderedIndex {
+    return [windowController indexOfTabController:self] + 1;
+}
+
+
+- (BOOL)isSelected {
+    return self == [windowController selectedTabController];
 }
 
 

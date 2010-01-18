@@ -68,14 +68,13 @@
 - (BOOL)canZoomOut;
 - (BOOL)canActualSize;
 
-- (BOOL)canReload;
-
-- (void)loadView;
-- (BOOL)isViewLoaded;
-
 - (CGFloat)estimatedProgress;
 
 - (void)loadRequest:(NSURLRequest *)req;
+
+// scripting
+- (NSUInteger)orderedIndex;
+- (BOOL)isSelected;
 
 @property (nonatomic, assign, readonly) FUWindowController *windowController; // weak ref
 @property (nonatomic, retain) NSView *view;

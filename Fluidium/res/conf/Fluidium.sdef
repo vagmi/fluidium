@@ -63,7 +63,7 @@
 			<cocoa key="isActive"/>
 		</property>
 		<property name="version" code="vers" type="text" access="r" description="The version number of the application."/>
-		<element type="browser window">
+		<element type="browser window" access="r">
 			<cocoa key="orderedDocuments"/>
 		</element>
 		<element type="window" access="r">
@@ -132,11 +132,18 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
 
-    <class name="browser window" code="Fubw" description="A browser window.">
+    <class name="browser window" code="fuBw" description="A browser window.">
     	<cocoa class="FUDocument"/>
-    	<property name="title" code="pnam" type="text" access="r" description="The title of the selected tab.">
+    	<property name="title" code="pnam" type="text" access="r" description="The current title of this window (same as the title of the selected tab).">
     		<cocoa key="displayName"/>
     	</property>
+    	<property name="selected tab" code="bwSt" type="tab" access="r" description="The selected tab in this window.">
+    		<cocoa key="selectedTabController"/>
+    	</property>
+	    <element type="tab" access="r">
+			<cocoa key="orderedTabControllers"/>
+		</element>
+
     	<!--
     	<responds-to command="close">
     		<cocoa method="handleCloseScriptCommand:"/>
@@ -148,22 +155,33 @@
     		<cocoa method="handleSaveScriptCommand:"/>
     	</responds-to>
 	-->
-    	<element type="tab" access="r"/>
+		
     </class>
 
 
 
-    <class name="tab" code="Futa" description="A browser tab.">
+    <class name="tab" code="fuTa" description="A browser tab.">
     	<cocoa class="FUTabController"/>
     	
-    	<property name="page title" code="pTtl" type="text" access="r" description="Its title.">
+		<property name="index" code="pidx" type="integer" access="r" description="The index of this tab in its window.">
+			<cocoa key="orderedIndex"/>
+		</property>
+
+    	<property name="title" code="pnam" type="text" access="r" description="Its title.">
     		<cocoa key="title"/>
     	</property>
 
-    	<property name="URL" code="pURL" type="text" access="r" description="Its URL.">
+    	<property name="URL" code="tURL" type="text" access="r" description="Its URL.">
     		<cocoa key="URLString"/>
     	</property>
     	
+    	<property name="loading" code="tLdg" type="boolean" access="r" description="True if this tab's webpage is currently loading. Otherwise false.">
+    		<cocoa key="isProcessing"/>
+    	</property>
+
+    	<property name="selected" code="tSel" type="boolean" access="r" description="True if this is the selected tab in its window. Otherwise false.">
+    		<cocoa key="isSelected"/>
+    	</property>
 
     	<responds-to command="close">
     		<cocoa method="handleCloseScriptCommand:"/>

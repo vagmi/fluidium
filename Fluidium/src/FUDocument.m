@@ -50,7 +50,7 @@
 }
 
 
-- (NSArray *)tabs {
+- (NSArray *)orderedTabControllers {
     NSTabView *tabView = [windowController tabView];
     NSMutableArray *tabs = [NSMutableArray arrayWithCapacity:[tabView numberOfTabViewItems]];
     for (NSTabViewItem *tabItem in [tabView tabViewItems]) {
@@ -59,10 +59,19 @@
     return [[tabs copy] autorelease];
 }
 
+
+- (FUTabController *)selectedTabController {
+    return [windowController selectedTabController];
+}
                   
                   
 #pragma mark -
 #pragma mark NSDocument
+
+- (NSString *)displayName {
+    return [[windowController selectedTabController] title];
+}
+
 
 - (void)makeWindowControllers {
     self.windowController = [[[FUWindowController alloc] init] autorelease];

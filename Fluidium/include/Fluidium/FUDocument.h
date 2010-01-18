@@ -15,13 +15,15 @@
 #import <Cocoa/Cocoa.h>
 
 @class FUWindowController;
+@class FUTabController;
 
 @interface FUDocument : NSDocument {
     FUWindowController *windowController;
 }
 
 // scripting
-- (NSArray *)tabs;
+- (NSArray *)orderedTabControllers;
+- (FUTabController *)selectedTabController;
 
 @property (nonatomic, retain) FUWindowController *windowController;
 @end
