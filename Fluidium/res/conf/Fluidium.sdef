@@ -37,7 +37,7 @@
 			<parameter name="in" code="kfil" type="file" optional="yes" description="The file in which to save the document.">
 				<cocoa key="File"/>
 			</parameter>
-			<parameter name="as" code="fltp" type="saveable file format" optional="yes" description="The file format to use.">
+			<parameter name="as" code="fltp" type="webarchive" optional="yes" description="The file format to use.">
 				<cocoa key="FileType"/>
 			</parameter>
 		</command>
@@ -261,72 +261,106 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
 
+    <command name="add bookmark" code="FuSSBkmk" description="Bookmark the current page.">
+        <cocoa class="FUAddBookmarkCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+    </command>
+
+    <command name="view source" code="FuSSVSrc" description="View source of the current page.">
+        <cocoa class="FUViewSourceCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+    </command>
+
+    <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
+        <cocoa class="FUSelectPreviousTabCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+    </command>
+
+    <command name="select next tab" code="FuSSNeXT" description="Select the next tab.">
+        <cocoa class="FUSelectNextTabCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+    </command>
+
+    <command name="go to location" code="FuSSGoTo" description="Load the URL in the location bar.">
+        <cocoa class="FUGoToLocationCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+    </command>
+
     <command name="go back" code="FuSSBack" description="Go back.">
-        <cocoa name="go back" class="FUGoBackCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUGoBackCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go back.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
     <command name="go forward" code="FuSSFwrd" description="Go forward.">
-        <cocoa name="go forward" class="FUGoForwardCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUGoForwardCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go forward.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
     <command name="go home" code="FuSSHome" description="Go home.">
-        <cocoa name="go home" class="FUGoHomeCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUGoHomeCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go home.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
     <command name="reload" code="FuSSReld" description="Reload a URL.">
-        <cocoa name="reload" class="FUReloadCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUReloadCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should be reloaded.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
     <command name="stop loading" code="FuSSStop" description="Stop loading a URL.">
-        <cocoa name="stop loading" class="FUStopLoadingCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUStopLoadingCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should stop loading.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
     <command name="zoom in" code="FuSSZoIn" description="Zoom in contents of the page.">
-        <cocoa name="zoom in" class="FUZoomInCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUZoomInCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
     <command name="zoom out" code="FuSSZoOt" description="Zoom out contents of the page.">
-        <cocoa name="zoom out" class="FUZoomOutCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUZoomOutCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
     <command name="make actual size" code="FuSSActS" description="Zoom contents of the page to actual size.">
-        <cocoa name="make actual size" class="FUActualSizeCommand"/>
-        <!-- <direct-parameter type="text" description="Reload the current page."/> -->
+        <cocoa class="FUActualSizeCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
             <cocoa key="tabController"/>
         </parameter>
     </command>
 
+
+
+
+
+
+
+
+
+
     <command name="load URL" code="FuSSLoad" description="Load a URL.">
-        <cocoa name="LoadURL" class="FULoadURLCommand"/>
+        <cocoa class="FULoadURLCommand"/>
         <direct-parameter type="text" description="The URL to load."/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the URL should be loaded.">
             <cocoa key="tabController"/>
@@ -334,7 +368,7 @@
     </command>
 
     <command name="do JavaScript" code="FuSSdoJS" description="Applies a string of JavaScript code to a document.">
-        <cocoa name="DoJavaScript" class="FUDoJavaScriptCommand"/>
+        <cocoa class="FUDoJavaScriptCommand"/>
         <direct-parameter type="text" description="The JavaScript code to evaluate."/>
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the JavaScript should be evaluated.">
             <cocoa key="tabController"/>

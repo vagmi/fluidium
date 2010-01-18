@@ -16,6 +16,8 @@
 
 @interface FUWindowController (Scripting)
 
+- (IBAction)goToLocationScriptAction:(id)sender;
+
 - (IBAction)goBackScriptAction:(id)sender;
 - (IBAction)goForwardScriptAction:(id)sender;
 - (IBAction)goHomeScriptAction:(id)sender;
@@ -24,4 +26,10 @@
 - (IBAction)zoomInScriptAction:(id)sender;
 - (IBAction)zoomOutScriptAction:(id)sender;
 - (IBAction)actualSizeScriptAction:(id)sender;
+
+- (IBAction)addBookmarkScriptAction:(id)sender;
+- (IBAction)viewSourceScriptAction:(id)sender;
+
+- (IBAction)selectPreviousTabScriptAction:(id)sender;
+- (IBAction)selectNextTabScriptAction:(id)sender;
 @end

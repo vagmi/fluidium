@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="29"/>
+			<integer value="296"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1697,14 +1697,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">viewSource:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="868880629"/>
-					</object>
-					<int key="connectionID">605</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">openSearch:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="1070319353"/>
@@ -1785,35 +1777,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">selectNextTab:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="1024203791"/>
-					</object>
-					<int key="connectionID">661</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">selectPreviousTab:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="835345707"/>
-					</object>
-					<int key="connectionID">662</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showBookmarksWindow:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="108927367"/>
 					</object>
 					<int key="connectionID">667</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">addBookmark:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="965300752"/>
-					</object>
-					<int key="connectionID">668</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1950,6 +1918,38 @@
 						<reference key="destination" ref="532186468"/>
 					</object>
 					<int key="connectionID">726</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectNextTabScriptAction:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="1024203791"/>
+					</object>
+					<int key="connectionID">727</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectPreviousTabScriptAction:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="835345707"/>
+					</object>
+					<int key="connectionID">728</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addBookmarkScriptAction:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="965300752"/>
+					</object>
+					<int key="connectionID">729</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">viewSourceScriptAction:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="868880629"/>
+					</object>
+					<int key="connectionID">730</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3306,17 +3306,17 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{958, 740}, {241, 253}}</string>
+					<string>{{808, 762}, {241, 253}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{492, 993}, {598, 20}}</string>
+					<string>{{342, 1015}, {598, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
 					<string>{{11, 977}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{671, 720}, {234, 273}}</string>
+					<string>{{521, 742}, {234, 273}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3408,7 +3408,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{788, 940}, {228, 53}}</string>
+					<string>{{638, 962}, {228, 53}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3484,7 +3484,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">726</int>
+			<int key="maxID">730</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3796,6 +3796,7 @@
 							<string>goBackScriptAction:</string>
 							<string>goForwardScriptAction:</string>
 							<string>goHomeScriptAction:</string>
+							<string>goToLocationScriptAction:</string>
 							<string>reloadScriptAction:</string>
 							<string>stopLoadingScriptAction:</string>
 							<string>zoomInScriptAction:</string>
@@ -3803,6 +3804,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3826,19 +3828,27 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>actualSizeScriptAction:</string>
+							<string>addBookmarkScriptAction:</string>
 							<string>goBackScriptAction:</string>
 							<string>goForwardScriptAction:</string>
 							<string>goHomeScriptAction:</string>
 							<string>openTab:</string>
 							<string>reloadScriptAction:</string>
+							<string>selectNextTabScriptAction:</string>
+							<string>selectPreviousTabScriptAction:</string>
 							<string>showErrorConsole:</string>
 							<string>showWebInspector:</string>
 							<string>stopLoadingScriptAction:</string>
+							<string>viewSourceScriptAction:</string>
 							<string>zoomInScriptAction:</string>
 							<string>zoomOutScriptAction:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

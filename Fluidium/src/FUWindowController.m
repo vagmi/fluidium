@@ -14,6 +14,7 @@
 
 #import "FUWindowController.h"
 #import "FUWindowController+NSToolbarDelegate.h"
+#import "FUWindowController+Scripting.h"
 #import "FUDocumentController.h"
 #import "FUTabController.h"
 #import "FUWindow.h"
@@ -676,26 +677,26 @@
         return NO;
     } else if (action == @selector(openTab:)) {
         return [[FUUserDefaults instance] tabbedBrowsingEnabled];
-    } else if (action == @selector(selectNextTab:) || action == @selector(selectPreviousTab:)) {
+    } else if (action == @selector(selectNextTab:) || action == @selector(selectPreviousTab:) || action == @selector(selectNextTabScriptAction:) || action == @selector(selectPreviousTabScriptAction:)) {
         id responder = [[self window] firstResponder];
         return ![responder isKindOfClass:[NSTextView class]] && [tabView numberOfTabViewItems] > 1;
     } else if (action == @selector(viewSource:)) {
         return ![[[self selectedTabController] webView] isLoading] && [[[self selectedTabController] URLString] length];
-    } else if (action == @selector(stopLoading:)) {
+    } else if (action == @selector(stopLoading:) || action == @selector(stopLoadingScriptAction:)) {
         return [[[self selectedTabController] webView] isLoading];
-    } else if (action == @selector(reload:) || action == @selector(addBookmark:)) {
+    } else if (action == @selector(reload:) || action == @selector(addBookmark:) || action == @selector(reloadScriptAction:) || action == @selector(addBookmarkScriptAction:)) {
         return [[[self selectedTabController] URLString] length];
-    } else if (action == @selector(goBack:)) {
+    } else if (action == @selector(goBack:) || action == @selector(goBackScriptAction:)) {
         return [[[self selectedTabController] webView] canGoBack];
-    } else if (action == @selector(goForward:)) {
+    } else if (action == @selector(goForward:) || action == @selector(goForwardScriptAction:)) {
         return [[[self selectedTabController] webView] canGoForward];
-    } else if (action == @selector(goHome:)) {
+    } else if (action == @selector(goHome:) || action == @selector(goHomeScriptAction:)) {
         return [[[FUUserDefaults instance] homeURLString] length];
-    } else if (action == @selector(zoomIn:)) {
+    } else if (action == @selector(zoomIn:) || action == @selector(zoomInScriptAction:)) {
         return [[self selectedTabController] canZoomIn];
-    } else if (action == @selector(zoomOut:)) {
+    } else if (action == @selector(zoomOut:) || action == @selector(zoomOutScriptAction:)) {
         return [[self selectedTabController] canZoomOut];
-    } else if (action == @selector(actualSize:)) {
+    } else if (action == @selector(actualSize:) || action == @selector(actualSizeScriptAction:)) {
         return [[self selectedTabController] canActualSize];
     } else {
         return YES;

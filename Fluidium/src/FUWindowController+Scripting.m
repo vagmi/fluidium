@@ -14,74 +14,86 @@
 
 #import "FUWindowController+Scripting.h"
 #import "FUReloadCommand.h"
-#import "FUScriptUtils.h"
+#import "NSAppleEventDescriptor+FUAdditions.h"
 
 @interface FUWindowController (ScriptingPrivate)
-- (void)sendEventWithCode:(FourCharCode)code;
+- (void)sendEventWithCode:(FourCharCode)code sender:(id)sender;
 @end
 
 @implementation FUWindowController (Scripting)
 
-- (void)sendEventWithCode:(FourCharCode)code {
-    OSErr err = noErr;
-    AEAddressDesc addressDesc = FUCreateTargetProcessDesc(&err);
-    if (noErr != noErr) {
-        goto done;
-    }
+- (void)sendEventWithCode:(FourCharCode)code sender:(id)sender {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:code];
     
-    err = noErr;
-    AppleEvent someAE;
-    err = AECreateAppleEvent('FuSS', code, &addressDesc, kAutoGenerateReturnID, kAnyTransactionID, &someAE);
-    if (noErr != err) {
-        goto done;
-    }
+    //NSAppleEventDescriptor *directObjDesc = [NSAppleEventDescriptor descriptorWithDescriptorType:typeWildCard bytes:<#(const void *)bytes#> length:<#(NSUInteger)byteCount#>
+    //[someAE setDescriptor:directObjDesc forKeyword:keyDirectObject];
     
-    err = noErr; 
-    err = AESendMessage(&someAE, NULL, kAENoReply|kAENeverInteract, kAEDefaultTimeout);
-    
-done:
-    AEDisposeDesc(&addressDesc);
-    AEDisposeDesc(&someAE);
+    [someAE sendFluidiumAppleEvent];
+}
+
+
+- (IBAction)goToLocationScriptAction:(id)sender {
+    [self sendEventWithCode:'GoTo' sender:sender];
 }
 
 
 - (IBAction)goBackScriptAction:(id)sender {
-    [self sendEventWithCode:'Back'];
+    [self sendEventWithCode:'Back' sender:sender];
 }
 
 
 - (IBAction)goForwardScriptAction:(id)sender {
-    [self sendEventWithCode:'Fwrd'];
+    [self sendEventWithCode:'Fwrd' sender:sender];
 }
 
 
 - (IBAction)goHomeScriptAction:(id)sender {
-    [self sendEventWithCode:'Home'];
+    [self sendEventWithCode:'Home' sender:sender];
 }
 
 
 - (IBAction)reloadScriptAction:(id)sender {
-    [self sendEventWithCode:'Reld'];
+    [self sendEventWithCode:'Reld' sender:sender];
 }
 
 
 - (IBAction)stopLoadingScriptAction:(id)sender {
-    [self sendEventWithCode:'Stop'];
+    [self sendEventWithCode:'Stop' sender:sender];
 }
 
 
 - (IBAction)zoomInScriptAction:(id)sender {
-    [self sendEventWithCode:'ZoIn'];
+    [self sendEventWithCode:'ZoIn' sender:sender];
 }
 
 
 - (IBAction)zoomOutScriptAction:(id)sender {
-    [self sendEventWithCode:'ZoOt'];
+    [self sendEventWithCode:'ZoOt' sender:sender];
 }
 
 
 - (IBAction)actualSizeScriptAction:(id)sender {
-    [self sendEventWithCode:'ActS'];
+    [self sendEventWithCode:'ActS' sender:sender];
+}
+
+
+- (IBAction)selectPreviousTabScriptAction:(id)sender {
+    [self sendEventWithCode:'PReV' sender:sender];
+}
+
+
+- (IBAction)selectNextTabScriptAction:(id)sender {
+    [self sendEventWithCode:'NeXT' sender:sender];
+}
+
+
+- (IBAction)addBookmarkScriptAction:(id)sender {
+    [self sendEventWithCode:'Bkmk' sender:sender];
+}
+
+
+- (IBAction)viewSourceScriptAction:(id)sender {
+    [self sendEventWithCode:'VSrc' sender:sender];
 }
 
 @end
