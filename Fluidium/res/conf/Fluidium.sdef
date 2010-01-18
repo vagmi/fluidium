@@ -267,7 +267,6 @@
         <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the URL should be loaded.">
             <cocoa key="tabController"/>
         </parameter>
-        <result type="any"/>
     </command>
 
     <command name="do JavaScript" code="FuSSdoJS" description="Applies a string of JavaScript code to a document.">
@@ -286,7 +285,7 @@
     		<cocoa key="displayName"/>
     	</property>
 
-		<property name="selected tab index" code="bwSi" type="integer" access="rw" description="The index of the selected tab in its window.">
+		<property name="selected tab index" code="bwSi" type="integer" access="rw" description="The index of the selected tab in this window.">
 			<cocoa key="selectedTabIndex"/>
 		</property>
     	

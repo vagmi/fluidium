@@ -850,7 +850,6 @@
 		2A37F4ABFDCFA73011CA2CEA /* Fluidium Source */ = {
 			isa = PBXGroup;
 			children = (
-				D3ADF97E11045AF80064C070 /* Scripting */,
 				D3F4C55210C8D1D300E0B474 /* FUApplication.h */,
 				D3F4C55310C8D1D300E0B474 /* FUApplication.m */,
 				D3F4C6AD10C8E28E00E0B474 /* FUUserDefaults.h */,
@@ -872,6 +871,7 @@
 				D3F4C58E10C8D62800E0B474 /* WebKit */,
 				D34B602610CF7477006E17C4 /* Custom App Icon */,
 				D30BC47210E188760019816B /* JavaScript Bridge */,
+				D3ADF97E11045AF80064C070 /* Scripting */,
 				D3F941341102F35B00267DA0 /* HotKey */,
 				D3DB025710D616D30057D70C /* Misc */,
 				D3F4C5A110C8D69B00E0B474 /* Foundation-WebKit Categories */,
