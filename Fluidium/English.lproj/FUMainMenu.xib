@@ -3535,6 +3535,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>actualSizeScriptAction:</string>
+							<string>closeTabScriptAction:</string>
 							<string>goBackScriptAction:</string>
 							<string>goForwardScriptAction:</string>
 							<string>goHomeScriptAction:</string>
@@ -3548,6 +3549,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3600,8 +3602,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">FUDocumentController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">newDocumentScriptAction:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>closeDocumentScriptAction:</string>
+							<string>openDocumentScriptAction:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
