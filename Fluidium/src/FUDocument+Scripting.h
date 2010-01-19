@@ -38,6 +38,9 @@
 - (NSUInteger)selectedTabIndex;
 - (void)setSelectedTabIndex:(NSUInteger)i;
 
+- (FUTabController *)selectedTabController;
+- (void)setSelectedTabController:(FUTabController *)tc;
+
 // Elements
 - (NSArray *)orderedTabControllers;
 

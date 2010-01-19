@@ -87,6 +87,16 @@
 }
 
 
+- (FUTabController *)selectedTabController {
+    return [windowController selectedTabController];
+}
+
+
+- (void)setSelectedTabController:(FUTabController *)tc {
+    [windowController selectTabController:tc];
+}
+
+
 #pragma mark -
 #pragma mark Commands
 

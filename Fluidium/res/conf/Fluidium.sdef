@@ -355,8 +355,12 @@
     		<cocoa key="displayName"/>
     	</property>
 
-		<property name="selected tab index" code="bwSi" type="integer" access="rw" description="The index of the selected tab in this window.">
+		<property name="selected tab index" code="dSTI" type="integer" access="rw" description="The index of the selected tab in this window.">
 			<cocoa key="selectedTabIndex"/>
+		</property>
+    	
+		<property name="selected tab" code="dSTb" type="tab" access="rw" description="The selected tab in this window.">
+			<cocoa key="selectedTabController"/>
 		</property>
     	
 	    <element type="tab" access="r">

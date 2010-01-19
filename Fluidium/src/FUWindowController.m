@@ -87,6 +87,8 @@
 - (void)updateEmptyTabBarLineVisibility;
 - (void)updateUberViewHeight;
 - (void)updateContentViewFrame;
+
+@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
 @end
 
 @implementation FUWindowController

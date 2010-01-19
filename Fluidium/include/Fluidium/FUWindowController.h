@@ -155,7 +155,7 @@
 @property (nonatomic, retain) FUViewSourceWindowController *viewSourceController;
 @property (nonatomic, retain) FUShortcutController *shortcutController;
 @property (nonatomic, retain) NSMutableSet *tabControllers;
-@property (nonatomic, retain) FUTabController *selectedTabController;
+@property (nonatomic, retain, readonly) FUTabController *selectedTabController; // use selectedTabIndex or selectTabController: to set
 @property (nonatomic, copy) NSString *currentTitle;
 @property (nonatomic, copy) NSString *findPanelTerm;
 @property (nonatomic, getter=isTypingInFindPanel) BOOL typingInFindPanel;

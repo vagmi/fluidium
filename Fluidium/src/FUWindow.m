@@ -14,7 +14,7 @@
 
 #import "FUWindow.h"
 #import "FUWindowController.h"
-#import "FUWindowController+Scripting.h"
+#import "FUDocument+Scripting.h"
 #import "FUPlugInController.h"
 #import "FUPlugInWrapper.h"
 #import "FUUserDefaults.h"
@@ -197,9 +197,9 @@
         if (CLOSE_CURLY == keyCode || OPEN_CURLY == keyCode) {
             FUWindowController *wc = [self windowController];
             if (CLOSE_CURLY == keyCode) {
-                [wc selectNextTabScriptAction:self];
+                [[wc document] selectNextTabScriptAction:self];
             } else if (OPEN_CURLY == keyCode) {
-                [wc selectPreviousTabScriptAction:self];
+                [[wc document] selectPreviousTabScriptAction:self];
             }
             return YES;
         }
