@@ -21,7 +21,8 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id sender = [args objectForKey:@"sender"];
-    [NSApp sendAction:@selector(goHome:) to:nil from:sender];
+    id target = [args objectForKey:@"tabController"]; // may be nil
+    [NSApp sendAction:@selector(goHome:) to:target from:sender];
     
     return nil;
 }

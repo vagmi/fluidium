@@ -261,93 +261,59 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
 
-    <command name="add bookmark" code="FuSSBkmk" description="Bookmark the current page.">
-        <cocoa class="FUAddBookmarkCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-    </command>
-
-    <command name="view source" code="FuSSVSrc" description="View source of the current page.">
-        <cocoa class="FUViewSourceCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-    </command>
-
     <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
         <cocoa class="FUSelectPreviousTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to select the previous tab. If not specified, front most window is used."/>
     </command>
 
     <command name="select next tab" code="FuSSNeXT" description="Select the next tab.">
         <cocoa class="FUSelectNextTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to select the next tab. If not specified, front most window is used."/>
     </command>
 
     <command name="go to location" code="FuSSGoTo" description="Load the URL in the location bar.">
         <cocoa class="FUGoToLocationCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to load. If not specified, front most window is used."/>
     </command>
 
     <command name="go back" code="FuSSBack" description="Go back.">
         <cocoa class="FUGoBackCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go back.">
-            <cocoa key="tabController"/>
-        </parameter>
+        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window in which to go back. If not specified, the selected tab in the front most window is used."/>
     </command>
 
     <command name="go forward" code="FuSSFwrd" description="Go forward.">
         <cocoa class="FUGoForwardCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go forward.">
-            <cocoa key="tabController"/>
-        </parameter>
+        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window in which to go forward. If not specified, the selected tab in the front most window is used."/>
     </command>
 
     <command name="go home" code="FuSSHome" description="Go home.">
         <cocoa class="FUGoHomeCommand"/>
         <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should go home.">
-            <cocoa key="tabController"/>
-        </parameter>
     </command>
 
-    <command name="reload" code="FuSSReld" description="Reload a URL.">
+    <command name="reload" code="FuSSReld" description="Reload a web page.">
         <cocoa class="FUReloadCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should be reloaded.">
-            <cocoa key="tabController"/>
-        </parameter>
+        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to reload. If not specified, the selected tab in the front most window is reloaded."/>
     </command>
 
-    <command name="stop loading" code="FuSSStop" description="Stop loading a URL.">
+    <command name="stop loading" code="FuSSStop" description="Stop loading a web page.">
         <cocoa class="FUStopLoadingCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should stop loading.">
-            <cocoa key="tabController"/>
-        </parameter>
+        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to stop loading. If not specified, the selected tab in the front most window is stopped."/>
     </command>
 
     <command name="zoom in" code="FuSSZoIn" description="Zoom in contents of the page.">
         <cocoa class="FUZoomInCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
-            <cocoa key="tabController"/>
-        </parameter>
+        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom in. If not specified, the selected tab in the front most window is zoomed."/>
     </command>
 
     <command name="zoom out" code="FuSSZoOt" description="Zoom out contents of the page.">
         <cocoa class="FUZoomOutCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
-            <cocoa key="tabController"/>
-        </parameter>
+        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom out. If not specified, the selected tab in the front most window is zoomed."/>
     </command>
 
     <command name="make actual size" code="FuSSActS" description="Zoom contents of the page to actual size.">
         <cocoa class="FUActualSizeCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
-        <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab which should zoom.">
-            <cocoa key="tabController"/>
-        </parameter>
+        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom. If not specified, the selected tab in the front most window is zoomed."/>
     </command>
 
 
@@ -376,7 +342,7 @@
         <result type="any"/>
     </command>
 
-    <class name="browser window" plural="browser windows" inherits="document" code="fuBw" description="A browser window.">
+    <class name="browser window" plural="browser windows" inherits="document" code="fWin" description="A browser window.">
     	<cocoa class="FUDocument"/>
 
     	<property name="title" code="pnam" type="text" access="r" description="The current title of this window (same as the title of the selected tab).">
@@ -393,6 +359,45 @@
 
     	<responds-to command="close">
     		<cocoa method="handleCloseScriptCommand:"/>
+    	</responds-to>
+    	<responds-to command="select previous tab">
+    		<cocoa method="handleSelectPreviousCommand:"/>
+    	</responds-to>
+    	<responds-to command="select next tab">
+    		<cocoa method="handleSelectNextCommand:"/>
+    	</responds-to>
+    	<responds-to command="go to location">
+    		<cocoa method="handleGoToLocationCommand:"/>
+    	</responds-to>
+    	<responds-to command="go back">
+    		<cocoa method="handleGoBackCommand:"/>
+    	</responds-to>
+    	<responds-to command="go forward">
+    		<cocoa method="handleGoForwardCommand:"/>
+    	</responds-to>
+    	<responds-to command="go home">
+    		<cocoa method="handleGoHomeCommand:"/>
+    	</responds-to>
+    	<responds-to command="go home">
+    		<cocoa method="handleGoHomeCommand:"/>
+    	</responds-to>
+    	<responds-to command="reload">
+    		<cocoa method="handleReloadCommand:"/>
+    	</responds-to>
+    	<responds-to command="stop loading">
+    		<cocoa method="handleStopLoadingCommand:"/>
+    	</responds-to>
+    	<responds-to command="zoom in">
+    		<cocoa method="handleZoomInCommand:"/>
+    	</responds-to>
+    	<responds-to command="zoom out">
+    		<cocoa method="handleZoomOutCommand:"/>
+    	</responds-to>
+    	<responds-to command="zoom in">
+    		<cocoa method="handleZoomInCommand:"/>
+    	</responds-to>
+    	<responds-to command="make actual size">
+    		<cocoa method="handleActualSizeCommand:"/>
     	</responds-to>
     </class>
 
@@ -426,7 +431,34 @@
         </property>
 
     	<responds-to command="close">
-    		<cocoa method="handleCloseScriptCommand:"/>
+    		<cocoa method="handleCloseCommand:"/>
+    	</responds-to>
+    	<responds-to command="go back">
+    		<cocoa method="handleGoBackCommand:"/>
+    	</responds-to>
+    	<responds-to command="go forward">
+    		<cocoa method="handleGoForwardCommand:"/>
+    	</responds-to>
+    	<responds-to command="go home">
+    		<cocoa method="handleGoHomeCommand:"/>
+    	</responds-to>
+    	<responds-to command="reload">
+    		<cocoa method="handleReloadCommand:"/>
+    	</responds-to>
+    	<responds-to command="stop loading">
+    		<cocoa method="handleStopLoadingCommand:"/>
+    	</responds-to>
+    	<responds-to command="zoom in">
+    		<cocoa method="handleZoomInCommand:"/>
+    	</responds-to>
+    	<responds-to command="zoom out">
+    		<cocoa method="handleZoomOutCommand:"/>
+    	</responds-to>
+    	<responds-to command="zoom in">
+    		<cocoa method="handleZoomInCommand:"/>
+    	</responds-to>
+    	<responds-to command="make actual size">
+    		<cocoa method="handleActualSizeCommand:"/>
     	</responds-to>
     </class>
     

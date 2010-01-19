@@ -21,7 +21,8 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id sender = [args objectForKey:@"sender"];
-    [NSApp sendAction:@selector(openTab:) to:nil from:sender];
+    id target = [[args objectForKey:@"document"] windowController]; // may be nil
+    [NSApp sendAction:@selector(openTab:) to:target from:sender];
     
     return nil;
 }

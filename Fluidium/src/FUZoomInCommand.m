@@ -21,7 +21,8 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id sender = [args objectForKey:@"sender"];
-    [NSApp sendAction:@selector(zoomIn:) to:nil from:sender];
+    id target = [args objectForKey:@"tabController"]; // may be nil
+    [NSApp sendAction:@selector(zoomIn:) to:target from:sender];
     
     return nil;
 }

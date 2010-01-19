@@ -14,6 +14,7 @@
 
 #import "FUGoToLocationCommand.h"
 #import "FUWindowController.h"
+#import "FUDocumentController.h"
 
 @implementation FUGoToLocationCommand
 
@@ -21,8 +22,9 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id sender = [args objectForKey:@"sender"];
-    [NSApp sendAction:@selector(goToLocation:) to:nil from:sender];
-    
+    id target = [[args objectForKey:@"document"] windowController]; // may be nil
+    [NSApp sendAction:@selector(goToLocation:) to:target from:sender];
+
     return nil;
 }
 

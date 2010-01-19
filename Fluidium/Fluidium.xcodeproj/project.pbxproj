@@ -128,8 +128,6 @@
 		D34B610110CF92B7006E17C4 /* prefpane_icon_appearance.png in Resources */ = {isa = PBXBuildFile; fileRef = D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */; };
 		D34B610910CF92DD006E17C4 /* FUAppearancePreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34B610710CF92DD006E17C4 /* FUAppearancePreferences.xib */; };
 		D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D350748411051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m */; };
-		D350749A11051E2C0040C287 /* FUAddBookmarkCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D350749911051E2C0040C287 /* FUAddBookmarkCommand.m */; };
-		D350749D11051E540040C287 /* FUViewSourceCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D350749C11051E540040C287 /* FUViewSourceCommand.m */; };
 		D35CBD2110D35CCB00DA1898 /* FUUserscriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */; };
 		D35CBD7A10D3652600DA1898 /* FUUserscriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD7910D3652600DA1898 /* FUUserscriptViewController.m */; };
 		D35CBD8B10D3664000DA1898 /* FUUserthingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD8A10D3664000DA1898 /* FUUserthingViewController.m */; };
@@ -197,7 +195,6 @@
 		D3ADFB161104E26D0064C070 /* FUSelectNextTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB151104E26D0064C070 /* FUSelectNextTabCommand.m */; };
 		D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB181104E2760064C070 /* FUSelectPreviousTabCommand.m */; };
 		D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */; };
-		D3ADFBE31104EA710064C070 /* FUWindowController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFBE21104EA710064C070 /* FUWindowController+Scripting.m */; };
 		D3AF875C10CFA00A00C601A3 /* FUAppearancePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */; };
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
@@ -626,10 +623,6 @@
 		D34B610810CF92DD006E17C4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUAppearancePreferences.xib; sourceTree = "<group>"; };
 		D350748311051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+FUAdditions.h"; path = "src/NSAppleEventDescriptor+FUAdditions.h"; sourceTree = "<group>"; };
 		D350748411051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+FUAdditions.m"; path = "src/NSAppleEventDescriptor+FUAdditions.m"; sourceTree = "<group>"; };
-		D350749811051E2C0040C287 /* FUAddBookmarkCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAddBookmarkCommand.h; path = src/FUAddBookmarkCommand.h; sourceTree = "<group>"; };
-		D350749911051E2C0040C287 /* FUAddBookmarkCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAddBookmarkCommand.m; path = src/FUAddBookmarkCommand.m; sourceTree = "<group>"; };
-		D350749B11051E540040C287 /* FUViewSourceCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUViewSourceCommand.h; path = src/FUViewSourceCommand.h; sourceTree = "<group>"; };
-		D350749C11051E540040C287 /* FUViewSourceCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUViewSourceCommand.m; path = src/FUViewSourceCommand.m; sourceTree = "<group>"; };
 		D35CBD1F10D35CCB00DA1898 /* FUUserscriptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptController.h; path = src/FUUserscriptController.h; sourceTree = "<group>"; };
 		D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserscriptController.m; path = src/FUUserscriptController.m; sourceTree = "<group>"; };
 		D35CBD7810D3652600DA1898 /* FUUserscriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptViewController.h; path = src/FUUserscriptViewController.h; sourceTree = "<group>"; };
@@ -731,8 +724,6 @@
 		D3ADFB181104E2760064C070 /* FUSelectPreviousTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSelectPreviousTabCommand.m; path = src/FUSelectPreviousTabCommand.m; sourceTree = "<group>"; };
 		D3ADFBC91104E9440064C070 /* FUDocumentController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUDocumentController+Scripting.h"; path = "src/FUDocumentController+Scripting.h"; sourceTree = "<group>"; };
 		D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUDocumentController+Scripting.m"; path = "src/FUDocumentController+Scripting.m"; sourceTree = "<group>"; };
-		D3ADFBE11104EA710064C070 /* FUWindowController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+Scripting.h"; path = "src/FUWindowController+Scripting.h"; sourceTree = "<group>"; };
-		D3ADFBE21104EA710064C070 /* FUWindowController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+Scripting.m"; path = "src/FUWindowController+Scripting.m"; sourceTree = "<group>"; };
 		D3AF875A10CFA00A00C601A3 /* FUAppearancePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAppearancePreferences.h; path = src/FUAppearancePreferences.h; sourceTree = "<group>"; };
 		D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAppearancePreferences.m; path = src/FUAppearancePreferences.m; sourceTree = "<group>"; };
 		D3AF875D10CFA01E00C601A3 /* FUBehaviorPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBehaviorPreferences.h; path = src/FUBehaviorPreferences.h; sourceTree = "<group>"; };
@@ -1319,8 +1310,6 @@
 				D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */,
 				D3ADFA9E110468450064C070 /* FUDocument+Scripting.h */,
 				D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */,
-				D3ADFBE11104EA710064C070 /* FUWindowController+Scripting.h */,
-				D3ADFBE21104EA710064C070 /* FUWindowController+Scripting.m */,
 				D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */,
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
 			);
@@ -1373,10 +1362,6 @@
 				D3ADFB151104E26D0064C070 /* FUSelectNextTabCommand.m */,
 				D3ADFB171104E2760064C070 /* FUSelectPreviousTabCommand.h */,
 				D3ADFB181104E2760064C070 /* FUSelectPreviousTabCommand.m */,
-				D350749811051E2C0040C287 /* FUAddBookmarkCommand.h */,
-				D350749911051E2C0040C287 /* FUAddBookmarkCommand.m */,
-				D350749B11051E540040C287 /* FUViewSourceCommand.h */,
-				D350749C11051E540040C287 /* FUViewSourceCommand.m */,
 			);
 			name = "Script Action Commands";
 			sourceTree = "<group>";
@@ -2023,10 +2008,7 @@
 				D3ADFB161104E26D0064C070 /* FUSelectNextTabCommand.m in Sources */,
 				D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */,
 				D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */,
-				D3ADFBE31104EA710064C070 /* FUWindowController+Scripting.m in Sources */,
 				D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */,
-				D350749A11051E2C0040C287 /* FUAddBookmarkCommand.m in Sources */,
-				D350749D11051E540040C287 /* FUViewSourceCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

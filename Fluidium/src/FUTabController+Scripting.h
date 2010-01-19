@@ -21,6 +21,14 @@
 - (BOOL)isSelected;
 
 // Commands
-- (id)handleCloseScriptCommand:(NSCloseCommand *)command;
+- (id)handleCloseCommand:(NSCloseCommand *)cmd;
 
+- (id)handleGoBackCommand:(NSScriptCommand *)cmd;
+- (id)handleGoForwardCommand:(NSScriptCommand *)cmd;
+- (id)handleGoHomeCommand:(NSScriptCommand *)cmd;
+- (id)handleReloadCommand:(NSScriptCommand *)cmd;
+- (id)handleStopLoadingCommand:(NSScriptCommand *)cmd;
+- (id)handleZoomInCommand:(NSScriptCommand *)cmd;
+- (id)handleZoomOutCommand:(NSScriptCommand *)cmd;
+- (id)handleActualSizeCommand:(NSScriptCommand *)cmd;
 @end

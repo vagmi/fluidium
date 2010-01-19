@@ -49,8 +49,43 @@
 }
 
 
-- (id)handleCloseScriptCommand:(NSCloseCommand *)command {
+#pragma mark -
+#pragma mark Commands
+
+- (id)handleCloseCommand:(NSCloseCommand *)cmd {
     [windowController removeTabController:self];
+    return nil;
+}
+- (id)handleGoBackCommand:(NSScriptCommand *)cmd {
+    [self goBack:nil];
+    return nil;
+}
+- (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
+    [self goForward:nil];
+    return nil;
+}
+- (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
+    [self goHome:nil];
+    return nil;
+}
+- (id)handleReloadCommand:(NSScriptCommand *)cmd {
+    [self reload:nil];
+    return nil;
+}
+- (id)handleStopLoadingCommand:(NSScriptCommand *)cmd {
+    [self stopLoading:nil];
+    return nil;
+}
+- (id)handleZoomInCommand:(NSScriptCommand *)cmd {
+    [self zoomIn:nil];
+    return nil;
+}
+- (id)handleZoomOutCommand:(NSScriptCommand *)cmd {
+    [self zoomOut:nil];
+    return nil;
+}
+- (id)handleActualSizeCommand:(NSScriptCommand *)cmd {
+    [self actualSize:nil];
     return nil;
 }
 

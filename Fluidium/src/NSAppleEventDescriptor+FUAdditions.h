@@ -17,6 +17,7 @@
 @interface NSAppleEventDescriptor (FUAdditions)
 + (NSAppleEventDescriptor *)descriptorForFluidiumProcess;
 + (NSAppleEventDescriptor *)appleEventForFluidiumEventID:(FourCharCode)code;
++ (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code;
 
 - (OSErr)sendFluidiumAppleEvent;
 @end

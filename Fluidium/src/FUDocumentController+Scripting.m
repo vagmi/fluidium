@@ -13,15 +13,15 @@
 //  limitations under the License.
 
 #import "FUDocumentController+Scripting.h"
-#import "FUNewWindowCommand.h"
+#import "FUWindowController.h"
+#import "FUTabController.h"
+#import "NSAppleEventDescriptor+FUAdditions.h"
 
 @implementation FUDocumentController (Scripting)
 
-- (IBAction)newDocumentScriptAction:(id)sender {
-//    NSScriptCommandDescription *desc = [[[NSScriptCommandDescription alloc] initWithSuiteName:@"FuSS" commandName:@" dictionary:<#(NSDictionary *)commandDeclaration#>
-//    FUNewWindowCommand *cmd = [[[FUNewWindowCommand alloc] initWithCommandDescription:desc] autorelease];
-//    [cmd setArguments:[NSDictionary dictionaryWithObject:sender forKey:@"sender"]];
-//    [cmd executeCommand];
-}
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)newDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
 
 @end
