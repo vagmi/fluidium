@@ -278,12 +278,12 @@
         <result type="any"/>
     </command>
 
-    <!-- <command name="open new browser window" code="FuSSoDoc" description="Open a new browser window.">
+    <command name="open new browser window" code="FuSSoDoc" description="Open a new browser window.">
         <cocoa class="FUOpenDocumentCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
     </command>
 
-    <command name="close" code="FuSScTab" description="Close the current tab.">
+    <!-- <command name="close" code="FuSScDoc" description="Close the current tab.">
         <cocoa class="FUCloseDocumentCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
     </command> -->
@@ -307,11 +307,6 @@
         <cocoa class="FUSelectNextTabCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to select the next tab. If not specified, front most window is used."/>
     </command>
-
-    <!-- <command name="go to location" code="FuSSGoTo" description="Load the URL in the location bar.">
-        <cocoa class="FUGoToLocationCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to load. If not specified, front most window is used."/>
-    </command> -->
 
     <command name="go back" code="FuSSBack" description="Go back.">
         <cocoa class="FUGoBackCommand"/>
@@ -390,9 +385,6 @@
     	<responds-to command="select next tab">
     		<cocoa method="handleSelectNextCommand:"/>
     	</responds-to>
-        <!-- <responds-to command="go to location">
-            <cocoa method="handleGoToLocationCommand:"/>
-        </responds-to> -->
     	<responds-to command="go back">
     		<cocoa method="handleGoBackCommand:"/>
     	</responds-to>

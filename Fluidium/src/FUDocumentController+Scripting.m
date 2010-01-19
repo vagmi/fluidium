@@ -24,6 +24,6 @@
 
 //- (IBAction)newDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
 - (IBAction)openDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oDoc'];}
-- (IBAction)closeDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];}
+- (IBAction)closeDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithCoreEventID:'clos'];}
 
 @end

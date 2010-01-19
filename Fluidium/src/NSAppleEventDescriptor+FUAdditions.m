@@ -28,13 +28,28 @@
 
 
 + (NSAppleEventDescriptor *)appleEventForFluidiumEventID:(FourCharCode)code {
+    return [self appleEventForClass:'FuSS' eventID:code];
+}
+
+
++ (NSAppleEventDescriptor *)appleEventForClass:(FourCharCode)class eventID:(FourCharCode)code {
     NSAppleEventDescriptor *targetDesc = [NSAppleEventDescriptor descriptorForFluidiumProcess];
-    return [NSAppleEventDescriptor appleEventWithEventClass:'FuSS' eventID:code targetDescriptor:targetDesc returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+    return [NSAppleEventDescriptor appleEventWithEventClass:class eventID:code targetDescriptor:targetDesc returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 }
 
 
 + (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:code];
+    
+    //NSAppleEventDescriptor *directObjDesc = [NSAppleEventDescriptor descriptorWithDescriptorType:typeWildCard bytes:<#(const void *)bytes#> length:<#(NSUInteger)byteCount#>
+    //[someAE setDescriptor:directObjDesc forKeyword:keyDirectObject];
+    
+    return [someAE sendFluidiumAppleEvent];
+}
+
+
++ (OSErr)sendVerbFirstEventWithCoreEventID:(FourCharCode)code {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:code];
     
     //NSAppleEventDescriptor *directObjDesc = [NSAppleEventDescriptor descriptorWithDescriptorType:typeWildCard bytes:<#(const void *)bytes#> length:<#(NSUInteger)byteCount#>
     //[someAE setDescriptor:directObjDesc forKeyword:keyDirectObject];

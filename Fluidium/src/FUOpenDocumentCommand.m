@@ -20,7 +20,7 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id sender = [args objectForKey:@"sender"];
-    [NSApp sendAction:@selector(openDocument:) to:nil from:sender];
+    [NSApp sendAction:@selector(newDocument:) to:nil from:sender];
     
     return nil;
 }
