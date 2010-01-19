@@ -14,7 +14,7 @@
 
 #import "FUWindowController.h"
 #import "FUWindowController+NSToolbarDelegate.h"
-#import "FUWindowController+Scripting.h"
+#import "FUDocument+Scripting.h"
 #import "FUDocumentController.h"
 #import "FUTabController.h"
 #import "FUWindow.h"
@@ -684,7 +684,7 @@
         return ![[[self selectedTabController] webView] isLoading] && [[[self selectedTabController] URLString] length];
     } else if (action == @selector(stopLoading:) || action == @selector(stopLoadingScriptAction:)) {
         return [[[self selectedTabController] webView] isLoading];
-    } else if (action == @selector(reload:) || action == @selector(addBookmark:) || action == @selector(reloadScriptAction:) || action == @selector(addBookmarkScriptAction:)) {
+    } else if (action == @selector(reload:) || action == @selector(addBookmark:) || action == @selector(reloadScriptAction:)) {
         return [[[self selectedTabController] URLString] length];
     } else if (action == @selector(goBack:) || action == @selector(goBackScriptAction:)) {
         return [[[self selectedTabController] webView] canGoBack];

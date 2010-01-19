@@ -25,9 +25,9 @@
     FUTabController *tc = [args objectForKey:@"tabController"];
     tc = tc ? tc : [[FUDocumentController instance] frontTabController];
     
-    NSString *URLString = [self directParameter];
+    tc.URLString = [self directParameter];
     
-    [[tc webView] setMainFrameURL:URLString];
+    [tc goToLocation:nil];
     
     return nil;
 }

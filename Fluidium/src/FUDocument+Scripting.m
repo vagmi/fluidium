@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUDocument+Scripting.h"
+#import "FUTabController+Scripting.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
@@ -45,7 +46,7 @@
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)goToLocationScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'GoTo'];}
+//- (IBAction)goToLocationScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'GoTo'];}
 - (IBAction)goBackScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Back'];}
 - (IBAction)goForwardScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Fwrd'];}
 - (IBAction)goHomeScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Home'];}
@@ -83,6 +84,16 @@
 
 #pragma mark -
 #pragma mark Commands
+
+- (id)handleLoadURLCommand:(NSScriptCommand *)cmd {
+    return [[windowController selectedTabController] handleLoadURLCommand:cmd];
+}
+
+
+- (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
+    return [[windowController selectedTabController] handleDoJavaScriptCommand:cmd];
+}
+
 
 - (id)handleCloseCommand:(NSCloseCommand *)cmd {
     [windowController performClose:nil];

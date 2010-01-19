@@ -181,7 +181,6 @@
 		D3ADFAEB1104E1870064C070 /* FUNewWindowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAEA1104E1870064C070 /* FUNewWindowCommand.m */; };
 		D3ADFAEE1104E1970064C070 /* FUNewTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */; };
 		D3ADFAF11104E1A30064C070 /* FUOpenLocationCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF01104E1A30064C070 /* FUOpenLocationCommand.m */; };
-		D3ADFAF41104E1EE0064C070 /* FUGoToLocationCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF31104E1EE0064C070 /* FUGoToLocationCommand.m */; };
 		D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */; };
 		D3ADFAFA1104E2170064C070 /* FUCloseTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF91104E2170064C070 /* FUCloseTabCommand.m */; };
 		D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */; };
@@ -696,8 +695,6 @@
 		D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewTabCommand.m; path = src/FUNewTabCommand.m; sourceTree = "<group>"; };
 		D3ADFAEF1104E1A30064C070 /* FUOpenLocationCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUOpenLocationCommand.h; path = src/FUOpenLocationCommand.h; sourceTree = "<group>"; };
 		D3ADFAF01104E1A30064C070 /* FUOpenLocationCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUOpenLocationCommand.m; path = src/FUOpenLocationCommand.m; sourceTree = "<group>"; };
-		D3ADFAF21104E1EE0064C070 /* FUGoToLocationCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUGoToLocationCommand.h; path = src/FUGoToLocationCommand.h; sourceTree = "<group>"; };
-		D3ADFAF31104E1EE0064C070 /* FUGoToLocationCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUGoToLocationCommand.m; path = src/FUGoToLocationCommand.m; sourceTree = "<group>"; };
 		D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCloseWindowCommand.h; path = src/FUCloseWindowCommand.h; sourceTree = "<group>"; };
 		D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCloseWindowCommand.m; path = src/FUCloseWindowCommand.m; sourceTree = "<group>"; };
 		D3ADFAF81104E2170064C070 /* FUCloseTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCloseTabCommand.h; path = src/FUCloseTabCommand.h; sourceTree = "<group>"; };
@@ -1336,8 +1333,6 @@
 				D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */,
 				D3ADFAEF1104E1A30064C070 /* FUOpenLocationCommand.h */,
 				D3ADFAF01104E1A30064C070 /* FUOpenLocationCommand.m */,
-				D3ADFAF21104E1EE0064C070 /* FUGoToLocationCommand.h */,
-				D3ADFAF31104E1EE0064C070 /* FUGoToLocationCommand.m */,
 				D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */,
 				D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */,
 				D3ADFAF81104E2170064C070 /* FUCloseTabCommand.h */,
@@ -1994,7 +1989,6 @@
 				D3ADFAEB1104E1870064C070 /* FUNewWindowCommand.m in Sources */,
 				D3ADFAEE1104E1970064C070 /* FUNewTabCommand.m in Sources */,
 				D3ADFAF11104E1A30064C070 /* FUOpenLocationCommand.m in Sources */,
-				D3ADFAF41104E1EE0064C070 /* FUGoToLocationCommand.m in Sources */,
 				D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */,
 				D3ADFAFA1104E2170064C070 /* FUCloseTabCommand.m in Sources */,
 				D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */,

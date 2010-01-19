@@ -149,7 +149,7 @@ typedef enum {
 - (IBAction)stopLoading:(id)sender {
     [webView stopLoading:sender];
 }
-
+    
 
 - (IBAction)goToLocation:(id)sender {
     if (![URLString length]) {

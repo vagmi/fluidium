@@ -19,7 +19,7 @@
 @interface FUDocument (Scripting)
 
 // Actions
-- (IBAction)goToLocationScriptAction:(id)sender;
+//- (IBAction)goToLocationScriptAction:(id)sender;
 - (IBAction)goBackScriptAction:(id)sender;
 - (IBAction)goForwardScriptAction:(id)sender;
 - (IBAction)goHomeScriptAction:(id)sender;
