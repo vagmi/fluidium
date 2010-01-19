@@ -410,9 +410,6 @@
     	<responds-to command="zoom out">
     		<cocoa method="handleZoomOutCommand:"/>
     	</responds-to>
-    	<responds-to command="zoom in">
-    		<cocoa method="handleZoomInCommand:"/>
-    	</responds-to>
     	<responds-to command="make actual size">
     		<cocoa method="handleActualSizeCommand:"/>
     	</responds-to>
@@ -478,9 +475,6 @@
     	</responds-to>
     	<responds-to command="zoom out">
     		<cocoa method="handleZoomOutCommand:"/>
-    	</responds-to>
-    	<responds-to command="zoom in">
-    		<cocoa method="handleZoomInCommand:"/>
     	</responds-to>
     	<responds-to command="make actual size">
     		<cocoa method="handleActualSizeCommand:"/>
