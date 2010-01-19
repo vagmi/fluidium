@@ -14,7 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FUOpenLocationCommand : NSScriptCommand {
+@interface FUOpenTabCommand : NSScriptCommand {
 
 }
 

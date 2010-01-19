@@ -19,6 +19,7 @@
 @interface FUDocument (Scripting)
 
 // Actions
+- (IBAction)openTabScriptAction:(id)sender;
 //- (IBAction)goToLocationScriptAction:(id)sender;
 - (IBAction)goBackScriptAction:(id)sender;
 - (IBAction)goForwardScriptAction:(id)sender;
@@ -40,10 +41,11 @@
 - (NSArray *)orderedTabControllers;
 
 // Commands
-// standard
+- (id)handleOpenTabCommand:(NSCloseCommand *)cmd;
+- (id)handleCloseTabCommand:(NSCloseCommand *)cmd;
+
 - (id)handleCloseCommand:(NSCloseCommand *)cmd;
 
-// custom
 - (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd;
 - (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd;
 - (id)handleGoToLocationCommand:(NSScriptCommand *)cmd;

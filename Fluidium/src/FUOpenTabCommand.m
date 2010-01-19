@@ -12,10 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUNewTabCommand.h"
+#import "FUOpenTabCommand.h"
 #import "FUDocumentController.h"
 
-@implementation FUNewTabCommand
+@implementation FUOpenTabCommand
 
 - (id)performDefaultImplementation {
     NSDictionary *args = [self evaluatedArguments];

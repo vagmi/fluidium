@@ -260,6 +260,33 @@
 
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
+    
+    <command name="load URL" code="FuSSLoad" description="Load a URL.">
+        <cocoa class="FULoadURLCommand"/>
+        <direct-parameter type="text" description="The URL to load."/>
+        <!-- <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the URL should be loaded.">
+            <cocoa key="tabController"/>
+        </parameter> -->
+    </command>
+
+    <command name="do JavaScript" code="FuSSdoJS" description="Applies a string of JavaScript code to a document.">
+        <cocoa class="FUDoJavaScriptCommand"/>
+        <direct-parameter type="text" description="The JavaScript code to evaluate."/>
+        <!-- <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the JavaScript should be evaluated.">
+            <cocoa key="tabController"/>
+        </parameter> -->
+        <result type="any"/>
+    </command>
+
+    <command name="open new tab" code="FuSSoTab" description="Open a new tab.">
+        <cocoa class="FUOpenTabCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
+    </command>
+
+    <command name="close tab" code="FuSScTab" description="Close the current tab.">
+        <cocoa class="FUCloseTabCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
+    </command>
 
     <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
         <cocoa class="FUSelectPreviousTabCommand"/>
@@ -316,23 +343,6 @@
         <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom. If not specified, the selected tab in the front most window is zoomed."/>
     </command>
 
-    <command name="load URL" code="FuSSLoad" description="Load a URL.">
-        <cocoa class="FULoadURLCommand"/>
-        <direct-parameter type="text" description="The URL to load."/>
-        <!-- <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the URL should be loaded.">
-            <cocoa key="tabController"/>
-        </parameter> -->
-    </command>
-
-    <command name="do JavaScript" code="FuSSdoJS" description="Applies a string of JavaScript code to a document.">
-        <cocoa class="FUDoJavaScriptCommand"/>
-        <direct-parameter type="text" description="The JavaScript code to evaluate."/>
-        <!-- <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the JavaScript should be evaluated.">
-            <cocoa key="tabController"/>
-        </parameter> -->
-        <result type="any"/>
-    </command>
-
     <class name="browser window" plural="browser windows" inherits="document" code="fWin" description="A browser window.">
     	<cocoa class="FUDocument"/>
 
@@ -354,7 +364,13 @@
     	<responds-to command="do JavaScript">
     		<cocoa method="handleDoJavaScriptCommand:"/>
     	</responds-to>
-
+    	<responds-to command="open new tab">
+    		<cocoa method="handleOpenTabCommand:"/>
+    	</responds-to>
+    	<responds-to command="close tab">
+    		<cocoa method="handleCloseTabCommand:"/>
+    	</responds-to>
+    	
     	<responds-to command="close">
     		<cocoa method="handleCloseScriptCommand:"/>
     	</responds-to>
