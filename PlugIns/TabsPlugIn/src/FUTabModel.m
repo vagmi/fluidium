@@ -60,6 +60,8 @@
 
 
 - (BOOL)wantsNewImage {
+    if (!image) return YES;
+
     [self incrementChangeCount];
     if (estimatedProgress > .9) {
         self.estimatedProgress = 1.0;
