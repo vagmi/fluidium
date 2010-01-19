@@ -22,6 +22,8 @@
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)newDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
+//- (IBAction)newDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
+- (IBAction)openDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oDoc'];}
+- (IBAction)closeDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];}
 
 @end

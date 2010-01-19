@@ -18,14 +18,17 @@
 #import "FUTabController.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
 
-@implementation FUDocument (Scripting)
+@interface FUWindowController ()
+- (void)closeWindow;
+@end
 
+@implementation FUDocument (Scripting)
 
 #pragma mark -
 #pragma mark NSObjectSpecifiers
 
 - (FourCharCode)classCode {
-    return 'fWin';
+    return 'fDoc';
 }
 
 
@@ -47,7 +50,8 @@
 #pragma mark Actions
 
 - (IBAction)openTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];}
-//- (IBAction)goToLocationScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'GoTo'];}
+- (IBAction)closeTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];}
+
 - (IBAction)goBackScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Back'];}
 - (IBAction)goForwardScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Fwrd'];}
 - (IBAction)goHomeScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Home'];}
@@ -86,6 +90,12 @@
 #pragma mark -
 #pragma mark Commands
 
+- (id)handleCloseCommand:(NSCloseCommand *)cmd {
+    [windowController closeWindow];
+    return nil;
+}
+
+
 - (id)handleOpenTabCommand:(NSCloseCommand *)cmd {
     [windowController openTab:nil];
     return nil;
@@ -108,10 +118,6 @@
 }
 
 
-- (id)handleCloseCommand:(NSCloseCommand *)cmd {
-    [windowController performClose:nil];
-    return nil;
-}
 - (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd {
     [windowController selectPreviousTab:nil];
     return nil;

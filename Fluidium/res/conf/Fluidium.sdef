@@ -4,16 +4,16 @@
 
 	<suite name="Standard Suite" code="????" description="Common classes and commands for all applications.">
 
-		<command name="open" code="aevtodoc" description="Open a document.">
-			<direct-parameter description="The file(s) to be opened.">
-				<type type="file"/>
-				<type type="file" list="yes"/>
-			</direct-parameter>
-			<result description="The opened document(s).">
-				<type type="document"/>
-				<type type="document" list="yes"/>
-			</result>
-		</command>
+        <command name="open" code="aevtodoc" description="Open a document.">
+            <direct-parameter description="The file(s) to be opened.">
+                <type type="file"/>
+                <type type="file" list="yes"/>
+            </direct-parameter>
+            <result description="The opened document(s).">
+                <type type="document"/>
+                <type type="document" list="yes"/>
+            </result>
+        </command>
 
         <enumeration name="save options" code="savo">
             <enumerator name="yes" code="yes " description="Save the file."/>
@@ -21,26 +21,26 @@
             <enumerator name="ask" code="ask " description="Ask the user whether or not to save the file."/>
         </enumeration>
 
-		<command name="close" code="coreclos" description="Close a document.">
-			<cocoa class="NSCloseCommand"/>
-			<direct-parameter type="specifier" description="the document(s) or window(s) to close."/>
-			<parameter name="saving" code="savo" type="save options" optional="yes" description="Should changes be saved before closing?">
-				<cocoa key="SaveOptions"/>
-			</parameter>
-			<parameter name="saving in" code="kfil" type="file" optional="yes" description="The file in which to save the document, if so.">
-				<cocoa key="File"/>
-			</parameter>
-		</command>
+        <command name="close" code="coreclos" description="Close a document.">
+            <cocoa class="NSCloseCommand"/>
+            <direct-parameter type="specifier" description="the document(s) or window(s) to close."/>
+            <parameter name="saving" code="savo" type="save options" optional="yes" description="Should changes be saved before closing?">
+                <cocoa key="SaveOptions"/>
+            </parameter>
+            <parameter name="saving in" code="kfil" type="file" optional="yes" description="The file in which to save the document, if so.">
+                <cocoa key="File"/>
+            </parameter>
+        </command>
 
-		<command name="save" code="coresave" description="Save a document.">
-			<direct-parameter type="specifier" description="The document(s) or window(s) to save."/>
-			<parameter name="in" code="kfil" type="file" optional="yes" description="The file in which to save the document.">
-				<cocoa key="File"/>
-			</parameter>
-			<parameter name="as" code="fltp" type="webarchive" optional="yes" description="The file format to use.">
-				<cocoa key="FileType"/>
-			</parameter>
-		</command>
+        <command name="save" code="coresave" description="Save a document.">
+            <direct-parameter type="specifier" description="The document(s) or window(s) to save."/>
+            <parameter name="in" code="kfil" type="file" optional="yes" description="The file in which to save the document.">
+                <cocoa key="File"/>
+            </parameter>
+            <parameter name="as" code="fltp" type="webarchive" optional="yes" description="The file format to use.">
+                <cocoa key="FileType"/>
+            </parameter>
+        </command>
 
 		<enumeration name="printing error handling" code="enum">
 			<enumerator name="standard" code="lwst" description="Standard PostScript error handling">
@@ -278,6 +278,16 @@
         <result type="any"/>
     </command>
 
+    <!-- <command name="open new browser window" code="FuSSoDoc" description="Open a new browser window.">
+        <cocoa class="FUOpenDocumentCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
+    </command>
+
+    <command name="close" code="FuSScTab" description="Close the current tab.">
+        <cocoa class="FUCloseDocumentCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
+    </command> -->
+
     <command name="open new tab" code="FuSSoTab" description="Open a new tab.">
         <cocoa class="FUOpenTabCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
@@ -343,7 +353,7 @@
         <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom. If not specified, the selected tab in the front most window is zoomed."/>
     </command>
 
-    <class name="browser window" plural="browser windows" inherits="document" code="fWin" description="A browser window.">
+    <class name="browser window" plural="browser windows" inherits="document" code="fDoc" description="A browser window.">
     	<cocoa class="FUDocument"/>
 
     	<property name="title" code="pnam" type="text" access="r" description="The current title of this window (same as the title of the selected tab).">
@@ -372,7 +382,7 @@
     	</responds-to>
     	
     	<responds-to command="close">
-    		<cocoa method="handleCloseScriptCommand:"/>
+    		<cocoa method="handleCloseCommand:"/>
     	</responds-to>
     	<responds-to command="select previous tab">
     		<cocoa method="handleSelectPreviousCommand:"/>

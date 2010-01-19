@@ -16,6 +16,7 @@
 
 @interface FUDocumentController (Scripting)
 
-- (IBAction)newDocumentScriptAction:(id)sender;
+- (IBAction)openDocumentScriptAction:(id)sender;
+- (IBAction)closeDocumentScriptAction:(id)sender;
 
 @end

@@ -12,10 +12,17 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <Cocoa/Cocoa.h>
+#import "FUOpenDocumentCommand.h"
 
-@interface FUNewWindowCommand : NSScriptCommand {
+@implementation FUOpenDocumentCommand
 
+- (id)performDefaultImplementation {
+    NSDictionary *args = [self evaluatedArguments];
+    
+    id sender = [args objectForKey:@"sender"];
+    [NSApp sendAction:@selector(openDocument:) to:nil from:sender];
+    
+    return nil;
 }
 
 @end

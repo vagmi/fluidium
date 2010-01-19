@@ -12,18 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUCloseWindowCommand.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUCloseWindowCommand
+@interface FUOpenDocumentCommand : NSScriptCommand {
 
-- (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
-    
-    id sender = [args objectForKey:@"sender"];
-    id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(performClose:) to:target from:sender];
-    
-    return nil;
 }
 
 @end

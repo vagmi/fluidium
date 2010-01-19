@@ -20,7 +20,8 @@
 
 // Actions
 - (IBAction)openTabScriptAction:(id)sender;
-//- (IBAction)goToLocationScriptAction:(id)sender;
+- (IBAction)closeTabScriptAction:(id)sender;
+
 - (IBAction)goBackScriptAction:(id)sender;
 - (IBAction)goForwardScriptAction:(id)sender;
 - (IBAction)goHomeScriptAction:(id)sender;

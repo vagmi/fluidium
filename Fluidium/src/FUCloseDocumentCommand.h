@@ -14,7 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FUCloseWindowCommand : NSScriptCommand {
+@interface FUCloseDocumentCommand : NSScriptCommand {
 
 }
 
