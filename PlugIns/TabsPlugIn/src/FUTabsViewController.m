@@ -95,8 +95,7 @@
 
 - (IBAction)closeTabButtonClick:(id)sender {
     FUWindowController *wc = [self windowController];
-    FUTabController *tc = [wc tabControllerAtIndex:[sender tag]];
-    [wc removeTabController:tc];
+    [wc removeTabControllerAtIndex:[sender tag]];
 }
 
 

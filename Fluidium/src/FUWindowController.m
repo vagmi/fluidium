@@ -612,6 +612,13 @@
 }
 
 
+// this is overridden in (Scripting) category
+- (void)removeTabControllerAtIndex:(NSUInteger)i {
+    FUTabController *tc = [self tabControllerAtIndex:i];
+    [self removeTabController:tc];
+}
+
+
 - (void)selectTabController:(FUTabController *)tc {
     self.selectedTabIndex = [tabView indexOfTabViewItem:[self tabViewItemForTabController:tc]];
 }

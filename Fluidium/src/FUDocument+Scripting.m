@@ -47,9 +47,27 @@
 
 
 #pragma mark -
+
+- (void)removeTabControllerAtIndex:(NSUInteger)i {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'cTab'];
+    
+    
+    NSIndexSpecifier *spec = [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[NSScriptClassDescription classDescriptionForClass:[FUDocument class]]
+                                                                       containerSpecifier:[self objectSpecifier]
+                                                                                      key:@"orderedTabControllers"
+                                                                                    index:i] autorelease];
+
+    [someAE setDescriptor:[spec descriptor] forKeyword:keyDirectObject];
+    
+    [someAE sendFluidiumAppleEvent];
+}
+
+
+#pragma mark -
 #pragma mark Actions
 
 - (IBAction)openTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];}
+
 - (IBAction)closeTabScriptAction:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
 }

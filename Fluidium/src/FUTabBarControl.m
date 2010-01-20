@@ -52,7 +52,10 @@
 
 - (void)closeTabClick:(id)sender {
     NSTabViewItem *tabItem = [sender representedObject];
-    [[self windowController] removeTabViewItem:tabItem];
+    //[[self windowController] removeTabViewItem:tabItem];
+    // must go thru -removeTabControllerAtIndex: to get scripting recordability
+    NSInteger i = [tabView indexOfTabViewItem:tabItem];
+    [[self windowController] removeTabControllerAtIndex:i];
 }
 
 
