@@ -366,6 +366,12 @@
 }
 
 
+// overridden in (Scripting) category to send close events for background tabs thru the scripting architecture for recording
+- (IBAction)closeTabAtIndex:(id)sender {
+    [self removeTabControllerAtIndex:[sender tag]];
+}
+
+
 - (IBAction)selectNextTab:(id)sender {
     NSInteger c = [tabView numberOfTabViewItems];
     NSUInteger i = self.selectedTabIndex + 1;
@@ -612,7 +618,6 @@
 }
 
 
-// this is overridden in (Scripting) category
 - (void)removeTabControllerAtIndex:(NSUInteger)i {
     FUTabController *tc = [self tabControllerAtIndex:i];
     [self removeTabController:tc];

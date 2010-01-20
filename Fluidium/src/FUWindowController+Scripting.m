@@ -18,9 +18,14 @@
 
 @implementation FUWindowController (Scripting)
 
-// override this method to send close events for background tabs thru the scripting architecture for recording
-- (void)removeTabControllerAtIndex:(NSUInteger)i {
-    FUTabController *tc = [self tabControllerAtIndex:i];
+// overridden to send close events for background tabs thru the scripting architecture for recording
+- (IBAction)closeTabAtIndex:(id)sender {
+    [self closeTabAtIndexScriptAction:sender];
+}
+
+
+- (IBAction)closeTabAtIndexScriptAction:(id)sender {
+    FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
     
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'cTab'];
     NSAppleEventDescriptor *tcDesc = [[tc objectSpecifier] descriptor];

@@ -51,11 +51,12 @@
 #pragma mark Overridden
 
 - (void)closeTabClick:(id)sender {
-    NSTabViewItem *tabItem = [sender representedObject];
+    //NSTabViewItem *tabItem = [sender representedObject];
     //[[self windowController] removeTabViewItem:tabItem];
-    // must go thru -removeTabControllerAtIndex: to get scripting recordability
-    NSInteger i = [tabView indexOfTabViewItem:tabItem];
-    [[self windowController] removeTabControllerAtIndex:i];
+    
+    // must go thru -closeTabAtIndex: to get scripting recordability
+    //NSLog(@"%s index: %d", _cmd, [sender tag]);
+    [[self windowController] closeTabAtIndex:sender];
 }
 
 
@@ -145,6 +146,7 @@
     [item setTarget:self];
     [item setRepresentedObject:tabViewItem];
     [item setOnStateImage:nil];
+    [item setTag:rightClickCellIndex];
     [menu addItem:item];
     
     item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Move Tab to New Window", @"")

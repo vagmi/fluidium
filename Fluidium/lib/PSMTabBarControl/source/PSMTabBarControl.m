@@ -1396,8 +1396,10 @@
 					PSMTabBarCell	*otherCell;
 					
 					while ((otherCell = [enumerator nextObject])) {
-						if (otherCell != cell)
+						if (otherCell != cell) {
+                            [otherCell setTag:[_cells indexOfObjectIdenticalTo:otherCell]];
 							[self performSelector:@selector(closeTabClick:) withObject:otherCell];
+                        }
 					}
 					
 					//Fix the close button for the clicked tab not to be pressed
@@ -1405,6 +1407,7 @@
 					
 				} else {
 					//Otherwise, close this tab
+                    [cell setTag:[_cells indexOfObjectIdenticalTo:cell]];
 					[self performSelector:@selector(closeTabClick:) withObject:cell];
 				}
 

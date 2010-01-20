@@ -96,6 +96,7 @@
 
 - (IBAction)openTab:(id)sender;
 - (IBAction)closeTab:(id)sender;
+- (IBAction)closeTabAtIndex:(id)sender;
 - (IBAction)selectNextTab:(id)sender;
 - (IBAction)selectPreviousTab:(id)sender;
 
