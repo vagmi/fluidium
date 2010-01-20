@@ -20,11 +20,11 @@
 
 // overridden to send close events for background tabs thru the scripting architecture for recording
 - (IBAction)takeTabIndexToCloseFrom:(id)sender {
-    [self closeTabAtIndexScriptAction:sender];
+    [self takeTabIndexToCloseFromScriptAction:sender];
 }
 
 
-- (IBAction)closeTabAtIndexScriptAction:(id)sender {
+- (IBAction)takeTabIndexToCloseFromScriptAction:(id)sender {
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
     
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'cTab'];

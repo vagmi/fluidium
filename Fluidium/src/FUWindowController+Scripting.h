@@ -15,5 +15,5 @@
 #import "FUWindowController.h"
 
 @interface FUWindowController (Scripting)
-- (IBAction)closeTabAtIndexScriptAction:(id)sender;
+- (IBAction)takeTabIndexToCloseFromScriptAction:(id)sender;
 @end
