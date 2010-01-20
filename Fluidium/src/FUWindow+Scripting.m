@@ -16,6 +16,8 @@
 
 @implementation FUWindow (Scripting)
 
+// this is here so -[FUDocumentController(Scripting) performClose:] will receive this event instead 
+// for propertly communicating a document window close thru scripting for recording purposes
 - (BOOL)respondsToSelector:(SEL)sel {
     if (@selector(performClose:) == sel) {
         return NO;
