@@ -223,7 +223,7 @@
     NSURL *URL = nil;
     if ([types containsObject:TDTabPboardType]) {
         [wc removeTabController:draggingTabController];
-        [wc addTabController:draggingTabController atIndex:i];
+        [wc insertTabController:draggingTabController atIndex:i];
         self.draggingTabController = nil;
 
         [self updateAllTabModelsFromIndex:i];

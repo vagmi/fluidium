@@ -585,7 +585,7 @@
 
 - (FUTabController *)addNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select {
     FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
-    [self addTabController:tc atIndex:i];
+    [self insertTabController:tc atIndex:i];
     if (select) {
         self.selectedTabIndex = i;
         [[self window] makeFirstResponder:locationComboBox];
@@ -595,11 +595,11 @@
 
 
 - (void)addTabController:(FUTabController *)tc {
-    [self addTabController:tc atIndex:[self preferredIndexForNewTab]];
+    [self insertTabController:tc atIndex:[self preferredIndexForNewTab]];
 }
 
 
-- (void)addTabController:(FUTabController *)tc atIndex:(NSInteger)i {
+- (void)insertTabController:(FUTabController *)tc atIndex:(NSInteger)i {
     if ([tabControllers containsObject:tc]) {
         return;
     }
