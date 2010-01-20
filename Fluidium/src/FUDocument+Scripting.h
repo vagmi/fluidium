@@ -45,8 +45,8 @@
 - (NSArray *)orderedTabControllers;
 
 // Commands
-- (id)handleOpenTabCommand:(NSCloseCommand *)cmd;
-- (id)handleCloseTabCommand:(NSCloseCommand *)cmd;
+- (id)handleOpenTabCommand:(NSScriptCommand *)cmd;
+- (id)handleCloseTabCommand:(NSScriptCommand *)cmd;
 
 - (id)handleCloseCommand:(NSCloseCommand *)cmd;
 

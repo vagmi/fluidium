@@ -14,8 +14,10 @@
 
 #import "FUWindowController.h"
 #import "FUWindowController+NSToolbarDelegate.h"
+#import "FUDocument.h"
 #import "FUDocument+Scripting.h"
 #import "FUDocumentController.h"
+#import "FUDocumentController+Scripting.h"
 #import "FUTabController.h"
 #import "FUWindow.h"
 #import "FUUserDefaults.h"
@@ -350,7 +352,12 @@
 }
 
 
-- (IBAction)performClose:(id)sender {
+- (IBAction)closeWindow:(id)sender {
+    [self closeWindow];
+}
+
+
+- (IBAction)closeTab:(id)sender {
     if (1 == [tabView numberOfTabViewItems]) {
         [self closeWindow];
     } else {

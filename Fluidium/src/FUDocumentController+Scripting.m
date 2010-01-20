@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUDocumentController+Scripting.h"
+#import "FUDocument+Scripting.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
@@ -23,7 +24,23 @@
 #pragma mark Actions
 
 //- (IBAction)newDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
-- (IBAction)openDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oDoc'];}
-- (IBAction)closeDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithCoreEventID:'clos'];}
+- (IBAction)openDocumentScriptAction:(id)sender {
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oDoc'];
+}
+
+
+- (IBAction)closeDocumentScriptAction:(id)sender {
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
+}
+
+
+- (IBAction)openTabScriptAction:(id)sender {
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];
+}
+
+
+- (IBAction)performClose:(id)sender {
+    [NSApp sendAction:@selector(closeTabScriptAction:) to:nil from:sender];
+}
 
 @end

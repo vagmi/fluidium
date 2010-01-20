@@ -283,10 +283,10 @@
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
     </command>
 
-    <!-- <command name="close" code="FuSScDoc" description="Close the current tab.">
+    <command name="close browser window" code="FuSScDoc" description="Close the current browser window.">
         <cocoa class="FUCloseDocumentCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
-    </command> -->
+    </command>
 
     <command name="open new tab" code="FuSSoTab" description="Open a new tab.">
         <cocoa class="FUOpenTabCommand"/>
@@ -380,7 +380,7 @@
     		<cocoa method="handleCloseTabCommand:"/>
     	</responds-to>
     	
-    	<responds-to command="close">
+    	<responds-to command="close browser window">
     		<cocoa method="handleCloseCommand:"/>
     	</responds-to>
     	<responds-to command="select previous tab">
@@ -452,7 +452,7 @@
     		<cocoa method="handleDoJavaScriptCommand:"/>
     	</responds-to>
 
-    	<responds-to command="close">
+    	<responds-to command="close tab">
     		<cocoa method="handleCloseCommand:"/>
     	</responds-to>
     	<responds-to command="go back">

@@ -174,6 +174,7 @@
 		D3A3283310FF101500032B66 /* OAMiniAction.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282B10FF101500032B66 /* OAMiniAction.png */; };
 		D3A3283410FF101500032B66 /* OAMiniAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282C10FF101500032B66 /* OAMiniAdd.png */; };
 		D3A3283510FF101500032B66 /* OAMiniRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282D10FF101500032B66 /* OAMiniRemove.png */; };
+		D3ACEBAD1106C45F005A3CF6 /* FUWindow+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACEBAC1106C45F005A3CF6 /* FUWindow+Scripting.m */; };
 		D3ADF98F11045B870064C070 /* FUDoJavaScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */; };
 		D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */; };
 		D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */; };
@@ -680,6 +681,8 @@
 		D3A3282B10FF101500032B66 /* OAMiniAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniAction.png; sourceTree = "<group>"; };
 		D3A3282C10FF101500032B66 /* OAMiniAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniAdd.png; sourceTree = "<group>"; };
 		D3A3282D10FF101500032B66 /* OAMiniRemove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniRemove.png; sourceTree = "<group>"; };
+		D3ACEBAB1106C45F005A3CF6 /* FUWindow+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindow+Scripting.h"; path = "src/FUWindow+Scripting.h"; sourceTree = "<group>"; };
+		D3ACEBAC1106C45F005A3CF6 /* FUWindow+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindow+Scripting.m"; path = "src/FUWindow+Scripting.m"; sourceTree = "<group>"; };
 		D3ADF98D11045B870064C070 /* FUDoJavaScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDoJavaScriptCommand.h; path = src/FUDoJavaScriptCommand.h; sourceTree = "<group>"; };
 		D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDoJavaScriptCommand.m; path = src/FUDoJavaScriptCommand.m; sourceTree = "<group>"; };
 		D3ADF9D011045FDB0064C070 /* FULoadURLCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FULoadURLCommand.h; path = src/FULoadURLCommand.h; sourceTree = "<group>"; };
@@ -1306,6 +1309,8 @@
 				D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */,
 				D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */,
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
+				D3ACEBAB1106C45F005A3CF6 /* FUWindow+Scripting.h */,
+				D3ACEBAC1106C45F005A3CF6 /* FUWindow+Scripting.m */,
 			);
 			name = Scripting;
 			sourceTree = "<group>";
@@ -1997,6 +2002,7 @@
 				D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */,
 				D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */,
 				D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */,
+				D3ACEBAD1106C45F005A3CF6 /* FUWindow+Scripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUCloseDocumentCommand.h"
+#import "FUWindowController.h"
 
 @implementation FUCloseDocumentCommand
 
@@ -21,7 +22,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(performClose:) to:target from:sender];
+    [NSApp sendAction:@selector(closeWindow:) to:target from:sender];
     
     return nil;
 }

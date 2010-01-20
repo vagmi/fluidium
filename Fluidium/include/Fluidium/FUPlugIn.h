@@ -65,7 +65,7 @@ typedef enum {
 // your impl will also be registered (by the Fluid SSB) for all NSWindow Notifications on the window with which it is associated, if it responds to the appropriate callback selectors
 // you can implement the NSWindowNotification callback methods if you like. they will be called if you do.
 FU_EXTERN
-extern @interface FUPlugIn : NSObject {
+@interface FUPlugIn : NSObject {
 @public
     NSViewController *preferencesViewController;
     NSString *identifier;

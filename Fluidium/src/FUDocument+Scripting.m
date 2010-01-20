@@ -50,7 +50,9 @@
 #pragma mark Actions
 
 - (IBAction)openTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];}
-- (IBAction)closeTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];}
+- (IBAction)closeTabScriptAction:(id)sender {
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
+}
 
 - (IBAction)goBackScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Back'];}
 - (IBAction)goForwardScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Fwrd'];}
@@ -101,19 +103,19 @@
 #pragma mark Commands
 
 - (id)handleCloseCommand:(NSCloseCommand *)cmd {
-    [windowController closeWindow];
+    [windowController closeWindow:nil];
     return nil;
 }
 
 
-- (id)handleOpenTabCommand:(NSCloseCommand *)cmd {
+- (id)handleOpenTabCommand:(NSScriptCommand *)cmd {
     [windowController openTab:nil];
     return nil;
 }
 
 
-- (id)handleCloseTabCommand:(NSCloseCommand *)cmd {
-    [windowController performClose:nil];
+- (id)handleCloseTabCommand:(NSScriptCommand *)cmd {
+    [windowController closeTab:nil];
     return nil;
 }
 

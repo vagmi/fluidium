@@ -18,5 +18,8 @@
 
 - (IBAction)openDocumentScriptAction:(id)sender;
 - (IBAction)closeDocumentScriptAction:(id)sender;
+- (IBAction)openTabScriptAction:(id)sender;
+
+- (IBAction)performClose:(id)sender;
 
 @end

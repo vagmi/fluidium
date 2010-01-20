@@ -113,11 +113,6 @@
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)performClose:(id)sender {
-    [[self windowController] performClose:sender];
-}
-
-
 - (IBAction)forcePerformClose:(id)sender {
     [super performClose:sender];
 }

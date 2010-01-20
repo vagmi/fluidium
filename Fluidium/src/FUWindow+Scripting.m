@@ -12,19 +12,17 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUCloseTabCommand.h"
-#import "FUWindowController.h"
+#import "FUWindow+Scripting.h"
 
-@implementation FUCloseTabCommand
+@implementation FUWindow (Scripting)
 
-- (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
+- (BOOL)respondsToSelector:(SEL)sel {
+    if (@selector(performClose:) == sel) {
+        return NO;
+    } else {
+        return [super respondsToSelector:sel];
+    }
     
-    id sender = [args objectForKey:@"sender"];
-    id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(closeTab:) to:target from:sender];
-    
-    return nil;
 }
 
 @end

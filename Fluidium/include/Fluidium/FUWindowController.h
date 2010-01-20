@@ -92,8 +92,10 @@
 - (IBAction)emptyCache:(id)sender;
 - (IBAction)toggleToolbarShown:(id)sender;
 
+- (IBAction)closeWindow:(id)sender;
+
 - (IBAction)openTab:(id)sender;
-- (IBAction)performClose:(id)sender;
+- (IBAction)closeTab:(id)sender;
 - (IBAction)selectNextTab:(id)sender;
 - (IBAction)selectPreviousTab:(id)sender;
 
