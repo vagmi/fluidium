@@ -126,7 +126,7 @@
 - (void)addTabController:(FUTabController *)tc;
 - (void)addTabController:(FUTabController *)tc atIndex:(NSInteger)i;
 
-- (BOOL)removeTabController:(FUTabController *)tc;
+- (void)removeTabController:(FUTabController *)tc;
 - (void)selectTabController:(FUTabController *)tc;
 
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i;

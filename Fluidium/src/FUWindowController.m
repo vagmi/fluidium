@@ -603,8 +603,12 @@
 }
 
 
-- (BOOL)removeTabController:(FUTabController *)tc {
-    return [self removeTabViewItem:[self tabViewItemForTabController:tc]];
+- (void)removeTabController:(FUTabController *)tc {
+    if (1 == [tabControllers count]) {
+        [self closeWindow];
+    } else {
+        [self removeTabViewItem:[self tabViewItemForTabController:tc]];
+    }
 }
 
 
