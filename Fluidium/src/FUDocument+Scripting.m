@@ -47,26 +47,11 @@
 
 
 #pragma mark -
-
-- (void)removeTabControllerAtIndex:(NSUInteger)i {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'cTab'];
-    
-    
-    NSIndexSpecifier *spec = [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[NSScriptClassDescription classDescriptionForClass:[FUDocument class]]
-                                                                       containerSpecifier:[self objectSpecifier]
-                                                                                      key:@"orderedTabControllers"
-                                                                                    index:i] autorelease];
-
-    [someAE setDescriptor:[spec descriptor] forKeyword:keyDirectObject];
-    
-    [someAE sendFluidiumAppleEvent];
-}
-
-
-#pragma mark -
 #pragma mark Actions
 
-- (IBAction)openTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];}
+- (IBAction)openTabScriptAction:(id)sender {
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];
+}
 
 - (IBAction)closeTabScriptAction:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
@@ -152,42 +137,62 @@
     [windowController selectPreviousTab:nil];
     return nil;
 }
+
+
 - (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd {
     [windowController selectNextTab:nil];
     return nil;
 }
+
+
 - (id)handleGoToLocationCommand:(NSScriptCommand *)cmd {
     [windowController goToLocation:nil];
     return nil;
 }
+
+
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
     [windowController goBack:nil];
     return nil;
 }
+
+
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
     [windowController goForward:nil];
     return nil;
 }
+
+
 - (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
     [windowController goHome:nil];
     return nil;
 }
+
+
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
     [windowController reload:nil];
     return nil;
 }
+
+
 - (id)handleStopLoadingCommand:(NSScriptCommand *)cmd {
     [windowController stopLoading:nil];
     return nil;
 }
+
+
 - (id)handleZoomInCommand:(NSScriptCommand *)cmd {
     [windowController zoomIn:nil];
     return nil;
 }
+
+
 - (id)handleZoomOutCommand:(NSScriptCommand *)cmd {
     [windowController zoomOut:nil];
     return nil;
 }
+
+
 - (id)handleActualSizeCommand:(NSScriptCommand *)cmd {
     [windowController actualSize:nil];
     return nil;

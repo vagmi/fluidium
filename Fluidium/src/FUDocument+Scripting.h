@@ -18,8 +18,6 @@
 
 @interface FUDocument (Scripting)
 
-- (void)removeTabControllerAtIndex:(NSUInteger)i;
-
 // Actions
 - (IBAction)openTabScriptAction:(id)sender;
 - (IBAction)closeTabScriptAction:(id)sender;
