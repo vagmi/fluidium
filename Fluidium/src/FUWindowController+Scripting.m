@@ -27,7 +27,7 @@
 - (IBAction)takeTabIndexToCloseFromScriptAction:(id)sender {
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
     
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'cTab'];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[tc objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
     
