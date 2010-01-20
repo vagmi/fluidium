@@ -94,7 +94,7 @@
 
 
 - (IBAction)closeTabButtonClick:(id)sender {
-    [[self windowController] closeTabAtIndex:sender];
+    [[self windowController] takeTabIndexToCloseFrom:sender];
 }
 
 

@@ -20,8 +20,5 @@
     NSInteger rightClickCellIndex;
 }
 
-- (IBAction)reloadTab:(id)sender;
-- (IBAction)moveTabToNewWindow:(id)sender;
-
 - (FUWindowController *)windowController;
 @end

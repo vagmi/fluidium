@@ -18,6 +18,7 @@
 #import <TDAppKit/TDUtils.h>
 #import <TDAppKit/NSImage+TDAdditions.h>
 #import <Fluidium/FUUtils.h>
+#import <Fluidium/FUWindowController.h>
 
 #define NORMAL_RADIUS 4
 #define SMALL_RADIUS 3
@@ -86,6 +87,7 @@ static NSImage *sProgressImage = nil;
 @end
 
 @interface FUTabListItem ()
+- (void)displayContextMenu:(NSTimer *)timer;
 - (NSImage *)imageNamed:(NSString *)name scaledToSize:(NSSize)size;
 - (void)startObserveringModel:(FUTabModel *)m;
 - (void)stopObserveringModel:(FUTabModel *)m;
@@ -186,6 +188,19 @@ static NSImage *sProgressImage = nil;
     self.viewController = nil;
     self.drawHiRezTimer = nil;
     [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark Events
+
+- (void)rightMouseDown:(NSEvent *)evt {
+    NSTimer *timer = [NSTimer timerWithTimeInterval:0 
+                                             target:self 
+                                           selector:@selector(displayContextMenu:) 
+                                           userInfo:evt 
+                                            repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
 
@@ -290,6 +305,29 @@ static NSImage *sProgressImage = nil;
         [self startObserveringModel:model];
     }
 }
+
+
+#pragma mark -
+#pragma mark Private
+
+- (void)displayContextMenu:(NSTimer *)timer {
+    NSEvent *evt = [timer userInfo];
+    
+    NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
+                                        location:[evt locationInWindow]
+                                   modifierFlags:[evt modifierFlags] 
+                                       timestamp:[evt timestamp] 
+                                    windowNumber:[evt windowNumber] 
+                                         context:[evt context]
+                                     eventNumber:[evt eventNumber] 
+                                      clickCount:[evt clickCount] 
+                                        pressure:[evt pressure]];
+    
+    NSMenu *menu = [[[self window] windowController] contextMenuForTabAtIndex:model.index];
+    [NSMenu popUpContextMenu:menu withEvent:click forView:self];
+    [timer invalidate];
+}
+
 
 
 - (NSImage *)imageNamed:(NSString *)name scaledToSize:(NSSize)size {

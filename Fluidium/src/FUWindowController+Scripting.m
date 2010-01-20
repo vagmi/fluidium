@@ -19,7 +19,7 @@
 @implementation FUWindowController (Scripting)
 
 // overridden to send close events for background tabs thru the scripting architecture for recording
-- (IBAction)closeTabAtIndex:(id)sender {
+- (IBAction)takeTabIndexToCloseFrom:(id)sender {
     [self closeTabAtIndexScriptAction:sender];
 }
 

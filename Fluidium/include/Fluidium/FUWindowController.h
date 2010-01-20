@@ -96,7 +96,10 @@
 
 - (IBAction)openTab:(id)sender;
 - (IBAction)closeTab:(id)sender;
-- (IBAction)closeTabAtIndex:(id)sender;
+- (IBAction)takeTabIndexToCloseFrom:(id)sender;
+- (IBAction)takeTabIndexToReloadFrom:(id)sender;
+- (IBAction)takeTabIndexToMoveToNewWindowFrom:(id)sender;
+
 - (IBAction)selectNextTab:(id)sender;
 - (IBAction)selectPreviousTab:(id)sender;
 
@@ -135,6 +138,8 @@
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i;
 - (FUTabController *)tabControllerForWebView:(WebView *)wv;
 - (NSInteger)indexOfTabController:(FUTabController *)tc;
+
+- (NSMenu *)contextMenuForTabAtIndex:(NSUInteger)i;
 
 - (NSArray *)webViews;
 

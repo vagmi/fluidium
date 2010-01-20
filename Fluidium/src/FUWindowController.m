@@ -367,8 +367,31 @@
 
 
 // overridden in (Scripting) category to send close events for background tabs thru the scripting architecture for recording
-- (IBAction)closeTabAtIndex:(id)sender {
+- (IBAction)takeTabIndexToCloseFrom:(id)sender {
     [self removeTabControllerAtIndex:[sender tag]];
+}
+
+
+- (IBAction)takeTabIndexToReloadFrom:(id)sender {
+    FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
+    [tc reload:sender];
+}
+
+
+- (IBAction)takeTabIndexToMoveToNewWindowFrom:(id)sender {
+    FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
+    
+    NSError *err = nil;
+    FUWindowController *newwc = [[[FUDocumentController instance] openUntitledDocumentAndDisplay:YES error:&err] windowController];
+    
+    if (newwc) {
+        [self removeTabController:tc];
+        FUTabController *oldtc = [newwc selectedTabController];
+        [newwc addTabController:tc];
+        [newwc removeTabController:oldtc];
+    } else {
+        NSLog(@"%@", err);
+    }
 }
 
 
@@ -638,6 +661,16 @@
 }
 
 
+- (FUTabController *)tabControllerForWebView:(WebView *)wv {
+    for (FUTabController *tc in tabControllers) {
+        if (wv == [tc webView]) {
+            return tc;
+        }
+    }
+    return nil;
+}
+
+
 - (NSInteger)indexOfTabController:(FUTabController *)tc {
     NSInteger i = 0;
     for (NSTabViewItem *tabItem in [tabView tabViewItems]) {
@@ -650,13 +683,44 @@
 }
 
 
-- (FUTabController *)tabControllerForWebView:(WebView *)wv {
-    for (FUTabController *tc in tabControllers) {
-        if (wv == [tc webView]) {
-            return tc;
-        }
+- (NSMenu *)contextMenuForTabAtIndex:(NSUInteger)i {
+    NSTabViewItem *tabViewItem = [tabView tabViewItemAtIndex:i];
+    NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    NSMenuItem *item = nil;
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Close Tab", @"")
+                                       action:@selector(takeTabIndexToCloseFrom:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:tabViewItem];
+    [item setOnStateImage:nil];
+    [item setTag:i];
+    [menu addItem:item];
+    
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Move Tab to New Window", @"")
+                                       action:@selector(takeTabIndexToMoveToNewWindowFrom:) 
+                                keyEquivalent:@""] autorelease];
+    [item setTarget:self];
+    [item setRepresentedObject:tabViewItem];
+    [item setOnStateImage:nil];
+    [item setTag:i];
+    [menu addItem:item];    
+    
+    FUTabController *tc = [self tabControllerAtIndex:i];
+    
+    if ([tc canReload]) {
+        [menu addItem:[NSMenuItem separatorItem]];
+        
+        item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reload Tab", @"")
+                                           action:@selector(takeTabIndexToReloadFrom:) 
+                                    keyEquivalent:@""] autorelease];
+        [item setTarget:self];
+        [item setRepresentedObject:tabViewItem];
+        [item setOnStateImage:nil];
+        [item setTag:i];
+        [menu addItem:item];
     }
-    return nil;
+    
+    return menu;
 }
 
 
