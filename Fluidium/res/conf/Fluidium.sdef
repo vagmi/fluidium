@@ -373,7 +373,7 @@
     	<responds-to command="do JavaScript">
     		<cocoa method="handleDoJavaScriptCommand:"/>
     	</responds-to>
-    	<responds-to command="open new tab">
+    	<responds-to command="new tab">
     		<cocoa method="handleOpenTabCommand:"/>
     	</responds-to>
     	<responds-to command="close selected tab">
