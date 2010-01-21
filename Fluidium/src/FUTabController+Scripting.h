@@ -34,4 +34,6 @@
 - (id)handleZoomInCommand:(NSScriptCommand *)cmd;
 - (id)handleZoomOutCommand:(NSScriptCommand *)cmd;
 - (id)handleActualSizeCommand:(NSScriptCommand *)cmd;
+
+- (id)handleClickLinkCommand:(NSScriptCommand *)cmd;
 @end

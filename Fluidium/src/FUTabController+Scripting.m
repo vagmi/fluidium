@@ -121,4 +121,51 @@
     return nil;
 }
 
+
+- (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
+    
+    NSString *identifier = [args objectForKey:@"identifier"];
+    NSString *text = [args objectForKey:@"text"];
+    
+    DOMDocument *d = [webView mainFrameDocument];
+    if (![d isKindOfClass:[DOMHTMLDocument class]]) {
+        return nil;
+    }
+    
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)d;
+
+    DOMElement *el = nil;
+    if ([identifier length]) {
+        el = [doc getElementById:identifier];
+    } else if ([text length]) {
+        text = [text lowercaseString];
+        
+		DOMNodeList *anchorEls = [doc getElementsByTagName:@"a"];
+        
+        NSUInteger i = 0;
+        NSUInteger count = [anchorEls length];
+		for ( ; i < count; i++) {
+			DOMHTMLElement *currEl = (DOMHTMLElement *)[anchorEls item:i];
+            NSString *txt = [currEl innerText];
+			if ([text length] && [[txt lowercaseString] isEqualToString:text]) {
+				el = currEl;
+                break;
+			}
+		}
+    }
+    
+    if (![el isKindOfClass:[DOMHTMLAnchorElement class]]) {
+        return nil;
+    }
+    
+    DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)el;
+    NSString *href = [anchorEl href];
+    if ([href length]) {
+        self.URLString = href;
+        [self goToLocation:self];
+    }
+    return nil;
+}
+
 @end

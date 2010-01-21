@@ -338,6 +338,16 @@
         <direct-parameter type="specifier" optional="yes" description="A tab to zoom. If not specified, the selected tab in the frontmost window is zoomed."/>
     </command>
 
+    <command name="click link" code="FuSSClic" description="Activates a hyperlink in this tab's web page.">
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to click the link. If not specified, the selected tab in the frontmost window is used."/>
+        <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id of the link to click.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="with text" code="TeXT" optional="yes" description="The HTML anchor text of link to click.">
+            <cocoa key="text"/>
+        </parameter>
+    </command>
+
     <class name="browser window" plural="browser windows" inherits="document" code="fDoc" description="A browser window.">
     	<cocoa class="FUDocument"/>
 
@@ -461,6 +471,10 @@
     	</responds-to>
     	<responds-to command="make actual size">
     		<cocoa method="handleActualSizeCommand:"/>
+    	</responds-to>
+
+    	<responds-to command="click link">
+    		<cocoa method="handleClickLinkCommand:"/>
     	</responds-to>
     </class>
     

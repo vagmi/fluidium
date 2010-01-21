@@ -355,6 +355,7 @@
 
     NSArray *wvs = [self webViews];
     NSInteger webViewsCount = [wvs count];
+    startIndex = startIndex > webViewsCount - 1 ? webViewsCount - 1 : startIndex; // make sure there's no exception here
     
     NSMutableArray *newModels = nil;
     if (startIndex && tabModels) {
