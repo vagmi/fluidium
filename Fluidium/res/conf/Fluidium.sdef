@@ -367,10 +367,10 @@
     		<cocoa method="handleOpenTabCommand:"/>
     	</responds-to>
     	<responds-to command="select previous tab">
-    		<cocoa method="handleSelectPreviousCommand:"/>
+    		<cocoa method="handleSelectPreviousTabCommand:"/>
     	</responds-to>
     	<responds-to command="select next tab">
-    		<cocoa method="handleSelectNextCommand:"/>
+    		<cocoa method="handleSelectNextTabCommand:"/>
     	</responds-to>
     	<responds-to command="go back">
     		<cocoa method="handleGoBackCommand:"/>
