@@ -280,42 +280,32 @@
 
     <command name="new browser window" code="FuSSnDoc" description="Open a new browser window.">
         <cocoa class="FUNewDocumentCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
+        <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used."/>
     </command>
-
-    <!-- <command name="close browser window" code="FuSScDoc" description="Close the current browser window.">
-        <cocoa class="FUCloseWindowCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
-    </command> -->
 
     <command name="new tab" code="FuSSnTab" description="Open a new tab.">
         <cocoa class="FUNewTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
+        <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used."/>
     </command>
-
-    <!-- <command name="close selected tab" code="FuSScTab" description="Close the current tab.">
-        <cocoa class="FUCloseTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
-    </command> -->
 
     <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
         <cocoa class="FUSelectPreviousTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to select the previous tab. If not specified, front most window is used."/>
+        <direct-parameter type="specifier" optional="yes" description="A browser window in which to select the previous tab. If not specified, frontmost window is used."/>
     </command>
 
     <command name="select next tab" code="FuSSNeXT" description="Select the next tab.">
         <cocoa class="FUSelectNextTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to select the next tab. If not specified, front most window is used."/>
+        <direct-parameter type="specifier" optional="yes" description="A browser window in which to select the next tab. If not specified, frontmost window is used."/>
     </command>
 
     <command name="go back" code="FuSSBack" description="Go back.">
         <cocoa class="FUGoBackCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window in which to go back. If not specified, the selected tab in the front most window is used."/>
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to go back. If not specified, the selected tab in the frontmost window is used."/>
     </command>
 
     <command name="go forward" code="FuSSFwrd" description="Go forward.">
         <cocoa class="FUGoForwardCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window in which to go forward. If not specified, the selected tab in the front most window is used."/>
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to go forward. If not specified, the selected tab in the frontmost window is used."/>
     </command>
 
     <command name="go home" code="FuSSHome" description="Go home.">
@@ -325,27 +315,27 @@
 
     <command name="reload" code="FuSSReld" description="Reload a web page.">
         <cocoa class="FUReloadCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to reload. If not specified, the selected tab in the front most window is reloaded."/>
+        <direct-parameter type="specifier" optional="yes" description="A tab to reload. If not specified, the selected tab in the frontmost window is reloaded."/>
     </command>
 
     <command name="stop loading" code="FuSSStop" description="Stop loading a web page.">
         <cocoa class="FUStopLoadingCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to stop loading. If not specified, the selected tab in the front most window is stopped."/>
+        <direct-parameter type="specifier" optional="yes" description="A tab to stop loading. If not specified, the selected tab in the frontmost window is stopped."/>
     </command>
 
     <command name="zoom in" code="FuSSZoIn" description="Zoom in contents of the page.">
         <cocoa class="FUZoomInCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom in. If not specified, the selected tab in the front most window is zoomed."/>
+        <direct-parameter type="specifier" optional="yes" description="A tab to zoom in. If not specified, the selected tab in the frontmost window is zoomed."/>
     </command>
 
     <command name="zoom out" code="FuSSZoOt" description="Zoom out contents of the page.">
         <cocoa class="FUZoomOutCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom out. If not specified, the selected tab in the front most window is zoomed."/>
+        <direct-parameter type="specifier" optional="yes" description="A tab to zoom out. If not specified, the selected tab in the frontmost window is zoomed."/>
     </command>
 
     <command name="make actual size" code="FuSSActS" description="Zoom contents of the page to actual size.">
         <cocoa class="FUActualSizeCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A specific tab or browser window to zoom. If not specified, the selected tab in the front most window is zoomed."/>
+        <direct-parameter type="specifier" optional="yes" description="A tab to zoom. If not specified, the selected tab in the frontmost window is zoomed."/>
     </command>
 
     <class name="browser window" plural="browser windows" inherits="document" code="fDoc" description="A browser window.">
@@ -375,13 +365,6 @@
     	</responds-to>
     	<responds-to command="new tab">
     		<cocoa method="handleOpenTabCommand:"/>
-    	</responds-to>
-    	<responds-to command="close selected tab">
-    		<cocoa method="handleCloseTabCommand:"/>
-    	</responds-to>
-    	
-    	<responds-to command="close browser window">
-    		<cocoa method="handleCloseCommand:"/>
     	</responds-to>
     	<responds-to command="select previous tab">
     		<cocoa method="handleSelectPreviousCommand:"/>
