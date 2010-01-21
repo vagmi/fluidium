@@ -40,25 +40,17 @@
 
 + (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:code];
-    
-    //NSAppleEventDescriptor *directObjDesc = [NSAppleEventDescriptor descriptorWithDescriptorType:typeWildCard bytes:<#(const void *)bytes#> length:<#(NSUInteger)byteCount#>
-    //[someAE setDescriptor:directObjDesc forKeyword:keyDirectObject];
-    
-    return [someAE sendFluidiumAppleEvent];
+    return [someAE sendToOwnProcess];
 }
 
 
 + (OSErr)sendVerbFirstEventWithCoreEventID:(FourCharCode)code {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:code];
-    
-    //NSAppleEventDescriptor *directObjDesc = [NSAppleEventDescriptor descriptorWithDescriptorType:typeWildCard bytes:<#(const void *)bytes#> length:<#(NSUInteger)byteCount#>
-    //[someAE setDescriptor:directObjDesc forKeyword:keyDirectObject];
-    
-    return [someAE sendFluidiumAppleEvent];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:code];    
+    return [someAE sendToOwnProcess];
 }
 
 
-- (OSErr)sendFluidiumAppleEvent {
+- (OSErr)sendToOwnProcess {
     const AppleEvent *aeDesc = [self aeDesc];
 
     OSErr err = noErr; 

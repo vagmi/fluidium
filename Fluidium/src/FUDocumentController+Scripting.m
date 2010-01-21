@@ -33,9 +33,9 @@
         new = class_getInstanceMethod(self, @selector(script_newTab:));
         method_exchangeImplementations(old, new);
 
-        old = class_getInstanceMethod(self, @selector(closeTab:));
-        new = class_getInstanceMethod(self, @selector(script_closeTab:));
-        method_exchangeImplementations(old, new);
+//        old = class_getInstanceMethod(self, @selector(closeTab:));
+//        new = class_getInstanceMethod(self, @selector(script_closeTab:));
+//        method_exchangeImplementations(old, new);
     }
 }
 
@@ -53,8 +53,8 @@
 }
 
 
-- (IBAction)script_closeTab:(id)sender {
-    [NSApp sendAction:@selector(closeTab:) to:nil from:sender];
-}
+//- (IBAction)script_closeTab:(id)sender {
+//    [NSApp sendAction:@selector(closeTab:) to:nil from:sender];
+//}
 
 @end

@@ -84,13 +84,21 @@
 #pragma mark Script Actions
 
 - (IBAction)script_closeWindow:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
+    //[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
+    [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
+    [someAE sendToOwnProcess];
 }
 - (IBAction)script_newTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
 }
 - (IBAction)script_closeTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
+    //[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *tcDesc = [[[self selectedTabController] objectSpecifier] descriptor];
+    [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
+    [someAE sendToOwnProcess];
 }
 - (IBAction)script_webGoBack:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Back'];
@@ -129,7 +137,7 @@
     NSAppleEventDescriptor *tcDesc = [[tc objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
     
-    [someAE sendFluidiumAppleEvent];
+    [someAE sendToOwnProcess];
 }
 
 @end

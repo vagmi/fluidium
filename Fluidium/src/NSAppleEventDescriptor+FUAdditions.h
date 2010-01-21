@@ -23,5 +23,5 @@
 + (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code;
 + (OSErr)sendVerbFirstEventWithCoreEventID:(FourCharCode)code;
 
-- (OSErr)sendFluidiumAppleEvent;
+- (OSErr)sendToOwnProcess;
 @end

@@ -283,20 +283,20 @@
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
     </command>
 
-    <command name="close browser window" code="FuSScDoc" description="Close the current browser window.">
+    <!-- <command name="close browser window" code="FuSScDoc" description="Close the current browser window.">
         <cocoa class="FUCloseWindowCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
-    </command>
+    </command> -->
 
     <command name="new tab" code="FuSSnTab" description="Open a new tab.">
         <cocoa class="FUNewTabCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
     </command>
 
-    <command name="close selected tab" code="FuSScTab" description="Close the current tab.">
+    <!-- <command name="close selected tab" code="FuSScTab" description="Close the current tab.">
         <cocoa class="FUCloseTabCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
-    </command>
+    </command> -->
 
     <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
         <cocoa class="FUSelectPreviousTabCommand"/>

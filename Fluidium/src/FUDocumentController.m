@@ -137,6 +137,11 @@
 }
 
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
+	return YES;
+}
+
+
 - (void)applicationDidBecomeActive:(NSNotification *)n {
     if (hiddenWindow) {
         [hiddenWindow makeKeyAndOrderFront:self];
