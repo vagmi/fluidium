@@ -222,6 +222,11 @@
     NSArray *types = [pboard types];
     NSURL *URL = nil;
     if ([types containsObject:TDTabPboardType]) {
+        NSUInteger oldIndex = [wc indexOfTabController:draggingTabController];
+        if (i == oldIndex) { // same index. do nothing
+            return YES;
+        }
+        
         [wc removeTabController:draggingTabController];
         [wc insertTabController:draggingTabController atIndex:i];
         self.draggingTabController = nil;
