@@ -23,10 +23,13 @@
 
 #define CLOSE_CURLY 30
 #define OPEN_CURLY 33
+#define LEFT_ARROW 123
+#define RIGHT_ARROW 124   
 
 @interface FUWindow ()
 - (BOOL)handleCloseSearchPanel:(NSEvent *)evt;
 - (BOOL)handleNextPrevTab:(NSEvent *)evt;
+- (BOOL)handleGoBackForward:(NSEvent *)evt;
 - (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt;
 - (void)sendMouseMovedEvent:(NSEvent *)evt toPlugInWithIdentifier:(NSString *)identifier;
 @end
@@ -103,6 +106,11 @@
         else if ([self handleNextPrevTab:evt]) {
             return;
         }
+        
+        // also handle ⌘-← and ⌘-→ back / fwd to make sure it is routed thru script recording
+        else if ([self handleGoBackForward:evt]) {
+            return;
+        }        
     }
     
     [super sendEvent:evt];
@@ -199,6 +207,23 @@
                 [wc selectNextTab:self];
             } else if (OPEN_CURLY == keyCode) {
                 [wc selectPreviousTab:self];
+            }
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+- (BOOL)handleGoBackForward:(NSEvent *)evt {
+    if ([evt isCommandKeyPressed]) {
+        NSInteger keyCode = [evt keyCode];
+        if (LEFT_ARROW == keyCode || RIGHT_ARROW == keyCode) {
+            FUWindowController *wc = [self windowController];
+            if (LEFT_ARROW == keyCode) {
+                [wc webGoBack:self];
+            } else if (RIGHT_ARROW == keyCode) {
+                [wc webGoForward:self];
             }
             return YES;
         }
