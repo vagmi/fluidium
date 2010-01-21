@@ -125,6 +125,7 @@
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
     NSDictionary *args = [cmd arguments];
     
+    NSString *xpath = [args objectForKey:@"xpath"];
     NSString *identifier = [args objectForKey:@"identifier"];
     NSString *text = [args objectForKey:@"text"];
     
@@ -135,9 +136,21 @@
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)d;
 
-    DOMElement *el = nil;
-    if ([identifier length]) {
-        el = [doc getElementById:identifier];
+    DOMNode *node = nil;
+    if ([xpath length]) {
+        @try {
+            DOMXPathResult *result = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_ORDERED_NODE_SNAPSHOT_TYPE inResult:nil];
+            NSUInteger len = [result snapshotLength];
+            if (len) {
+                node = [result snapshotItem:0];
+            }
+        } @catch (NSException *e) {
+            NSLog(@"error evaling XPath: %@", [e reason]);
+            return nil;
+        }
+
+    } else if ([identifier length]) {
+        node = [doc getElementById:identifier];
     } else if ([text length]) {
         text = [text lowercaseString];
         
@@ -149,17 +162,17 @@
 			DOMHTMLElement *currEl = (DOMHTMLElement *)[anchorEls item:i];
             NSString *txt = [currEl innerText];
 			if ([text length] && [[txt lowercaseString] isEqualToString:text]) {
-				el = currEl;
+				node = currEl;
                 break;
 			}
 		}
     }
     
-    if (![el isKindOfClass:[DOMHTMLAnchorElement class]]) {
+    if (![node isKindOfClass:[DOMHTMLAnchorElement class]]) {
         return nil;
     }
     
-    DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)el;
+    DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)node;
     NSString *href = [anchorEl href];
     if ([href length]) {
         self.URLString = href;
