@@ -246,7 +246,9 @@
         }
         
         if (URL) {
-            [[self windowController] loadRequest:[NSURLRequest requestWithURL:URL] inNewTab:NO atIndex:i andSelect:YES];
+            FUWindowController *wc = [self windowController];
+            BOOL newTab = (i > [[wc tabControllers] count] - 1);
+            [wc loadRequest:[NSURLRequest requestWithURL:URL] inNewTab:newTab atIndex:i andSelect:YES];
             return YES;
         }
     }
