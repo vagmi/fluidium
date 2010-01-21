@@ -47,29 +47,6 @@
 
 
 #pragma mark -
-#pragma mark Actions
-
-- (IBAction)openTabScriptAction:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];
-}
-
-- (IBAction)closeTabScriptAction:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
-}
-
-- (IBAction)goBackScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Back'];}
-- (IBAction)goForwardScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Fwrd'];}
-- (IBAction)goHomeScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Home'];}
-- (IBAction)reloadScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Reld'];}
-- (IBAction)stopLoadingScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Stop'];}
-- (IBAction)zoomInScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'ZoIn'];}
-- (IBAction)zoomOutScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'ZoOt'];}
-- (IBAction)actualSizeScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'ActS'];}
-- (IBAction)selectPreviousTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'PReV'];}
-- (IBAction)selectNextTabScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'NeXT'];}
-
-
-#pragma mark -
 #pragma mark Properties
 
 - (NSArray *)orderedTabControllers {
@@ -112,7 +89,7 @@
 
 
 - (id)handleOpenTabCommand:(NSScriptCommand *)cmd {
-    [windowController openTab:nil];
+    [windowController newTab:nil];
     return nil;
 }
 
@@ -152,31 +129,31 @@
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
-    [windowController goBack:nil];
+    [windowController webGoBack:nil];
     return nil;
 }
 
 
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
-    [windowController goForward:nil];
-    return nil;
-}
-
-
-- (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
-    [windowController goHome:nil];
+    [windowController webGoForward:nil];
     return nil;
 }
 
 
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
-    [windowController reload:nil];
+    [windowController webReload:nil];
     return nil;
 }
 
 
 - (id)handleStopLoadingCommand:(NSScriptCommand *)cmd {
-    [windowController stopLoading:nil];
+    [windowController webStopLoading:nil];
+    return nil;
+}
+
+
+- (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
+    [windowController webGoHome:nil];
     return nil;
 }
 

@@ -14,10 +14,7 @@
 
 #import "FUWindowController.h"
 #import "FUWindowController+NSToolbarDelegate.h"
-#import "FUDocument.h"
-#import "FUDocument+Scripting.h"
 #import "FUDocumentController.h"
-#import "FUDocumentController+Scripting.h"
 #import "FUTabController.h"
 #import "FUWindow.h"
 #import "FUUserDefaults.h"
@@ -200,7 +197,7 @@
     [self addNewTabAndSelect:YES];
 
     if ([[FUUserDefaults instance] newWindowsOpenWith]) {
-        [self goHome:self];
+        [self webGoHome:self];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidOpenNotification object:self];
@@ -210,28 +207,28 @@
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)goBack:(id)sender {
-    [[self selectedTabController] goBack:sender];
+- (IBAction)webGoBack:(id)sender {
+    [[self selectedTabController] webGoBack:sender];
 }
 
 
-- (IBAction)goForward:(id)sender {
-    [[self selectedTabController] goForward:sender];
+- (IBAction)webGoForward:(id)sender {
+    [[self selectedTabController] webGoForward:sender];
 }
 
 
-- (IBAction)reload:(id)sender {
-    [[self selectedTabController] reload:sender];
+- (IBAction)webReload:(id)sender {
+    [[self selectedTabController] webReload:sender];
 }
 
 
-- (IBAction)stopLoading:(id)sender {
-    [[self selectedTabController] stopLoading:sender];
+- (IBAction)webStopLoading:(id)sender {
+    [[self selectedTabController] webStopLoading:sender];
 }
 
 
-- (IBAction)goHome:(id)sender {
-    [[self selectedTabController] goHome:sender];
+- (IBAction)webGoHome:(id)sender {
+    [[self selectedTabController] webGoHome:sender];
 }
 
 
@@ -340,10 +337,10 @@
 }
 
 
-- (IBAction)openTab:(id)sender {
+- (IBAction)newTab:(id)sender {
 //    if (![self isToolbarVisible]) {
 //        [self showToolbarTemporarily];
-//        [self performSelector:@selector(openTab:) withObject:sender afterDelay:0.1];
+//        [self performSelector:@selector(newTab:) withObject:sender afterDelay:0.1];
 //        return;
 //    }
     
@@ -366,6 +363,10 @@
 }
 
 
+- (IBAction)performClose:(id)sender {
+    [self closeTab:sender];
+}
+
 // overridden in (Scripting) category to send close events for background tabs thru the scripting architecture for recording
 - (IBAction)takeTabIndexToCloseFrom:(id)sender {
     [self removeTabControllerAtIndex:[sender tag]];
@@ -374,7 +375,7 @@
 
 - (IBAction)takeTabIndexToReloadFrom:(id)sender {
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
-    [tc reload:sender];
+    [tc webReload:sender];
 }
 
 
@@ -764,28 +765,28 @@
     
     if (action == @selector(setDisplayMode:) || action == @selector(setSizeMode:)) { // no changing the toolbar modes
         return NO;
-    } else if (action == @selector(openTab:)) {
+    } else if (action == @selector(newTab:)) {
         return [[FUUserDefaults instance] tabbedBrowsingEnabled];
-    } else if (action == @selector(selectNextTab:) || action == @selector(selectPreviousTab:) || action == @selector(selectNextTabScriptAction:) || action == @selector(selectPreviousTabScriptAction:)) {
+    } else if (action == @selector(selectNextTab:) || action == @selector(selectPreviousTab:)) {
         id responder = [[self window] firstResponder];
         return ![responder isKindOfClass:[NSTextView class]] && [tabView numberOfTabViewItems] > 1;
     } else if (action == @selector(viewSource:)) {
         return ![[[self selectedTabController] webView] isLoading] && [[[self selectedTabController] URLString] length];
-    } else if (action == @selector(stopLoading:) || action == @selector(stopLoadingScriptAction:)) {
+    } else if (action == @selector(stopLoading:)) {
         return [[[self selectedTabController] webView] isLoading];
-    } else if (action == @selector(reload:) || action == @selector(addBookmark:) || action == @selector(reloadScriptAction:)) {
+    } else if (action == @selector(reload:) || action == @selector(addBookmark:)) {
         return [[[self selectedTabController] URLString] length];
-    } else if (action == @selector(goBack:) || action == @selector(goBackScriptAction:)) {
+    } else if (action == @selector(goBack:)) {
         return [[[self selectedTabController] webView] canGoBack];
-    } else if (action == @selector(goForward:) || action == @selector(goForwardScriptAction:)) {
+    } else if (action == @selector(goForward:)) {
         return [[[self selectedTabController] webView] canGoForward];
-    } else if (action == @selector(goHome:) || action == @selector(goHomeScriptAction:)) {
+    } else if (action == @selector(webGoHome:)) {
         return [[[FUUserDefaults instance] homeURLString] length];
-    } else if (action == @selector(zoomIn:) || action == @selector(zoomInScriptAction:)) {
+    } else if (action == @selector(zoomIn:)) {
         return [[self selectedTabController] canZoomIn];
-    } else if (action == @selector(zoomOut:) || action == @selector(zoomOutScriptAction:)) {
+    } else if (action == @selector(zoomOut:)) {
         return [[self selectedTabController] canZoomOut];
-    } else if (action == @selector(actualSize:) || action == @selector(actualSizeScriptAction:)) {
+    } else if (action == @selector(actualSize:)) {
         return [[self selectedTabController] canActualSize];
     } else {
         return YES;
@@ -1349,7 +1350,7 @@
     [tabBar setShowAddTabButton:NO];
     [tabBar setCellOptimumWidth:[[FUUserDefaults instance] tabBarCellOptimumWidth]];
     [[tabBar addTabButton] setTarget:self];
-    [[tabBar addTabButton] setAction:@selector(openTab:)];
+    [[tabBar addTabButton] setAction:@selector(newTab:)];
     
     uberView.midView = tabView;
 }

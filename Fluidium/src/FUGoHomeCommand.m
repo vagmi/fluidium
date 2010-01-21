@@ -14,6 +14,7 @@
 
 #import "FUGoHomeCommand.h"
 #import "FUTabController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUGoHomeCommand
 
@@ -22,7 +23,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(goHome:) to:target from:sender];
+    [NSApp sendAction:@selector(script_webGoHome:) to:target from:sender];
     
     return nil;
 }

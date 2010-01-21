@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUOpenTabCommand.h"
-#import "FUDocumentController.h"
+#import "FUDocumentController+Scripting.h"
 
 @implementation FUOpenTabCommand
 
@@ -22,7 +22,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(openTab:) to:target from:sender];
+    [NSApp sendAction:@selector(script_newTab:) to:target from:sender];
     
     return nil;
 }

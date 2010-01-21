@@ -14,6 +14,7 @@
 
 #import "FUSelectPreviousTabCommand.h"
 #import "FUWindowController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUSelectPreviousTabCommand
 
@@ -22,7 +23,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(selectPreviousTab:) to:target from:sender];
+    [NSApp sendAction:@selector(script_selectPreviousTab:) to:target from:sender];
     
     return nil;
 }

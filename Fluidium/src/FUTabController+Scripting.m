@@ -75,31 +75,31 @@
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
-    [self goBack:nil];
+    [self webGoBack:nil];
     return nil;
 }
 
 
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
-    [self goForward:nil];
-    return nil;
-}
-
-
-- (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
-    [self goHome:nil];
+    [self webGoForward:nil];
     return nil;
 }
 
 
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
-    [self reload:nil];
+    [self webReload:nil];
     return nil;
 }
 
 
 - (id)handleStopLoadingCommand:(NSScriptCommand *)cmd {
-    [self stopLoading:nil];
+    [self webStopLoading:nil];
+    return nil;
+}
+
+
+- (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
+    [self webGoHome:nil];
     return nil;
 }
 

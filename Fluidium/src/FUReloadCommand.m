@@ -14,6 +14,7 @@
 
 #import "FUReloadCommand.h"
 #import "FUTabController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUReloadCommand
 
@@ -22,7 +23,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(reload:) to:target from:sender];
+    [NSApp sendAction:@selector(script_webReload:) to:target from:sender];
     
     return nil;
 }

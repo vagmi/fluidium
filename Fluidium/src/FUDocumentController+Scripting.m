@@ -15,32 +15,53 @@
 #import "FUDocumentController+Scripting.h"
 #import "FUDocument+Scripting.h"
 #import "FUWindowController.h"
+#import "FUWindowController+Scripting.h"
 #import "FUTabController.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
+#import <objc/runtime.h>
 
 @implementation FUDocumentController (Scripting)
 
++ (void)initialize {
+    if ([FUDocumentController class] == self) {
+        
+        Method old = class_getInstanceMethod(self, @selector(newDocument:));
+        Method new = class_getInstanceMethod(self, @selector(script_newDocument:));
+        method_exchangeImplementations(old, new);
+        
+        old = class_getInstanceMethod(self, @selector(newTab:));
+        new = class_getInstanceMethod(self, @selector(script_newTab:));
+        method_exchangeImplementations(old, new);
+
+        old = class_getInstanceMethod(self, @selector(closeTab:));
+        new = class_getInstanceMethod(self, @selector(script_closeTab:));
+        method_exchangeImplementations(old, new);
+    }
+}
+
+    
 #pragma mark -
 #pragma mark Actions
 
-//- (IBAction)newDocumentScriptAction:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
-- (IBAction)openDocumentScriptAction:(id)sender {
+//- (IBAction)newDocument:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
+- (IBAction)script_newDocument:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oDoc'];
 }
 
 
-- (IBAction)closeDocumentScriptAction:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
-}
+//- (IBAction)script_closeDocument:(id)sender {
+//    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
+//}
 
 
-- (IBAction)openTabScriptAction:(id)sender {
+- (IBAction)script_newTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];
 }
 
 
-- (IBAction)performClose:(id)sender {
-    [NSApp sendAction:@selector(closeTabScriptAction:) to:nil from:sender];
+//- (IBAction)script_performClose:(id)sender {
+- (IBAction)script_closeTab:(id)sender {
+    [NSApp sendAction:@selector(closeTab:) to:nil from:sender];
 }
 
 @end

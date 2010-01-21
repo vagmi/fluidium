@@ -14,6 +14,7 @@
 
 #import "FUActualSizeCommand.h"
 #import "FUTabController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUActualSizeCommand
 
@@ -22,7 +23,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(actualSize:) to:target from:sender];
+    [NSApp sendAction:@selector(script_actualSize:) to:target from:sender];
     
     return nil;
 }

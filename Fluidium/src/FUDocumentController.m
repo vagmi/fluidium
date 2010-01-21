@@ -106,7 +106,7 @@
 
 
 // support for opening a new window on ⌘-T when there are no existing windows
-- (IBAction)openTab:(id)sender {
+- (IBAction)newTab:(id)sender {
     [self newDocument:sender];
 }
 

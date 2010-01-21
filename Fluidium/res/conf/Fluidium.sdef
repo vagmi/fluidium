@@ -279,12 +279,12 @@
     </command>
 
     <command name="open new browser window" code="FuSSoDoc" description="Open a new browser window.">
-        <cocoa class="FUOpenDocumentCommand"/>
+        <cocoa class="FUNewDocumentCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
     </command>
 
     <command name="close browser window" code="FuSScDoc" description="Close the current browser window.">
-        <cocoa class="FUCloseDocumentCommand"/>
+        <cocoa class="FUCloseWindowCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
     </command>
 

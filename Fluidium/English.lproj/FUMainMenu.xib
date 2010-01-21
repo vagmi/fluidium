@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="81"/>
+			<integer value="375"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1656,14 +1656,6 @@
 					<int key="connectionID">544</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">stopLoading:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="647206331"/>
-					</object>
-					<int key="connectionID">555</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.FUZoomTextOnly</string>
 						<reference key="source" ref="917936858"/>
@@ -1833,78 +1825,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">reloadScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="328673759"/>
-					</object>
-					<int key="connectionID">719</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">goBackScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="118298410"/>
-					</object>
-					<int key="connectionID">720</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">goForwardScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="862651622"/>
-					</object>
-					<int key="connectionID">721</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">goHomeScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="342337855"/>
-					</object>
-					<int key="connectionID">722</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">actualSizeScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="456431727"/>
-					</object>
-					<int key="connectionID">723</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">zoomInScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="628537674"/>
-					</object>
-					<int key="connectionID">724</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">zoomOutScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="532186468"/>
-					</object>
-					<int key="connectionID">726</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">selectNextTabScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="1024203791"/>
-					</object>
-					<int key="connectionID">727</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">selectPreviousTabScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="835345707"/>
-					</object>
-					<int key="connectionID">728</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">addBookmark:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="965300752"/>
@@ -1921,22 +1841,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">openTabScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="764633994"/>
-					</object>
-					<int key="connectionID">733</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">openDocumentScriptAction:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="705341025"/>
-					</object>
-					<int key="connectionID">735</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">performClose:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="700683657"/>
@@ -1945,11 +1849,107 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">closeDocumentScriptAction:</string>
+						<string key="label">newDocument:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="705341025"/>
+					</object>
+					<int key="connectionID">740</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">closeWindow:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="776162233"/>
 					</object>
-					<int key="connectionID">739</int>
+					<int key="connectionID">742</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">actualSize:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="456431727"/>
+					</object>
+					<int key="connectionID">744</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">zoomIn:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="628537674"/>
+					</object>
+					<int key="connectionID">745</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">zoomOut:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="532186468"/>
+					</object>
+					<int key="connectionID">746</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectNextTab:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="1024203791"/>
+					</object>
+					<int key="connectionID">750</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectPreviousTab:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="835345707"/>
+					</object>
+					<int key="connectionID">751</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">newTab:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="764633994"/>
+					</object>
+					<int key="connectionID">752</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">webStopLoading:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="647206331"/>
+					</object>
+					<int key="connectionID">753</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">webReload:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="328673759"/>
+					</object>
+					<int key="connectionID">754</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">webGoBack:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="118298410"/>
+					</object>
+					<int key="connectionID">755</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">webGoForward:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="862651622"/>
+					</object>
+					<int key="connectionID">756</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">webGoHome:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="342337855"/>
+					</object>
+					<int key="connectionID">757</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2946,6 +2946,7 @@
 					<string>-3.IBPluginDependency</string>
 					<string>124.IBPluginDependency</string>
 					<string>124.ImportedFromIB2</string>
+					<string>125.IBEditorWindowLastContentRect</string>
 					<string>125.IBPluginDependency</string>
 					<string>125.ImportedFromIB2</string>
 					<string>125.editorWindowContentRectSynchronizationRect</string>
@@ -3209,6 +3210,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
+					<string>{{700, 692}, {143, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{522, 812}, {146, 23}}</string>
@@ -3260,7 +3262,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{154, 497}, {254, 283}}</string>
+					<string>{{538, 492}, {254, 283}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{197, 734}, {243, 243}}</string>
@@ -3276,7 +3278,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{656, 211}, {164, 43}}</string>
+					<string>{{792, 472}, {164, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{608, 612}, {167, 43}}</string>
@@ -3306,17 +3308,17 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{808, 762}, {241, 253}}</string>
+					<string>{{869, 522}, {241, 253}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{391, 468}, {598, 20}}</string>
+					<string>{{403, 775}, {598, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
 					<string>{{11, 977}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{614, 602}, {234, 273}}</string>
+					<string>{{582, 502}, {234, 273}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3336,7 +3338,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{721, 890}, {178, 103}}</string>
+					<string>{{632, 672}, {178, 103}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{786, 257}, {170, 63}}</string>
@@ -3408,13 +3410,13 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{765, 1012}, {228, 53}}</string>
+					<string>{{699, 722}, {228, 53}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{882, 960}, {93, 33}}</string>
+					<string>{{793, 742}, {93, 33}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{583, 807}, {64, 6}}</string>
@@ -3456,7 +3458,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{484, 245}, {204, 223}}</string>
+					<string>{{496, 552}, {204, 223}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{155, 774}, {199, 203}}</string>
@@ -3484,7 +3486,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">739</int>
+			<int key="maxID">757</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3521,54 +3523,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">FUDocument</string>
-					<string key="superclassName">NSDocument</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">include/Fluidium/FUDocument.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUDocument</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>actualSizeScriptAction:</string>
-							<string>closeTabScriptAction:</string>
-							<string>goBackScriptAction:</string>
-							<string>goForwardScriptAction:</string>
-							<string>goHomeScriptAction:</string>
-							<string>openTabScriptAction:</string>
-							<string>reloadScriptAction:</string>
-							<string>selectNextTabScriptAction:</string>
-							<string>selectPreviousTabScriptAction:</string>
-							<string>stopLoadingScriptAction:</string>
-							<string>zoomInScriptAction:</string>
-							<string>zoomOutScriptAction:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUDocument+Scripting.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">FUDocumentController</string>
 					<string key="superclassName">NSDocumentController</string>
 					<object class="NSMutableDictionary" key="actions">
@@ -3576,9 +3530,9 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>dockMenuItemClick:</string>
+							<string>newTab:</string>
 							<string>openLocation:</string>
 							<string>openSearch:</string>
-							<string>openTab:</string>
 							<string>toggleBookmarkBarShown:</string>
 							<string>toggleStatusBarShown:</string>
 							<string>toggleTabBarShown:</string>
@@ -3605,9 +3559,9 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>openDocumentScriptAction:</string>
-							<string>openTabScriptAction:</string>
-							<string>performCloseScriptAction:</string>
+							<string>script_closeTab:</string>
+							<string>script_newDocument:</string>
+							<string>script_newTab:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3646,19 +3600,19 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>actualSize:</string>
 							<string>downloadLinkAsFromMenu:</string>
-							<string>goBack:</string>
-							<string>goForward:</string>
-							<string>goHome:</string>
 							<string>goToLocation:</string>
 							<string>openFrameInNewWindowFromMenu:</string>
 							<string>openImageInNewWindowFromMenu:</string>
 							<string>openLinkInNewTabFromMenu:</string>
 							<string>openLinkInNewWindowFromMenu:</string>
-							<string>reload:</string>
 							<string>searchWebFromMenu:</string>
 							<string>showErrorConsole:</string>
 							<string>showWebInspector:</string>
-							<string>stopLoading:</string>
+							<string>webGoBack:</string>
+							<string>webGoForward:</string>
+							<string>webGoHome:</string>
+							<string>webReload:</string>
+							<string>webStopLoading:</string>
 							<string>zoomIn:</string>
 							<string>zoomOut:</string>
 						</object>
@@ -3703,7 +3657,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>find:</string>
-							<string>openTab:</string>
+							<string>newTab:</string>
 							<string>runFontPanel:</string>
 							<string>showFindPanel:</string>
 							<string>useSelectionForFind:</string>
@@ -3737,35 +3691,43 @@
 							<string>addBookmark:</string>
 							<string>bookmarkClicked:</string>
 							<string>closeTab:</string>
+							<string>closeWindow:</string>
 							<string>emptyCache:</string>
 							<string>endEditBookmark:</string>
 							<string>find:</string>
-							<string>goBack:</string>
-							<string>goForward:</string>
-							<string>goHome:</string>
 							<string>goToLocation:</string>
 							<string>hideFindPanel:</string>
 							<string>jumpToSelection:</string>
+							<string>newTab:</string>
 							<string>openLocation:</string>
 							<string>openSearch:</string>
-							<string>openTab:</string>
 							<string>performClose:</string>
-							<string>reload:</string>
 							<string>search:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>showErrorConsole:</string>
 							<string>showFindPanel:</string>
 							<string>showWebInspector:</string>
-							<string>stopLoading:</string>
+							<string>takeTabIndexToCloseFrom:</string>
+							<string>takeTabIndexToMoveToNewWindowFrom:</string>
+							<string>takeTabIndexToReloadFrom:</string>
 							<string>toggleToolbarShown:</string>
 							<string>useSelectionForFind:</string>
 							<string>viewSource:</string>
+							<string>webGoBack:</string>
+							<string>webGoForward:</string>
+							<string>webGoHome:</string>
+							<string>webReload:</string>
+							<string>webStopLoading:</string>
 							<string>zoomIn:</string>
 							<string>zoomOut:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3848,31 +3810,25 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">FirstResponder</string>
-					<string key="superclassName">NSObject</string>
+					<string key="className">FUWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>actualSizeScriptAction:</string>
-							<string>addBookmarkScriptAction:</string>
-							<string>closeDocumentScriptAction:</string>
-							<string>closeTabScriptAction:</string>
-							<string>goBackScriptAction:</string>
-							<string>goForwardScriptAction:</string>
-							<string>goHomeScriptAction:</string>
-							<string>openDocumentScriptAction:</string>
-							<string>openTab:</string>
-							<string>openTabScriptAction:</string>
-							<string>reloadScriptAction:</string>
-							<string>selectNextTabScriptAction:</string>
-							<string>selectPreviousTabScriptAction:</string>
-							<string>showErrorConsole:</string>
-							<string>showWebInspector:</string>
-							<string>stopLoadingScriptAction:</string>
-							<string>viewSourceScriptAction:</string>
-							<string>zoomInScriptAction:</string>
-							<string>zoomOutScriptAction:</string>
+							<string>script_actualSize:</string>
+							<string>script_closeTab:</string>
+							<string>script_closeWindow:</string>
+							<string>script_newTab:</string>
+							<string>script_selectNextTab:</string>
+							<string>script_selectPreviousTab:</string>
+							<string>script_takeTabIndexToCloseFrom:</string>
+							<string>script_webGoBack:</string>
+							<string>script_webGoForward:</string>
+							<string>script_webGoHome:</string>
+							<string>script_webReload:</string>
+							<string>script_webStopLoading:</string>
+							<string>script_zoomIn:</string>
+							<string>script_zoomOut:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3886,6 +3842,36 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUWindowController+Scripting.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FirstResponder</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>closeWindow:</string>
+							<string>newTab:</string>
+							<string>showErrorConsole:</string>
+							<string>showWebInspector:</string>
+							<string>webGoBack:</string>
+							<string>webGoForward:</string>
+							<string>webGoHome:</string>
+							<string>webReload:</string>
+							<string>webStopLoading:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

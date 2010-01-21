@@ -14,7 +14,6 @@
 
 #import "FUWindow.h"
 #import "FUWindowController.h"
-#import "FUDocument+Scripting.h"
 #import "FUPlugInController.h"
 #import "FUPlugInWrapper.h"
 #import "FUUserDefaults.h"
@@ -113,6 +112,11 @@
 #pragma mark -
 #pragma mark Actions
 
+- (IBAction)performClose:(id)sender {
+    [[self windowController] performClose:sender];
+}
+
+
 - (IBAction)forcePerformClose:(id)sender {
     [super performClose:sender];
 }
@@ -192,9 +196,9 @@
         if (CLOSE_CURLY == keyCode || OPEN_CURLY == keyCode) {
             FUWindowController *wc = [self windowController];
             if (CLOSE_CURLY == keyCode) {
-                [[wc document] selectNextTabScriptAction:self];
+                [wc selectNextTab:self];
             } else if (OPEN_CURLY == keyCode) {
-                [[wc document] selectPreviousTabScriptAction:self];
+                [wc selectPreviousTab:self];
             }
             return YES;
         }

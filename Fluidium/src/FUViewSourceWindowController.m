@@ -49,7 +49,7 @@
 }
 
 
-- (IBAction)openTab:(id)sender {
+- (IBAction)newTab:(id)sender {
     [self runFontPanel:sender];
 }
 

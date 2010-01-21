@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUGoBackCommand.h"
-#import "FUTabController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUGoBackCommand
 
@@ -22,7 +22,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(goBack:) to:target from:sender];
+    [NSApp sendAction:@selector(script_webGoBack:) to:target from:sender];
     
     return nil;
 }

@@ -127,17 +127,17 @@ typedef enum {
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)goBack:(id)sender {
+- (IBAction)webGoBack:(id)sender {
     [webView goBack:sender];
 }
 
 
-- (IBAction)goForward:(id)sender {
+- (IBAction)webGoForward:(id)sender {
     [webView goForward:sender];
 }
 
 
-- (IBAction)reload:(id)sender {
+- (IBAction)webReload:(id)sender {
     if (self.lastLoadFailed) {
         [self goToLocation:self];
     } else {
@@ -146,10 +146,17 @@ typedef enum {
 }
 
 
-- (IBAction)stopLoading:(id)sender {
+- (IBAction)webStopLoading:(id)sender {
     [webView stopLoading:sender];
 }
     
+
+- (IBAction)webGoHome:(id)sender {
+    self.URLString = [[FUUserDefaults instance] homeURLString];
+    [self goToLocation:self];
+    
+}
+
 
 - (IBAction)goToLocation:(id)sender {
     if (![URLString length]) {
@@ -159,13 +166,6 @@ typedef enum {
     self.title = NSLocalizedString(@"Loading...", @"");
     self.URLString = [URLString stringByEnsuringURLSchemePrefix];
     [webView setMainFrameURL:URLString];
-}
-
-
-- (IBAction)goHome:(id)sender {
-    self.URLString = [[FUUserDefaults instance] homeURLString];
-    [self goToLocation:self];
-    
 }
 
 

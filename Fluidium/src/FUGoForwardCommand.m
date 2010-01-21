@@ -14,6 +14,7 @@
 
 #import "FUGoForwardCommand.h"
 #import "FUTabController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUGoForwardCommand
 
@@ -22,7 +23,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(goForward:) to:target from:sender];
+    [NSApp sendAction:@selector(script_webGoForward:) to:target from:sender];
     
     return nil;
 }

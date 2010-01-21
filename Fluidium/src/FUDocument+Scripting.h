@@ -18,28 +18,9 @@
 
 @interface FUDocument (Scripting)
 
-// Actions
-- (IBAction)openTabScriptAction:(id)sender;
-- (IBAction)closeTabScriptAction:(id)sender;
-
-- (IBAction)goBackScriptAction:(id)sender;
-- (IBAction)goForwardScriptAction:(id)sender;
-- (IBAction)goHomeScriptAction:(id)sender;
-- (IBAction)reloadScriptAction:(id)sender;
-- (IBAction)stopLoadingScriptAction:(id)sender;
-- (IBAction)selectPreviousTabScriptAction:(id)sender;
-- (IBAction)selectNextTabScriptAction:(id)sender;
-- (IBAction)zoomInScriptAction:(id)sender;
-- (IBAction)zoomOutScriptAction:(id)sender;
-- (IBAction)actualSizeScriptAction:(id)sender;
-
-
 // Properties
-- (NSUInteger)selectedTabIndex;
-- (void)setSelectedTabIndex:(NSUInteger)i;
-
-- (FUTabController *)selectedTabController;
-- (void)setSelectedTabController:(FUTabController *)tc;
+@property (nonatomic, assign) NSUInteger selectedTabIndex;
+@property (nonatomic, retain) FUTabController *selectedTabController;
 
 // Elements
 - (NSArray *)orderedTabControllers;
@@ -55,9 +36,9 @@
 - (id)handleGoToLocationCommand:(NSScriptCommand *)cmd;
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd;
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd;
-- (id)handleGoHomeCommand:(NSScriptCommand *)cmd;
 - (id)handleReloadCommand:(NSScriptCommand *)cmd;
 - (id)handleStopLoadingCommand:(NSScriptCommand *)cmd;
+- (id)handleGoHomeCommand:(NSScriptCommand *)cmd;
 - (id)handleZoomInCommand:(NSScriptCommand *)cmd;
 - (id)handleZoomOutCommand:(NSScriptCommand *)cmd;
 - (id)handleActualSizeCommand:(NSScriptCommand *)cmd;

@@ -73,11 +73,12 @@
     NSInteger priorSelectedTabIndex;
 }
 
-- (IBAction)goBack:(id)sender;
-- (IBAction)goForward:(id)sender;
-- (IBAction)reload:(id)sender;
-- (IBAction)stopLoading:(id)sender;
-- (IBAction)goHome:(id)sender;
+// the 'web' prefix is so the WebView won't steal actions without routing them thru scripting support
+- (IBAction)webGoBack:(id)sender;
+- (IBAction)webGoForward:(id)sender;
+- (IBAction)webReload:(id)sender;
+- (IBAction)webStopLoading:(id)sender;
+- (IBAction)webGoHome:(id)sender;
 
 - (IBAction)zoomIn:(id)sender;
 - (IBAction)zoomOut:(id)sender;
@@ -94,8 +95,10 @@
 
 - (IBAction)closeWindow:(id)sender;
 
-- (IBAction)openTab:(id)sender;
+- (IBAction)newTab:(id)sender;
 - (IBAction)closeTab:(id)sender;
+- (IBAction)performClose:(id)sender;
+
 - (IBAction)takeTabIndexToCloseFrom:(id)sender;
 - (IBAction)takeTabIndexToReloadFrom:(id)sender;
 - (IBAction)takeTabIndexToMoveToNewWindowFrom:(id)sender;

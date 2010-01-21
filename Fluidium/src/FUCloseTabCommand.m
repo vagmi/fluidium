@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUCloseTabCommand.h"
-#import "FUWindowController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUCloseTabCommand
 
@@ -22,7 +22,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(closeTab:) to:target from:sender];
+    [NSApp sendAction:@selector(script_closeTab:) to:target from:sender];
     
     return nil;
 }

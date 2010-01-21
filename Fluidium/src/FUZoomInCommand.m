@@ -14,6 +14,7 @@
 
 #import "FUZoomInCommand.h"
 #import "FUTabController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUZoomInCommand
 
@@ -22,7 +23,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(zoomIn:) to:target from:sender];
+    [NSApp sendAction:@selector(script_zoomIn:) to:target from:sender];
     
     return nil;
 }

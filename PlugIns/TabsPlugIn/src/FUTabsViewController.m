@@ -176,7 +176,7 @@
 
 
 - (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt {
-    [[[self.view window] windowController] openTab:self];
+    [[[self.view window] windowController] newTab:self];
 }
 
 

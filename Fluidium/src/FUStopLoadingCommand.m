@@ -14,6 +14,7 @@
 
 #import "FUStopLoadingCommand.h"
 #import "FUTabController.h"
+#import "FUWindowController+Scripting.h"
 
 @implementation FUStopLoadingCommand
 
@@ -22,7 +23,7 @@
     
     id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(stopLoading:) to:target from:sender];
+    [NSApp sendAction:@selector(script_webStopLoading:) to:target from:sender];
     
     return nil;
 }
