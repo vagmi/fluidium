@@ -12,19 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUOpenTabCommand.h"
-#import "FUDocumentController+Scripting.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUOpenTabCommand
+@interface FUNewTabCommand : NSScriptCommand {
 
-- (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
-    
-    id sender = [args objectForKey:@"sender"];
-    id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(script_newTab:) to:target from:sender];
-    
-    return nil;
 }
 
 @end

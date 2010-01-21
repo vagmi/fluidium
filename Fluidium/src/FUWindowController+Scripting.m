@@ -87,7 +87,7 @@
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
 }
 - (IBAction)script_newTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
 }
 - (IBAction)script_closeTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
@@ -122,7 +122,6 @@
 - (IBAction)script_selectNextTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'NeXT'];
 }
-
 - (IBAction)script_takeTabIndexToCloseFrom:(id)sender {
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
     

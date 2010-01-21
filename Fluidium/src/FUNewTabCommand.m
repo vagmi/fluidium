@@ -12,8 +12,19 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUWindow.h"
+#import "FUNewTabCommand.h"
+#import "FUDocumentController+Scripting.h"
 
-@interface FUWindow (Scripting)
+@implementation FUNewTabCommand
+
+- (id)performDefaultImplementation {
+    NSDictionary *args = [self evaluatedArguments];
+    
+    id sender = [args objectForKey:@"sender"];
+    id target = [[args objectForKey:@"document"] windowController]; // may be nil
+    [NSApp sendAction:@selector(script_newTab:) to:target from:sender];
+    
+    return nil;
+}
 
 @end

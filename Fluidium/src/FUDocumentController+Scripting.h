@@ -15,12 +15,7 @@
 #import "FUDocumentController.h"
 
 @interface FUDocumentController (Scripting)
-
 - (IBAction)script_newDocument:(id)sender;
 - (IBAction)script_newTab:(id)sender;
-
 - (IBAction)script_closeTab:(id)sender;
-
-//- (IBAction)script_closeDocument:(id)sender;
-//- (IBAction)script_performClose:(id)sender;
 @end

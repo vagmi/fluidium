@@ -43,23 +43,16 @@
 #pragma mark -
 #pragma mark Actions
 
-//- (IBAction)newDocument:(id)sender {[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'open'];}
 - (IBAction)script_newDocument:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oDoc'];
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nDoc'];
 }
-
-
-//- (IBAction)script_closeDocument:(id)sender {
-//    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
-//}
 
 
 - (IBAction)script_newTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'oTab'];
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
 }
 
 
-//- (IBAction)script_performClose:(id)sender {
 - (IBAction)script_closeTab:(id)sender {
     [NSApp sendAction:@selector(closeTab:) to:nil from:sender];
 }

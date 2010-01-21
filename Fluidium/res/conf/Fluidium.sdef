@@ -278,7 +278,7 @@
         <result type="any"/>
     </command>
 
-    <command name="open new browser window" code="FuSSoDoc" description="Open a new browser window.">
+    <command name="new browser window" code="FuSSnDoc" description="Open a new browser window.">
         <cocoa class="FUNewDocumentCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
     </command>
@@ -288,8 +288,8 @@
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to close the selected tab. If not specified, front most window is used."/>
     </command>
 
-    <command name="open new tab" code="FuSSoTab" description="Open a new tab.">
-        <cocoa class="FUOpenTabCommand"/>
+    <command name="new tab" code="FuSSnTab" description="Open a new tab.">
+        <cocoa class="FUNewTabCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A specific browser window in which to open a new tab. If not specified, front most window is used."/>
     </command>
 

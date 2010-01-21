@@ -174,14 +174,13 @@
 		D3A3283310FF101500032B66 /* OAMiniAction.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282B10FF101500032B66 /* OAMiniAction.png */; };
 		D3A3283410FF101500032B66 /* OAMiniAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282C10FF101500032B66 /* OAMiniAdd.png */; };
 		D3A3283510FF101500032B66 /* OAMiniRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282D10FF101500032B66 /* OAMiniRemove.png */; };
-		D3ACEBAD1106C45F005A3CF6 /* FUWindow+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACEBAC1106C45F005A3CF6 /* FUWindow+Scripting.m */; };
 		D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACEC561106CE2B005A3CF6 /* FUWindowController+Scripting.m */; };
 		D3ADF98F11045B870064C070 /* FUDoJavaScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */; };
 		D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */; };
 		D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */; };
 		D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */; };
 		D3ADFAEB1104E1870064C070 /* FUNewDocumentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAEA1104E1870064C070 /* FUNewDocumentCommand.m */; };
-		D3ADFAEE1104E1970064C070 /* FUOpenTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAED1104E1970064C070 /* FUOpenTabCommand.m */; };
+		D3ADFAEE1104E1970064C070 /* FUNewTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */; };
 		D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */; };
 		D3ADFAFA1104E2170064C070 /* FUCloseTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF91104E2170064C070 /* FUCloseTabCommand.m */; };
 		D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */; };
@@ -682,8 +681,6 @@
 		D3A3282B10FF101500032B66 /* OAMiniAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniAction.png; sourceTree = "<group>"; };
 		D3A3282C10FF101500032B66 /* OAMiniAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniAdd.png; sourceTree = "<group>"; };
 		D3A3282D10FF101500032B66 /* OAMiniRemove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniRemove.png; sourceTree = "<group>"; };
-		D3ACEBAB1106C45F005A3CF6 /* FUWindow+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindow+Scripting.h"; path = "src/FUWindow+Scripting.h"; sourceTree = "<group>"; };
-		D3ACEBAC1106C45F005A3CF6 /* FUWindow+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindow+Scripting.m"; path = "src/FUWindow+Scripting.m"; sourceTree = "<group>"; };
 		D3ACEC551106CE2B005A3CF6 /* FUWindowController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+Scripting.h"; path = "src/FUWindowController+Scripting.h"; sourceTree = "<group>"; };
 		D3ACEC561106CE2B005A3CF6 /* FUWindowController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+Scripting.m"; path = "src/FUWindowController+Scripting.m"; sourceTree = "<group>"; };
 		D3ADF98D11045B870064C070 /* FUDoJavaScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDoJavaScriptCommand.h; path = src/FUDoJavaScriptCommand.h; sourceTree = "<group>"; };
@@ -696,8 +693,8 @@
 		D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUTabController+Scripting.m"; path = "src/FUTabController+Scripting.m"; sourceTree = "<group>"; };
 		D3ADFAE91104E1870064C070 /* FUNewDocumentCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNewDocumentCommand.h; path = src/FUNewDocumentCommand.h; sourceTree = "<group>"; };
 		D3ADFAEA1104E1870064C070 /* FUNewDocumentCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewDocumentCommand.m; path = src/FUNewDocumentCommand.m; sourceTree = "<group>"; };
-		D3ADFAEC1104E1970064C070 /* FUOpenTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUOpenTabCommand.h; path = src/FUOpenTabCommand.h; sourceTree = "<group>"; };
-		D3ADFAED1104E1970064C070 /* FUOpenTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUOpenTabCommand.m; path = src/FUOpenTabCommand.m; sourceTree = "<group>"; };
+		D3ADFAEC1104E1970064C070 /* FUNewTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNewTabCommand.h; path = src/FUNewTabCommand.h; sourceTree = "<group>"; };
+		D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewTabCommand.m; path = src/FUNewTabCommand.m; sourceTree = "<group>"; };
 		D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCloseWindowCommand.h; path = src/FUCloseWindowCommand.h; sourceTree = "<group>"; };
 		D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCloseWindowCommand.m; path = src/FUCloseWindowCommand.m; sourceTree = "<group>"; };
 		D3ADFAF81104E2170064C070 /* FUCloseTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCloseTabCommand.h; path = src/FUCloseTabCommand.h; sourceTree = "<group>"; };
@@ -1314,8 +1311,6 @@
 				D3ACEC561106CE2B005A3CF6 /* FUWindowController+Scripting.m */,
 				D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */,
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
-				D3ACEBAB1106C45F005A3CF6 /* FUWindow+Scripting.h */,
-				D3ACEBAC1106C45F005A3CF6 /* FUWindow+Scripting.m */,
 			);
 			name = Scripting;
 			sourceTree = "<group>";
@@ -1338,8 +1333,8 @@
 				D3ADFAEA1104E1870064C070 /* FUNewDocumentCommand.m */,
 				D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */,
 				D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */,
-				D3ADFAEC1104E1970064C070 /* FUOpenTabCommand.h */,
-				D3ADFAED1104E1970064C070 /* FUOpenTabCommand.m */,
+				D3ADFAEC1104E1970064C070 /* FUNewTabCommand.h */,
+				D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */,
 				D3ADFAF81104E2170064C070 /* FUCloseTabCommand.h */,
 				D3ADFAF91104E2170064C070 /* FUCloseTabCommand.m */,
 				D3ADFAFB1104E2210064C070 /* FUGoBackCommand.h */,
@@ -1992,7 +1987,7 @@
 				D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */,
 				D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */,
 				D3ADFAEB1104E1870064C070 /* FUNewDocumentCommand.m in Sources */,
-				D3ADFAEE1104E1970064C070 /* FUOpenTabCommand.m in Sources */,
+				D3ADFAEE1104E1970064C070 /* FUNewTabCommand.m in Sources */,
 				D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */,
 				D3ADFAFA1104E2170064C070 /* FUCloseTabCommand.m in Sources */,
 				D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */,
@@ -2007,7 +2002,6 @@
 				D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */,
 				D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */,
 				D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */,
-				D3ACEBAD1106C45F005A3CF6 /* FUWindow+Scripting.m in Sources */,
 				D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
