@@ -21,9 +21,8 @@
 - (id)performDefaultImplementation {
     NSDictionary *args = [self evaluatedArguments];
     
-    id sender = [args objectForKey:@"sender"];
     id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    [NSApp sendAction:@selector(script_selectPreviousTab:) to:target from:sender];
+    [NSApp sendAction:@selector(script_selectPreviousTab:) to:target from:nil];
     
     return nil;
 }

@@ -20,9 +20,8 @@
 - (id)performDefaultImplementation {
     NSDictionary *args = [self evaluatedArguments];
     
-    id sender = [args objectForKey:@"sender"];
     id target = [args objectForKey:@"tabController"]; // may be nil
-    [NSApp sendAction:@selector(script_webGoBack:) to:target from:sender];
+    [NSApp sendAction:@selector(script_webGoBack:) to:target from:nil];
     
     return nil;
 }

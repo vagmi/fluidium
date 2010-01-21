@@ -18,11 +18,7 @@
 @implementation FUNewDocumentCommand
 
 - (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
-    
-    id sender = [args objectForKey:@"sender"];
-    [NSApp sendAction:@selector(script_newDocument:) to:nil from:sender];
-    
+    [NSApp sendAction:@selector(script_newDocument:) to:nil from:nil];
     return nil;
 }
 
