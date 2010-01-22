@@ -15,6 +15,7 @@
 #import "FUTabController+Scripting.h"
 #import "FUDocument.h"
 #import "FUWindowController.h"
+#import "FUNotifications.h"
 #import <WebKit/WebKit.h>
 
 @interface FUTabController (ScriptingPrivate)
@@ -24,6 +25,8 @@
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
 - (NSMutableArray *)elementsForXPath:(NSString *)xpath;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
+
+@property (nonatomic, retain) NSScriptCommand *suspendedCommand;
 @end
 
 @implementation FUTabController (Scripting)
@@ -165,10 +168,44 @@
     DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
     [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
     
-    // send it to the anchor
+    // register for next page load
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(tabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:self];
+    [nc addObserver:self selector:@selector(tabControllerDidFailLoad:) name:FUTabControllerDidFailLoadNotification object:self];
+
+    // send event to the anchor
     [anchorEl dispatchEvent:evt];
     
+    // suspend applescript until page load
+    self.suspendedCommand = cmd;
+    [cmd suspendExecution];
+    
     return nil;
+}
+
+
+- (void)tabControllerDidFinishLoad:(NSNotification *)n {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:FUTabControllerDidFinishLoadNotification object:self];
+    
+    // resume page applescript
+    NSScriptCommand *cmd = [[suspendedCommand retain] autorelease];
+    self.suspendedCommand = nil;
+    
+    [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:1];
+}
+
+
+- (void)tabControllerDidFailLoad:(NSNotification *)n {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:FUTabControllerDidFailLoadNotification object:self];
+    
+    // resume page applescript
+    NSScriptCommand *cmd = [[suspendedCommand retain] autorelease];
+    self.suspendedCommand = nil;
+    
+    [cmd setScriptErrorNumber:47];
+    [cmd setScriptErrorString:@"could not load page"];
+    
+    [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:.5];
 }
 
 
@@ -361,7 +398,10 @@
             currText = [el textContent];
         }
         
-        if ([[currText lowercaseString] isEqualToString:text]) {
+        NSMutableString *ms = [[currText mutableCopy] autorelease];
+        CFStringTrimWhitespace((CFMutableStringRef)ms);
+        
+        if ([[ms lowercaseString] isEqualToString:text]) {
             [result addObject:el];
         }
     }

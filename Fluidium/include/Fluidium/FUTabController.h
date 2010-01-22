@@ -13,13 +13,14 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
 @class FUWindowController;
 @class FUWebView;
 @class FUJavaScriptBridge;
 @class WebInspector;
 
-@interface FUTabController : NSObject {
+@interface FUTabController : NSObject <DOMEventListener> {
     FUWindowController *windowController;
     NSView *view;
     FUWebView *webView;
@@ -38,6 +39,8 @@
     BOOL isProcessing; // the 'is' is necessary here to match PSMTabBarControl
     BOOL canReload;
     BOOL didReceiveTitle;
+    
+    NSScriptCommand *suspendedCommand;
 }
 
 - (id)initWithWindowController:(FUWindowController *)wc;

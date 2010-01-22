@@ -49,6 +49,8 @@ NSString *const FUTabControllerDidCommitLoadNotification = @"FUTabControllerDidC
 NSString *const FUTabControllerDidFinishLoadNotification = @"FUTabControllerDidFinishLoadNotification";
 NSString *const FUTabControllerDidFailLoadNotification = @"FUTabControllerDidFailLoadNotification";
 NSString *const FUTabControllerDidClearWindowObjectNotification = @"FUTabControllerDidClearWindowObjectNotification";
+NSString *const FUTabControllerDidLoadDOMContentNotification = @"FUTabControllerDidLoadDOMContentNotification";
+
 
 // FUWindowNotifications
 NSString *const FUSpacesBehaviorDidChangeNotification = @"FUSpacesBehaviorDidChangeNotification";

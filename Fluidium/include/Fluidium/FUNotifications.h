@@ -86,6 +86,7 @@ extern NSString *const FUTabControllerDidCommitLoadNotification;
 extern NSString *const FUTabControllerDidFinishLoadNotification;
 extern NSString *const FUTabControllerDidFailLoadNotification;
 extern NSString *const FUTabControllerDidClearWindowObjectNotification;
+extern NSString *const FUTabControllerDidLoadDOMContentNotification;
 
 @interface NSObject (FUTabControllerNotifications)
 - (void)tabControllerProgressDidStart:(NSNotification *)n;
@@ -96,6 +97,7 @@ extern NSString *const FUTabControllerDidClearWindowObjectNotification;
 - (void)tabControllerDidFinishLoad:(NSNotification *)n;
 - (void)tabControllerDidFailLoad:(NSNotification *)n;
 - (void)tabControllerDidClearWindowObject:(NSNotification *)n;
+- (void)tabControllerDidLoadDOMContent:(NSNotification *)n;
 @end
 
 

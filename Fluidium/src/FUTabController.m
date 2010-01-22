@@ -32,7 +32,6 @@
 #import "WebViewPrivate.h"
 #import "WebUIDelegatePrivate.h"
 #import "WebInspector.h"
-#import <WebKit/WebKit.h>
 
 typedef enum {
     WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1
@@ -61,6 +60,7 @@ typedef enum {
 - (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)code contextInfo:(NSURL *)URL;
 
 @property (nonatomic, assign, readwrite) FUWindowController *windowController; // weak ref
+@property (nonatomic, retain) NSScriptCommand *suspendedCommand;
 @end
 
 @interface FUWindowController ()
@@ -115,6 +115,7 @@ typedef enum {
     self.clickElementInfo = nil;
     self.hoverElementInfo = nil;
     self.inspector = nil;
+    self.suspendedCommand = nil;
     [super dealloc];
 }
 
@@ -439,7 +440,15 @@ typedef enum {
     // set window.fluid object
     [[webView windowScriptObject] setValue:javaScriptBridge forKey:@"fluid"];
     
+    //    id window = [[webView mainFrameDocument] performSelector:@selector(window)];
+    [[webView mainFrameDocument] addEventListener:@"DOMContentLoaded" listener:self useCapture:NO];
+    
     [self postNotificationName:FUTabControllerDidClearWindowObjectNotification];
+}
+
+
+- (void)handleEvent:(DOMEvent *)evt {
+    [self postNotificationName:FUTabControllerDidLoadDOMContentNotification];
 }
 
 
@@ -957,4 +966,5 @@ typedef enum {
 @synthesize lastLoadFailed;
 @synthesize isProcessing;
 @synthesize canReload;
+@synthesize suspendedCommand;
 @end

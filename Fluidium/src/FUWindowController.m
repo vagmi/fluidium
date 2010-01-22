@@ -1238,7 +1238,7 @@
         *styleMask = NSTitledWindowMask|NSTexturedBackgroundWindowMask;
     }
     
-    FUWebView *wv = [[tabItem identifier] webView];
+    FUWebView *wv = (FUWebView *)[[tabItem identifier] webView];
     
     return [wv documentViewImageWithCurrentAspectRatio];
 }
