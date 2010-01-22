@@ -138,6 +138,8 @@
         [cmd setScriptErrorString:[NSString stringWithFormat:@"can only run script on HTML documents. this document is %@", d]];
         return nil;
     }
+    
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)d;
 
     NSDictionary *args = [cmd arguments];
     
@@ -158,14 +160,13 @@
     
     DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)[anchorEls objectAtIndex:0];
     
-    NSString *href = [[anchorEl absoluteLinkURL] absoluteString];
-    if ([href length]) {
-        self.URLString = href;
-        [self goToLocation:self];
-    } else {
-        [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:@"found link element with no href"];
-    }
+    // create DOM click event
+    DOMAbstractView *window = [doc defaultView];
+    DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
+    [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+    
+    // send it to the anchor
+    [anchorEl dispatchEvent:evt];
     
     return nil;
 }
