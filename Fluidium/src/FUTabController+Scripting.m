@@ -17,6 +17,15 @@
 #import "FUWindowController.h"
 #import <WebKit/WebKit.h>
 
+@interface FUTabController (ScriptingPrivate)
+- (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args;
+- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName;
+//- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andAttributes:(NSDictionary *)attrs;
+- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
+- (NSMutableArray *)elementsForXPath:(NSString *)xpath;
+- (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
+@end
+
 @implementation FUTabController (Scripting)
 
 - (FourCharCode)classCode {
@@ -123,12 +132,46 @@
 
 
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
+    DOMDocument *d = [webView mainFrameDocument];
+    if (![d isKindOfClass:[DOMHTMLDocument class]]) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"can only run script on HTML documents. this document is %@", d]];
+        return nil;
+    }
+
     NSDictionary *args = [cmd arguments];
     
-    NSString *xpath = [args objectForKey:@"xpath"];
-    NSString *identifier = [args objectForKey:@"identifier"];
-    NSString *text = [args objectForKey:@"text"];
+    NSMutableArray *els = [self elementsWithTagName:@"a" forArguments:args];
     
+    NSMutableArray *anchorEls = [NSMutableArray array];
+    for (DOMHTMLElement *el in els) {
+        if ([el isKindOfClass:[DOMHTMLAnchorElement class]]) {
+            [anchorEls addObject:el];
+        }
+    }
+    
+    if (![anchorEls count]) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find link element with args: %@", args]];
+        return nil;
+    }
+    
+    DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)[anchorEls objectAtIndex:0];
+    
+    NSString *href = [[anchorEl absoluteLinkURL] absoluteString];
+    if ([href length]) {
+        self.URLString = href;
+        [self goToLocation:self];
+    } else {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:@"found link element with no href"];
+    }
+    
+    return nil;
+}
+
+
+- (id)handleClickButtonCommand:(NSScriptCommand *)cmd {
     DOMDocument *d = [webView mainFrameDocument];
     if (![d isKindOfClass:[DOMHTMLDocument class]]) {
         return nil;
@@ -136,49 +179,193 @@
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)d;
 
-    DOMNode *node = nil;
+    NSDictionary *args = [cmd arguments];
+    
+    NSMutableArray *inputEls = [self elementsWithTagName:@"input" forArguments:args];
+    for (DOMHTMLElement *el in inputEls) {
+        if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
+            DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
+            NSString *type = [[el getAttribute:@"type"] lowercaseString];
+            if ([type isEqualToString:@"button"] || [type isEqualToString:@"submit"]) {
+                [inputEl click]; 
+                return nil;
+            }
+        }
+    }
+    
+
+    NSMutableArray *buttonEls = [self elementsWithTagName:@"button" forArguments:args];
+    for (DOMHTMLElement *el in buttonEls) {
+        if ([el isKindOfClass:[DOMHTMLButtonElement class]]) {
+            DOMHTMLButtonElement *buttonEl = (DOMHTMLButtonElement *)el;
+            
+            // create DOM click event
+            DOMAbstractView *window = [doc defaultView];
+            DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
+            [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+            
+            // send it to the button
+            [buttonEl dispatchEvent:evt];
+            return nil;
+        }
+    }
+    
+    [cmd setScriptErrorNumber:47];
+    [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find button element with args: %@", args]];
+    return nil;
+}
+
+
+#pragma mark - 
+#pragma mark ScriptingPrivate
+
+- (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args {
+    NSString *xpath = [args objectForKey:@"xpath"];
+    NSString *identifier = [args objectForKey:@"identifier"];
+    NSString *name = [args objectForKey:@"name"];
+    NSString *text = [[args objectForKey:@"text"] lowercaseString];
+    
+    BOOL hasXPath = [xpath length];
+    BOOL hasIdentifier = [identifier length];
+    BOOL hasName = [name length];
+    BOOL hasText = [text length];
+    
+    NSMutableArray *els = nil;
+    if (hasXPath) {
+        els = [self elementsForXPath:xpath];
+    } else if (hasIdentifier && hasText) {
+        els = [self elementsWithTagName:tagName andValue:identifier forAttribute:@"id"];
+        els = [self elementsFromArray:els withText:text];
+    } else if (hasName && hasText) {
+        els = [self elementsWithTagName:tagName andValue:name forAttribute:@"name"];
+        els = [self elementsFromArray:els withText:text];
+    } else if (hasIdentifier) {
+        // dont use getElementById:. not good enough for real-world html where multiple els with same id can exist
+        els = [self elementsWithTagName:tagName andValue:identifier forAttribute:@"id"];
+    } else if (hasName) {
+        els = [self elementsWithTagName:tagName andValue:name forAttribute:@"name"];
+    } else if (hasText) {
+        els = [self elementsWithTagName:tagName andText:text];
+    }
+    
+    return els;
+}
+
+
+- (NSMutableArray *)elementsForXPath:(NSString *)xpath {
+    NSMutableArray *result = [NSMutableArray array];
+
     if ([xpath length]) {
         @try {
-            DOMXPathResult *result = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_ORDERED_NODE_SNAPSHOT_TYPE inResult:nil];
-            NSUInteger len = [result snapshotLength];
-            if (len) {
-                node = [result snapshotItem:0];
+            DOMDocument *doc = [webView mainFrameDocument];
+            DOMXPathResult *nodes = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_ORDERED_NODE_SNAPSHOT_TYPE inResult:nil];
+
+            NSUInteger i = 0;
+            NSUInteger count = [nodes snapshotLength];
+            for ( ; i < count; i++) {
+                DOMNode *node = [nodes snapshotItem:i];
+                if ([node isKindOfClass:[DOMHTMLElement class]]) {
+                    [result addObject:node];
+                }
             }
         } @catch (NSException *e) {
             NSLog(@"error evaling XPath: %@", [e reason]);
             return nil;
         }
+    }
+    
+    return result;
+}
 
-    } else if ([identifier length]) {
-        node = [doc getElementById:identifier];
-    } else if ([text length]) {
-        text = [text lowercaseString];
-        
-		DOMNodeList *anchorEls = [doc getElementsByTagName:@"a"];
-        
-        NSUInteger i = 0;
-        NSUInteger count = [anchorEls length];
-		for ( ; i < count; i++) {
-			DOMHTMLElement *currEl = (DOMHTMLElement *)[anchorEls item:i];
-            NSString *txt = [currEl innerText];
-			if ([text length] && [[txt lowercaseString] isEqualToString:text]) {
-				node = currEl;
-                break;
-			}
-		}
+
+- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName {
+    NSMutableArray *result = [NSMutableArray array];
+    
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMNodeList *els = [doc getElementsByTagName:tagName];
+    
+    NSUInteger i = 0;
+    NSUInteger count = [els length];
+    for ( ; i < count; i++) {
+        DOMHTMLElement *el = (DOMHTMLElement *)[els item:i];
+        NSString *val = [el getAttribute:attrName];
+        if (val && [val isEqualToString:attrVal]) {
+            [result addObject:el];
+        }
     }
     
-    if (![node isKindOfClass:[DOMHTMLAnchorElement class]]) {
-        return nil;
+    return result;
+}
+
+
+//- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andAttributes:(NSDictionary *)attrs {
+//    NSMutableArray *result = [NSMutableArray array];
+//    
+//    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+//    DOMNodeList *els = [doc getElementsByTagName:tagName];
+//    
+//    NSUInteger i = 0;
+//    NSUInteger count = [els length];
+//    for ( ; i < count; i++) {
+//        DOMHTMLElement *el = (DOMHTMLElement *)[els item:i];
+//        
+//        BOOL matches = YES;
+//
+//        for (NSString *attrName in attrs) {
+//            NSString *val = [el getAttribute:attrName];
+//            NSString *attrVal = [attrs objectForKey:attrName];
+//            if (![val isEqualToString:attrVal]) {
+//                matches = NO;
+//                break;
+//            }
+//        }
+//        
+//        if (matches) {
+//            [result addObject:el];
+//        }
+//    }
+//    
+//    return result;
+//}
+
+
+- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text {
+    text = [text lowercaseString];
+    
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMNodeList *nodeList = [doc getElementsByTagName:tagName];
+    
+    NSUInteger count = [nodeList length];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
+
+    NSUInteger i = 0;
+    for ( ; i < count; i++) {
+        [result addObject:[nodeList item:i]];
+    }
+
+    result = [self elementsFromArray:result withText:text];
+
+    return result;
+}
+
+
+- (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text {
+    NSMutableArray *result = [NSMutableArray array];
+    
+    for (DOMHTMLElement *el in els) {
+        NSString *currText = nil;
+        if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
+            currText = [el getAttribute:@"value"];
+        } else {
+            currText = [el textContent];
+        }
+        
+        if ([[currText lowercaseString] isEqualToString:text]) {
+            [result addObject:el];
+        }
     }
     
-    DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)node;
-    NSString *href = [anchorEl href];
-    if ([href length]) {
-        self.URLString = href;
-        [self goToLocation:self];
-    }
-    return nil;
+    return result;
 }
 
 @end

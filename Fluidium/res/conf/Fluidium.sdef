@@ -338,15 +338,34 @@
         <direct-parameter type="specifier" optional="yes" description="A tab to zoom. If not specified, the selected tab in the frontmost window is zoomed."/>
     </command>
 
-    <command name="click link" code="FuSSClic" description="Activates a hyperlink in this tab's web page.">
+    <command name="click link" code="FuSSLink" description="Activates a hyperlink in this tab's web page.">
         <direct-parameter type="specifier" optional="yes" description="A tab in which to click the link. If not specified, the selected tab in the frontmost window is used."/>
         <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id of the link to click.">
             <cocoa key="identifier"/>
         </parameter>
+        <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the link to click.">
+            <cocoa key="name"/>
+        </parameter>
         <parameter type="text" name="with text" code="TeXT" optional="yes" description="The HTML anchor text of link to click.">
             <cocoa key="text"/>
         </parameter>
-        <parameter type="text" name="at XPath" code="XPth" optional="yes" description="The XPath of the link to click.">
+        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the link to click.">
+            <cocoa key="xpath"/>
+        </parameter>
+    </command>
+
+    <command name="click button" code="FuSSBttn" description="Activates a button in this tab's web page.">
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to click the button. If not specified, the selected tab in the frontmost window is used."/>
+        <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id of the button to click.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the button to click.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="with text" code="TeXT" optional="yes" description="The HTML anchor text of button to click.">
+            <cocoa key="text"/>
+        </parameter>
+        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the button to click.">
             <cocoa key="xpath"/>
         </parameter>
     </command>
@@ -478,6 +497,9 @@
 
     	<responds-to command="click link">
     		<cocoa method="handleClickLinkCommand:"/>
+    	</responds-to>
+    	<responds-to command="click button">
+    		<cocoa method="handleClickButtonCommand:"/>
     	</responds-to>
     </class>
     
