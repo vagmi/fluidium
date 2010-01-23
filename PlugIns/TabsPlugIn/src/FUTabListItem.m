@@ -249,7 +249,7 @@ static NSImage *sProgressImage = nil;
     roundRect = NSInsetRect(roundRect, 4, 4);
     roundRect = NSOffsetRect(roundRect, 0, 12);
     roundRect.size.height -= 10;
-
+    
     NSSize imgSize = roundRect.size;
     imgSize.width = floor(imgSize.width - THUMBNAIL_DIFF);
     imgSize.height = floor(imgSize.height - THUMBNAIL_DIFF);
@@ -274,17 +274,19 @@ static NSImage *sProgressImage = nil;
     // draw image
     if (bounds.size.width < 64.0) return; // dont draw anymore when you're really small. looks bad.
 
+    // put white behind the image
+    NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
+    TDDrawRoundRect(roundRect, NORMAL_RADIUS, 1, sInnerRectFillGradient, strokeColor);
+
     if (!img) {
-        NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
-        TDDrawRoundRect(roundRect, NORMAL_RADIUS, 1, sInnerRectFillGradient, strokeColor);
         return;
     }
 
     NSRect srcRect = NSMakeRect(0, 0, imgSize.width, imgSize.height);
     NSRect destRect = NSOffsetRect(srcRect, floor(roundRect.origin.x + THUMBNAIL_DIFF/2), floor(roundRect.origin.y + THUMBNAIL_DIFF/2));
     [img drawInRect:destRect fromRect:srcRect operation:NSCompositeSourceOver fraction:1];
-    
-    NSColor *strokeColor = model.isSelected ? sSelectedInnerRectStrokeColor : sInnerRectStrokeColor;
+
+    // stroke again over image
     TDDrawRoundRect(roundRect, NORMAL_RADIUS, 1, nil, strokeColor);
 
     if (model.isLoading) {

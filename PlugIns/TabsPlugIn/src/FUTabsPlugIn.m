@@ -34,11 +34,11 @@
         self.toolbarIconImageName = NSImageNameIconViewTemplate;
         self.preferencesIconImageName = NSImageNameIconViewTemplate;
         self.allowedViewPlacement = (FUPlugInViewPlacementDrawer|
-                                         FUPlugInViewPlacementSplitViewLeft|
-                                         FUPlugInViewPlacementSplitViewRight|
-                                         FUPlugInViewPlacementSplitViewTop|
-                                         FUPlugInViewPlacementSplitViewBottom);
-        self.preferredViewPlacement = FUPlugInViewPlacementSplitViewBottom;
+                                     FUPlugInViewPlacementSplitViewLeft|
+                                     FUPlugInViewPlacementSplitViewRight|
+                                     FUPlugInViewPlacementSplitViewTop|
+                                     FUPlugInViewPlacementSplitViewBottom);
+        self.preferredViewPlacement = FUPlugInViewPlacementSplitViewTop;
         self.preferredMenuItemKeyEquivalent = @"a";
         
         // get defaults from disk

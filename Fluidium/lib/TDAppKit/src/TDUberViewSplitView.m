@@ -81,7 +81,7 @@
             [self drawRightDividerInRect:divRect];
         }
     } else {        
-        BOOL isTop = NSMinY(divRect) <= NSMaxY([uberView.midSuperview frame]);
+        BOOL isTop = NSMinY(divRect) <= NSMidY([uberView.midSuperview frame]);
         if ((isTop && uberView.isTopViewOpen) || (!isTop && uberView.isBottomViewOpen)) {
 
             [self.gradient drawInRect:divRect angle:90];
