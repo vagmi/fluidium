@@ -438,12 +438,14 @@ typedef enum {
     if (frame != [webView mainFrame]) return;
 
     // set window.fluid object
-    [[webView windowScriptObject] setValue:javaScriptBridge forKey:@"fluid"];
-    
-    //    id window = [[webView mainFrameDocument] performSelector:@selector(window)];
-    [[webView mainFrameDocument] addEventListener:@"DOMContentLoaded" listener:self useCapture:NO];
+    DOMAbstractView *window = (DOMAbstractView *)[webView windowScriptObject];
+    [window setValue:javaScriptBridge forKey:@"fluid"];
     
     [self postNotificationName:FUTabControllerDidClearWindowObjectNotification];
+
+    // must get the doc this way. using -[WebView mainFrameDocument] sometimes returns nil here. dunno why.
+    DOMDocument *doc = [window document];
+    [doc addEventListener:@"DOMContentLoaded" listener:self useCapture:NO];
 }
 
 

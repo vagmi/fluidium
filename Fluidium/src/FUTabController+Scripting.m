@@ -170,8 +170,7 @@
     
     // register for next page load
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(tabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:self];
-    [nc addObserver:self selector:@selector(tabControllerDidFailLoad:) name:FUTabControllerDidFailLoadNotification object:self];
+    [nc addObserver:self selector:@selector(tabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
 
     // send event to the anchor
     [anchorEl dispatchEvent:evt];
@@ -184,28 +183,15 @@
 }
 
 
-- (void)tabControllerDidFinishLoad:(NSNotification *)n {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:FUTabControllerDidFinishLoadNotification object:self];
+- (void)tabControllerProgressDidFinish:(NSNotification *)n {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:self];
     
     // resume page applescript
     NSScriptCommand *cmd = [[suspendedCommand retain] autorelease];
     self.suspendedCommand = nil;
     
     [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:1];
-}
-
-
-- (void)tabControllerDidFailLoad:(NSNotification *)n {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:FUTabControllerDidFailLoadNotification object:self];
-    
-    // resume page applescript
-    NSScriptCommand *cmd = [[suspendedCommand retain] autorelease];
-    self.suspendedCommand = nil;
-    
-    [cmd setScriptErrorNumber:47];
-    [cmd setScriptErrorString:@"could not load page"];
-    
-    [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:.5];
 }
 
 

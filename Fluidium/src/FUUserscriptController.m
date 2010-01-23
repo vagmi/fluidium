@@ -49,7 +49,8 @@
     if (self = [super init]) {
         [self loadUserscripts];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabControllerDidClearWindowObject:) name:FUTabControllerDidClearWindowObjectNotification object:nil];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(tabControllerDidLoadDOMContent:) name:FUTabControllerDidLoadDOMContentNotification object:nil];
     }
     return self;
 }
@@ -78,7 +79,7 @@
 #pragma mark -
 #pragma mark Notifications
 
-- (void)tabControllerDidClearWindowObject:(NSNotification *)n {
+- (void)tabControllerDidLoadDOMContent:(NSNotification *)n {
     FUTabController *tc = [n object];
     WebView *wv = [tc webView];
     NSString *userscriptSrc = [self userscriptSourceForURLString:[wv mainFrameURL]];
@@ -146,16 +147,9 @@ static NSInteger FUSortMatchedUserscripts(NSDictionary *a, NSDictionary *b, void
     WebView *wv = [[args objectForKey:KEY_TABCONTROLLER] webView];
     NSMutableString *script = [NSMutableString string];
     [script appendString:@"(function() {\n"];
-    [script appendString:@"    var f = function() {\n"];
-    [script appendString:@"        (function () {\n"];
+    [script appendString:@"    return function() {\n        "];
     [script appendString:[args objectForKey:KEY_USERSCRIPT_SRC]];
-    [script appendString:@"\n      })();\n"];
-    [script appendString:@"    };\n"];
-    [script appendString:@"    if (document.readyState === 'loaded' || document.readyState === 'complete') {\n"];
-    [script appendString:@"        f();\n"];
-    [script appendString:@"    } else {\n"];
-    [script appendString:@"        window.addEventListener('DOMContentLoaded', f, false);\n"];
-    [script appendString:@"    }\n"];
+    [script appendString:@"\n    }\n"];
     [script appendString:@"})();\n"];
     [self executeUserscript:script inWebView:wv];
 }
