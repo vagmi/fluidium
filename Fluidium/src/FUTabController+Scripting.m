@@ -19,6 +19,10 @@
 #import <WebKit/WebKit.h>
 
 @interface FUTabController (ScriptingPrivate)
+- (void)registerForProgressDidFinish;
+
+- (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
+
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName;
 //- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andAttributes:(NSDictionary *)attrs;
@@ -134,15 +138,22 @@
 }
 
 
-- (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
-    DOMDocument *d = [webView mainFrameDocument];
-    if (![d isKindOfClass:[DOMHTMLDocument class]]) {
-        [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"can only run script on HTML documents. this document is %@", d]];
-        return nil;
-    }
+- (id)handleSubmitFormCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
     
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)d;
+//    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+//    
+//    NSDictionary *args = [cmd arguments];
+    
+    
+    return nil;
+}
+
+
+- (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
 
     NSDictionary *args = [cmd arguments];
     
@@ -183,25 +194,10 @@
 }
 
 
-- (void)tabControllerProgressDidFinish:(NSNotification *)n {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:self];
-    
-    // resume page applescript
-    NSScriptCommand *cmd = [[suspendedCommand retain] autorelease];
-    self.suspendedCommand = nil;
-    
-    [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:1];
-}
-
-
 - (id)handleClickButtonCommand:(NSScriptCommand *)cmd {
-    DOMDocument *d = [webView mainFrameDocument];
-    if (![d isKindOfClass:[DOMHTMLDocument class]]) {
-        return nil;
-    }
+    if (![self isHTMLDocument:cmd]) return nil;
     
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)d;
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
 
     NSDictionary *args = [cmd arguments];
     
@@ -211,7 +207,17 @@
             DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
             NSString *type = [[el getAttribute:@"type"] lowercaseString];
             if ([type isEqualToString:@"button"] || [type isEqualToString:@"submit"]) {
+                
+                // register for next page load
+                [self registerForProgressDidFinish];
+                
+                // click
                 [inputEl click]; 
+                
+                // suspend applescript until page load
+                self.suspendedCommand = cmd;
+                [cmd suspendExecution];
+                
                 return nil;
             }
         }
@@ -227,9 +233,17 @@
             DOMAbstractView *window = [doc defaultView];
             DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
             [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+
+            // register for next page load
+            [self registerForProgressDidFinish];
             
-            // send it to the button
+            // send event to the button
             [buttonEl dispatchEvent:evt];
+            
+            // suspend applescript until page load
+            self.suspendedCommand = cmd;
+            [cmd suspendExecution];
+            
             return nil;
         }
     }
@@ -241,7 +255,40 @@
 
 
 #pragma mark - 
+#pragma mark Notifications
+
+- (void)registerForProgressDidFinish {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(tabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
+}
+
+
+- (void)tabControllerProgressDidFinish:(NSNotification *)n {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:self];
+    
+    // resume page applescript
+    NSScriptCommand *cmd = [[suspendedCommand retain] autorelease];
+    self.suspendedCommand = nil;
+    
+    [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:1];
+}
+
+
+#pragma mark - 
 #pragma mark ScriptingPrivate
+
+- (BOOL)isHTMLDocument:(NSScriptCommand *)cmd {
+    DOMDocument *d = [webView mainFrameDocument];
+    if (![d isKindOfClass:[DOMHTMLDocument class]]) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"can only run script on HTML documents. this document is %@", d]];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args {
     NSString *xpath = [args objectForKey:@"xpath"];
