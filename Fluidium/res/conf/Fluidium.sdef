@@ -469,12 +469,20 @@
             <cocoa key="documentSource"/>
         </property>
 
-
+        <responds-to command="submit form">
+            <cocoa method="handleSubmitFormCommand:"/>
+        </responds-to>
         <responds-to command="load URL">
             <cocoa method="handleLoadURLCommand:"/>
         </responds-to>
         <responds-to command="do JavaScript">
             <cocoa method="handleDoJavaScriptCommand:"/>
+        </responds-to>
+        <responds-to command="click link">
+            <cocoa method="handleClickLinkCommand:"/>
+        </responds-to>
+        <responds-to command="click button">
+            <cocoa method="handleClickButtonCommand:"/>
         </responds-to>
 
         <responds-to command="close">
@@ -503,13 +511,6 @@
         </responds-to>
         <responds-to command="make actual size">
             <cocoa method="handleActualSizeCommand:"/>
-        </responds-to>
-
-        <responds-to command="click link">
-            <cocoa method="handleClickLinkCommand:"/>
-        </responds-to>
-        <responds-to command="click button">
-            <cocoa method="handleClickButtonCommand:"/>
         </responds-to>
     </class>
     

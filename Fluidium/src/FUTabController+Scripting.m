@@ -141,10 +141,34 @@
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
-//    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-//    
-//    NSDictionary *args = [cmd arguments];
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
+    NSDictionary *args = [cmd arguments];
+    NSString *name = [args objectForKey:@"name"];
+    NSDictionary *values = [args objectForKey:@"values"];
+    
+    DOMHTMLFormElement *formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+    if (!formEl) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find form with name: %@", name]];
+        return nil;
+    }
+    
+    DOMHTMLCollection *els = [formEl elements];
+    
+    for (NSString *elName in values) {
+        NSString *value = [values objectForKey:elName];
+
+        DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
+        if (!el) {
+            [cmd setScriptErrorNumber:47];
+            [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find input element with name: %@ in form named : %@", name, elName]];
+            return nil;
+        }
+        [el setValue:value];
+    }
+    
+    [formEl submit];
     
     return nil;
 }
