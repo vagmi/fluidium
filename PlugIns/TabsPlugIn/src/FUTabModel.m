@@ -60,7 +60,10 @@
 
 
 - (BOOL)wantsNewImage {
-    if (!image) return YES;
+    if (needsNewImage || !image) {
+        needsNewImage = NO;
+        return YES;
+    }
 
     [self incrementChangeCount];
     if (estimatedProgress > .9) {
@@ -70,6 +73,11 @@
         // only update web image every third notification
         return (0 == changeCount % 3);
     }
+}
+
+
+- (void)setNeedsNewImage:(BOOL)yn {
+    needsNewImage = yn;
 }
 
 @synthesize image;

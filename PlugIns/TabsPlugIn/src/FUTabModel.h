@@ -24,6 +24,7 @@
     BOOL loading;
     BOOL selected;
     NSUInteger changeCount;
+    BOOL needsNewImage;
 }
 
 + (FUTabModel *)modelWithPlist:(NSDictionary *)plist;
@@ -31,6 +32,7 @@
 - (NSDictionary *)plist;
 
 - (BOOL)wantsNewImage;
+- (void)setNeedsNewImage:(BOOL)yn;
 
 @property (nonatomic, retain) NSImage *image;
 @property (nonatomic, retain) NSImage *scaledImage;

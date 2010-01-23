@@ -1515,7 +1515,7 @@
 
 
 - (void)clearProgressInFuture {
-    [NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(clearProgress) userInfo:nil repeats:NO];
+    [self performSelector:@selector(clearProgress) withObject:nil afterDelay:.2];
 }
 
 

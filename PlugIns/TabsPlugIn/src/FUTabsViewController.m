@@ -298,17 +298,24 @@
 #pragma mark -
 #pragma mark FUTabControllerNotifcations
 
+
+- (void)tabControllerProgressDidStart:(NSNotification *)n {
+    NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
+    [[tabModels objectAtIndex:i] setNeedsNewImage:YES];
+}
+
+
 - (void)tabControllerProgressDidChange:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [self updateTabModelAtIndex:i];
 }
 
 
-- (void)tabControllerDidFinishLoad:(NSNotification *)n {
+- (void)tabControllerProgressDidFinish:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
-    [self updateTabModelAtIndex:i];
+    [[tabModels objectAtIndex:i] setNeedsNewImage:YES];
     
-    [self performSelector:@selector(updateTabModelLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:.6];
+    [self performSelector:@selector(updateTabModelLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:.2];
 }
 
 
@@ -458,15 +465,17 @@
 
 - (void)startObserveringTabController:(id)tc {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(tabControllerProgressDidStart:) name:FUTabControllerProgressDidStartNotification object:tc];
     [nc addObserver:self selector:@selector(tabControllerProgressDidChange:) name:FUTabControllerProgressDidChangeNotification object:tc];
-    [nc addObserver:self selector:@selector(tabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:tc];
+    [nc addObserver:self selector:@selector(tabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:tc];
 }
 
 
 - (void)stopObserveringTabController:(id)tc {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:FUTabControllerProgressDidStartNotification object:tc];
     [nc removeObserver:self name:FUTabControllerProgressDidChangeNotification object:tc];
-    [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:tc];
+    [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:tc];
 }
 
 
