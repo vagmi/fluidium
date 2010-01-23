@@ -146,11 +146,9 @@ static NSInteger FUSortMatchedUserscripts(NSDictionary *a, NSDictionary *b, void
 - (void)executeUserscriptLater:(NSMutableDictionary *)args {
     WebView *wv = [[args objectForKey:KEY_TABCONTROLLER] webView];
     NSMutableString *script = [NSMutableString string];
-    [script appendString:@"(function() {\n"];
-    [script appendString:@"    return function() {\n        "];
+    [script appendString:@"(function() {\n\treturn function() {\n\t\t"];
     [script appendString:[args objectForKey:KEY_USERSCRIPT_SRC]];
-    [script appendString:@"\n    }\n"];
-    [script appendString:@"})();\n"];
+    [script appendString:@"\n\t}\n})();\n"];
     [self executeUserscript:script inWebView:wv];
 }
 
