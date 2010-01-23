@@ -191,6 +191,11 @@ static NSImage *sProgressImage = nil;
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@>", NSStringFromClass([self class]), self, model.title];
+}
+
+
 #pragma mark -
 #pragma mark Events
 

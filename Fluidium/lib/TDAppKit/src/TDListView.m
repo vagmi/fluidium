@@ -104,13 +104,27 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (NSUInteger)indexForItemAtPoint:(NSPoint)p {
+    BOOL variableExtent = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);
+    CGFloat n = 0;
+    CGFloat w = NSWidth([self frame]);
+    CGFloat h = NSHeight([self frame]);
+
+    NSUInteger count = [dataSource numberOfItemsInListView:self];
     NSUInteger i = 0;
-    for (TDListItem *item in items) {
-        if (NSPointInRect(p, [item frame])) {
+    for ( ; i < count; i++) {
+        CGFloat extent = variableExtent ? [delegate listView:self extentForItemAtIndex:i] : itemExtent;
+        NSRect itemFrame;
+        if (self.isPortrait) {
+            itemFrame = NSMakeRect(0, n, w, extent);
+        } else {
+            itemFrame = NSMakeRect(n, 0, extent, h);
+        }
+        if (NSPointInRect(p, itemFrame)) {
             return i;
         }
-        i++;
+        n += extent;
     }
+    
     return -1;
 }
 
@@ -185,10 +199,10 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark NSResponder
 
 - (void)mouseDown:(NSEvent *)evt {
-    NSPoint p = [evt locationInWindow];
     self.lastMouseDownEvent = evt;
-
-    NSInteger i = [self indexForItemAtPoint:[self convertPoint:p fromView:nil]];
+    
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    NSInteger i = [self indexForItemAtPoint:p];
     if (-1 == i) {
         if ([evt clickCount] > 1) { // handle double-click
             if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
