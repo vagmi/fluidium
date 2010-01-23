@@ -21,9 +21,6 @@
 - (BOOL)isSelected;
 
 // Commands
-- (id)handleLoadURLCommand:(NSScriptCommand *)cmd;
-- (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd;
-
 - (id)handleCloseCommand:(NSCloseCommand *)cmd;
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd;
@@ -35,6 +32,8 @@
 - (id)handleZoomOutCommand:(NSScriptCommand *)cmd;
 - (id)handleActualSizeCommand:(NSScriptCommand *)cmd;
 
+- (id)handleLoadURLCommand:(NSScriptCommand *)cmd;
+- (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd;
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd;
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd;
 - (id)handleClickButtonCommand:(NSScriptCommand *)cmd;

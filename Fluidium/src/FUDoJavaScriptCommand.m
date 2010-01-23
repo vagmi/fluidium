@@ -14,8 +14,10 @@
 
 #import "FUDoJavaScriptCommand.h"
 #import "FUDocumentController.h"
+#import "FUDocument.h"
+#import "FUWindowController.h"
 #import "FUTabController.h"
-#import <WebKit/WebKit.h>
+#import "FUTabController+Scripting.h"
 
 @implementation FUDoJavaScriptCommand
 
@@ -24,12 +26,14 @@
     
     FUTabController *tc = [args objectForKey:@"tabController"];
     tc = tc ? tc : [[FUDocumentController instance] frontTabController];
-
-    NSString *script = [self directParameter];
     
-    NSString *result = [[tc webView] stringByEvaluatingJavaScriptFromString:script];
+    if (!tc) {
+        FUDocument *doc = [[FUDocumentController instance] openUntitledDocumentAndDisplay:YES error:nil];
+        tc = [[doc windowController] selectedTabController];
+    }
     
-    return [NSAppleEventDescriptor descriptorWithString:result];
+    // TODO ?
+    return [tc handleDoJavaScriptCommand:self];
 }
 
 @end

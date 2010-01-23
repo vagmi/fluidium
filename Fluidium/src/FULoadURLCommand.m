@@ -14,8 +14,10 @@
 
 #import "FULoadURLCommand.h"
 #import "FUDocumentController.h"
+#import "FUDocument.h"
+#import "FUWindowController.h"
 #import "FUTabController.h"
-#import <WebKit/WebKit.h>
+#import "FUTabController+Scripting.h"
 
 @implementation FULoadURLCommand
 
@@ -25,11 +27,13 @@
     FUTabController *tc = [args objectForKey:@"tabController"];
     tc = tc ? tc : [[FUDocumentController instance] frontTabController];
     
-    tc.URLString = [self directParameter];
-    
-    [tc goToLocation:nil];
-    
-    return nil;
+    if (!tc) {
+        FUDocument *doc = [[FUDocumentController instance] openUntitledDocumentAndDisplay:YES error:nil];
+        tc = [[doc windowController] selectedTabController];
+    }
+
+    // TODO ?
+    return [tc handleLoadURLCommand:self];
 }
 
 @end

@@ -315,6 +315,12 @@
         <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the form to submit.">
             <cocoa key="name"/>
         </parameter>
+        <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id attribute of the form to submit.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the form to submit.">
+            <cocoa key="xpath"/>
+        </parameter>
         <parameter type="record" name="with values" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
             <cocoa key="values"/>
         </parameter>
@@ -469,14 +475,14 @@
             <cocoa key="documentSource"/>
         </property>
 
-        <responds-to command="submit form">
-            <cocoa method="handleSubmitFormCommand:"/>
-        </responds-to>
         <responds-to command="load URL">
             <cocoa method="handleLoadURLCommand:"/>
         </responds-to>
         <responds-to command="do JavaScript">
             <cocoa method="handleDoJavaScriptCommand:"/>
+        </responds-to>
+        <responds-to command="submit form">
+            <cocoa method="handleSubmitFormCommand:"/>
         </responds-to>
         <responds-to command="click link">
             <cocoa method="handleClickLinkCommand:"/>

@@ -18,8 +18,12 @@
 #import "FUNotifications.h"
 #import <WebKit/WebKit.h>
 
+#define DEFAULT_DELAY 1.0
+
 @interface FUTabController (ScriptingPrivate)
-- (void)registerForProgressDidFinish;
+- (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
+- (void)suspendCommand:(NSScriptCommand *)cmd;
+- (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay;
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
@@ -68,21 +72,6 @@
 
 #pragma mark -
 #pragma mark Commands
-
-- (id)handleLoadURLCommand:(NSScriptCommand *)cmd {
-    NSString *s = [cmd directParameter];
-    self.URLString = s;
-    [self goToLocation:nil];
-    return nil;
-}
-
-
-- (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
-    NSString *script = [cmd directParameter];
-    NSString *result = [webView stringByEvaluatingJavaScriptFromString:script];
-    return [NSAppleEventDescriptor descriptorWithString:result];
-}
-
 
 - (id)handleCloseCommand:(NSCloseCommand *)cmd {
     [windowController removeTabController:self];
@@ -138,6 +127,28 @@
 }
 
 
+- (id)handleLoadURLCommand:(NSScriptCommand *)cmd {
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+
+    NSString *s = [cmd directParameter];
+    self.URLString = s;
+    [self goToLocation:nil];
+    return nil;
+}
+
+
+- (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
+    NSString *script = [cmd directParameter];
+    NSString *result = [webView stringByEvaluatingJavaScriptFromString:script];
+
+    // just put in a little delay for good measure
+    [self suspendCommand:cmd];
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+    
+    return [NSAppleEventDescriptor descriptorWithString:result];
+}
+
+
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
@@ -145,9 +156,26 @@
     
     NSDictionary *args = [cmd arguments];
     NSString *name = [args objectForKey:@"name"];
+    NSString *identifier = [args objectForKey:@"identifier"];
+    NSString *xpath = [args objectForKey:@"xpath"];
     NSDictionary *values = [args objectForKey:@"values"];
     
-    DOMHTMLFormElement *formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+    DOMHTMLFormElement *formEl = nil;
+    if (name) {
+        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+    } else if (identifier) {
+        NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
+        if ([els count]) formEl = [els objectAtIndex:0];
+    } else if (xpath) {
+        NSArray *els = [self elementsForXPath:xpath];
+        for (DOMHTMLElement *el in els) {
+            if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+                formEl = (DOMHTMLFormElement *)el;
+                break;
+            }
+        }
+    }
+
     if (!formEl) {
         [cmd setScriptErrorNumber:47];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find form with name: %@", name]];
@@ -168,7 +196,9 @@
         [el setValue:value];
     }
     
-    [formEl submit];
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+
+    //[formEl submit];
     
     return nil;
 }
@@ -204,15 +234,10 @@
     [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
     
     // register for next page load
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(tabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
 
     // send event to the anchor
     [anchorEl dispatchEvent:evt];
-    
-    // suspend applescript until page load
-    self.suspendedCommand = cmd;
-    [cmd suspendExecution];
     
     return nil;
 }
@@ -233,14 +258,10 @@
             if ([type isEqualToString:@"button"] || [type isEqualToString:@"submit"]) {
                 
                 // register for next page load
-                [self registerForProgressDidFinish];
+                [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
                 
                 // click
                 [inputEl click]; 
-                
-                // suspend applescript until page load
-                self.suspendedCommand = cmd;
-                [cmd suspendExecution];
                 
                 return nil;
             }
@@ -259,14 +280,10 @@
             [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
 
             // register for next page load
-            [self registerForProgressDidFinish];
+            [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
             
             // send event to the button
             [buttonEl dispatchEvent:evt];
-            
-            // suspend applescript until page load
-            self.suspendedCommand = cmd;
-            [cmd suspendExecution];
             
             return nil;
         }
@@ -281,9 +298,11 @@
 #pragma mark - 
 #pragma mark Notifications
 
-- (void)registerForProgressDidFinish {
+- (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(tabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
+
+    [self suspendCommand:cmd];
 }
 
 
@@ -291,11 +310,22 @@
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:self];
     
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+}
+
+
+- (void)suspendCommand:(NSScriptCommand *)cmd {
+    self.suspendedCommand = cmd;
+    [cmd suspendExecution];    
+}
+
+
+- (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay {
     // resume page applescript
     NSScriptCommand *cmd = [[suspendedCommand retain] autorelease];
     self.suspendedCommand = nil;
     
-    [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:1];
+    [cmd performSelector:@selector(resumeExecutionWithResult:) withObject:nil afterDelay:delay];
 }
 
 
