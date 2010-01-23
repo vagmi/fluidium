@@ -15,6 +15,7 @@
 #import "FUWebView.h"
 #import "FUApplication.h"
 #import "FUUserDefaults.h"
+#import "FUWindowController.h"
 #import "FUWebPreferences.h"
 #import "FUDownloadWindowController.h"
 #import "FUUserAgentWindowController.h"
@@ -136,25 +137,27 @@
 - (void)swipeWithEvent:(NSEvent *)evt {
     CGFloat delta = [evt deltaX];
 
+    FUWindowController *wc = [[self window] windowController];
+
     if (delta > 0) { // left
         if ([self canGoBack]) {
             if ([self isLoading]) {
-                [self stopLoading:nil];
+                [wc webStopLoading:nil];
             }
-            [self goBack:nil];
-        } else {
-            NSBeep();
+            [wc webGoBack:nil];
+            return;
         }
     } else if (delta < 0) { // right
         if ([self canGoForward]) {
             if ([self isLoading]) {
-                [self stopLoading:nil];
+                [wc webStopLoading:nil];
             }
-            [self goForward:nil];
-        } else {
-            NSBeep();
+            [wc webGoForward:nil];
+            return;
         }
     }
+
+    NSBeep();
 }
 
 

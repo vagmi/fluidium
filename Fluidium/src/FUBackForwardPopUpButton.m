@@ -109,7 +109,7 @@
     
     NSArray *historyItems = nil;
     
-    BOOL isBackButton = (@selector(goBack:) == [self action]);
+    BOOL isBackButton = (@selector(webGoBack:) == [self action]);
     if (isBackButton) {
         historyItems = [[list backListWithLimit:BACK_FWD_ITEM_LIMIT] reversedArray];
     } else {
@@ -121,7 +121,12 @@
     for (WebHistoryItem *historyItem in historyItems) {
         NSImage *icon = [[WebIconDatabase sharedIconDatabase] faviconForURL:[historyItem URLString]];
 
-        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:[historyItem title]
+        NSString *title = [historyItem title];
+        if (![title length]) {
+            title = [historyItem URLString];
+        }
+        
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title
                                                            action:@selector(menuItemClick:)
                                                     keyEquivalent:@""] autorelease];
         [menuItem setTarget:self];

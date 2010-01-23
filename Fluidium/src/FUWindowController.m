@@ -772,13 +772,13 @@
         return ![responder isKindOfClass:[NSTextView class]] && [tabView numberOfTabViewItems] > 1;
     } else if (action == @selector(viewSource:)) {
         return ![[[self selectedTabController] webView] isLoading] && [[[self selectedTabController] URLString] length];
-    } else if (action == @selector(stopLoading:)) {
+    } else if (action == @selector(webStopLoading:)) {
         return [[[self selectedTabController] webView] isLoading];
-    } else if (action == @selector(reload:) || action == @selector(addBookmark:)) {
+    } else if (action == @selector(webReload:) || action == @selector(addBookmark:)) {
         return [[[self selectedTabController] URLString] length];
-    } else if (action == @selector(goBack:)) {
+    } else if (action == @selector(webGoBack:)) {
         return [[[self selectedTabController] webView] canGoBack];
-    } else if (action == @selector(goForward:)) {
+    } else if (action == @selector(webGoForward:)) {
         return [[[self selectedTabController] webView] canGoForward];
     } else if (action == @selector(webGoHome:)) {
         return [[[FUUserDefaults instance] homeURLString] length];
