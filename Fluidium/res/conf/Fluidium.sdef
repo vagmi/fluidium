@@ -310,6 +310,31 @@
         </parameter>
     </command>
 
+    <command name="set value of form element" code="FuSSSetV" description="Sets the value of an HTML form element in this tab's web page.">
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to set the element value. If not specified, the selected tab in the frontmost window is used."/>
+        <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the element.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id attribute of the element.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="in form with name" code="FNam" optional="yes" description="The HTML name of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formName"/>
+        </parameter>
+        <parameter type="text" name="in form with id" code="FmID" optional="yes" description="The HTML id of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formID"/>
+        </parameter>
+        <parameter type="text" name="in form for XPath" code="FmXP" optional="yes" description="The XPath of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formXPath"/>
+        </parameter>
+        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the element.">
+            <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="record" name="with values" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
+            <cocoa key="values"/>
+        </parameter>
+    </command>
+
     <command name="submit form" code="FuSSSbmt" description="Submits an HTML form in this tab's web page.">
         <direct-parameter type="specifier" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used."/>
         <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the form to submit.">

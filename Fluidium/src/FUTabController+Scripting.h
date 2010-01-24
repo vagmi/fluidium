@@ -35,6 +35,7 @@
 - (id)handleLoadURLCommand:(NSScriptCommand *)cmd;
 - (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd;
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd;
+- (id)handleSetElementValueCommand:(NSScriptCommand *)cmd;
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd;
 - (id)handleClickButtonCommand:(NSScriptCommand *)cmd;
 @end

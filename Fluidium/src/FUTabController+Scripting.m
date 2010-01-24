@@ -33,6 +33,7 @@
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
 - (NSMutableArray *)elementsForXPath:(NSString *)xpath;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
+- (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
 
 @property (nonatomic, retain) NSScriptCommand *suspendedCommand;
 @end
@@ -199,6 +200,73 @@
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
 
     [formEl submit];
+    
+    return nil;
+}
+
+
+- (id)handleSetElementValueCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    // just put in a little delay for good measure
+    [self suspendCommand:cmd];
+
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    
+    NSDictionary *args = [cmd arguments];
+    NSString *formName = [args objectForKey:@"formName"];
+    NSString *formID = [args objectForKey:@"formID"];
+    NSString *formXPath = [args objectForKey:@"formXPath"];
+    NSString *name = [args objectForKey:@"name"];
+    NSString *identifier = [args objectForKey:@"identifier"];
+    NSString *xpath = [args objectForKey:@"xpath"];
+    NSString *value = [args objectForKey:@"value"];
+    
+    DOMHTMLFormElement *formEl = nil;
+    if (formName) {
+        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+    } else if (formID) {
+        NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
+        if ([els count]) formEl = [els objectAtIndex:0];
+    } else if (formXPath) {
+        NSArray *els = [self elementsForXPath:formXPath];
+        if ([els count]) {
+            formEl = [els objectAtIndex:0];
+            if (![formEl isKindOfClass:[DOMHTMLFormElement class]]) {
+                formEl = nil;
+            }
+        }
+    }
+    
+    DOMElement *foundEl = nil;
+    if (name) {
+        if (formEl) {
+            foundEl = (DOMElement *)[[formEl elements] namedItem:name];
+        }
+    } else if (identifier) {
+        NSArray *els = nil;
+        if (formEl) {
+            els = [self arrayFromHTMLCollection:[formEl elements]];
+            for (DOMElement *el in els) {
+                if ([[el getAttribute:@"id"] isEqualToString:@"identifier"]) {
+                    foundEl = el;
+                    break;
+                }
+            }
+        } else {
+            foundEl = [doc getElementById:identifier]; // use getElementById: here cuz we have no tagName
+        }
+    } else if (xpath) {
+        NSArray *els = [self elementsForXPath:xpath];
+        if ([els count]) foundEl = [els objectAtIndex:0];
+    }
+    
+    if (foundEl && [foundEl isKindOfClass:[DOMHTMLElement class]]) {
+        [foundEl setValue:value];
+    }
+
+    // resume execution
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
     
     return nil;
 }
@@ -491,6 +559,19 @@
         if ([[ms lowercaseString] isEqualToString:text]) {
             [result addObject:el];
         }
+    }
+    
+    return result;
+}
+
+
+- (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection {
+    NSUInteger count = [collection length];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
+
+    NSUInteger i = 0;
+    for ( ; i < count; i++) {
+        [result addObject:[collection item:i]];
     }
     
     return result;
