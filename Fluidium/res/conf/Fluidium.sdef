@@ -351,7 +351,7 @@
         </parameter>
     </command>
 
-    <command name="assert" code="FuSSAsrt" description="Asserts a condition in this tab's web page is true.">
+    <command name="assert" code="FuSSAsrt" description="Asserts a condition in this tab's web page is true. Throws an AppleScript error if false.">
         <direct-parameter type="specifier" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used."/>
         <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Asserts the value of the title of the web page loaded in this tab.">
             <cocoa key="titleEquals"/>
@@ -378,6 +378,37 @@
             <cocoa key="javaScriptEvalsTrue"/>
         </parameter>
         <parameter type="text" name="JavaScript evaluates false" code="JSFa" optional="yes" description="Asserts the given JavaScript evaluates to false in the web page loaded in this tab.">
+            <cocoa key="javaScriptEvalsFalse"/>
+        </parameter>
+    </command>
+
+    <command name="wait for condition" code="FuSSWait" description="Waits for a condition in this tab's web page to become true. Throws an AppleScript error if false after specified timeout.">
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used."/>
+        <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Waits for the title of the web page loaded in this tab to equal a give value.">
+            <cocoa key="titleEquals"/>
+        </parameter>
+        <parameter type="text" name="page has element with id" code="YsID" optional="yes" description="Waits for an element with a given id attribute to exist in the web page loaded in this tab.">
+            <cocoa key="hasElementWithId"/>
+        </parameter>
+        <parameter type="text" name="page doesn't have element with id" code="NoID" optional="yes" description="Waits for element with a given id attribute to not exist in the web page loaded in this tab.">
+            <cocoa key="doesntHaveElementWithId"/>
+        </parameter>
+        <parameter type="text" name="page contains text" code="YsTx" optional="yes" description="Waits for the given text to exist in the web page loaded in this tab.">
+            <cocoa key="containsText"/>
+        </parameter>
+        <parameter type="text" name="page doesn't contain text" code="NoTx" optional="yes" description="Waits for the given text to not exist in the web page loaded in this tab.">
+            <cocoa key="doesntContainText"/>
+        </parameter>
+        <parameter type="text" name="page contains HTML" code="YsHT" optional="yes" description="Waits for the given HTML to exist in the web page loaded in this tab.">
+            <cocoa key="containsHTML"/>
+        </parameter>
+        <parameter type="text" name="page doesn't contain HTML" code="NoHT" optional="yes" description="Waits for the given HTML to not exist in the web page loaded in this tab.">
+            <cocoa key="doesntContainHTML"/>
+        </parameter>
+        <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Waits for the given JavaScript to evaluate true in the web page loaded in this tab.">
+            <cocoa key="javaScriptEvalsTrue"/>
+        </parameter>
+        <parameter type="text" name="JavaScript evaluates false" code="JSFa" optional="yes" description="Waits for the given JavaScript to evaluate to false in the web page loaded in this tab.">
             <cocoa key="javaScriptEvalsFalse"/>
         </parameter>
     </command>
@@ -551,6 +582,9 @@
         </responds-to>
         <responds-to command="assert">
             <cocoa method="handleAssertCommand:"/>
+        </responds-to>
+        <responds-to command="wait for condition">
+            <cocoa method="handleWaitForConditionCommand:"/>
         </responds-to>
 
         <responds-to command="close">
