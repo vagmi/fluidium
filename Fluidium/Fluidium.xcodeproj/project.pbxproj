@@ -55,7 +55,6 @@
 		D30BC47510E188840019816B /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
 		D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
 		D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
-		D30F0C06110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = D30F0C05110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m */; };
 		D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */; };
 		D3189E8F10F6FFFA00B6AA21 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
 		D3189E9810F7000F00B6AA21 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
@@ -2020,7 +2019,6 @@
 				D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */,
 				D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */,
 				D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */,
-				D30F0C06110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

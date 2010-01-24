@@ -15,7 +15,7 @@
 #import <Cocoa/Cocoa.h>
 
 // this category is only for debugging memory leaks. 
-// should not be built into the final product
+// should not be included in any targets or built into the final product
 @interface NSNotificationCenter (FUDebug)
 
 @end

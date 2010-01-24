@@ -20,7 +20,7 @@
 #import <objc/runtime.h>
 
 // this category is only for debugging memory leaks. 
-// should not be built into the final product
+// should not be included in any targets or built into the final product
 @implementation NSNotificationCenter (FUDebug)
 
 - (void)new_addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject {
