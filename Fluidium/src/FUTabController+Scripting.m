@@ -198,7 +198,7 @@
     
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
 
-    //[formEl submit];
+    [formEl submit];
     
     return nil;
 }

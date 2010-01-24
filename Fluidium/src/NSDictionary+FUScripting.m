@@ -17,12 +17,12 @@
 @implementation NSDictionary (FUScripting)
 
 + (id)scriptingRecordWithDescriptor:(NSAppleEventDescriptor *)inDesc {
-    //NSLog(@"inDesc: %@", inDesc);
+    NSLog(@"inDesc: %@", inDesc);
     
     NSMutableDictionary *d = [NSMutableDictionary dictionary];
     
     NSAppleEventDescriptor *withValuesParam = [inDesc descriptorForKeyword:'usrf'];
-    //NSLog(@"withValuesParam: %@", withValuesParam);
+    NSLog(@"withValuesParam: %@", withValuesParam);
     
     NSString *name = nil;
     NSString *value = nil;
@@ -32,12 +32,14 @@
     NSInteger count = [withValuesParam numberOfItems];
     for ( ; i <= count; i++) {
         NSAppleEventDescriptor *desc = [withValuesParam descriptorAtIndex:i];
-        //NSLog(@"descriptorAtIndex: %@", desc);
+        NSLog(@"descriptorAtIndex: %@", desc);
         
         NSString *s = [desc stringValue];
         if (name) {
             value = s;
             [d setObject:value forKey:name];
+            name = nil;
+            value = nil;
         } else {
             name = s;
         }
