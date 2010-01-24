@@ -1,4 +1,4 @@
-//  Copyright 2010 Todd Ditchendorf
+//  Copyright 2009 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -12,14 +12,13 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUDoJavaScriptCommand.h"
-#import "FUTabController.h"
-#import "FUTabController+Scripting.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUDoJavaScriptCommand
+@class FUTabController;
 
-- (id)performDefaultImplementation {
-    return [[self targetTabController] handleDoJavaScriptCommand:self];
+@interface FUBaseScriptCommand : NSScriptCommand {
+
 }
 
+- (FUTabController *)targetTabController;
 @end

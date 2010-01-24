@@ -13,9 +13,25 @@
 //  limitations under the License.
 
 #import "FUBaseScriptCommand.h"
+#import "FUDocumentController.h"
+#import "FUDocument.h"
+#import "FUWindowController.h"
+#import "FUTabController.h"
 
-@interface FULoadURLCommand : FUBaseScriptCommand {
+@implementation FUBaseScriptCommand
 
+- (FUTabController *)targetTabController {
+    NSDictionary *args = [self evaluatedArguments];
+    
+    FUTabController *tc = [args objectForKey:@"tabController"];
+    tc = tc ? tc : [[FUDocumentController instance] frontTabController];
+    
+    if (!tc) {
+        FUDocument *doc = [[FUDocumentController instance] openUntitledDocumentAndDisplay:YES error:nil];
+        tc = [[doc windowController] selectedTabController];
+    }
+    
+    return tc;
 }
 
 @end

@@ -13,27 +13,13 @@
 //  limitations under the License.
 
 #import "FULoadURLCommand.h"
-#import "FUDocumentController.h"
-#import "FUDocument.h"
-#import "FUWindowController.h"
 #import "FUTabController.h"
 #import "FUTabController+Scripting.h"
 
 @implementation FULoadURLCommand
 
 - (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
-    
-    FUTabController *tc = [args objectForKey:@"tabController"];
-    tc = tc ? tc : [[FUDocumentController instance] frontTabController];
-    
-    if (!tc) {
-        FUDocument *doc = [[FUDocumentController instance] openUntitledDocumentAndDisplay:YES error:nil];
-        tc = [[doc windowController] selectedTabController];
-    }
-
-    // TODO ?
-    return [tc handleLoadURLCommand:self];
+    return [[self targetTabController] handleLoadURLCommand:self];
 }
 
 @end

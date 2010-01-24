@@ -138,6 +138,7 @@
 		D35CC54810D4829400DA1898 /* DOMNode+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
 		D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */; };
+		D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */; };
 		D3778DFE10FF1F4900EEA25F /* OAPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3778DFC10FF1F4900EEA25F /* OAPreferencesWindow.xib */; };
 		D38420C81102BECD00605809 /* FUApplication.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3F4C55210C8D1D300E0B474 /* FUApplication.h */; };
 		D38420C91102BECD00605809 /* FUUserDefaults.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3F4C6AD10C8E28E00E0B474 /* FUUserDefaults.h */; };
@@ -640,6 +641,8 @@
 		D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+FUAdditions.m"; path = "src/NSFileManager+FUAdditions.m"; sourceTree = "<group>"; };
 		D373ECCB110B945600ECE3BE /* NSDictionary+FUScripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+FUScripting.h"; path = "src/NSDictionary+FUScripting.h"; sourceTree = "<group>"; };
 		D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+FUScripting.m"; path = "src/NSDictionary+FUScripting.m"; sourceTree = "<group>"; };
+		D373ED70110BF68300ECE3BE /* FUBaseScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBaseScriptCommand.h; path = src/FUBaseScriptCommand.h; sourceTree = "<group>"; };
+		D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBaseScriptCommand.m; path = src/FUBaseScriptCommand.m; sourceTree = "<group>"; };
 		D3778DFD10FF1F4900EEA25F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/OAPreferencesWindow.xib; sourceTree = "<group>"; };
 		D38421491102C95900605809 /* FUDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocumentController.h; path = include/Fluidium/FUDocumentController.h; sourceTree = "<group>"; };
 		D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClient.h; sourceTree = "<group>"; };
@@ -1323,6 +1326,8 @@
 		D3ADFAD41104E0860064C070 /* Script Only Script Commands */ = {
 			isa = PBXGroup;
 			children = (
+				D373ED70110BF68300ECE3BE /* FUBaseScriptCommand.h */,
+				D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */,
 				D3ADF98D11045B870064C070 /* FUDoJavaScriptCommand.h */,
 				D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */,
 				D3ADF9D011045FDB0064C070 /* FULoadURLCommand.h */,
@@ -2009,6 +2014,7 @@
 				D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */,
 				D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */,
 				D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */,
+				D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
