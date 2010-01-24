@@ -310,7 +310,7 @@
         </parameter>
     </command>
 
-    <command name="set value of form element" code="FuSSSetV" description="Sets the value of an HTML form element in this tab's web page.">
+    <command name="set value of element" code="FuSSSetV" description="Sets the value of an HTML input element in this tab's web page.">
         <direct-parameter type="specifier" optional="yes" description="A tab in which to set the element value. If not specified, the selected tab in the frontmost window is used."/>
         <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the element.">
             <cocoa key="name"/>
@@ -348,6 +348,37 @@
         </parameter>
         <parameter type="record" name="with values" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
             <cocoa key="values"/>
+        </parameter>
+    </command>
+
+    <command name="assert" code="FuSSAsrt" description="Asserts a condition in this tab's web page is true.">
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used."/>
+        <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Asserts the value of the title of the web page loaded in this tab.">
+            <cocoa key="titleEquals"/>
+        </parameter>
+        <parameter type="text" name="page has element with id" code="YsID" optional="yes" description="Asserts an element with a given id attribute exists in the web page loaded in this tab.">
+            <cocoa key="hasElementWithId"/>
+        </parameter>
+        <parameter type="text" name="page doesn't have element with id" code="NoID" optional="yes" description="Asserts an element with a given id attribute does not exist in the web page loaded in this tab.">
+            <cocoa key="doesntHaveElementWithId"/>
+        </parameter>
+        <parameter type="text" name="page contains text" code="YsTx" optional="yes" description="Asserts the given text exists in the web page loaded in this tab.">
+            <cocoa key="containsText"/>
+        </parameter>
+        <parameter type="text" name="page doesn't contain text" code="NoTx" optional="yes" description="Asserts the given text does not exist in the web page loaded in this tab.">
+            <cocoa key="doesntContainText"/>
+        </parameter>
+        <parameter type="text" name="page contains HTML" code="YsHT" optional="yes" description="Asserts the given HTML exists in the web page loaded in this tab.">
+            <cocoa key="containsHTML"/>
+        </parameter>
+        <parameter type="text" name="page doesn't contain HTML" code="NoHT" optional="yes" description="Asserts the given HTML does not exist in the web page loaded in this tab.">
+            <cocoa key="doesntContainHTML"/>
+        </parameter>
+        <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Asserts the given JavaScript evaluates to true in the web page loaded in this tab.">
+            <cocoa key="javaScriptEvalsTrue"/>
+        </parameter>
+        <parameter type="text" name="JavaScript evaluates false" code="JSFa" optional="yes" description="Asserts the given JavaScript evaluates to false in the web page loaded in this tab.">
+            <cocoa key="javaScriptEvalsFalse"/>
         </parameter>
     </command>
 
@@ -506,14 +537,20 @@
         <responds-to command="do JavaScript">
             <cocoa method="handleDoJavaScriptCommand:"/>
         </responds-to>
-        <responds-to command="submit form">
-            <cocoa method="handleSubmitFormCommand:"/>
-        </responds-to>
         <responds-to command="click link">
             <cocoa method="handleClickLinkCommand:"/>
         </responds-to>
         <responds-to command="click button">
             <cocoa method="handleClickButtonCommand:"/>
+        </responds-to>
+        <responds-to command="set value of element">
+            <cocoa method="handleSubmitFormCommand:"/>
+        </responds-to>
+        <responds-to command="submit form">
+            <cocoa method="handleSubmitFormCommand:"/>
+        </responds-to>
+        <responds-to command="assert">
+            <cocoa method="handleAssertCommand:"/>
         </responds-to>
 
         <responds-to command="close">

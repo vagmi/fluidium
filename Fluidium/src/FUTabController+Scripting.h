@@ -34,8 +34,20 @@
 
 - (id)handleLoadURLCommand:(NSScriptCommand *)cmd;
 - (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd;
-- (id)handleSubmitFormCommand:(NSScriptCommand *)cmd;
-- (id)handleSetElementValueCommand:(NSScriptCommand *)cmd;
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd;
 - (id)handleClickButtonCommand:(NSScriptCommand *)cmd;
+- (id)handleSetElementValueCommand:(NSScriptCommand *)cmd;
+- (id)handleSubmitFormCommand:(NSScriptCommand *)cmd;
+
+
+- (id)handleAssertCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertPageTitleEquals:(NSScriptCommand *)cmd;
+- (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertDoesntContainTextCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertContainsHTMLCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertDoesntContainHTMLCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd;
 @end

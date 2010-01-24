@@ -35,6 +35,9 @@
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
 
+- (BOOL)pageContainsText:(NSString *)text;
+- (BOOL)pageContainsHTML:(NSString *)HTML;    
+
 @property (nonatomic, retain) NSScriptCommand *suspendedCommand;
 @end
 
@@ -144,63 +147,99 @@
 
     // just put in a little delay for good measure
     [self suspendCommand:cmd];
-    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY/2];
     
     return [NSAppleEventDescriptor descriptorWithString:result];
 }
 
 
-- (id)handleSubmitFormCommand:(NSScriptCommand *)cmd {
+- (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
     NSDictionary *args = [cmd arguments];
-    NSString *name = [args objectForKey:@"name"];
-    NSString *identifier = [args objectForKey:@"identifier"];
-    NSString *xpath = [args objectForKey:@"xpath"];
-    NSDictionary *values = [args objectForKey:@"values"];
     
-    DOMHTMLFormElement *formEl = nil;
-    if (name) {
-        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
-    } else if (identifier) {
-        NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
-        if ([els count]) formEl = [els objectAtIndex:0];
-    } else if (xpath) {
-        NSArray *els = [self elementsForXPath:xpath];
-        for (DOMHTMLElement *el in els) {
-            if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
-                formEl = (DOMHTMLFormElement *)el;
-                break;
-            }
+    NSMutableArray *els = [self elementsWithTagName:@"a" forArguments:args];
+    
+    NSMutableArray *anchorEls = [NSMutableArray array];
+    for (DOMHTMLElement *el in els) {
+        if ([el isKindOfClass:[DOMHTMLAnchorElement class]]) {
+            [anchorEls addObject:el];
         }
     }
-
-    if (!formEl) {
+    
+    if (![anchorEls count]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find form with name: %@", name]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find link element with args: %@", args]];
         return nil;
     }
     
-    DOMHTMLCollection *els = [formEl elements];
+    DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)[anchorEls objectAtIndex:0];
     
-    for (NSString *elName in values) {
-        NSString *value = [values objectForKey:elName];
+    // create DOM click event
+    DOMAbstractView *window = [doc defaultView];
+    DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
+    [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+    
+    // register for next page load
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+    
+    // send event to the anchor
+    [anchorEl dispatchEvent:evt];
+    
+    return nil;
+}
 
-        DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
-        if (!el) {
-            [cmd setScriptErrorNumber:47];
-            [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find input element with name: %@ in form named : %@", name, elName]];
-            return nil;
+
+- (id)handleClickButtonCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    
+    NSDictionary *args = [cmd arguments];
+    
+    NSMutableArray *inputEls = [self elementsWithTagName:@"input" forArguments:args];
+    for (DOMHTMLElement *el in inputEls) {
+        if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
+            DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
+            NSString *type = [[el getAttribute:@"type"] lowercaseString];
+            if ([type isEqualToString:@"button"] || [type isEqualToString:@"submit"]) {
+                
+                // register for next page load
+                [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+                
+                // click
+                [inputEl click]; 
+                
+                return nil;
+            }
         }
-        [el setValue:value];
     }
     
-    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-
-    [formEl submit];
     
+    NSMutableArray *buttonEls = [self elementsWithTagName:@"button" forArguments:args];
+    for (DOMHTMLElement *el in buttonEls) {
+        if ([el isKindOfClass:[DOMHTMLButtonElement class]]) {
+            DOMHTMLButtonElement *buttonEl = (DOMHTMLButtonElement *)el;
+            
+            // create DOM click event
+            DOMAbstractView *window = [doc defaultView];
+            DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
+            [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+            
+            // register for next page load
+            [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+            
+            // send event to the button
+            [buttonEl dispatchEvent:evt];
+            
+            return nil;
+        }
+    }
+    
+    [cmd setScriptErrorNumber:47];
+    [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find button element with args: %@", args]];
     return nil;
 }
 
@@ -272,93 +311,237 @@
 }
 
 
-- (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
+- (id)handleSubmitFormCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-
+    
     NSDictionary *args = [cmd arguments];
+    NSString *name = [args objectForKey:@"name"];
+    NSString *identifier = [args objectForKey:@"identifier"];
+    NSString *xpath = [args objectForKey:@"xpath"];
+    NSDictionary *values = [args objectForKey:@"values"];
     
-    NSMutableArray *els = [self elementsWithTagName:@"a" forArguments:args];
-    
-    NSMutableArray *anchorEls = [NSMutableArray array];
-    for (DOMHTMLElement *el in els) {
-        if ([el isKindOfClass:[DOMHTMLAnchorElement class]]) {
-            [anchorEls addObject:el];
+    DOMHTMLFormElement *formEl = nil;
+    if (name) {
+        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+    } else if (identifier) {
+        NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
+        if ([els count]) formEl = [els objectAtIndex:0];
+    } else if (xpath) {
+        NSArray *els = [self elementsForXPath:xpath];
+        for (DOMHTMLElement *el in els) {
+            if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+                formEl = (DOMHTMLFormElement *)el;
+                break;
+            }
         }
     }
     
-    if (![anchorEls count]) {
+    if (!formEl) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find link element with args: %@", args]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find form with name: %@", name]];
         return nil;
     }
     
-    DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)[anchorEls objectAtIndex:0];
+    DOMHTMLCollection *els = [formEl elements];
     
-    // create DOM click event
-    DOMAbstractView *window = [doc defaultView];
-    DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
-    [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+    for (NSString *elName in values) {
+        NSString *value = [values objectForKey:elName];
+        
+        DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
+        if (!el) {
+            [cmd setScriptErrorNumber:47];
+            [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find input element with name: %@ in form named : %@", name, elName]];
+            return nil;
+        }
+        [el setValue:value];
+    }
     
-    // register for next page load
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-
-    // send event to the anchor
-    [anchorEl dispatchEvent:evt];
+    
+    [formEl submit];
     
     return nil;
 }
 
 
-- (id)handleClickButtonCommand:(NSScriptCommand *)cmd {
+- (id)handleAssertCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-
     NSDictionary *args = [cmd arguments];
     
-    NSMutableArray *inputEls = [self elementsWithTagName:@"input" forArguments:args];
-    for (DOMHTMLElement *el in inputEls) {
-        if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
-            DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
-            NSString *type = [[el getAttribute:@"type"] lowercaseString];
-            if ([type isEqualToString:@"button"] || [type isEqualToString:@"submit"]) {
-                
-                // register for next page load
-                [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-                
-                // click
-                [inputEl click]; 
-                
-                return nil;
-            }
-        }
+    NSString *titleEquals = [args objectForKey:@"titleEquals"];
+    NSString *hasElementWithId = [args objectForKey:@"hasElementWithId"];
+    NSString *doesntHaveElementWithId = [args objectForKey:@"doesntHaveElementWithId"];
+    NSString *containsText = [args objectForKey:@"containsText"];
+    NSString *doesntContainText = [args objectForKey:@"doesntContainText"];
+    NSString *containsHTML = [args objectForKey:@"containsHTML"];
+    NSString *doesntContainHTML = [args objectForKey:@"doesntContainHTML"];
+    NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
+    NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
+    
+    if (titleEquals) {
+        return [self handleAssertPageTitleEquals:cmd];
+    } else if (hasElementWithId) {
+        return [self handleAssertHasElementWithIdCommand:cmd];
+    } else if (doesntHaveElementWithId) {
+        return [self handleAssertDoesntHaveElementWithIdCommand:cmd];
+    } else if (containsText) {
+        return [self handleAssertContainsTextCommand:cmd];
+    } else if (doesntContainText) {
+        return [self handleAssertDoesntContainTextCommand:cmd];
+    } else if (containsHTML) {
+        return [self handleAssertContainsHTMLCommand:cmd];
+    } else if (doesntContainHTML) {
+        return [self handleAssertDoesntContainHTMLCommand:cmd];
+    } else if (javaScriptEvalsTrue) {
+        return [self handleAssertJavaScriptEvalsTrueCommand:cmd];
+    } else if (javaScriptEvalsFalse) {
+        return [self handleAssertJavaScriptEvalsFalseCommand:cmd];
+    } else {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:@"missing required param for 'assert' command"];
+        return nil;
+    }
+
+    // just put in a little delay for good measure
+    [self suspendCommand:cmd];
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY/4];
+}
+
+
+- (id)handleAssertPageTitleEquals:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
+    NSString *expectedTitle = [args objectForKey:@"titleEquals"];
+    
+    BOOL result = [[webView mainFrameTitle] isEqualToString:expectedTitle];
+    if (!result) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage title does not equal «%@»", [webView mainFrameURL], expectedTitle]];
+        return nil;
     }
     
+    return nil;
+}
 
-    NSMutableArray *buttonEls = [self elementsWithTagName:@"button" forArguments:args];
-    for (DOMHTMLElement *el in buttonEls) {
-        if ([el isKindOfClass:[DOMHTMLButtonElement class]]) {
-            DOMHTMLButtonElement *buttonEl = (DOMHTMLButtonElement *)el;
-            
-            // create DOM click event
-            DOMAbstractView *window = [doc defaultView];
-            DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
-            [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
 
-            // register for next page load
-            [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-            
-            // send event to the button
-            [buttonEl dispatchEvent:evt];
-            
-            return nil;
-        }
+- (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd {
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    
+    NSDictionary *args = [cmd arguments];
+    NSString *identifier = [args objectForKey:@"hasElementWithId"];
+    
+    DOMElement *el = [doc getElementById:identifier];
+    if (!el) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage does not have element with id «%@»", [webView mainFrameURL], identifier]];
+        return nil;
+    }
+
+    return nil;
+}
+
+
+- (id)handleAssertDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd {
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    
+    NSDictionary *args = [cmd arguments];
+    NSString *identifier = [args objectForKey:@"doesntHaveElementWithId"];
+    
+    DOMElement *el = [doc getElementById:identifier];
+    if (el) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage has element with id «%@»", [webView mainFrameURL], identifier]];
+        return nil;
+    }
+
+    return nil;
+}
+
+
+- (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
+    NSString *text = [args objectForKey:@"containsText"];
+    
+    if (![self pageContainsText:text]) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain text «%@»", [webView mainFrameURL], text]];
+        return nil;
+    }
+
+    return nil;
+}
+
+
+- (id)handleAssertDoesntContainTextCommand:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
+    NSString *text = [args objectForKey:@"doesntContainText"];
+    
+    if ([self pageContainsText:text]) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains text «%@»", [webView mainFrameURL], text]];
+        return nil;
+    }
+
+    return nil;
+}
+
+
+- (id)handleAssertContainsHTMLCommand:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
+    NSString *HTML = [args objectForKey:@"containsHTML"];
+    
+    if (![self pageContainsHTML:HTML]) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain HTML «%@»", [webView mainFrameURL], HTML]];
+        return nil;
+    }
+
+    return nil;
+}
+
+
+- (id)handleAssertDoesntContainHTMLCommand:(NSScriptCommand *)cmd {    
+    NSDictionary *args = [cmd arguments];
+    NSString *HTML = [args objectForKey:@"doesntContainHTML"];
+    
+    if ([self pageContainsHTML:HTML]) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains HTML «%@»", [webView mainFrameURL], HTML]];
+        return nil;
     }
     
-    [cmd setScriptErrorNumber:47];
-    [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find button element with args: %@", args]];
+    return nil;
+}
+
+
+- (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
+    NSString *script = [args objectForKey:@"javaScriptEvalsTrue"];
+    
+    BOOL result = [[webView stringByEvaluatingJavaScriptFromString:script] boolValue];
+    if (!result) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate true «%@»", [webView mainFrameURL], script]];
+        return nil;
+    }
+    
+    return nil;
+}
+
+
+- (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
+    NSString *script = [args objectForKey:@"javaScriptEvalsFalse"];
+    
+    BOOL result = [[webView stringByEvaluatingJavaScriptFromString:script] boolValue];
+    if (result) {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate false «%@»", [webView mainFrameURL], script]];
+        return nil;
+    }
+    
     return nil;
 }
 
@@ -575,6 +758,27 @@
     }
     
     return result;
+}
+
+
+- (BOOL)pageContainsText:(NSString *)text {
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    NSString *allText = [[doc body] textContent];
+    
+    NSRange r = [allText rangeOfString:text];
+    BOOL containsText = NSNotFound != r.location;
+    
+    return containsText;
+}
+
+
+- (BOOL)pageContainsHTML:(NSString *)HTML {
+    NSString *allHTML = [self documentSource];
+    
+    NSRange r = [allHTML rangeOfString:HTML];
+    BOOL containsHTML = NSNotFound != r.location;
+    
+    return containsHTML;
 }
 
 @end
