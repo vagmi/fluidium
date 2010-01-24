@@ -12,27 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUTabsPreferencesViewController.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUTabsPreferencesViewController
-
-- (id)init {
-    return [self initWithNibName:@"FUTabsPreferencesView" bundle:[NSBundle bundleForClass:[self class]]];
-}
-
-
-- (id)initWithNibName:(NSString *)name bundle:(NSBundle *)b {
-    if (self = [super initWithNibName:name bundle:b]) {
-        
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [super dealloc];
-}
+// this category is only for debugging memory leaks. 
+// should not be built into the final product
+@interface NSNotificationCenter (FUDebug)
 
 @end

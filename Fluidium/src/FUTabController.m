@@ -121,7 +121,7 @@ typedef enum {
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<FUTabController %@>", title];
+    return [NSString stringWithFormat:@"<FUTabController %p %@>", self, title];
 }
 
 

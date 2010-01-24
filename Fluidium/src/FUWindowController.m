@@ -1377,20 +1377,22 @@
 - (BOOL)removeTabViewItem:(NSTabViewItem *)tabItem {
     FUTabController *tc = [tabItem identifier];
 
+    // must call this manually
+    if (![self tabView:tabView shouldCloseTabViewItem:tabItem]) {
+        return NO;
+    }
+    
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               tc, FUTabControllerKey,
                               [NSNumber numberWithInteger:[tabView indexOfTabViewItem:tabItem]], FUIndexKey,
                               nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerWillCloseTabNotification object:self userInfo:userInfo];
     
-    // must call this manually
-    if (![self tabView:tabView shouldCloseTabViewItem:tabItem]) {
-        return NO;
-    }
-    
-    if ([self selectedTabController] == tc) {
-        [self stopObservingTabController:tc];
-    }
+//    if ([self selectedTabController] == tc) {
+//        [self stopObservingTabController:tc];
+//    }
+
+    [[tc webView] setHostWindow:nil];
     
     [tabView removeTabViewItem:tabItem];
     [tabControllers removeObject:[[tc retain] autorelease]];
@@ -1449,6 +1451,7 @@
     [nc removeObserver:self name:FUTabControllerProgressDidStartNotification object:tc];
     [nc removeObserver:self name:FUTabControllerProgressDidChangeNotification object:tc];
     [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:tc];
+    [nc removeObserver:self name:FUTabControllerDidStartProvisionalLoadNotification object:tc];
     [nc removeObserver:self name:FUTabControllerDidCommitLoadNotification object:tc];
 
     // unbind title

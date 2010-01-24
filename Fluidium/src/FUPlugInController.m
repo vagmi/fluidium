@@ -130,7 +130,10 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 - (void)showVisiblePlugInsInWindow:(NSWindow *)win {
     for (NSString *identifier in [[FUUserDefaults instance] visiblePlugInIdentifiers]) {
-        [self showPlugInWrapper:[self plugInWrapperForIdentifier:identifier] inWindow:win];
+        FUPlugInWrapper *wrap = [self plugInWrapperForIdentifier:identifier];
+        if (wrap) { // a plugin may have been removed/uninstalled. so check for it
+            [self showPlugInWrapper:wrap inWindow:win];
+        }
     }
 }
 

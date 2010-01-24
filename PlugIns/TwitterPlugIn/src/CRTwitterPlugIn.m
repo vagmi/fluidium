@@ -84,7 +84,6 @@ static CRTwitterPlugIn *instance = nil;
     
     self.frontViewController = nil;
     self.selectedUsername = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 

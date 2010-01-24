@@ -55,6 +55,7 @@
 		D30BC47510E188840019816B /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
 		D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
 		D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
+		D30F0C06110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = D30F0C05110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m */; };
 		D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */; };
 		D3189E8F10F6FFFA00B6AA21 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
 		D3189E9810F7000F00B6AA21 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
@@ -518,6 +519,8 @@
 		D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptMenuItem.m; path = src/FUJavaScriptMenuItem.m; sourceTree = "<group>"; };
 		D30BC56910E1AC0E0019816B /* FUJavaScriptGrowlNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUJavaScriptGrowlNotification.h; path = src/FUJavaScriptGrowlNotification.h; sourceTree = "<group>"; };
 		D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUJavaScriptGrowlNotification.m; path = src/FUJavaScriptGrowlNotification.m; sourceTree = "<group>"; };
+		D30F0C04110CD2BB00175A3D /* NSNotificationCenter+FUDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+FUDebug.h"; path = "src/NSNotificationCenter+FUDebug.h"; sourceTree = "<group>"; };
+		D30F0C05110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNotificationCenter+FUDebug.m"; path = "src/NSNotificationCenter+FUDebug.m"; sourceTree = "<group>"; };
 		D3189D6A10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+NSToolbarDelegate.h"; path = "src/FUWindowController+NSToolbarDelegate.h"; sourceTree = "<group>"; };
 		D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+NSToolbarDelegate.m"; path = "src/FUWindowController+NSToolbarDelegate.m"; sourceTree = "<group>"; };
 		D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = lib/Sparkle/Sparkle.framework; sourceTree = "<group>"; };
@@ -913,6 +916,8 @@
 				D3F4C6AE10C8E28E00E0B474 /* FUUserDefaults.m */,
 				D3D3731F10E3D32300203EB2 /* FUNotifications.h */,
 				D3D3732010E3D32300203EB2 /* FUNotifications.m */,
+				D30F0C04110CD2BB00175A3D /* NSNotificationCenter+FUDebug.h */,
+				D30F0C05110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m */,
 				D3E4303710CB224500A5BDEF /* Browser Window */,
 				D3F4C56310C8D3AF00E0B474 /* Toolbar */,
 				D3E4309910CB526400A5BDEF /* View Source */,
@@ -2015,6 +2020,7 @@
 				D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */,
 				D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */,
 				D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */,
+				D30F0C06110CD2BB00175A3D /* NSNotificationCenter+FUDebug.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

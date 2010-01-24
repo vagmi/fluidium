@@ -29,6 +29,8 @@
 
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     self.preferencesViewController = nil;
     self.identifier = nil;
     self.localizedTitle = nil;

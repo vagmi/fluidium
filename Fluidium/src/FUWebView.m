@@ -69,9 +69,9 @@
         [nc addObserver:self selector:@selector(userAgentStringDidChange:) name:FUUserAgentStringDidChangeNotification object:nil];
         [nc addObserver:self selector:@selector(continuousSpellCheckingDidChange:) name:FUContinuousSpellCheckingDidChangeNotification object:nil];
 
-        [nc addObserver:self selector:@selector(webViewProgressStarted:) name:WebViewProgressStartedNotification object:nil];
-        [nc addObserver:self selector:@selector(webViewProgressEstimateChanged:) name:WebViewProgressEstimateChangedNotification object:nil];
-        [nc addObserver:self selector:@selector(webViewProgressFinished:) name:WebViewProgressFinishedNotification object:nil];
+        [nc addObserver:self selector:@selector(webViewProgressStarted:) name:WebViewProgressStartedNotification object:self];
+        [nc addObserver:self selector:@selector(webViewProgressEstimateChanged:) name:WebViewProgressEstimateChangedNotification object:self];
+        [nc addObserver:self selector:@selector(webViewProgressFinished:) name:WebViewProgressFinishedNotification object:self];
     }
     return self;
 }
@@ -236,6 +236,7 @@
 #pragma mark Private
 
 - (void)updateWebPreferences {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WebPreferencesChangedNotification object:[self preferences]];
     [self setPreferences:[FUWebPreferences instance]];
 }
 

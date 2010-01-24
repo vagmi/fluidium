@@ -219,6 +219,8 @@ static NSString *windowFrameSaveName = @"Preferences";
 
 - (void)dealloc;
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [window release];
     // preferenceBox contained in window
     [globalControlsView release]; // top level nib object

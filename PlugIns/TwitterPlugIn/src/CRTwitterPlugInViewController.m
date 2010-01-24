@@ -31,6 +31,8 @@
 
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     self.plugIn = nil;
     self.noAccountsViewController = nil;
     self.tabBarController = nil;
