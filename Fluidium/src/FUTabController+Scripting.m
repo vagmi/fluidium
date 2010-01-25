@@ -20,6 +20,9 @@
 
 #define DEFAULT_DELAY 1.0
 
+#define KEY_START_DATE @"FUStartDate"
+#define KEY_COMMAND @"FUCommand"
+
 @interface FUTabController (ScriptingPrivate)
 - (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
 - (void)suspendCommand:(NSScriptCommand *)cmd;
@@ -35,18 +38,16 @@
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
 
-- (BOOL)pageTitleEquals:(NSScriptCommand *)cmd;
-- (BOOL)hasElementWithId:(NSScriptCommand *)cmd;
-- (BOOL)doesntHaveElementWithId:(NSScriptCommand *)cmd;
-- (BOOL)containsText:(NSScriptCommand *)cmd;
-- (BOOL)doesntContainText:(NSScriptCommand *)cmd;
-- (BOOL)containsHTML:(NSScriptCommand *)cmd;
-- (BOOL)doesntContainHTML:(NSScriptCommand *)cmd;
-- (BOOL)javaScriptEvalsTrue:(NSScriptCommand *)cmd;
-- (BOOL)javaScriptEvalsFalse:(NSScriptCommand *)cmd;
+- (BOOL)titleEquals:(NSString *)cmd;
+- (BOOL)hasElementWithId:(NSString *)cmd;
+- (BOOL)containsText:(NSString *)cmd;
+- (BOOL)containsHTML:(NSString *)cmd;
+- (BOOL)javaScriptEvalsTrue:(NSString *)cmd;
 
 - (BOOL)pageContainsText:(NSString *)text;
-- (BOOL)pageContainsHTML:(NSString *)HTML;    
+- (BOOL)pageContainsHTML:(NSString *)HTML;
+
+- (id)checkWaitForCondition:(NSDictionary *)info;
 
 @property (nonatomic, retain) NSScriptCommand *suspendedCommand;
 @end
@@ -392,7 +393,7 @@
     NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
     
     if (titleEquals) {
-        [self handleAssertPageTitleEqualsCommand:cmd];
+        [self handleAssertTitleEqualsCommand:cmd];
     }
     if (hasElementWithId) {
         [self handleAssertHasElementWithIdCommand:cmd];
@@ -427,10 +428,27 @@
 }
 
 
-- (id)handleAssertPageTitleEqualsCommand:(NSScriptCommand *)cmd {
-    if (![self pageTitleEquals:cmd]) {
+- (id)handleWaitForConditionCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+
+    // suspend
+    [self suspendCommand:cmd];
+
+    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:2];
+    [info setObject:cmd forKey:KEY_COMMAND];
+    [info setObject:[NSDate date] forKey:KEY_START_DATE];
+
+    [self checkWaitForCondition:info];
+
+    return nil;
+} 
+
+
+- (id)handleAssertTitleEqualsCommand:(NSScriptCommand *)cmd {
+    NSString *aTitle = [[cmd arguments] objectForKey:@"titleEquals"];
+    if (![self titleEquals:aTitle]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage title does not equal «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"titleEquals"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage title does not equal «%@»", [webView mainFrameURL], aTitle]];
         return nil;
     }
     
@@ -439,9 +457,10 @@
 
 
 - (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd {
-    if (![self hasElementWithId:cmd]) {
+    NSString *identifier = [[cmd arguments] objectForKey:@"hasElementWithId"];
+    if (![self hasElementWithId:identifier]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage does not have element with id «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"hasElementWithId"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage does not have element with id «%@»", [webView mainFrameURL], identifier]];
         return nil;
     }
 
@@ -450,9 +469,10 @@
 
 
 - (id)handleAssertDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd {
-    if (![self doesntHaveElementWithId:cmd]) {
+    NSString *identifier = [[cmd arguments] objectForKey:@"doesntHaveElementWithId"];
+    if ([self hasElementWithId:identifier]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage has element with id «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"doesntHaveElementWithId"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage has element with id «%@»", [webView mainFrameURL], identifier]];
         return nil;
     }
 
@@ -461,9 +481,10 @@
 
 
 - (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd {
-    if (![self containsText:cmd]) {
+    NSString *text = [[cmd arguments] objectForKey:@"containsText"];
+    if (![self containsText:text]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain text «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"containsText"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain text «%@»", [webView mainFrameURL], text]];
         return nil;
     }
 
@@ -472,9 +493,10 @@
 
 
 - (id)handleAssertDoesntContainTextCommand:(NSScriptCommand *)cmd {
-    if (![self doesntContainText:cmd]) {
+    NSString *text = [[cmd arguments] objectForKey:@"doesntContainText"];
+    if ([self containsText:text]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains text «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"doesntContainText"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains text «%@»", [webView mainFrameURL], text]];
         return nil;
     }
 
@@ -483,9 +505,10 @@
 
 
 - (id)handleAssertContainsHTMLCommand:(NSScriptCommand *)cmd {
-    if (![self containsHTML:cmd]) {
+    NSString *HTML = [[cmd arguments] objectForKey:@"containsHTML"];
+    if (![self containsHTML:HTML]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain HTML «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"containsHTML"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain HTML «%@»", [webView mainFrameURL], HTML]];
         return nil;
     }
 
@@ -494,9 +517,10 @@
 
 
 - (id)handleAssertDoesntContainHTMLCommand:(NSScriptCommand *)cmd {    
-    if (![self doesntContainHTML:cmd]) {
+    NSString *HTML = [[cmd arguments] objectForKey:@"doesntContainHTML"];
+    if ([self containsHTML:HTML]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains HTML «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"doesntContainHTML"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains HTML «%@»", [webView mainFrameURL], HTML]];
         return nil;
     }
     
@@ -505,9 +529,10 @@
 
 
 - (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd {
-    if (![self javaScriptEvalsTrue:cmd]) {
+    NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsTrue"];
+    if (![self javaScriptEvalsTrue:script]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate true «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"javaScriptEvalsTrue"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate true «%@»", [webView mainFrameURL], script]];
         return nil;
     }
     
@@ -516,9 +541,10 @@
 
 
 - (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd {
-    if (![self javaScriptEvalsFalse:cmd]) {
+    NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsFalse"];
+    if ([self javaScriptEvalsTrue:script]) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate false «%@»", [webView mainFrameURL], [[cmd arguments] objectForKey:@"javaScriptEvalsFalse"]]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate false «%@»", [webView mainFrameURL], script]];
         return nil;
     }
     
@@ -743,87 +769,22 @@
 
 #pragma mark -
 
-- (BOOL)pageTitleEquals:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *expectedTitle = [args objectForKey:@"titleEquals"];
-    
-    BOOL result = [[webView mainFrameTitle] isEqualToString:expectedTitle];
+- (BOOL)titleEquals:(NSString *)aTitle {
+    BOOL result = [[webView mainFrameTitle] isEqualToString:aTitle];
     return result;
 }
 
 
-- (BOOL)hasElementWithId:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *identifier = [args objectForKey:@"hasElementWithId"];
-    
+- (BOOL)hasElementWithId:(NSString *)identifier {
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     DOMElement *el = [doc getElementById:identifier];
 
-    return (el != nil);
-}
-
-
-- (BOOL)doesntHaveElementWithId:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *identifier = [args objectForKey:@"doesntHaveElementWithId"];
-    
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    DOMElement *el = [doc getElementById:identifier];
-
-    return (el == nil);
-}
-
-
-- (BOOL)containsText:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *text = [args objectForKey:@"containsText"];
-    return [self pageContainsText:text];
-}
-
-
-- (BOOL)doesntContainText:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *text = [args objectForKey:@"doesntContainText"];
-    return ![self pageContainsText:text];
-}
-
-
-- (BOOL)containsHTML:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *HTML = [args objectForKey:@"containsHTML"];
-    return [self pageContainsHTML:HTML];
-}
-
-
-- (BOOL)doesntContainHTML:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *HTML = [args objectForKey:@"doesntContainHTML"];
-    
-    return ![self pageContainsHTML:HTML];
-}
-
-
-- (BOOL)javaScriptEvalsTrue:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *script = [args objectForKey:@"javaScriptEvalsTrue"];
-    
-    BOOL result = [[webView stringByEvaluatingJavaScriptFromString:script] boolValue];
+    BOOL result = (el != nil);
     return result;
 }
 
 
-- (BOOL)javaScriptEvalsFalse:(NSScriptCommand *)cmd {
-    NSDictionary *args = [cmd arguments];
-    NSString *script = [args objectForKey:@"javaScriptEvalsFalse"];
-    
-    BOOL result = [[webView stringByEvaluatingJavaScriptFromString:script] boolValue];
-    return !result;
-}
-
-
-#pragma mark -
-
-- (BOOL)pageContainsText:(NSString *)text {
+- (BOOL)containsText:(NSString *)text {
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     NSString *allText = [[doc body] textContent];
     
@@ -834,13 +795,97 @@
 }
 
 
-- (BOOL)pageContainsHTML:(NSString *)HTML {
+- (BOOL)containsHTML:(NSString *)HTML {
     NSString *allHTML = [self documentSource];
     
     NSRange r = [allHTML rangeOfString:HTML];
     BOOL containsHTML = NSNotFound != r.location;
     
     return containsHTML;
+}
+
+
+- (BOOL)javaScriptEvalsTrue:(NSString *)script {
+    BOOL result = [[webView stringByEvaluatingJavaScriptFromString:script] boolValue];
+    return result;
+}
+
+
+- (id)checkWaitForCondition:(NSDictionary *)info {
+    NSScriptCommand *cmd = [info objectForKey:KEY_COMMAND];
+    NSDictionary *args = [cmd arguments];
+    
+    BOOL done = NO;
+    
+    NSDate *startDate = [info objectForKey:KEY_START_DATE];
+    NSAssert(startDate, @"should be a date");
+    if (fabs([startDate timeIntervalSinceNow]) > 30) {
+//        [cmd setScriptErrorNumber:47];
+//        [cmd setScriptErrorString:[NSString stringWithFormat:@"conditions were not met before tiemout: «%@» in page : «%@»", args, [webView mainFrameURL]]];
+        done = YES;
+    } else {
+        
+        NSString *titleEquals = [args objectForKey:@"titleEquals"];
+        NSString *hasElementWithId = [args objectForKey:@"hasElementWithId"];
+        NSString *doesntHaveElementWithId = [args objectForKey:@"doesntHaveElementWithId"];
+        NSString *containsText = [args objectForKey:@"containsText"];
+        NSString *doesntContainText = [args objectForKey:@"doesntContainText"];
+        NSString *containsHTML = [args objectForKey:@"containsHTML"];
+        NSString *doesntContainHTML = [args objectForKey:@"doesntContainHTML"];
+        NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
+        NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
+        
+        BOOL titleEqualsDone = NO;
+        BOOL hasElementWithIdDone = NO;
+        BOOL doesntHaveElementWithIdDone = NO;
+        BOOL containsTextDone = NO;
+        BOOL doesntContainTextDone = NO;
+        BOOL containsHTMLDone = NO;
+        BOOL doesntContainHTMLDone = NO;
+        BOOL javaScriptEvalsTrueDone = NO;
+        BOOL javaScriptEvalsFalseDone = NO;
+        
+        if (titleEquals) {
+            titleEqualsDone = [self titleEquals:titleEquals];
+        }
+        if (hasElementWithId) {
+            hasElementWithIdDone = [self hasElementWithId:hasElementWithId];
+        }
+        if (doesntHaveElementWithId) {
+            doesntHaveElementWithIdDone = ![self hasElementWithId:doesntHaveElementWithId];
+        }
+        if (containsText) {
+            containsTextDone = [self containsText:containsText];
+        }
+        if (doesntContainText) {
+            doesntContainTextDone = ![self containsText:doesntContainText];
+        }
+        if (containsHTML) {
+            containsHTMLDone = [self containsHTML:containsHTML];
+        }
+        if (doesntContainHTML) {
+            doesntContainHTMLDone = ![self containsHTML:doesntContainHTML];
+        }
+        if (javaScriptEvalsTrue) {
+            javaScriptEvalsTrueDone = [self javaScriptEvalsTrue:javaScriptEvalsTrue];
+        }
+        if (javaScriptEvalsFalse) {
+            javaScriptEvalsFalseDone = ![self javaScriptEvalsTrue:javaScriptEvalsFalse];
+        }
+        
+        done = (titleEqualsDone && hasElementWithIdDone && doesntHaveElementWithIdDone &&
+                containsTextDone && doesntContainTextDone && containsHTMLDone && 
+                doesntContainHTMLDone && javaScriptEvalsTrueDone && javaScriptEvalsFalseDone);
+    }
+    
+    if (!done) {
+        [self performSelector:@selector(checkWaitForCondition:) withObject:info afterDelay:2];
+    } else {
+        // just put in a little delay for good measure
+        [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY/4];
+    }
+    
+    return nil;
 }
 
 @end

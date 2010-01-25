@@ -41,7 +41,7 @@
 
 
 - (id)handleAssertCommand:(NSScriptCommand *)cmd;
-- (id)handleAssertPageTitleEqualsCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertTitleEqualsCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd;
@@ -51,7 +51,7 @@
 - (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd;
 
-//- (id)handleWaitForConditionCommand:(NSScriptCommand *)cmd;
+- (id)handleWaitForConditionCommand:(NSScriptCommand *)cmd;
 //- (id)handleWaitForConditionPageTitleEquals:(NSScriptCommand *)cmd;
 //- (id)handleWaitForConditionHasElementWithIdCommand:(NSScriptCommand *)cmd;
 //- (id)handleWaitForConditionDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd;
