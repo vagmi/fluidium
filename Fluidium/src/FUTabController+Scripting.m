@@ -810,15 +810,15 @@
         NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
         NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
         
-        BOOL titleEqualsDone = NO;
-        BOOL hasElementWithIdDone = NO;
-        BOOL doesntHaveElementWithIdDone = NO;
-        BOOL containsTextDone = NO;
-        BOOL doesntContainTextDone = NO;
-        BOOL containsHTMLDone = NO;
-        BOOL doesntContainHTMLDone = NO;
-        BOOL javaScriptEvalsTrueDone = NO;
-        BOOL javaScriptEvalsFalseDone = NO;
+        BOOL titleEqualsDone = YES;
+        BOOL hasElementWithIdDone = YES;
+        BOOL doesntHaveElementWithIdDone = YES;
+        BOOL containsTextDone = YES;
+        BOOL doesntContainTextDone = YES;
+        BOOL containsHTMLDone = YES;
+        BOOL doesntContainHTMLDone = YES;
+        BOOL javaScriptEvalsTrueDone = YES;
+        BOOL javaScriptEvalsFalseDone = YES;
         
         if (titleEquals) {
             titleEqualsDone = [self titleEquals:titleEquals];
