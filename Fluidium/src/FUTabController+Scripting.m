@@ -20,8 +20,10 @@
 
 #define DEFAULT_DELAY 1.0
 
+// wait for condition
 #define KEY_START_DATE @"FUStartDate"
 #define KEY_COMMAND @"FUCommand"
+#define DEFAULT_TIMEOUT 60.0
 
 @interface FUTabController (ScriptingPrivate)
 - (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
@@ -32,7 +34,6 @@
 
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName;
-//- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andAttributes:(NSDictionary *)attrs;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
 - (NSMutableArray *)elementsForXPath:(NSString *)xpath;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
@@ -680,37 +681,6 @@
 }
 
 
-//- (NSMutableArray *)elementsWithTagName:(NSString *)tagName andAttributes:(NSDictionary *)attrs {
-//    NSMutableArray *result = [NSMutableArray array];
-//    
-//    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-//    DOMNodeList *els = [doc getElementsByTagName:tagName];
-//    
-//    NSUInteger i = 0;
-//    NSUInteger count = [els length];
-//    for ( ; i < count; i++) {
-//        DOMHTMLElement *el = (DOMHTMLElement *)[els item:i];
-//        
-//        BOOL matches = YES;
-//
-//        for (NSString *attrName in attrs) {
-//            NSString *val = [el getAttribute:attrName];
-//            NSString *attrVal = [attrs objectForKey:attrName];
-//            if (![val isEqualToString:attrVal]) {
-//                matches = NO;
-//                break;
-//            }
-//        }
-//        
-//        if (matches) {
-//            [result addObject:el];
-//        }
-//    }
-//    
-//    return result;
-//}
-
-
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text {
     text = [text lowercaseString];
     
@@ -816,10 +786,15 @@
     NSDictionary *args = [cmd arguments];
     
     BOOL done = NO;
+    NSTimeInterval timeout = DEFAULT_TIMEOUT;
+    NSNumber *n = [args objectForKey:@"timeout"];
+    if (n) {
+        timeout = [n floatValue];
+    }
     
     NSDate *startDate = [info objectForKey:KEY_START_DATE];
     NSAssert(startDate, @"should be a date");
-    if (fabs([startDate timeIntervalSinceNow]) > 30) {
+    if (fabs([startDate timeIntervalSinceNow]) > timeout) {
 //        [cmd setScriptErrorNumber:47];
 //        [cmd setScriptErrorString:[NSString stringWithFormat:@"conditions were not met before tiemout: «%@» in page : «%@»", args, [webView mainFrameURL]]];
         done = YES;
