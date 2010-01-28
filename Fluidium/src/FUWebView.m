@@ -78,7 +78,9 @@
 
 
 - (void)dealloc {
-    //NSLog(@"%s", __PRETTY_FUNCTION__);
+#ifdef FUDEBUG
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+#endif
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

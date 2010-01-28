@@ -593,12 +593,12 @@ static void _setValue(OFPreference *self, id *_value, NSString *key, id value)
 
     [preferencesLock lock];
 
-#ifdef DEBUG
-    if (![_key hasPrefix:@"SiteSpecific:"] && ![[standardUserDefaults volatileDomainForName:NSRegistrationDomain] objectForKey:_key]) {
-        NSLog(@"OFPreference: No default value is registered for '%@'", _key);
-        //OBPRECONDITION([[standardUserDefaults volatileDomainForName:NSRegistrationDomain] objectForKey:_key]);
-    }
-#endif
+//#ifdef DEBUG
+//    if (![_key hasPrefix:@"SiteSpecific:"] && ![[standardUserDefaults volatileDomainForName:NSRegistrationDomain] objectForKey:_key]) {
+//        NSLog(@"OFPreference: No default value is registered for '%@'", _key);
+//        //OBPRECONDITION([[standardUserDefaults volatileDomainForName:NSRegistrationDomain] objectForKey:_key]);
+//    }
+//#endif
 
     newGeneration = registrationGeneration;
     newValue = [[standardUserDefaults objectForKey: _key] retain];

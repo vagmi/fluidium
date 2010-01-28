@@ -1386,18 +1386,16 @@
                               tc, FUTabControllerKey,
                               [NSNumber numberWithInteger:[tabView indexOfTabViewItem:tabItem]], FUIndexKey,
                               nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerWillCloseTabNotification object:self userInfo:userInfo];
-    
-//    if ([self selectedTabController] == tc) {
-//        [self stopObservingTabController:tc];
-//    }
 
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc postNotificationName:FUWindowControllerWillCloseTabNotification object:self userInfo:userInfo];
+    
     [[tc webView] setHostWindow:nil];
     
-    [tabView removeTabViewItem:tabItem];
+    [tabView removeTabViewItem:tabItem]; // triggers -stopObservingTabController:
     [tabControllers removeObject:[[tc retain] autorelease]];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:FUWindowControllerDidCloseTabNotification object:self userInfo:userInfo];
+    [nc postNotificationName:FUWindowControllerDidCloseTabNotification object:self userInfo:userInfo];
     return YES;
 }
 

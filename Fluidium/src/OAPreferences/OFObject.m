@@ -36,17 +36,17 @@
 #if OFOBJECT_USE_INTERNAL_EXTRA_REF_COUNT
 - (id)retain;
 {
-#ifdef DEBUG
-    int32_t newExtraRefCount = 
-#endif
+//#ifdef DEBUG
+//    int32_t newExtraRefCount = 
+//#endif
     OSAtomicIncrement32(&_extraRefCount);
     
-#ifdef DEBUG
-    if (newExtraRefCount > SaneRetainCount) {
-        OBASSERT(newExtraRefCount <= SaneRetainCount);
-        [NSException raise:@"RetainInsane" format:@"-[%@ %s]: Insane retain count! count=%d", OBShortObjectDescription(self), _cmd, newExtraRefCount];
-    }
-#endif
+//#ifdef DEBUG
+//    if (newExtraRefCount > SaneRetainCount) {
+//        OBASSERT(newExtraRefCount <= SaneRetainCount);
+//        [NSException raise:@"RetainInsane" format:@"-[%@ %s]: Insane retain count! count=%d", OBShortObjectDescription(self), _cmd, newExtraRefCount];
+//    }
+//#endif
 
 #if !defined(TARGET_OS_IPHONE) || !TARGET_OS_IPHONE
     if (NSKeepAllocationStatistics) {
@@ -77,16 +77,16 @@
     
     int32_t newExtraRefCount = OSAtomicDecrement32(&_extraRefCount);
     if (newExtraRefCount < 0) {
-#ifdef DEBUG
-        _extraRefCount = FreedObjectRetainCount;
-#endif
+//#ifdef DEBUG
+//        _extraRefCount = FreedObjectRetainCount;
+//#endif
         [self dealloc];
     } else {
-#ifdef DEBUG
-        if (newExtraRefCount > SaneRetainCount) {
-            [NSException raise:@"RetainInsane" format:@"-[%@ %s]: Insane retain count! count=%d", OBShortObjectDescription(self), _cmd, _extraRefCount];
-        }
-#endif
+//#ifdef DEBUG
+//        if (newExtraRefCount > SaneRetainCount) {
+//            [NSException raise:@"RetainInsane" format:@"-[%@ %s]: Insane retain count! count=%d", OBShortObjectDescription(self), _cmd, _extraRefCount];
+//        }
+//#endif
     }
 }
 #endif // OFOBJECT_USE_INTERNAL_EXTRA_REF_COUNT

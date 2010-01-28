@@ -36,6 +36,16 @@
 //        NSLog(@"observer: %@, sel: %s, name: %@ object: %@", observer, aSelector, aName, anObject);
 //        //NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %@", anObject);
 
+        
+//    } else if ([NSStringFromClass([observer class]) isEqualToString:@"FUWebView"]) {
+//        //        NSLog(@"isClass: %d", observer  == [WebView class]);
+//        NSLog(@"observer: %@, sel: %s, name: %@ object: %@", observer, aSelector, aName, anObject);
+//        //NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %@", anObject);
+
+        
+        
+        
+        
 //    } else if ([aName hasPrefix:@"FUTab"]) {
 //        //        NSLog(@"isClass: %d", observer  == [WebView class]);
 //        NSLog(@"observer: %@, sel: %s, name: %@ object: %@", observer, aSelector, aName, anObject);

@@ -85,7 +85,9 @@ typedef enum {
 
 
 - (void)dealloc {
-    //NSLog(@"%s", __PRETTY_FUNCTION__);
+#ifdef FUDEBUG
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+#endif
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -454,6 +456,10 @@ typedef enum {
 
 
 - (void)handleEvent:(DOMEvent *)evt {
+    DOMAbstractView *window = (DOMAbstractView *)[webView windowScriptObject];
+    DOMDocument *doc = [window document];
+    [doc removeEventListener:@"DOMContentLoaded" listener:self useCapture:NO];
+    
     [self postNotificationName:FUTabControllerDidLoadDOMContentNotification];
 }
 
@@ -849,8 +855,13 @@ typedef enum {
 - (BOOL)willRetryWithTLDAdded:(WebView *)wv {
     NSString *host = [[NSURL URLWithString:[wv mainFrameURL]] host];
     
+    NSString *s = nil;
     if (![host hasTLDSuffix]) {
-        self.URLString = [host stringByEnsuringTLDSuffix];
+        s = [host stringByEnsuringTLDSuffix];
+    }
+    
+    if ([s length]) {
+        self.URLString = s;
         [self goToLocation:self];
         return YES;
     } else {
