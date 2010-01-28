@@ -18,6 +18,7 @@
 #import "FUTabController.h"
 #import "FUUserDefaults.h"
 #import "FUWebView.h"
+#import "FUJavaScriptBridge.h"
 #import "FUJavaScriptMenuItem.h"
 #import "FUNotifications.h"
 #import "FUDownloadWindowController.h"
@@ -53,7 +54,6 @@
 
 - (void)dealloc {
     self.hiddenWindow = nil;
-    self.dockMenuItems = nil;
     [super dealloc];
 }
 
@@ -115,7 +115,7 @@
 - (IBAction)dockMenuItemClick:(id)sender {
     FUTabController *tc = [self frontTabController];
     if (tc) {
-        FUJavaScriptMenuItem *jsItem = [dockMenuItems objectAtIndex:[sender tag]];
+        FUJavaScriptMenuItem *jsItem = [sender representedObject];        
         [tc.javaScriptBridge dockMenuItemClick:jsItem];
     }
 }
@@ -150,17 +150,17 @@
 
 
 - (NSMenu *)applicationDockMenu:(NSApplication *)app {
-    if (![dockMenuItems count]) return nil;
+    NSArray *jsItems = [[[self frontTabController] javaScriptBridge] dockMenuItems];
+    if (![jsItems count]) return nil;
         
     NSMenu *menu = [[[NSMenu alloc] init] autorelease];
     
-    NSInteger i = 0;
-    for (FUJavaScriptMenuItem *jsItem in dockMenuItems) {
+    for (FUJavaScriptMenuItem *jsItem in jsItems) {
         NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:jsItem.title
                                                            action:@selector(dockMenuItemClick:)
                                                     keyEquivalent:@""] autorelease];
-        [menuItem setTarget:[FUDocumentController instance]];
-        [menuItem setTag:i++];
+        [menuItem setTarget:self];
+        [menuItem setRepresentedObject:jsItem];
         [menu addItem:menuItem];
     }
     
@@ -414,14 +414,5 @@
     }
 }
 
-
-- (NSMutableArray *)dockMenuItems {
-    if (!dockMenuItems) {
-        self.dockMenuItems = [NSMutableArray array];
-    }
-    return dockMenuItems;
-}
-
 @synthesize hiddenWindow; // weak ref
-@synthesize dockMenuItems;
 @end

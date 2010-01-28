@@ -78,6 +78,7 @@
 
 
 - (void)dealloc {
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

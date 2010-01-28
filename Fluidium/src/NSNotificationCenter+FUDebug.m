@@ -29,12 +29,19 @@
 //    } else if ([aName hasPrefix:@"FU"]) {
 //        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %@", aName);
 
-    
-//    } else if ([aName hasPrefix:@"WebPreferencesChangedNotification"] && [anObject isKindOfClass:[WebPreferences class]]) {
-//        NSLog(@"isClass: %d", observer  == [WebView class]);
-//        NSLog(@"observer: %@, sel: %s, name: %@ object: %@", observer, aSelector, aName, anObject);
-//        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %@", anObject);
 
+        // this works
+//    } else if ([aName hasPrefix:@"WebPreferencesChangedNotification"] && [anObject isKindOfClass:[WebPreferences class]]) {
+//        //        NSLog(@"isClass: %d", observer  == [WebView class]);
+//        NSLog(@"observer: %@, sel: %s, name: %@ object: %@", observer, aSelector, aName, anObject);
+//        //NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %@", anObject);
+
+//    } else if ([aName hasPrefix:@"FUTab"]) {
+//        //        NSLog(@"isClass: %d", observer  == [WebView class]);
+//        NSLog(@"observer: %@, sel: %s, name: %@ object: %@", observer, aSelector, aName, anObject);
+//        //NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %@", anObject);
+        
+        
 //    } else if ([aName hasPrefix:@"WebProgress"] /*&& observer == [WebView class]*/) {
 //        NSLog(@"isClass: %d", observer  == [WebView class]);
 //        NSLog(@"observer: %@, sel: %s, name: %@ object: %@", observer, aSelector, aName, anObject);
@@ -60,14 +67,14 @@
 //    }
 }
 
-//+ (void)initialize {
-//    if (self == [NSNotificationCenter class]) {
-//        
-//        Method old = class_getInstanceMethod(self, @selector(addObserver:selector:name:object:));
-//        Method new = class_getInstanceMethod(self, @selector(new_addObserver:selector:name:object:));
-//        method_exchangeImplementations(old, new);
-//        
-//    }
-//}
++ (void)initialize {
+    if (self == [NSNotificationCenter class]) {
+        
+        Method old = class_getInstanceMethod(self, @selector(addObserver:selector:name:object:));
+        Method new = class_getInstanceMethod(self, @selector(new_addObserver:selector:name:object:));
+        method_exchangeImplementations(old, new);
+        
+    }
+}
 
 @end

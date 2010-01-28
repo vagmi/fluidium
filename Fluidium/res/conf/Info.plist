@@ -423,7 +423,7 @@
 	<key>CFBundleIconFile</key>
 	<string>appl</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.fluidapp.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>org.fluidium.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

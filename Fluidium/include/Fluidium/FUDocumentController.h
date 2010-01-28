@@ -28,7 +28,6 @@ typedef enum {
 
 @interface FUDocumentController : NSDocumentController <GrowlApplicationBridgeDelegate> {
     NSWindow *hiddenWindow;
-    NSMutableArray *dockMenuItems;
 }
 
 + (FUDocumentController *)instance;
@@ -61,5 +60,4 @@ typedef enum {
 - (void)saveSession;
 
 @property (nonatomic, assign) NSWindow *hiddenWindow; // weak ref
-@property (nonatomic, retain) NSMutableArray *dockMenuItems;
 @end

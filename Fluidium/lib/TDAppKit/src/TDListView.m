@@ -18,7 +18,7 @@
 
 #define EXCEPTION_NAME @"TDListViewDataSourceException"
 #define DEFAULT_ITEM_EXTENT 44
-#define DRAG_RADIUS 20
+#define DRAG_RADIUS 30
 
 NSString *const TDListItemPboardType = @"TDListItemPboardType";
 

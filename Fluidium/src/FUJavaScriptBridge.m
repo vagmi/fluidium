@@ -16,7 +16,6 @@
 #import "FUJavaScriptMenuItem.h"
 #import "FUJavaScriptGrowlNotification.h"
 #import "FUIconController.h"
-#import "FUDocumentController.h"
 #import "FUApplication.h"
 #import "FUUtils.h"
 #import <Growl/Growl.h>
@@ -37,7 +36,7 @@
 
 - (void)dealloc {
     self.dockBadge = nil;
-    self.menuItems = nil;
+    self.dockMenuItems = nil;
     self.onclick = nil;
     [super dealloc];
 }
@@ -64,8 +63,9 @@
         return @"dockBadge";
     } else if (0 == strcmp(name, "isGrowlRunning")) {
         return @"isGrowlRunning";
+    } else {
+        return nil;
     }
-    return nil;
 }
 
 
@@ -80,8 +80,9 @@
         return @"beep";
     } else if (@selector(playSoundNamed:) == sel) {
         return @"playSound";
+    } else {
+        return nil;
     }
-    return nil;
 }
 
 
@@ -133,25 +134,29 @@
 - (void)addDockMenuItemWithTitle:(NSString *)title function:(WebScriptObject *)func {
     if (![title length] || !func) return;
     
-    FUJavaScriptMenuItem *jsItem = [FUJavaScriptMenuItem menuItemWithTitle:title function:func];    
-    [[[FUDocumentController instance] dockMenuItems] addObject:jsItem];
+    FUJavaScriptMenuItem *jsItem = [FUJavaScriptMenuItem menuItemWithTitle:title function:func];
+
+    if (!dockMenuItems) {
+        self.dockMenuItems = [NSMutableArray array];
+    }
+    
+    [dockMenuItems addObject:jsItem];
 }
 
 
 - (void)removeDockMenuItemWithTitle:(NSString *)title {
     if (![title length]) return;
     
-    NSMutableArray *items = [[FUDocumentController instance] dockMenuItems];
     NSInteger i = 0;
-    for (FUJavaScriptMenuItem *jsItem in items) {
+    for (FUJavaScriptMenuItem *jsItem in dockMenuItems) {
         if ([jsItem.title isEqualToString:title]) {
             break;
         }
         i++;
     }
     
-    if (i < [items count]) {
-        [items removeObjectAtIndex:i];
+    if (i < [dockMenuItems count]) {
+        [dockMenuItems removeObjectAtIndex:i];
     }
 }
 
@@ -186,6 +191,6 @@
 }
 
 @synthesize dockBadge;
-@synthesize menuItems;
+@synthesize dockMenuItems;
 @synthesize onclick;
 @end

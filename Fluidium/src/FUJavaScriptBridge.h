@@ -19,7 +19,7 @@
 @interface FUJavaScriptBridge : NSObject {
     id dockBadge;
     BOOL isGrowlRunning;
-    NSMutableArray *menuItems;
+    NSMutableArray *dockMenuItems;
     WebScriptObject *onclick;
 }
 
@@ -36,6 +36,6 @@
 
 @property (nonatomic, copy) id dockBadge;
 @property (nonatomic, readonly) BOOL isGrowlRunning;
-@property (nonatomic, retain) NSMutableArray *menuItems;
+@property (nonatomic, retain) NSMutableArray *dockMenuItems;
 @property (nonatomic, retain) WebScriptObject *onclick;
 @end

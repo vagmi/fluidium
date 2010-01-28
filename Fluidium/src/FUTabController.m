@@ -85,6 +85,7 @@ typedef enum {
 
 
 - (void)dealloc {
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -396,6 +397,9 @@ typedef enum {
     self.favicon = [self defaultFavicon];
     
     [[self.view window] makeFirstResponder:webView];
+    
+    // remove old dock menu items
+    javaScriptBridge.dockMenuItems = nil;
 
     [self postNotificationName:FUTabControllerDidCommitLoadNotification];
 }
