@@ -17,6 +17,7 @@
 #import "FUWindowController.h"
 #import "FUWebPreferences.h"
 #import "FUWhitelistController.h"
+#import "FUHandlerController.h"
 #import "FUUserDefaults.h"
 #import "FUUtils.h"
 #import "FUActivation.h"
@@ -51,7 +52,7 @@ typedef enum {
 - (NSImage *)defaultFavicon;
 
 - (void)postNotificationName:(NSString *)name;
-- (BOOL)shouldHandleRequest:(NSURLRequest *)req;
+- (NSURLRequest *)requestForRequest:(NSURLRequest *)inReq;
 - (BOOL)insertItem:(NSMenuItem *)item intoMenuItems:(NSMutableArray *)items afterItemWithTag:(NSInteger)tag;
 - (NSInteger)indexOfItemWithTag:(NSUInteger)tag inMenuItems:(NSArray *)items;
 - (NSString *)currentSelectionFromWebView;
@@ -467,10 +468,11 @@ typedef enum {
 #pragma mark -
 #pragma mark WebPolicyDelegate
 
-- (void)webView:(WebView *)wv decidePolicyForNavigationAction:(NSDictionary *)info request:(NSURLRequest *)req frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
+- (void)webView:(WebView *)wv decidePolicyForNavigationAction:(NSDictionary *)info request:(NSURLRequest *)inReq frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
     WebNavigationType navType = [[info objectForKey:WebActionNavigationTypeKey] integerValue];
     
-    if (![self shouldHandleRequest:req]) {
+    NSURLRequest *req = [self requestForRequest:inReq];
+    if (!req) {
         [listener ignore];
         return;
     }
@@ -495,13 +497,14 @@ typedef enum {
 }
 
 
-- (void)webView:(WebView *)wv decidePolicyForNewWindowAction:(NSDictionary *)info request:(NSURLRequest *)req newFrameName:(NSString *)name decisionListener:(id<WebPolicyDecisionListener>)listener {
+- (void)webView:(WebView *)wv decidePolicyForNewWindowAction:(NSDictionary *)info request:(NSURLRequest *)inReq newFrameName:(NSString *)name decisionListener:(id<WebPolicyDecisionListener>)listener {
 
-    if (![self shouldHandleRequest:req]) {
+    NSURLRequest *req = [self requestForRequest:inReq];
+    if (!req) {
         [listener ignore];
         return;
     }
-
+    
     FUActivation *act = [FUActivation activationFromWebActionInfo:info];
     if (act.isCommandKeyPressed) {
         [listener ignore];
@@ -912,8 +915,21 @@ typedef enum {
 }
 
 
-- (BOOL)shouldHandleRequest:(NSURLRequest *)req {
-    return [[FUWhitelistController instance] processRequest:req];
+- (NSURLRequest *)requestForRequest:(NSURLRequest *)inReq {
+    NSURLRequest *req = [[FUHandlerController instance] requestForRequest:inReq];
+
+        // if there's a special scheme handler for inReq, return the final req to be handled
+    if (req != inReq) {
+        return req;
+        
+        // else if the url is whitelisted, return it to be handled
+    } else if ([[FUWhitelistController instance] processRequest:inReq]) {
+        return inReq;
+        
+        // else return nil to signal don't handle
+    } else {
+        return nil;
+    }
 }
 
 

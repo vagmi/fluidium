@@ -15,6 +15,7 @@
 #import "FUHandlerController.h"
 #import "FUUserDefaults.h"
 #import "FUUtils.h"
+#import "NSString+FUAdditions.h"
 
 #define KEY_SCHEME @"scheme"
 #define KEY_URLSTRING @"URLString"
@@ -63,7 +64,9 @@
         self.lookupTable = [NSMutableDictionary dictionaryWithCapacity:[handlers count]];
         for (NSDictionary *handler in handlers) {
             NSString *scheme = [handler objectForKey:KEY_SCHEME];
-            [lookupTable setObject:handler forKey:scheme];
+            if (scheme) {
+                [lookupTable setObject:handler forKey:scheme];
+            }
         }
     }
 }
@@ -76,8 +79,9 @@
     
     NSDictionary *handler = [lookupTable objectForKey:scheme];
     if (handler) {
-        NSString *inURLString = [[[req URL] absoluteString] substringFromIndex:[scheme length]];
+        NSString *inURLString = [[[req URL] absoluteString] substringFromIndex:[scheme length] + 1];
         NSString *replacement = [[handler objectForKey:KEY_URLSTRING] stringByAppendingString:inURLString];
+        replacement = [replacement stringByEnsuringURLSchemePrefix];
         return [NSURLRequest requestWithURL:[NSURL URLWithString:replacement]];
     } else {
         return req;

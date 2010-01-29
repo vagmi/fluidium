@@ -14,7 +14,6 @@
 
 #import "FUHandlerPreferences.h"
 #import "FUHandlerController.h"
-#import "FUUserDefaults.h"
 
 @implementation FUHandlerPreferences
 
@@ -47,7 +46,7 @@
     [[undoManager prepareWithInvocationTarget:self] insertObject:rule inHandlersAtIndex:i];
     
     [self stopObservingRule:rule];
-    [handlers removeObjectAtIndex:i];
+    [self.handlers removeObjectAtIndex:i];
     [self storeHandlers];
 }
 

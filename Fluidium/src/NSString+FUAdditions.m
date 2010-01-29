@@ -63,6 +63,7 @@
 - (BOOL)hasSupportedSchemePrefix {
     return [self hasHTTPSchemePrefix] 
         || [self hasPrefix:kFUFileSchemePrefix] 
+        || [self hasPrefix:@"mailto:"] 
         || [self hasPrefix:@"about:"] 
         || [self hasPrefix:@"data:"] 
         || [self hasPrefix:@"file:"] 
