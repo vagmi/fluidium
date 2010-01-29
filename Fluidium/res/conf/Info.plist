@@ -592,7 +592,7 @@
 				<key>shortTitle</key>
 				<string>Handlers</string>
 				<key>title</key>
-				<string>URL Handlers</string>
+				<string>URL Handler</string>
 			</dict>
 			<key>FUTabsPreferences</key>
 			<dict>
