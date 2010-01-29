@@ -584,7 +584,7 @@
 				<key>defaultsDictionary</key>
 				<dict/>
 				<key>icon</key>
-				<string>prefpane_handlers</string>
+				<string>prefpane_icon_handlers</string>
 				<key>nib</key>
 				<string>FUHandlerPreferences</string>
 				<key>ordering</key>
