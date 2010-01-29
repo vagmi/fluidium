@@ -94,6 +94,17 @@
     <key>FUCookieAcceptPolicy</key>
     <integer>2</integer>
     
+    <!-- Handlers -->
+    <key>FUHandlers</key>
+    <array>
+        <!-- 
+        <key>scheme</key>
+        <string>mailto</string>
+        <key>URLString</key>
+        <string>*XXX.com?compose=%@*</string>
+        -->
+    </array>
+    
     <!-- Whitelist -->
     <key>FUAllowBrowsingToAnyDomain</key>
     <true/>
@@ -106,7 +117,7 @@
         <string>*XXX.com*</string>
         -->
     </array>
-    
+
     <!-- PlugIns -->
     <key>FUNumberOfBrowsaPlugIns</key>
     <integer>2</integer>

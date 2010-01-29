@@ -76,6 +76,9 @@ extern NSString *const kFUCookieAcceptPolicyKey;
 // Shortcut Prefs
 extern NSString *const kFUShortcutsKey;
 
+// Handlers Prefs
+extern NSString *const kFUHandlersKey;
+
 // Whitelist Prefs
 extern NSString *const kFUAllowBrowsingToAnyDomainKey;
 extern NSString *const kFUInvertWhitelistKey;
@@ -152,6 +155,9 @@ extern NSString *const kFUPlugInDrawerContentSizeStringKey;
 
 // Shortcuts
 @property (nonatomic, copy) NSArray *shortcuts;
+
+// Handlers
+@property (nonatomic, copy) NSArray *handlers;
 
 // Whitelist Prefs
 @property (nonatomic) BOOL allowBrowsingToAnyDomain;

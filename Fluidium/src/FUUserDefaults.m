@@ -77,6 +77,9 @@ NSString *const kFUCookieAcceptPolicyKey = @"FUCookieAcceptPolicy";
 // Shortcut Prefs
 NSString *const kFUShortcutsKey = @"FUShortcuts";
 
+// Handler Prefs
+NSString *const kFUHandlersKey = @"FUHandlers";
+
 // Advanced Prefs
 NSString *const kFUAllowBrowsingToAnyDomainKey = @"FUAllowBrowsingToAnyDomain";
 NSString *const kFUInvertWhitelistKey = @"FUInvertWhitelist";
@@ -490,6 +493,17 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 }
 - (void)setShortcuts:(NSArray *)a {
     [[NSUserDefaults standardUserDefaults] setObject:a forKey:kFUShortcutsKey];
+}
+
+
+#pragma mark -
+#pragma mark Handler Prefs
+
+- (NSArray *)handlers {
+    return [[NSUserDefaults standardUserDefaults] arrayForKey:kFUHandlersKey];
+}
+- (void)setHandlers:(NSArray *)a {
+    [[NSUserDefaults standardUserDefaults] setObject:a forKey:kFUHandlersKey];
 }
 
 

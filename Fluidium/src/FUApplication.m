@@ -23,6 +23,7 @@
 #import "FUPlugInPreferences.h"
 #import "FUDocumentController.h"
 #import "FUWhitelistController.h"
+#import "FUHandlerController.h"
 #import "FUUserscriptController.h"
 #import "FUUserstyleController.h"
 #import "FURecentURLController.h"
@@ -299,6 +300,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     
     // instantiate singletons
     [FUWhitelistController instance];
+    [FUHandlerController instance];
     [FUUserstyleController instance];
     [FUBookmarkController instance];
     [FUHistoryController instance];

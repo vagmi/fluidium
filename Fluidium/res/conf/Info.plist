@@ -440,7 +440,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.fluidapp.Fluidium</string>
+			<string>org.fluidium.Fluidium</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>http</string>
@@ -576,6 +576,23 @@
 				<string>Shortcuts</string>
 				<key>title</key>
 				<string>Shortcuts</string>
+			</dict>
+			<key>FUHandlerPreferences</key>
+			<dict>
+				<key>category</key>
+				<string>Application</string>
+				<key>defaultsDictionary</key>
+				<dict/>
+				<key>icon</key>
+				<string>prefpane_handlers</string>
+				<key>nib</key>
+				<string>FUHandlerPreferences</string>
+				<key>ordering</key>
+				<integer>52</integer>
+				<key>shortTitle</key>
+				<string>URL Handlers</string>
+				<key>title</key>
+				<string>URL Handlers</string>
 			</dict>
 			<key>FUTabsPreferences</key>
 			<dict>
