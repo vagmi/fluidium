@@ -548,7 +548,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [self setFrame:frame];
     
     //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([superview bounds]));
-    //NSLog(@"view count: %d, queue count: %d", [items count], [queue count]);
+    NSLog(@"view count: %d, queue count: %d", [items count], [queue count]);
 }
 
 

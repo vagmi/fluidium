@@ -102,13 +102,15 @@ static NSDictionary *sTextAttributes = nil;
  
 
 - (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
-    if (self = [super init]) {
+    if (self = [super initWithFrame:frame reuseIdentifier:s]) {
+        NSLog(@"creating new");
         self.usernameButton = [[[NSButton alloc] initWithFrame:NSZeroRect] autorelease];
         [usernameButton setBordered:NO];
         [self addSubview:usernameButton];
         
         self.textView = [[[NSTextView alloc] initWithFrame:NSZeroRect] autorelease];
         [textView setDrawsBackground:NO];
+        [textView setEditable:NO];
         [self addSubview:textView];
     }
     return self;
