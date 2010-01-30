@@ -22,6 +22,8 @@ static NSGradient *sByMeBackgroundGradient = nil;
 static NSGradient *sMentionsMeBackgroundGradient = nil;
 
 static NSColor *sBorderBottomColor = nil;
+static NSColor *sByMeBorderBottomColor = nil;
+static NSColor *sMentionsMeBorderBottomColor = nil;
 
 static NSDictionary *sUsernameAttributes = nil;
 static NSDictionary *sTextAttributes = nil;
@@ -63,9 +65,9 @@ static NSDictionary *sDateAttributes = nil;
         botColor = [NSColor colorWithDeviceRed:202.0/255.0 green:213.0/255.0 blue:232.0/255.0 alpha:1];
         sMentionsMeBackgroundGradient = [[NSGradient alloc] initWithStartingColor:topColor endingColor:botColor];
 
-        topColor = [NSColor colorWithDeviceRed:222.0/255.0 green:231.0/255.0 blue:241.0/255.0 alpha:1];
-        botColor = [NSColor colorWithDeviceRed:202.0/255.0 green:213.0/255.0 blue:232.0/255.0 alpha:1];
         sBorderBottomColor = [[NSColor colorWithDeviceRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1] retain];
+        sByMeBorderBottomColor = [[NSColor colorWithDeviceRed:150.0/255.0 green:150.0/255.0 blue:150.0/255.0 alpha:1] retain];
+        sMentionsMeBorderBottomColor = [[NSColor colorWithDeviceRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1] retain];
         
         NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
         [shadow setShadowColor:[NSColor colorWithCalibratedWhite:1 alpha:.51]];
@@ -171,21 +173,25 @@ static NSDictionary *sDateAttributes = nil;
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect bounds = [self bounds];
     
-    // bg
     NSGradient *bgGradient = sBackgroundGradient;
+    NSColor *borderBottomColor = sBorderBottomColor;
+    
     if (tweet.isByMe) {
         bgGradient = sByMeBackgroundGradient;
+        borderBottomColor = sByMeBorderBottomColor;
     } else if (tweet.isMentionMe) {
         bgGradient = sMentionsMeBackgroundGradient;
+        borderBottomColor = sMentionsMeBorderBottomColor;
     }
+    
+    // bg
     [bgGradient drawInRect:bounds angle:90];
     
     // border
-    [sBorderBottomColor setStroke];
+    [borderBottomColor setStroke];
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, bounds.size.height) toPoint:NSMakePoint(bounds.size.width, bounds.size.height)];
     
     // avatar
-    
     NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
     if (img) {
         NSSize imgSize = [img size];
