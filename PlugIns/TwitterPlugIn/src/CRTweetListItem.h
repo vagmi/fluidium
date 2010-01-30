@@ -15,6 +15,10 @@
 }
 
 + (NSString *)reuseIdentifier;
++ (NSDictionary *)textAttributes;
++ (CGFloat)defaultHeight;
++ (CGFloat)minimumHeight;
++ (CGFloat)horizontalTextMargins;
 
 @property (nonatomic, retain) NSButton *usernameButton;
 @property (nonatomic, retain) NSTextView *textView;

@@ -18,9 +18,19 @@ static NSColor *sBorderBottomColor = nil;
 static NSDictionary *sUsernameAttributes = nil;
 static NSDictionary *sTextAttributes = nil;
 
-//@interface NSObject (Compiler)
-//- (IBAction)usernameButtonClicked:(id)sender;
-//@end
+#define BORDER_HEIGHT 1.0
+
+#define AVATAR_SIDE 44.0
+#define AVATAR_Y 4
+
+#define USERNAME_X 55.0
+#define USERNAME_Y 3.0
+#define USERNAME_HEIGHT 18.0
+#define USERNAME_MARGIN_RIGHT 72.0
+
+#define TEXT_X 52.0
+#define TEXT_Y 21.0
+#define TEXT_MARGIN_RIGHT 7.0
 
 @implementation CRTweetListItem
 
@@ -66,6 +76,26 @@ static NSDictionary *sTextAttributes = nil;
 }
 
 
++ (NSDictionary *)textAttributes {
+    return sTextAttributes;
+}
+
+
++ (CGFloat)defaultHeight {
+    return USERNAME_HEIGHT + (AVATAR_Y * 2) + BORDER_HEIGHT;
+}
+
+
++ (CGFloat)minimumHeight {
+    return AVATAR_SIDE + (AVATAR_Y * 2) + BORDER_HEIGHT;
+}
+
+
++ (CGFloat)horizontalTextMargins {
+    return TEXT_X + TEXT_MARGIN_RIGHT;
+}
+
+
 - (id)init {
     return [self initWithFrame:NSZeroRect reuseIdentifier:[CRTweetListItem reuseIdentifier]];
 }
@@ -97,17 +127,9 @@ static NSDictionary *sTextAttributes = nil;
 
     NSRect bounds = [self bounds];
 
-#define USERNAME_X 55.0
-#define USERNAME_Y 3.0
-#define USERNAME_HEIGHT 18.0
-#define USERNAME_MARGIN_RIGHT 72.0
-
-#define TEXT_X 52.0
-#define TEXT_Y 22.0
-#define TEXT_MARGIN_RIGHT 7.0
-
     [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, bounds.size.width - (USERNAME_X + USERNAME_MARGIN_RIGHT), USERNAME_HEIGHT)];
-    [textView setFrame:NSMakeRect(TEXT_X, TEXT_Y, bounds.size.width - (USERNAME_X + TEXT_MARGIN_RIGHT), 60)];
+    CGFloat textHeight = NSHeight([textView bounds]);
+    [textView setFrame:NSMakeRect(TEXT_X, TEXT_Y, bounds.size.width - (TEXT_X + TEXT_MARGIN_RIGHT), textHeight)];
     
 }
 
@@ -170,6 +192,7 @@ static NSDictionary *sTextAttributes = nil;
             NSString *text = [tweet objectForKey:@"text"];
             if (text) {
                 [[textView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:text attributes:sTextAttributes] autorelease]];
+                [textView sizeToFit];
             }
         }
     }
