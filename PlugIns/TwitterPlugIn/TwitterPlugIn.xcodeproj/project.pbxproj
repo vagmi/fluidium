@@ -13,6 +13,7 @@
 		D307EDBA1113EFEF005FC7A5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D307EDB91113EFEF005FC7A5 /* WebKit.framework */; };
 		D307EDDE1113F121005FC7A5 /* CRTweetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D307EDDD1113F121005FC7A5 /* CRTweetListItem.m */; };
 		D307F2001114AE23005FC7A5 /* CRTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = D307F1FF1114AE23005FC7A5 /* CRTweet.m */; };
+		D307F2A31114B9A3005FC7A5 /* CRAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D307F2A21114B9A3005FC7A5 /* CRAvatarCache.m */; };
 		D30C07E910898498001FEE05 /* CRTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D39BF7691088715000E399F3 /* CRTimelineViewController.m */; };
 		D30C098510899A53001FEE05 /* CRTimelineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30C098410899A53001FEE05 /* CRTimelineView.xib */; };
 		D30C0A1B10899DF5001FEE05 /* MGTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D30C09D810899DF5001FEE05 /* MGTwitterEngine.m */; };
@@ -167,6 +168,8 @@
 		D307EDDD1113F121005FC7A5 /* CRTweetListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRTweetListItem.m; path = src/CRTweetListItem.m; sourceTree = "<group>"; };
 		D307F1FE1114AE23005FC7A5 /* CRTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTweet.h; path = src/CRTweet.h; sourceTree = "<group>"; };
 		D307F1FF1114AE23005FC7A5 /* CRTweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRTweet.m; path = src/CRTweet.m; sourceTree = "<group>"; };
+		D307F2A11114B9A3005FC7A5 /* CRAvatarCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRAvatarCache.h; path = src/CRAvatarCache.h; sourceTree = "<group>"; };
+		D307F2A21114B9A3005FC7A5 /* CRAvatarCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRAvatarCache.m; path = src/CRAvatarCache.m; sourceTree = "<group>"; };
 		D30C098210899A4F001FEE05 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CRTimelineView.xib; sourceTree = "<group>"; };
 		D30C09D710899DF5001FEE05 /* MGTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTwitterEngine.h; sourceTree = "<group>"; };
 		D30C09D810899DF5001FEE05 /* MGTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTwitterEngine.m; sourceTree = "<group>"; };
@@ -304,6 +307,8 @@
 				D3A08E3D10A732D50078FCE0 /* CRThreadViewController.m */,
 				D3C61EEE10A150220071A723 /* CRNoAccountsViewController.h */,
 				D3C61EEF10A150220071A723 /* CRNoAccountsViewController.m */,
+				D307F2A11114B9A3005FC7A5 /* CRAvatarCache.h */,
+				D307F2A21114B9A3005FC7A5 /* CRAvatarCache.m */,
 				D31FE2761090C64E00840969 /* CRBarButtonItemView.h */,
 				D31FE2771090C64E00840969 /* CRBarButtonItemView.m */,
 				D307F1FE1114AE23005FC7A5 /* CRTweet.h */,
@@ -670,6 +675,7 @@
 				D3A090E810A7B4630078FCE0 /* CRBaseViewController.m in Sources */,
 				D307EDDE1113F121005FC7A5 /* CRTweetListItem.m in Sources */,
 				D307F2001114AE23005FC7A5 /* CRTweet.m in Sources */,
+				D307F2A31114B9A3005FC7A5 /* CRAvatarCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

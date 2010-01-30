@@ -364,7 +364,7 @@
 
 - (IBAction)usernameButtonClicked:(id)sender {
     NSInteger i = [sender tag];
-    NSString *username = [[tweets objectAtIndex:i] objectForKey:@"username"];
+    NSString *username = [[tweets objectAtIndex:i] username];
     [self handleUsernameClicked:username];
 }
 
