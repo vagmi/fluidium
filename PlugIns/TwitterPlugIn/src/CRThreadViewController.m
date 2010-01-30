@@ -9,6 +9,7 @@
 #import "CRThreadViewController.h"
 #import "CRTwitterPlugIn.h"
 #import "CRTwitterUtils.h"
+#import "CRTweet.h"
 #import <WebKit/WebKit.h>
 
 @interface CRThreadViewController ()
@@ -103,7 +104,7 @@
 
 
 - (void)prepareAndDisplayTweets {
-    NSAssert([tweet count], @"");
+    NSAssert(tweet, @"");
     
 //    NSMutableDictionary *d = [[status mutableCopy] autorelease];
 //    [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
@@ -119,9 +120,10 @@
         [self performSelectorOnMainThread:@selector(appendStatusToMarkup) withObject:nil waitUntilDone:NO];
         return;
     }    
-    
-    NSMutableDictionary *d = [[tweet mutableCopy] autorelease];
-    [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
+
+    // TODO
+//    NSMutableDictionary *d = [[tweet mutableCopy] autorelease];
+//    [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
 
 //    NSDictionary *vars = [self varsWithStatus:d];
 //    NSString *newStatusHTMLStr = [templateEngine processTemplate:statusTemplateString withVariables:vars];
@@ -136,7 +138,7 @@
 
 
 - (void)fetchInReplyToStatus {
-    NSNumber *statusID = [tweet objectForKey:@"inReplyToStatusID"];
+    NSNumber *statusID = tweet.inReplyToIdentifier;
     if (statusID) {
         [twitterEngine getUpdate:[statusID longLongValue]];
     } else {
@@ -146,17 +148,16 @@
 
 
 - (void)statusesReceived:(NSArray *)inStatuses forRequest:(NSString *)requestID {
-    NSMutableArray *newStatuses = [super processStatuses:inStatuses];
+    NSMutableArray *newTweets = [super tweetsFromStatuses:inStatuses];
 
-    if (![newStatuses count]) {
+    if (![newTweets count]) {
         return;
     }
     
-    NSAssert(1 == [newStatuses count], @"");
+    NSAssert(1 == [newTweets count], @"");
     
-    NSMutableDictionary *d = [newStatuses objectAtIndex:0];
-    [d setObject:CRFormatDate([tweet objectForKey:@"created_at"]) forKey:@"date"];
-    self.tweet = d;
+    self.tweet = [newTweets objectAtIndex:0];
+//    [d setObject:CRFormatDate([tweet objectForKey:@"created_at"]) forKey:@"ago"];
     
     [self appendTweetToList];
 }
@@ -184,21 +185,12 @@
 }
 
 
-#pragma mark -
-#pragma mark WebFrameLoadDelegate
-
-- (void)webView:(WebView *)wv didClearWindowObject:(WebScriptObject *)wso forFrame:(WebFrame *)frame {
-    if (frame != [wv mainFrame]) return;
-
-    [wso setValue:self forKey:@"cruz"];
-}
-
-
-- (void)webView:(WebView *)wv didFinishLoadForFrame:(WebFrame *)frame {
-    if (frame != [wv mainFrame]) return;
-
-    [self fetchInReplyToStatus];
-}
+// TODO
+//- (void)webView:(WebView *)wv didFinishLoadForFrame:(WebFrame *)frame {
+//    if (frame != [wv mainFrame]) return;
+//
+//    [self fetchInReplyToStatus];
+//}
 
 
 #pragma mark -

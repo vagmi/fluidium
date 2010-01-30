@@ -8,10 +8,12 @@
 
 #import <TDAppKit/TDListItem.h>
 
+@class CRTweet;
+
 @interface CRTweetListItem : TDListItem {
     NSButton *usernameButton;
     NSTextView *textView;
-    NSDictionary *tweet;
+    CRTweet *tweet;
 }
 
 + (NSString *)reuseIdentifier;
@@ -22,6 +24,6 @@
 
 @property (nonatomic, retain) NSButton *usernameButton;
 @property (nonatomic, retain) NSTextView *textView;
-@property (nonatomic, retain) NSDictionary *tweet;
+@property (nonatomic, retain) CRTweet *tweet;
 @property (nonatomic, assign) NSInteger tag;
 @end

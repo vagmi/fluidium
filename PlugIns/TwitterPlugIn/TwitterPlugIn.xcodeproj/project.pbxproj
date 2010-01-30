@@ -12,6 +12,7 @@
 		D307ECCA1113CDC7005FC7A5 /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D307ECBA1113CDA0005FC7A5 /* TDAppKit.framework */; };
 		D307EDBA1113EFEF005FC7A5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D307EDB91113EFEF005FC7A5 /* WebKit.framework */; };
 		D307EDDE1113F121005FC7A5 /* CRTweetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D307EDDD1113F121005FC7A5 /* CRTweetListItem.m */; };
+		D307F2001114AE23005FC7A5 /* CRTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = D307F1FF1114AE23005FC7A5 /* CRTweet.m */; };
 		D30C07E910898498001FEE05 /* CRTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D39BF7691088715000E399F3 /* CRTimelineViewController.m */; };
 		D30C098510899A53001FEE05 /* CRTimelineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30C098410899A53001FEE05 /* CRTimelineView.xib */; };
 		D30C0A1B10899DF5001FEE05 /* MGTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D30C09D810899DF5001FEE05 /* MGTwitterEngine.m */; };
@@ -164,6 +165,8 @@
 		D307EDB91113EFEF005FC7A5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D307EDDC1113F121005FC7A5 /* CRTweetListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTweetListItem.h; path = src/CRTweetListItem.h; sourceTree = "<group>"; };
 		D307EDDD1113F121005FC7A5 /* CRTweetListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRTweetListItem.m; path = src/CRTweetListItem.m; sourceTree = "<group>"; };
+		D307F1FE1114AE23005FC7A5 /* CRTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTweet.h; path = src/CRTweet.h; sourceTree = "<group>"; };
+		D307F1FF1114AE23005FC7A5 /* CRTweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRTweet.m; path = src/CRTweet.m; sourceTree = "<group>"; };
 		D30C098210899A4F001FEE05 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CRTimelineView.xib; sourceTree = "<group>"; };
 		D30C09D710899DF5001FEE05 /* MGTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTwitterEngine.h; sourceTree = "<group>"; };
 		D30C09D810899DF5001FEE05 /* MGTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTwitterEngine.m; sourceTree = "<group>"; };
@@ -304,6 +307,8 @@
 				D31FE2761090C64E00840969 /* CRBarButtonItemView.h */,
 				D31FE2771090C64E00840969 /* CRBarButtonItemView.m */,
 				D34763E8108C49C6006EFB3F /* AGKeychain.h */,
+				D307F1FE1114AE23005FC7A5 /* CRTweet.h */,
+				D307F1FF1114AE23005FC7A5 /* CRTweet.m */,
 				D34763E9108C49C6006EFB3F /* AGKeychain.m */,
 				D30C09BE10899DF5001FEE05 /* MGTwitterEngine */,
 			);
@@ -664,6 +669,7 @@
 				D3A08E3E10A732D60078FCE0 /* CRThreadViewController.m in Sources */,
 				D3A090E810A7B4630078FCE0 /* CRBaseViewController.m in Sources */,
 				D307EDDE1113F121005FC7A5 /* CRTweetListItem.m in Sources */,
+				D307F2001114AE23005FC7A5 /* CRTweet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

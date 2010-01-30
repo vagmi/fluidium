@@ -20,7 +20,7 @@
 
 - (void)setUpTwitterEngine;
 
-- (NSMutableArray *)processStatuses:(NSArray *)inStatuses;
+- (NSMutableArray *)tweetsFromStatuses:(NSArray *)inStatuses;
 
 
 - (void)pushTimelineFor:(NSString *)username;

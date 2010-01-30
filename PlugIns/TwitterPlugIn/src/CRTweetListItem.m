@@ -7,6 +7,7 @@
 //
 
 #import "CRTweetListItem.h"
+#import "CRTweet.h"
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 
 static NSGradient *sBackgroundGradient = nil;
@@ -17,20 +18,27 @@ static NSColor *sBorderBottomColor = nil;
 
 static NSDictionary *sUsernameAttributes = nil;
 static NSDictionary *sTextAttributes = nil;
+static NSDictionary *sDateAttributes = nil;
 
 #define BORDER_HEIGHT 1.0
 
+#define AVATAR_X 6.0
+#define AVATAR_Y 4.0
 #define AVATAR_SIDE 44.0
-#define AVATAR_Y 4
 
 #define USERNAME_X 55.0
 #define USERNAME_Y 3.0
 #define USERNAME_HEIGHT 18.0
-#define USERNAME_MARGIN_RIGHT 72.0
 
 #define TEXT_X 52.0
 #define TEXT_Y 21.0
 #define TEXT_MARGIN_RIGHT 7.0
+
+#define DATE_Y 5.0
+#define DATE_WIDTH 68.0
+#define DATE_HEIGHT 16.0
+
+#define NSTEXT_VIEW_PADDING_FUDGE 10
 
 @implementation CRTweetListItem
 
@@ -69,11 +77,20 @@ static NSDictionary *sTextAttributes = nil;
                                paraStyle, NSParagraphStyleAttributeName,
                                nil];
         
-        sTextAttributes    = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               [NSColor blackColor], NSForegroundColorAttributeName,
-                               [NSFont systemFontOfSize:10], NSFontAttributeName,
-                               nil];
+        sTextAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+                           [NSColor blackColor], NSForegroundColorAttributeName,
+                           [NSFont systemFontOfSize:10], NSFontAttributeName,
+                           nil];
         
+        paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+        [paraStyle setAlignment:NSRightTextAlignment];
+        [paraStyle setLineBreakMode:NSLineBreakByTruncatingTail];
+
+        sDateAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+                           [NSColor grayColor], NSForegroundColorAttributeName,
+                           [NSFont systemFontOfSize:9], NSFontAttributeName,
+                           paraStyle, NSParagraphStyleAttributeName,
+                           nil];
     }
 }
 
@@ -99,7 +116,7 @@ static NSDictionary *sTextAttributes = nil;
 
 
 + (CGFloat)horizontalTextMargins {
-    return (TEXT_X + TEXT_MARGIN_RIGHT) + 10; // needs fudge for default padding in NSTextView
+    return TEXT_X + TEXT_MARGIN_RIGHT + NSTEXT_VIEW_PADDING_FUDGE; // needs fudge for default padding in NSTextView
 }
 
 
@@ -136,7 +153,7 @@ static NSDictionary *sTextAttributes = nil;
 
     NSRect bounds = [self bounds];
 
-    [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, bounds.size.width - (USERNAME_X + USERNAME_MARGIN_RIGHT), USERNAME_HEIGHT)];
+    [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, bounds.size.width - (USERNAME_X + DATE_WIDTH + TEXT_MARGIN_RIGHT), USERNAME_HEIGHT)];
     CGFloat textHeight = NSHeight([textView bounds]);
     [textView setFrame:NSMakeRect(TEXT_X, TEXT_Y, bounds.size.width - (TEXT_X + TEXT_MARGIN_RIGHT), textHeight)];
     
@@ -158,9 +175,9 @@ static NSDictionary *sTextAttributes = nil;
     
     // bg
     NSGradient *bgGradient = nil;
-    if ([[tweet objectForKey:@"writtenByMe"] boolValue]) {
+    if (tweet.isByMe) {
         bgGradient = sByMeBackgroundGradient;
-    } else if ([[tweet objectForKey:@"doesMentionMe"] boolValue]) {
+    } else if (tweet.isMentionMe) {
         bgGradient = sMentionsMeBackgroundGradient;
     } else {
         bgGradient = sBackgroundGradient;
@@ -172,35 +189,34 @@ static NSDictionary *sTextAttributes = nil;
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, bounds.size.height) toPoint:NSMakePoint(bounds.size.width, bounds.size.height)];
     
     // avatar
-    NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundRect:NSMakeRect(6, 4, 44, 44) radius:7];
+    NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, AVATAR_SIDE, AVATAR_SIDE) radius:7];
     [sBorderBottomColor setFill];
     [roundRect fill];
     
+    // date
+    [tweet.ago drawInRect:NSMakeRect(bounds.size.width - (DATE_WIDTH + TEXT_MARGIN_RIGHT), DATE_Y, DATE_WIDTH, DATE_HEIGHT) withAttributes:sDateAttributes];
+    
     // username
-    //NSString *username = [tweet objectForKey:@"username"];
-    //    [username drawInRect:NSMakeRect(56, 5, bounds.size.width, 18) withAttributes:sUsernameAttributes];
+    //    [tweet.username drawInRect:NSMakeRect(56, 5, bounds.size.width, 18) withAttributes:sUsernameAttributes];
     
     // text
-//    NSString *text = [tweet objectForKey:@"text"];
-//    [text drawInRect:NSMakeRect(56, 22, 240, 60) withAttributes:sTextAttributes];
+//    [tweet.text drawInRect:NSMakeRect(56, 22, 240, 60) withAttributes:sTextAttributes];
 }
 
 
-- (void)setTweet:(NSDictionary *)d {
-    if (d != tweet) {
+- (void)setTweet:(CRTweet *)newTweet {
+    if (newTweet != tweet) {
         [tweet autorelease];
-        tweet = [d retain];
+        tweet = [newTweet retain];
         
         if (tweet) {
-            NSString *username = [tweet objectForKey:@"username"];
-            if (username) {
-                NSAttributedString *title = [[[NSAttributedString alloc] initWithString:username attributes:sUsernameAttributes] autorelease];
+            if (tweet.username) {
+                NSAttributedString *title = [[[NSAttributedString alloc] initWithString:tweet.username attributes:sUsernameAttributes] autorelease];
                 [usernameButton setAttributedTitle:title];
             }
             
-            NSString *text = [tweet objectForKey:@"text"];
-            if (text) {
-                [[textView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:text attributes:sTextAttributes] autorelease]];
+            if (tweet.text) {
+                [[textView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:tweet.text attributes:sTextAttributes] autorelease]];
                 [textView sizeToFit];
             }
         }

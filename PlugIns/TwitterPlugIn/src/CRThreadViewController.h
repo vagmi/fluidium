@@ -8,13 +8,15 @@
 
 #import "CRBaseViewController.h"
 
+@class CRTweet;
+
 @interface CRThreadViewController : CRBaseViewController {
-    NSDictionary *tweet;
+    CRTweet *tweet;
     NSString *usernameA;
     NSString *usernameB;
 }
 
-@property (nonatomic, retain) NSDictionary *tweet;
+@property (nonatomic, retain) CRTweet *tweet;
 @property (nonatomic, copy) NSString *usernameA;
 @property (nonatomic, copy) NSString *usernameB;
 @end

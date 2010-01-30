@@ -22,9 +22,9 @@ typedef enum {
     NSDictionary *lastClickedElementInfo;
 
     NSMutableArray *tweets;
-    NSMutableArray *newStatuses;
-    NSMutableDictionary *statusTable;
-    NSArray *statusesSortDescriptors;
+    NSMutableArray *newTweets;
+    NSMutableDictionary *tweetTable;
+    NSArray *tweetSortDescriptors;
     NSTimer *fetchTimer;
     NSTimer *enableTimer;
     NSTimer *datesTimer;

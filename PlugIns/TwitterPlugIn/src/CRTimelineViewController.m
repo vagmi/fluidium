@@ -11,9 +11,10 @@
 #import "CRTwitterPlugIn.h"
 #import "CRThreadViewController.h"
 #import "CRBarButtonItemView.h"
+#import "CRTweet.h"
+#import "CRTweetListItem.h"
 #import <Fluidium/FUPlugInAPI.h>
 #import "WebURLsWithTitles.h"
-#import "CRTweetListItem.h"
 //#import <WebKit/WebKit.h>
 
 #define DEFAULT_FETCH_INTERVAL_MINS 3
@@ -73,9 +74,9 @@
 
 @property (nonatomic, retain) NSURL *defaultProfileImageURL;
 @property (nonatomic, retain) NSMutableArray *tweets;
-@property (nonatomic, retain) NSMutableArray *newStatuses;
-@property (nonatomic, retain) NSMutableDictionary *statusTable;
-@property (nonatomic, retain) NSArray *statusesSortDescriptors;
+@property (nonatomic, retain) NSMutableArray *newTweets;
+@property (nonatomic, retain) NSMutableDictionary *tweetTable;
+@property (nonatomic, retain) NSArray *tweetSortDescriptors;
 @property (nonatomic, retain) NSTimer *fetchTimer;
 @property (nonatomic, retain) NSTimer *enableTimer;
 @property (nonatomic, retain) NSTimer *datesTimer;
@@ -109,9 +110,9 @@
                                                      name:CRTwitterPlugInSelectedUsernameDidChangeNotification
                                                    object:[CRTwitterPlugIn instance]];
 
-        NSSortDescriptor *desc = [[[NSSortDescriptor alloc] initWithKey:@"id" ascending:NO] autorelease];
-        self.statusesSortDescriptors = [NSArray arrayWithObject:desc];
-        self.statusTable = [NSMutableDictionary dictionary];
+        NSSortDescriptor *desc = [[[NSSortDescriptor alloc] initWithKey:@"identifier" ascending:NO] autorelease];
+        self.tweetSortDescriptors = [NSArray arrayWithObject:desc];
+        self.tweetTable = [NSMutableDictionary dictionary];
         self.appendTable = [NSMutableDictionary dictionary];
     }
     return self;
@@ -124,9 +125,9 @@
     self.defaultProfileImageURL = nil;
     self.lastClickedElementInfo = nil;
     self.tweets = nil;
-    self.newStatuses = nil;
-    self.statusTable = nil;
-    self.statusesSortDescriptors = nil;
+    self.newTweets = nil;
+    self.tweetTable = nil;
+    self.tweetSortDescriptors = nil;
     self.appendTable = nil;
     [self killFetchTimer];
     [self killEnableTimer];
@@ -489,7 +490,7 @@
 
 - (unsigned long long)latestID {
     if ([tweets count]) {
-        return [[[tweets objectAtIndex:0] objectForKey:@"id"] unsignedLongLongValue];
+        return [[[tweets objectAtIndex:0] identifier] unsignedLongLongValue];
     } else {
         return 0;
     }
@@ -498,7 +499,7 @@
 
 - (unsigned long long)earliestID {
     if ([tweets count]) {
-        return [[[tweets lastObject] objectForKey:@"id"] unsignedLongLongValue] - 1;
+        return [[[tweets lastObject] identifier] unsignedLongLongValue] - 1;
     } else {
         return 0;
     }
@@ -558,25 +559,25 @@
 
 
 - (void)statusesReceived:(NSArray *)inStatuses forRequest:(NSString *)requestID {
-    self.newStatuses = [super processStatuses:inStatuses];
-    NSLog(@"received %d new Statuses", [newStatuses count]);
+    self.newTweets = [super tweetsFromStatuses:inStatuses];
+    NSLog(@"received %d new Tweets", [newTweets count]);
     
     @synchronized(tweets) {
         if (tweets) {
-            [tweets addObjectsFromArray:newStatuses];
+            [tweets addObjectsFromArray:newTweets];
         } else {
-            self.tweets = newStatuses;
+            self.tweets = newTweets;
         }
         
-        [tweets sortUsingDescriptors:statusesSortDescriptors];
+        [tweets sortUsingDescriptors:tweetSortDescriptors];
     }
     
-    if ([newStatuses count]) {
-        for (NSMutableDictionary *status in newStatuses) {
-            [statusTable setObject:status forKey:[[status objectForKey:@"id"] stringValue]];
+    if ([newTweets count]) {
+        for (CRTweet *tweet in newTweets) {
+            [tweetTable setObject:tweet forKey:[tweet.identifier stringValue]];
         }
         
-        [newStatuses sortUsingDescriptors:statusesSortDescriptors];
+        [newTweets sortUsingDescriptors:tweetSortDescriptors];
         BOOL append = [self isAppendRequestID:requestID];
         [self prepareAndDisplayTweets:[NSNumber numberWithBool:append]];
     }
@@ -635,7 +636,7 @@
 #pragma mark TDListViewDelegate
 
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
-    NSString *text = [[tweets objectAtIndex:i] objectForKey:@"text"];
+    NSString *text = [[tweets objectAtIndex:i] text];
     CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
     NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
     NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
@@ -669,7 +670,7 @@
     id displayUsernames = [[NSUserDefaults standardUserDefaults] objectForKey:kCRTwitterDisplayUsernamesKey];
     
     NSDictionary *vars = [NSDictionary dictionaryWithObjectsAndKeys:
-                          newStatuses, @"statuses",
+                          newTweets, @"tweets",
                           displayUsernames, @"displayUsernames",
                           //CRDefaultProfileImageURLString(), @"defaultAvatarURLString",
                           nil];
@@ -685,8 +686,8 @@
         return;
     }
 
-    for (NSMutableDictionary *status in tweets) {
-        [status setObject:CRFormatDate([status objectForKey:@"created_at"]) forKey:@"date"];
+    for (CRTweet *tweet in tweets) {
+        [tweet updateAgo];
     }
 
     [listView reloadData];
@@ -876,7 +877,7 @@
 
 - (void)pushThread:(NSString *)statusID {
     CRThreadViewController *vc = [[[CRThreadViewController alloc] init] autorelease];
-    vc.tweet = [statusTable objectForKey:statusID];
+    vc.tweet = [tweetTable objectForKey:statusID];
     [self.navigationController pushViewController:vc animated:NO];
 }
 
@@ -911,9 +912,9 @@
 @synthesize defaultProfileImageURL;
 @synthesize lastClickedElementInfo;
 @synthesize tweets;
-@synthesize newStatuses;
-@synthesize statusTable;
-@synthesize statusesSortDescriptors;
+@synthesize newTweets;
+@synthesize tweetTable;
+@synthesize tweetSortDescriptors;
 @synthesize fetchTimer;
 @synthesize enableTimer;
 @synthesize datesTimer;

@@ -11,6 +11,7 @@
 #import "CRTwitterUtils.h"
 #import "CRTimelineViewController.h"
 #import "CRThreadViewController.h"
+#import "CRTweet.h"
 
 @implementation CRBaseViewController
 
@@ -85,11 +86,11 @@
 }
 
 
-- (NSMutableArray *)processStatuses:(NSArray *)inStatuses {
+- (NSMutableArray *)tweetsFromStatuses:(NSArray *)inStatuses {
     //NSLog(@"Got statuses for %@:\r%@", requestID, inStatuses);
     //NSLog(@"Got statuses for %@:\r %d", requestID, [inStatuses count]);
     
-    NSMutableArray *newStatuses = [NSMutableArray arrayWithCapacity:[inStatuses count]];
+    NSMutableArray *tweets = [NSMutableArray arrayWithCapacity:[inStatuses count]];
     
     NSString *myname = [[[CRTwitterPlugIn instance] selectedUsername] lowercaseString];
     NSString *atmyname = [NSString stringWithFormat:@"@%@", myname];
@@ -106,7 +107,7 @@
         // date
         [d setObject:[inStatus objectForKey:@"created_at"] forKey:@"created_at"];
         
-        // profile url
+        // avatarURLString
         NSString *avatarURLString = [inUser objectForKey:@"profile_image_url"];
         if (![avatarURLString length])  {
             avatarURLString = defaultAvatarURLString;
@@ -114,10 +115,10 @@
         
         [d setObject:avatarURLString forKey:@"avatarURLString"];
         
-        // doesMentionMe
+        // isMentionMe
         NSString *text = [inStatus objectForKey:@"text"];
-        BOOL doesMentionMe = [text rangeOfString:atmyname options:NSCaseInsensitiveSearch].length;
-        [d setObject:[NSNumber numberWithBool:doesMentionMe] forKey:@"doesMentionMe"];
+        BOOL isMentionMe = [text rangeOfString:atmyname options:NSCaseInsensitiveSearch].length;
+        [d setObject:[NSNumber numberWithBool:isMentionMe] forKey:@"isMentionMe"];
         
         // markup status
 //        NSArray *mentions = nil;
@@ -132,7 +133,7 @@
         NSNumber *inReplyToStatusID = [inStatus objectForKey:@"in_reply_to_status_id"];
         if (inReplyToStatusID) {
             isReply = YES;
-            [d setObject:inReplyToStatusID forKey:@"inReplyToStatusID"];
+            [d setObject:inReplyToStatusID forKey:@"inReplyToIdentifier"];
         }
         [d setObject:[NSNumber numberWithBool:isReply] forKey:@"isReply"];
         
@@ -141,12 +142,12 @@
         [d setObject:[inUser objectForKey:@"screen_name"] forKey:@"username"];
         
         BOOL writtenByMe = [[[d objectForKey:@"username"] lowercaseString] isEqualToString:myname];
-        [d setObject:[NSNumber numberWithBool:writtenByMe] forKey:@"writtenByMe"];
+        [d setObject:[NSNumber numberWithBool:writtenByMe] forKey:@"isByMe"];
         
-        [newStatuses addObject:d];
+        [tweets addObject:[CRTweet tweetFromDictionary:d]];
     }
     
-    return newStatuses;
+    return tweets;
 }
 
 
