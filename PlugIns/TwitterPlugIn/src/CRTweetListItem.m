@@ -16,6 +16,7 @@ static NSGradient *sMentionsMeBackgroundGradient = nil;
 static NSColor *sBorderBottomColor = nil;
 
 static NSDictionary *sUsernameAttributes = nil;
+static NSDictionary *sTextAttributes = nil;
 
 @implementation CRTweetListItem
 
@@ -46,7 +47,12 @@ static NSDictionary *sUsernameAttributes = nil;
                                [NSFont boldSystemFontOfSize:11], NSFontAttributeName,
                                paraStyle, NSParagraphStyleAttributeName,
                                nil];
-
+        
+        sTextAttributes    = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [NSColor blackColor], NSForegroundColorAttributeName,
+                               [NSFont systemFontOfSize:10], NSFontAttributeName,
+                               nil];
+        
     }
 }
 
@@ -63,17 +69,43 @@ static NSDictionary *sUsernameAttributes = nil;
 
 - (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
     if (self = [super init]) {
+        self.usernameButton = [[[NSButton alloc] initWithFrame:NSZeroRect] autorelease];
+        [usernameButton setBordered:NO];
+        [self addSubview:usernameButton];
         
+        self.textView = [[[NSTextView alloc] initWithFrame:NSZeroRect] autorelease];
+        [textView setDrawsBackground:NO];
+        [self addSubview:textView];
     }
     return self;
 }
 
 
 - (void)dealloc {
+    self.usernameButton = nil;
     self.tweet = nil;
     [super dealloc];
 }
 
+
+- (void)resizeSubviewsWithOldSize:(NSSize)oldSize {
+    //[super resizeSubviewsWithOldSize:oldSize];
+
+    NSRect bounds = [self bounds];
+
+#define USERNAME_X 54.0
+#define USERNAME_Y 2.0
+#define USERNAME_HEIGHT 18.0
+#define USERNAME_MARGIN_RIGHT 72.0
+
+#define TEXT_X 52.0
+#define TEXT_Y 22.0
+#define TEXT_MARGIN_RIGHT 7.0
+
+    [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, bounds.size.width - (USERNAME_X + USERNAME_MARGIN_RIGHT), USERNAME_HEIGHT)];
+    [textView setFrame:NSMakeRect(TEXT_X, TEXT_Y, bounds.size.width - (USERNAME_X + TEXT_MARGIN_RIGHT), 60)];
+    
+}
 
 //{
 //    avatarURLString = "http://a3.twimg.com/profile_images/579844959/Photo_on_2009-12-17_at_15.46__2_normal.jpg";
@@ -97,15 +129,40 @@ static NSDictionary *sUsernameAttributes = nil;
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, bounds.size.height) toPoint:NSMakePoint(bounds.size.width, bounds.size.height)];
     
     // avatar
-    NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundRect:NSMakeRect(6, 4, 44, 44) radius:8];
+    NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundRect:NSMakeRect(6, 4, 44, 44) radius:7];
     [roundRect fill];
     
     // username
-    NSString *username = [tweet objectForKey:@"username"];
-    [username drawInRect:NSMakeRect(56, 5, bounds.size.width, 18) withAttributes:sUsernameAttributes];
+    //NSString *username = [tweet objectForKey:@"username"];
+    //    [username drawInRect:NSMakeRect(56, 5, bounds.size.width, 18) withAttributes:sUsernameAttributes];
     
-    
+    // text
+//    NSString *text = [tweet objectForKey:@"text"];
+//    [text drawInRect:NSMakeRect(56, 22, 240, 60) withAttributes:sTextAttributes];
 }
 
+
+- (void)setTweet:(NSDictionary *)d {
+    if (d != tweet) {
+        [tweet autorelease];
+        tweet = [d retain];
+        
+        if (tweet) {
+            NSString *username = [tweet objectForKey:@"username"];
+            if (username) {
+                NSAttributedString *title = [[[NSAttributedString alloc] initWithString:username attributes:sUsernameAttributes] autorelease];
+                [usernameButton setAttributedTitle:title];
+            }
+            
+            NSString *text = [tweet objectForKey:@"text"];
+            if (text) {
+                [[textView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:text attributes:sTextAttributes] autorelease]];
+            }
+        }
+    }
+}
+
+@synthesize usernameButton;
+@synthesize textView;
 @synthesize tweet;
 @end

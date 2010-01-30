@@ -9,10 +9,14 @@
 #import <TDAppKit/TDListItem.h>
 
 @interface CRTweetListItem : TDListItem {
+    NSButton *usernameButton;
+    NSTextView *textView;
     NSDictionary *tweet;
 }
 
 + (NSString *)reuseIdentifier;
 
+@property (nonatomic, retain) NSButton *usernameButton;
+@property (nonatomic, retain) NSTextView *textView;
 @property (nonatomic, retain) NSDictionary *tweet;
 @end

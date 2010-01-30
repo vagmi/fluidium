@@ -120,12 +120,13 @@
         [d setObject:[NSNumber numberWithBool:doesMentionMe] forKey:@"doesMentionMe"];
         
         // markup status
-        NSArray *mentions = nil;
-        NSString *markupText = CRMarkedUpStatus(text, &mentions);
-        if (![markupText length]) {
-            markupText = text;
-        }
-        [d setObject:markupText forKey:@"text"];
+//        NSArray *mentions = nil;
+//        NSString *markupText = CRMarkedUpStatus(text, &mentions);
+//        if (![markupText length]) {
+//            markupText = text;
+//        }
+//        [d setObject:markupText forKey:@"text"];
+        [d setObject:text forKey:@"text"];
         
         BOOL isReply = NO;
         NSNumber *inReplyToStatusID = [inStatus objectForKey:@"in_reply_to_status_id"];
