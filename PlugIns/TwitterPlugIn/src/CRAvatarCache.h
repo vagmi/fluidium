@@ -27,6 +27,7 @@ extern const CGFloat kCRAvatarCornerRadius;
 
 @interface CRAvatarCache : NSObject {
     NSMutableDictionary *cache;
+    NSMutableArray *keyAge;
 }
 
 + (CRAvatarCache *)instance;

@@ -19,6 +19,8 @@
 #define KEY_URLSTRING @"URLString"
 #define KEY_IMAGE @"image"
 
+#define MAX_CACHE_SIZE 200
+
 const CGFloat kCRAvatarSide = 44.0;
 const CGFloat kCRAvatarCornerRadius = 5.0;
 
@@ -31,6 +33,7 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 - (void)doneFetching:(NSDictionary *)args;
 
 @property (nonatomic, retain) NSMutableDictionary *cache;
+@property (nonatomic, retain) NSMutableArray *keyAge;
 @end
 
 @implementation CRAvatarCache
@@ -49,6 +52,7 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 - (id)init {
     if (self = [super init]) {
         self.cache = [NSMutableDictionary dictionary];
+        self.keyAge = [NSMutableArray array];
     }
     return self;
 }
@@ -97,9 +101,18 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 
     id obj = [NSNull null];
     NSString *URLString = tweet.avatarURLString;
-    
+
+    NSUInteger count = [keyAge count];
+    NSString *evictKey = count ? [keyAge objectAtIndex:0] : nil;
+
     @synchronized (cache) {
         [cache setObject:obj forKey:URLString];
+        [keyAge addObject:URLString];
+        if (count >= MAX_CACHE_SIZE) {
+            [cache removeObjectForKey:evictKey];
+            [keyAge removeObjectAtIndex:0];
+            NSLog(@"evicted. cache count: %d, keyAge count: %d", [cache count], [keyAge count]);
+        }
     }
     
     [self fetch:URLString];
@@ -152,4 +165,5 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 }
 
 @synthesize cache;
+@synthesize keyAge;
 @end
