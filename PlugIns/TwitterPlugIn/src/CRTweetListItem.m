@@ -18,6 +18,10 @@ static NSColor *sBorderBottomColor = nil;
 static NSDictionary *sUsernameAttributes = nil;
 static NSDictionary *sTextAttributes = nil;
 
+//@interface NSObject (Compiler)
+//- (IBAction)usernameButtonClicked:(id)sender;
+//@end
+
 @implementation CRTweetListItem
 
 + (void)initialize {
@@ -93,8 +97,8 @@ static NSDictionary *sTextAttributes = nil;
 
     NSRect bounds = [self bounds];
 
-#define USERNAME_X 54.0
-#define USERNAME_Y 2.0
+#define USERNAME_X 55.0
+#define USERNAME_Y 3.0
 #define USERNAME_HEIGHT 18.0
 #define USERNAME_MARGIN_RIGHT 72.0
 
@@ -122,7 +126,15 @@ static NSDictionary *sTextAttributes = nil;
     NSRect bounds = [self bounds];
     
     // bg
-    [sBackgroundGradient drawInRect:bounds angle:90];
+    NSGradient *bgGradient = nil;
+    if ([[tweet objectForKey:@"writtenByMe"] boolValue]) {
+        bgGradient = sByMeBackgroundGradient;
+    } else if ([[tweet objectForKey:@"doesMentionMe"] boolValue]) {
+        bgGradient = sMentionsMeBackgroundGradient;
+    } else {
+        bgGradient = sBackgroundGradient;
+    }
+    [bgGradient drawInRect:bounds angle:90];
     
     // border
     [sBorderBottomColor setStroke];
@@ -130,6 +142,7 @@ static NSDictionary *sTextAttributes = nil;
     
     // avatar
     NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundRect:NSMakeRect(6, 4, 44, 44) radius:7];
+    [sBorderBottomColor setFill];
     [roundRect fill];
     
     // username
@@ -160,6 +173,16 @@ static NSDictionary *sTextAttributes = nil;
             }
         }
     }
+}
+
+
+- (NSInteger)tag {
+    return [usernameButton tag];
+}
+
+
+- (void)setTag:(NSInteger)tag {
+    [usernameButton setTag:tag];
 }
 
 @synthesize usernameButton;

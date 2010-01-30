@@ -361,6 +361,13 @@
 }
 
 
+- (IBAction)usernameButtonClicked:(id)sender {
+    NSInteger i = [sender tag];
+    NSString *username = [[tweets objectAtIndex:i] objectForKey:@"username"];
+    [self handleUsernameClicked:username];
+}
+
+
 #pragma mark -
 #pragma mark Enabling Timer
 
@@ -612,6 +619,9 @@
     
     if (!item) {
         item = [[[CRTweetListItem alloc] init] autorelease];
+        [item.usernameButton setTag:i];
+        [item.usernameButton setTarget:self];
+        [item.usernameButton setAction:@selector(usernameButtonClicked:)];
     }
     
     item.tweet = [tweets objectAtIndex:i];

@@ -61,7 +61,7 @@ static NSImage *sBackgroundImage = nil;
 
 - (id)initWithFrame:(NSRect)r {
     if (self = [super initWithFrame:r]) {
-        [self setWantsLayer:YES];
+        [self setWantsLayer:NO];
         self.items = [NSMutableArray array];
         
         self.pushAnimations = [NSDictionary dictionaryWithObject:[self pushAnimation] forKey:@"subviews"];

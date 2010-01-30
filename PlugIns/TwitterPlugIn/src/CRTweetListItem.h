@@ -19,4 +19,5 @@
 @property (nonatomic, retain) NSButton *usernameButton;
 @property (nonatomic, retain) NSTextView *textView;
 @property (nonatomic, retain) NSDictionary *tweet;
+@property (nonatomic, assign) NSInteger tag;
 @end
