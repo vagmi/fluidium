@@ -92,7 +92,7 @@ static NSDictionary *sTextAttributes = nil;
 
 
 + (CGFloat)horizontalTextMargins {
-    return TEXT_X + TEXT_MARGIN_RIGHT;
+    return (TEXT_X + TEXT_MARGIN_RIGHT) + 10; // needs fudge for default padding in NSTextView
 }
 
 
