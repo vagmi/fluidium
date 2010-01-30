@@ -61,7 +61,7 @@
 }
 
 
-- (TDListItem *)listView:(TDListView *)lv viewForItemAtIndex:(NSInteger)i {
+- (TDListItem *)listView:(TDListView *)lv itemAtIndex:(NSInteger)i {
     static NSString *sIdentifier = @"foo";
     
     DemoListItemView *itemView = [listView dequeueReusableItemWithIdentifier:sIdentifier];
@@ -86,7 +86,7 @@
 }
 
 
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItem *)rv forItemAtIndex:(NSInteger)i {
+- (void)listView:(TDListView *)lv willDisplay:(TDListItem *)rv atIndex:(NSInteger)i {
     
 }
 

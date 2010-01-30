@@ -9,12 +9,12 @@
 #import "CRBaseViewController.h"
 
 @interface CRThreadViewController : CRBaseViewController {
-    NSDictionary *status;
+    NSDictionary *tweet;
     NSString *usernameA;
     NSString *usernameB;
 }
 
-@property (nonatomic, retain) NSDictionary *status;
+@property (nonatomic, retain) NSDictionary *tweet;
 @property (nonatomic, copy) NSString *usernameA;
 @property (nonatomic, copy) NSString *usernameB;
 @end

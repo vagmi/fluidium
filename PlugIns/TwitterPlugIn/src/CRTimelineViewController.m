@@ -12,10 +12,9 @@
 #import "CRThreadViewController.h"
 #import "CRBarButtonItemView.h"
 #import <Fluidium/FUPlugInAPI.h>
-#import "MGTemplateEngine.h"
-#import "ICUTemplateMatcher.h"
 #import "WebURLsWithTitles.h"
-#import <WebKit/WebKit.h>
+#import "CRTweetListItem.h"
+//#import <WebKit/WebKit.h>
 
 #define DEFAULT_FETCH_INTERVAL_MINS 3
 #define ENABLE_INTERVAL_MINS .5
@@ -29,15 +28,11 @@
 
 #define WebURLsWithTitlesPboardType     @"WebURLsWithTitlesPboardType"
 
-@interface DOMDocument (FluidAdditions)
-- (DOMElement *)body;
-- (DOMNodeList *)getElementsByClassName:(NSString *)className;
-@end
-
 @interface CRTimelineViewController ()
 - (id)initWithNibName:(NSString *)s bundle:(NSBundle *)b type:(CRTimelineType)t;
 
 - (void)setUpNavBar;
+- (void)setUpListView;
 - (void)showRefreshBarButtonItem;
 - (void)showProgressBarButtonItem;
 - (void)refreshTitle;
@@ -70,17 +65,15 @@
 - (void)killDatesTimer;
 - (void)startDatesLoop;
 
-// WebView
-- (void)prepareAndDisplayMarkup:(id)appendObj;
 - (NSURL *)defaultProfileImageURL;
-- (void)loadTemplateHTML;
-- (void)clearWebView;
+- (void)clearList;
+- (void)prepareAndDisplayTweets:(id)appendObj;
 
 - (unsigned long long)latestID;
 - (unsigned long long)earliestID;
 
 @property (nonatomic, retain) NSURL *defaultProfileImageURL;
-@property (nonatomic, retain) NSMutableArray *statuses;
+@property (nonatomic, retain) NSMutableArray *tweets;
 @property (nonatomic, retain) NSMutableArray *newStatuses;
 @property (nonatomic, retain) NSMutableDictionary *statusTable;
 @property (nonatomic, retain) NSArray *statusesSortDescriptors;
@@ -131,7 +124,7 @@
     self.displayedUsername = nil;
     self.defaultProfileImageURL = nil;
     self.lastClickedElementInfo = nil;
-    self.statuses = nil;
+    self.tweets = nil;
     self.newStatuses = nil;
     self.statusTable = nil;
     self.statusesSortDescriptors = nil;
@@ -149,8 +142,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpNavBar];
+    [self setUpListView];
     [self refreshWithSelectedUsername];
-    //    [self loadTemplateHTML];    
 }
 
 
@@ -180,9 +173,9 @@
     
     visible = YES;
     
-    if (![webView isLoading]) {
+    //if (![webView isLoading]) {
         [self beginFetchLoop];
-    }
+    //}
     
     [self startDatesLoop];
 }
@@ -204,6 +197,11 @@
 
 #pragma mark -
 #pragma mark View setup
+
+- (void)setUpListView {
+    listView.displaysClippedItems = YES;
+}
+
 
 - (void)setUpNavBar {
     
@@ -259,9 +257,9 @@
 - (void)refreshWithSelectedUsername {
     [self killFetchTimer];
     [self killEnableTimer];
-    [self clearWebView];
+    [self clearList];
 
-    self.statuses = nil;
+    self.tweets = nil;
     
     [self refreshTitle];
     
@@ -490,8 +488,8 @@
 #pragma mark MGTwitterEngineDelegate
 
 - (unsigned long long)latestID {
-    if ([statuses count]) {
-        return [[[statuses objectAtIndex:0] objectForKey:@"id"] unsignedLongLongValue];
+    if ([tweets count]) {
+        return [[[tweets objectAtIndex:0] objectForKey:@"id"] unsignedLongLongValue];
     } else {
         return 0;
     }
@@ -499,8 +497,8 @@
 
 
 - (unsigned long long)earliestID {
-    if ([statuses count]) {
-        return [[[statuses lastObject] objectForKey:@"id"] unsignedLongLongValue] - 1;
+    if ([tweets count]) {
+        return [[[tweets lastObject] objectForKey:@"id"] unsignedLongLongValue] - 1;
     } else {
         return 0;
     }
@@ -561,16 +559,16 @@
 
 - (void)statusesReceived:(NSArray *)inStatuses forRequest:(NSString *)requestID {
     self.newStatuses = [super processStatuses:inStatuses];
-    //NSLog(@"received %d new Statuses", [newStatuses count]);
+    NSLog(@"received %d new Statuses", [newStatuses count]);
     
-    @synchronized(statuses) {
-        if (statuses) {
-            [statuses addObjectsFromArray:newStatuses];
+    @synchronized(tweets) {
+        if (tweets) {
+            [tweets addObjectsFromArray:newStatuses];
         } else {
-            self.statuses = newStatuses;
+            self.tweets = newStatuses;
         }
         
-        [statuses sortUsingDescriptors:statusesSortDescriptors];
+        [tweets sortUsingDescriptors:statusesSortDescriptors];
     }
     
     if ([newStatuses count]) {
@@ -580,7 +578,7 @@
         
         [newStatuses sortUsingDescriptors:statusesSortDescriptors];
         BOOL append = [self isAppendRequestID:requestID];
-        [self prepareAndDisplayMarkup:[NSNumber numberWithBool:append]];
+        [self prepareAndDisplayTweets:[NSNumber numberWithBool:append]];
     }
 
     [self updateDisplayedDates];
@@ -608,49 +606,54 @@
 
 
 #pragma mark -
-#pragma mark MGTemplateEngine
+#pragma mark TDListViewDataSource
 
-- (void)setUpTemplateEngine {
-    self.templateEngine = [MGTemplateEngine templateEngine];
-    [templateEngine setMatcher:[ICUTemplateMatcher matcherWithTemplateEngine:templateEngine]];
+- (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
+    NSUInteger c = [tweets count];
+    return c;
+}
+
+
+- (id)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
+    CRTweetListItem *item = [listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
     
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"timeline" ofType:@"html"];
-    NSString *timelineStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    if (!item) {
+        item = [[[CRTweetListItem alloc] init] autorelease];
+    }
     
-    path = [[NSBundle bundleForClass:[self class]] pathForResource:@"timeline" ofType:@"css"];
-    NSString *cssStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    self.templateString = [timelineStr stringByReplacingOccurrencesOfString:@"___CSS___" withString:cssStr];
+    item.tweet = [tweets objectAtIndex:i];
+    [item setNeedsDisplay:YES];
     
-    path = [[NSBundle bundleForClass:[self class]] pathForResource:@"status" ofType:@"html"];
-    self.statusTemplateString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    return item;
+}
+                           
+                           
+#pragma mark -
+#pragma mark TDListViewDelegate
+
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i {
+    return 60;
 }
 
 
 #pragma mark -
 #pragma mark WebView
 
-- (void)loadTemplateHTML {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(loadTemplateHTML) withObject:nil waitUntilDone:NO];
-        return;
+- (void)clearList {
+    if ([tweets count]) {
+        self.tweets = [NSMutableArray array];
+        [listView reloadData];
     }
-    //   NSLog(@"templateString: %@", templateString);
-    [[webView mainFrame] loadHTMLString:templateString baseURL:nil];
 }
 
 
-- (void)clearWebView {
-    [self loadTemplateHTML];
-}
-
-
-- (void)prepareAndDisplayMarkup:(id)appendObj {
+- (void)prepareAndDisplayTweets:(id)appendObj {
     if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(prepareAndDisplayMarkup:) withObject:appendObj waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(prepareAndDisplayTweets:) withObject:appendObj waitUntilDone:NO];
         return;
     }
     
-    BOOL append = [appendObj boolValue];
+    //BOOL append = [appendObj boolValue];
     
     id displayUsernames = [[NSUserDefaults standardUserDefaults] objectForKey:kCRTwitterDisplayUsernamesKey];
     
@@ -660,20 +663,8 @@
                           //CRDefaultProfileImageURLString(), @"defaultAvatarURLString",
                           nil];
     
-    
-    DOMDocument *doc = [[webView mainFrame] DOMDocument];
-    DOMHTMLElement *el = (DOMHTMLElement *)[doc getElementById:@"timeline"];
-
-    NSString *htmlStr = [templateEngine processTemplate:statusTemplateString withVariables:vars];
-    //NSLog(@"%@", htmlStr);
-    
-    if (append) {
-        [self appendMarkup:htmlStr toElement:el];
-    } else {
-        [self insertMarkup:htmlStr toElement:el];
-    }
-    
-    [[doc getElementById:@"moreButton"] setAttribute:@"style" value:@"display:block;"];
+    // TODO
+    vars;
 }
 
 
@@ -683,39 +674,25 @@
         return;
     }
 
-    for (NSMutableDictionary *status in statuses) {
+    for (NSMutableDictionary *status in tweets) {
         [status setObject:CRFormatDate([status objectForKey:@"created_at"]) forKey:@"date"];
     }
 
-    DOMNodeList *els = [[[webView mainFrame] DOMDocument] getElementsByClassName:@"date"];
-    NSInteger i = 0;
-    for ( ; i < [els length]; i++) {
-        DOMHTMLElement *el = (DOMHTMLElement *)[els item:i];
-        NSString *statusID = [[el getAttribute:@"id"] substringFromIndex:5];
-        NSDictionary *status = [statusTable objectForKey:statusID];
-        [super replaceMarkup:[status objectForKey:@"date"] inElement:el];
-    }
+    [listView reloadData];
 }
 
 
-#pragma mark -
-#pragma mark WebFrameLoadDelegate
-
-- (void)webView:(WebView *)wv didFinishLoadForFrame:(WebFrame *)frame {
-    if (frame != [webView mainFrame]) return;
-    
-    [self showRefreshBarButtonItem];
-    if (visible) {
-        [self beginFetchLoop];
-    }
-}
-
-
-- (void)webView:(WebView *)wv didClearWindowObject:(WebScriptObject *)wso forFrame:(WebFrame *)frame {
-    if (frame != [webView mainFrame]) return;
-
-    [wso setValue:self forKey:@"cruz"];
-}
+//#pragma mark -
+//#pragma mark WebFrameLoadDelegate
+//
+//- (void)webView:(WebView *)wv didFinishLoadForFrame:(WebFrame *)frame {
+//    if (frame != [webView mainFrame]) return;
+//    
+//    [self showRefreshBarButtonItem];
+//    if (visible) {
+//        [self beginFetchLoop];
+//    }
+//}
 
 
 #pragma mark -
@@ -776,73 +753,98 @@
 }
 
 
-#pragma mark -
-#pragma mark WebUIDelegate
-
-- (void)webView:(WebView *)wv mouseDidMoveOverElement:(NSDictionary *)d modifierFlags:(NSUInteger)modifierFlags {
-    if (wv != webView) return;    
-    
-    NSString *titleAttr = [d objectForKey:WebElementLinkTitleKey];
-    if ([titleAttr isEqualToString:@"nostatus"]) {
-        return;
-    }
-    
-    NSURL *URL = [d objectForKey:WebElementLinkURLKey];
-    NSString *statusText = nil;
-    
-    if (URL) {
-        NSString *URLString = CRStringByTrimmingCruzPrefixFromURL(URL);
-        
-        BOOL tabsEnabled = [[CRTwitterPlugIn instance] tabbedBrowsingEnabled];
-        NSString *fmt = nil;
-        if (tabsEnabled) {
-            fmt = NSLocalizedString(@"Open \"%@\" in a new tab", @"");
-        } else {
-            fmt = NSLocalizedString(@"Open \"%@\" in a new window", @"");
-        }
-                
-        statusText = [NSString stringWithFormat:fmt, URLString];
-    } else {
-        statusText = @"";
-    }
-    
-    [[CRTwitterPlugIn instance] showStatusText:statusText];
-}
-
-
-- (NSArray *)webView:(WebView *)wv contextMenuItemsForElement:(NSDictionary *)d defaultMenuItems:(NSArray *)defaultMenuItems {
-    NSURL *URL = [d objectForKey:WebElementLinkURLKey];
-    if (!URL) return nil;
-
-    self.lastClickedElementInfo = d;
-    
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:3];
-    
-    NSMenuItem *item = nil;
-
-    if ([[CRTwitterPlugIn instance] tabbedBrowsingEnabled]) {
-        item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Tab ", @"") 
-                                           action:@selector(openLinkInNewTabFromMenu:)
-                                    keyEquivalent:@""] autorelease];
-        [item setTarget:self];
-        [items addObject:item];
-    }
-
-    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Window ", @"") 
-                                       action:@selector(openLinkInNewWindowFromMenu:)
-                                keyEquivalent:@""] autorelease];
-    [item setTarget:self];
-    [items addObject:item];
-    
-    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy Link", @"") 
-                                       action:@selector(copyLinkFromMenu:)
-                                keyEquivalent:@""] autorelease];
-    [item setTarget:self];
-    [items addObject:item];
-    
-    return items;
-}
-
+//#pragma mark -
+//#pragma mark WebUIDelegate
+//
+//- (void)webView:(WebView *)wv mouseDidMoveOverElement:(NSDictionary *)d modifierFlags:(NSUInteger)modifierFlags {
+//    if (wv != webView) return;    
+//    
+//    NSString *titleAttr = [d objectForKey:WebElementLinkTitleKey];
+//    if ([titleAttr isEqualToString:@"nostatus"]) {
+//        return;
+//    }
+//    
+//    NSURL *URL = [d objectForKey:WebElementLinkURLKey];
+//    NSString *statusText = nil;
+//    
+//    if (URL) {
+//        NSString *URLString = CRStringByTrimmingCruzPrefixFromURL(URL);
+//        
+//        BOOL tabsEnabled = [[CRTwitterPlugIn instance] tabbedBrowsingEnabled];
+//        NSString *fmt = nil;
+//        if (tabsEnabled) {
+//            fmt = NSLocalizedString(@"Open \"%@\" in a new tab", @"");
+//        } else {
+//            fmt = NSLocalizedString(@"Open \"%@\" in a new window", @"");
+//        }
+//                
+//        statusText = [NSString stringWithFormat:fmt, URLString];
+//    } else {
+//        statusText = @"";
+//    }
+//    
+//    [[CRTwitterPlugIn instance] showStatusText:statusText];
+//}
+//
+//
+//- (NSArray *)webView:(WebView *)wv contextMenuItemsForElement:(NSDictionary *)d defaultMenuItems:(NSArray *)defaultMenuItems {
+//    NSURL *URL = [d objectForKey:WebElementLinkURLKey];
+//    if (!URL) return nil;
+//
+//    self.lastClickedElementInfo = d;
+//    
+//    NSMutableArray *items = [NSMutableArray arrayWithCapacity:3];
+//    
+//    NSMenuItem *item = nil;
+//
+//    if ([[CRTwitterPlugIn instance] tabbedBrowsingEnabled]) {
+//        item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Tab ", @"") 
+//                                           action:@selector(openLinkInNewTabFromMenu:)
+//                                    keyEquivalent:@""] autorelease];
+//        [item setTarget:self];
+//        [items addObject:item];
+//    }
+//
+//    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Window ", @"") 
+//                                       action:@selector(openLinkInNewWindowFromMenu:)
+//                                keyEquivalent:@""] autorelease];
+//    [item setTarget:self];
+//    [items addObject:item];
+//    
+//    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy Link", @"") 
+//                                       action:@selector(copyLinkFromMenu:)
+//                                keyEquivalent:@""] autorelease];
+//    [item setTarget:self];
+//    [items addObject:item];
+//    
+//    return items;
+//}
+//
+//
+//- (void)webView:(WebView *)wv willPerformDragSourceAction:(WebDragSourceAction)action fromPoint:(NSPoint)p withPasteboard:(NSPasteboard *)pboard {
+//    if (WebDragSourceActionLink == action) {
+//        NSArray *oldURLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
+//        NSArray *titles = [WebURLsWithTitles titlesFromPasteboard:pboard];
+//        NSMutableArray *newURLs = [NSMutableArray arrayWithCapacity:[oldURLs count]];
+//        
+//        // declare types
+//        NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
+//        [pboard declareTypes:types owner:nil];
+//
+//        // write data
+//        for (NSURL *oldURL in oldURLs) {
+//            NSURL *newURL = [NSURL URLWithString:CRStringByTrimmingCruzPrefixFromURL(oldURL)];
+//            [newURLs addObject:newURL];
+//            [newURL writeToPasteboard:pboard];
+//            [pboard setString:[newURL absoluteString] forType:NSStringPboardType];
+//        }
+//        
+//        [WebURLsWithTitles writeURLs:newURLs
+//                           andTitles:titles
+//                        toPasteboard:pboard];
+//    }
+//}
+//
 
 - (IBAction)openLinkInNewTabFromMenu:(id)sender {
     [self openLinkInNewTab:YES];
@@ -855,74 +857,49 @@
 
 
 - (void)openLinkInNewTab:(BOOL)inTab {
-    NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
-    [self openURL:URL inNewTab:inTab];
-    self.lastClickedElementInfo = nil;
+//    NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
+//    [self openURL:URL inNewTab:inTab];
+//    self.lastClickedElementInfo = nil;
 }
 
 
 - (void)pushThread:(NSString *)statusID {
     CRThreadViewController *vc = [[[CRThreadViewController alloc] init] autorelease];
-    vc.status = [statusTable objectForKey:statusID];
+    vc.tweet = [statusTable objectForKey:statusID];
     [self.navigationController pushViewController:vc animated:NO];
 }
 
 
 - (IBAction)copyLinkFromMenu:(id)sender {
-    NSString *aTitle = [lastClickedElementInfo objectForKey:WebElementLinkTitleKey];
-    NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
-    NSString *URLString = CRStringByTrimmingCruzPrefixFromURL(URL);
-    URL = [NSURL URLWithString:URLString];
-
-    // get pboard
-    NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-
-    // declare types
-    NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
-    [pboard declareTypes:types owner:nil];
-
-    // write data
-    [URL writeToPasteboard:pboard];
-    [pboard setString:[URL absoluteString] forType:NSStringPboardType];
-    
-    if (URL && aTitle) {
-        [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:URL]
-                           andTitles:[NSArray arrayWithObject:aTitle]
-                        toPasteboard:pboard];
-    }
-    
-    self.lastClickedElementInfo = nil;
+//    NSString *aTitle = [lastClickedElementInfo objectForKey:WebElementLinkTitleKey];
+//    NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
+//    NSString *URLString = CRStringByTrimmingCruzPrefixFromURL(URL);
+//    URL = [NSURL URLWithString:URLString];
+//
+//    // get pboard
+//    NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+//
+//    // declare types
+//    NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
+//    [pboard declareTypes:types owner:nil];
+//
+//    // write data
+//    [URL writeToPasteboard:pboard];
+//    [pboard setString:[URL absoluteString] forType:NSStringPboardType];
+//    
+//    if (URL && aTitle) {
+//        [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:URL]
+//                           andTitles:[NSArray arrayWithObject:aTitle]
+//                        toPasteboard:pboard];
+//    }
+//    
+//    self.lastClickedElementInfo = nil;
 }    
-
-
-- (void)webView:(WebView *)wv willPerformDragSourceAction:(WebDragSourceAction)action fromPoint:(NSPoint)p withPasteboard:(NSPasteboard *)pboard {
-    if (WebDragSourceActionLink == action) {
-        NSArray *oldURLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
-        NSArray *titles = [WebURLsWithTitles titlesFromPasteboard:pboard];
-        NSMutableArray *newURLs = [NSMutableArray arrayWithCapacity:[oldURLs count]];
-        
-        // declare types
-        NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
-        [pboard declareTypes:types owner:nil];
-
-        // write data
-        for (NSURL *oldURL in oldURLs) {
-            NSURL *newURL = [NSURL URLWithString:CRStringByTrimmingCruzPrefixFromURL(oldURL)];
-            [newURLs addObject:newURL];
-            [newURL writeToPasteboard:pboard];
-            [pboard setString:[newURL absoluteString] forType:NSStringPboardType];
-        }
-        
-        [WebURLsWithTitles writeURLs:newURLs
-                           andTitles:titles
-                        toPasteboard:pboard];
-    }
-}
 
 @synthesize displayedUsername;
 @synthesize defaultProfileImageURL;
 @synthesize lastClickedElementInfo;
-@synthesize statuses;
+@synthesize tweets;
 @synthesize newStatuses;
 @synthesize statusTable;
 @synthesize statusesSortDescriptors;

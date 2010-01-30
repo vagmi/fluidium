@@ -81,11 +81,11 @@
     homeNavController.tabBarItem.title = NSLocalizedString(@"Home", @"");
     
     
-    // mentions
-    self.mentionsViewController = [[[CRTimelineViewController alloc] initWithType:CRTimelineTypeMentions] autorelease];
-    self.mentionsNavController = [[[UMENavigationController alloc] initWithRootViewController:mentionsViewController] autorelease];
-    mentionsNavController.tabBarItem = [[[UMETabBarItem alloc] initWithTabBarSystemItem:UMETabBarSystemItemMostViewed tag:0] autorelease];
-    mentionsNavController.tabBarItem.title = NSLocalizedString(@"Mentions", @"");
+//    // mentions
+//    self.mentionsViewController = [[[CRTimelineViewController alloc] initWithType:CRTimelineTypeMentions] autorelease];
+//    self.mentionsNavController = [[[UMENavigationController alloc] initWithRootViewController:mentionsViewController] autorelease];
+//    mentionsNavController.tabBarItem = [[[UMETabBarItem alloc] initWithTabBarSystemItem:UMETabBarSystemItemMostViewed tag:0] autorelease];
+//    mentionsNavController.tabBarItem.title = NSLocalizedString(@"Mentions", @"");
     
     // tabbar
     self.tabBarController = [[[UMETabBarController alloc] init] autorelease];
@@ -101,15 +101,15 @@
 
 
 - (void)willAppear {
-    UMENavigationController *nc = (UMENavigationController *)tabBarController.selectedViewController;
-    [nc.topViewController viewWillAppear:NO];
+    //    UMENavigationController *nc = (UMENavigationController *)tabBarController.selectedViewController;
+    //    [nc.topViewController viewWillAppear:NO];
 }
 
 
 - (void)didAppear {
     [tabBarController layoutSubviews];
-    UMENavigationController *nc = (UMENavigationController *)tabBarController.selectedViewController;
-    [nc.topViewController viewDidAppear:NO];
+    //    UMENavigationController *nc = (UMENavigationController *)tabBarController.selectedViewController;
+    //    [nc.topViewController viewDidAppear:NO];
 }
 
 

@@ -7,30 +7,40 @@
 //
 
 #import "CRBaseViewController.h"
-#import "MGTemplateEngine.h"
 #import "CRTwitterPlugIn.h"
 #import "CRTwitterUtils.h"
 #import "CRTimelineViewController.h"
 #import "CRThreadViewController.h"
-#import <WebKit/WebKit.h>
 
 @implementation CRBaseViewController
 
 - (id)initWithNibName:(NSString *)s bundle:(NSBundle *)b {
     if (self = [super initWithNibName:s bundle:b]) {
         [self setUpTwitterEngine];
-        [self setUpTemplateEngine];
     }
     return self;
 }
 
 
 - (void)dealloc {
+    self.listView = nil;
     self.twitterEngine = nil;
-    self.templateEngine = nil;
-    self.templateString = nil;
-    self.statusTemplateString = nil;
     [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark TDListViewDataSource
+
+- (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
+    NSAssert1(0, @"must implement %s", __PRETTY_FUNCTION__);
+    return 0;
+}
+
+
+- (id)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
+    NSAssert1(0, @"must implement %s", __PRETTY_FUNCTION__);
+    return nil;
 }
 
 
@@ -139,33 +149,6 @@
 }
 
 
-- (void)appendMarkup:(NSString *)htmlStr toElement:(DOMHTMLElement *)el {
-    NSString *oldStr = [el innerHTML];
-    NSString *innerHTML = [NSString stringWithFormat:@"%@ %@", oldStr, htmlStr];
-    [el setInnerHTML:innerHTML];
-}
-
-
-- (void)insertMarkup:(NSString *)htmlStr toElement:(DOMHTMLElement *)el {
-    NSString *oldStr = [el innerHTML];
-    NSString *innerHTML = [NSString stringWithFormat:@"%@ %@", htmlStr, oldStr];
-    [el setInnerHTML:innerHTML];
-}
-
-
-- (void)replaceMarkup:(NSString *)htmlStr inElement:(DOMHTMLElement *)el {
-    [el setInnerHTML:htmlStr];
-}
-
-
-#pragma mark -
-#pragma mark MGTemplateEngine
-
-- (void)setUpTemplateEngine {
-    NSAssert1(0, @"%s is an abstract method. must override.", __PRETTY_FUNCTION__);
-}
-
-
 #pragma mark -
 #pragma mark WebScripting Bridge
 
@@ -225,8 +208,6 @@
     }    
 }
 
+@synthesize listView;
 @synthesize twitterEngine;
-@synthesize templateEngine;
-@synthesize templateString;
-@synthesize statusTemplateString;
 @end

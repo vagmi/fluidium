@@ -101,14 +101,14 @@ extern NSString *const TDListItemPboardType;
 
 @protocol TDListViewDataSource <NSObject>
 @required
-- (NSUInteger)numberOfItemsInListView:(TDListView *)tv;
-- (TDListItem *)listView:(TDListView *)lv viewForItemAtIndex:(NSUInteger)i;
+- (NSUInteger)numberOfItemsInListView:(TDListView *)lv;
+- (TDListItem *)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i;
 @end
 
 @protocol TDListViewDelegate <NSObject>
-@optional
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i; // should return height if isPortrait. shoud return width if isLandscape
-- (void)listView:(TDListView *)lv willDisplayView:(TDListItem *)itemView forItemAtIndex:(NSUInteger)i;
+@optional
+- (void)listView:(TDListView *)lv willDisplay:(TDListItem *)item atIndex:(NSUInteger)i;
 - (NSUInteger)listView:(TDListView *)lv willSelectItemAtIndex:(NSUInteger)i;
 - (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i;
 - (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt;

@@ -9,14 +9,12 @@
 #import "CRThreadViewController.h"
 #import "CRTwitterPlugIn.h"
 #import "CRTwitterUtils.h"
-#import "MGTemplateEngine.h"
-#import "ICUTemplateMatcher.h"
 #import <WebKit/WebKit.h>
 
 @interface CRThreadViewController ()
 - (NSDictionary *)varsWithStatus:(NSDictionary *)d;
-- (void)prepareAndDisplayMarkup;
-- (void)appendStatusToMarkup;
+- (void)prepareAndDisplayTweets;
+- (void)appendTweetToList;
 - (void)fetchInReplyToStatus;
 - (void)done;
 
@@ -40,7 +38,7 @@
 
 
 - (void)dealloc {
-    self.status = nil;
+    self.tweet = nil;
     self.usernameA = nil;
     self.usernameB = nil;
     [super dealloc];
@@ -56,7 +54,7 @@
     self.navigationItem.rightBarButtonItem = [[[UMEActivityBarButtonItem alloc] init] autorelease];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
-    [self prepareAndDisplayMarkup];
+    [self prepareAndDisplayTweets];
 }
 
 
@@ -88,21 +86,6 @@
 #pragma mark Private
 
 - (void)setUpTemplateEngine {
-    self.templateEngine = [MGTemplateEngine templateEngine];
-    [templateEngine setMatcher:[ICUTemplateMatcher matcherWithTemplateEngine:templateEngine]];
-
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"thread" ofType:@"html"];
-    NSString *threadStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
-    path = [[NSBundle bundleForClass:[self class]] pathForResource:@"timeline" ofType:@"css"];
-    NSString *cssStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    threadStr = [threadStr stringByReplacingOccurrencesOfString:@"___CSS___" withString:cssStr];
-    
-    path = [[NSBundle bundleForClass:[self class]] pathForResource:@"status" ofType:@"html"];
-    self.statusTemplateString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    threadStr = [threadStr stringByReplacingOccurrencesOfString:@"___STATUS___" withString:statusTemplateString];
-    
-    self.templateString = threadStr;
 }
 
 
@@ -119,41 +102,41 @@
 }
 
 
-- (void)prepareAndDisplayMarkup {
-    NSAssert([status count], @"");
+- (void)prepareAndDisplayTweets {
+    NSAssert([tweet count], @"");
     
-    NSMutableDictionary *d = [[status mutableCopy] autorelease];
-    [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
-    
-    NSDictionary *vars = [self varsWithStatus:d];
-    NSString *htmlStr = [templateEngine processTemplate:templateString withVariables:vars];
-    [[webView mainFrame] loadHTMLString:htmlStr baseURL:nil];
+//    NSMutableDictionary *d = [[status mutableCopy] autorelease];
+//    [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
+//    
+//    NSDictionary *vars = [self varsWithStatus:d];
+//    NSString *htmlStr = [templateEngine processTemplate:templateString withVariables:vars];
+//    [[webView mainFrame] loadHTMLString:htmlStr baseURL:nil];
 }
 
 
-- (void)appendStatusToMarkup {
+- (void)appendTweetToList {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(appendStatusToMarkup) withObject:nil waitUntilDone:NO];
         return;
     }    
     
-    NSMutableDictionary *d = [[status mutableCopy] autorelease];
+    NSMutableDictionary *d = [[tweet mutableCopy] autorelease];
     [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
 
-    NSDictionary *vars = [self varsWithStatus:d];
-    NSString *newStatusHTMLStr = [templateEngine processTemplate:statusTemplateString withVariables:vars];
-
-    DOMDocument *doc = [[webView mainFrame] DOMDocument];
-    
-    DOMHTMLElement *threadEl = (DOMHTMLElement *)[doc getElementById:@"thread"];
-    [super appendMarkup:newStatusHTMLStr toElement:threadEl];
+//    NSDictionary *vars = [self varsWithStatus:d];
+//    NSString *newStatusHTMLStr = [templateEngine processTemplate:statusTemplateString withVariables:vars];
+//
+//    DOMDocument *doc = [[webView mainFrame] DOMDocument];
+//    
+//    DOMHTMLElement *threadEl = (DOMHTMLElement *)[doc getElementById:@"thread"];
+//    [super appendMarkup:newStatusHTMLStr toElement:threadEl];
     
     [self fetchInReplyToStatus];
 }
 
 
 - (void)fetchInReplyToStatus {
-    NSNumber *statusID = [status objectForKey:@"inReplyToStatusID"];
+    NSNumber *statusID = [tweet objectForKey:@"inReplyToStatusID"];
     if (statusID) {
         [twitterEngine getUpdate:[statusID longLongValue]];
     } else {
@@ -172,10 +155,10 @@
     NSAssert(1 == [newStatuses count], @"");
     
     NSMutableDictionary *d = [newStatuses objectAtIndex:0];
-    [d setObject:CRFormatDate([status objectForKey:@"created_at"]) forKey:@"date"];
-    self.status = d;
+    [d setObject:CRFormatDate([tweet objectForKey:@"created_at"]) forKey:@"date"];
+    self.tweet = d;
     
-    [self appendStatusToMarkup];
+    [self appendTweetToList];
 }
 
 
@@ -269,7 +252,7 @@
     }
 }
 
-@synthesize status;
+@synthesize tweet;
 @synthesize usernameA;
 @synthesize usernameB;
 @end

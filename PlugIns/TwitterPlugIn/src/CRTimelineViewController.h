@@ -21,7 +21,7 @@ typedef enum {
     NSURL *defaultProfileImageURL;
     NSDictionary *lastClickedElementInfo;
 
-    NSMutableArray *statuses;
+    NSMutableArray *tweets;
     NSMutableArray *newStatuses;
     NSMutableDictionary *statusTable;
     NSArray *statusesSortDescriptors;
