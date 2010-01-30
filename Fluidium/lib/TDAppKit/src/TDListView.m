@@ -43,16 +43,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {        
-        self.backgroundColor = [NSColor whiteColor];
-        self.itemExtent = DEFAULT_ITEM_EXTENT;
-        
-        self.queue = [[[TDListItemQueue alloc] init] autorelease];
-        
-        self.displaysClippedItems = YES;
-        
-        draggingIndex = -1;
-        [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
-        [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
+
     }
     return self;
 }
@@ -76,6 +67,17 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)awakeFromNib {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:[self superview]];
+
+    self.backgroundColor = [NSColor whiteColor];
+    self.itemExtent = DEFAULT_ITEM_EXTENT;
+    
+    self.queue = [[[TDListItemQueue alloc] init] autorelease];
+    
+    self.displaysClippedItems = YES;
+    
+    draggingIndex = -1;
+    [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
+    [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
 }
 
 

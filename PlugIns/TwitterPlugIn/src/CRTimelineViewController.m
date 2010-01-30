@@ -32,7 +32,6 @@
 - (id)initWithNibName:(NSString *)s bundle:(NSBundle *)b type:(CRTimelineType)t;
 
 - (void)setUpNavBar;
-- (void)setUpListView;
 - (void)showRefreshBarButtonItem;
 - (void)showProgressBarButtonItem;
 - (void)refreshTitle;
@@ -142,7 +141,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpNavBar];
-    [self setUpListView];
     [self refreshWithSelectedUsername];
 }
 
@@ -197,11 +195,6 @@
 
 #pragma mark -
 #pragma mark View setup
-
-- (void)setUpListView {
-    listView.displaysClippedItems = YES;
-}
-
 
 - (void)setUpNavBar {
     
