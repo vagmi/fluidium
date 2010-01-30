@@ -202,7 +202,9 @@ static NSDictionary *sDateAttributes = nil;
     }
     
     // ago
-    [tweet.ago drawInRect:NSMakeRect(bounds.size.width - (DATE_WIDTH + TEXT_MARGIN_RIGHT), DATE_Y, DATE_WIDTH, DATE_HEIGHT) withAttributes:sDateAttributes];
+    if (bounds.size.width > AVATAR_X + kCRAvatarSide + DATE_WIDTH + TEXT_MARGIN_RIGHT) { // dont draw if too small
+        [tweet.ago drawInRect:NSMakeRect(bounds.size.width - (DATE_WIDTH + TEXT_MARGIN_RIGHT), DATE_Y, DATE_WIDTH, DATE_HEIGHT) withAttributes:sDateAttributes];
+    }
 }
 
 
