@@ -19,7 +19,6 @@
 - (void)fetchInReplyToStatus;
 - (void)done;
 
-- (NSString *)markedUpStatus:(NSString *)inStatus;
 - (NSString *)formattedDate:(NSString *)inDate;    
 @end
 
@@ -171,12 +170,6 @@
 
 - (void)done {
     self.navigationItem.rightBarButtonItem = nil;
-}
-
-
-- (NSString *)markedUpStatus:(NSString *)inStatus {
-    NSArray *mentions = nil;
-    return CRMarkedUpStatus(inStatus, &mentions);
 }
 
 

@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite, retain) NSString *name;
 @property (nonatomic, readwrite, retain) NSString *username;
 @property (nonatomic, readwrite, retain) NSString *text;
+@property (nonatomic, readwrite, retain) NSAttributedString *attributedText;
 @property (nonatomic, readwrite, retain) NSString *ago;
 @property (nonatomic, readwrite, retain) NSString *avatarURLString;
 @property (nonatomic, readwrite, getter=isByMe) BOOL byMe;
@@ -52,6 +53,7 @@
     tweet.name = [d objectForKey:@"name"];
     tweet.username = [d objectForKey:@"username"];
     tweet.text = [d objectForKey:@"text"];
+    tweet.attributedText = [d objectForKey:@"attributedText"];
     tweet.avatarURLString = [d objectForKey:@"avatarURLString"];
     tweet.byMe = [[d objectForKey:@"isByMe"] boolValue];
     tweet.mentionMe = [[d objectForKey:@"isMentionMe"] boolValue];
@@ -70,6 +72,7 @@
     self.name = nil;
     self.username = nil;
     self.text = nil;
+    self.attributedText = nil;
     self.ago = nil;
     self.avatarURLString = nil;
     self.createdAt = nil;
@@ -86,6 +89,7 @@
 @synthesize name;
 @synthesize username;
 @synthesize text;
+@synthesize attributedText;
 @synthesize ago;
 @synthesize avatarURLString;
 @synthesize byMe;

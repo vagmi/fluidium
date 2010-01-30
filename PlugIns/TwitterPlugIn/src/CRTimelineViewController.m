@@ -620,11 +620,11 @@
     
     if (!item) {
         item = [[[CRTweetListItem alloc] init] autorelease];
-        [item.usernameButton setTag:i];
         [item.usernameButton setTarget:self];
         [item.usernameButton setAction:@selector(usernameButtonClicked:)];
     }
     
+    [item.usernameButton setTag:i];
     item.tweet = [tweets objectAtIndex:i];
     [item setNeedsDisplay:YES];
     

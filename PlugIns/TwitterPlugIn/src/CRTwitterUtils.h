@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+NSAttributedString *CRDefaultAttributedStatus(NSString *inStatus);
+NSAttributedString *CRAttributedStatus(NSString *inStatus, NSArray **outMentions);
+
 NSString *CRMarkedUpStatus(NSString *inStatus, NSArray **outMentions);
 
 NSString *CRDefaultProfileImageURLString();

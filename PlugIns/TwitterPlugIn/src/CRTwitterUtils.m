@@ -10,6 +10,274 @@
 #import "CRTwitterPlugIn.h"
 #import <ParseKit/ParseKit.h>
 
+#define DEFAULT_FONT_SIZE 10.0
+
+static PKTokenizer *t = nil;
+static PKToken *ltTok = nil;
+static PKToken *atTok = nil;
+static PKToken *poundTok = nil;
+static PKToken *httpTok = nil;
+static PKToken *httpsTok = nil;
+static PKToken *colonSlashSlashTok = nil;
+
+static void CRSetupTokens() {
+    //PKToken *wwwTok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"www." floatValue:0];
+    ltTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"<" floatValue:0];
+    atTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"@" floatValue:0];
+    poundTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"#" floatValue:0];
+    httpTok = [[PKToken alloc] initWithTokenType:PKTokenTypeWord stringValue:@"http" floatValue:0];
+    httpsTok = [[PKToken alloc] initWithTokenType:PKTokenTypeWord stringValue:@"https" floatValue:0];
+    colonSlashSlashTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"://" floatValue:0];
+    
+    t = [[PKTokenizer alloc] init];
+    [t.symbolState remove:@"<="];
+    [t.symbolState remove:@">="];
+    [t.symbolState remove:@"!="];
+    [t.symbolState remove:@"=="];
+    
+    // no comments
+    [t setTokenizerState:t.symbolState from:'/' to:'/'];
+    [t setTokenizerState:t.symbolState from:'#' to:'#'];
+    
+    // no quotes
+    [t.wordState setWordChars:NO from:'\'' to:'\''];
+    [t setTokenizerState:t.whitespaceState from:'"' to:'"'];
+    [t.whitespaceState setWhitespaceChars:YES from:'"' to:'"'];
+    [t setTokenizerState:t.whitespaceState from:'\'' to:'\''];
+    [t.whitespaceState setWhitespaceChars:YES from:'\'' to:'\''];
+    
+    t.whitespaceState.reportsWhitespaceTokens = YES;
+    [t setTokenizerState:t.whitespaceState from:'(' to:')'];
+    [t.whitespaceState setWhitespaceChars:YES from:'(' to:')'];
+    
+    [t.symbolState add:[colonSlashSlashTok stringValue]];
+    //[t.symbolState add:[wwwTok stringValue]];
+    
+    [t setTokenizerState:t.wordState from:'0' to:'9'];
+}
+
+// convenince
+static NSMutableAttributedString *CRAttrStr(NSString *s, NSDictionary *attrs) {
+    return [[[NSMutableAttributedString alloc] initWithString:s attributes:attrs] autorelease];
+}
+
+static NSDictionary *sDefaultAttrs = nil;
+static NSDictionary *sHashtagAttrs = nil;
+static NSDictionary *sUsernameAttrs = nil;
+static NSDictionary *sURLAttrs = nil;
+
+static void CRSetupAttributes() {
+    if (!sDefaultAttrs) {
+        sDefaultAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                         [NSColor blackColor], NSForegroundColorAttributeName,
+                         [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                         nil];
+    }
+    
+    if (!sHashtagAttrs) {
+        sHashtagAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                         [NSColor grayColor], NSForegroundColorAttributeName,
+                         [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                         nil];
+    }
+
+    if (!sUsernameAttrs) {
+        sUsernameAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                         [NSColor blueColor], NSForegroundColorAttributeName,
+                         [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                         nil];
+    }
+
+    if (!sURLAttrs) {
+        sURLAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                     [NSColor blueColor], NSForegroundColorAttributeName,
+                     [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                     nil];
+    }
+}
+
+
+static NSMutableDictionary *CRHashtagAttrsWithLink(NSString *URLString) {
+    NSMutableDictionary *attrs = [[sHashtagAttrs mutableCopy] autorelease];
+    [attrs setObject:[NSURL URLWithString:URLString] forKey:NSLinkAttributeName];
+    return attrs;
+}
+
+
+static NSMutableDictionary *CRUsernameAttrsWithLink(NSString *URLString) {
+    NSMutableDictionary *attrs = [[sUsernameAttrs mutableCopy] autorelease];
+    [attrs setObject:[NSURL URLWithString:URLString] forKey:NSLinkAttributeName];
+    return attrs;
+}
+
+
+static NSMutableDictionary *CRURLAttrsWithLink(NSString *URLString) {
+    NSMutableDictionary *attrs = [[sURLAttrs mutableCopy] autorelease];
+    [attrs setObject:[NSURL URLWithString:URLString] forKey:NSLinkAttributeName];
+    return attrs;
+}
+
+
+static NSAttributedString *CRAttributedHashtag(PKTokenizer *t, PKToken *inTok, PKToken *poundTok);
+static NSAttributedString *CRAttributedUsername(PKTokenizer *t, PKToken *inTok, PKToken *atTok, NSString **outUsername);
+static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok);
+
+NSAttributedString *CRDefaultAttributedStatus(NSString *inStatus) {
+    return CRAttrStr(inStatus, sDefaultAttrs);
+}
+
+
+NSAttributedString *CRAttributedStatus(NSString *inStatus, NSArray **outMentions) {
+    NSMutableArray *mentions = nil;
+    NSMutableAttributedString *mas = CRAttrStr(@"", sDefaultAttrs);
+    
+    if (!t) {
+        CRSetupTokens();
+        CRSetupAttributes();
+    }
+    
+    t.string = inStatus;
+    
+    PKToken *eof = [PKToken EOFToken];
+    PKToken *tok = nil;
+    NSAttributedString *as = nil;
+    
+    while ((tok = [t nextToken]) != eof) {
+        if ([atTok isEqual:tok]) {
+            NSString *uname = nil;
+            as = CRAttributedUsername(t, tok, atTok, &uname);
+            if (uname && [uname length]) {
+                if (!mentions) {
+                    mentions = [NSMutableArray array];
+                }
+                [mentions addObject:uname];
+            }
+        } else if ([poundTok isEqual:tok]) {
+            as = CRAttributedHashtag(t, tok, poundTok);
+        } else if ([httpTok isEqual:tok] || [httpsTok isEqual:tok]) {
+            as = CRAttributedURL(t, tok, colonSlashSlashTok);
+        } else if ([ltTok isEqual:tok]) {
+            as = CRAttrStr(@"&lt;", sDefaultAttrs);
+        } else {
+            as = CRAttrStr([tok stringValue], sDefaultAttrs);
+        }
+        
+        [mas appendAttributedString:as];
+    }
+    
+    if (mentions) {
+        *outMentions = mentions;
+    }
+    return mas;
+}
+
+
+static NSAttributedString *CRAttributedHashtag(PKTokenizer *t, PKToken *inTok, PKToken *poundTok) {
+    PKToken *eof = [PKToken EOFToken];
+    NSMutableAttributedString *mas = CRAttrStr([inTok stringValue], sDefaultAttrs);
+    
+    PKToken *tok = nil;
+    while (tok = [t nextToken]) {
+        NSString *s = [tok stringValue];
+        
+        if (eof == tok) {
+            break;
+        } else if ([poundTok isEqual:tok]) {
+            // in case this isnt actually a hastag (standalone or consecutive hash chars)
+            [mas appendAttributedString:CRAttrStr(s, sDefaultAttrs)];
+            continue;
+        } else if (tok.isWord) {
+            // setup link
+            NSString *URLString = [NSString stringWithFormat:@"http://twitter.com/search?q=%%23%@", s];
+
+            // clear string (to remove standaone hash char)
+            [mas setAttributedString:CRAttrStr(@"", sDefaultAttrs)];
+            [mas appendAttributedString:CRAttrStr([NSString stringWithFormat:@"#%@", s], CRHashtagAttrsWithLink(URLString))];
+            break;
+        } else {
+            [mas appendAttributedString:CRAttrStr(s, sDefaultAttrs)];
+            break;
+        }
+    }
+    return mas;
+}
+
+
+static NSAttributedString *CRAttributedUsername(PKTokenizer *t, PKToken *inTok, PKToken *atTok, NSString **outUsername) {
+    PKToken *eof = [PKToken EOFToken];
+    NSMutableAttributedString *mas = CRAttrStr([inTok stringValue], sDefaultAttrs);
+    
+    PKToken *tok = nil;
+    while (tok = [t nextToken]) {
+        NSString *s = [tok stringValue];
+        
+        if (eof == tok) {
+            break;
+        } else if ([atTok isEqual:tok]) {
+            [mas appendAttributedString:CRAttrStr(s, sDefaultAttrs)];
+            continue;
+        } else if (tok.isWord) {
+            // setup link
+            NSString *URLString = [NSString stringWithFormat:@"http://twitter.com/%@", s];
+
+            [mas setAttributedString:CRAttrStr(@"", sDefaultAttrs)];
+            [mas appendAttributedString:CRAttrStr([NSString stringWithFormat:@"@%@", s], CRUsernameAttrsWithLink(URLString))];
+            if (outUsername) {
+                *outUsername = s;
+            }
+            break;
+        } else {
+            [mas appendAttributedString:CRAttrStr(s, sDefaultAttrs)];
+            break;
+        }
+    }
+    return mas;
+}
+
+
+static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok) {
+    PKToken *tok = [t nextToken];
+    if (![colonSlashSlashTok isEqual:tok]) {
+        NSString *s = [NSString stringWithFormat:@"%@%@", [inTok stringValue], [tok stringValue]];
+        return CRAttrStr(s, sDefaultAttrs);
+    }
+    
+    PKToken *eof = [PKToken EOFToken];
+    NSMutableString *ms = [NSMutableString string];
+    
+    NSString *s = nil;
+    while (tok = [t nextToken]) {
+        s = [tok stringValue];
+        
+        if (eof == tok || tok.isWhitespace) {
+            break;
+        } else if ([s length] && ((PKUniChar)[s characterAtIndex:0]) > 255) { // no non-ascii chars plz
+            break;
+        } else {
+            [ms appendString:s];
+        }
+    }
+    
+    NSString *display = [[ms copy] autorelease];
+    NSInteger maxLen = 32;
+    if ([display length] > maxLen) {
+        display = [NSString stringWithFormat:@"%@%C", [display substringToIndex:maxLen], 0x2026];
+    }
+    
+    if ([display hasSuffix:@"/"]) {
+        display = [display substringToIndex:[display length] - 1];
+    }
+    
+    //ms = [NSMutableString stringWithFormat:@"<a class='url' href='http://%@' onclick='cruz.linkClicked(\"http://%@\"); return false;'>%@</a>", ms, ms, display];
+    
+    NSString *URLString = [NSString stringWithFormat:@"http://%@", ms];
+
+    NSMutableAttributedString *mas = CRAttrStr(display, CRUsernameAttrsWithLink(URLString));
+    if (s) [mas appendAttributedString:CRAttrStr(s, sDefaultAttrs)];
+    return mas;
+}
+
+
 static NSString *CRMarkedUpHashtag(PKTokenizer *t, PKToken *inTok, PKToken *poundTok);
 static NSString *CRMarkedUpUsername(PKTokenizer *t, PKToken *inTok, PKToken *atTok, NSString **outUsername);
 static NSString *CRMarkedUpURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok);
@@ -18,48 +286,9 @@ NSString *CRMarkedUpStatus(NSString *inStatus, NSArray **outMentions) {
     NSMutableArray *mentions = nil;
     NSMutableString *ms = [NSMutableString stringWithCapacity:[inStatus length]];
     
-    static PKTokenizer *t = nil;
-    static PKToken *ltTok = nil;
-    static PKToken *atTok = nil;
-    static PKToken *poundTok = nil;
-    static PKToken *httpTok = nil;
-    static PKToken *httpsTok = nil;
-    static PKToken *colonSlashSlashTok = nil;
     if (!t) {
-        //PKToken *wwwTok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"www." floatValue:0];
-        ltTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"<" floatValue:0];
-        atTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"@" floatValue:0];
-        poundTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"#" floatValue:0];
-        httpTok = [[PKToken alloc] initWithTokenType:PKTokenTypeWord stringValue:@"http" floatValue:0];
-        httpsTok = [[PKToken alloc] initWithTokenType:PKTokenTypeWord stringValue:@"https" floatValue:0];
-        colonSlashSlashTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"://" floatValue:0];
-
-        t = [[PKTokenizer alloc] init];
-        [t.symbolState remove:@"<="];
-        [t.symbolState remove:@">="];
-        [t.symbolState remove:@"!="];
-        [t.symbolState remove:@"=="];
-
-        // no comments
-        [t setTokenizerState:t.symbolState from:'/' to:'/'];
-        [t setTokenizerState:t.symbolState from:'#' to:'#'];
-
-        // no quotes
-        [t.wordState setWordChars:NO from:'\'' to:'\''];
-        [t setTokenizerState:t.whitespaceState from:'"' to:'"'];
-        [t.whitespaceState setWhitespaceChars:YES from:'"' to:'"'];
-        [t setTokenizerState:t.whitespaceState from:'\'' to:'\''];
-        [t.whitespaceState setWhitespaceChars:YES from:'\'' to:'\''];
-
-        t.whitespaceState.reportsWhitespaceTokens = YES;
-        [t setTokenizerState:t.whitespaceState from:'(' to:')'];
-        [t.whitespaceState setWhitespaceChars:YES from:'(' to:')'];
-        
-        [t.symbolState add:[colonSlashSlashTok stringValue]];
-        //[t.symbolState add:[wwwTok stringValue]];
-        
-        [t setTokenizerState:t.wordState from:'0' to:'9'];
-   }
+        CRSetupTokens();
+    }
     
     t.string = inStatus;
 

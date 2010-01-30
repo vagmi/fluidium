@@ -20,6 +20,7 @@
     NSString *name;
     NSString *username;
     NSString *text;
+    NSAttributedString *attributedText;
     NSString *ago;
     NSString *avatarURLString;
     BOOL byMe;
@@ -38,6 +39,7 @@
 @property (nonatomic, readonly, retain) NSString *name;
 @property (nonatomic, readonly, retain) NSString *username;
 @property (nonatomic, readonly, retain) NSString *text;
+@property (nonatomic, readonly, retain) NSAttributedString *attributedText;
 @property (nonatomic, readonly, retain) NSString *ago;
 @property (nonatomic, readonly, retain) NSString *avatarURLString;
 @property (nonatomic, readonly, getter=isByMe) BOOL byMe;
