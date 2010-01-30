@@ -37,13 +37,20 @@ static NSDictionary *sTextAttributes = nil;
 + (void)initialize {
     if (self == [CRTweetListItem class]) {
         
-        NSColor *startColor = [[NSColor colorWithDeviceRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1] retain];
-        NSColor *endColor   = [[NSColor colorWithDeviceRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1] retain];
-        sBackgroundGradient = [[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor];
+        NSColor *topColor = [NSColor colorWithDeviceRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1];
+        NSColor *botColor = [NSColor colorWithDeviceRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+        sBackgroundGradient = [[NSGradient alloc] initWithStartingColor:topColor endingColor:botColor];
 
-        sByMeBackgroundGradient = [[NSGradient alloc] initWithStartingColor:[NSColor blackColor] endingColor:[NSColor brownColor]];
-        sMentionsMeBackgroundGradient = [[NSGradient alloc] initWithStartingColor:[NSColor blackColor] endingColor:[NSColor blueColor]];
+        topColor = [NSColor colorWithDeviceRed:227.0/255.0 green:224.0/255.0 blue:219.0/255.0 alpha:1];
+        botColor = [NSColor colorWithDeviceRed:201.0/255.0 green:195.0/255.0 blue:185.0/255.0 alpha:1];
+        sByMeBackgroundGradient = [[NSGradient alloc] initWithStartingColor:topColor endingColor:botColor];
 
+        topColor = [NSColor colorWithDeviceRed:222.0/255.0 green:231.0/255.0 blue:241.0/255.0 alpha:1];
+        botColor = [NSColor colorWithDeviceRed:202.0/255.0 green:213.0/255.0 blue:232.0/255.0 alpha:1];
+        sMentionsMeBackgroundGradient = [[NSGradient alloc] initWithStartingColor:topColor endingColor:botColor];
+
+        topColor = [NSColor colorWithDeviceRed:222.0/255.0 green:231.0/255.0 blue:241.0/255.0 alpha:1];
+        botColor = [NSColor colorWithDeviceRed:202.0/255.0 green:213.0/255.0 blue:232.0/255.0 alpha:1];
         sBorderBottomColor = [[NSColor colorWithDeviceRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1] retain];
         
         NSShadow *shadow = [[[NSShadow alloc] init] autorelease];

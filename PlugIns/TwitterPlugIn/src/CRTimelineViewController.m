@@ -637,7 +637,8 @@
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
     NSString *text = [[tweets objectAtIndex:i] objectForKey:@"text"];
     CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
-    NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine attributes:[CRTweetListItem textAttributes]];
+    NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
+    NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
     CGFloat height = NSHeight(textRect) + [CRTweetListItem defaultHeight];
     
     CGFloat minHeight = [CRTweetListItem minimumHeight];
