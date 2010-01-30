@@ -27,7 +27,7 @@ extern NSString *CRTwitterPlugInSelectedUsernameDidChangeNotification;
     NSString *selectedUsername;
 }
 
-+ (id)instance;
++ (CRTwitterPlugIn *)instance;
 
 - (void)showPrefs:(id)sender;
 

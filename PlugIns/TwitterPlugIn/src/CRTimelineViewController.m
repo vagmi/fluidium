@@ -730,46 +730,6 @@
 }
 
 
-+ (BOOL)isKeyExcludedFromWebScript:(const char *)name {
-    return YES;
-}
-
-
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel {
-    if (@selector(fetchEarlierTimeline) == sel ||
-        @selector(pushThread:) == sel ||
-        @selector(avatarClicked:) == sel ||
-        @selector(linkClicked:) == sel ||
-        @selector(usernameClicked:) == sel) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
-
-+ (NSString *)webScriptNameForKey:(const char *)name {
-    return nil;
-}
-
-
-+ (NSString *)webScriptNameForSelector:(SEL)sel {
-    if (@selector(fetchEarlierTimeline) == sel) {
-        return @"fetchEarlierTimeline";
-    } else if (@selector(usernameClicked:) == sel) {
-        return @"usernameClicked";
-    } else if (@selector(pushThread:) == sel) {
-        return @"pushThread";
-    } else if (@selector(avatarClicked:) == sel) {
-        return @"avatarClicked";
-    } else if (@selector(linkClicked:) == sel) {
-        return @"linkClicked";
-    } else {
-        return nil;
-    }
-}
-
-
 //#pragma mark -
 //#pragma mark WebUIDelegate
 //

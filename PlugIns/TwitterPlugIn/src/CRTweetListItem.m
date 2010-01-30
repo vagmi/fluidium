@@ -15,6 +15,8 @@
 #import "CRTweetListItem.h"
 #import "CRTweet.h"
 #import "CRAvatarCache.h"
+#import "CRTwitterUtils.h"
+#import "CRTextView.h"
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 
 static NSGradient *sBackgroundGradient = nil;
@@ -26,7 +28,6 @@ static NSColor *sByMeBorderBottomColor = nil;
 static NSColor *sMentionsMeBorderBottomColor = nil;
 
 static NSDictionary *sUsernameAttributes = nil;
-static NSDictionary *sTextAttributes = nil;
 static NSDictionary *sDateAttributes = nil;
 
 #define BORDER_HEIGHT 1.0
@@ -85,11 +86,6 @@ static NSDictionary *sDateAttributes = nil;
                                paraStyle, NSParagraphStyleAttributeName,
                                nil];
         
-        sTextAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                           [NSColor blackColor], NSForegroundColorAttributeName,
-                           [NSFont systemFontOfSize:10], NSFontAttributeName,
-                           nil];
-        
         paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [paraStyle setAlignment:NSRightTextAlignment];
         [paraStyle setLineBreakMode:NSLineBreakByTruncatingTail];
@@ -109,7 +105,7 @@ static NSDictionary *sDateAttributes = nil;
 
 
 + (NSDictionary *)textAttributes {
-    return sTextAttributes;
+    return CRDefaultStatusAttributes();
 }
 
 
@@ -150,7 +146,7 @@ static NSDictionary *sDateAttributes = nil;
         [usernameButton setBordered:NO];
         [self addSubview:usernameButton];
         
-        self.textView = [[[NSTextView alloc] initWithFrame:NSZeroRect] autorelease];
+        self.textView = [[[CRTextView alloc] initWithFrame:NSZeroRect] autorelease];
         [textView setDrawsBackground:NO];
         [textView setEditable:NO];
         [self addSubview:textView];
@@ -247,7 +243,7 @@ static NSDictionary *sDateAttributes = nil;
             [usernameButton setAttributedTitle:title];
             
             if (tweet.text) {
-                [[textView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:tweet.text attributes:sTextAttributes] autorelease]];
+                [[textView textStorage] setAttributedString:tweet.attributedText];
                 [textView sizeToFit];
             }
         }

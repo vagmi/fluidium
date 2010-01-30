@@ -46,5 +46,7 @@ typedef enum {
 
 - (IBAction)usernameButtonClicked:(id)sender;
 
+- (void)linkClicked:(NSString *)URLString;
+
 @property (nonatomic, copy) NSString *displayedUsername;
 @end

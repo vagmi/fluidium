@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+NSDictionary *CRDefaultStatusAttributes();
 NSAttributedString *CRDefaultAttributedStatus(NSString *inStatus);
 NSAttributedString *CRAttributedStatus(NSString *inStatus, NSArray **outMentions);
 

@@ -42,7 +42,7 @@ static CRTwitterPlugIn *instance = nil;
 }
 
 
-+ (id)instance {
++ (CRTwitterPlugIn *)instance {
     return instance;
 }
 

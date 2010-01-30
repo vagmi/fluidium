@@ -66,6 +66,7 @@ static NSDictionary *sHashtagAttrs = nil;
 static NSDictionary *sUsernameAttrs = nil;
 static NSDictionary *sURLAttrs = nil;
 
+
 static void CRSetupAttributes() {
     if (!sDefaultAttrs) {
         sDefaultAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -121,6 +122,14 @@ static NSMutableDictionary *CRURLAttrsWithLink(NSString *URLString) {
 static NSAttributedString *CRAttributedHashtag(PKTokenizer *t, PKToken *inTok, PKToken *poundTok);
 static NSAttributedString *CRAttributedUsername(PKTokenizer *t, PKToken *inTok, PKToken *atTok, NSString **outUsername);
 static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok);
+
+NSDictionary *CRDefaultStatusAttributes() {
+    if (!sDefaultAttrs) {
+        CRSetupAttributes();
+    }
+    return sDefaultAttrs;
+}
+
 
 NSAttributedString *CRDefaultAttributedStatus(NSString *inStatus) {
     return CRAttrStr(inStatus, sDefaultAttrs);

@@ -121,12 +121,12 @@
         [d setObject:[NSNumber numberWithBool:isMentionMe] forKey:@"isMentionMe"];
         
         // markup status
-//        NSArray *mentions = nil;
-//        NSString *markupText = CRMarkedUpStatus(text, &mentions);
-//        if (![markupText length]) {
-//            markupText = text;
-//        }
-//        [d setObject:markupText forKey:@"text"];
+        NSArray *mentions = nil;
+        NSAttributedString *attributedText = CRAttributedStatus(text, &mentions);
+        if (![attributedText length]) {
+            attributedText = CRDefaultAttributedStatus(text);
+        }
+        [d setObject:attributedText forKey:@"attributedText"];
         [d setObject:text forKey:@"text"];
         
         BOOL isReply = NO;
