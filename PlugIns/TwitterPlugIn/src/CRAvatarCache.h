@@ -14,7 +14,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class CRTweet;
+
 extern NSString *const CRAvatarDidLoadNotification;
+
+@interface NSObject (CRAvatarNotifications)
+- (void)avatarDidLoad:(NSNotification *)n;
+@end
+
+extern const CGFloat kCRAvatarSide;
+extern const CGFloat kCRAvatarCornerRadius;
 
 @interface CRAvatarCache : NSObject {
     NSMutableDictionary *cache;
@@ -22,6 +31,5 @@ extern NSString *const CRAvatarDidLoadNotification;
 
 + (CRAvatarCache *)instance;
 
-- (void)addAvatarForTweet:(CRTweet *)tweet;
-- (NSImage *)avatarForTweet:(CRTweet *)tweet;
+- (NSImage *)avatarForTweet:(CRTweet *)tweet sender:(id)sender;
 @end

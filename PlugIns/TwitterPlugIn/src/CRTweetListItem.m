@@ -14,6 +14,7 @@
 
 #import "CRTweetListItem.h"
 #import "CRTweet.h"
+#import "CRAvatarCache.h"
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 
 static NSGradient *sBackgroundGradient = nil;
@@ -30,7 +31,6 @@ static NSDictionary *sDateAttributes = nil;
 
 #define AVATAR_X 6.0
 #define AVATAR_Y 4.0
-#define AVATAR_SIDE 44.0
 
 #define USERNAME_X 55.0
 #define USERNAME_Y 3.0
@@ -117,7 +117,7 @@ static NSDictionary *sDateAttributes = nil;
 
 
 + (CGFloat)minimumHeight {
-    return AVATAR_SIDE + (AVATAR_Y * 2) + BORDER_HEIGHT;
+    return kCRAvatarSide + (AVATAR_Y * 2) + BORDER_HEIGHT;
 }
 
 
@@ -148,21 +148,23 @@ static NSDictionary *sDateAttributes = nil;
 
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     self.usernameButton = nil;
     self.tweet = nil;
     [super dealloc];
 }
 
 
-- (void)resizeSubviewsWithOldSize:(NSSize)oldSize {
-    //[super resizeSubviewsWithOldSize:oldSize];
+#pragma mark -
+#pragma mark NSView
 
+- (void)resizeSubviewsWithOldSize:(NSSize)oldSize {
     NSRect bounds = [self bounds];
 
     [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, bounds.size.width - (USERNAME_X + DATE_WIDTH + TEXT_MARGIN_RIGHT), USERNAME_HEIGHT)];
     CGFloat textHeight = NSHeight([textView bounds]);
     [textView setFrame:NSMakeRect(TEXT_X, TEXT_Y, bounds.size.width - (TEXT_X + TEXT_MARGIN_RIGHT), textHeight)];
-    
 }
 
 
@@ -183,14 +185,31 @@ static NSDictionary *sDateAttributes = nil;
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, bounds.size.height) toPoint:NSMakePoint(bounds.size.width, bounds.size.height)];
     
     // avatar
-    NSBezierPath *roundRect = [NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, AVATAR_SIDE, AVATAR_SIDE) radius:7];
-    [sBorderBottomColor setFill];
-    [roundRect fill];
+    
+    NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
+    if (img) {
+        NSSize imgSize = [img size];
+        [img drawAtPoint:NSMakePoint(AVATAR_X, AVATAR_Y) fromRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) operation:NSCompositeSourceOver fraction:1];
+    } else {
+        [sBorderBottomColor setFill];
+        [[NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide) radius:kCRAvatarCornerRadius] fill];
+    }
     
     // ago
     [tweet.ago drawInRect:NSMakeRect(bounds.size.width - (DATE_WIDTH + TEXT_MARGIN_RIGHT), DATE_Y, DATE_WIDTH, DATE_HEIGHT) withAttributes:sDateAttributes];
 }
 
+
+#pragma mark -
+#pragma mark Notifications
+
+- (void)avatarDidLoad:(NSNotification *)n {
+    [self setNeedsDisplay:YES];
+}
+
+
+#pragma mark -
+#pragma mark Properties
 
 - (void)setTweet:(CRTweet *)newTweet {
     if (newTweet != tweet) {

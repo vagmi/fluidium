@@ -14,13 +14,18 @@
 
 #import "CRAvatarCache.h"
 #import "CRTweet.h"
+#import <TDAppKit/NSImage+TDAdditions.h>
 
 #define KEY_URLSTRING @"URLString"
 #define KEY_IMAGE @"image"
 
+const CGFloat kCRAvatarSide = 44.0;
+const CGFloat kCRAvatarCornerRadius = 5.0;
+
 NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 
 @interface CRAvatarCache ()
+- (void)addAvatarForTweet:(CRTweet *)tweet sender:(id)sender;
 - (void)fetch:(NSString *)URLString;
 - (void)fetchInBackground:(NSString *)URLString;
 - (void)doneFetching:(NSDictionary *)args;
@@ -50,8 +55,9 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
     self.cache = nil;
-    self.connection = nil;
     [super dealloc];
 }
 
@@ -59,15 +65,7 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 #pragma mark -
 #pragma mark Private
 
-- (void)addAvatarForTweet:(CRTweet *)tweet {
-    NSString *URLString = tweet.avatarURLString;
-    [cache setObject:[NSNull null] forKey:URLString];
-    
-    [self fetch:URLString];
-}
-
-
-- (NSImage *)avatarForTweet:(CRTweet *)tweet {
+- (NSImage *)avatarForTweet:(CRTweet *)tweet sender:(id)sender {
     id obj = nil;
     NSString *URLString = tweet.avatarURLString;
 
@@ -75,8 +73,15 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
         obj = [cache objectForKey:URLString];
     }
     
-    if ([NSNull null] == obj) {
+    if (!obj) {
+        // the avatar is not in the cache. fetch it
+        [self addAvatarForTweet:tweet sender:sender];
         return nil;
+        
+    } else if ([NSNull null] == obj) {
+        // the avatar is currently being fetched. do nothing and return nil
+        return nil;
+        
     } else {
         return obj;
     }
@@ -85,6 +90,21 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
 
 #pragma mark -
 #pragma mark Private
+
+- (void)addAvatarForTweet:(CRTweet *)tweet sender:(id)sender {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:sender selector:@selector(avatarDidLoad:) name:CRAvatarDidLoadNotification object:tweet.avatarURLString];
+
+    id obj = [NSNull null];
+    NSString *URLString = tweet.avatarURLString;
+    
+    @synchronized (cache) {
+        [cache setObject:obj forKey:URLString];
+    }
+    
+    [self fetch:URLString];
+}
+
 
 - (void)fetch:(NSString *)URLString {
     [NSThread detachNewThreadSelector:@selector(fetchInBackground:) toTarget:self withObject:URLString];
@@ -104,6 +124,9 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
     }
     
     NSImage *img = [[[NSImage alloc] initWithData:data] autorelease];
+    [img setFlipped:YES];
+    img = [img scaledImageOfSize:NSMakeSize(kCRAvatarSide, kCRAvatarSide) alpha:1 hiRez:YES cornerRadius:kCRAvatarCornerRadius];
+
 
     [self doneFetching:[NSDictionary dictionaryWithObjectsAndKeys:img, KEY_IMAGE, URLString, KEY_URLSTRING, nil]];
     
