@@ -1,10 +1,16 @@
+//  Copyright 2009 Todd Ditchendorf
 //
-//  CRTweeListItem.m
-//  TwitterPlugIn
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 1/29/10.
-//  Copyright 2010 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "CRTweetListItem.h"
 #import "CRTweet.h"
@@ -159,28 +165,16 @@ static NSDictionary *sDateAttributes = nil;
     
 }
 
-//{
-//    avatarURLString = "http://a3.twimg.com/profile_images/579844959/Photo_on_2009-12-17_at_15.46__2_normal.jpg";
-//    "created_at" = 2010-01-29 22:16:06 -0800;
-//    doesMentionMe = 0;
-//    id = 8402242462;
-//    isReply = 0;
-//    name = "Tim Trueman";
-//    text = "This is an interesting idea <a class='url' href='http://www.techcrunch.com/2010/01/29/first-round-capital-entrepreneur-exchange-fund/' onclick='cruz.linkClicked(\"http://www.techcrunch.com/2010/01/29/first-round-capital-entrepreneur-exchange-fund/\"); return false;'>www.techcrunch.com/2010/01/29/fi\U2026</a>";
-//    username = timtrueman;
-//    writtenByMe = 0;
-//}
+
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect bounds = [self bounds];
     
     // bg
-    NSGradient *bgGradient = nil;
+    NSGradient *bgGradient = sBackgroundGradient;
     if (tweet.isByMe) {
         bgGradient = sByMeBackgroundGradient;
     } else if (tweet.isMentionMe) {
         bgGradient = sMentionsMeBackgroundGradient;
-    } else {
-        bgGradient = sBackgroundGradient;
     }
     [bgGradient drawInRect:bounds angle:90];
     
@@ -193,14 +187,8 @@ static NSDictionary *sDateAttributes = nil;
     [sBorderBottomColor setFill];
     [roundRect fill];
     
-    // date
+    // ago
     [tweet.ago drawInRect:NSMakeRect(bounds.size.width - (DATE_WIDTH + TEXT_MARGIN_RIGHT), DATE_Y, DATE_WIDTH, DATE_HEIGHT) withAttributes:sDateAttributes];
-    
-    // username
-    //    [tweet.username drawInRect:NSMakeRect(56, 5, bounds.size.width, 18) withAttributes:sUsernameAttributes];
-    
-    // text
-//    [tweet.text drawInRect:NSMakeRect(56, 22, 240, 60) withAttributes:sTextAttributes];
 }
 
 
@@ -210,10 +198,10 @@ static NSDictionary *sDateAttributes = nil;
         tweet = [newTweet retain];
         
         if (tweet) {
-            if (tweet.username) {
-                NSAttributedString *title = [[[NSAttributedString alloc] initWithString:tweet.username attributes:sUsernameAttributes] autorelease];
-                [usernameButton setAttributedTitle:title];
-            }
+            NSString *s = tweet.username;
+            if (![s length]) s = @"";
+            NSAttributedString *title = [[[NSAttributedString alloc] initWithString:s attributes:sUsernameAttributes] autorelease];
+            [usernameButton setAttributedTitle:title];
             
             if (tweet.text) {
                 [[textView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:tweet.text attributes:sTextAttributes] autorelease]];
