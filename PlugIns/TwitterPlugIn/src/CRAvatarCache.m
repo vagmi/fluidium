@@ -111,7 +111,7 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
         if (count >= MAX_CACHE_SIZE) {
             [cache removeObjectForKey:evictKey];
             [keyAge removeObjectAtIndex:0];
-            NSLog(@"evicted. cache count: %d, keyAge count: %d", [cache count], [keyAge count]);
+            //NSLog(@"evicted. cache count: %d, keyAge count: %d", [cache count], [keyAge count]);
         }
     }
     

@@ -26,6 +26,8 @@
 + (NSDictionary *)textAttributes;
 + (CGFloat)defaultHeight;
 + (CGFloat)minimumHeight;
++ (CGFloat)minimumWidthForDrawingAgo;
++ (CGFloat)minimumWidthForDrawingText;
 + (CGFloat)horizontalTextMargins;
 
 @property (nonatomic, retain) NSButton *usernameButton;

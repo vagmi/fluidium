@@ -128,6 +128,16 @@ static NSDictionary *sDateAttributes = nil;
 }
 
 
++ (CGFloat)minimumWidthForDrawingAgo {
+    return AVATAR_X + kCRAvatarSide + DATE_WIDTH + TEXT_MARGIN_RIGHT;
+}
+
+
++ (CGFloat)minimumWidthForDrawingText {
+    return [CRTweetListItem minimumWidthForDrawingAgo] - (kCRAvatarSide + 10);
+}
+
+
 - (id)init {
     return [self initWithFrame:NSZeroRect reuseIdentifier:[CRTweetListItem reuseIdentifier]];
 }
@@ -202,9 +212,15 @@ static NSDictionary *sDateAttributes = nil;
     }
     
     // ago
-    if (bounds.size.width > AVATAR_X + kCRAvatarSide + DATE_WIDTH + TEXT_MARGIN_RIGHT) { // dont draw if too small
+    if (bounds.size.width > [CRTweetListItem minimumWidthForDrawingAgo]) { // dont draw if too small
         [tweet.ago drawInRect:NSMakeRect(bounds.size.width - (DATE_WIDTH + TEXT_MARGIN_RIGHT), DATE_Y, DATE_WIDTH, DATE_HEIGHT) withAttributes:sDateAttributes];
     }
+    
+    BOOL hideUsername = bounds.size.width < [CRTweetListItem minimumWidthForDrawingText] + (kCRAvatarSide * 2);
+    [usernameButton setHidden:hideUsername];
+
+    BOOL hideText = bounds.size.width < [CRTweetListItem minimumWidthForDrawingText] + kCRAvatarSide + 26;
+    [textView setHidden:hideText];
 }
 
 

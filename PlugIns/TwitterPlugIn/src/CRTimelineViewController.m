@@ -639,8 +639,13 @@
     NSString *text = [[tweets objectAtIndex:i] text];
     CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
     NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
-    NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
-    CGFloat height = NSHeight(textRect) + [CRTweetListItem defaultHeight];
+    
+    CGFloat textHeight = 0;
+    if (width > [CRTweetListItem minimumWidthForDrawingText]) {
+        NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
+        textHeight = NSHeight(textRect);
+    }
+    CGFloat height = textHeight + [CRTweetListItem defaultHeight];
     
     CGFloat minHeight = [CRTweetListItem minimumHeight];
     height = (height < minHeight) ? minHeight : height;
