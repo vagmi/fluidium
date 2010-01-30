@@ -10,6 +10,13 @@
 
 @implementation CRTweetListItem
 
++ (void)initialize {
+    if (self == [CRTweetListItem class]) {
+        
+    }
+}
+
+
 + (NSString *)reuseIdentifier {
     return NSStringFromClass(self);
 }

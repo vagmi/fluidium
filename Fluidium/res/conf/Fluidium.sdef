@@ -330,8 +330,8 @@
         <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the element.">
             <cocoa key="xpath"/>
         </parameter>
-        <parameter type="record" name="with values" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
-            <cocoa key="values"/>
+        <parameter type="text" name="to" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
+            <cocoa key="value"/>
         </parameter>
     </command>
 
@@ -578,7 +578,7 @@
             <cocoa method="handleClickButtonCommand:"/>
         </responds-to>
         <responds-to command="set value of element">
-            <cocoa method="handleSubmitFormCommand:"/>
+            <cocoa method="handleSetElementValueCommand:"/>
         </responds-to>
         <responds-to command="submit form">
             <cocoa method="handleSubmitFormCommand:"/>

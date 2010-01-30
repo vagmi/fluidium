@@ -38,6 +38,8 @@
 - (NSMutableArray *)elementsForXPath:(NSString *)xpath;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
+- (void)setValue:(NSString *)value forElement:(DOMElement *)el;
+- (BOOL)boolForValue:(NSString *)value;
 
 - (BOOL)titleEquals:(NSString *)cmd;
 - (BOOL)hasElementWithId:(NSString *)cmd;
@@ -299,7 +301,7 @@
         if (formEl) {
             els = [self arrayFromHTMLCollection:[formEl elements]];
             for (DOMElement *el in els) {
-                if ([[el getAttribute:@"id"] isEqualToString:@"identifier"]) {
+                if ([[el getAttribute:@"id"] isEqualToString:identifier]) {
                     foundEl = el;
                     break;
                 }
@@ -313,7 +315,7 @@
     }
     
     if (foundEl && [foundEl isKindOfClass:[DOMHTMLElement class]]) {
-        [foundEl setValue:value];
+        [self setValue:value forElement:foundEl];
     }
 
     // resume execution
@@ -367,7 +369,7 @@
             [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find input element with name: %@ in form named : %@", name, elName]];
             return nil;
         }
-        [el setValue:value];
+        [self setValue:value forElement:el];
     }
     
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
@@ -734,6 +736,33 @@
     }
     
     return result;
+}
+
+
+- (void)setValue:(NSString *)value forElement:(DOMElement *)el {
+    if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
+        BOOL boolValue = [self boolForValue:value];
+        NSString *type = [el getAttribute:@"type"];
+        if ([@"checkbox" isEqualToString:type]) {
+            [el setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
+            [el setValue:(boolValue ? value : nil)];
+            return;
+            //    } else if ([@"checkbox" isEqualToString:type]) {
+            //        [el setAttribute:@"checked" value:(boolValue ? @"checked" : @"")];
+        }
+    }
+    [el setValue:value];
+    
+}
+
+
+- (BOOL)boolForValue:(NSString *)value {
+    value = [value lowercaseString];
+    if (![value length] || [value isEqualToString:@"no"] || [value isEqualToString:@"false"] || [value isEqualToString:@"0"]) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 

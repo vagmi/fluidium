@@ -948,7 +948,6 @@
 				D3DB025710D616D30057D70C /* Misc */,
 				D3F4C5A110C8D69B00E0B474 /* Foundation-WebKit Categories */,
 				D3F2945010E7C42700CCB392 /* Shiira */,
-				D31C7B021112978400563A4D /* ContentHandlers */,
 			);
 			name = "Fluidium Source";
 			sourceTree = "<group>";
@@ -1013,13 +1012,6 @@
 				D33E708010D0EB3D00D76BBB /* FUUserstyleViewController.m */,
 			);
 			name = Userthings;
-			sourceTree = "<group>";
-		};
-		D31C7B021112978400563A4D /* ContentHandlers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ContentHandlers;
 			sourceTree = "<group>";
 		};
 		D31C7B0711129A4E00563A4D /* Handlers */ = {

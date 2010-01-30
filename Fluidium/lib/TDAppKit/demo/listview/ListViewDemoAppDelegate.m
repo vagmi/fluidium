@@ -81,7 +81,7 @@
 #pragma mark -
 #pragma mark TDListViewDelegate
 
-- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSInteger)i {
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
     return 60 * (i + 1);
 }
 
