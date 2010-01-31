@@ -13,11 +13,10 @@
 //  limitations under the License.
 
 #import "CRBaseViewController.h"
-#import "CRTextView.h"
 
 @class CRTweet;
 
-@interface CRThreadViewController : CRBaseViewController <CRTextViewDelegate> {
+@interface CRThreadViewController : CRBaseViewController {
     CRTweet *tweet;
     NSMutableArray *tweets;
 

@@ -34,6 +34,7 @@
     }
 
     if (link || 1 == [evt clickCount]) {
+        // ok this is fragile :(. but AFAICT it's the only way to get the exact behavior i want
         TDListItem *li = (TDListItem *)[self superview];
         TDListView *lv = (TDListView *)[li superview];
         [lv setSelectedItemIndex:[lv indexForItem:li]];

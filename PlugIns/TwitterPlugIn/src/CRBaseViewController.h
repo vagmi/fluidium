@@ -15,10 +15,11 @@
 #import <UMEKit/UMEKit.h>
 #import <TDAppKit/TDListView.h>
 #import "MGTwitterEngine.h"
+#import "CRTextView.h"
 
 @class DOMHTMLElement;
 
-@interface CRBaseViewController : UMEViewController <MGTwitterEngineDelegate, TDListViewDataSource, TDListViewDelegate> {
+@interface CRBaseViewController : UMEViewController <MGTwitterEngineDelegate, TDListViewDataSource, TDListViewDelegate, CRTextViewDelegate> {
     TDListView *listView;
 
     MGTwitterEngine *twitterEngine;
