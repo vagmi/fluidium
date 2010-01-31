@@ -18,15 +18,7 @@
 
 @interface CRThreadViewController : CRBaseViewController {
     CRTweet *tweet;
-
-    NSString *usernameA;
-    NSString *usernameB;
 }
 
-- (IBAction)avatarButtonClicked:(id)sender;
-- (IBAction)usernameButtonClicked:(id)sender;
-
 @property (nonatomic, retain) CRTweet *tweet;
-@property (nonatomic, copy) NSString *usernameA;
-@property (nonatomic, copy) NSString *usernameB;
 @end

@@ -48,8 +48,5 @@ typedef enum {
 - (IBAction)showAccountsPopUp:(id)sender;
 - (IBAction)pop:(id)sender;
 
-- (IBAction)usernameButtonClicked:(id)sender;
-- (IBAction)avatarButtonClicked:(id)sender;
-
 @property (nonatomic, copy) NSString *displayedUsername;
 @end

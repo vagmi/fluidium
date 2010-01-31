@@ -44,8 +44,6 @@
 
 - (void)dealloc {
     self.tweet = nil;
-    self.usernameA = nil;
-    self.usernameB = nil;
     [super dealloc];
 }
 
@@ -84,22 +82,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-}
-
-
-- (IBAction)usernameButtonClicked:(id)sender {
-    NSInteger i = [sender tag];
-    [listView setSelectedItemIndex:i];
-    NSString *username = [[tweets objectAtIndex:i] username];
-    [self handleUsernameClicked:username];
-}
-
-
-- (IBAction)avatarButtonClicked:(id)sender {
-    NSInteger i = [sender tag];
-    //    [listView setSelectedItemIndex:i];
-    NSString *username = [[tweets objectAtIndex:i] username];
-    [self openUserPageInNewTabOrWindow:username];
 }
 
 
@@ -177,6 +159,4 @@
 }
 
 @synthesize tweet;
-@synthesize usernameA;
-@synthesize usernameB;
 @end

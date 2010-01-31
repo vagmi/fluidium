@@ -38,6 +38,9 @@
 - (void)openURLString:(NSString *)URLString inNewTab:(BOOL)inTab;
 - (void)openURL:(NSURL *)URLString inNewTab:(BOOL)inTab;
 
+- (IBAction)usernameButtonClicked:(id)sender;
+- (IBAction)avatarButtonClicked:(id)sender;
+
 @property (nonatomic, retain) IBOutlet TDListView *listView;
 @property (nonatomic, retain) NSMutableArray *tweets;
 @property (nonatomic, retain) MGTwitterEngine *twitterEngine;
