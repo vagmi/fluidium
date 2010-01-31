@@ -19,12 +19,9 @@
 #import <WebKit/WebKit.h>
 
 @interface CRThreadViewController ()
-- (void)prepareAndDisplayTweets;
 - (void)appendTweetToList;
 - (void)fetchInReplyToStatus;
 - (void)done;
-
-- (NSString *)formattedDate:(NSString *)inDate;    
 @end
 
 @implementation CRThreadViewController
@@ -57,31 +54,10 @@
     self.navigationItem.rightBarButtonItem = [[[UMEActivityBarButtonItem alloc] init] autorelease];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
-    [self prepareAndDisplayTweets];
-}
+    NSAssert(tweet, @"");
+    self.tweets = [NSMutableArray array];
 
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-}
-
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
+    [self appendTweetToList];
 }
 
 
@@ -96,13 +72,6 @@
 
 #pragma mark -
 #pragma mark Private
-
-- (void)prepareAndDisplayTweets {
-    NSAssert(tweet, @"");
-    self.tweets = [NSMutableArray array];
-    [self appendTweetToList];
-}
-
 
 - (void)appendTweetToList {
     if (![NSThread isMainThread]) {
@@ -151,11 +120,6 @@
 
 - (void)done {
     self.navigationItem.rightBarButtonItem = nil;
-}
-
-
-- (NSString *)formattedDate:(NSString *)inDate {
-    return CRFormatDateString(inDate);
 }
 
 @synthesize tweet;
