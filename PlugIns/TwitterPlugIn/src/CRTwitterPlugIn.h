@@ -16,7 +16,8 @@ extern NSString *kCRTwitterDisplayUsernamesKey;
 extern NSString *kCRTwitterAccountIDsKey;
 extern NSString *kCRTwitterSelectNewTabsAndWindowsKey;
 
-extern NSString *CRTwitterPlugInSelectedUsernameDidChangeNotification;
+extern NSString *CRTwitterSelectedUsernameDidChangeNotification;
+extern NSString *CRTwitterDisplayUsernamesDidChangeNotification;
 
 @interface CRTwitterPlugIn : FUPlugIn {
     id <FUPlugInAPI>plugInAPI; // weakref

@@ -64,6 +64,11 @@
 }
 
 
+- (IBAction)toggleShowUsernames:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:CRTwitterDisplayUsernamesDidChangeNotification object:nil];
+}
+
+
 - (void)loadAccounts {
     
     // this will trim accountIDs from the user defaults which correspond to accounts which for some reason have been deleted from the keychain

@@ -319,6 +319,19 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">CRBaseViewController</string>
 					<string key="superclassName">UMEViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>avatarButtonClicked:</string>
+							<string>usernameButtonClicked:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">listView</string>
 						<string key="NS.object.0">TDListView</string>
@@ -336,17 +349,13 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>accountSelected:</string>
-							<string>avatarButtonClicked:</string>
 							<string>fetchEarlierStatuses:</string>
 							<string>fetchLatestStatuses:</string>
 							<string>pop:</string>
 							<string>showAccountsPopUp:</string>
-							<string>usernameButtonClicked:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

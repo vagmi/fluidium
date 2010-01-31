@@ -14,6 +14,8 @@
     NSMutableArray *accountIDs;
 }
 
+- (IBAction)toggleShowUsernames:(id)sender;
+
 - (void)insertObject:(NSMutableDictionary *)dict inAccountsAtIndex:(NSInteger)i;
 - (void)removeObjectFromAccountsAtIndex:(NSInteger)i;
 

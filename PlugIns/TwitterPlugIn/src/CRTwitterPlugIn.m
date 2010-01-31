@@ -18,7 +18,8 @@ NSString *kCRTwitterDisplayUsernamesKey = @"CRTwitterDisplayUsernames";
 NSString *kCRTwitterAccountIDsKey = @"CRTwitterAccountIDs";
 NSString *kCRTwitterSelectNewTabsAndWindowsKey = @"CRTwitterSelectNewTabsAndWindows";
 
-NSString *CRTwitterPlugInSelectedUsernameDidChangeNotification = @"CRTwitterPlugInSelectedUsernameDidChange";
+NSString *CRTwitterSelectedUsernameDidChangeNotification = @"CRTwitterSelectedUsernameDidChangeNotification";
+NSString *CRTwitterDisplayUsernamesDidChangeNotification = @"CRTwitterDisplayUsernamesDidChangeNotification";
 
 static CRTwitterPlugIn *instance = nil;
 

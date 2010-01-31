@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "CRTweetListItem.h"
+#import "CRTwitterPlugIn.h"
 #import "CRTweet.h"
 #import "CRAvatarCache.h"
 #import "CRTwitterUtils.h"
@@ -51,6 +52,10 @@ static NSDictionary *sDateAttributes = nil;
 #define DATE_HEIGHT 16.0
 
 #define NSTEXT_VIEW_PADDING_FUDGE 10.0
+
+@interface CRTweetListItem ()
+- (void)updateViewsFromTweet;
+@end
 
 @implementation CRTweetListItem
 
@@ -178,6 +183,7 @@ static NSDictionary *sDateAttributes = nil;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [NSObject cancelPreviousPerformRequestsWithTarget:[self superview]];
     
     self.avatarButton = nil;
     self.usernameButton = nil;
@@ -246,56 +252,63 @@ static NSDictionary *sDateAttributes = nil;
 
 
 #pragma mark -
-#pragma mark Notifications
+#pragma mark TDListItem
 
-- (void)avatarDidLoad:(NSNotification *)n {
-    NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
-    if (img) {
-        [[avatarButton cell] setImage:img];
-        [avatarButton setImage:img];
-        [avatarButton setNeedsDisplay:YES];
-        [self setNeedsDisplay:YES];
-        
-        // jeez.
-        TDListView *lv = (TDListView *)[self superview];
-        [lv reloadData];
-    }
+- (void)prepareForReuse {
+    [self updateViewsFromTweet];
 }
 
 
 #pragma mark -
-#pragma mark Properties
+#pragma mark Notifications
+
+- (void)avatarDidLoad:(NSNotification *)n {
+    [self updateViewsFromTweet];
+
+    // jeez.
+    TDListView *lv = (TDListView *)[self superview];
+    [lv performSelector:@selector(reloadData) withObject:nil afterDelay:0];
+}
+
+
+#pragma mark -
+#pragma mark Private
+
+- (void)updateViewsFromTweet {
+    if (tweet) {
+        NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
+        [avatarButton setImage:img];
+        [avatarButton setNeedsDisplay:YES];
+        [self setNeedsDisplay:YES];
+        
+        BOOL showUsername = [[NSUserDefaults standardUserDefaults] boolForKey:kCRTwitterDisplayUsernamesKey];
+        NSString *s = showUsername ? tweet.username : tweet.name;
+        if (![s length]) s = @"";
+        NSAttributedString *title = [[[NSAttributedString alloc] initWithString:s attributes:sUsernameAttributes] autorelease];
+        [usernameButton setAttributedTitle:title];
+        title = [[[NSAttributedString alloc] initWithString:s attributes:sHighlightedUsernameAttributes] autorelease];
+        [usernameButton setAttributedAlternateTitle:title];
+        [usernameButton sizeToFit];
+        
+        if (tweet.attributedText) {
+            [[textView textStorage] setAttributedString:tweet.attributedText];
+            [textView sizeToFit];
+            
+            // descenders are being clipped.
+            NSRect r = [textView frame];
+            r.size.height += 2;
+            [textView setFrame:r];
+        }
+    }
+}
+
 
 - (void)setTweet:(CRTweet *)newTweet {
     if (newTweet != tweet) {
         [tweet autorelease];
         tweet = [newTweet retain];
-        
-        if (tweet) {
-            NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
-            if (img) {
-                [avatarButton setImage:img];
-                [avatarButton setNeedsDisplay:YES];
-            }
-                
-            NSString *s = tweet.username;
-            if (![s length]) s = @"";
-            NSAttributedString *title = [[[NSAttributedString alloc] initWithString:s attributes:sUsernameAttributes] autorelease];
-            [usernameButton setAttributedTitle:title];
-            title = [[[NSAttributedString alloc] initWithString:s attributes:sHighlightedUsernameAttributes] autorelease];
-            [usernameButton setAttributedAlternateTitle:title];
-            [usernameButton sizeToFit];
-            
-            if (tweet.attributedText) {
-                [[textView textStorage] setAttributedString:tweet.attributedText];
-                [textView sizeToFit];
-                
-                // descenders are being clipped.
-                NSRect r = [textView frame];
-                r.size.height += 2;
-                [textView setFrame:r];
-            }
-        }
+
+        [self updateViewsFromTweet];
     }
 }
 

@@ -99,11 +99,10 @@
     if (self = [super initWithNibName:s bundle:b]) {
         type = t;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(selectedUsernameDidChange:)
-                                                     name:CRTwitterPlugInSelectedUsernameDidChangeNotification
-                                                   object:[CRTwitterPlugIn instance]];
-
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(selectedUsernameDidChange:) name:CRTwitterSelectedUsernameDidChangeNotification object:nil];
+        [nc addObserver:self selector:@selector(displayUsernamesDidChange:) name:CRTwitterDisplayUsernamesDidChangeNotification object:nil];
+        
         NSSortDescriptor *desc = [[[NSSortDescriptor alloc] initWithKey:@"identifier" ascending:NO] autorelease];
         self.tweetSortDescriptors = [NSArray arrayWithObject:desc];
         self.tweetTable = [NSMutableDictionary dictionary];
@@ -191,6 +190,11 @@
 }
 
 
+- (void)displayUsernamesDidChange:(NSNotification *)n {
+    [listView reloadData];
+}
+
+
 #pragma mark -
 #pragma mark Actions
 
@@ -200,7 +204,7 @@
     
     if (![newUsername isEqualToString:oldUsername]) {
         [[CRTwitterPlugIn instance] setSelectedUsername:newUsername];
-        [[NSNotificationCenter defaultCenter] postNotificationName:CRTwitterPlugInSelectedUsernameDidChangeNotification object:[CRTwitterPlugIn instance]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CRTwitterSelectedUsernameDidChangeNotification object:nil];
         [self beginFetchLoop];
     }
 }
