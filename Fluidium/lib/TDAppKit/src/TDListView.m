@@ -115,7 +115,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSUInteger count = [dataSource numberOfItemsInListView:self];
     NSUInteger i = 0;
     for ( ; i < count; i++) {
-        CGFloat extent = variableExtent ? [delegate listView:self extentForItemAtIndex:i] : itemExtent;
+        CGFloat extent = floor(variableExtent ? [delegate listView:self extentForItemAtIndex:i] : itemExtent);
         NSRect itemFrame;
         if (self.isPortrait) {
             itemFrame = NSMakeRect(0, n, w, extent);
