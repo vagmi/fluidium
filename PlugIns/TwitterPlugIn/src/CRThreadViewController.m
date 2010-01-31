@@ -62,15 +62,6 @@
 
 
 #pragma mark -
-#pragma mark ListViewDataSource
-
-- (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
-    NSUInteger c = [tweets count];
-    return c;
-}
-
-
-#pragma mark -
 #pragma mark Private
 
 - (void)appendTweetToList {

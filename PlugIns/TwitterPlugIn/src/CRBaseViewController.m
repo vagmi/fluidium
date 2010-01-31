@@ -60,8 +60,8 @@
 #pragma mark TDListViewDataSource
 
 - (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
-    NSAssert1(0, @"must implement %s", __PRETTY_FUNCTION__);
-    return 0;
+    NSUInteger c = [tweets count];
+    return c;
 }
 
 
