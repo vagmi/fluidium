@@ -33,14 +33,19 @@
         link = [attributes valueForKey:NSLinkAttributeName];
     }
 
-    if (link || 1 == [evt clickCount]) {
-        // ok this is fragile :(. but AFAICT it's the only way to get the exact behavior i want
+    // ok this is crap :(. but AFAICT it's the only way to get the exact behavior i want
+
+    if (link) {
+        [super mouseDown:evt];
+
+    } else if (1 == [evt clickCount]) {
         TDListItem *li = (TDListItem *)[self superview];
         TDListView *lv = (TDListView *)[li superview];
         [lv setSelectedItemIndex:[lv indexForItem:li]];
 
         [[self window] makeFirstResponder:self];
         [super mouseDown:evt];
+        
     } else {
         [[self superview] mouseDown:evt];
     }

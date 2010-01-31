@@ -51,7 +51,6 @@
 
 - (IBAction)avatarButtonClicked:(id)sender {
     NSInteger i = [sender tag];
-    //    [listView setSelectedItemIndex:i];
     NSString *username = [[tweets objectAtIndex:i] username];
     [self openUserPageInNewTabOrWindow:username];
 }
