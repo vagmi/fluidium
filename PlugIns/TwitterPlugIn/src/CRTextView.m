@@ -38,7 +38,8 @@
     } else if (1 == [evt clickCount]) {
         TDListItem *li = (TDListItem *)[self superview];
         TDListView *lv = (TDListView *)[li superview];
-        [lv setSelectedItemIndex:[lv indexForItem:li]];
+        NSInteger i = [lv indexForItemAtPoint:[lv convertPoint:[evt locationInWindow] fromView:nil]];
+        [lv setSelectedItemIndex:i];
 
         [[self window] makeFirstResponder:self];
         [super mouseDown:evt];

@@ -139,11 +139,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 }
 
 
-- (NSUInteger)indexForItem:(id)item {
-    return [items indexOfObject:item];
-}
-
-
 - (NSRect)frameForItemAtIndex:(NSUInteger)i {
     return [[self itemAtIndex:i] frame];
 }
