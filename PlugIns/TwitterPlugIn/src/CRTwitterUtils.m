@@ -10,7 +10,7 @@
 #import "CRTwitterPlugIn.h"
 #import <ParseKit/ParseKit.h>
 
-#define DEFAULT_FONT_SIZE 11.0
+#define DEFAULT_FONT_SIZE 12.0
 
 static PKTokenizer *t = nil;
 static PKToken *ltTok = nil;

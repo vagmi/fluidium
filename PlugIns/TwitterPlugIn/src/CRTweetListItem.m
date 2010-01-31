@@ -47,7 +47,7 @@ static NSDictionary *sDateAttributes = nil;
 #define DATE_WIDTH 68.0
 #define DATE_HEIGHT 16.0
 
-#define NSTEXT_VIEW_PADDING_FUDGE 0
+#define NSTEXT_VIEW_PADDING_FUDGE 10.0
 
 @implementation CRTweetListItem
 
