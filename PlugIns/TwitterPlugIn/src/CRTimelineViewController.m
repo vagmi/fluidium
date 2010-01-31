@@ -79,7 +79,6 @@
 - (unsigned long long)earliestID;
 
 @property (nonatomic, retain) NSURL *defaultProfileImageURL;
-@property (nonatomic, retain) NSMutableArray *tweets;
 @property (nonatomic, retain) NSMutableArray *newTweets;
 @property (nonatomic, retain) NSMutableDictionary *tweetTable;
 @property (nonatomic, retain) NSArray *tweetSortDescriptors;
@@ -128,7 +127,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.displayedUsername = nil;
     self.defaultProfileImageURL = nil;
-    self.tweets = nil;
     self.newTweets = nil;
     self.tweetTable = nil;
     self.tweetSortDescriptors = nil;
@@ -642,32 +640,7 @@
         
         return item;
     } else {
-        CRTweetListItem *item = [listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
-        
-        if (!item) {
-            item = [[[CRTweetListItem alloc] init] autorelease];
-            
-            [item setTarget:self];
-            [item setAction:@selector(tweetDoubleClicked:)];
-            
-            [item.avatarButton setTarget:self];
-            [item.avatarButton setAction:@selector(avatarButtonClicked:)];
-            
-            [item.usernameButton setTarget:self];
-            [item.usernameButton setAction:@selector(usernameButtonClicked:)];
-
-            [item.textView setDelegate:self];
-        }
-        
-        [item setSelected:i == [listView selectedItemIndex]];
-        
-        [item setTag:i];
-        [item.avatarButton setTag:i];
-        [item.usernameButton setTag:i];
-        item.tweet = [tweets objectAtIndex:i];
-        [item setNeedsDisplay:YES];
-        
-        return item;
+        return [super listView:lv itemAtIndex:i];
     }
 }
 
@@ -680,20 +653,7 @@
     if (i == c) {
         return [CRMoreListItem defaultHeight];
     } else {
-        NSString *text = [[[tweets objectAtIndex:i] attributedText] string];
-        CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
-        
-        CGFloat textHeight = 0;
-        if (width > [CRTweetListItem minimumWidthForDrawingText]) {
-            NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
-            NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
-            textHeight = NSHeight(textRect) * [[[CRTweetListItem textAttributes] objectForKey:NSParagraphStyleAttributeName] lineHeightMultiple]; // for some reason lineHeightMultiplier is not factored in by default
-        }
-        CGFloat height = textHeight + [CRTweetListItem defaultHeight];
-        
-        CGFloat minHeight = [CRTweetListItem minimumHeight];
-        height = (height < minHeight) ? minHeight : height;
-        return height;
+        return [super listView:lv extentForItemAtIndex:i];
     }
 }
 
@@ -880,7 +840,6 @@
 
 @synthesize displayedUsername;
 @synthesize defaultProfileImageURL;
-@synthesize tweets;
 @synthesize newTweets;
 @synthesize tweetTable;
 @synthesize tweetSortDescriptors;

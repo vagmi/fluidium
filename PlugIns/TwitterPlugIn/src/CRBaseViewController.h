@@ -21,6 +21,7 @@
 
 @interface CRBaseViewController : UMEViewController <MGTwitterEngineDelegate, TDListViewDataSource, TDListViewDelegate, CRTextViewDelegate> {
     TDListView *listView;
+    NSMutableArray *tweets;
 
     MGTwitterEngine *twitterEngine;
 }
@@ -38,5 +39,6 @@
 - (void)openURL:(NSURL *)URLString inNewTab:(BOOL)inTab;
 
 @property (nonatomic, retain) IBOutlet TDListView *listView;
+@property (nonatomic, retain) NSMutableArray *tweets;
 @property (nonatomic, retain) MGTwitterEngine *twitterEngine;
 @end

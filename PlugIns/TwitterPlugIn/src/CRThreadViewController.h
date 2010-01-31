@@ -18,7 +18,6 @@
 
 @interface CRThreadViewController : CRBaseViewController {
     CRTweet *tweet;
-    NSMutableArray *tweets;
 
     NSString *usernameA;
     NSString *usernameB;
@@ -28,7 +27,6 @@
 - (IBAction)usernameButtonClicked:(id)sender;
 
 @property (nonatomic, retain) CRTweet *tweet;
-@property (nonatomic, retain) NSMutableArray *tweets;
 @property (nonatomic, copy) NSString *usernameA;
 @property (nonatomic, copy) NSString *usernameB;
 @end

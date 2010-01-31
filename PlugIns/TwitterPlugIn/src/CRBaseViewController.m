@@ -18,6 +18,7 @@
 #import "CRTimelineViewController.h"
 #import "CRThreadViewController.h"
 #import "CRTweet.h"
+#import "CRTweetListItem.h"
 
 @implementation CRBaseViewController
 
@@ -31,6 +32,7 @@
 
 - (void)dealloc {
     self.listView = nil;
+    self.tweets = nil;
     self.twitterEngine = nil;
     [super dealloc];
 }
@@ -46,8 +48,53 @@
 
 
 - (id)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
-    NSAssert1(0, @"must implement %s", __PRETTY_FUNCTION__);
-    return nil;
+    CRTweetListItem *item = [listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
+    
+    if (!item) {
+        item = [[[CRTweetListItem alloc] init] autorelease];
+        
+        [item setTarget:self];
+        [item setAction:@selector(tweetDoubleClicked:)];
+        
+        [item.avatarButton setTarget:self];
+        [item.avatarButton setAction:@selector(avatarButtonClicked:)];
+        
+        [item.usernameButton setTarget:self];
+        [item.usernameButton setAction:@selector(usernameButtonClicked:)];
+        
+        [item.textView setDelegate:self];
+    }
+    
+    [item setSelected:i == [listView selectedItemIndex]];
+    
+    [item setTag:i];
+    [item.avatarButton setTag:i];
+    [item.usernameButton setTag:i];
+    item.tweet = [tweets objectAtIndex:i];
+    [item setNeedsDisplay:YES];
+    
+    return item;
+}
+
+
+#pragma mark -
+#pragma mark TDListViewDelegate
+
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
+    NSString *text = [[[tweets objectAtIndex:i] attributedText] string];
+    CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
+    
+    CGFloat textHeight = 0;
+    if (width > [CRTweetListItem minimumWidthForDrawingText]) {
+        NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
+        NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
+        textHeight = NSHeight(textRect) * [[[CRTweetListItem textAttributes] objectForKey:NSParagraphStyleAttributeName] lineHeightMultiple]; // for some reason lineHeightMultiplier is not factored in by default
+    }
+    CGFloat height = textHeight + [CRTweetListItem defaultHeight];
+    
+    CGFloat minHeight = [CRTweetListItem minimumHeight];
+    height = (height < minHeight) ? minHeight : height;
+    return height;
 }
 
 
@@ -121,7 +168,7 @@
     //NSLog(@"Got statuses for %@:\r%@", requestID, inStatuses);
     //NSLog(@"Got statuses for %@:\r %d", requestID, [inStatuses count]);
     
-    NSMutableArray *tweets = [NSMutableArray arrayWithCapacity:[inStatuses count]];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[inStatuses count]];
     
     NSString *myname = [[[CRTwitterPlugIn instance] selectedUsername] lowercaseString];
     NSString *atmyname = [NSString stringWithFormat:@"@%@", myname];
@@ -175,10 +222,10 @@
         BOOL writtenByMe = [[[d objectForKey:@"username"] lowercaseString] isEqualToString:myname];
         [d setObject:[NSNumber numberWithBool:writtenByMe] forKey:@"isByMe"];
         
-        [tweets addObject:[CRTweet tweetFromDictionary:d]];
+        [result addObject:[CRTweet tweetFromDictionary:d]];
     }
     
-    return tweets;
+    return result;
 }
 
 
@@ -242,5 +289,6 @@
 }
 
 @synthesize listView;
+@synthesize tweets;
 @synthesize twitterEngine;
 @end
