@@ -111,7 +111,8 @@ extern NSString *const TDListItemPboardType;
 - (void)listView:(TDListView *)lv willDisplay:(TDListItem *)item atIndex:(NSUInteger)i;
 - (NSUInteger)listView:(TDListView *)lv willSelectItemAtIndex:(NSUInteger)i;
 - (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i;
-- (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt;
+- (void)listView:(TDListView *)lv itemWasDoubleClickedAtIndex:(NSUInteger)i;
+- (void)listViewEmptyAreaWasDoubleClicked:(TDListView *)lv;
 - (NSMenu *)listView:(TDListView *)lv contextMenuForItemAtIndex:(NSUInteger)i;
 
 /* Drag and drop support */

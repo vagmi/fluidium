@@ -176,7 +176,7 @@
 }
 
 
-- (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt {
+- (void)listViewEmptyAreaWasDoubleClicked:(TDListView *)lv {
     [[[self.view window] windowController] newTab:self];
 }
 

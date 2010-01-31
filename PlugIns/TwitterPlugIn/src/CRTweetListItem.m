@@ -20,10 +20,12 @@
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 
 static NSGradient *sBackgroundGradient = nil;
+static NSGradient *sSelectedBackgroundGradient = nil;
 static NSGradient *sByMeBackgroundGradient = nil;
 static NSGradient *sMentionsMeBackgroundGradient = nil;
 
 static NSColor *sBorderBottomColor = nil;
+static NSColor *sSelectedBorderBottomColor = nil;
 static NSColor *sByMeBorderBottomColor = nil;
 static NSColor *sMentionsMeBorderBottomColor = nil;
 
@@ -58,6 +60,10 @@ static NSDictionary *sDateAttributes = nil;
         NSColor *topColor = [NSColor colorWithDeviceRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1];
         NSColor *botColor = [NSColor colorWithDeviceRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
         sBackgroundGradient = [[NSGradient alloc] initWithStartingColor:topColor endingColor:botColor];
+        
+        topColor = [NSColor colorWithDeviceRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1];
+        botColor = [NSColor colorWithDeviceRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:1];
+        sSelectedBackgroundGradient = [[NSGradient alloc] initWithStartingColor:topColor endingColor:botColor];
 
         topColor = [NSColor colorWithDeviceRed:227.0/255.0 green:224.0/255.0 blue:219.0/255.0 alpha:1];
         botColor = [NSColor colorWithDeviceRed:201.0/255.0 green:195.0/255.0 blue:185.0/255.0 alpha:1];
@@ -68,6 +74,7 @@ static NSDictionary *sDateAttributes = nil;
         sMentionsMeBackgroundGradient = [[NSGradient alloc] initWithStartingColor:topColor endingColor:botColor];
 
         sBorderBottomColor = [[NSColor colorWithDeviceRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1] retain];
+        sSelectedBorderBottomColor = [[NSColor colorWithDeviceRed:172.0/255.0 green:172.0/255.0 blue:172.0/255.0 alpha:1] retain];
         sByMeBorderBottomColor = [[NSColor colorWithDeviceRed:150.0/255.0 green:150.0/255.0 blue:150.0/255.0 alpha:1] retain];
         sMentionsMeBorderBottomColor = [[NSColor colorWithDeviceRed:170.0/255.0 green:170.0/255.0 blue:170.0/255.0 alpha:1] retain];
         
@@ -175,6 +182,7 @@ static NSDictionary *sDateAttributes = nil;
     self.avatarButton = nil;
     self.usernameButton = nil;
     self.tweet = nil;
+    self.target = nil;
     [super dealloc];
 }
 
@@ -185,7 +193,10 @@ static NSDictionary *sDateAttributes = nil;
 - (void)resizeSubviewsWithOldSize:(NSSize)oldSize {
     NSRect bounds = [self bounds];
 
-    [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, bounds.size.width - (USERNAME_X + DATE_WIDTH + TEXT_MARGIN_RIGHT), USERNAME_HEIGHT)];
+    CGFloat width = NSWidth([usernameButton frame]);
+    CGFloat maxWidth = bounds.size.width - (USERNAME_X + DATE_WIDTH + TEXT_MARGIN_RIGHT);
+    width = width > maxWidth ? maxWidth : width;
+    [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, width, USERNAME_HEIGHT)];
 
     CGFloat textHeight = NSHeight([textView bounds]);
     [textView setFrame:NSMakeRect(TEXT_X, TEXT_Y, bounds.size.width - (TEXT_X + TEXT_MARGIN_RIGHT), textHeight)];
@@ -198,7 +209,10 @@ static NSDictionary *sDateAttributes = nil;
     NSGradient *bgGradient = sBackgroundGradient;
     NSColor *borderBottomColor = sBorderBottomColor;
     
-    if (tweet.isByMe) {
+    if (self.isSelected) {
+        bgGradient = sSelectedBackgroundGradient;
+        borderBottomColor = sSelectedBorderBottomColor;
+    } else if (tweet.isByMe) {
         bgGradient = sByMeBackgroundGradient;
         borderBottomColor = sByMeBorderBottomColor;
     } else if (tweet.isMentionMe) {
@@ -214,14 +228,8 @@ static NSDictionary *sDateAttributes = nil;
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, bounds.size.height) toPoint:NSMakePoint(bounds.size.width, bounds.size.height)];
     
     // avatar
-//    NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
-//    if (img) {
-//        NSSize imgSize = [img size];
-//        [img drawAtPoint:NSMakePoint(AVATAR_X, AVATAR_Y) fromRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) operation:NSCompositeSourceOver fraction:1];
-//    } else {
-        [sBorderBottomColor setFill];
-        [[NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide) radius:kCRAvatarCornerRadius] fill];
-//    }
+    [sBorderBottomColor setFill];
+    [[NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide) radius:kCRAvatarCornerRadius] fill];
     
     // ago
     if (bounds.size.width > [CRTweetListItem minimumWidthForDrawingAgo]) { // dont draw if too small
@@ -267,6 +275,7 @@ static NSDictionary *sDateAttributes = nil;
             [usernameButton setAttributedTitle:title];
             title = [[[NSAttributedString alloc] initWithString:s attributes:sHighlightedUsernameAttributes] autorelease];
             [usernameButton setAttributedAlternateTitle:title];
+            [usernameButton sizeToFit];
             
             if (tweet.attributedText) {
                 [[textView textStorage] setAttributedString:tweet.attributedText];
@@ -281,18 +290,12 @@ static NSDictionary *sDateAttributes = nil;
     }
 }
 
-
-- (NSInteger)tag {
-    return [usernameButton tag];
-}
-
-
-- (void)setTag:(NSInteger)tag {
-    [usernameButton setTag:tag];
-}
-
 @synthesize avatarButton;
 @synthesize usernameButton;
 @synthesize textView;
 @synthesize tweet;
+@synthesize target;
+@synthesize action;
+@synthesize tag;
+@synthesize selected;
 @end

@@ -18,6 +18,22 @@
 
 @implementation CRTextView
 
+- (void)mouseDown:(NSEvent *)evt {
+    NSUInteger i = [self characterIndexForInsertionAtPoint:[self convertPoint:[evt locationInWindow] fromView:nil]];
+        
+    NSRange effectiveRange;
+    NSDictionary *attributes = [[self textStorage] attributesAtIndex:i effectiveRange:&effectiveRange];
+    
+    id link = [attributes valueForKey:NSLinkAttributeName];
+
+    if (link) {
+        [super mouseDown:evt];
+    } else {
+        [[self superview] mouseDown:evt];
+    }
+}
+
+
 - (BOOL)shouldDrawInsertionPoint {
     return NO;
 }

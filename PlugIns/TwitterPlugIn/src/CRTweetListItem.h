@@ -21,6 +21,11 @@
     NSButton *usernameButton;
     NSTextView *textView;
     CRTweet *tweet;
+    
+    id target;
+    SEL action;
+    NSInteger tag;
+    BOOL selected;
 }
 
 + (NSString *)reuseIdentifier;
@@ -35,5 +40,8 @@
 @property (nonatomic, retain) NSButton *usernameButton;
 @property (nonatomic, retain) NSTextView *textView;
 @property (nonatomic, retain) CRTweet *tweet;
+@property (nonatomic, retain) id target;
+@property (nonatomic, assign) SEL action;
 @property (nonatomic, assign) NSInteger tag;
+@property (nonatomic, assign, getter=isSelected) BOOL selected;
 @end

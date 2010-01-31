@@ -101,7 +101,12 @@
 }
 
 
-- (void)listView:(TDListView *)lv emptyAreaWasDoubleClicked:(NSEvent *)evt {
+- (void)listView:(TDListView *)lv itemWasDoubleClickedAtIndex:(NSUInteger)i {
+    
+}
+
+
+- (void)listViewEmptyAreaWasDoubleClicked:(TDListView *)lv {
     
 }
 

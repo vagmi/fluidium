@@ -19,7 +19,6 @@
 #import <WebKit/WebKit.h>
 
 @interface CRThreadViewController ()
-- (NSDictionary *)varsWithStatus:(NSDictionary *)d;
 - (void)prepareAndDisplayTweets;
 - (void)appendTweetToList;
 - (void)fetchInReplyToStatus;
@@ -90,23 +89,6 @@
 
 #pragma mark -
 #pragma mark Private
-
-- (void)setUpTemplateEngine {
-}
-
-
-- (NSDictionary *)varsWithStatus:(NSDictionary *)d {
-    id displayUsernames = [[NSUserDefaults standardUserDefaults] objectForKey:kCRTwitterDisplayUsernamesKey];
-    
-    NSDictionary *vars = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSArray arrayWithObject:d], @"statuses",
-                          displayUsernames, @"displayUsernames",
-                          //CRDefaultProfileImageURLString(), @"defaultAvatarURLString",
-                          nil];
-    
-    return vars;
-}
-
 
 - (void)prepareAndDisplayTweets {
     NSAssert(tweet, @"");
@@ -190,58 +172,6 @@
 //
 //    [self fetchInReplyToStatus];
 //}
-
-
-#pragma mark -
-#pragma mark WebScripting
-
-- (void)linkClicked:(NSString *)URLString {
-    [self openURLInNewTabOrWindow:URLString];
-}
-
-
-- (void)avatarClicked:(NSString *)username {
-    [self openUserPageInNewTabOrWindow:username];
-}
-
-
-- (void)usernameClicked:(NSString *)username {
-    [super handleUsernameClicked:username];
-}
-
-
-+ (BOOL)isKeyExcludedFromWebScript:(const char *)name {
-    return YES;
-}
-
-
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel {
-    if (@selector(avatarClicked:) == sel ||
-        @selector(linkClicked:) == sel ||
-        @selector(usernameClicked:) == sel) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
-
-+ (NSString *)webScriptNameForKey:(const char *)name {
-    return nil;
-}
-
-
-+ (NSString *)webScriptNameForSelector:(SEL)sel {
-    if (@selector(usernameClicked:) == sel) {
-        return @"usernameClicked";
-    } else if (@selector(avatarClicked:) == sel) {
-        return @"avatarClicked";
-    } else if (@selector(linkClicked:) == sel) {
-        return @"linkClicked";
-    } else {
-        return nil;
-    }
-}
 
 @synthesize tweet;
 @synthesize usernameA;

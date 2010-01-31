@@ -74,7 +74,6 @@
 
 - (NSURL *)defaultProfileImageURL;
 - (void)clearList;
-- (void)prepareAndDisplayTweets:(id)appendObj;
 
 - (unsigned long long)latestID;
 - (unsigned long long)earliestID;
@@ -176,11 +175,8 @@
     [super viewDidAppear:animated];
     
     visible = YES;
-    
-    //if (![webView isLoading]) {
-        [self beginFetchLoop];
-    //}
-    
+
+    [self beginFetchLoop];
     [self startDatesLoop];
 }
 
@@ -369,6 +365,7 @@
 
 - (IBAction)usernameButtonClicked:(id)sender {
     NSInteger i = [sender tag];
+    [listView setSelectedItemIndex:i];
     NSString *username = [[tweets objectAtIndex:i] username];
     [self handleUsernameClicked:username];
 }
@@ -376,13 +373,9 @@
 
 - (IBAction)avatarButtonClicked:(id)sender {
     NSInteger i = [sender tag];
+    [listView setSelectedItemIndex:i];
     NSString *username = [[tweets objectAtIndex:i] username];
     [self openUserPageInNewTabOrWindow:username];
-}
-
-
-- (IBAction)moreButtonClicked:(id)sender {
-    
 }
 
 
@@ -595,8 +588,6 @@
         }
         
         [newTweets sortUsingDescriptors:tweetSortDescriptors];
-        BOOL append = [self isAppendRequestID:requestID];
-        [self prepareAndDisplayTweets:[NSNumber numberWithBool:append]];
     }
 
     [self updateDisplayedDates];
@@ -628,7 +619,11 @@
 
 - (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
     NSUInteger c = [tweets count];
-    return c + 1; // for moreButton
+    if (c) {
+        return c + 1; // for moreButton
+    } else {
+        return 0;
+    }
 }
 
 
@@ -649,12 +644,17 @@
         
         if (!item) {
             item = [[[CRTweetListItem alloc] init] autorelease];
+            [item setTarget:self];
+            [item setAction:@selector(tweetDoubleClicked:)];
             [item.avatarButton setTarget:self];
             [item.avatarButton setAction:@selector(avatarButtonClicked:)];
             [item.usernameButton setTarget:self];
             [item.usernameButton setAction:@selector(usernameButtonClicked:)];
         }
         
+        [item setSelected:i == [listView selectedItemIndex]];
+        
+        [item setTag:i];
         [item.avatarButton setTag:i];
         [item.usernameButton setTag:i];
         item.tweet = [tweets objectAtIndex:i];
@@ -663,8 +663,8 @@
         return item;
     }
 }
-                           
-                           
+
+
 #pragma mark -
 #pragma mark TDListViewDelegate
 
@@ -691,35 +691,31 @@
 }
 
 
+- (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i {
+}
+
+
+- (void)listView:(TDListView *)lv itemWasDoubleClickedAtIndex:(NSUInteger)i {
+    if (i > 0 && i < [tweets count]) {
+        CRTweet *tweet = [tweets objectAtIndex:i];
+        [self pushThread:[tweet.identifier stringValue]];
+    }
+}
+
+
+- (void)listViewEmptyAreaWasDoubleClicked:(TDListView *)lv {
+}
+
+
 #pragma mark -
 #pragma mark WebView
 
 - (void)clearList {
     if ([tweets count]) {
         self.tweets = [NSMutableArray array];
+        [listView setSelectedItemIndex:-1];
         [listView reloadData];
     }
-}
-
-
-- (void)prepareAndDisplayTweets:(id)appendObj {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(prepareAndDisplayTweets:) withObject:appendObj waitUntilDone:NO];
-        return;
-    }
-    
-    //BOOL append = [appendObj boolValue];
-    
-    id displayUsernames = [[NSUserDefaults standardUserDefaults] objectForKey:kCRTwitterDisplayUsernamesKey];
-    
-    NSDictionary *vars = [NSDictionary dictionaryWithObjectsAndKeys:
-                          newTweets, @"tweets",
-                          displayUsernames, @"displayUsernames",
-                          //CRDefaultProfileImageURLString(), @"defaultAvatarURLString",
-                          nil];
-    
-    // TODO
-    vars;
 }
 
 
@@ -735,19 +731,6 @@
 
     [listView reloadData];
 }
-
-
-//#pragma mark -
-//#pragma mark WebFrameLoadDelegate
-//
-//- (void)webView:(WebView *)wv didFinishLoadForFrame:(WebFrame *)frame {
-//    if (frame != [webView mainFrame]) return;
-//    
-//    [self showRefreshBarButtonItem];
-//    if (visible) {
-//        [self beginFetchLoop];
-//    }
-//}
 
 
 #pragma mark -

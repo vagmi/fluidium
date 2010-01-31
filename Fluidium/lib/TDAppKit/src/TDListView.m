@@ -68,6 +68,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:[self superview]];
 
+    self.selectedItemIndex = -1;
     self.backgroundColor = [NSColor whiteColor];
     self.itemExtent = DEFAULT_ITEM_EXTENT;
     
@@ -201,18 +202,26 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark NSResponder
 
 - (void)mouseDown:(NSEvent *)evt {
-    self.lastMouseDownEvent = evt;
-    
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
     NSInteger i = [self indexForItemAtPoint:p];
-    if (-1 == i) {
-        if ([evt clickCount] > 1) { // handle double-click
-            if (delegate && [delegate respondsToSelector:@selector(listView:emptyAreaWasDoubleClicked:)]) {
-                [delegate listView:self emptyAreaWasDoubleClicked:evt];
-                return;
+
+    // handle double click
+    if ([evt clickCount] > 1) {
+        if (-1 == i) {
+            if (delegate && [delegate respondsToSelector:@selector(listViewEmptyAreaWasDoubleClicked:)]) {
+                [delegate listViewEmptyAreaWasDoubleClicked:self];
+            }
+        } else {
+            if (delegate && [delegate respondsToSelector:@selector(listView:itemWasDoubleClickedAtIndex:)]) {
+                [delegate listView:self itemWasDoubleClickedAtIndex:i];
             }
         }
-    } else {
+        return;
+    }
+    
+    self.lastMouseDownEvent = evt;
+    
+    if (-1 != i) {
         self.selectedItemIndex = i;
     }
     
