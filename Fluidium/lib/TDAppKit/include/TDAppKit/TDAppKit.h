@@ -14,6 +14,7 @@
 
 #import <TDAppKit/TDUtils.h>
 #import <TDAppKit/NSImage+TDAdditions.h>
+#import <TDAppKit/NSBezierPath+TDAdditions.h>
 #import <TDAppKit/TDGutterView.h>
 #import <TDAppKit/TDSourceCodeTextView.h>
 #import <TDAppKit/TDUberView.h>

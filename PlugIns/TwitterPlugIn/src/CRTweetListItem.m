@@ -17,7 +17,7 @@
 #import "CRAvatarCache.h"
 #import "CRTwitterUtils.h"
 #import "CRTextView.h"
-#import <TDAppKit/NSBezierPath+TDAdditions.h>
+#import <TDAppKit/TDAppKit.h>
 
 static NSGradient *sBackgroundGradient = nil;
 static NSGradient *sSelectedBackgroundGradient = nil;
@@ -248,9 +248,17 @@ static NSDictionary *sDateAttributes = nil;
 #pragma mark Notifications
 
 - (void)avatarDidLoad:(NSNotification *)n {
-    [avatarButton setImage:[[CRAvatarCache instance] avatarForTweet:tweet sender:self]];
-    [avatarButton setNeedsDisplay:YES];
-    [self setNeedsDisplay:YES];
+    NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
+    if (img) {
+        [[avatarButton cell] setImage:img];
+        [avatarButton setImage:img];
+        [avatarButton setNeedsDisplay:YES];
+        [self setNeedsDisplay:YES];
+        
+        // jeez.
+        TDListView *lv = (TDListView *)[self superview];
+        [lv reloadData];
+    }
 }
 
 
