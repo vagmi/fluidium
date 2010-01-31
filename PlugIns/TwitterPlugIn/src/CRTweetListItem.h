@@ -15,11 +15,12 @@
 #import <TDAppKit/TDListItem.h>
 
 @class CRTweet;
+@class CRTextView;
 
 @interface CRTweetListItem : TDListItem {
     NSButton *avatarButton;
     NSButton *usernameButton;
-    NSTextView *textView;
+    CRTextView *textView;
     CRTweet *tweet;
     
     id target;
@@ -38,7 +39,7 @@
 
 @property (nonatomic, retain) NSButton *avatarButton;
 @property (nonatomic, retain) NSButton *usernameButton;
-@property (nonatomic, retain) NSTextView *textView;
+@property (nonatomic, retain) CRTextView *textView;
 @property (nonatomic, retain) CRTweet *tweet;
 @property (nonatomic, retain) id target;
 @property (nonatomic, assign) SEL action;

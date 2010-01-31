@@ -21,7 +21,6 @@
 #import "CRMoreListItem.h"
 #import "CRTweetListItem.h"
 #import "CRTextView.h"
-#import "WebURLsWithTitles.h"
 #import <Fluidium/FUPlugInAPI.h>
 
 #define DEFAULT_FETCH_INTERVAL_MINS 3
@@ -33,8 +32,6 @@
 #define DEFAULT_STATUS_FETCH_COUNT 40
 
 #define DATES_INTERVAL_SECS 30
-
-#define WebURLsWithTitlesPboardType     @"WebURLsWithTitlesPboardType"
 
 @interface CRTimelineViewController ()
 - (id)initWithNibName:(NSString *)s bundle:(NSBundle *)b type:(CRTimelineType)t;
@@ -65,8 +62,6 @@
 - (void)clearList;
 - (void)pushThread:(NSString *)statusID;
 - (void)updateDisplayedDates;
-
-- (void)openLinkInNewTab:(BOOL)inTab;
 
 - (void)killDatesTimer;
 - (void)startDatesLoop;
@@ -355,6 +350,13 @@
         [listView setSelectedItemIndex:-1];
         [listView reloadData];
     }
+}
+
+
+- (void)pushThread:(NSString *)statusID {
+    CRThreadViewController *vc = [[[CRThreadViewController alloc] init] autorelease];
+    vc.tweet = [tweetTable objectForKey:statusID];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 
@@ -654,154 +656,6 @@
         [self pushThread:[tweet.identifier stringValue]];
     }
 }
-
-
-#pragma mark -
-#pragma mark WebScripting
-
-- (void)pushThread:(NSString *)statusID {
-    CRThreadViewController *vc = [[[CRThreadViewController alloc] init] autorelease];
-    vc.tweet = [tweetTable objectForKey:statusID];
-    [self.navigationController pushViewController:vc animated:NO];
-}
-
-
-
-//#pragma mark -
-//#pragma mark WebUIDelegate
-//
-//- (void)webView:(WebView *)wv mouseDidMoveOverElement:(NSDictionary *)d modifierFlags:(NSUInteger)modifierFlags {
-//    if (wv != webView) return;    
-//    
-//    NSString *titleAttr = [d objectForKey:WebElementLinkTitleKey];
-//    if ([titleAttr isEqualToString:@"nostatus"]) {
-//        return;
-//    }
-//    
-//    NSURL *URL = [d objectForKey:WebElementLinkURLKey];
-//    NSString *statusText = nil;
-//    
-//    if (URL) {
-//        NSString *URLString = CRStringByTrimmingCruzPrefixFromURL(URL);
-//        
-//        BOOL tabsEnabled = [[CRTwitterPlugIn instance] tabbedBrowsingEnabled];
-//        NSString *fmt = nil;
-//        if (tabsEnabled) {
-//            fmt = NSLocalizedString(@"Open \"%@\" in a new tab", @"");
-//        } else {
-//            fmt = NSLocalizedString(@"Open \"%@\" in a new window", @"");
-//        }
-//                
-//        statusText = [NSString stringWithFormat:fmt, URLString];
-//    } else {
-//        statusText = @"";
-//    }
-//    
-//    [[CRTwitterPlugIn instance] showStatusText:statusText];
-//}
-//
-//
-//- (NSArray *)webView:(WebView *)wv contextMenuItemsForElement:(NSDictionary *)d defaultMenuItems:(NSArray *)defaultMenuItems {
-//    NSURL *URL = [d objectForKey:WebElementLinkURLKey];
-//    if (!URL) return nil;
-//
-//    self.lastClickedElementInfo = d;
-//    
-//    NSMutableArray *items = [NSMutableArray arrayWithCapacity:3];
-//    
-//    NSMenuItem *item = nil;
-//
-//    if ([[CRTwitterPlugIn instance] tabbedBrowsingEnabled]) {
-//        item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Tab ", @"") 
-//                                           action:@selector(openLinkInNewTabFromMenu:)
-//                                    keyEquivalent:@""] autorelease];
-//        [item setTarget:self];
-//        [items addObject:item];
-//    }
-//
-//    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Window ", @"") 
-//                                       action:@selector(openLinkInNewWindowFromMenu:)
-//                                keyEquivalent:@""] autorelease];
-//    [item setTarget:self];
-//    [items addObject:item];
-//    
-//    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy Link", @"") 
-//                                       action:@selector(copyLinkFromMenu:)
-//                                keyEquivalent:@""] autorelease];
-//    [item setTarget:self];
-//    [items addObject:item];
-//    
-//    return items;
-//}
-//
-//
-//- (void)webView:(WebView *)wv willPerformDragSourceAction:(WebDragSourceAction)action fromPoint:(NSPoint)p withPasteboard:(NSPasteboard *)pboard {
-//    if (WebDragSourceActionLink == action) {
-//        NSArray *oldURLs = [WebURLsWithTitles URLsFromPasteboard:pboard];
-//        NSArray *titles = [WebURLsWithTitles titlesFromPasteboard:pboard];
-//        NSMutableArray *newURLs = [NSMutableArray arrayWithCapacity:[oldURLs count]];
-//        
-//        // declare types
-//        NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
-//        [pboard declareTypes:types owner:nil];
-//
-//        // write data
-//        for (NSURL *oldURL in oldURLs) {
-//            NSURL *newURL = [NSURL URLWithString:CRStringByTrimmingCruzPrefixFromURL(oldURL)];
-//            [newURLs addObject:newURL];
-//            [newURL writeToPasteboard:pboard];
-//            [pboard setString:[newURL absoluteString] forType:NSStringPboardType];
-//        }
-//        
-//        [WebURLsWithTitles writeURLs:newURLs
-//                           andTitles:titles
-//                        toPasteboard:pboard];
-//    }
-//}
-//
-
-- (IBAction)openLinkInNewTabFromMenu:(id)sender {
-    [self openLinkInNewTab:YES];
-}
-
-
-- (IBAction)openLinkInNewWindowFromMenu:(id)sender {
-    [self openLinkInNewTab:NO];
-}   
-
-
-- (void)openLinkInNewTab:(BOOL)inTab {
-//    NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
-//    [self openURL:URL inNewTab:inTab];
-//    self.lastClickedElementInfo = nil;
-}
-
-
-- (IBAction)copyLinkFromMenu:(id)sender {
-//    NSString *aTitle = [lastClickedElementInfo objectForKey:WebElementLinkTitleKey];
-//    NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
-//    NSString *URLString = CRStringByTrimmingCruzPrefixFromURL(URL);
-//    URL = [NSURL URLWithString:URLString];
-//
-//    // get pboard
-//    NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-//
-//    // declare types
-//    NSArray *types = [NSArray arrayWithObjects:WebURLsWithTitlesPboardType, NSURLPboardType, NSStringPboardType, nil];
-//    [pboard declareTypes:types owner:nil];
-//
-//    // write data
-//    [URL writeToPasteboard:pboard];
-//    [pboard setString:[URL absoluteString] forType:NSStringPboardType];
-//    
-//    if (URL && aTitle) {
-//        [WebURLsWithTitles writeURLs:[NSArray arrayWithObject:URL]
-//                           andTitles:[NSArray arrayWithObject:aTitle]
-//                        toPasteboard:pboard];
-//    }
-//    
-//    self.lastClickedElementInfo = nil;
-}    
 
 @synthesize displayedUsername;
 @synthesize defaultProfileImageURL;

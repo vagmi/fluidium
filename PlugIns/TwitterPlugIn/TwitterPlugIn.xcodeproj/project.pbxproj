@@ -10,7 +10,6 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D307ECCA1113CDC7005FC7A5 /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D307ECBA1113CDA0005FC7A5 /* TDAppKit.framework */; };
-		D307EDBA1113EFEF005FC7A5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D307EDB91113EFEF005FC7A5 /* WebKit.framework */; };
 		D307EDDE1113F121005FC7A5 /* CRTweetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D307EDDD1113F121005FC7A5 /* CRTweetListItem.m */; };
 		D307F2001114AE23005FC7A5 /* CRTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = D307F1FF1114AE23005FC7A5 /* CRTweet.m */; };
 		D307F2A31114B9A3005FC7A5 /* CRAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D307F2A21114B9A3005FC7A5 /* CRAvatarCache.m */; };
@@ -161,7 +160,6 @@
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		D307ECB41113CDA0005FC7A5 /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = ../../Fluidium/lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = SOURCE_ROOT; };
-		D307EDB91113EFEF005FC7A5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D307EDDC1113F121005FC7A5 /* CRTweetListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTweetListItem.h; path = src/CRTweetListItem.h; sourceTree = "<group>"; };
 		D307EDDD1113F121005FC7A5 /* CRTweetListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRTweetListItem.m; path = src/CRTweetListItem.m; sourceTree = "<group>"; };
 		D307F1FE1114AE23005FC7A5 /* CRTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTweet.h; path = src/CRTweet.h; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 		D30CCA1B10FD81C10036D2A3 /* toolbar_button_twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = toolbar_button_twitter.png; path = res/toolbar_button_twitter.png; sourceTree = "<group>"; };
 		D31FE2761090C64E00840969 /* CRBarButtonItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRBarButtonItemView.h; path = src/CRBarButtonItemView.h; sourceTree = "<group>"; };
 		D31FE2771090C64E00840969 /* CRBarButtonItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRBarButtonItemView.m; path = src/CRBarButtonItemView.m; sourceTree = "<group>"; };
-		D346E45610CE422200BA0B15 /* WebURLsWithTitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebURLsWithTitles.h; path = ../../Fluidium/src/WebURLsWithTitles.h; sourceTree = SOURCE_ROOT; };
 		D34763E8108C49C6006EFB3F /* AGKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGKeychain.h; path = src/AGKeychain.h; sourceTree = "<group>"; };
 		D34763E9108C49C6006EFB3F /* AGKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGKeychain.m; path = src/AGKeychain.m; sourceTree = "<group>"; };
 		D3476408108C4BE4006EFB3F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -244,7 +241,6 @@
 				D33931DC10D492F8000FC7C1 /* ParseKit.framework in Frameworks */,
 				D33931DF10D49301000FC7C1 /* UMEKit.framework in Frameworks */,
 				D307ECCA1113CDC7005FC7A5 /* TDAppKit.framework in Frameworks */,
-				D307EDBA1113EFEF005FC7A5 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,11 +286,6 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D3F5AA5D108A5BC100F64184 /* Fluidium */,
-				D3F5AA5E108A5BCF00F64184 /* Prefs */,
-				D3F5AA5F108A5BDF00F64184 /* Utils */,
-				D3F5B211108BD42900F64184 /* PlugIn */,
-				D3533D0A1115FED000FB1C54 /* Views */,
 				D3A090E610A7B4630078FCE0 /* CRBaseViewController.h */,
 				D3A090E710A7B4630078FCE0 /* CRBaseViewController.m */,
 				D39BF7681088715000E399F3 /* CRTimelineViewController.h */,
@@ -309,8 +300,11 @@
 				D31FE2771090C64E00840969 /* CRBarButtonItemView.m */,
 				D307F1FE1114AE23005FC7A5 /* CRTweet.h */,
 				D307F1FF1114AE23005FC7A5 /* CRTweet.m */,
-				D34763E8108C49C6006EFB3F /* AGKeychain.h */,
-				D34763E9108C49C6006EFB3F /* AGKeychain.m */,
+				D3F5AA5E108A5BCF00F64184 /* Prefs */,
+				D3F5AA5F108A5BDF00F64184 /* Utils */,
+				D3F5B211108BD42900F64184 /* PlugIn */,
+				D3533D0A1115FED000FB1C54 /* Views */,
+				D3533FBF11161B3C00FB1C54 /* Keychain */,
 				D30C09BE10899DF5001FEE05 /* MGTwitterEngine */,
 			);
 			name = Classes;
@@ -319,7 +313,6 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D307EDB91113EFEF005FC7A5 /* WebKit.framework */,
 				D30C0A3A10899F2D001FEE05 /* libxml2.dylib */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				D3F5AA51108A5B5F00F64184 /* WebKit.framework */,
@@ -429,6 +422,15 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		D3533FBF11161B3C00FB1C54 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				D34763E8108C49C6006EFB3F /* AGKeychain.h */,
+				D34763E9108C49C6006EFB3F /* AGKeychain.m */,
+			);
+			name = Keychain;
+			sourceTree = "<group>";
+		};
 		D3F5AA56108A5B6F00F64184 /* nibs */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,14 +441,6 @@
 				D3A08E5210A734160078FCE0 /* CRThreadView.xib */,
 			);
 			name = nibs;
-			sourceTree = "<group>";
-		};
-		D3F5AA5D108A5BC100F64184 /* Fluidium */ = {
-			isa = PBXGroup;
-			children = (
-				D346E45610CE422200BA0B15 /* WebURLsWithTitles.h */,
-			);
-			name = Fluidium;
 			sourceTree = "<group>";
 		};
 		D3F5AA5E108A5BCF00F64184 /* Prefs */ = {

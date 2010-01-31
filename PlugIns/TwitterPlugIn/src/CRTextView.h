@@ -21,8 +21,10 @@
 @end
 
 @interface CRTextView : NSTextView {
-    id <CRTextViewDelegate>delegate;
+    id <CRTextViewDelegate>crDelegate;
 }
 
-@property (nonatomic, assign) id <CRTextViewDelegate>delegate;
+- (NSURL *)linkForCharacterIndex:(NSUInteger)i;
+
+@property (nonatomic, assign) id <CRTextViewDelegate>crDelegate;
 @end

@@ -19,18 +19,13 @@
 
 @implementation CRTextView
 
+#pragma mark -
+#pragma mark NSResponder
+
 - (void)mouseDown:(NSEvent *)evt {
     NSUInteger i = [self characterIndexForInsertionAtPoint:[self convertPoint:[evt locationInWindow] fromView:nil]];
 
-    id link = nil;
-    
-    NSUInteger len = [[[self textStorage] string] length];
-    if (i < len) {
-        NSRange effectiveRange;
-        NSDictionary *attributes = [[self textStorage] attributesAtIndex:i effectiveRange:&effectiveRange];
-        
-        link = [attributes valueForKey:NSLinkAttributeName];
-    }
+    id link = [self linkForCharacterIndex:i];
 
     // ok this is crap :(. but AFAICT it's the only way to get the exact behavior i want
 
@@ -48,7 +43,7 @@
         [[self window] makeFirstResponder:self];
         [super mouseDown:evt];
     
-    // for double click, send the event to the TDListItem (and eventually the TDListView) for delegate handling
+    // for double click, send the event to the TDListItem (and eventually the TDListView) for crDelegate handling
     } else {
         [[self superview] mouseDown:evt];
     }
@@ -70,8 +65,16 @@
 }
 
 
+#pragma mark -
+#pragma mark NSTextView
+
 - (BOOL)shouldDrawInsertionPoint {
     return NO;
+}
+
+
+- (BOOL)displaysLinkToolTips {
+    return YES;
 }
 
 
@@ -86,8 +89,8 @@
     }
     
     if (URL) {
-        if (delegate && [delegate respondsToSelector:@selector(textView:linkWasClicked:)]) {
-            [delegate textView:self linkWasClicked:URL];
+        if (crDelegate && [crDelegate respondsToSelector:@selector(textView:linkWasClicked:)]) {
+            [crDelegate textView:self linkWasClicked:URL];
         }
     } else {
         NSLog(@"could not activate link: %@", link);
@@ -104,5 +107,32 @@
     return CRDefaultStatusAttributes();
 }
 
-@synthesize delegate;
+
+#pragma mark -
+#pragma mark Public
+
+- (NSURL *)linkForCharacterIndex:(NSUInteger)i {
+    id link = nil;
+    
+    NSUInteger len = [[[self textStorage] string] length];
+    if (i < len) {
+        NSRange effectiveRange;
+        NSDictionary *attributes = [[self textStorage] attributesAtIndex:i effectiveRange:&effectiveRange];
+        
+        link = [attributes valueForKey:NSLinkAttributeName];
+    }
+    
+    NSURL *URL = nil;
+    if ([link isKindOfClass:[NSURL class]]) {
+        URL = link;
+    } else if ([link isKindOfClass:[NSString class]]) {
+        URL = [NSURL URLWithString:link];
+    } else {
+        // will return nil;
+    }
+    
+    return URL;
+}
+
+@synthesize crDelegate;
 @end

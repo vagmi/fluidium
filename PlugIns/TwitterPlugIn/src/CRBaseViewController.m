@@ -19,6 +19,11 @@
 #import "CRThreadViewController.h"
 #import "CRTweet.h"
 #import "CRTweetListItem.h"
+#import "CRTextView.h"
+
+@interface CRBaseViewController ()
+
+@end
 
 @implementation CRBaseViewController
 
@@ -57,6 +62,35 @@
 
 
 #pragma mark -
+#pragma mark CRTextView Link Context Menu Actions
+
+- (IBAction)openLinkInNewTabFromMenu:(id)sender {
+    [self openURL:[sender representedObject] inNewTab:YES];
+}
+
+
+- (IBAction)openLinkInNewWindowFromMenu:(id)sender {
+    [self openURL:[sender representedObject] inNewTab:NO];
+}   
+
+
+- (IBAction)copyLinkFromMenu:(id)sender {
+    NSURL *URL = [sender representedObject];
+    
+    // get pboard
+    NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+    
+    // declare types
+    NSArray *types = [NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil];
+    [pboard declareTypes:types owner:nil];
+    
+    // write data
+    [URL writeToPasteboard:pboard];
+    [pboard setString:[URL absoluteString] forType:NSStringPboardType];
+}    
+
+
+#pragma mark -
 #pragma mark TDListViewDataSource
 
 - (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
@@ -81,6 +115,7 @@
         [item.usernameButton setAction:@selector(usernameButtonClicked:)];
         
         [item.textView setDelegate:self];
+        [item.textView setCrDelegate:self];
     }
     
     [item setSelected:i == [listView selectedItemIndex]];
@@ -113,6 +148,55 @@
     CGFloat minHeight = [CRTweetListItem minimumHeight];
     height = (height < minHeight) ? minHeight : height;
     return height;
+}
+
+
+#pragma mark -
+#pragma mark NSTextViewDelegate
+
+//- (NSString *)textView:(NSTextView *)textView willDisplayToolTip:(NSString *)tooltip forCharacterAtIndex:(NSUInteger)characterIndex {
+//    [self showURLStatusText:tooltip];
+//    return tooltip;
+//}
+
+
+- (NSMenu *)textView:(NSTextView *)tv menu:(NSMenu *)menu forEvent:(NSEvent *)evt atIndex:(NSUInteger)charIndex {
+    NSParameterAssert([tv isMemberOfClass:[CRTextView class]]);
+
+    CRTextView *textView = (CRTextView *)tv;
+    
+    NSURL *link = [textView linkForCharacterIndex:charIndex];
+
+    if (link) {
+        menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+        
+        NSMenuItem *item = nil;
+        
+        if ([[CRTwitterPlugIn instance] tabbedBrowsingEnabled]) {
+            item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Tab ", @"") 
+                                               action:@selector(openLinkInNewTabFromMenu:)
+                                        keyEquivalent:@""] autorelease];
+            [item setTarget:self];
+            [item setRepresentedObject:link];
+            [menu addItem:item];
+        }
+        
+        item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Link in New Window ", @"") 
+                                           action:@selector(openLinkInNewWindowFromMenu:)
+                                    keyEquivalent:@""] autorelease];
+        [item setTarget:self];
+        [item setRepresentedObject:link];
+        [menu addItem:item];
+        
+        item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy Link", @"") 
+                                           action:@selector(copyLinkFromMenu:)
+                                    keyEquivalent:@""] autorelease];
+        [item setTarget:self];
+        [item setRepresentedObject:link];
+        [menu addItem:item];
+        
+    }
+    return menu;
 }
 
 
