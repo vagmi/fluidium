@@ -525,6 +525,8 @@
         NSAssert(0, @"unknown timeline type");
     }
     
+    reqID; // clang
+    
     //    NSLog(@"%s: connectionIdentifier = %@", _cmd, reqID);
 }
 
@@ -540,6 +542,8 @@
     } else {
         NSAssert(0, @"unknown timeline type");
     }
+    
+    reqID; // clang
     
     //    NSLog(@"%s: connectionIdentifier = %@", _cmd, reqID);
 }
