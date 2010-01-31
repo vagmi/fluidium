@@ -22,7 +22,9 @@
 #import "CRTextView.h"
 
 @interface CRBaseViewController ()
-
+- (IBAction)openLinkInNewTabFromMenu:(id)sender;
+- (IBAction)openLinkInNewWindowFromMenu:(id)sender;
+- (IBAction)copyLinkFromMenu:(id)sender;    
 @end
 
 @implementation CRBaseViewController
