@@ -112,21 +112,30 @@ static void CRSetupAttributes() {
 
 static NSMutableDictionary *CRHashtagAttrsWithLink(NSString *URLString) {
     NSMutableDictionary *attrs = [[sHashtagAttrs mutableCopy] autorelease];
-    [attrs setObject:[NSURL URLWithString:URLString] forKey:NSLinkAttributeName];
+    NSURL *URL = [NSURL URLWithString:URLString];
+    if (URL) {
+        [attrs setObject:URL forKey:NSLinkAttributeName];
+    }
     return attrs;
 }
 
 
 static NSMutableDictionary *CRUsernameAttrsWithLink(NSString *URLString) {
     NSMutableDictionary *attrs = [[sUsernameAttrs mutableCopy] autorelease];
-    [attrs setObject:[NSURL URLWithString:URLString] forKey:NSLinkAttributeName];
+    NSURL *URL = [NSURL URLWithString:URLString];
+    if (URL) {
+        [attrs setObject:URL forKey:NSLinkAttributeName];
+    }
     return attrs;
 }
 
 
 static NSMutableDictionary *CRURLAttrsWithLink(NSString *URLString) {
     NSMutableDictionary *attrs = [[sURLAttrs mutableCopy] autorelease];
-    [attrs setObject:[NSURL URLWithString:URLString] forKey:NSLinkAttributeName];
+    NSURL *URL = [NSURL URLWithString:URLString];
+    if (URL) {
+        [attrs setObject:URL forKey:NSLinkAttributeName];
+    }
     return attrs;
 }
 

@@ -36,6 +36,7 @@
 
     // if clicking a link, don't select the item
     if (link) {
+        //[[self window] makeFirstResponder:self];
         [super mouseDown:evt];
 
     // for single click on the tweet text, handle the event (for possible text selection), but also select the item behind
@@ -44,6 +45,15 @@
         TDListView *lv = (TDListView *)[li superview];
         [lv setSelectedItemIndex:[lv indexForItem:li]];
 
+        // this doesnt work. dunno why.
+//        NSResponder *responder = [[self window] firstResponder];
+//        if ([responder isMemberOfClass:[CRTextView class]]) {
+//            CRTextView *tv = (CRTextView *)responder;
+//            NSRange zeroRange = { 0, 0 };
+//            [tv setSelectedRange:zeroRange];
+//            [tv setNeedsDisplay:YES];
+//        }
+        
         [[self window] makeFirstResponder:self];
         [super mouseDown:evt];
     

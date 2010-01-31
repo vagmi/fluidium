@@ -61,19 +61,15 @@
 - (void)enableTimerFired:(NSTimer *)t;
 - (void)enableFetching;
 - (void)showProgressBarButtonItem;
+
+- (void)clearList;
+- (void)pushThread:(NSString *)statusID;
 - (void)updateDisplayedDates;
 
-- (BOOL)isAppendRequestID:(NSString *)reqID;
-- (void)setAppend:(BOOL)append forRequestID:(NSString *)reqID;
-
 - (void)openLinkInNewTab:(BOOL)inTab;
-- (void)pushThread:(NSString *)statusID;
 
 - (void)killDatesTimer;
 - (void)startDatesLoop;
-
-- (NSURL *)defaultProfileImageURL;
-- (void)clearList;
 
 - (unsigned long long)latestID;
 - (unsigned long long)earliestID;
@@ -85,7 +81,6 @@
 @property (nonatomic, retain) NSTimer *fetchTimer;
 @property (nonatomic, retain) NSTimer *enableTimer;
 @property (nonatomic, retain) NSTimer *datesTimer;
-@property (nonatomic, retain) NSMutableDictionary *appendTable;
 @end
 
 @implementation CRTimelineViewController
@@ -117,7 +112,6 @@
         NSSortDescriptor *desc = [[[NSSortDescriptor alloc] initWithKey:@"identifier" ascending:NO] autorelease];
         self.tweetSortDescriptors = [NSArray arrayWithObject:desc];
         self.tweetTable = [NSMutableDictionary dictionary];
-        self.appendTable = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -130,7 +124,6 @@
     self.newTweets = nil;
     self.tweetTable = nil;
     self.tweetSortDescriptors = nil;
-    self.appendTable = nil;
     [self killFetchTimer];
     [self killEnableTimer];
     [self killDatesTimer];
@@ -196,7 +189,94 @@
 
 
 #pragma mark -
-#pragma mark View setup
+#pragma mark Notifications
+
+- (void)selectedUsernameDidChange:(NSNotification *)n {
+    [self selectedUsernameChanged];
+}
+
+
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)accountSelected:(id)sender {
+    NSString *newUsername = [sender representedObject];
+    NSString *oldUsername = [[CRTwitterPlugIn instance] selectedUsername];
+    
+    if (![newUsername isEqualToString:oldUsername]) {
+        [[CRTwitterPlugIn instance] setSelectedUsername:newUsername];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CRTwitterPlugInSelectedUsernameDidChangeNotification object:[CRTwitterPlugIn instance]];
+        [self beginFetchLoop];
+    }
+}
+
+
+- (IBAction)fetchLatestStatuses:(id)sender {
+    if (!visible || [self isTooSoonToFetchAgain]) {
+        return;
+    }
+    [self showProgressBarButtonItem];
+    [self killFetchTimer];
+    if (CRTimelineTypeUser != type) {
+        [self startFetchTimerWithDefaultDelay];
+    }
+    [self fetchLatestTimeline];
+}
+
+
+- (IBAction)fetchEarlierStatuses:(id)sender {
+    [self showProgressBarButtonItem];
+    [self fetchEarlierTimeline];
+}
+
+
+- (IBAction)showAccountsPopUp:(id)sender {
+    NSEvent *evt = [NSApp currentEvent];
+    
+    NSRect frame = [[self view] frame];
+    NSPoint p = [[self view] convertPointToBase:frame.origin];
+    p.y += NSHeight(frame) + 2;
+    p.x += 5;
+    
+    NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
+                                        location:p
+                                   modifierFlags:[evt modifierFlags] 
+                                       timestamp:[evt timestamp] 
+                                    windowNumber:[evt windowNumber] 
+                                         context:[evt context]
+                                     eventNumber:[evt eventNumber] 
+                                      clickCount:[evt clickCount] 
+                                        pressure:[evt pressure]]; 
+    
+    NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    
+    NSMenuItem *item = nil;
+    for (NSString *username in [[CRTwitterPlugIn instance] usernames]) {
+        if ([username length]) {
+            item = [[[NSMenuItem alloc] initWithTitle:username action:@selector(accountSelected:) keyEquivalent:@""] autorelease];
+            [item setRepresentedObject:username];
+            [item setTarget:self];
+            [menu addItem:item];
+        }
+    }
+    
+    [menu addItem:[NSMenuItem separatorItem]];
+    
+    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add Account...", @"") action:@selector(showPrefs:) keyEquivalent:@""] autorelease];
+    [item setTarget:[CRTwitterPlugIn instance]];
+    [menu addItem:item];
+    
+    [NSMenu popUpContextMenu:menu withEvent:click forView:[self view]];
+}
+
+
+- (IBAction)pop:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark -
+#pragma mark Private
 
 - (void)setUpNavBar {
     
@@ -269,97 +349,26 @@
 }
 
 
-- (BOOL)isAppendRequestID:(NSString *)reqID {
-    return [[appendTable objectForKey:reqID] boolValue];
-}
-
-
-- (void)setAppend:(BOOL)append forRequestID:(NSString *)reqID {
-    [appendTable setObject:[NSNumber numberWithBool:append] forKey:reqID];
-}
-
-
-#pragma mark -
-#pragma mark Actions
-
-- (void)selectedUsernameDidChange:(NSNotification *)n {
-    [self selectedUsernameChanged];
-}
-
-
-- (IBAction)accountSelected:(id)sender {
-    NSString *newUsername = [sender representedObject];
-    NSString *oldUsername = [[CRTwitterPlugIn instance] selectedUsername];
-    
-    if (![newUsername isEqualToString:oldUsername]) {
-        [[CRTwitterPlugIn instance] setSelectedUsername:newUsername];
-        [[NSNotificationCenter defaultCenter] postNotificationName:CRTwitterPlugInSelectedUsernameDidChangeNotification object:[CRTwitterPlugIn instance]];
-        [self beginFetchLoop];
+- (void)clearList {
+    if ([tweets count]) {
+        self.tweets = [NSMutableArray array];
+        [listView setSelectedItemIndex:-1];
+        [listView reloadData];
     }
 }
 
 
-- (IBAction)fetchLatestStatuses:(id)sender {
-    if (!visible || [self isTooSoonToFetchAgain]) {
+- (void)updateDisplayedDates {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(updateDisplayedDates) withObject:nil waitUntilDone:NO];
         return;
     }
-    [self showProgressBarButtonItem];
-    [self killFetchTimer];
-    if (CRTimelineTypeUser != type) {
-        [self startFetchTimerWithDefaultDelay];
-    }
-    [self fetchLatestTimeline];
-}
-
-
-- (IBAction)fetchEarlierStatuses:(id)sender {
-    [self showProgressBarButtonItem];
-    [self fetchEarlierTimeline];
-}
-
-
-- (IBAction)showAccountsPopUp:(id)sender {
-    NSEvent *evt = [NSApp currentEvent];
     
-    NSRect frame = [[self view] frame];
-    NSPoint p = [[self view] convertPointToBase:frame.origin];
-    p.y += NSHeight(frame) + 2;
-    p.x += 5;
-    
-    NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
-                                        location:p
-                                   modifierFlags:[evt modifierFlags] 
-                                       timestamp:[evt timestamp] 
-                                    windowNumber:[evt windowNumber] 
-                                         context:[evt context]
-                                     eventNumber:[evt eventNumber] 
-                                      clickCount:[evt clickCount] 
-                                        pressure:[evt pressure]]; 
-    
-    NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
-
-    NSMenuItem *item = nil;
-    for (NSString *username in [[CRTwitterPlugIn instance] usernames]) {
-        if ([username length]) {
-            item = [[[NSMenuItem alloc] initWithTitle:username action:@selector(accountSelected:) keyEquivalent:@""] autorelease];
-            [item setRepresentedObject:username];
-            [item setTarget:self];
-            [menu addItem:item];
-        }
+    for (CRTweet *tweet in tweets) {
+        [tweet updateAgo];
     }
     
-    [menu addItem:[NSMenuItem separatorItem]];
-
-    item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add Account...", @"") action:@selector(showPrefs:) keyEquivalent:@""] autorelease];
-    [item setTarget:[CRTwitterPlugIn instance]];
-    [menu addItem:item];
-    
-    [NSMenu popUpContextMenu:menu withEvent:click forView:[self view]];
-}
-
-
-- (IBAction)pop:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [listView reloadData];
 }
 
 
@@ -514,8 +523,6 @@
         NSAssert(0, @"unknown timeline type");
     }
     
-    [self setAppend:NO forRequestID:reqID];
-
     //    NSLog(@"%s: connectionIdentifier = %@", _cmd, reqID);
 }
 
@@ -532,8 +539,6 @@
         NSAssert(0, @"unknown timeline type");
     }
     
-    [self setAppend:YES forRequestID:reqID];
-
     //    NSLog(@"%s: connectionIdentifier = %@", _cmd, reqID);
 }
 
@@ -554,7 +559,7 @@
 
 - (void)statusesReceived:(NSArray *)inStatuses forRequest:(NSString *)requestID {
     self.newTweets = [super tweetsFromStatuses:inStatuses];
-    NSLog(@"received %d new Tweets", [newTweets count]);
+    //NSLog(@"received %d new Tweets", [newTweets count]);
     
     @synchronized(tweets) {
         if (tweets) {
@@ -574,6 +579,7 @@
         [newTweets sortUsingDescriptors:tweetSortDescriptors];
     }
 
+    [listView setSelectedItemIndex:-1];
     [self updateDisplayedDates];
     [self showRefreshBarButtonItem];
 }
@@ -651,33 +657,15 @@
 
 
 #pragma mark -
-#pragma mark WebView
-
-- (void)clearList {
-    if ([tweets count]) {
-        self.tweets = [NSMutableArray array];
-        [listView setSelectedItemIndex:-1];
-        [listView reloadData];
-    }
-}
-
-
-- (void)updateDisplayedDates {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(updateDisplayedDates) withObject:nil waitUntilDone:NO];
-        return;
-    }
-
-    for (CRTweet *tweet in tweets) {
-        [tweet updateAgo];
-    }
-
-    [listView reloadData];
-}
-
-
-#pragma mark -
 #pragma mark WebScripting
+
+- (void)pushThread:(NSString *)statusID {
+    CRThreadViewController *vc = [[[CRThreadViewController alloc] init] autorelease];
+    vc.tweet = [tweetTable objectForKey:statusID];
+    [self.navigationController pushViewController:vc animated:NO];
+}
+
+
 
 //#pragma mark -
 //#pragma mark WebUIDelegate
@@ -789,13 +777,6 @@
 }
 
 
-- (void)pushThread:(NSString *)statusID {
-    CRThreadViewController *vc = [[[CRThreadViewController alloc] init] autorelease];
-    vc.tweet = [tweetTable objectForKey:statusID];
-    [self.navigationController pushViewController:vc animated:NO];
-}
-
-
 - (IBAction)copyLinkFromMenu:(id)sender {
 //    NSString *aTitle = [lastClickedElementInfo objectForKey:WebElementLinkTitleKey];
 //    NSURL *URL = [lastClickedElementInfo objectForKey:WebElementLinkURLKey];
@@ -830,5 +811,4 @@
 @synthesize fetchTimer;
 @synthesize enableTimer;
 @synthesize datesTimer;
-@synthesize appendTable;
 @end

@@ -35,8 +35,6 @@ typedef enum {
     BOOL fetchingEnabled;
     
     BOOL visible;
-    
-    NSMutableDictionary *appendTable;
 }
 
 - (id)initWithType:(CRTimelineType)t;
