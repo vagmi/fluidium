@@ -19,6 +19,12 @@
 
 @implementation CRTextView
 
+- (void)dealloc {
+    self.crDelegate = nil;
+    [super dealloc];
+}
+
+
 #pragma mark -
 #pragma mark NSResponder
 

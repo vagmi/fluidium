@@ -41,4 +41,5 @@
     [[CRTwitterPlugIn instance] showPrefs:sender];
 }
 
+@synthesize addAccountButton;
 @end

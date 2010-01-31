@@ -181,6 +181,7 @@ static NSDictionary *sDateAttributes = nil;
     
     self.avatarButton = nil;
     self.usernameButton = nil;
+    self.textView = nil;
     self.tweet = nil;
     self.target = nil;
     [super dealloc];

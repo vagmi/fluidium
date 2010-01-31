@@ -62,6 +62,7 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
     self.cache = nil;
+    self.keyAge = nil;
     [super dealloc];
 }
 

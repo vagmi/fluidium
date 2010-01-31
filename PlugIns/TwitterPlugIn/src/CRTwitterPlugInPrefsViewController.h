@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CRTwitterPlugInPrefsViewController : NSViewController {
-    IBOutlet NSArrayController *arrayController;
+    NSArrayController *arrayController;
     NSMutableArray *accounts;
     NSMutableArray *accountIDs;
 }
@@ -17,6 +17,7 @@
 - (void)insertObject:(NSMutableDictionary *)dict inAccountsAtIndex:(NSInteger)i;
 - (void)removeObjectFromAccountsAtIndex:(NSInteger)i;
 
+@property (nonatomic, retain) IBOutlet NSArrayController *arrayController;
 @property (nonatomic, retain) NSMutableArray *accounts;
 @property (nonatomic, retain) NSMutableArray *accountIDs;
 

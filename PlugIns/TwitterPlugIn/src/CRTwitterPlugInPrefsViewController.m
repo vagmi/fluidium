@@ -52,6 +52,7 @@
 - (void)dealloc {
     [self storeUserAccounts];
     [self storeAccountsInKeychain];
+    self.arrayController = nil;
     self.accounts = nil;
     self.accountIDs;
     [super dealloc];
@@ -259,6 +260,7 @@
     }
 }
 
+@synthesize arrayController;
 @synthesize accounts;
 @synthesize accountIDs;
 @end

@@ -15,8 +15,10 @@
 #import <UMEKit/UMEKit.h>
 
 @interface CRNoAccountsViewController : UMEViewController {
-    IBOutlet NSButton *addAccountButton;
+    NSButton *addAccountButton;
 }
 
 - (void)showPrefs:(id)sender;
+
+@property (nonatomic, retain) IBOutlet NSButton *addAccountButton;
 @end
