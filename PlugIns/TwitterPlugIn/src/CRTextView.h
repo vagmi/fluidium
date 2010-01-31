@@ -14,8 +14,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CRTextView : NSTextView {
+@class CRTextView;
 
+@protocol CRTextViewDelegate
+- (void)textView:(CRTextView *)tv linkWasClicked:(NSURL *)URL;
+@end
+
+@interface CRTextView : NSTextView {
+    id <CRTextViewDelegate>delegate;
 }
 
+@property (nonatomic, assign) id <CRTextViewDelegate>delegate;
 @end

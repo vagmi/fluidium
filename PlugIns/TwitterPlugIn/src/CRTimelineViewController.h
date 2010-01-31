@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "CRBaseViewController.h"
+#import "CRTextView.h"
 
 typedef enum {
     CRTimelineTypeHome = 0,
@@ -20,7 +21,7 @@ typedef enum {
     CRTimelineTypeUser = 2,
 } CRTimelineType;
 
-@interface CRTimelineViewController : CRBaseViewController {    
+@interface CRTimelineViewController : CRBaseViewController <CRTextViewDelegate> {    
     CRTimelineType type;
 
     NSString *displayedUsername;

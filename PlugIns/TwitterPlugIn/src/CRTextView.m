@@ -50,7 +50,9 @@
     }
     
     if (URL) {
-        [[CRTwitterPlugIn instance] openURL:URL];
+        if (delegate && [delegate respondsToSelector:@selector(textView:linkWasClicked:)]) {
+            [delegate textView:self linkWasClicked:URL];
+        }
     } else {
         NSLog(@"could not activate link: %@", link);
     }
@@ -66,4 +68,5 @@
     return CRDefaultStatusAttributes();
 }
 
+@synthesize delegate;
 @end

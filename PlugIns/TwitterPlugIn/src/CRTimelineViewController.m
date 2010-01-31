@@ -644,12 +644,17 @@
         
         if (!item) {
             item = [[[CRTweetListItem alloc] init] autorelease];
+            
             [item setTarget:self];
             [item setAction:@selector(tweetDoubleClicked:)];
+            
             [item.avatarButton setTarget:self];
             [item.avatarButton setAction:@selector(avatarButtonClicked:)];
+            
             [item.usernameButton setTarget:self];
             [item.usernameButton setAction:@selector(usernameButtonClicked:)];
+
+            [item.textView setDelegate:self];
         }
         
         [item setSelected:i == [listView selectedItemIndex]];
@@ -704,6 +709,31 @@
 
 
 - (void)listViewEmptyAreaWasDoubleClicked:(TDListView *)lv {
+}
+
+
+#pragma mark -
+#pragma mark CRTextViewDelegate
+
+- (void)textView:(CRTextView *)tv linkWasClicked:(NSURL *)URL {
+    NSString *URLString = [URL absoluteString];
+    
+    NSString *username = nil;
+
+    NSRange r = [URLString rangeOfString:@"twitter.com/"];
+    if (NSNotFound != r.location) {
+        username = [URLString substringFromIndex:r.location + r.length];
+        r = [username rangeOfString:@"/"];
+        if (NSNotFound != r.location) {
+            username = [username substringToIndex:r.location];
+        }
+    }
+
+    if ([username length] && ![[username lowercaseString] hasPrefix:@"search?"]) {
+        [self handleUsernameClicked:username];
+    } else {
+        [self openURLInNewTabOrWindow:URLString];
+    }
 }
 
 
