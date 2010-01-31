@@ -156,7 +156,7 @@ static NSDictionary *sDateAttributes = nil;
 
 - (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
     if (self = [super initWithFrame:frame reuseIdentifier:s]) {
-        NSLog(@"creating new");
+        //NSLog(@"creating new");
         self.avatarButton = [[[NSButton alloc] initWithFrame:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide)] autorelease];
         [avatarButton setBordered:NO];
         [avatarButton setTitle:nil];

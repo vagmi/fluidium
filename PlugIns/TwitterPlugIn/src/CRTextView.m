@@ -15,6 +15,8 @@
 #import "CRTextView.h"
 #import "CRTwitterPlugIn.h"
 #import "CRTwitterUtils.h"
+#import <TDAppKit/TDAppKit.h>
+
 
 @implementation CRTextView
 
@@ -31,7 +33,12 @@
         link = [attributes valueForKey:NSLinkAttributeName];
     }
 
-    if (link) {
+    if (link || 1 == [evt clickCount]) {
+        TDListItem *li = (TDListItem *)[self superview];
+        TDListView *lv = (TDListView *)[li superview];
+        [lv setSelectedItemIndex:[lv indexForItem:li]];
+
+        [[self window] makeFirstResponder:self];
         [super mouseDown:evt];
     } else {
         [[self superview] mouseDown:evt];

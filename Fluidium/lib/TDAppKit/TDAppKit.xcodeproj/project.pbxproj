@@ -89,7 +89,7 @@
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
 		D371245210F0522700D7107B /* TDBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBar.h; path = include/TDAppKit/TDBar.h; sourceTree = "<group>"; };
 		D371245310F0522700D7107B /* TDLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLine.h; path = include/TDAppKit/TDLine.h; sourceTree = "<group>"; };
-		D3E13208110403D5007FE89E /* TDColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDColorView.h; path = src/TDColorView.h; sourceTree = "<group>"; };
+		D3E13208110403D5007FE89E /* TDColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDColorView.h; path = include/TDAppKit/TDColorView.h; sourceTree = "<group>"; };
 		D3E13209110403D5007FE89E /* TDColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDColorView.m; path = src/TDColorView.m; sourceTree = "<group>"; };
 		D3EB212911013C4E00633715 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D3EB233C1101632B00633715 /* NSImage+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+TDAdditions.h"; path = "include/TDAppKit/NSImage+TDAdditions.h"; sourceTree = "<group>"; };

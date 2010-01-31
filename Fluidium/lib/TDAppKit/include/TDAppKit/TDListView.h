@@ -60,6 +60,7 @@ extern NSString *const TDListItemPboardType;
 - (id)dequeueReusableItemWithIdentifier:(NSString *)s;
 - (NSUInteger)indexForItemAtPoint:(NSPoint)p;
 - (id)itemAtIndex:(NSUInteger)i;
+- (NSUInteger)indexForItem:(id)item;
 - (NSRect)frameForItemAtIndex:(NSUInteger)index;
 
 /* Drag and drop support */

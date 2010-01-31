@@ -139,6 +139,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 }
 
 
+- (NSUInteger)indexForItem:(id)item {
+    return [items indexOfObject:item];
+}
+
+
 - (NSRect)frameForItemAtIndex:(NSUInteger)i {
     return [[self itemAtIndex:i] frame];
 }
@@ -557,7 +562,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [self setFrame:frame];
     
     //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([superview bounds]));
-    NSLog(@"view count: %d, queue count: %d", [items count], [queue count]);
+    //NSLog(@"view count: %d, queue count: %d", [items count], [queue count]);
 }
 
 
