@@ -33,13 +33,11 @@
 		D33931DF10D49301000FC7C1 /* UMEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33930C810D4928D000FC7C1 /* UMEKit.framework */; };
 		D34763EA108C49C6006EFB3F /* AGKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = D34763E9108C49C6006EFB3F /* AGKeychain.m */; };
 		D3476409108C4BE4006EFB3F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3476408108C4BE4006EFB3F /* Security.framework */; };
+		D3533AD511153D4A00FB1C54 /* CRMoreListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3533AD411153D4A00FB1C54 /* CRMoreListItem.m */; };
 		D38F0F401088D9F3008375F4 /* CRTwitterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38F0F3F1088D9F3008375F4 /* CRTwitterView.xib */; };
 		D38F0F7D1088DAC7008375F4 /* CRTwitterPrefsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38F0F7C1088DAC7008375F4 /* CRTwitterPrefsView.xib */; };
-		D3A08DCC10A5F3CE0078FCE0 /* thread.html in Resources */ = {isa = PBXBuildFile; fileRef = D3A08DCB10A5F3CE0078FCE0 /* thread.html */; };
 		D3A08E3E10A732D60078FCE0 /* CRThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A08E3D10A732D50078FCE0 /* CRThreadViewController.m */; };
 		D3A08E5310A734160078FCE0 /* CRThreadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A08E5210A734160078FCE0 /* CRThreadView.xib */; };
-		D3A08E9110A73C010078FCE0 /* timeline.css in Resources */ = {isa = PBXBuildFile; fileRef = D3A08E9010A73C010078FCE0 /* timeline.css */; };
-		D3A090BB10A7B0770078FCE0 /* status.html in Resources */ = {isa = PBXBuildFile; fileRef = D3A090BA10A7B0770078FCE0 /* status.html */; };
 		D3A090E810A7B4630078FCE0 /* CRBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A090E710A7B4630078FCE0 /* CRBaseViewController.m */; };
 		D3B9079E1082EB45005002B1 /* CRTwitterPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9079D1082EB45005002B1 /* CRTwitterPlugIn.m */; };
 		D3B907A61082EB5D005002B1 /* CRTwitterPlugInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B907A51082EB5D005002B1 /* CRTwitterPlugInViewController.m */; };
@@ -49,7 +47,6 @@
 		D3C61FFD10A291200071A723 /* CRColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C61FFC10A291200071A723 /* CRColorView.m */; };
 		D3F5A9FD108A46F400F64184 /* CRTwitterUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5A9FC108A46F400F64184 /* CRTwitterUtils.m */; };
 		D3F5AA4C108A5A9F00F64184 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F5AA4B108A5A9F00F64184 /* libicucore.dylib */; };
-		D3F5AA59108A5B8B00F64184 /* timeline.html in Resources */ = {isa = PBXBuildFile; fileRef = D3F5AA58108A5B8B00F64184 /* timeline.html */; };
 		D3F5AA93108A5FC600F64184 /* default_profile_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F5AA92108A5FC600F64184 /* default_profile_pic.png */; };
 /* End PBXBuildFile section */
 
@@ -204,17 +201,16 @@
 		D34763E8108C49C6006EFB3F /* AGKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGKeychain.h; path = src/AGKeychain.h; sourceTree = "<group>"; };
 		D34763E9108C49C6006EFB3F /* AGKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGKeychain.m; path = src/AGKeychain.m; sourceTree = "<group>"; };
 		D3476408108C4BE4006EFB3F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D3533AD311153D4A00FB1C54 /* CRMoreListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRMoreListItem.h; path = src/CRMoreListItem.h; sourceTree = "<group>"; };
+		D3533AD411153D4A00FB1C54 /* CRMoreListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRMoreListItem.m; path = src/CRMoreListItem.m; sourceTree = "<group>"; };
 		D38F0F3D1088D9EE008375F4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CRTwitterView.xib; sourceTree = "<group>"; };
 		D38F0F7A1088DAC1008375F4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CRTwitterPrefsView.xib; sourceTree = "<group>"; };
 		D38F0FF910897DB1008375F4 /* UMEKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UMEKit.xcodeproj; path = ../../Fluidium/lib/UMEKit/UMEKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D39BF7681088715000E399F3 /* CRTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTimelineViewController.h; path = src/CRTimelineViewController.h; sourceTree = "<group>"; };
 		D39BF7691088715000E399F3 /* CRTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRTimelineViewController.m; path = src/CRTimelineViewController.m; sourceTree = "<group>"; };
-		D3A08DCB10A5F3CE0078FCE0 /* thread.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = thread.html; path = res/thread.html; sourceTree = "<group>"; };
 		D3A08E3C10A732D50078FCE0 /* CRThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRThreadViewController.h; path = src/CRThreadViewController.h; sourceTree = "<group>"; };
 		D3A08E3D10A732D50078FCE0 /* CRThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRThreadViewController.m; path = src/CRThreadViewController.m; sourceTree = "<group>"; };
 		D3A08E5010A734130078FCE0 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CRThreadView.xib; sourceTree = "<group>"; };
-		D3A08E9010A73C010078FCE0 /* timeline.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = timeline.css; path = res/timeline.css; sourceTree = "<group>"; };
-		D3A090BA10A7B0770078FCE0 /* status.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = status.html; path = res/status.html; sourceTree = "<group>"; };
 		D3A090E610A7B4630078FCE0 /* CRBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRBaseViewController.h; path = src/CRBaseViewController.h; sourceTree = "<group>"; };
 		D3A090E710A7B4630078FCE0 /* CRBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRBaseViewController.m; path = src/CRBaseViewController.m; sourceTree = "<group>"; };
 		D3B9079C1082EB45005002B1 /* CRTwitterPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTwitterPlugIn.h; path = src/CRTwitterPlugIn.h; sourceTree = "<group>"; };
@@ -233,7 +229,6 @@
 		D3F5A9FC108A46F400F64184 /* CRTwitterUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRTwitterUtils.m; path = src/CRTwitterUtils.m; sourceTree = "<group>"; };
 		D3F5AA4B108A5A9F00F64184 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		D3F5AA51108A5B5F00F64184 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		D3F5AA58108A5B8B00F64184 /* timeline.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = timeline.html; path = res/timeline.html; sourceTree = "<group>"; };
 		D3F5AA92108A5FC600F64184 /* default_profile_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = default_profile_pic.png; path = res/default_profile_pic.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,7 +280,6 @@
 			isa = PBXGroup;
 			children = (
 				D3F5AA8E108A5FBF00F64184 /* images */,
-				D3F5AA57108A5B7800F64184 /* markup */,
 				D3F5AA56108A5B6F00F64184 /* nibs */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
@@ -304,6 +298,8 @@
 				D3A090E710A7B4630078FCE0 /* CRBaseViewController.m */,
 				D307EDDC1113F121005FC7A5 /* CRTweetListItem.h */,
 				D307EDDD1113F121005FC7A5 /* CRTweetListItem.m */,
+				D3533AD311153D4A00FB1C54 /* CRMoreListItem.h */,
+				D3533AD411153D4A00FB1C54 /* CRMoreListItem.m */,
 				D39BF7681088715000E399F3 /* CRTimelineViewController.h */,
 				D39BF7691088715000E399F3 /* CRTimelineViewController.m */,
 				D3A08E3C10A732D50078FCE0 /* CRThreadViewController.h */,
@@ -435,17 +431,6 @@
 				D3A08E5210A734160078FCE0 /* CRThreadView.xib */,
 			);
 			name = nibs;
-			sourceTree = "<group>";
-		};
-		D3F5AA57108A5B7800F64184 /* markup */ = {
-			isa = PBXGroup;
-			children = (
-				D3A08DCB10A5F3CE0078FCE0 /* thread.html */,
-				D3F5AA58108A5B8B00F64184 /* timeline.html */,
-				D3A090BA10A7B0770078FCE0 /* status.html */,
-				D3A08E9010A73C010078FCE0 /* timeline.css */,
-			);
-			name = markup;
 			sourceTree = "<group>";
 		};
 		D3F5AA5D108A5BC100F64184 /* Fluidium */ = {
@@ -641,12 +626,8 @@
 				D38F0F7D1088DAC7008375F4 /* CRTwitterPrefsView.xib in Resources */,
 				D30C098510899A53001FEE05 /* CRTimelineView.xib in Resources */,
 				D3C61EF410A1512D0071A723 /* CRNoAccountsView.xib in Resources */,
-				D3F5AA59108A5B8B00F64184 /* timeline.html in Resources */,
 				D3F5AA93108A5FC600F64184 /* default_profile_pic.png in Resources */,
-				D3A08DCC10A5F3CE0078FCE0 /* thread.html in Resources */,
 				D3A08E5310A734160078FCE0 /* CRThreadView.xib in Resources */,
-				D3A08E9110A73C010078FCE0 /* timeline.css in Resources */,
-				D3A090BB10A7B0770078FCE0 /* status.html in Resources */,
 				D30CCA1C10FD81C10036D2A3 /* toolbar_button_twitter.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -682,6 +663,7 @@
 				D307F2001114AE23005FC7A5 /* CRTweet.m in Sources */,
 				D307F2A31114B9A3005FC7A5 /* CRAvatarCache.m in Sources */,
 				D307F4311114EE6A005FC7A5 /* CRTextView.m in Sources */,
+				D3533AD511153D4A00FB1C54 /* CRMoreListItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

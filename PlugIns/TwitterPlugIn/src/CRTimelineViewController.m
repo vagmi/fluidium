@@ -18,6 +18,7 @@
 #import "CRThreadViewController.h"
 #import "CRBarButtonItemView.h"
 #import "CRTweet.h"
+#import "CRMoreListItem.h"
 #import "CRTweetListItem.h"
 #import <Fluidium/FUPlugInAPI.h>
 #import "WebURLsWithTitles.h"
@@ -380,6 +381,11 @@
 }
 
 
+- (IBAction)moreButtonClicked:(id)sender {
+    
+}
+
+
 #pragma mark -
 #pragma mark Enabling Timer
 
@@ -622,27 +628,40 @@
 
 - (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
     NSUInteger c = [tweets count];
-    return c;
+    return c + 1; // for moreButton
 }
 
 
 - (id)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
-    CRTweetListItem *item = [listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
-    
-    if (!item) {
-        item = [[[CRTweetListItem alloc] init] autorelease];
-        [item.avatarButton setTarget:self];
-        [item.avatarButton setAction:@selector(avatarButtonClicked:)];
-        [item.usernameButton setTarget:self];
-        [item.usernameButton setAction:@selector(usernameButtonClicked:)];
+    NSUInteger c = [tweets count];
+    if (i == c) {
+        CRMoreListItem *item = [listView dequeueReusableItemWithIdentifier:[CRMoreListItem reuseIdentifier]];
+        
+        if (!item) {
+            item = [[[CRMoreListItem alloc] init] autorelease];
+            [item.moreButton setTarget:self];
+            [item.moreButton setAction:@selector(fetchEarlierStatuses:)];
+        }
+        
+        return item;
+    } else {
+        CRTweetListItem *item = [listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
+        
+        if (!item) {
+            item = [[[CRTweetListItem alloc] init] autorelease];
+            [item.avatarButton setTarget:self];
+            [item.avatarButton setAction:@selector(avatarButtonClicked:)];
+            [item.usernameButton setTarget:self];
+            [item.usernameButton setAction:@selector(usernameButtonClicked:)];
+        }
+        
+        [item.avatarButton setTag:i];
+        [item.usernameButton setTag:i];
+        item.tweet = [tweets objectAtIndex:i];
+        [item setNeedsDisplay:YES];
+        
+        return item;
     }
-    
-    [item.avatarButton setTag:i];
-    [item.usernameButton setTag:i];
-    item.tweet = [tweets objectAtIndex:i];
-    [item setNeedsDisplay:YES];
-    
-    return item;
 }
                            
                            
@@ -650,20 +669,25 @@
 #pragma mark TDListViewDelegate
 
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
-    NSString *text = [[[tweets objectAtIndex:i] attributedText] string];
-    CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
-    
-    CGFloat textHeight = 0;
-    if (width > [CRTweetListItem minimumWidthForDrawingText]) {
-        NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
-        NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
-        textHeight = NSHeight(textRect) * [[[CRTweetListItem textAttributes] objectForKey:NSParagraphStyleAttributeName] lineHeightMultiple]; // for some reason lineHeightMultiplier is not factored in by default
+    NSUInteger c = [tweets count];
+    if (i == c) {
+        return [CRMoreListItem defaultHeight];
+    } else {
+        NSString *text = [[[tweets objectAtIndex:i] attributedText] string];
+        CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
+        
+        CGFloat textHeight = 0;
+        if (width > [CRTweetListItem minimumWidthForDrawingText]) {
+            NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
+            NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
+            textHeight = NSHeight(textRect) * [[[CRTweetListItem textAttributes] objectForKey:NSParagraphStyleAttributeName] lineHeightMultiple]; // for some reason lineHeightMultiplier is not factored in by default
+        }
+        CGFloat height = textHeight + [CRTweetListItem defaultHeight];
+        
+        CGFloat minHeight = [CRTweetListItem minimumHeight];
+        height = (height < minHeight) ? minHeight : height;
+        return height;
     }
-    CGFloat height = textHeight + [CRTweetListItem defaultHeight];
-    
-    CGFloat minHeight = [CRTweetListItem minimumHeight];
-    height = (height < minHeight) ? minHeight : height;
-    return height;
 }
 
 

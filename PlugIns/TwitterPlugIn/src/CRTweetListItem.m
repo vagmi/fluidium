@@ -28,6 +28,7 @@ static NSColor *sByMeBorderBottomColor = nil;
 static NSColor *sMentionsMeBorderBottomColor = nil;
 
 static NSDictionary *sUsernameAttributes = nil;
+static NSDictionary *sHighlightedUsernameAttributes = nil;
 static NSDictionary *sDateAttributes = nil;
 
 #define BORDER_HEIGHT 1.0
@@ -81,6 +82,13 @@ static NSDictionary *sDateAttributes = nil;
 
         sUsernameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [NSColor blackColor], NSForegroundColorAttributeName,
+                               shadow, NSShadowAttributeName,
+                               [NSFont boldSystemFontOfSize:12], NSFontAttributeName,
+                               paraStyle, NSParagraphStyleAttributeName,
+                               nil];
+        
+        sHighlightedUsernameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               [NSColor colorWithDeviceRed:0 green:99.0/255.0 blue:248.0/255.0 alpha:1], NSForegroundColorAttributeName,
                                shadow, NSShadowAttributeName,
                                [NSFont boldSystemFontOfSize:12], NSFontAttributeName,
                                paraStyle, NSParagraphStyleAttributeName,
@@ -148,6 +156,7 @@ static NSDictionary *sDateAttributes = nil;
         [self addSubview:avatarButton];
 
         self.usernameButton = [[[NSButton alloc] initWithFrame:NSZeroRect] autorelease];
+        [usernameButton setButtonType:NSMomentaryChangeButton];
         [usernameButton setBordered:NO];
         [self addSubview:usernameButton];
         
@@ -256,6 +265,8 @@ static NSDictionary *sDateAttributes = nil;
             if (![s length]) s = @"";
             NSAttributedString *title = [[[NSAttributedString alloc] initWithString:s attributes:sUsernameAttributes] autorelease];
             [usernameButton setAttributedTitle:title];
+            title = [[[NSAttributedString alloc] initWithString:s attributes:sHighlightedUsernameAttributes] autorelease];
+            [usernameButton setAttributedAlternateTitle:title];
             
             if (tweet.attributedText) {
                 [[textView textStorage] setAttributedString:tweet.attributedText];
