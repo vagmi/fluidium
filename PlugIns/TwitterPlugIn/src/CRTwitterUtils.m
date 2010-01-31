@@ -68,32 +68,44 @@ static NSDictionary *sURLAttrs = nil;
 
 
 static void CRSetupAttributes() {
-    if (!sDefaultAttrs) {
-        sDefaultAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         [NSColor blackColor], NSForegroundColorAttributeName,
+    @synchronized (sDefaultAttrs) {
+        NSMutableParagraphStyle *paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+        [paraStyle setLineHeightMultiple:1.1];
+        
+        if (!sDefaultAttrs) {
+            sDefaultAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             [NSColor blackColor], NSForegroundColorAttributeName,
+                             [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                             paraStyle, NSParagraphStyleAttributeName,
+                             nil];
+        }
+        
+        if (!sHashtagAttrs) {
+            sHashtagAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             [NSColor colorWithDeviceRed:0 green:99.0/255.0 blue:248.0/255.0 alpha:1], NSForegroundColorAttributeName,
+                             [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                             [NSCursor pointingHandCursor], NSCursorAttributeName,
+                             paraStyle, NSParagraphStyleAttributeName,
+                             nil];
+        }
+        
+        if (!sUsernameAttrs) {
+            sUsernameAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [NSColor colorWithDeviceRed:0 green:99.0/255.0 blue:248.0/255.0 alpha:1], NSForegroundColorAttributeName,
+                              [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                              [NSCursor pointingHandCursor], NSCursorAttributeName,
+                              paraStyle, NSParagraphStyleAttributeName,
+                              nil];
+        }
+        
+        if (!sURLAttrs) {
+            sURLAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
+                         [NSColor colorWithDeviceRed:0 green:99.0/255.0 blue:248.0/255.0 alpha:1], NSForegroundColorAttributeName,
                          [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
+                         [NSCursor pointingHandCursor], NSCursorAttributeName,
+                         paraStyle, NSParagraphStyleAttributeName,
                          nil];
-    }
-    
-    if (!sHashtagAttrs) {
-        sHashtagAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         [NSColor grayColor], NSForegroundColorAttributeName,
-                         [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
-                         nil];
-    }
-
-    if (!sUsernameAttrs) {
-        sUsernameAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         [NSColor blueColor], NSForegroundColorAttributeName,
-                         [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
-                         nil];
-    }
-
-    if (!sURLAttrs) {
-        sURLAttrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-                     [NSColor blueColor], NSForegroundColorAttributeName,
-                     [NSFont systemFontOfSize:DEFAULT_FONT_SIZE], NSFontAttributeName,
-                     nil];
+        }
     }
 }
 
@@ -128,6 +140,14 @@ NSDictionary *CRDefaultStatusAttributes() {
         CRSetupAttributes();
     }
     return sDefaultAttrs;
+}
+
+
+NSDictionary *CRLinkStatusAttributes() {
+    if (!sURLAttrs) {
+        CRSetupAttributes();
+    }
+    return sURLAttrs;
 }
 
 

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 NSDictionary *CRDefaultStatusAttributes();
+NSDictionary *CRLinkStatusAttributes();
 NSAttributedString *CRDefaultAttributedStatus(NSString *inStatus);
 NSAttributedString *CRAttributedStatus(NSString *inStatus, NSArray **outMentions);
 

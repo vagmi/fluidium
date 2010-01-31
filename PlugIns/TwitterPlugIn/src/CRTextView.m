@@ -14,6 +14,7 @@
 
 #import "CRTextView.h"
 #import "CRTwitterPlugIn.h"
+#import "CRTwitterUtils.h"
 
 @implementation CRTextView
 
@@ -32,6 +33,11 @@
     } else {
         NSLog(@"could not activate link: %@", link);
     }
+}
+
+
+- (NSDictionary *)linkTextAttributes {
+    return CRLinkStatusAttributes();
 }
 
 @end
