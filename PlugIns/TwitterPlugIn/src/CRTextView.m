@@ -40,4 +40,9 @@
     return CRLinkStatusAttributes();
 }
 
+
+- (NSDictionary *)typingAttributes {
+    return CRDefaultStatusAttributes();
+}
+
 @end

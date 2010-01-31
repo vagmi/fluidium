@@ -47,7 +47,7 @@ static NSDictionary *sDateAttributes = nil;
 #define DATE_WIDTH 68.0
 #define DATE_HEIGHT 16.0
 
-#define NSTEXT_VIEW_PADDING_FUDGE 10
+#define NSTEXT_VIEW_PADDING_FUDGE 0
 
 @implementation CRTweetListItem
 
@@ -245,6 +245,11 @@ static NSDictionary *sDateAttributes = nil;
             if (tweet.text) {
                 [[textView textStorage] setAttributedString:tweet.attributedText];
                 [textView sizeToFit];
+                
+                // descenders are being clipped.
+                NSRect r = [textView frame];
+                r.size.height += 2;
+                [textView setFrame:r];
             }
         }
     }
