@@ -178,6 +178,8 @@
 
     [self beginFetchLoop];
     [self startDatesLoop];
+
+    [listView setSelectedItemIndex:-1];
 }
 
 
@@ -373,7 +375,7 @@
 
 - (IBAction)avatarButtonClicked:(id)sender {
     NSInteger i = [sender tag];
-    [listView setSelectedItemIndex:i];
+    //    [listView setSelectedItemIndex:i];
     NSString *username = [[tweets objectAtIndex:i] username];
     [self openUserPageInNewTabOrWindow:username];
 }
@@ -697,7 +699,7 @@
 
 
 - (void)listView:(TDListView *)lv itemWasDoubleClickedAtIndex:(NSUInteger)i {
-    if (i > 0 && i < [tweets count]) {
+    if (i >= 0 && i < [tweets count]) {
         CRTweet *tweet = [tweets objectAtIndex:i];
         [self pushThread:[tweet.identifier stringValue]];
     }
