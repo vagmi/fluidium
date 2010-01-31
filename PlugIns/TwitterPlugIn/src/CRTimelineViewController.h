@@ -21,7 +21,7 @@ typedef enum {
     CRTimelineTypeUser = 2,
 } CRTimelineType;
 
-@interface CRTimelineViewController : CRBaseViewController <CRTextViewDelegate> {    
+@interface CRTimelineViewController : CRBaseViewController <CRTextViewDelegate> {
     CRTimelineType type;
 
     NSString *displayedUsername;

@@ -89,6 +89,47 @@
 }
 
 
+- (IBAction)usernameButtonClicked:(id)sender {
+    NSInteger i = [sender tag];
+    [listView setSelectedItemIndex:i];
+    NSString *username = [[tweets objectAtIndex:i] username];
+    [self handleUsernameClicked:username];
+}
+
+
+- (IBAction)avatarButtonClicked:(id)sender {
+    NSInteger i = [sender tag];
+    [listView setSelectedItemIndex:i];
+    NSString *username = [[tweets objectAtIndex:i] username];
+    [self openUserPageInNewTabOrWindow:username];
+}
+
+
+#pragma mark -
+#pragma mark CRTextViewDelegate
+
+- (void)textView:(CRTextView *)tv linkWasClicked:(NSURL *)URL {
+    NSString *URLString = [URL absoluteString];
+    
+    NSString *username = nil;
+    
+    NSRange r = [URLString rangeOfString:@"twitter.com/"];
+    if (NSNotFound != r.location) {
+        username = [URLString substringFromIndex:r.location + r.length];
+        r = [username rangeOfString:@"/"];
+        if (NSNotFound != r.location) {
+            username = [username substringToIndex:r.location];
+        }
+    }
+    
+    if ([username length] && ![[username lowercaseString] hasPrefix:@"search?"]) {
+        [self handleUsernameClicked:username];
+    } else {
+        [self openURLInNewTabOrWindow:URLString];
+    }
+}
+
+
 #pragma mark -
 #pragma mark ListViewDataSource
 

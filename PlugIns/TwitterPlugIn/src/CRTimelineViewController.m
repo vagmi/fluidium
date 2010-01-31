@@ -696,19 +696,11 @@
 }
 
 
-- (void)listView:(TDListView *)lv didSelectItemAtIndex:(NSUInteger)i {
-}
-
-
 - (void)listView:(TDListView *)lv itemWasDoubleClickedAtIndex:(NSUInteger)i {
     if (i > 0 && i < [tweets count]) {
         CRTweet *tweet = [tweets objectAtIndex:i];
         [self pushThread:[tweet.identifier stringValue]];
     }
-}
-
-
-- (void)listViewEmptyAreaWasDoubleClicked:(TDListView *)lv {
 }
 
 

@@ -13,16 +13,20 @@
 //  limitations under the License.
 
 #import "CRBaseViewController.h"
+#import "CRTextView.h"
 
 @class CRTweet;
 
-@interface CRThreadViewController : CRBaseViewController {
+@interface CRThreadViewController : CRBaseViewController <CRTextViewDelegate> {
     CRTweet *tweet;
     NSMutableArray *tweets;
 
     NSString *usernameA;
     NSString *usernameB;
 }
+
+- (IBAction)avatarButtonClicked:(id)sender;
+- (IBAction)usernameButtonClicked:(id)sender;
 
 @property (nonatomic, retain) CRTweet *tweet;
 @property (nonatomic, retain) NSMutableArray *tweets;
