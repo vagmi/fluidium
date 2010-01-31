@@ -97,11 +97,11 @@ connectionIdentifier:(NSString *)theIdentifier requestType:(MGTwitterRequestType
 	int nodeType = xmlTextReaderNodeType(_reader);
 	while (nodeType != XML_READER_TYPE_END_ELEMENT)
 	{
+        if (result) {
+            xmlFree(result);
+        }
 		if (nodeType == XML_READER_TYPE_TEXT)
 		{
-            if (result) {
-                xmlFree(result);
-            }
 			result = xmlTextReaderValue(_reader);
 		}
 		
