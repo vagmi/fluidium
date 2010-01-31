@@ -16,6 +16,7 @@
 #import "CRTwitterPlugIn.h"
 #import "CRTwitterUtils.h"
 #import "CRTweet.h"
+#import "CRTweetListItem.h"
 #import <WebKit/WebKit.h>
 
 @interface CRThreadViewController ()
@@ -43,6 +44,7 @@
 
 
 - (void)dealloc {
+    self.tweets = nil;
     self.tweet = nil;
     self.usernameA = nil;
     self.usernameB = nil;
@@ -88,17 +90,72 @@
 
 
 #pragma mark -
+#pragma mark ListViewDataSource
+
+- (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
+    NSUInteger c = [tweets count];
+    return c;
+}
+
+
+- (id)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
+    CRTweetListItem *item = [listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
+    
+    if (!item) {
+        item = [[[CRTweetListItem alloc] init] autorelease];
+        
+        [item setTarget:self];
+        [item setAction:@selector(tweetDoubleClicked:)];
+        
+        [item.avatarButton setTarget:self];
+        [item.avatarButton setAction:@selector(avatarButtonClicked:)];
+        
+        [item.usernameButton setTarget:self];
+        [item.usernameButton setAction:@selector(usernameButtonClicked:)];
+        
+        [item.textView setDelegate:self];
+    }
+    
+    [item setSelected:i == [listView selectedItemIndex]];
+    
+    [item setTag:i];
+    [item.avatarButton setTag:i];
+    [item.usernameButton setTag:i];
+    item.tweet = [tweets objectAtIndex:i];
+    [item setNeedsDisplay:YES];
+    
+    return item;
+}
+
+
+#pragma mark -
+#pragma mark TDListViewDelegate
+
+- (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
+    NSString *text = [[[tweets objectAtIndex:i] attributedText] string];
+    CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
+    
+    CGFloat textHeight = 0;
+    if (width > [CRTweetListItem minimumWidthForDrawingText]) {
+        NSUInteger opts = NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingTruncatesLastVisibleLine;
+        NSRect textRect = [text boundingRectWithSize:NSMakeSize(width, MAXFLOAT) options:opts attributes:[CRTweetListItem textAttributes]];
+        textHeight = NSHeight(textRect) * [[[CRTweetListItem textAttributes] objectForKey:NSParagraphStyleAttributeName] lineHeightMultiple]; // for some reason lineHeightMultiplier is not factored in by default
+    }
+    CGFloat height = textHeight + [CRTweetListItem defaultHeight];
+    
+    CGFloat minHeight = [CRTweetListItem minimumHeight];
+    height = (height < minHeight) ? minHeight : height;
+    return height;
+}
+
+
+#pragma mark -
 #pragma mark Private
 
 - (void)prepareAndDisplayTweets {
     NSAssert(tweet, @"");
-    
-//    NSMutableDictionary *d = [[status mutableCopy] autorelease];
-//    [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
-//    
-//    NSDictionary *vars = [self varsWithStatus:d];
-//    NSString *htmlStr = [templateEngine processTemplate:templateString withVariables:vars];
-//    [[webView mainFrame] loadHTMLString:htmlStr baseURL:nil];
+    self.tweets = [NSMutableArray array];
+    [self appendTweetToList];
 }
 
 
@@ -108,18 +165,9 @@
         return;
     }    
 
-    // TODO
-//    NSMutableDictionary *d = [[tweet mutableCopy] autorelease];
-//    [d setObject:[NSNumber numberWithBool:NO] forKey:@"isReply"];
+    [tweets addObject:tweet];
+    [listView reloadData];
 
-//    NSDictionary *vars = [self varsWithStatus:d];
-//    NSString *newStatusHTMLStr = [templateEngine processTemplate:statusTemplateString withVariables:vars];
-//
-//    DOMDocument *doc = [[webView mainFrame] DOMDocument];
-//    
-//    DOMHTMLElement *threadEl = (DOMHTMLElement *)[doc getElementById:@"thread"];
-//    [super appendMarkup:newStatusHTMLStr toElement:threadEl];
-    
     [self fetchInReplyToStatus];
 }
 
@@ -144,7 +192,7 @@
     NSAssert(1 == [newTweets count], @"");
     
     self.tweet = [newTweets objectAtIndex:0];
-//    [d setObject:CRFormatDate([tweet objectForKey:@"created_at"]) forKey:@"ago"];
+    [tweet updateAgo];
     
     [self appendTweetToList];
 }
@@ -173,6 +221,7 @@
 //    [self fetchInReplyToStatus];
 //}
 
+@synthesize tweets;
 @synthesize tweet;
 @synthesize usernameA;
 @synthesize usernameB;

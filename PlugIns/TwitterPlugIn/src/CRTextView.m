@@ -20,11 +20,16 @@
 
 - (void)mouseDown:(NSEvent *)evt {
     NSUInteger i = [self characterIndexForInsertionAtPoint:[self convertPoint:[evt locationInWindow] fromView:nil]];
-        
-    NSRange effectiveRange;
-    NSDictionary *attributes = [[self textStorage] attributesAtIndex:i effectiveRange:&effectiveRange];
+
+    id link = nil;
     
-    id link = [attributes valueForKey:NSLinkAttributeName];
+    NSUInteger len = [[[self textStorage] string] length];
+    if (i < len) {
+        NSRange effectiveRange;
+        NSDictionary *attributes = [[self textStorage] attributesAtIndex:i effectiveRange:&effectiveRange];
+        
+        link = [attributes valueForKey:NSLinkAttributeName];
+    }
 
     if (link) {
         [super mouseDown:evt];

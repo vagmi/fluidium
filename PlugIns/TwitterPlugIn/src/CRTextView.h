@@ -16,7 +16,7 @@
 
 @class CRTextView;
 
-@protocol CRTextViewDelegate
+@protocol CRTextViewDelegate <NSObject>
 - (void)textView:(CRTextView *)tv linkWasClicked:(NSURL *)URL;
 @end
 
