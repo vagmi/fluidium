@@ -18,6 +18,11 @@
 
 @implementation CRTextView
 
+- (BOOL)shouldDrawInsertionPoint {
+    return NO;
+}
+
+
 - (void)clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
     NSURL *URL = nil;
     if ([link isKindOfClass:[NSURL class]]) {

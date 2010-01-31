@@ -17,6 +17,7 @@
 @class CRTweet;
 
 @interface CRTweetListItem : TDListItem {
+    NSButton *avatarButton;
     NSButton *usernameButton;
     NSTextView *textView;
     CRTweet *tweet;
@@ -30,6 +31,7 @@
 + (CGFloat)minimumWidthForDrawingText;
 + (CGFloat)horizontalTextMargins;
 
+@property (nonatomic, retain) NSButton *avatarButton;
 @property (nonatomic, retain) NSButton *usernameButton;
 @property (nonatomic, retain) NSTextView *textView;
 @property (nonatomic, retain) CRTweet *tweet;

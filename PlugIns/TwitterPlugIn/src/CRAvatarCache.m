@@ -21,7 +21,7 @@
 
 #define MAX_CACHE_SIZE 200
 
-const CGFloat kCRAvatarSide = 44.0;
+const CGFloat kCRAvatarSide = 48.0;
 const CGFloat kCRAvatarCornerRadius = 5.0;
 
 NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
@@ -137,7 +137,7 @@ NSString *const CRAvatarDidLoadNotification = @"CRAvatarDidLoadNotification";
     }
     
     NSImage *img = [[[NSImage alloc] initWithData:data] autorelease];
-    [img setFlipped:YES];
+    //[img setFlipped:YES];
     img = [img scaledImageOfSize:NSMakeSize(kCRAvatarSide, kCRAvatarSide) alpha:1 hiRez:YES cornerRadius:kCRAvatarCornerRadius];
 
 

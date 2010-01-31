@@ -35,11 +35,11 @@ static NSDictionary *sDateAttributes = nil;
 #define AVATAR_X 6.0
 #define AVATAR_Y 4.0
 
-#define USERNAME_X 55.0
+#define USERNAME_X 60.0
 #define USERNAME_Y 3.0
 #define USERNAME_HEIGHT 18.0
 
-#define TEXT_X 52.0
+#define TEXT_X 57.0
 #define TEXT_Y 21.0
 #define TEXT_MARGIN_RIGHT 7.0
 
@@ -82,7 +82,7 @@ static NSDictionary *sDateAttributes = nil;
         sUsernameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [NSColor blackColor], NSForegroundColorAttributeName,
                                shadow, NSShadowAttributeName,
-                               [NSFont boldSystemFontOfSize:11], NSFontAttributeName,
+                               [NSFont boldSystemFontOfSize:12], NSFontAttributeName,
                                paraStyle, NSParagraphStyleAttributeName,
                                nil];
         
@@ -142,6 +142,11 @@ static NSDictionary *sDateAttributes = nil;
 - (id)initWithFrame:(NSRect)frame reuseIdentifier:(NSString *)s {
     if (self = [super initWithFrame:frame reuseIdentifier:s]) {
         NSLog(@"creating new");
+        self.avatarButton = [[[NSButton alloc] initWithFrame:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide)] autorelease];
+        [avatarButton setBordered:NO];
+        [avatarButton setTitle:nil];
+        [self addSubview:avatarButton];
+
         self.usernameButton = [[[NSButton alloc] initWithFrame:NSZeroRect] autorelease];
         [usernameButton setBordered:NO];
         [self addSubview:usernameButton];
@@ -158,6 +163,7 @@ static NSDictionary *sDateAttributes = nil;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    self.avatarButton = nil;
     self.usernameButton = nil;
     self.tweet = nil;
     [super dealloc];
@@ -171,6 +177,7 @@ static NSDictionary *sDateAttributes = nil;
     NSRect bounds = [self bounds];
 
     [usernameButton setFrame:NSMakeRect(USERNAME_X, USERNAME_Y, bounds.size.width - (USERNAME_X + DATE_WIDTH + TEXT_MARGIN_RIGHT), USERNAME_HEIGHT)];
+
     CGFloat textHeight = NSHeight([textView bounds]);
     [textView setFrame:NSMakeRect(TEXT_X, TEXT_Y, bounds.size.width - (TEXT_X + TEXT_MARGIN_RIGHT), textHeight)];
 }
@@ -198,14 +205,14 @@ static NSDictionary *sDateAttributes = nil;
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, bounds.size.height) toPoint:NSMakePoint(bounds.size.width, bounds.size.height)];
     
     // avatar
-    NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
-    if (img) {
-        NSSize imgSize = [img size];
-        [img drawAtPoint:NSMakePoint(AVATAR_X, AVATAR_Y) fromRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) operation:NSCompositeSourceOver fraction:1];
-    } else {
+//    NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
+//    if (img) {
+//        NSSize imgSize = [img size];
+//        [img drawAtPoint:NSMakePoint(AVATAR_X, AVATAR_Y) fromRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) operation:NSCompositeSourceOver fraction:1];
+//    } else {
         [sBorderBottomColor setFill];
         [[NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide) radius:kCRAvatarCornerRadius] fill];
-    }
+//    }
     
     // ago
     if (bounds.size.width > [CRTweetListItem minimumWidthForDrawingAgo]) { // dont draw if too small
@@ -224,6 +231,8 @@ static NSDictionary *sDateAttributes = nil;
 #pragma mark Notifications
 
 - (void)avatarDidLoad:(NSNotification *)n {
+    [avatarButton setImage:[[CRAvatarCache instance] avatarForTweet:tweet sender:self]];
+    [avatarButton setNeedsDisplay:YES];
     [self setNeedsDisplay:YES];
 }
 
@@ -237,12 +246,18 @@ static NSDictionary *sDateAttributes = nil;
         tweet = [newTweet retain];
         
         if (tweet) {
+            NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
+            if (img) {
+                [avatarButton setImage:img];
+                [avatarButton setNeedsDisplay:YES];
+            }
+                
             NSString *s = tweet.username;
             if (![s length]) s = @"";
             NSAttributedString *title = [[[NSAttributedString alloc] initWithString:s attributes:sUsernameAttributes] autorelease];
             [usernameButton setAttributedTitle:title];
             
-            if (tweet.text) {
+            if (tweet.attributedText) {
                 [[textView textStorage] setAttributedString:tweet.attributedText];
                 [textView sizeToFit];
                 
@@ -265,6 +280,7 @@ static NSDictionary *sDateAttributes = nil;
     [usernameButton setTag:tag];
 }
 
+@synthesize avatarButton;
 @synthesize usernameButton;
 @synthesize textView;
 @synthesize tweet;

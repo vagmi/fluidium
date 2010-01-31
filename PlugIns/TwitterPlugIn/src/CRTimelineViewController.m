@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  CRTimelineViewController.m
-//  TwitterPlugIn
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 10/16/09.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "CRTimelineViewController.h"
 #import "CRTwitterUtils.h"
@@ -80,7 +86,6 @@
 @property (nonatomic, retain) NSTimer *fetchTimer;
 @property (nonatomic, retain) NSTimer *enableTimer;
 @property (nonatomic, retain) NSTimer *datesTimer;
-@property (nonatomic, retain) NSDictionary *lastClickedElementInfo;
 @property (nonatomic, retain) NSMutableDictionary *appendTable;
 @end
 
@@ -123,7 +128,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.displayedUsername = nil;
     self.defaultProfileImageURL = nil;
-    self.lastClickedElementInfo = nil;
     self.tweets = nil;
     self.newTweets = nil;
     self.tweetTable = nil;
@@ -366,6 +370,13 @@
     NSInteger i = [sender tag];
     NSString *username = [[tweets objectAtIndex:i] username];
     [self handleUsernameClicked:username];
+}
+
+
+- (IBAction)avatarButtonClicked:(id)sender {
+    NSInteger i = [sender tag];
+    NSString *username = [[tweets objectAtIndex:i] username];
+    [self openUserPageInNewTabOrWindow:username];
 }
 
 
@@ -620,10 +631,13 @@
     
     if (!item) {
         item = [[[CRTweetListItem alloc] init] autorelease];
+        [item.avatarButton setTarget:self];
+        [item.avatarButton setAction:@selector(avatarButtonClicked:)];
         [item.usernameButton setTarget:self];
         [item.usernameButton setAction:@selector(usernameButtonClicked:)];
     }
     
+    [item.avatarButton setTag:i];
     [item.usernameButton setTag:i];
     item.tweet = [tweets objectAtIndex:i];
     [item setNeedsDisplay:YES];
@@ -636,7 +650,7 @@
 #pragma mark TDListViewDelegate
 
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
-    NSString *text = [[tweets objectAtIndex:i] text];
+    NSString *text = [[[tweets objectAtIndex:i] attributedText] string];
     CGFloat width = NSWidth([listView bounds]) - [CRTweetListItem horizontalTextMargins];
     
     CGFloat textHeight = 0;
@@ -714,21 +728,6 @@
 
 #pragma mark -
 #pragma mark WebScripting
-
-- (void)linkClicked:(NSString *)URLString {
-    [self openURLInNewTabOrWindow:URLString];
-}
-
-
-- (void)avatarClicked:(NSString *)username {
-    [self openUserPageInNewTabOrWindow:username];
-}
-
-
-- (void)usernameClicked:(NSString *)username {
-    [super handleUsernameClicked:username];
-}
-
 
 //#pragma mark -
 //#pragma mark WebUIDelegate
@@ -875,7 +874,6 @@
 
 @synthesize displayedUsername;
 @synthesize defaultProfileImageURL;
-@synthesize lastClickedElementInfo;
 @synthesize tweets;
 @synthesize newTweets;
 @synthesize tweetTable;
