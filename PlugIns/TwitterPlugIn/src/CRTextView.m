@@ -45,15 +45,6 @@
         TDListView *lv = (TDListView *)[li superview];
         [lv setSelectedItemIndex:[lv indexForItem:li]];
 
-        // this doesnt work. dunno why.
-//        NSResponder *responder = [[self window] firstResponder];
-//        if ([responder isMemberOfClass:[CRTextView class]]) {
-//            CRTextView *tv = (CRTextView *)responder;
-//            NSRange zeroRange = { 0, 0 };
-//            [tv setSelectedRange:zeroRange];
-//            [tv setNeedsDisplay:YES];
-//        }
-        
         [[self window] makeFirstResponder:self];
         [super mouseDown:evt];
     
@@ -61,6 +52,21 @@
     } else {
         [[self superview] mouseDown:evt];
     }
+}
+
+
+// this is necessary to remove text selection in any previously selected CRTextViews in the list
+- (BOOL)becomeFirstResponder {
+    static CRTextView *sLastFirstResponder = nil;
+
+    if (sLastFirstResponder) {
+        NSRange zeroRange = { 0, 0 };
+        [sLastFirstResponder setSelectedRange:zeroRange];
+    }
+
+    sLastFirstResponder = self;
+    
+    return [super becomeFirstResponder];
 }
 
 
