@@ -17,7 +17,6 @@
 #import "CRTwitterUtils.h"
 #import <TDAppKit/TDAppKit.h>
 
-
 @implementation CRTextView
 
 - (void)mouseDown:(NSEvent *)evt {
@@ -35,9 +34,11 @@
 
     // ok this is crap :(. but AFAICT it's the only way to get the exact behavior i want
 
+    // if clicking a link, don't select the item
     if (link) {
         [super mouseDown:evt];
 
+    // for single click on the tweet text, handle the event (for possible text selection), but also select the item behind
     } else if (1 == [evt clickCount]) {
         TDListItem *li = (TDListItem *)[self superview];
         TDListView *lv = (TDListView *)[li superview];
@@ -45,7 +46,8 @@
 
         [[self window] makeFirstResponder:self];
         [super mouseDown:evt];
-        
+    
+    // for double click, send the event to the TDListItem (and eventually the TDListView) for delegate handling
     } else {
         [[self superview] mouseDown:evt];
     }
