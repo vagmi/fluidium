@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "WebDynamicScrollBarsView.h"
+//#import "WebDynamicScrollBarsView.h"
 
-@interface TDScrollView : WebDynamicScrollBarsView {
+//@interface TDScrollView : WebDynamicScrollBarsView {
+@interface TDScrollView : NSScrollView {
 
 }
 

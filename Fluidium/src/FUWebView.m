@@ -65,7 +65,7 @@
         [self updateUserAgent];
         [self updateContinuousSpellChecking];
         
-        [[[self mainFrame] frameView] _setCustomScrollViewClass:[TDScrollView class]];
+        //[[[self mainFrame] frameView] _setCustomScrollViewClass:[TDScrollView class]];
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(webPreferencesDidChange:) name:FUWebPreferencesDidChangeNotification object:[FUWebPreferences instance]];

@@ -36,8 +36,6 @@
 		D33B1A0A11168B3300F754AD /* TransparentScrollerSlotRight.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0411168B3300F754AD /* TransparentScrollerSlotRight.tif */; };
 		D33B1A0B11168B3300F754AD /* TransparentScrollerSlotTop.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0511168B3300F754AD /* TransparentScrollerSlotTop.tif */; };
 		D33B1A0C11168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0611168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif */; };
-		D33B1A6F11168E9800F754AD /* WebDynamicScrollBarsView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33B1A6E11168E9800F754AD /* WebDynamicScrollBarsView.h */; };
-		D33B1AAC11168EC400F754AD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33B1AAB11168EC400F754AD /* WebKit.framework */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
 		D371244810F0520800D7107B /* TDBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244210F051E800D7107B /* TDBar.m */; };
 		D371244910F0520D00D7107B /* TDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244310F051E800D7107B /* TDLine.m */; };
@@ -106,8 +104,6 @@
 		D33B1A0411168B3300F754AD /* TransparentScrollerSlotRight.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotRight.tif; sourceTree = "<group>"; };
 		D33B1A0511168B3300F754AD /* TransparentScrollerSlotTop.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotTop.tif; sourceTree = "<group>"; };
 		D33B1A0611168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotVerticalFill.tif; sourceTree = "<group>"; };
-		D33B1A6E11168E9800F754AD /* WebDynamicScrollBarsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebDynamicScrollBarsView.h; path = ../../../../../webkit/trunk/WebKit/mac/WebView/WebDynamicScrollBarsView.h; sourceTree = SOURCE_ROOT; };
-		D33B1AAB11168EC400F754AD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
 		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
@@ -131,7 +127,6 @@
 			files = (
 				D3EB212D11013C5300633715 /* QuartzCore.framework in Frameworks */,
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
-				D33B1AAC11168EC400F754AD /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +160,6 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				D33B1AAB11168EC400F754AD /* WebKit.framework */,
 			);
 			name = TDAppKit;
 			sourceTree = "<group>";
@@ -283,7 +277,6 @@
 		D33B19ED11168A2600F754AD /* ScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				D33B1A6E11168E9800F754AD /* WebDynamicScrollBarsView.h */,
 				D33B19F011168A3300F754AD /* TDScrollView.h */,
 				D33B19F411168A3A00F754AD /* TDScrollView.m */,
 				D33B19EF11168A3300F754AD /* TDScroller.h */,
@@ -360,7 +353,6 @@
 				D3E1320A110403D5007FE89E /* TDColorView.h in Headers */,
 				D33B19F111168A3300F754AD /* TDScroller.h in Headers */,
 				D33B19F211168A3300F754AD /* TDScrollView.h in Headers */,
-				D33B1A6F11168E9800F754AD /* WebDynamicScrollBarsView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
