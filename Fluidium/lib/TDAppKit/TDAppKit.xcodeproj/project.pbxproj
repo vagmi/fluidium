@@ -30,12 +30,6 @@
 		D33B19F211168A3300F754AD /* TDScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33B19F011168A3300F754AD /* TDScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D33B19F511168A3A00F754AD /* TDScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = D33B19F311168A3A00F754AD /* TDScroller.m */; };
 		D33B19F611168A3A00F754AD /* TDScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D33B19F411168A3A00F754AD /* TDScrollView.m */; };
-		D33B1A0711168B3300F754AD /* TransparentScrollerSlotBottom.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0111168B3300F754AD /* TransparentScrollerSlotBottom.tif */; };
-		D33B1A0811168B3300F754AD /* TransparentScrollerSlotHorizontalFill.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0211168B3300F754AD /* TransparentScrollerSlotHorizontalFill.tif */; };
-		D33B1A0911168B3300F754AD /* TransparentScrollerSlotLeft.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0311168B3300F754AD /* TransparentScrollerSlotLeft.tif */; };
-		D33B1A0A11168B3300F754AD /* TransparentScrollerSlotRight.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0411168B3300F754AD /* TransparentScrollerSlotRight.tif */; };
-		D33B1A0B11168B3300F754AD /* TransparentScrollerSlotTop.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0511168B3300F754AD /* TransparentScrollerSlotTop.tif */; };
-		D33B1A0C11168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif in Resources */ = {isa = PBXBuildFile; fileRef = D33B1A0611168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
 		D371244810F0520800D7107B /* TDBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244210F051E800D7107B /* TDBar.m */; };
 		D371244910F0520D00D7107B /* TDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244310F051E800D7107B /* TDLine.m */; };
@@ -98,12 +92,6 @@
 		D33B19F011168A3300F754AD /* TDScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDScrollView.h; path = include/TDAppKit/TDScrollView.h; sourceTree = "<group>"; };
 		D33B19F311168A3A00F754AD /* TDScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDScroller.m; path = src/TDScroller.m; sourceTree = "<group>"; };
 		D33B19F411168A3A00F754AD /* TDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDScrollView.m; path = src/TDScrollView.m; sourceTree = "<group>"; };
-		D33B1A0111168B3300F754AD /* TransparentScrollerSlotBottom.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotBottom.tif; sourceTree = "<group>"; };
-		D33B1A0211168B3300F754AD /* TransparentScrollerSlotHorizontalFill.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotHorizontalFill.tif; sourceTree = "<group>"; };
-		D33B1A0311168B3300F754AD /* TransparentScrollerSlotLeft.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotLeft.tif; sourceTree = "<group>"; };
-		D33B1A0411168B3300F754AD /* TransparentScrollerSlotRight.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotRight.tif; sourceTree = "<group>"; };
-		D33B1A0511168B3300F754AD /* TransparentScrollerSlotTop.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotTop.tif; sourceTree = "<group>"; };
-		D33B1A0611168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TransparentScrollerSlotVerticalFill.tif; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
 		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
@@ -176,7 +164,6 @@
 		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D33B1A0D11168B3700F754AD /* Images */,
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
 			);
@@ -283,28 +270,6 @@
 				D33B19F311168A3A00F754AD /* TDScroller.m */,
 			);
 			name = ScrollView;
-			sourceTree = "<group>";
-		};
-		D33B1A0011168B3300F754AD /* BWToolkit */ = {
-			isa = PBXGroup;
-			children = (
-				D33B1A0111168B3300F754AD /* TransparentScrollerSlotBottom.tif */,
-				D33B1A0211168B3300F754AD /* TransparentScrollerSlotHorizontalFill.tif */,
-				D33B1A0311168B3300F754AD /* TransparentScrollerSlotLeft.tif */,
-				D33B1A0411168B3300F754AD /* TransparentScrollerSlotRight.tif */,
-				D33B1A0511168B3300F754AD /* TransparentScrollerSlotTop.tif */,
-				D33B1A0611168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif */,
-			);
-			name = BWToolkit;
-			path = res/img/BWToolkit;
-			sourceTree = "<group>";
-		};
-		D33B1A0D11168B3700F754AD /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				D33B1A0011168B3300F754AD /* BWToolkit */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		D371244010F051D600D7107B /* Misc Views */ = {
@@ -421,12 +386,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
-				D33B1A0711168B3300F754AD /* TransparentScrollerSlotBottom.tif in Resources */,
-				D33B1A0811168B3300F754AD /* TransparentScrollerSlotHorizontalFill.tif in Resources */,
-				D33B1A0911168B3300F754AD /* TransparentScrollerSlotLeft.tif in Resources */,
-				D33B1A0A11168B3300F754AD /* TransparentScrollerSlotRight.tif in Resources */,
-				D33B1A0B11168B3300F754AD /* TransparentScrollerSlotTop.tif in Resources */,
-				D33B1A0C11168B3300F754AD /* TransparentScrollerSlotVerticalFill.tif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

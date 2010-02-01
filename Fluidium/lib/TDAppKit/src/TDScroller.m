@@ -9,6 +9,9 @@
 #import <TDAppKit/TDScroller.h>
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 
+#define FILL_EXTENT 11.0
+#define KNOB_EXTENT 6.0
+
 static NSColor *sSlotStrokeColor = nil;
 static NSGradient *sSlotGradient = nil;
 static NSColor *sKnobStrokeColor = nil;
@@ -17,7 +20,7 @@ static NSGradient *sBackgroundGradient = nil;
 static NSColor *sBorderColor = nil;
 
 // Vertical scroller
-static NSImage *knobTop, *knobVerticalFill, *knobBottom, *slotTop, *slotVerticalFill, *slotBottom;
+//static NSImage *knobTop, *knobVerticalFill, *knobBottom, *slotTop, *slotVerticalFill, *slotBottom;
 static float verticalPaddingLeft = 2.0;
 static float verticalPaddingRight = 1.0;
 static float verticalPaddingTop = 2.0;
@@ -25,7 +28,7 @@ static float verticalPaddingBottom = 2.0;
 static float minKnobHeight;
 
 // Horizontal scroller
-static NSImage *knobLeft, *knobHorizontalFill, *knobRight, *slotLeft, *slotHorizontalFill, *slotRight;
+//static NSImage *knobLeft, *knobHorizontalFill, *knobRight, *slotLeft, *slotHorizontalFill, *slotRight;
 static float horizontalPaddingLeft = 2.0;
 static float horizontalPaddingRight = 2.0;
 static float horizontalPaddingTop = 0.0;
@@ -46,7 +49,7 @@ static float minKnobWidth;
 
 + (void)initialize
 {
-	NSBundle *bundle = [NSBundle bundleForClass:[TDScroller class]];
+    //	NSBundle *bundle = [NSBundle bundleForClass:[TDScroller class]];
     
     sSlotStrokeColor    = [[NSColor colorWithDeviceWhite:.6 alpha:1] retain];
     sSlotGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:.6 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.7 alpha:1]];
@@ -57,26 +60,28 @@ static float minKnobWidth;
     sBackgroundGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:1 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.85 alpha:1]];
     sBorderColor        = [[NSColor colorWithDeviceWhite:.6 alpha:1] retain];
 	
-	// Vertical scroller
-	knobTop				= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobTop.tif"]];
-	knobVerticalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobVerticalFill.tif"]];
-	knobBottom			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobBottom.tif"]];
-	slotTop				= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotTop.tif"]];
-	slotVerticalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotVerticalFill.tif"]];
-	slotBottom			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotBottom.tif"]];
-
-	// Horizontal scroller
-	knobLeft			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobLeft.tif"]];
-	knobHorizontalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobHorizontalFill.tif"]];
-	knobRight			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobRight.tif"]];
-	slotLeft			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotLeft.tif"]];
-	slotHorizontalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotHorizontalFill.tif"]];
-	slotRight			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotRight.tif"]];
+//	// Vertical scroller
+//	knobTop				= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobTop.tif"]];
+//	knobVerticalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobVerticalFill.tif"]];
+//	knobBottom			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobBottom.tif"]];
+//	slotTop				= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotTop.tif"]];
+//	slotVerticalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotVerticalFill.tif"]];
+//	slotBottom			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotBottom.tif"]];
+//
+//	// Horizontal scroller
+//	knobLeft			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobLeft.tif"]];
+//	knobHorizontalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobHorizontalFill.tif"]];
+//	knobRight			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobRight.tif"]];
+//	slotLeft			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotLeft.tif"]];
+//	slotHorizontalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotHorizontalFill.tif"]];
+//	slotRight			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotRight.tif"]];
 	
 	//backgroundColor		= [[NSColor colorWithCalibratedWhite:.9 alpha:1] retain];
 	
-	minKnobHeight = knobTop.size.height + knobVerticalFill.size.height + knobBottom.size.height + 10;
-	minKnobWidth = knobLeft.size.width + knobHorizontalFill.size.width + knobRight.size.width + 10;
+//	minKnobHeight = knobTop.size.height + knobVerticalFill.size.height + knobBottom.size.height + 10;
+//	minKnobWidth = knobLeft.size.width + knobHorizontalFill.size.width + knobRight.size.width + 10;
+	minKnobHeight = KNOB_EXTENT + FILL_EXTENT + KNOB_EXTENT + 10;
+	minKnobWidth = KNOB_EXTENT + FILL_EXTENT + KNOB_EXTENT + 10;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
@@ -111,12 +116,14 @@ static float minKnobWidth;
 
 + (CGFloat)scrollerWidth
 {
-	return slotVerticalFill.size.width + verticalPaddingLeft + verticalPaddingRight;
+    //	return slotVerticalFill.size.width + verticalPaddingLeft + verticalPaddingRight;
+	return FILL_EXTENT + verticalPaddingLeft + verticalPaddingRight;
 }
 
 + (CGFloat)scrollerWidthForControlSize:(NSControlSize)controlSize 
 {
-	return slotVerticalFill.size.width + verticalPaddingLeft + verticalPaddingRight;
+    //	return slotVerticalFill.size.width + verticalPaddingLeft + verticalPaddingRight;
+	return FILL_EXTENT + verticalPaddingLeft + verticalPaddingRight;
 }
 
 - (void)drawRect:(NSRect)aRect;
@@ -159,7 +166,7 @@ static float minKnobWidth;
 
 		//NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositeSourceOver, 1, NO);
     } else {
-		NSDrawThreePartImage(slotRect, slotLeft, slotHorizontalFill, slotRight, NO, NSCompositeSourceOver, 1, NO);
+		//NSDrawThreePartImage(slotRect, slotLeft, slotHorizontalFill, slotRight, NO, NSCompositeSourceOver, 1, NO);
     }
 }
 
@@ -176,7 +183,7 @@ static float minKnobWidth;
 
 		//NSDrawThreePartImage(knobRect, knobTop, knobVerticalFill, knobBottom, YES, NSCompositeSourceOver, .35, NO);
     } else {
-        NSDrawThreePartImage(knobRect, knobLeft, knobHorizontalFill, knobRight, NO, NSCompositeSourceOver, .35, NO);
+        //NSDrawThreePartImage(knobRect, knobLeft, knobHorizontalFill, knobRight, NO, NSCompositeSourceOver, .35, NO);
     }
 }
 
