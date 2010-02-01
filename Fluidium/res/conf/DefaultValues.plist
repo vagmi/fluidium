@@ -121,6 +121,10 @@
     <!-- PlugIns -->
     <key>FUNumberOfBrowsaPlugIns</key>
     <integer>2</integer>
+    <key>FUShowVisiblePlugInsInNewWindows</key>
+    <false/>
+    <key>FUVisiblePlugInIdentifiers</key>
+    <array/>
     
 </dict>
 </plist>
