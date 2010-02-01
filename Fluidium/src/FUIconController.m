@@ -43,7 +43,8 @@
 
 - (id)init {
     if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationVersionDidChange:) name:FUApplicationVersionDidChangeNotification object:NSApp];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(applicationVersionDidChange:) name:FUApplicationVersionDidChangeNotification object:NSApp];
     }
     return self;
 }
@@ -120,7 +121,7 @@
     
 //    BOOL icnsExists = [[NSFileManager defaultManager] fileExistsAtPath:icnsPath];
 //    if (!icnsExists) {
-        NSString *appPath  = [[NSBundle mainBundle].bundlePath stringByExpandingTildeInPath];
+        NSString *appPath  = [[[NSBundle mainBundle] bundlePath] stringByExpandingTildeInPath];
         [[IconFamily iconFamilyWithIconOfFile:appPath] writeToFile:icnsPath];
         //NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:appPath];
         //[NSApp setApplicationIconImage:image];

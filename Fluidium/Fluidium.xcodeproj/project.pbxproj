@@ -98,8 +98,6 @@
 		D33E6DF110D0A29E00D76BBB /* prefpane_icon_update.png in Resources */ = {isa = PBXBuildFile; fileRef = D33E6DEE10D0A29E00D76BBB /* prefpane_icon_update.png */; };
 		D33E6DF310D0A2C700D76BBB /* Shortcuts.plist in Resources */ = {isa = PBXBuildFile; fileRef = D33E6DF210D0A2C700D76BBB /* Shortcuts.plist */; };
 		D33E6E1110D0A63700D76BBB /* prefpane_icon_plugins.png in Resources */ = {isa = PBXBuildFile; fileRef = D33E6E1010D0A63700D76BBB /* prefpane_icon_plugins.png */; };
-		D33E6E1A10D0A67200D76BBB /* prefpane_icon_userscript.png in Resources */ = {isa = PBXBuildFile; fileRef = D33E6E1810D0A67200D76BBB /* prefpane_icon_userscript.png */; };
-		D33E6E1B10D0A67200D76BBB /* prefpane_icon_userstyle.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D33E6E1910D0A67200D76BBB /* prefpane_icon_userstyle.tiff */; };
 		D33E6E2B10D0A6FF00D76BBB /* FUSecurityPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33E6E2510D0A6FF00D76BBB /* FUSecurityPreferences.xib */; };
 		D33E6E2C10D0A6FF00D76BBB /* FUShortcutPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33E6E2710D0A6FF00D76BBB /* FUShortcutPreferences.xib */; };
 		D33E6E2D10D0A6FF00D76BBB /* FUUpdatePreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33E6E2910D0A6FF00D76BBB /* FUUpdatePreferences.xib */; };
@@ -184,14 +182,8 @@
 		D3A3277510FF0C8600032B66 /* OFPreference.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3277410FF0C8600032B66 /* OFPreference.m */; };
 		D3A3279610FF0E4B00032B66 /* OFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3279510FF0E4B00032B66 /* OFObject.m */; };
 		D3A327A310FF0E7200032B66 /* OBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A327A210FF0E7200032B66 /* OBObject.m */; };
-		D3A3282E10FF101500032B66 /* OAAction.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282610FF101500032B66 /* OAAction.png */; };
-		D3A3282F10FF101500032B66 /* OAForwardArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282710FF101500032B66 /* OAForwardArrow.png */; };
-		D3A3283010FF101500032B66 /* OAGear.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282810FF101500032B66 /* OAGear.png */; };
 		D3A3283110FF101500032B66 /* OAHelpDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282910FF101500032B66 /* OAHelpDownIcon.png */; };
 		D3A3283210FF101500032B66 /* OAHelpIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282A10FF101500032B66 /* OAHelpIcon.png */; };
-		D3A3283310FF101500032B66 /* OAMiniAction.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282B10FF101500032B66 /* OAMiniAction.png */; };
-		D3A3283410FF101500032B66 /* OAMiniAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282C10FF101500032B66 /* OAMiniAdd.png */; };
-		D3A3283510FF101500032B66 /* OAMiniRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A3282D10FF101500032B66 /* OAMiniRemove.png */; };
 		D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ACEC561106CE2B005A3CF6 /* FUWindowController+Scripting.m */; };
 		D3ADF98F11045B870064C070 /* FUDoJavaScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */; };
 		D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */; };
@@ -250,17 +242,6 @@
 		D3F4C5A910C8D6A400E0B474 /* NSArray+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5A410C8D6A400E0B474 /* NSArray+FUAdditions.m */; };
 		D3F4C5F810C8D8BE00E0B474 /* FUProgressComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5F710C8D8BE00E0B474 /* FUProgressComboBox.m */; };
 		D3F4C60E10C8D93E00E0B474 /* FURecentURLController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60D10C8D93E00E0B474 /* FURecentURLController.m */; };
-		D3F4C67810C8DC4900E0B474 /* fullscreen_titlebar_button_capsule.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C66A10C8DC4900E0B474 /* fullscreen_titlebar_button_capsule.png */; };
-		D3F4C67A10C8DC4900E0B474 /* fullscreen_toolbar_button_back.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C66C10C8DC4900E0B474 /* fullscreen_toolbar_button_back.png */; };
-		D3F4C67B10C8DC4900E0B474 /* fullscreen_toolbar_button_browsa.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C66D10C8DC4900E0B474 /* fullscreen_toolbar_button_browsa.png */; };
-		D3F4C67C10C8DC4900E0B474 /* fullscreen_toolbar_button_clipboard.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C66E10C8DC4900E0B474 /* fullscreen_toolbar_button_clipboard.png */; };
-		D3F4C67D10C8DC4900E0B474 /* fullscreen_toolbar_button_flow.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C66F10C8DC4900E0B474 /* fullscreen_toolbar_button_flow.png */; };
-		D3F4C67E10C8DC4900E0B474 /* fullscreen_toolbar_button_fwd.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C67010C8DC4900E0B474 /* fullscreen_toolbar_button_fwd.png */; };
-		D3F4C67F10C8DC4900E0B474 /* fullscreen_toolbar_button_home.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C67110C8DC4900E0B474 /* fullscreen_toolbar_button_home.png */; };
-		D3F4C68010C8DC4900E0B474 /* fullscreen_toolbar_button_larger.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C67210C8DC4900E0B474 /* fullscreen_toolbar_button_larger.png */; };
-		D3F4C68110C8DC4900E0B474 /* fullscreen_toolbar_button_reload.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C67310C8DC4900E0B474 /* fullscreen_toolbar_button_reload.png */; };
-		D3F4C68210C8DC4900E0B474 /* fullscreen_toolbar_button_smaller.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C67410C8DC4900E0B474 /* fullscreen_toolbar_button_smaller.png */; };
-		D3F4C68310C8DC4900E0B474 /* fullscreen_toolbar_button_stop.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C67510C8DC4900E0B474 /* fullscreen_toolbar_button_stop.png */; };
 		D3F4C69E10C8DDD500E0B474 /* FUWebPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C69D10C8DDD500E0B474 /* FUWebPreferences.m */; };
 		D3F4C6AF10C8E28E00E0B474 /* FUUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C6AE10C8E28E00E0B474 /* FUUserDefaults.m */; };
 		D3F4C6B710C8E51200E0B474 /* DefaultValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3F4C6B610C8E51200E0B474 /* DefaultValues.plist */; };
@@ -587,8 +568,6 @@
 		D33E6DEE10D0A29E00D76BBB /* prefpane_icon_update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_update.png; path = res/img/prefpanes/prefpane_icon_update.png; sourceTree = "<group>"; };
 		D33E6DF210D0A2C700D76BBB /* Shortcuts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Shortcuts.plist; path = res/conf/Shortcuts.plist; sourceTree = "<group>"; };
 		D33E6E1010D0A63700D76BBB /* prefpane_icon_plugins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_plugins.png; path = res/img/prefpanes/prefpane_icon_plugins.png; sourceTree = "<group>"; };
-		D33E6E1810D0A67200D76BBB /* prefpane_icon_userscript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_userscript.png; path = res/img/prefpanes/prefpane_icon_userscript.png; sourceTree = "<group>"; };
-		D33E6E1910D0A67200D76BBB /* prefpane_icon_userstyle.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = prefpane_icon_userstyle.tiff; path = res/img/prefpanes/prefpane_icon_userstyle.tiff; sourceTree = "<group>"; };
 		D33E6E2610D0A6FF00D76BBB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUSecurityPreferences.xib; sourceTree = "<group>"; };
 		D33E6E2810D0A6FF00D76BBB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUShortcutPreferences.xib; sourceTree = "<group>"; };
 		D33E6E2A10D0A6FF00D76BBB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUUpdatePreferences.xib; sourceTree = "<group>"; };
@@ -711,14 +690,8 @@
 		D3A3279510FF0E4B00032B66 /* OFObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFObject.m; sourceTree = "<group>"; };
 		D3A327A110FF0E7200032B66 /* OBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBObject.h; sourceTree = "<group>"; };
 		D3A327A210FF0E7200032B66 /* OBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBObject.m; sourceTree = "<group>"; };
-		D3A3282610FF101500032B66 /* OAAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAAction.png; sourceTree = "<group>"; };
-		D3A3282710FF101500032B66 /* OAForwardArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAForwardArrow.png; sourceTree = "<group>"; };
-		D3A3282810FF101500032B66 /* OAGear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAGear.png; sourceTree = "<group>"; };
 		D3A3282910FF101500032B66 /* OAHelpDownIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAHelpDownIcon.png; sourceTree = "<group>"; };
 		D3A3282A10FF101500032B66 /* OAHelpIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAHelpIcon.png; sourceTree = "<group>"; };
-		D3A3282B10FF101500032B66 /* OAMiniAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniAction.png; sourceTree = "<group>"; };
-		D3A3282C10FF101500032B66 /* OAMiniAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniAdd.png; sourceTree = "<group>"; };
-		D3A3282D10FF101500032B66 /* OAMiniRemove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OAMiniRemove.png; sourceTree = "<group>"; };
 		D3ACEC551106CE2B005A3CF6 /* FUWindowController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUWindowController+Scripting.h"; path = "src/FUWindowController+Scripting.h"; sourceTree = "<group>"; };
 		D3ACEC561106CE2B005A3CF6 /* FUWindowController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUWindowController+Scripting.m"; path = "src/FUWindowController+Scripting.m"; sourceTree = "<group>"; };
 		D3ADF98D11045B870064C070 /* FUDoJavaScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDoJavaScriptCommand.h; path = src/FUDoJavaScriptCommand.h; sourceTree = "<group>"; };
@@ -837,17 +810,6 @@
 		D3F4C60510C8D90C00E0B474 /* HMImageComboBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMImageComboBoxCell.m; path = src/Shiira/HMImageComboBoxCell.m; sourceTree = "<group>"; };
 		D3F4C60C10C8D93E00E0B474 /* FURecentURLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FURecentURLController.h; path = src/FURecentURLController.h; sourceTree = "<group>"; };
 		D3F4C60D10C8D93E00E0B474 /* FURecentURLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FURecentURLController.m; path = src/FURecentURLController.m; sourceTree = "<group>"; };
-		D3F4C66A10C8DC4900E0B474 /* fullscreen_titlebar_button_capsule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_titlebar_button_capsule.png; sourceTree = "<group>"; };
-		D3F4C66C10C8DC4900E0B474 /* fullscreen_toolbar_button_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_back.png; sourceTree = "<group>"; };
-		D3F4C66D10C8DC4900E0B474 /* fullscreen_toolbar_button_browsa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_browsa.png; sourceTree = "<group>"; };
-		D3F4C66E10C8DC4900E0B474 /* fullscreen_toolbar_button_clipboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_clipboard.png; sourceTree = "<group>"; };
-		D3F4C66F10C8DC4900E0B474 /* fullscreen_toolbar_button_flow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_flow.png; sourceTree = "<group>"; };
-		D3F4C67010C8DC4900E0B474 /* fullscreen_toolbar_button_fwd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_fwd.png; sourceTree = "<group>"; };
-		D3F4C67110C8DC4900E0B474 /* fullscreen_toolbar_button_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_home.png; sourceTree = "<group>"; };
-		D3F4C67210C8DC4900E0B474 /* fullscreen_toolbar_button_larger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_larger.png; sourceTree = "<group>"; };
-		D3F4C67310C8DC4900E0B474 /* fullscreen_toolbar_button_reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_reload.png; sourceTree = "<group>"; };
-		D3F4C67410C8DC4900E0B474 /* fullscreen_toolbar_button_smaller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_smaller.png; sourceTree = "<group>"; };
-		D3F4C67510C8DC4900E0B474 /* fullscreen_toolbar_button_stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_toolbar_button_stop.png; sourceTree = "<group>"; };
 		D3F4C69C10C8DDD500E0B474 /* FUWebPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWebPreferences.h; path = src/FUWebPreferences.h; sourceTree = "<group>"; };
 		D3F4C69D10C8DDD500E0B474 /* FUWebPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUWebPreferences.m; path = src/FUWebPreferences.m; sourceTree = "<group>"; };
 		D3F4C6AD10C8E28E00E0B474 /* FUUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserDefaults.h; path = include/Fluidium/FUUserDefaults.h; sourceTree = "<group>"; };
@@ -1261,8 +1223,6 @@
 				D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */,
 				D33E6DEE10D0A29E00D76BBB /* prefpane_icon_update.png */,
 				D33E6E1010D0A63700D76BBB /* prefpane_icon_plugins.png */,
-				D33E6E1810D0A67200D76BBB /* prefpane_icon_userscript.png */,
-				D33E6E1910D0A67200D76BBB /* prefpane_icon_userstyle.tiff */,
 			);
 			name = "Preference Panes";
 			sourceTree = "<group>";
@@ -1338,14 +1298,8 @@
 			children = (
 				D3A3268F10FEFF6E00032B66 /* OAPreferencesNextButton.png */,
 				D3A3269010FEFF6E00032B66 /* OAPreferencesPreviousButton.png */,
-				D3A3282610FF101500032B66 /* OAAction.png */,
-				D3A3282710FF101500032B66 /* OAForwardArrow.png */,
-				D3A3282810FF101500032B66 /* OAGear.png */,
 				D3A3282910FF101500032B66 /* OAHelpDownIcon.png */,
 				D3A3282A10FF101500032B66 /* OAHelpIcon.png */,
-				D3A3282B10FF101500032B66 /* OAMiniAction.png */,
-				D3A3282C10FF101500032B66 /* OAMiniAdd.png */,
-				D3A3282D10FF101500032B66 /* OAMiniRemove.png */,
 			);
 			name = OAPrefs;
 			path = res/img/OAPrefs;
@@ -1599,32 +1553,12 @@
 			name = "Foundation-WebKit Categories";
 			sourceTree = "<group>";
 		};
-		D3F4C66910C8DC4900E0B474 /* FullScreen */ = {
-			isa = PBXGroup;
-			children = (
-				D3F4C66A10C8DC4900E0B474 /* fullscreen_titlebar_button_capsule.png */,
-				D3F4C66C10C8DC4900E0B474 /* fullscreen_toolbar_button_back.png */,
-				D3F4C66D10C8DC4900E0B474 /* fullscreen_toolbar_button_browsa.png */,
-				D3F4C66E10C8DC4900E0B474 /* fullscreen_toolbar_button_clipboard.png */,
-				D3F4C66F10C8DC4900E0B474 /* fullscreen_toolbar_button_flow.png */,
-				D3F4C67010C8DC4900E0B474 /* fullscreen_toolbar_button_fwd.png */,
-				D3F4C67110C8DC4900E0B474 /* fullscreen_toolbar_button_home.png */,
-				D3F4C67210C8DC4900E0B474 /* fullscreen_toolbar_button_larger.png */,
-				D3F4C67310C8DC4900E0B474 /* fullscreen_toolbar_button_reload.png */,
-				D3F4C67410C8DC4900E0B474 /* fullscreen_toolbar_button_smaller.png */,
-				D3F4C67510C8DC4900E0B474 /* fullscreen_toolbar_button_stop.png */,
-			);
-			name = FullScreen;
-			path = res/img/fullscreen;
-			sourceTree = "<group>";
-		};
 		D3F4C68610C8DC4D00E0B474 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				D3393B3E10D5B2C9000FC7C1 /* appl.icns */,
 				D33E6E3910D0A9BA00D76BBB /* location_field_progress_indicator.png */,
 				D33E6E3210D0A99C00D76BBB /* Toolbar */,
-				D3F4C66910C8DC4900E0B474 /* FullScreen */,
 				D346E8A910CEBF3200BA0B15 /* Preference Panes */,
 				D3A3282510FF101500032B66 /* OAPrefs */,
 			);
@@ -1881,17 +1815,6 @@
 				D33E70B910D0F1E800D76BBB /* default.css in Resources */,
 				D33E70BA10D0F1E800D76BBB /* LoadFailed.html in Resources */,
 				D3393B3F10D5B2C9000FC7C1 /* appl.icns in Resources */,
-				D3F4C67810C8DC4900E0B474 /* fullscreen_titlebar_button_capsule.png in Resources */,
-				D3F4C67A10C8DC4900E0B474 /* fullscreen_toolbar_button_back.png in Resources */,
-				D3F4C67B10C8DC4900E0B474 /* fullscreen_toolbar_button_browsa.png in Resources */,
-				D3F4C67C10C8DC4900E0B474 /* fullscreen_toolbar_button_clipboard.png in Resources */,
-				D3F4C67D10C8DC4900E0B474 /* fullscreen_toolbar_button_flow.png in Resources */,
-				D3F4C67E10C8DC4900E0B474 /* fullscreen_toolbar_button_fwd.png in Resources */,
-				D3F4C67F10C8DC4900E0B474 /* fullscreen_toolbar_button_home.png in Resources */,
-				D3F4C68010C8DC4900E0B474 /* fullscreen_toolbar_button_larger.png in Resources */,
-				D3F4C68110C8DC4900E0B474 /* fullscreen_toolbar_button_reload.png in Resources */,
-				D3F4C68210C8DC4900E0B474 /* fullscreen_toolbar_button_smaller.png in Resources */,
-				D3F4C68310C8DC4900E0B474 /* fullscreen_toolbar_button_stop.png in Resources */,
 				D346E8C010CEC02100BA0B15 /* prefpane_icon_showall.png in Resources */,
 				D34B610110CF92B7006E17C4 /* prefpane_icon_appearance.png in Resources */,
 				D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */,
@@ -1899,21 +1822,13 @@
 				D33E6DF010D0A29E00D76BBB /* prefpane_icon_shortcuts.png in Resources */,
 				D33E6DF110D0A29E00D76BBB /* prefpane_icon_update.png in Resources */,
 				D33E6E1110D0A63700D76BBB /* prefpane_icon_plugins.png in Resources */,
-				D33E6E1A10D0A67200D76BBB /* prefpane_icon_userscript.png in Resources */,
-				D33E6E1B10D0A67200D76BBB /* prefpane_icon_userstyle.tiff in Resources */,
 				D33E6E3410D0A99C00D76BBB /* toolbar_button_home.png in Resources */,
 				D33E6E3A10D0A9BA00D76BBB /* location_field_progress_indicator.png in Resources */,
 				D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */,
 				D3A3269910FEFF6E00032B66 /* OAPreferencesNextButton.png in Resources */,
 				D3A3269A10FEFF6E00032B66 /* OAPreferencesPreviousButton.png in Resources */,
-				D3A3282E10FF101500032B66 /* OAAction.png in Resources */,
-				D3A3282F10FF101500032B66 /* OAForwardArrow.png in Resources */,
-				D3A3283010FF101500032B66 /* OAGear.png in Resources */,
 				D3A3283110FF101500032B66 /* OAHelpDownIcon.png in Resources */,
 				D3A3283210FF101500032B66 /* OAHelpIcon.png in Resources */,
-				D3A3283310FF101500032B66 /* OAMiniAction.png in Resources */,
-				D3A3283410FF101500032B66 /* OAMiniAdd.png in Resources */,
-				D3A3283510FF101500032B66 /* OAMiniRemove.png in Resources */,
 				D31C7B2811129C0E00563A4D /* FUHandlerPreferences.xib in Resources */,
 				D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */,
 			);
@@ -1934,7 +1849,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/perl;
-			shellScript = "#\n# Update build number in Info.plist.\n#\n\nuse Foundation;\n\n$path = $ENV{'TARGET_BUILD_DIR'} . \"/Cruz.app/Contents/Info.plist\";\n$plist = NSMutableDictionary->dictionaryWithContentsOfFile_($path);\n\nif ($plist and $$plist) {\n\t$plist->setObject_forKey_(\"com.cruzapp.Cruz\", \"CFBundleIdentifier\");\n\t$plist->setObject_forKey_(\"0.5\", \"CFBundleShortVersionString\");\n\t$plist->setObject_forKey_(\"0.5\", \"CFBundleVersion\");\n\t$plist->setObject_forKey_(\"Cruz\", \"CFBundleExecutable\");\n\t$plist->setObject_forKey_(\"Cruz\", \"CFBundleName\");\n\t$plist->setObject_forKey_(\"http://cruzapp.com/appcast/cruz.rss\", \"SUFeedURL\");\n\n    $bundleTypes = NSMutableArray->arrayWithArray_($plist->objectForKey_(\"CFBundleURLTypes\"));\n\t$d = NSMutableDictionary->dictionaryWithDictionary_($bundleTypes->objectAtIndex_(0));\n\t$d->setValue_forKey_(\"com.cruzapp.Cruz\", \"CFBundleURLName\");\n\t$bundleTypes->replaceObjectAtIndex_withObject_(0, $d);\n\t$plist->setObject_forKey_($bundleTypes, \"CFBundleURLTypes\");\n\n\t$plist->writeToFile_atomically_($path, \"0\");\n}\n";
+			shellScript = "#\n# Update build number in Info.plist.\n#\n\nuse Foundation;\n\n$path = $ENV{'TARGET_BUILD_DIR'} . \"/Cruz.app/Contents/Info.plist\";\n$plist = NSMutableDictionary->dictionaryWithContentsOfFile_($path);\n\nif ($plist and $$plist) {\n\t$plist->setObject_forKey_(\"org.fluidium.Cruz\", \"CFBundleIdentifier\");\n\t$plist->setObject_forKey_(\"0.5\", \"CFBundleShortVersionString\");\n\t$plist->setObject_forKey_(\"0.5\", \"CFBundleVersion\");\n\t#$plist->setObject_forKey_(\"Cruz\", \"CFBundleExecutable\");\n\t$plist->setObject_forKey_(\"Cruz\", \"CFBundleName\");\n\t$plist->setObject_forKey_(\"http://cruzapp.com/appcast/cruz.rss\", \"SUFeedURL\");\n\n     $bundleTypes = NSMutableArray->arrayWithArray_($plist->objectForKey_(\"CFBundleURLTypes\"));\n\t$d = NSMutableDictionary->dictionaryWithDictionary_($bundleTypes->objectAtIndex_(0));\n\t$d->setValue_forKey_(\"org.fluidium.Cruz\", \"CFBundleURLName\");\n\t$bundleTypes->replaceObjectAtIndex_withObject_(0, $d);\n\t$plist->setObject_forKey_($bundleTypes, \"CFBundleURLTypes\");\n\n\t$plist->writeToFile_atomically_($path, \"0\");\n}\n";
 		};
 		D33B1DD81116B23E00F754AD /* Copy .app */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1948,7 +1863,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf \"${TARGET_BUILD_DIR}/Cruz.app\"\ncp -pR \"${TARGET_BUILD_DIR}/Fluidium.app\" \"${TARGET_BUILD_DIR}/Cruz.app\"\nmv \"${TARGET_BUILD_DIR}/Cruz.app/Contents/MacOS/Fluidium\" \"${TARGET_BUILD_DIR}/Cruz.app/Contents/MacOS/Cruz\"\ncp -pR \"res/img/appl.icns\" \"${TARGET_BUILD_DIR}/Cruz.app/Contents/Resources\"\n";
+			shellScript = "rm -rf \"${TARGET_BUILD_DIR}/Cruz.app\"\ncp -pR \"${TARGET_BUILD_DIR}/Fluidium.app\" \"${TARGET_BUILD_DIR}/Cruz.app\"\n#mv \"${TARGET_BUILD_DIR}/Cruz.app/Contents/MacOS/Fluidium\" \"${TARGET_BUILD_DIR}/Cruz.app/Contents/MacOS/Cruz\"\ncp -pR \"res/img/appl.icns\" \"${TARGET_BUILD_DIR}/Cruz.app/Contents/Resources\"\n";
 		};
 		D38422F91102D3BC00605809 /* Copy PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2444,7 +2359,8 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "Custom Browser";
+				PRODUCT_NAME = Cruz;
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -2454,7 +2370,8 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Custom Browser";
+				PRODUCT_NAME = Cruz;
+				SDKROOT = macosx10.5;
 				ZERO_LINK = NO;
 			};
 			name = Release;
