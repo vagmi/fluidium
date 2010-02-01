@@ -20,6 +20,8 @@
 #import <TDAppKit/TDUberView.h>
 #import <TDAppKit/TDListView.h>
 #import <TDAppKit/TDListItem.h>
+#import <TDAppKit/TDScrollView.h>
+#import <TDAppKit/TDScroller.h>
 #import <TDAppKit/TDBar.h>
 #import <TDAppKit/TDLine.h>
 #import <TDAppKit/TDColorView.h>

@@ -22,6 +22,7 @@
 #import "FUNotifications.h"
 #import "WebViewPrivate.h"
 #import "WebFrameViewPrivate.h"
+#import <TDAppKit/TDScrollView.h>
 
 #define VERTICAL_SCROLL_WIDTH 40
 
@@ -63,6 +64,10 @@
         [self updateWebPreferences];
         [self updateUserAgent];
         [self updateContinuousSpellChecking];
+        
+        WebFrame *frame = [self mainFrame];
+        WebFrameView *frameView = [frame frameView];
+        [frameView _setCustomScrollViewClass:[TDScrollView class]];
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(webPreferencesDidChange:) name:FUWebPreferencesDidChangeNotification object:[FUWebPreferences instance]];

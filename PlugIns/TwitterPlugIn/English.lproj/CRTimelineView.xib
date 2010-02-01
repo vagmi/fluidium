@@ -21,7 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
+			<integer value="42"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -147,6 +147,7 @@
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="899126908"/>
 								<string key="NSAction">_doScroller:</string>
+								<double key="NSCurValue">0.0026246719160104987</double>
 								<double key="NSPercent">0.50602412223815918</double>
 							</object>
 						</object>
@@ -284,6 +285,9 @@
 					<string>3.IBPluginDependency</string>
 					<string>3.WindowOrigin</string>
 					<string>3.editorWindowContentRectSynchronizationRect</string>
+					<string>42.CustomClassName</string>
+					<string>43.CustomClassName</string>
+					<string>44.CustomClassName</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -293,6 +297,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{628, 654}</string>
 					<string>{{217, 442}, {480, 272}}</string>
+					<string>TDScrollView</string>
+					<string>TDScroller</string>
+					<string>TDScroller</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -399,6 +406,22 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBDocumentRelativeSource</string>
 						<string key="minorKey">../../../Fluidium/lib/TDAppKit/include/TDAppKit/TDListView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TDScrollView</string>
+					<string key="superclassName">NSScrollView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBDocumentRelativeSource</string>
+						<string key="minorKey">../../../Fluidium/lib/TDAppKit/include/TDAppKit/TDScrollView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TDScroller</string>
+					<string key="superclassName">NSScroller</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBDocumentRelativeSource</string>
+						<string key="minorKey">../../../Fluidium/lib/TDAppKit/include/TDAppKit/TDScroller.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
