@@ -91,9 +91,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 
 - (void)awakeFromNib {
-    if (fluidSSB) {
-        [self updateAppNameInMainMenu];
-    }
+    [self updateAppNameInMainMenu];
 }
 
 
