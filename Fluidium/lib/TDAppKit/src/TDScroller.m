@@ -31,7 +31,7 @@ static float minKnobHeight;
 //static NSImage *knobLeft, *knobHorizontalFill, *knobRight, *slotLeft, *slotHorizontalFill, *slotRight;
 static float horizontalPaddingLeft = 2.0;
 static float horizontalPaddingRight = 2.0;
-static float horizontalPaddingTop = 0.0;
+static float horizontalPaddingTop = 2.0;
 static float horizontalPaddingBottom = 1.0;
 static float minKnobWidth;
 
@@ -132,7 +132,11 @@ static float minKnobWidth;
     [sBackgroundGradient drawInRect:bounds angle:0];
     
     [sBorderColor setStroke];
-    [NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(0, bounds.size.height)];
+    if (isVertical) {
+        [NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(0, bounds.size.height)];
+    } else {
+        [NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(bounds.size.width, 0)];
+    }
 
     //[backgroundColor set];
 	//NSRectFill([self bounds]);
@@ -157,34 +161,43 @@ static float minKnobWidth;
 - (void)drawKnobSlot;
 {
 	NSRect slotRect = [self rectForPart:NSScrollerKnobSlot];
-	
-	if (isVertical) {
-        NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:NSInsetRect(slotRect, 1, 4) radius:6];
-        [sSlotGradient drawInBezierPath:path angle:0];
-        [sSlotStrokeColor setStroke];
-        [path stroke];
-
-		//NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositeSourceOver, 1, NO);
+    if (isVertical) {
+        slotRect = NSInsetRect(slotRect, 1, 4);
     } else {
-		//NSDrawThreePartImage(slotRect, slotLeft, slotHorizontalFill, slotRight, NO, NSCompositeSourceOver, 1, NO);
+        slotRect = NSInsetRect(slotRect, 4, 1);
     }
+	
+    NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:slotRect radius:6];
+    [sSlotGradient drawInBezierPath:path angle:isVertical ? 0 : 90];
+    [sSlotStrokeColor setStroke];
+    [path stroke];
+
+//	if (isVertical) {
+//		//NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositeSourceOver, 1, NO);
+//    } else {
+//		//NSDrawThreePartImage(slotRect, slotLeft, slotHorizontalFill, slotRight, NO, NSCompositeSourceOver, 1, NO);
+//    }
 }
 
 - (void)drawKnob;
 {
 	NSRect knobRect = [self rectForPart:NSScrollerKnob];
-    knobRect = NSInsetRect(knobRect, 1, 4);
-
-	if (isVertical) {
-        NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:knobRect radius:6];
-        [sKnobGradient drawInBezierPath:path angle:0];
-        //[sKnobStrokeColor setStroke];
-        //[path stroke];
-
-		//NSDrawThreePartImage(knobRect, knobTop, knobVerticalFill, knobBottom, YES, NSCompositeSourceOver, .35, NO);
+    if (isVertical) {
+        knobRect = NSInsetRect(knobRect, 1, 4);
     } else {
-        //NSDrawThreePartImage(knobRect, knobLeft, knobHorizontalFill, knobRight, NO, NSCompositeSourceOver, .35, NO);
+        knobRect = NSInsetRect(knobRect, 4, 1);
     }
+
+    NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:knobRect radius:6];
+    [sKnobGradient drawInBezierPath:path angle:isVertical ? 0 : 90];
+    //[sKnobStrokeColor setStroke];
+    //[path stroke];
+
+//	if (isVertical) {
+//		//NSDrawThreePartImage(knobRect, knobTop, knobVerticalFill, knobBottom, YES, NSCompositeSourceOver, .35, NO);
+//    } else {
+//        //NSDrawThreePartImage(knobRect, knobLeft, knobHorizontalFill, knobRight, NO, NSCompositeSourceOver, .35, NO);
+//    }
 }
 
 - (NSRect)_drawingRectForPart:(NSScrollerPart)aPart;

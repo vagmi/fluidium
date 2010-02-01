@@ -167,13 +167,13 @@ static NSImage *sProgressImage = nil;
         [closeButton setAlternateImage:[self imageNamed:@"close_button_pressed" scaledToSize:imgSize]];
         [self addSubview:closeButton];
         
-        self.progressIndicator = [[[NSProgressIndicator alloc] initWithFrame:NSZeroRect] autorelease];
-        [progressIndicator setStyle:NSProgressIndicatorSpinningStyle];
-        [progressIndicator setControlSize:NSSmallControlSize];
-        [progressIndicator setDisplayedWhenStopped:NO];
-        [progressIndicator setIndeterminate:YES];
-        [progressIndicator sizeToFit];
-        [self addSubview:progressIndicator];
+//        self.progressIndicator = [[[NSProgressIndicator alloc] initWithFrame:NSZeroRect] autorelease];
+//        [progressIndicator setStyle:NSProgressIndicatorSpinningStyle];
+//        [progressIndicator setControlSize:NSSmallControlSize];
+//        [progressIndicator setDisplayedWhenStopped:NO];
+//        [progressIndicator setIndeterminate:YES];
+//        [progressIndicator sizeToFit];
+//        [self addSubview:progressIndicator];
 }
     return self;
 }
@@ -289,13 +289,13 @@ static NSImage *sProgressImage = nil;
     // stroke again over image
     TDDrawRoundRect(roundRect, NORMAL_RADIUS, 1, nil, strokeColor);
 
-    if (model.isLoading) {
-        [progressIndicator setFrameOrigin:NSMakePoint(NSMaxX(bounds) - 26, 20)];
-        [progressIndicator startAnimation:self];
-    } else {
-        [progressIndicator stopAnimation:self];
-    }
-    [progressIndicator setNeedsDisplay:YES];
+//    if (model.isLoading) {
+//        [progressIndicator setFrameOrigin:NSMakePoint(NSMaxX(bounds) - 26, 20)];
+//        [progressIndicator startAnimation:self];
+//    } else {
+//        [progressIndicator stopAnimation:self];
+//    }
+//    [progressIndicator setNeedsDisplay:YES];
     [closeButton setNeedsDisplay:YES];
     
     drawHiRez = NO; // reset
