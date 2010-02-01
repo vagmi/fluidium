@@ -129,7 +129,7 @@ static float minKnobWidth;
 - (void)drawRect:(NSRect)aRect;
 {
     NSRect bounds = [self bounds];
-    [sBackgroundGradient drawInRect:bounds angle:0];
+    [sBackgroundGradient drawInRect:bounds angle:isVertical ? 0 : 90];
     
     [sBorderColor setStroke];
     if (isVertical) {
