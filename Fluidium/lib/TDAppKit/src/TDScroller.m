@@ -51,8 +51,8 @@ static float minKnobWidth;
 {
     //	NSBundle *bundle = [NSBundle bundleForClass:[TDScroller class]];
     
-    sSlotStrokeColor    = [[NSColor colorWithDeviceWhite:.75 alpha:1] retain];
-    sSlotGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:.8 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.8 alpha:1]];
+    sSlotStrokeColor    = [[NSColor colorWithDeviceWhite:.73 alpha:1] retain];
+    sSlotGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:.73 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.78 alpha:1]];
 
     sKnobStrokeColor    = [[NSColor colorWithDeviceWhite:.6 alpha:1] retain];
     sKnobGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:1 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.85 alpha:1]];
