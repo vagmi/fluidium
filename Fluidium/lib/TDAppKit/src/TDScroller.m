@@ -14,13 +14,14 @@ static NSGradient *sSlotGradient = nil;
 static NSColor *sKnobStrokeColor = nil;
 static NSGradient *sKnobGradient = nil;
 static NSGradient *sBackgroundGradient = nil;
+static NSColor *sBorderColor = nil;
 
 // Vertical scroller
 static NSImage *knobTop, *knobVerticalFill, *knobBottom, *slotTop, *slotVerticalFill, *slotBottom;
-static float verticalPaddingLeft = 1.0;
+static float verticalPaddingLeft = 2.0;
 static float verticalPaddingRight = 1.0;
 static float verticalPaddingTop = 2.0;
-static float verticalPaddingBottom = 0.0;
+static float verticalPaddingBottom = 2.0;
 static float minKnobHeight;
 
 // Horizontal scroller
@@ -47,13 +48,14 @@ static float minKnobWidth;
 {
 	NSBundle *bundle = [NSBundle bundleForClass:[TDScroller class]];
     
-    sSlotStrokeColor    = [[NSColor colorWithDeviceWhite:.45 alpha:1] retain];
-    sSlotGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:.5 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.6 alpha:1]];
+    sSlotStrokeColor    = [[NSColor colorWithDeviceWhite:.6 alpha:1] retain];
+    sSlotGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:.6 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.7 alpha:1]];
 
     sKnobStrokeColor    = [[NSColor colorWithDeviceWhite:.6 alpha:1] retain];
     sKnobGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:1 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.85 alpha:1]];
     
     sBackgroundGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:1 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.85 alpha:1]];
+    sBorderColor        = [[NSColor colorWithDeviceWhite:.6 alpha:1] retain];
 	
 	// Vertical scroller
 	knobTop				= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobTop.tif"]];
@@ -122,7 +124,7 @@ static float minKnobWidth;
     NSRect bounds = [self bounds];
     [sBackgroundGradient drawInRect:bounds angle:0];
     
-    [[NSColor darkGrayColor] setStroke];
+    [sBorderColor setStroke];
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(0, bounds.size.height)];
 
     //[backgroundColor set];
@@ -164,7 +166,7 @@ static float minKnobWidth;
 - (void)drawKnob;
 {
 	NSRect knobRect = [self rectForPart:NSScrollerKnob];
-    //knobRect = NSInsetRect(knobRect, 1, 1);
+    knobRect = NSInsetRect(knobRect, 1, 4);
 
 	if (isVertical) {
         NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:knobRect radius:6];
