@@ -15,7 +15,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface FUApplication : NSApplication {
-    BOOL isFluidSSB;
+    BOOL fluidSSB;
     NSString *appName;
     NSString *versionString;
     NSString *appSupportDirPath;
@@ -51,6 +51,7 @@
 - (NSArray *)allUserAgentStrings;
 
 - (BOOL)isFullScreen;
+- (BOOL)isFluidSSB;
 
 @property (nonatomic, copy) NSString *appName;
 @property (nonatomic, copy) NSString *versionString;

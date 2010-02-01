@@ -169,7 +169,9 @@
 #pragma mark Notifications
 
 - (void)applicationVersionDidChange:(NSNotification *)n {
-    [self performSelectorInBackground:@selector(generateIcnsFile) withObject:nil];
+    if ([[FUApplication instance] isFluidSSB]) {
+        [self performSelectorInBackground:@selector(generateIcnsFile) withObject:nil];
+    }
 }
 
 @synthesize dockTileImageView;

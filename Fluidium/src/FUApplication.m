@@ -91,7 +91,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 
 - (void)awakeFromNib {
-    if (isFluidSSB) {
+    if (fluidSSB) {
         [self updateAppNameInMainMenu];
     }
 }
@@ -157,6 +157,11 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 }
 
 
+- (BOOL)isFluidSSB {
+    return fluidSSB;
+}
+
+
 - (void)showPreferencePaneForIdentifier:(NSString *)s {
     [[OAPreferenceController sharedPreferenceController] showPreferencesPanel:self];
     [[OAPreferenceController sharedPreferenceController] setCurrentClientRecord:[OAPreferenceController clientRecordWithIdentifier:s]];
@@ -182,7 +187,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     // appName
     NSString *name = [infoPlist valueForKey:@"FUAppName"];
     if ([name length]) {
-        isFluidSSB = YES;
+        fluidSSB = YES;
     } else {
         name = [infoPlist valueForKey:@"CFBundleName"];
     }
@@ -213,7 +218,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 
 
 - (BOOL)setUpAppSupportDir {
-    NSString *dirName = isFluidSSB ? @"Fluid" : appName;
+    NSString *dirName = fluidSSB ? @"Fluid" : appName;
     NSArray *pathComps = [NSArray arrayWithObjects:@"~", @"Library", @"Application Support", dirName, nil];
     NSString *path = [[NSString pathWithComponents:pathComps] stringByExpandingTildeInPath];
     self.appSupportDirPath = path;

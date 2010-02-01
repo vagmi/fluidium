@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		D33B1DBF1116AF6F00F754AD /* Custom Browser */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D33B1DC41116AF9500F754AD /* Build configuration list for PBXAggregateTarget "Custom Browser" */;
+			buildPhases = (
+				D33B1DD81116B23E00F754AD /* Copy .app */,
+				D33B1DBE1116AF6F00F754AD /* Edit Info.plist */,
+			);
+			dependencies = (
+				D33B1DC31116AF7700F754AD /* PBXTargetDependency */,
+			);
+			name = "Custom Browser";
+			productName = "Custom Browser";
+		};
 		D38422EC1102D38B00605809 /* PlugIns */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = D38423031102D3E300605809 /* Build configuration list for PBXAggregateTarget "PlugIns" */;
@@ -315,6 +328,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = TabsPlugIn;
+		};
+		D33B1DC21116AF7700F754AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D38423141102D50D00605809 /* Fluidium+PlugIns */;
+			remoteInfo = "Fluidium+PlugIns";
 		};
 		D3414BBF1103883100CCC986 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1699,6 +1719,7 @@
 				8D15AC270486D014006FF6A4 /* Fluidium */,
 				D38422EC1102D38B00605809 /* PlugIns */,
 				D38423141102D50D00605809 /* Fluidium+PlugIns */,
+				D33B1DBF1116AF6F00F754AD /* Custom Browser */,
 			);
 		};
 /* End PBXProject section */
@@ -1901,6 +1922,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D33B1DBE1116AF6F00F754AD /* Edit Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Edit Info.plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/perl;
+			shellScript = "#\n# Update build number in Info.plist.\n#\n\nuse Foundation;\n\n$path = $ENV{'TARGET_BUILD_DIR'} . \"/Cruz.app/Contents/Info.plist\";\n$plist = NSMutableDictionary->dictionaryWithContentsOfFile_($path);\n\nif ($plist and $$plist) {\n\t$plist->setObject_forKey_(\"com.cruzapp.Cruz\", \"CFBundleIdentifier\");\n\t$plist->setObject_forKey_(\"0.5\", \"CFBundleShortVersionString\");\n\t$plist->setObject_forKey_(\"0.5\", \"CFBundleVersion\");\n\t$plist->setObject_forKey_(\"Cruz\", \"CFBundleExecutable\");\n\t$plist->setObject_forKey_(\"Cruz\", \"CFBundleName\");\n\t$plist->setObject_forKey_(\"http://cruzapp.com/appcast/cruz.rss\", \"SUFeedURL\");\n\n    $bundleTypes = NSMutableArray->arrayWithArray_($plist->objectForKey_(\"CFBundleURLTypes\"));\n\t$d = NSMutableDictionary->dictionaryWithDictionary_($bundleTypes->objectAtIndex_(0));\n\t$d->setValue_forKey_(\"com.cruzapp.Cruz\", \"CFBundleURLName\");\n\t$bundleTypes->replaceObjectAtIndex_withObject_(0, $d);\n\t$plist->setObject_forKey_($bundleTypes, \"CFBundleURLTypes\");\n\n\t$plist->writeToFile_atomically_($path, \"0\");\n}\n";
+		};
+		D33B1DD81116B23E00F754AD /* Copy .app */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy .app";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf \"${TARGET_BUILD_DIR}/Cruz.app\"\ncp -pR \"${TARGET_BUILD_DIR}/Fluidium.app\" \"${TARGET_BUILD_DIR}/Cruz.app\"\nmv \"${TARGET_BUILD_DIR}/Cruz.app/Contents/MacOS/Fluidium\" \"${TARGET_BUILD_DIR}/Cruz.app/Contents/MacOS/Cruz\"\ncp -pR \"res/img/appl.icns\" \"${TARGET_BUILD_DIR}/Cruz.app/Contents/Resources\"\n";
+		};
 		D38422F91102D3BC00605809 /* Copy PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2064,6 +2113,11 @@
 			isa = PBXTargetDependency;
 			name = PSMTabBarControlFramework;
 			targetProxy = D328FF4F10CC340C00BB363B /* PBXContainerItemProxy */;
+		};
+		D33B1DC31116AF7700F754AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D38423141102D50D00605809 /* Fluidium+PlugIns */;
+			targetProxy = D33B1DC21116AF7700F754AD /* PBXContainerItemProxy */;
 		};
 		D3414BC01103883100CCC986 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2384,6 +2438,27 @@
 			};
 			name = Release;
 		};
+		D33B1DC01116AF7000F754AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Custom Browser";
+			};
+			name = Debug;
+		};
+		D33B1DC11116AF7000F754AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Custom Browser";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		D38422ED1102D38B00605809 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2447,6 +2522,15 @@
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,
 				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D33B1DC41116AF9500F754AD /* Build configuration list for PBXAggregateTarget "Custom Browser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D33B1DC01116AF7000F754AD /* Debug */,
+				D33B1DC11116AF7000F754AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
