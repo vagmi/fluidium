@@ -553,6 +553,7 @@
 		D332225010C8C3DB00151693 /* FUDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDocumentController.m; path = src/FUDocumentController.m; sourceTree = "<group>"; };
 		D339359E10D4DC4D000FC7C1 /* SpecialCases.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SpecialCases.plist; path = res/conf/SpecialCases.plist; sourceTree = "<group>"; };
 		D3393B3E10D5B2C9000FC7C1 /* appl.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = appl.icns; path = res/img/appl.icns; sourceTree = "<group>"; };
+		D33B1A6C11168E6B00F754AD /* WebDynamicScrollBarsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebDynamicScrollBarsView.h; path = ../../../webkit/trunk/WebKit/mac/WebView/WebDynamicScrollBarsView.h; sourceTree = SOURCE_ROOT; };
 		D33E6D7F10D09C3600D76BBB /* FUSecurityPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSecurityPreferences.h; path = src/FUSecurityPreferences.h; sourceTree = "<group>"; };
 		D33E6D8010D09C3600D76BBB /* FUSecurityPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSecurityPreferences.m; path = src/FUSecurityPreferences.m; sourceTree = "<group>"; };
 		D33E6D8110D09C3600D76BBB /* FUShortcutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUShortcutController.h; path = src/FUShortcutController.h; sourceTree = "<group>"; };
@@ -1552,6 +1553,7 @@
 				D3F4C59310C8D63400E0B474 /* WebDashboardRegion.h */,
 				D3F4C59610C8D63400E0B474 /* WebURLsWithTitles.h */,
 				D30BC47E10E18D0F0019816B /* WebInspector.h */,
+				D33B1A6C11168E6B00F754AD /* WebDynamicScrollBarsView.h */,
 			);
 			name = WebKit;
 			sourceTree = "<group>";

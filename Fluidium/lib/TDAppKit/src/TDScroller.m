@@ -9,12 +9,15 @@
 #import <TDAppKit/TDScroller.h>
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 
+static NSColor *sSlotStrokeColor = nil;
+static NSGradient *sSlotGradient = nil;
 static NSColor *sKnobStrokeColor = nil;
 static NSGradient *sKnobGradient = nil;
+static NSGradient *sBackgroundGradient = nil;
 
 // Vertical scroller
 static NSImage *knobTop, *knobVerticalFill, *knobBottom, *slotTop, *slotVerticalFill, *slotBottom;
-static float verticalPaddingLeft = 0.0;
+static float verticalPaddingLeft = 1.0;
 static float verticalPaddingRight = 1.0;
 static float verticalPaddingTop = 2.0;
 static float verticalPaddingBottom = 0.0;
@@ -28,7 +31,7 @@ static float horizontalPaddingTop = 0.0;
 static float horizontalPaddingBottom = 1.0;
 static float minKnobWidth;
 
-static NSColor *backgroundColor;
+//static NSColor *backgroundColor;
 
 @interface TDScroller (BWTSPrivate)
 - (void)drawKnobSlot;
@@ -44,8 +47,13 @@ static NSColor *backgroundColor;
 {
 	NSBundle *bundle = [NSBundle bundleForClass:[TDScroller class]];
     
+    sSlotStrokeColor    = [[NSColor colorWithDeviceWhite:.45 alpha:1] retain];
+    sSlotGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:.5 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.6 alpha:1]];
+
     sKnobStrokeColor    = [[NSColor colorWithDeviceWhite:.6 alpha:1] retain];
-    sKnobGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:.97 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.87 alpha:1]];
+    sKnobGradient       = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:1 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.85 alpha:1]];
+    
+    sBackgroundGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:1 alpha:1] endingColor:[NSColor colorWithDeviceWhite:.85 alpha:1]];
 	
 	// Vertical scroller
 	knobTop				= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerKnobTop.tif"]];
@@ -63,7 +71,7 @@ static NSColor *backgroundColor;
 	slotHorizontalFill	= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotHorizontalFill.tif"]];
 	slotRight			= [[NSImage alloc] initWithContentsOfFile:[bundle pathForImageResource:@"TransparentScrollerSlotRight.tif"]];
 	
-	backgroundColor		= [[NSColor colorWithCalibratedWhite:.88 alpha:1] retain];
+	//backgroundColor		= [[NSColor colorWithCalibratedWhite:.9 alpha:1] retain];
 	
 	minKnobHeight = knobTop.size.height + knobVerticalFill.size.height + knobBottom.size.height + 10;
 	minKnobWidth = knobLeft.size.width + knobHorizontalFill.size.width + knobRight.size.width + 10;
@@ -111,8 +119,14 @@ static NSColor *backgroundColor;
 
 - (void)drawRect:(NSRect)aRect;
 {
-	[backgroundColor set];
-	NSRectFill([self bounds]);
+    NSRect bounds = [self bounds];
+    [sBackgroundGradient drawInRect:bounds angle:0];
+    
+    [[NSColor darkGrayColor] setStroke];
+    [NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(0, bounds.size.height)];
+
+    //[backgroundColor set];
+	//NSRectFill([self bounds]);
 	
 	// Only draw if the slot is larger than the knob
 	if (isVertical && ([self bounds].size.height - verticalPaddingTop - verticalPaddingBottom + 1) > minKnobHeight)
@@ -135,10 +149,16 @@ static NSColor *backgroundColor;
 {
 	NSRect slotRect = [self rectForPart:NSScrollerKnobSlot];
 	
-	if (isVertical)
-		NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositeSourceOver, 1, NO);
-	else
+	if (isVertical) {
+        NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:NSInsetRect(slotRect, 1, 4) radius:6];
+        [sSlotGradient drawInBezierPath:path angle:0];
+        [sSlotStrokeColor setStroke];
+        [path stroke];
+
+		//NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositeSourceOver, 1, NO);
+    } else {
 		NSDrawThreePartImage(slotRect, slotLeft, slotHorizontalFill, slotRight, NO, NSCompositeSourceOver, 1, NO);
+    }
 }
 
 - (void)drawKnob;
@@ -149,8 +169,8 @@ static NSColor *backgroundColor;
 	if (isVertical) {
         NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:knobRect radius:6];
         [sKnobGradient drawInBezierPath:path angle:0];
-        [sKnobStrokeColor setStroke];
-        [path stroke];
+        //[sKnobStrokeColor setStroke];
+        //[path stroke];
 
 		//NSDrawThreePartImage(knobRect, knobTop, knobVerticalFill, knobBottom, YES, NSCompositeSourceOver, .35, NO);
     } else {
