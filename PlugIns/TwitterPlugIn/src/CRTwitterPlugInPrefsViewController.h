@@ -1,4 +1,4 @@
-//  Copyright 2009 Todd Ditchendorf
+//  Copyright 2010 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
     NSArrayController *arrayController;
     NSMutableArray *accounts;
     NSMutableArray *accountIDs;
-    NSString *keychainItemName;
 }
 
 - (IBAction)toggleShowUsernames:(id)sender;
@@ -29,7 +28,6 @@
 @property (nonatomic, retain) IBOutlet NSArrayController *arrayController;
 @property (nonatomic, retain) NSMutableArray *accounts;
 @property (nonatomic, retain) NSMutableArray *accountIDs;
-@property (nonatomic, copy) NSString *keychainItemName;
 
 - (NSArray *)usernames;
 - (NSString *)passwordFor:(NSString *)username;
