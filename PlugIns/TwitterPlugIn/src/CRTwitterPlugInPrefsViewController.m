@@ -1,16 +1,23 @@
+//  Copyright 2009 Todd Ditchendorf
 //
-//  CRTwitterPlugInPrefsViewController.m
-//  TwitterPlugIn
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 10/11/09.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "CRTwitterPlugInPrefsViewController.h"
 #import "CRTwitterPlugIn.h"
 #import "AGKeychain.h"
+#import <Fluidium/FUApplication.h>
 
-#define KEYCHAIN_ITEM_NAME @"FluidiumTwitterPlugIn"
+#define KEYCHAIN_ITEM_NAME_FORMAT @"%@TwitterPlugIn"
 #define KEYCHAIN_ITEM_KIND_USERNAME @"Username"
 #define KEYCHAIN_ITEM_KIND_PASSWORD @"Password"
 
@@ -44,6 +51,7 @@
 - (id)initWithNibName:(NSString *)s bundle:(NSBundle *)b {
     if (self = [super initWithNibName:s bundle:b]) {
         [self loadAccounts];
+        self.keychainItemName = [NSString stringWithFormat:KEYCHAIN_ITEM_NAME_FORMAT, [[FUApplication instance] appName]];
     }
     return self;
 }
@@ -54,7 +62,8 @@
     [self storeAccountsInKeychain];
     self.arrayController = nil;
     self.accounts = nil;
-    self.accountIDs;
+    self.accountIDs = nil;
+    self.keychainItemName = nil;
     [super dealloc];
 }
 
@@ -127,24 +136,36 @@
 
 
 - (NSString *)usernameFromKeychainFor:(NSString *)accountID {
-    NSString *username = [AGKeychain getPasswordFromKeychainItem:KEYCHAIN_ITEM_NAME withItemKind:KEYCHAIN_ITEM_KIND_USERNAME forUsername:[NSString stringWithFormat:KEYCHAIN_USERNAME_FORMAT, accountID]];
+    NSString *username = [AGKeychain getPasswordFromKeychainItem:keychainItemName withItemKind:KEYCHAIN_ITEM_KIND_USERNAME forUsername:[NSString stringWithFormat:KEYCHAIN_USERNAME_FORMAT, accountID]];
     return username;
 }
 
 
 - (NSString *)passwordFromKeychainFor:(NSString *)accountID {
-    NSString *password = [AGKeychain getPasswordFromKeychainItem:KEYCHAIN_ITEM_NAME withItemKind:KEYCHAIN_ITEM_KIND_PASSWORD forUsername:[NSString stringWithFormat:KEYCHAIN_PASSWORD_FORMAT, accountID]];
+    NSString *password = [AGKeychain getPasswordFromKeychainItem:keychainItemName withItemKind:KEYCHAIN_ITEM_KIND_PASSWORD forUsername:[NSString stringWithFormat:KEYCHAIN_PASSWORD_FORMAT, accountID]];
     return password;
 }
 
 
 - (BOOL)deleteUsernameFromKeychainFor:(NSString *)accountID {
-    return [AGKeychain deleteKeychainItem:KEYCHAIN_ITEM_NAME withItemKind:KEYCHAIN_ITEM_KIND_USERNAME forUsername:[NSString stringWithFormat:KEYCHAIN_USERNAME_FORMAT, accountID]];
+    BOOL result = NO;
+    @try {
+        result = [AGKeychain deleteKeychainItem:keychainItemName withItemKind:KEYCHAIN_ITEM_KIND_USERNAME forUsername:[NSString stringWithFormat:KEYCHAIN_USERNAME_FORMAT, accountID]];
+    } @catch (NSException *e) {
+        NSLog(@"error deleting twitter username from keychain %@", [e reason]);
+    }
+    return result;
 }
 
 
 - (BOOL)deletePasswordFromKeychainFor:(NSString *)accountID {
-    return [AGKeychain deleteKeychainItem:KEYCHAIN_ITEM_NAME withItemKind:KEYCHAIN_ITEM_KIND_PASSWORD forUsername:[NSString stringWithFormat:KEYCHAIN_PASSWORD_FORMAT, accountID]];
+    BOOL result = NO;
+    @try {
+        result = [AGKeychain deleteKeychainItem:keychainItemName withItemKind:KEYCHAIN_ITEM_KIND_PASSWORD forUsername:[NSString stringWithFormat:KEYCHAIN_PASSWORD_FORMAT, accountID]];
+    } @catch (NSException *e) {
+        NSLog(@"error deleting twitter password from keychain %@", [e reason]);
+    }
+    return result;
 }
 
 
@@ -191,8 +212,12 @@
         NSString *password = [[accounts objectAtIndex:i] objectForKey:@"password"];
         
         if ([username length] && [password length]) {
-            [AGKeychain addKeychainItem:KEYCHAIN_ITEM_NAME withItemKind:KEYCHAIN_ITEM_KIND_USERNAME forUsername:[NSString stringWithFormat:KEYCHAIN_USERNAME_FORMAT, accountID] withPassword:username];
-            [AGKeychain addKeychainItem:KEYCHAIN_ITEM_NAME withItemKind:KEYCHAIN_ITEM_KIND_PASSWORD forUsername:[NSString stringWithFormat:KEYCHAIN_PASSWORD_FORMAT, accountID] withPassword:password];
+            @try {
+                [AGKeychain addKeychainItem:keychainItemName withItemKind:KEYCHAIN_ITEM_KIND_USERNAME forUsername:[NSString stringWithFormat:KEYCHAIN_USERNAME_FORMAT, accountID] withPassword:username];
+                [AGKeychain addKeychainItem:keychainItemName withItemKind:KEYCHAIN_ITEM_KIND_PASSWORD forUsername:[NSString stringWithFormat:KEYCHAIN_PASSWORD_FORMAT, accountID] withPassword:password];
+            } @catch (NSException *e) {
+                NSLog(@"error writing twitter creds to keychain %@", [e reason]);
+            }
         }
 
         i++;
@@ -268,4 +293,5 @@
 @synthesize arrayController;
 @synthesize accounts;
 @synthesize accountIDs;
+@synthesize keychainItemName;
 @end

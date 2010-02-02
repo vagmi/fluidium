@@ -15,6 +15,7 @@
 #import "FUUserAgentWindowController.h"
 #import "FUUserDefaults.h"
 #import "FUUtils.h"
+#import "FUApplication.h"
 #import "FUNotifications.h"
 
 #define UA_MENU_TAG 47
@@ -143,7 +144,7 @@
 - (NSString *)defaultUserAgentString {
     if (!defaultUserAgentString) {
         // Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us) AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10
-        // Mozilla/5.0 (Macintosh; U; Intel Mac OS X %d_%d_%d; en-us) AppleWebKit/%@ (KHTML, like Gecko) Fluid/%@ Safari/%@
+        // Mozilla/5.0 (Macintosh; U; Intel Mac OS X %d_%d_%d; en-us) AppleWebKit/%@ (KHTML, like Gecko) %@/%@ Safari/%@
         
         NSUInteger macMajorVers, macMinorVers, macBugfixVers;
         FUGetSystemVersion(&macMajorVers, &macMinorVers, &macBugfixVers);
@@ -151,11 +152,14 @@
         NSString *appVers = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
         NSString *webKitVers = FUWebKitVersionString();
         
+        NSString *appName = [[FUApplication instance] isFluidSSB] ? @"Fluid" : [[FUApplication instance] appName];
+        
         self.defaultUserAgentString = [NSString stringWithFormat:defaultUserAgentFormat, 
                                        macMajorVers,
                                        macMinorVers,
                                        macBugfixVers,
                                        webKitVers,
+                                       appName,
                                        appVers,
                                        webKitVers];
         //NSLog(@"defaultUserAgentString: %@", defaultUserAgentString);

@@ -14,6 +14,7 @@
 				D33B1DD81116B23E00F754AD /* Copy .app */,
 				D33B1DBE1116AF6F00F754AD /* Edit Info.plist */,
 				D33B1EDA1116C87600F754AD /* Edit DefaultValues.plist */,
+				D33B1F821117F2ED00F754AD /* Reveal In Finder */,
 			);
 			dependencies = (
 				D33B1DC31116AF7700F754AD /* PBXTargetDependency */,
@@ -1879,6 +1880,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/perl;
 			shellScript = "#\n# Update some default preferences in DefaultValues.plist\n#\n\nuse Foundation;\n\n$appName = \"Cruz\";\n\n$path = $ENV{'TARGET_BUILD_DIR'} . \"/\" . $appName . \".app/Contents/Resources/DefaultValues.plist\";\n$plist = NSMutableDictionary->dictionaryWithContentsOfFile_($path);\n\nif ($plist and $$plist) {\n\t$plugins = NSArray->arrayWithObject_(\"com.fluidapp.TabsPlugIn\");\n\t$plist->setObject_forKey_($plugins, \"FUVisiblePlugInIdentifiers\");\n\t$plist->setObject_forKey_(\"1\", \"FUShowVisiblePlugInsInNewWindows\");\n\t$plist->setObject_forKey_(\"1\", \"FUTabBarHiddenAlways\");\n\t\n\t$plist->writeToFile_atomically_($path, \"0\");\n}";
+		};
+		D33B1F821117F2ED00F754AD /* Reveal In Finder */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Reveal In Finder";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "open \"${TARGET_BUILD_DIR}\"\n";
 		};
 		D38422F91102D3BC00605809 /* Copy PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
