@@ -21,6 +21,9 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id target = [[args objectForKey:@"document"] windowController]; // may be nil
+    if (!target) {
+        target = [[FUDocumentController instance] frontWindowController];
+    }
     [NSApp sendAction:@selector(script_newTab:) to:target from:nil];
     
     return nil;

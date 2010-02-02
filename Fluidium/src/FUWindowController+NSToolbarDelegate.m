@@ -154,7 +154,8 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
     if (!wrap) return nil;
     
     NSBundle *bundle = [NSBundle bundleForClass:[wrap.plugIn class]];
-    NSString *path = [bundle pathForImageResource:wrap.toolbarIconImageName];
+    NSString *imgName = wrap.toolbarIconImageName;
+    NSString *path = [bundle pathForImageResource:imgName];
     NSImage *img = nil;
     
     if ([path length]) {

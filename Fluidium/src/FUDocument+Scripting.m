@@ -88,7 +88,7 @@
 }
 
 
-- (id)handleOpenTabCommand:(NSScriptCommand *)cmd {
+- (id)handleNewTabCommand:(NSScriptCommand *)cmd {
     [windowController newTab:nil];
     return nil;
 }

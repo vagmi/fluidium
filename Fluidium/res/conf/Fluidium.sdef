@@ -502,7 +502,7 @@
             <cocoa method="handleDoJavaScriptCommand:"/>
         </responds-to>
         <responds-to command="new tab">
-            <cocoa method="handleOpenTabCommand:"/>
+            <cocoa method="handleNewTabCommand:"/>
         </responds-to>
         <responds-to command="select previous tab">
             <cocoa method="handleSelectPreviousTabCommand:"/>

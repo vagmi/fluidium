@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUActualSizeCommand.h"
-#import "FUTabController.h"
+#import "FUDocumentController.h"
 #import "FUWindowController+Scripting.h"
 
 @implementation FUActualSizeCommand
@@ -22,6 +22,9 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id target = [args objectForKey:@"tabController"]; // may be nil
+    if (!target) {
+        target = [[FUDocumentController instance] frontWindowController];
+    }
     [NSApp sendAction:@selector(script_actualSize:) to:target from:nil];
     
     return nil;

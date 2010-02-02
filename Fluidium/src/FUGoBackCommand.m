@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUGoBackCommand.h"
+#import "FUDocumentController.h"
 #import "FUWindowController+Scripting.h"
 
 @implementation FUGoBackCommand
@@ -21,6 +22,9 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id target = [args objectForKey:@"tabController"]; // may be nil
+    if (!target) {
+        target = [[FUDocumentController instance] frontWindowController];
+    }
     [NSApp sendAction:@selector(script_webGoBack:) to:target from:nil];
     
     return nil;

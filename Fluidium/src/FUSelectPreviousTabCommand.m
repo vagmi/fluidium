@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import "FUSelectPreviousTabCommand.h"
-#import "FUWindowController.h"
+#import "FUDocumentController.h"
 #import "FUWindowController+Scripting.h"
 
 @implementation FUSelectPreviousTabCommand
@@ -22,6 +22,9 @@
     NSDictionary *args = [self evaluatedArguments];
     
     id target = [[args objectForKey:@"document"] windowController]; // may be nil
+    if (!target) {
+        target = [[FUDocumentController instance] frontWindowController];
+    }
     [NSApp sendAction:@selector(script_selectPreviousTab:) to:target from:nil];
     
     return nil;
