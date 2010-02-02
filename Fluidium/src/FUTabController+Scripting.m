@@ -277,7 +277,7 @@
     
     DOMHTMLFormElement *formEl = nil;
     if (formName) {
-        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:formName];
     } else if (formID) {
         NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
         if ([els count]) formEl = [els objectAtIndex:0];
