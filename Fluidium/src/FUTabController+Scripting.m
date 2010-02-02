@@ -741,14 +741,18 @@
 
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el {
     if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
+        DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
+        
         BOOL boolValue = [self boolForValue:value];
-        NSString *type = [el getAttribute:@"type"];
+        NSString *type = [inputEl type];
         if ([@"checkbox" isEqualToString:type]) {
-            [el setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
-            [el setValue:(boolValue ? value : nil)];
+            [inputEl setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
+            [inputEl setValue:(boolValue ? value : @"")];
             return;
-            //    } else if ([@"checkbox" isEqualToString:type]) {
-            //        [el setAttribute:@"checked" value:(boolValue ? @"checked" : @"")];
+        } else if ([@"radio" isEqualToString:type]) {
+            [inputEl setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
+            [inputEl setValue:(boolValue ? value : @"")];
+            return;
         }
     }
     [el setValue:value];
