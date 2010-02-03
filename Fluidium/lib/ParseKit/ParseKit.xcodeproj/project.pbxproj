@@ -3205,11 +3205,9 @@
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					x86_64,
-					ppc,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "$(TDPARSEKIT_FRAMEWORK_TARGET_PATH)";
@@ -3221,14 +3219,11 @@
 				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = "";
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(TARGET_BUILD_DIR)";
-				LLVM_LTO = YES;
+				INSTALL_PATH = "$(TDPARSEKIT_FRAMEWORK_TARGET_PATH)";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ParseKit;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				TDPARSEKIT_FRAMEWORK_TARGET_PATH = "@executable_path/../Frameworks";

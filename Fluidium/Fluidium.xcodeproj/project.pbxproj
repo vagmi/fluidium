@@ -1715,7 +1715,7 @@
 		D346E49310CE434A00BA0B15 /* libparsekit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libparsekit.a;
+			path = parsekit.a;
 			remoteRef = D346E49210CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
