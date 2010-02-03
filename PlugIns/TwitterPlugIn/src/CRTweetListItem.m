@@ -234,9 +234,11 @@ static NSDictionary *sDateAttributes = nil;
     [borderBottomColor setStroke];
     [NSBezierPath strokeLineFromPoint:NSMakePoint(0, bounds.size.height) toPoint:NSMakePoint(bounds.size.width, bounds.size.height)];
     
-    // avatar
-    [sBorderBottomColor setFill];
-    [[NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide) radius:kCRAvatarCornerRadius] fill];
+    // avatar bg
+    if (!hasAvatar) {
+        [sBorderBottomColor setFill];
+        [[NSBezierPath bezierPathWithRoundRect:NSMakeRect(AVATAR_X, AVATAR_Y, kCRAvatarSide, kCRAvatarSide) radius:kCRAvatarCornerRadius] fill];
+    }
     
     // ago
     if (bounds.size.width > [CRTweetListItem minimumWidthForDrawingAgo]) { // dont draw if too small
@@ -277,6 +279,7 @@ static NSDictionary *sDateAttributes = nil;
 - (void)updateViewsFromTweet {
     if (tweet) {
         NSImage *img = [[CRAvatarCache instance] avatarForTweet:tweet sender:self];
+        hasAvatar = (img != nil);
         [avatarButton setImage:img];
         [avatarButton setNeedsDisplay:YES];
         [self setNeedsDisplay:YES];

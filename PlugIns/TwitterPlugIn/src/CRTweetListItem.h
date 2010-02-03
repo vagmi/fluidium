@@ -27,6 +27,8 @@
     SEL action;
     NSInteger tag;
     BOOL selected;
+    
+    BOOL hasAvatar;
 }
 
 + (NSString *)reuseIdentifier;

@@ -308,8 +308,6 @@
 				D3C61EEF10A150220071A723 /* CRNoAccountsViewController.m */,
 				D307F2A11114B9A3005FC7A5 /* CRAvatarCache.h */,
 				D307F2A21114B9A3005FC7A5 /* CRAvatarCache.m */,
-				D31FE2761090C64E00840969 /* CRBarButtonItemView.h */,
-				D31FE2771090C64E00840969 /* CRBarButtonItemView.m */,
 				D307F1FE1114AE23005FC7A5 /* CRTweet.h */,
 				D307F1FF1114AE23005FC7A5 /* CRTweet.m */,
 				D3F5AA5E108A5BCF00F64184 /* Prefs */,
@@ -444,6 +442,8 @@
 				D3533AD411153D4A00FB1C54 /* CRMoreListItem.m */,
 				D307F42F1114EE6A005FC7A5 /* CRTextView.h */,
 				D307F4301114EE6A005FC7A5 /* CRTextView.m */,
+				D31FE2761090C64E00840969 /* CRBarButtonItemView.h */,
+				D31FE2771090C64E00840969 /* CRBarButtonItemView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
