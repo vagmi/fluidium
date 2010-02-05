@@ -48,6 +48,10 @@
 - (void)noop:(id)sender;
 @end
 
+@interface FUTabController ()
+@property (nonatomic, assign, readwrite) FUWindowController *windowController;
+@end
+
 @interface FUWindowController (FUTabBarDragging) // Don't use this method for anything else
 - (void)tabControllerWasDroppedOnTabBar:(FUTabController *)tc;
 @end
@@ -604,6 +608,8 @@
     if ([tabControllers containsObject:tc]) {
         return;
     }
+
+    tc.windowController = self;
     
     NSInteger c = [tabControllers count];
     i = i > c ? c : i;

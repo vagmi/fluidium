@@ -38,10 +38,8 @@
     if (NSNotFound == i) {
         return nil;
     } else {
-        return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:[NSScriptClassDescription classDescriptionForClass:[NSApp class]]
-                                                         containerSpecifier:nil 
-                                                                        key:@"orderedDocuments" 
-                                                                      index:i] autorelease];
+        NSScriptClassDescription *cls = [NSScriptClassDescription classDescriptionForClass:[NSApp class]];
+        return [[[NSIndexSpecifier alloc] initWithContainerClassDescription:cls containerSpecifier:nil key:@"orderedDocuments" index:i] autorelease];
     }
 }
 

@@ -17,8 +17,6 @@
 #import "MGTwitterEngine.h"
 #import "CRTextView.h"
 
-@class DOMHTMLElement;
-
 @interface CRBaseViewController : UMEViewController <MGTwitterEngineDelegate, TDListViewDataSource, TDListViewDelegate, CRTextViewDelegate> {
     TDListView *listView;
     NSMutableArray *tweets;

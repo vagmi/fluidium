@@ -132,6 +132,7 @@
 }
 - (IBAction)script_takeTabIndexToCloseFrom:(id)sender {
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
+    NSAssert([tc windowController] == self, @"");
     
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[tc objectSpecifier] descriptor];
