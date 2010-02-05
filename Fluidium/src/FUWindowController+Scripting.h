@@ -18,6 +18,7 @@
 - (IBAction)script_closeWindow:(id)sender;
 - (IBAction)script_newTab:(id)sender;
 - (IBAction)script_closeTab:(id)sender;
+- (IBAction)script_goToLocation:(id)sender;
 - (IBAction)script_webGoBack:(id)sender;
 - (IBAction)script_webGoForward:(id)sender;
 - (IBAction)script_webReload:(id)sender;
@@ -29,4 +30,6 @@
 - (IBAction)script_zoomOut:(id)sender;
 - (IBAction)script_actualSize:(id)sender;
 - (IBAction)script_takeTabIndexToCloseFrom:(id)sender;
+
+- (void)script_setSelectedTabIndex:(NSInteger)i;
 @end

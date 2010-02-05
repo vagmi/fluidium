@@ -264,9 +264,9 @@
     <command name="load URL" code="FuSSLoad" description="Load a URL.">
         <cocoa class="FULoadURLCommand"/>
         <direct-parameter type="text" description="The URL to load."/>
-        <!-- <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the URL should be loaded.">
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="The tab in which the URL should be loaded.">
             <cocoa key="tabController"/>
-        </parameter> -->
+        </parameter>
     </command>
 
     <command name="do JavaScript" code="FuSSdoJS" description="Applies a string of JavaScript code to a document.">
@@ -359,19 +359,19 @@
         <parameter type="text" name="page has element with id" code="YsID" optional="yes" description="Asserts an element with a given id attribute exists in the web page loaded in this tab.">
             <cocoa key="hasElementWithId"/>
         </parameter>
-        <parameter type="text" name="page doesn't have element with id" code="NoID" optional="yes" description="Asserts an element with a given id attribute does not exist in the web page loaded in this tab.">
+        <parameter type="text" name="page does not have element with id" code="NoID" optional="yes" description="Asserts an element with a given id attribute does not exist in the web page loaded in this tab.">
             <cocoa key="doesntHaveElementWithId"/>
         </parameter>
         <parameter type="text" name="page contains text" code="YsTx" optional="yes" description="Asserts the given text exists in the web page loaded in this tab.">
             <cocoa key="containsText"/>
         </parameter>
-        <parameter type="text" name="page doesn't contain text" code="NoTx" optional="yes" description="Asserts the given text does not exist in the web page loaded in this tab.">
+        <parameter type="text" name="page does not contain text" code="NoTx" optional="yes" description="Asserts the given text does not exist in the web page loaded in this tab.">
             <cocoa key="doesntContainText"/>
         </parameter>
         <parameter type="text" name="page contains HTML" code="YsHT" optional="yes" description="Asserts the given HTML exists in the web page loaded in this tab.">
             <cocoa key="containsHTML"/>
         </parameter>
-        <parameter type="text" name="page doesn't contain HTML" code="NoHT" optional="yes" description="Asserts the given HTML does not exist in the web page loaded in this tab.">
+        <parameter type="text" name="page does not contain HTML" code="NoHT" optional="yes" description="Asserts the given HTML does not exist in the web page loaded in this tab.">
             <cocoa key="doesntContainHTML"/>
         </parameter>
         <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Asserts the given JavaScript evaluates to true in the web page loaded in this tab.">
@@ -390,19 +390,19 @@
         <parameter type="text" name="page has element with id" code="YsID" optional="yes" description="Waits for an element with a given id attribute to exist in the web page loaded in this tab.">
             <cocoa key="hasElementWithId"/>
         </parameter>
-        <parameter type="text" name="page doesn't have element with id" code="NoID" optional="yes" description="Waits for element with a given id attribute to not exist in the web page loaded in this tab.">
+        <parameter type="text" name="page does not have element with id" code="NoID" optional="yes" description="Waits for element with a given id attribute to not exist in the web page loaded in this tab.">
             <cocoa key="doesntHaveElementWithId"/>
         </parameter>
         <parameter type="text" name="page contains text" code="YsTx" optional="yes" description="Waits for the given text to exist in the web page loaded in this tab.">
             <cocoa key="containsText"/>
         </parameter>
-        <parameter type="text" name="page doesn't contain text" code="NoTx" optional="yes" description="Waits for the given text to not exist in the web page loaded in this tab.">
+        <parameter type="text" name="page does not contain text" code="NoTx" optional="yes" description="Waits for the given text to not exist in the web page loaded in this tab.">
             <cocoa key="doesntContainText"/>
         </parameter>
         <parameter type="text" name="page contains HTML" code="YsHT" optional="yes" description="Waits for the given HTML to exist in the web page loaded in this tab.">
             <cocoa key="containsHTML"/>
         </parameter>
-        <parameter type="text" name="page doesn't contain HTML" code="NoHT" optional="yes" description="Waits for the given HTML to not exist in the web page loaded in this tab.">
+        <parameter type="text" name="page does not contain HTML" code="NoHT" optional="yes" description="Waits for the given HTML to not exist in the web page loaded in this tab.">
             <cocoa key="doesntContainHTML"/>
         </parameter>
         <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Waits for the given JavaScript to evaluate true in the web page loaded in this tab.">

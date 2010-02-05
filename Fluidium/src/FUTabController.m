@@ -42,6 +42,10 @@ typedef enum {
 + (BOOL)_canHandleRequest:(NSURLRequest *)req;
 @end
 
+@interface FUWindowController ()
+- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
+@end
+
 @interface FUTabController ()
 - (void)loadView;
 - (BOOL)isViewLoaded;
@@ -62,10 +66,6 @@ typedef enum {
 
 @property (nonatomic, assign, readwrite) FUWindowController *windowController; // weak ref
 @property (nonatomic, retain) NSScriptCommand *suspendedCommand;
-@end
-
-@interface FUWindowController ()
-- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
 @end
 
 @implementation FUTabController

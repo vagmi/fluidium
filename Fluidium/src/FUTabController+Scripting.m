@@ -18,6 +18,11 @@
 #import "FUNotifications.h"
 #import <WebKit/WebKit.h>
 
+//
+#import "FUActivation.h"
+#import "WebViewPrivate.h"
+#import "NSAppleEventDescriptor+FUAdditions.h"
+
 #define DEFAULT_DELAY 1.0
 
 // wait for condition
@@ -25,7 +30,20 @@
 #define KEY_COMMAND @"FUCommand"
 #define DEFAULT_TIMEOUT 60.0
 
+typedef enum {
+    WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1
+} WebExtraNavigationType;
+
+@interface FUWindowController ()
+- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
+@end
+
 @interface FUTabController (ScriptingPrivate)
+- (BOOL)shouldHandleRequest:(NSURLRequest *)inReq;
+
+- (void)sendEvent_loadURL:(NSString *)URLString;
+- (void)sendEvent_submitForm:(NSURLRequest *)req;
+
 - (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
 - (void)suspendCommand:(NSScriptCommand *)cmd;
 - (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay;
@@ -88,6 +106,75 @@
 }
 
 
+#pragma mark -
+#pragma mark Web Recording
+
+- (void)webView:(WebView *)wv decidePolicyForNavigationAction:(NSDictionary *)info request:(NSURLRequest *)req frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
+    if (![self shouldHandleRequest:req]) {
+        [listener ignore];
+        return;
+    }
+    
+    WebNavigationType navType = [[info objectForKey:WebActionNavigationTypeKey] integerValue];
+    
+    if ([WebView _canHandleRequest:req]) {
+        switch (navType) {
+            case WebNavigationTypeOther:
+            case WebNavigationTypeBackForward:
+            case WebNavigationTypeReload:
+                [listener use];
+                break;
+            case WebNavigationTypeLinkClicked:
+            {
+                FUActivation *act = [FUActivation activationFromWebActionInfo:info];
+                if (act.isCommandKeyPressed) {
+                    [listener ignore];
+                    [windowController handleCommandClick:act request:req];
+                } else {
+                    [self sendEvent_loadURL:[[req URL] absoluteString]];
+                    [listener ignore];
+                }
+            }
+                break;
+            case WebNavigationTypeFormSubmitted:
+            case WebNavigationTypeFormResubmitted:
+//                [self sendEvent_submitForm:req];
+//                [listener ignore];
+                [listener use];
+                break;
+            default:
+                break;
+        }
+                     
+    } else if (WebNavigationTypePlugInRequest == navType) {
+        [listener use];
+    } else {
+        // A file URL shouldn't fall through to here, but if it did, it would be a security risk to open it.
+        if (![[req URL] isFileURL]) {
+            [[NSWorkspace sharedWorkspace] openURL:[req URL]];
+        }
+        [listener ignore];
+    }
+}
+
+
+- (void)sendEvent_loadURL:(NSString *)s {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
+    NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
+    [someAE setDescriptor:[NSAppleEventDescriptor descriptorWithString:s] forKeyword:keyDirectObject];
+    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
+    [someAE sendToOwnProcess];
+}
+
+
+- (void)sendEvent_submitForm:(NSURLRequest *)req {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
+    NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
+    [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
+    [someAE sendToOwnProcess];
+}
+
+                     
 #pragma mark -
 #pragma mark Commands
 

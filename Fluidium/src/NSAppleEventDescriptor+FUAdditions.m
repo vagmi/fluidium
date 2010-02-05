@@ -17,13 +17,8 @@
 @implementation NSAppleEventDescriptor (FUAdditions)
 
 + (NSAppleEventDescriptor *)descriptorForFluidiumProcess {
-    OSErr err = noErr;
     ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
-    if (err) {
-        return nil;
-    } else {
-        return [NSAppleEventDescriptor descriptorWithDescriptorType:typeProcessSerialNumber bytes:&selfPSN length:sizeof(selfPSN)];
-    }
+    return [NSAppleEventDescriptor descriptorWithDescriptorType:typeProcessSerialNumber bytes:&selfPSN length:sizeof(selfPSN)];
 }
 
 

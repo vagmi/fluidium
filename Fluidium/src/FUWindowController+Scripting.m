@@ -17,6 +17,8 @@
 #import "NSAppleEventDescriptor+FUAdditions.h"
 #import <objc/runtime.h>
 
+#import "AEVTBuilder.h"
+
 @implementation FUWindowController (Scripting)
 
 + (void)initialize {
@@ -32,6 +34,10 @@
         
         old = class_getInstanceMethod(self, @selector(closeTab:));
         new = class_getInstanceMethod(self, @selector(script_closeTab:));
+        method_exchangeImplementations(old, new);
+        
+        old = class_getInstanceMethod(self, @selector(goToLocation:));
+        new = class_getInstanceMethod(self, @selector(script_goToLocation:));
         method_exchangeImplementations(old, new);
         
         old = class_getInstanceMethod(self, @selector(webGoBack:));
@@ -77,6 +83,10 @@
         old = class_getInstanceMethod(self, @selector(takeTabIndexToCloseFrom:));
         new = class_getInstanceMethod(self, @selector(script_takeTabIndexToCloseFrom:));
         method_exchangeImplementations(old, new);
+        
+//        old = class_getInstanceMethod(self, @selector(setSelectedTabIndex:));
+//        new = class_getInstanceMethod(self, @selector(script_setSelectedTabIndex:));
+//        method_exchangeImplementations(old, new);
     }
 }
 
@@ -90,9 +100,13 @@
     [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
     [someAE sendToOwnProcess];
 }
+
+
 - (IBAction)script_newTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
 }
+
+
 - (IBAction)script_closeTab:(id)sender {
     //[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
@@ -100,36 +114,66 @@
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
     [someAE sendToOwnProcess];
 }
+
+
+- (IBAction)script_goToLocation:(id)sender {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
+    NSAppleEventDescriptor *URLDesc = [NSAppleEventDescriptor descriptorWithString:[locationComboBox stringValue]];
+    [someAE setDescriptor:URLDesc forKeyword:keyDirectObject];
+    [someAE sendToOwnProcess];
+}
+
+
 - (IBAction)script_webGoBack:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Back'];
 }
+
+
 - (IBAction)script_webGoForward:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Fwrd'];
 }
+
+
 - (IBAction)script_webReload:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Reld'];
 }
+
+
 - (IBAction)script_webStopLoading:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Stop'];
 }
+
+
 - (IBAction)script_webGoHome:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'Home'];
 }
+
+
 - (IBAction)script_zoomIn:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'ZoIn'];
 }
+
+
 - (IBAction)script_zoomOut:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'ZoOt'];
 }
+
+
 - (IBAction)script_actualSize:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'ActS'];
 }
+
+
 - (IBAction)script_selectPreviousTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'PReV'];
 }
+
+
 - (IBAction)script_selectNextTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'NeXT'];
 }
+
+
 - (IBAction)script_takeTabIndexToCloseFrom:(id)sender {
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
     NSAssert([tc windowController] == self, @"");
@@ -139,6 +183,46 @@
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
     
     [someAE sendToOwnProcess];
+}
+
+
+- (void)script_setSelectedTabIndex:(NSInteger)i {
+//    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'setd'];
+//
+//    NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
+//    [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
+////    [docDesc setParamDescriptor:'dSTI' forKeyword:'seld'];
+//
+//    NSAppleEventDescriptor *idxDesc = [NSAppleEventDescriptor descriptorWithInt32:2];
+//    [someAE setDescriptor:idxDesc forKeyword:keyAEData];
+//
+//    [someAE sendToOwnProcess];
+    
+    ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
+    
+    NSAppleEventDescriptor *descriptor = [AEVT class:'core' id:'setd' target:selfPSN,
+
+                                          [KEY : 'data'],
+                                          [INT : i],
+                                          
+                                          [KEY : '----'],
+                                          [RECORD : 'obj ',
+                                           [KEY : 'form'], [TYPE : 'prop'],
+                                           [KEY : 'want'], [TYPE : 'prop'],
+                                           [KEY : 'seld'], [TYPE : 'dSTI'],
+                                           [KEY : 'from'],
+                                           [RECORD : 'obj ',
+                                            [KEY : 'form'], [ENUM : 'indx'],
+                                            [KEY : 'want'], [TYPE : 'fDoc'],
+                                            [KEY : 'seld'], [INT  : 1],
+                                            [KEY : 'from'], [DESC null],
+                                            ENDRECORD],
+                                           ENDRECORD],
+                                          ENDRECORD];
+    
+    [descriptor sendWithImmediateReply];
+    
+    
 }
 
 @end

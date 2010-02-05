@@ -15,6 +15,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSEvent (FUAdditions)
+- (BOOL)isMouseDown;
 - (BOOL)isKeyUpOrDown;
 - (BOOL)is3rdButtonClick;
 - (BOOL)isCommandKeyPressed;

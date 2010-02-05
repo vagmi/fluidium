@@ -27,9 +27,10 @@
 #define RIGHT_ARROW 124   
 
 @interface FUWindow ()
-- (BOOL)handleCloseSearchPanel:(NSEvent *)evt;
+- (BOOL)handleHideFindPanel:(NSEvent *)evt;
 - (BOOL)handleNextPrevTab:(NSEvent *)evt;
 - (BOOL)handleGoBackForward:(NSEvent *)evt;
+- (BOOL)hideFindPanel;
 - (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt;
 - (void)sendMouseMovedEvent:(NSEvent *)evt toPlugInWithIdentifier:(NSString *)identifier;
 @end
@@ -95,10 +96,14 @@
 
 
 - (void)sendEvent:(NSEvent *)evt {
+    
+    if ([evt isMouseDown]) {
+        [self hideFindPanel];
+    }
 
-    if ([evt isKeyUpOrDown]) {
+    else if ([evt isKeyUpOrDown]) {
         // handle closing the search panel via <ESC> key
-        if ([self handleCloseSearchPanel:evt]) {
+        if ([self handleHideFindPanel:evt]) {
             return;
         }
                                                    
@@ -171,7 +176,6 @@
 }
 
 
-
 - (void)windowOpacityDidChange:(NSNotification *)n {
 	[self setAlphaValue:[[FUUserDefaults instance] windowOpacity]];
 }
@@ -186,15 +190,12 @@
 #pragma mark -
 #pragma mark Private
 
-- (BOOL)handleCloseSearchPanel:(NSEvent *)evt {
+- (BOOL)handleHideFindPanel:(NSEvent *)evt {
     if ([evt isEscKeyPressed]) {
-        FUWindowController *wc = [self windowController];
-        if ([wc isFindPanelVisible]) {
-            [wc hideFindPanel:self];
-            return YES;
-        }
+        return [self hideFindPanel];
+    } else {
+        return NO;
     }
-    return NO;
 }
 
 
@@ -236,6 +237,17 @@
         }
     }
     return NO;
+}
+
+
+- (BOOL)hideFindPanel {
+    FUWindowController *wc = [self windowController];
+    if ([wc isFindPanelVisible]) {
+        [wc hideFindPanel:self];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 

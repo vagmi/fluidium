@@ -21,6 +21,11 @@
 
 @implementation NSEvent (FUAdditions)
 
+- (BOOL)isMouseDown {
+    return (NSLeftMouseDown == [self type] || NSRightMouseDown == [self type]);
+}
+
+
 - (BOOL)isKeyUpOrDown {
     return (NSKeyUp == [self type] || NSKeyDown == [self type]);
 }
