@@ -89,7 +89,7 @@ static NSInteger sTag = 0;
         self.preferencesViewController = [[[FUBrowsaPreferencesViewController alloc] initWithPlugIn:self] autorelease];
         
         self.preferredVerticalSplitPosition = 340;
-        self.preferredHorizontalSplitPosition = 250;
+        self.preferredHorizontalSplitPosition = 240;
         self.sortOrder = 100 + tag;
     }
     return self;
@@ -121,7 +121,7 @@ static NSInteger sTag = 0;
     NSUInteger mask = [[[n userInfo] objectForKey:FUPlugInViewPlacementMaskKey] unsignedIntegerValue];
     
     WebView *wv = [vc webView];
-    NSWindow *win = [[vc view] window];
+    NSWindow *win = [[self windowControllerForViewController:vc] window];
     [wv setHostWindow:win];
     
     if (FUPlugInViewPlacementIsSplitView(mask)) {
@@ -293,18 +293,14 @@ static NSInteger sTag = 0;
 
 
 - (NSString *)homeURLString {
-    return [[[NSUserDefaults standardUserDefaults] stringForKey:[self taggedKey:kFUBrowsaHomeURLStringKey]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *s = [[NSUserDefaults standardUserDefaults] stringForKey:[self taggedKey:kFUBrowsaHomeURLStringKey]];
+    return [s stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 
-- (void)setHomeURLString:(NSString *)inString {
+- (void)setHomeURLString:(NSString *)s {
     NSString *key = [self taggedKey:kFUBrowsaHomeURLStringKey];
-    [[NSUserDefaults standardUserDefaults] setObject:[[inString copy] autorelease] forKey:key];
-    
-    for (NSViewController *vc in self.viewControllers) {
-        FUWindowController *wc = [self windowControllerForViewController:vc];
-        [[[wc window] toolbar] validateVisibleItems];
-    }
+    [[NSUserDefaults standardUserDefaults] setObject:s forKey:key];
 }
 
 
@@ -324,12 +320,12 @@ static NSInteger sTag = 0;
 }
 
 
-- (void)setUserAgentString:(NSString *)inString {
+- (void)setUserAgentString:(NSString *)s {
     NSString *key = [self taggedKey:kFUBrowsaUserAgentStringKey];
-    if (inString == nil) {
+    if (!s) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     } else {
-        [[NSUserDefaults standardUserDefaults] setObject:[[inString copy] autorelease] forKey:key];
+        [[NSUserDefaults standardUserDefaults] setObject:s forKey:key];
     }
 }
 

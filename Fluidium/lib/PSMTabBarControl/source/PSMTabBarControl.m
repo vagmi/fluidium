@@ -162,8 +162,8 @@
     [self _positionOverflowMenu];
     
     // new tab button
-    NSRect addTabButtonRect = NSMakeRect([self frame].size.width - [style rightMarginForTabBarControl] + 1, 3.0, 16.0, 16.0);
-    _addTabButton = [[PSMRolloverButton alloc] initWithFrame:addTabButtonRect];
+    //NSRect addTabButtonRect = NSMakeRect([self frame].size.width - [style rightMarginForTabBarControl] + 1, 3.0, 16.0, 16.0);
+    _addTabButton = nil; // [[PSMRolloverButton alloc] initWithFrame:addTabButtonRect];
     if (_addTabButton) {
         NSImage *newButtonImage = [style addTabButtonImage];
         if (newButtonImage) {

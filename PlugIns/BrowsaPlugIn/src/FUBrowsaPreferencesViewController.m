@@ -55,6 +55,11 @@
 }
 
 
+- (id)retain {
+    return [super retain];
+}
+
+
 - (void)awakeFromNib {
     [self updateMenu];
 }
