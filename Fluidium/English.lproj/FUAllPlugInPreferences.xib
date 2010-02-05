@@ -3,16 +3,16 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
 		<string key="IBDocument.SystemVersion">10C540</string>
-		<string key="IBDocument.InterfaceBuilderVersion">740</string>
+		<string key="IBDocument.InterfaceBuilderVersion">759</string>
 		<string key="IBDocument.AppKitVersion">1038.25</string>
 		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">740</string>
+			<string key="NS.object.0">759</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="6"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -449,7 +449,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<object class="NSUserDefaultsController" id="299104705">
 				<object class="NSMutableArray" key="NSDeclaredKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>TDUberViewSplitViewDividerStyle</string>
+					<string>FUNumberOfBrowsaPlugIns</string>
 				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
@@ -523,42 +523,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.FUNumberOfBrowsaBrowsaPlugIns</string>
-						<reference key="source" ref="82713018"/>
-						<reference key="destination" ref="299104705"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="82713018"/>
-							<reference key="NSDestination" ref="299104705"/>
-							<string key="NSLabel">value: values.FUNumberOfBrowsaBrowsaPlugIns</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.FUNumberOfBrowsaBrowsaPlugIns</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">37</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.FUNumberOfBrowsaBrowsaPlugIns</string>
-						<reference key="source" ref="888802177"/>
-						<reference key="destination" ref="299104705"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="888802177"/>
-							<reference key="NSDestination" ref="299104705"/>
-							<string key="NSLabel">value: values.FUNumberOfBrowsaBrowsaPlugIns</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.FUNumberOfBrowsaBrowsaPlugIns</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">38</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedIndex: values.TDUberViewSplitViewDividerStyle</string>
 						<reference key="source" ref="342821334"/>
 						<reference key="destination" ref="299104705"/>
@@ -572,6 +536,55 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 					</object>
 					<int key="connectionID">39</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.FUNumberOfBrowsaPlugIns</string>
+						<reference key="source" ref="82713018"/>
+						<reference key="destination" ref="299104705"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="82713018"/>
+							<reference key="NSDestination" ref="299104705"/>
+							<string key="NSLabel">value: values.FUNumberOfBrowsaPlugIns</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.FUNumberOfBrowsaPlugIns</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSContinuouslyUpdatesValue</string>
+									<string>NSValidatesImmediately</string>
+								</object>
+								<object class="NSMutableArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<boolean value="YES"/>
+									<boolean value="YES"/>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">41</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.FUNumberOfBrowsaPlugIns</string>
+						<reference key="source" ref="888802177"/>
+						<reference key="destination" ref="299104705"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="888802177"/>
+							<reference key="NSDestination" ref="299104705"/>
+							<string key="NSLabel">value: values.FUNumberOfBrowsaPlugIns</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.FUNumberOfBrowsaPlugIns</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValidatesImmediately</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">45</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -815,7 +828,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">39</int>
+			<int key="maxID">45</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -851,14 +864,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUNotifications.h</string>
+						<string key="minorKey">include/Fluidium/FUNotifications.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUPlugIn.h</string>
+						<string key="minorKey">include/Fluidium/FUPlugIn.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1488,6 +1501,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
+		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<integer value="1050" key="NS.object.0"/>
