@@ -25,6 +25,9 @@
 
 - (id)initWithPlugIn:(FUPlugIn *)aPlugIn;
 
+// for mimicing action senders. returns identifier for plugin
+- (id)representedObject;
+
 - (NSViewController *)plugInViewControllerForWindowNumber:(NSInteger)num;
 - (NSViewController *)newViewControllerForWindowNumber:(NSInteger)num;
 

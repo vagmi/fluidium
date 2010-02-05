@@ -15,15 +15,21 @@
 #import <TDAppKit/TDUberView.h>
 #import "TDUberViewSplitView.h"
 
-NSString *const kTDUberViewSplitViewDividerStyleKey = @"TDUberViewSplitViewDividerStyle";
-NSString *const kTDUberViewIsLeftViewOpenKey = @"TDUberViewIsLeftViewOpen";
-NSString *const kTDUberViewIsRightViewOpenKey = @"TDUberViewIsRightViewOpen";
-NSString *const kTDUberViewIsTopViewOpenKey = @"TDUberViewIsLeftViewOpen";
-NSString *const kTDUberViewIsBottomViewOpenKey = @"TDUberViewIsBottomViewOpen";
-NSString *const kTDUberViewLeftViewWidthKey = @"TDUberViewLeftViewWidth";
-NSString *const kTDUberViewRightViewWidthKey = @"TDUberViewRightViewWidth";
-NSString *const kTDUberViewTopViewHeightKey = @"TDUberViewTopViewHeight";
-NSString *const kTDUberViewBottomViewHeightKey = @"TDUberViewBottomViewHeight";
+static NSString *const kTDUberViewSplitViewDividerStyleKey = @"TDUberViewSplitViewDividerStyle";
+static NSString *const kTDUberViewIsLeftViewOpenKey = @"TDUberViewIsLeftViewOpen";
+static NSString *const kTDUberViewIsRightViewOpenKey = @"TDUberViewIsRightViewOpen";
+static NSString *const kTDUberViewIsTopViewOpenKey = @"TDUberViewIsLeftViewOpen";
+static NSString *const kTDUberViewIsBottomViewOpenKey = @"TDUberViewIsBottomViewOpen";
+
+static NSString *const kTDUberViewLeftViewWidthKey = @"TDUberViewLeftViewWidth";
+static NSString *const kTDUberViewRightViewWidthKey = @"TDUberViewRightViewWidth";
+static NSString *const kTDUberViewTopViewHeightKey = @"TDUberViewTopViewHeight";
+static NSString *const kTDUberViewBottomViewHeightKey = @"TDUberViewBottomViewHeight";
+
+static NSString *const kTDUberViewLeftViewWidthDictionaryKey = @"TDUberViewLeftViewWidthDictionary";
+static NSString *const kTDUberViewRightViewWidthDictionaryKey = @"TDUberViewRightViewWidthDictionary";
+static NSString *const kTDUberViewTopViewHeightDictionaryKey = @"TDUberViewTopViewHeightDictionary";
+static NSString *const kTDUberViewBottomViewHeightDictionaryKey = @"TDUberViewBottomViewHeightDictionary";
 
 static NSComparisonResult TDVSplitViewSubviewComparatorFunc(id viewA, id viewB, TDUberView *self);
 static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, TDUberView *self);
@@ -32,10 +38,12 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 - (void)timerFired:(NSTimer*)t;
 - (void)storeSplitPositions;
 - (void)storeOpenStates;
+- (void)setExtent:(CGFloat)extent forIdentifier:(NSString *)identifier inDictionaryForKey:(NSString *)key;
 - (void)storeLeftSplitPosition;
 - (void)storeRightSplitPosition;
 - (void)storeTopSplitPosition;
 - (void)storeBottomSplitPosition;
+- (NSString *)identifierForSender:(id)sender;
 - (CGFloat)storedLeftSplitPosition;
 - (CGFloat)storedRightSplitPosition;
 - (CGFloat)storedTopSplitPosition;
@@ -65,6 +73,11 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 @property (nonatomic, readwrite, getter=isRightViewOpen) BOOL rightViewOpen;
 @property (nonatomic, readwrite, getter=isTopViewOpen) BOOL topViewOpen;
 @property (nonatomic, readwrite, getter=isBottomViewOpen) BOOL bottomViewOpen;
+
+@property (nonatomic, copy) NSString *currentLeftIdentifier;
+@property (nonatomic, copy) NSString *currentRightIdentifier;
+@property (nonatomic, copy) NSString *currentTopIdentifier;
+@property (nonatomic, copy) NSString *currentBottomIdentifier;
 @end
 
 @implementation TDUberView
@@ -133,6 +146,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 
 
 - (void)dealloc {
+    self.delegate = nil;
     self.verticalSplitView = nil;
     self.horizontalSplitView = nil;
     self.leftSuperview = nil;
@@ -146,6 +160,10 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     self.midView = nil;
     self.bottomView = nil;
     self.timer = nil;
+    self.currentLeftIdentifier = nil;
+    self.currentRightIdentifier = nil;
+    self.currentTopIdentifier = nil;
+    self.currentBottomIdentifier = nil;
     [super dealloc];
 }
 
@@ -169,6 +187,11 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     [ud removeObjectForKey:kTDUberViewRightViewWidthKey];
     [ud removeObjectForKey:kTDUberViewTopViewHeightKey];
     [ud removeObjectForKey:kTDUberViewBottomViewHeightKey];
+
+    [ud removeObjectForKey:kTDUberViewLeftViewWidthDictionaryKey];
+    [ud removeObjectForKey:kTDUberViewRightViewWidthDictionaryKey];
+    [ud removeObjectForKey:kTDUberViewTopViewHeightDictionaryKey];
+    [ud removeObjectForKey:kTDUberViewBottomViewHeightDictionaryKey];
     [ud synchronize];
     
     [self restoreSplitPositions];
@@ -196,6 +219,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         [verticalSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDVSplitViewSubviewComparatorFunc context:self];
     }
     
+    self.currentLeftIdentifier = [self identifierForSender:sender];
     [self restoreLeftSplitPosition];
     [horizontalSplitView setNeedsDisplay:YES];
     [verticalSplitView setNeedsDisplay:YES];
@@ -239,6 +263,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         [verticalSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDVSplitViewSubviewComparatorFunc context:self];
     }
     
+    self.currentRightIdentifier = [self identifierForSender:sender];
     [self restoreRightSplitPosition];
     [horizontalSplitView setNeedsDisplay:YES];
     [verticalSplitView setNeedsDisplay:YES];
@@ -282,6 +307,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         [horizontalSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDHSplitViewSubviewComparatorFunc context:self];
     }
     
+    self.currentTopIdentifier = [self identifierForSender:sender];
     [self restoreTopSplitPosition];
     [horizontalSplitView setNeedsDisplay:YES];
     [verticalSplitView setNeedsDisplay:YES];
@@ -325,6 +351,7 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
         [horizontalSplitView sortSubviewsUsingFunction:(NSComparisonResult (*)(id, id, void *))TDHSplitViewSubviewComparatorFunc context:self];
     }
     
+    self.currentTopIdentifier = [self identifierForSender:sender];
     [self restoreBottomSplitPosition];
     [horizontalSplitView setNeedsDisplay:YES];
     [verticalSplitView setNeedsDisplay:YES];
@@ -729,11 +756,24 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 }
 
 
+- (void)setExtent:(CGFloat)extent forIdentifier:(NSString *)identifier inDictionaryForKey:(NSString *)key {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:[ud objectForKey:key]];
+    [d setObject:[NSNumber numberWithFloat:extent] forKey:identifier];
+    [ud setObject:d forKey:key];
+}
+
+
 - (void)storeLeftSplitPosition {
     if (leftViewOpen) {
         CGFloat leftViewWidth = abs(NSWidth([leftSuperview frame]));
         leftViewWidth = (leftViewWidth < 1) ? 1 : leftViewWidth;
-        [[NSUserDefaults standardUserDefaults] setFloat:leftViewWidth forKey:kTDUberViewLeftViewWidthKey];
+        
+        if (currentLeftIdentifier) {
+            [self setExtent:leftViewWidth forIdentifier:currentLeftIdentifier inDictionaryForKey:kTDUberViewLeftViewWidthDictionaryKey];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setFloat:leftViewWidth forKey:kTDUberViewLeftViewWidthKey];
+        }
     }
 }
 
@@ -741,7 +781,12 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 - (void)storeRightSplitPosition {
     if (rightViewOpen) {
         CGFloat rightViewWidth = abs(NSWidth([rightSuperview frame]));
-        [[NSUserDefaults standardUserDefaults] setFloat:rightViewWidth forKey:kTDUberViewRightViewWidthKey];
+
+        if (currentRightIdentifier) {
+            [self setExtent:rightViewWidth forIdentifier:currentRightIdentifier inDictionaryForKey:kTDUberViewRightViewWidthDictionaryKey];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setFloat:rightViewWidth forKey:kTDUberViewRightViewWidthKey];
+        }
     }
 }
 
@@ -750,7 +795,12 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     if (topViewOpen) {
         CGFloat topViewHeight = abs(NSHeight([topSuperview frame]));
         topViewHeight = (topViewHeight < 1) ? 1 : topViewHeight;
-        [[NSUserDefaults standardUserDefaults] setFloat:topViewHeight forKey:kTDUberViewTopViewHeightKey];
+
+        if (currentTopIdentifier) {
+            [self setExtent:topViewHeight forIdentifier:currentTopIdentifier inDictionaryForKey:kTDUberViewTopViewHeightDictionaryKey];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setFloat:topViewHeight forKey:kTDUberViewTopViewHeightKey];
+        }
     }
 }
 
@@ -758,7 +808,12 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 - (void)storeBottomSplitPosition {
     if (bottomViewOpen) {
         CGFloat bottomViewHeight = abs(NSHeight([bottomView frame]));
-        [[NSUserDefaults standardUserDefaults] setFloat:bottomViewHeight forKey:kTDUberViewBottomViewHeightKey];
+
+        if (currentBottomIdentifier) {
+            [self setExtent:bottomViewHeight forIdentifier:currentBottomIdentifier inDictionaryForKey:kTDUberViewBottomViewHeightDictionaryKey];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setFloat:bottomViewHeight forKey:kTDUberViewBottomViewHeightKey];
+        }
     }
 }
 
@@ -793,18 +848,14 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 }
 
 
-- (CGFloat)storedLeftSplitPosition {
-    CGFloat leftViewWidth = 0;
+- (NSString *)identifierForSender:(id)sender {    
+    NSString *identifier = nil;
     
-    if (self.isLeftViewOpen) {
-        leftViewWidth = preferredLeftSplitWidth;
-        NSNumber *leftViewWidthObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewLeftViewWidthKey];
-        if (leftViewWidthObj) {
-            leftViewWidth = [leftViewWidthObj floatValue];
-        }
+    if (sender && [sender respondsToSelector:@selector(representedObject)]) {
+        identifier = [sender representedObject];
     }
     
-    return leftViewWidth;
+    return identifier;
 }
 
 
@@ -821,18 +872,27 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 }
 
 
-- (CGFloat)storedRightSplitPosition {
-    CGFloat rightViewWidth = 0;
+- (CGFloat)storedLeftSplitPosition {
+    CGFloat leftViewWidth = 0;
     
-    if (self.isRightViewOpen) {
-        rightViewWidth = preferredRightSplitWidth;
-        NSNumber *rightViewWidthObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewRightViewWidthKey];
-        if (rightViewWidthObj) {
-            rightViewWidth = [rightViewWidthObj floatValue];
+    if (self.isLeftViewOpen) {
+        leftViewWidth = preferredLeftSplitWidth;
+        
+        NSNumber *widthObj = nil;
+        
+        if (currentLeftIdentifier) {
+            NSDictionary *d = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewLeftViewWidthDictionaryKey];
+            widthObj = [d objectForKey:currentLeftIdentifier];
+        } else {
+            widthObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewLeftViewWidthKey];
+        }
+        
+        if (widthObj) {
+            leftViewWidth = [widthObj floatValue];
         }
     }
     
-    return rightViewWidth;
+    return leftViewWidth;
 }
 
 
@@ -851,18 +911,27 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 }
 
 
-- (CGFloat)storedTopSplitPosition {
-    CGFloat topViewHeight = 0;
+- (CGFloat)storedRightSplitPosition {
+    CGFloat rightViewWidth = 0;
     
-    if (self.isTopViewOpen) {
-        topViewHeight = preferredTopSplitHeight;
-        NSNumber *heightObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewTopViewHeightKey];
-        if (heightObj) {
-            topViewHeight = [heightObj floatValue];
+    if (self.isRightViewOpen) {
+        rightViewWidth = preferredRightSplitWidth;
+
+        NSNumber *widthObj = nil;
+        
+        if (currentRightIdentifier) {
+            NSDictionary *d = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewRightViewWidthDictionaryKey];
+            widthObj = [d objectForKey:currentRightIdentifier];
+        } else {
+            widthObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewRightViewWidthKey];
+        }
+        
+        if (widthObj) {
+            rightViewWidth = [widthObj floatValue];
         }
     }
     
-    return topViewHeight;
+    return rightViewWidth;
 }
 
 
@@ -880,18 +949,27 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 }
 
 
-- (CGFloat)storedBottomSplitPosition {
-    CGFloat bottomViewHeight = 0;
+- (CGFloat)storedTopSplitPosition {
+    CGFloat topViewHeight = 0;
     
-    if (self.isBottomViewOpen) {
-        bottomViewHeight = preferredBottomSplitHeight;
-        NSNumber *heightObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewBottomViewHeightKey];
+    if (self.isTopViewOpen) {
+        topViewHeight = preferredTopSplitHeight;
+        
+        NSNumber *heightObj = nil;
+        
+        if (currentTopIdentifier) {
+            NSDictionary *d = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewTopViewHeightDictionaryKey];
+            heightObj = [d objectForKey:currentTopIdentifier];
+        } else {
+            heightObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewTopViewHeightKey];
+        }
+        
         if (heightObj) {
-            bottomViewHeight = [heightObj floatValue];
+            topViewHeight = [heightObj floatValue];
         }
     }
     
-    return bottomViewHeight;
+    return topViewHeight;
 }
 
 
@@ -908,6 +986,30 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     bottomFrame.size.height = bottomViewHeight;
     bottomFrame.origin.y = (midFrame.origin.y + midFrame.size.height + dividerThickness);
     [bottomSuperview setFrame:bottomFrame];
+}
+
+
+- (CGFloat)storedBottomSplitPosition {
+    CGFloat bottomViewHeight = 0;
+    
+    if (self.isBottomViewOpen) {
+        bottomViewHeight = preferredBottomSplitHeight;
+
+        NSNumber *heightObj = nil;
+        
+        if (currentBottomIdentifier) {
+            NSDictionary *d = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewBottomViewHeightDictionaryKey];
+            heightObj = [d objectForKey:currentBottomIdentifier];
+        } else {
+            heightObj = [[NSUserDefaults standardUserDefaults] objectForKey:kTDUberViewBottomViewHeightKey];
+        }
+        
+        if (heightObj) {
+            bottomViewHeight = [heightObj floatValue];
+        }
+    }
+    
+    return bottomViewHeight;
 }
 
 
@@ -1062,6 +1164,8 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
     dragStartBottomRatio = -1;
 }
 
+@synthesize delegate;
+
 @synthesize verticalSplitView;
 @synthesize horizontalSplitView;
 
@@ -1093,6 +1197,11 @@ static NSComparisonResult TDHSplitViewSubviewComparatorFunc(id viewA, id viewB, 
 @synthesize rightViewOpen;
 @synthesize topViewOpen;
 @synthesize bottomViewOpen;
+
+@synthesize currentLeftIdentifier;
+@synthesize currentRightIdentifier;
+@synthesize currentTopIdentifier;
+@synthesize currentBottomIdentifier;
 @end
 
 static NSComparisonResult TDVSplitViewSubviewComparatorFunc(id viewA, id viewB, TDUberView *self) {

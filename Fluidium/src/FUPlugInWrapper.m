@@ -61,6 +61,11 @@
 }
 
 
+- (id)representedObject {
+    return [plugIn identifier];
+}
+
+
 - (BOOL)isVisibleInWindowNumber:(NSInteger)num {
     NSString *key = [[NSNumber numberWithInteger:num] stringValue];
     return [visibleWindowNumbers containsObject:key];

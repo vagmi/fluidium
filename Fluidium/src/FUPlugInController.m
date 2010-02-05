@@ -741,19 +741,19 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     if (isLeft)    {
         uberView.preferredLeftSplitWidth = wrap.preferredVerticalSplitPosition;
         uberView.leftView = isAppearing ? plugInView : nil;
-        [uberView toggleLeftView:self];
+        [uberView toggleLeftView:wrap];
     } else if (isRight) {
         uberView.preferredRightSplitWidth = wrap.preferredVerticalSplitPosition;
         uberView.rightView = isAppearing ? plugInView : nil;
-        [uberView toggleRightView:self];
+        [uberView toggleRightView:wrap];
     } else if (isTop) {
         uberView.preferredTopSplitHeight = wrap.preferredHorizontalSplitPosition;
         uberView.topView = isAppearing ? plugInView : nil;
-        [uberView toggleTopView:self];
+        [uberView toggleTopView:wrap];
     } else if (isBottom) {
         uberView.preferredBottomSplitHeight = wrap.preferredHorizontalSplitPosition;
         uberView.bottomView = isAppearing ? plugInView : nil;
-        [uberView toggleBottomView:self];
+        [uberView toggleBottomView:wrap];
     }
 
     name = isAppearing ? FUPlugInViewControllerDidAppearNotifcation : FUPlugInViewControllerDidDisappearNotifcation;
