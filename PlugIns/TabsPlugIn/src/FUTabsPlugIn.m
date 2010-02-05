@@ -50,8 +50,6 @@
         self.preferredVerticalSplitPosition = 120;
         self.preferredHorizontalSplitPosition = 84;
         self.sortOrder = 200;
-        
-        self.viewControllers = [NSMutableArray array];
     }
     return self;
 }
@@ -59,7 +57,6 @@
 
 - (void)dealloc {
     self.plugInAPI = nil;
-    self.viewControllers = nil;
     [super dealloc];
 }
 
@@ -81,7 +78,6 @@
 
 - (NSViewController *)newPlugInViewController {
     FUTabsViewController *vc = [[FUTabsViewController alloc] init];
-    [viewControllers addObject:vc];
     vc.plugIn = self;
     vc.plugInAPI = plugInAPI;
     return vc;
@@ -112,5 +108,4 @@
 }
 
 @synthesize plugInAPI;
-@synthesize viewControllers;
 @end

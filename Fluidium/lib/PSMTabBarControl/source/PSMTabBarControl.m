@@ -229,11 +229,15 @@
 
 	//unbind all the items to prevent crashing
 	//not sure if this is necessary or not
+    NSMutableArray *remove = [NSMutableArray arrayWithCapacity:[_cells count]];
 	NSEnumerator *enumerator = [_cells objectEnumerator];
 	PSMTabBarCell *nextCell;
 	while ( (nextCell = [enumerator nextObject]) ) {
-		[self removeTabForCell:nextCell];
+        [remove addObject:nextCell];
 	}
+    for (PSMTabBarCell *cell in remove) {
+        [self removeTabForCell:cell];
+    }
 	
     [_overflowPopUpButton release];
     [_cells release];

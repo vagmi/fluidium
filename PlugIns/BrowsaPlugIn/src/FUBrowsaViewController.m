@@ -92,6 +92,10 @@ typedef enum {
 
 
 - (void)dealloc {
+#ifdef FUDEBUG
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+#endif
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     // taking some extra paranoid steps here with the webView to prevent crashing 
@@ -104,6 +108,7 @@ typedef enum {
     [webView setDownloadDelegate:nil];
     [webView setPolicyDelegate:nil];
     [webView setUIDelegate:nil];
+    [webView setHostWindow:nil];
         
     self.plugInAPI = nil;
     self.plugIn = nil;

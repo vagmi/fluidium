@@ -448,6 +448,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = src/BrowsaPlugIn_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = FUDEBUG;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Fluidium/include\"";
 				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";

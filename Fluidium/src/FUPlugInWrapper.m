@@ -20,6 +20,10 @@
 #import "FUNotifications.h"
 #import <TDAppKit/TDUberView.h>
 
+@interface FUPlugIn ()
+@property (nonatomic, readwrite, retain) NSArray *viewControllers;
+@end
+
 @interface FUPlugInWrapper ()
 @property (nonatomic, retain, readwrite) FUPlugIn *plugIn;
 @property (nonatomic, copy, readwrite) NSString *viewPlacementMaskKey;
@@ -31,7 +35,7 @@
 - (id)initWithPlugIn:(FUPlugIn *)aPlugIn {
     if (self = [super init]) {
         self.plugIn = aPlugIn;
-        self.viewControllers = [NSMutableDictionary dictionary];
+        self.viewControllerDict = [NSMutableDictionary dictionary];
         self.visibleWindowNumbers = [NSMutableSet set];
         self.viewPlacementMaskKey = [NSString stringWithFormat:@"%@-currentViewPlacement", self.identifier];
         
@@ -49,7 +53,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:plugIn];
 
     self.plugIn = nil;
-    self.viewControllers = nil;
+    self.viewControllerDict = nil;
     self.visibleWindowNumbers = nil;
     self.viewPlacementMaskKey = nil;
     [super dealloc];
@@ -84,7 +88,7 @@
 
 - (NSViewController *)plugInViewControllerForWindowNumber:(NSInteger)num {
     NSString *key = [[NSNumber numberWithInteger:num] stringValue];
-    NSViewController *viewController = [viewControllers objectForKey:key];
+    NSViewController *viewController = [viewControllerDict objectForKey:key];
     if (!viewController) {
         viewController = [[self newViewControllerForWindowNumber:num] autorelease];
     }
@@ -102,7 +106,13 @@
 
 - (NSViewController *)newViewControllerForWindowNumber:(NSInteger)num {
     NSViewController *vc = [plugIn newPlugInViewController];
-    [viewControllers setObject:vc forKey:[[NSNumber numberWithInteger:num] stringValue]];
+    
+    // add the view controller to the plugins viewControllers array (which should be immutable when done)
+    NSMutableArray *allVcs = [NSMutableArray arrayWithArray:plugIn.viewControllers];
+    [allVcs addObject:vc];
+    plugIn.viewControllers = [[allVcs copy] autorelease];
+    
+    [viewControllerDict setObject:vc forKey:[[NSNumber numberWithInteger:num] stringValue]];
     
     [self addObserver:plugIn for:FUPlugInViewControllerWillAppearNotifcation object:vc ifRespondsTo:@selector(plugInViewControllerWillAppear:)];
     [self addObserver:plugIn for:FUPlugInViewControllerDidAppearNotifcation object:vc ifRespondsTo:@selector(plugInViewControllerDidAppear:)];
@@ -165,8 +175,15 @@
     NSString *key = [[NSNumber numberWithInteger:[window windowNumber]] stringValue];
     [self setVisible:NO inWindowNumber:[window windowNumber]];
     
-    NSViewController *vc = [viewControllers objectForKey:key];
-    [viewControllers removeObjectForKey:key];
+    NSViewController *vc = [viewControllerDict objectForKey:key];
+    [viewControllerDict removeObjectForKey:key];
+    
+    // remove the view controller from the plugins viewController list
+    NSMutableArray *vcs = [NSMutableArray arrayWithArray:plugIn.viewControllers];
+    NSAssert([vcs containsObject:vc], @"");
+    [vcs removeObject:vc];
+    plugIn.viewControllers = [[vcs copy] autorelease];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:vc];
 }
 
@@ -256,7 +273,7 @@
 }
 
 @synthesize plugIn;
-@synthesize viewControllers;
+@synthesize viewControllerDict;
 @synthesize viewPlacementMaskKey;
 @synthesize visibleWindowNumbers;
 @end

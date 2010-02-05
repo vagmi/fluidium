@@ -68,6 +68,9 @@
 
 
 - (void)dealloc {
+#ifdef FUDEBUG
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+#endif
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
@@ -374,7 +377,7 @@
 
     NSInteger newModelsCount = [newModels count];
     NSInteger i = startIndex;
-    for ( ; i < webViewsCount; i++) {
+    for (i >= 0; i < webViewsCount; i++) {
         WebView *wv = [wvs objectAtIndex:i];
         FUTabModel *model = [[[FUTabModel alloc] init] autorelease];
         [self updateTabModel:model fromWebView:wv atIndex:i];

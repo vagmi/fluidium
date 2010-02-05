@@ -21,7 +21,6 @@ extern NSString *CRTwitterDisplayUsernamesDidChangeNotification;
 
 @interface CRTwitterPlugIn : FUPlugIn {
     id <FUPlugInAPI>plugInAPI; // weakref
-    NSMutableArray *viewControllers;
 
     CRTwitterPlugInViewController *frontViewController;
     

@@ -23,10 +23,6 @@ NSString *CRTwitterDisplayUsernamesDidChangeNotification = @"CRTwitterDisplayUse
 
 static CRTwitterPlugIn *instance = nil;
 
-@interface CRTwitterPlugIn ()
-@property (nonatomic, retain) NSMutableArray *viewControllers;
-@end
-
 @implementation CRTwitterPlugIn
 
 + (void)load {
@@ -55,7 +51,6 @@ static CRTwitterPlugIn *instance = nil;
         instance = self;
 
         self.plugInAPI = api;
-        self.viewControllers = [NSMutableArray array];
         
         self.identifier = @"com.fluidapp.TwitterPlugIn";
         self.localizedTitle = @"Twitter";
@@ -81,9 +76,7 @@ static CRTwitterPlugIn *instance = nil;
 
 
 - (void)dealloc {
-    self.plugInAPI = nil;
-    self.viewControllers = nil;
-    
+    self.plugInAPI = nil;    
     self.frontViewController = nil;
     self.selectedUsername = nil;
     [super dealloc];
@@ -231,7 +224,6 @@ static CRTwitterPlugIn *instance = nil;
     CRTwitterPlugInViewController *vc = [[CRTwitterPlugInViewController alloc] init];
     vc.plugIn = self;
     self.frontViewController = vc;
-    [viewControllers addObject:vc];
     return vc;
 }
 
@@ -287,7 +279,6 @@ static CRTwitterPlugIn *instance = nil;
 }
 
 @synthesize plugInAPI;
-@synthesize viewControllers;
 @synthesize frontViewController;
 @synthesize selectedUsername;
 @end

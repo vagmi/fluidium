@@ -19,6 +19,7 @@
 #import <WebKit/WebKit.h>
 #import <Fluidium/FUPlugInAPI.h>
 
+NSString *const FUBrowsaHomeURLStringDidChangeNotification = @"FUBrowsaHomeURLStringDidChangeNotification";
 NSString *const FUBrowsaUserAgentStringDidChangeNotification = @"FUBrowsaUserAgentStringDidChangeNotification";
 
 NSString *const kFUBrowsaHomeURLStringKey = @"FUBrowsaHomeURLString";
@@ -90,8 +91,6 @@ static NSInteger sTag = 0;
         self.preferredVerticalSplitPosition = 340;
         self.preferredHorizontalSplitPosition = 250;
         self.sortOrder = 100 + tag;
-        
-        self.viewControllers = [NSMutableArray array];
     }
     return self;
 }
@@ -107,7 +106,6 @@ static NSInteger sTag = 0;
     self.aboutInfoDictionary = nil;
     self.toolbarIconImageNameNormal = nil;
     self.preferencesIconImageName = nil;
-    self.viewControllers = nil;
     [super dealloc];
 }
 
@@ -142,7 +140,6 @@ static NSInteger sTag = 0;
 
 - (NSViewController *)newPlugInViewController {
     FUBrowsaViewController *vc = [[FUBrowsaViewController alloc] init];
-    [viewControllers addObject:vc];
     vc.plugInAPI = plugInAPI;
     vc.plugIn = self;
     
@@ -228,8 +225,9 @@ static NSInteger sTag = 0;
             result = @"Flickr";
         } else if ([host hasSuffix:@"brightkite.com"] || [host hasSuffix:@"bkite.com"]) {
             result = @"Brightkite";
-        } else {
-            NSInteger loc = [host rangeOfString:@"." options:NSBackwardsSearch].location;
+        } else if (host) {
+            NSRange r = [host rangeOfString:@"." options:NSBackwardsSearch];
+            NSInteger loc = r.location;
             if (NSNotFound != loc && loc > 0) {
                 result = [[host substringToIndex:loc] capitalizedString];
             }
@@ -269,7 +267,7 @@ static NSInteger sTag = 0;
             } else if ([host hasSuffix:@"hahlo.com"]) {
                 name = @"hahlo";
             } else if ([host hasSuffix:@"reader.google.com"] || ([host hasSuffix:@"google.com"] && [[homeURL path] hasPrefix:@"/reader"])) {
-                name = @"greader";
+                name = @"reader";
             } else if ([host hasSuffix:@"friendfeed.com"]) {
                 name = @"friendfeed";
             } else if ([host hasSuffix:@"flickr.com"]) {
@@ -302,6 +300,11 @@ static NSInteger sTag = 0;
 - (void)setHomeURLString:(NSString *)inString {
     NSString *key = [self taggedKey:kFUBrowsaHomeURLStringKey];
     [[NSUserDefaults standardUserDefaults] setObject:[[inString copy] autorelease] forKey:key];
+    
+    for (NSViewController *vc in self.viewControllers) {
+        FUWindowController *wc = [self windowControllerForViewController:vc];
+        [[[wc window] toolbar] validateVisibleItems];
+    }
 }
 
 
@@ -354,6 +357,5 @@ static NSInteger sTag = 0;
 
 @synthesize plugInAPI;
 @synthesize toolbarIconImageNameNormal;
-@synthesize viewControllers;
 @synthesize tag;
 @end

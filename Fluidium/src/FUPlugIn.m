@@ -17,12 +17,17 @@
 #import "FUWindowController.h"
 #import "FUDocumentController.h"
 
+@interface FUPlugIn ()
+@property (nonatomic, readwrite, retain) NSArray *viewControllers;
+@end
+
 @implementation FUPlugIn
 
 - (id)initWithPlugInAPI:(id <FUPlugInAPI>)api {
     if (self = [super init]) {
         self.preferredHorizontalSplitPosition = 220;
         self.preferredVerticalSplitPosition = 220;
+        self.viewControllers = [NSMutableArray array];
     }
     return self;
 }
@@ -30,7 +35,8 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+
+    self.viewControllers = nil;
     self.preferencesViewController = nil;
     self.identifier = nil;
     self.localizedTitle = nil;
@@ -50,6 +56,8 @@
 
 
 - (FUWindowController *)windowControllerForViewController:(NSViewController *)vc {
+    NSParameterAssert([viewControllers containsObject:vc]);
+    
     NSWindow *win = [vc.view window];
     if ([win isMemberOfClass:[FUWindow class]]) {
         return [win windowController];
@@ -58,6 +66,7 @@
     }
 }
 
+@synthesize viewControllers;
 @synthesize preferencesViewController;
 @synthesize identifier;
 @synthesize localizedTitle;

@@ -18,7 +18,7 @@
 
 @interface FUPlugInWrapper : NSObject {
     FUPlugIn *plugIn;
-    NSMutableDictionary *viewControllers;
+    NSMutableDictionary *viewControllerDict;
     NSMutableSet *visibleWindowNumbers;
     NSString *viewPlacementMaskKey;
 }
@@ -37,7 +37,7 @@
 @property (nonatomic, retain, readonly) FUPlugIn *plugIn;
 @property (nonatomic) NSUInteger viewPlacementMask;
 @property (nonatomic, copy, readonly) NSString *viewPlacementMaskKey;
-@property (nonatomic, retain) NSMutableDictionary *viewControllers;
+@property (nonatomic, retain) NSMutableDictionary *viewControllerDict;
 
 @property (nonatomic, readonly) NSViewController *preferencesViewController;
 @property (nonatomic, readonly) NSString *identifier;

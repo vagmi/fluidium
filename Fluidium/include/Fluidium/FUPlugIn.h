@@ -66,6 +66,8 @@ typedef enum {
 // you can implement the NSWindowNotification callback methods if you like. they will be called if you do.
 FU_EXTERN
 @interface FUPlugIn : NSObject {
+    NSArray *viewControllers;
+    
     NSViewController *preferencesViewController;
     NSString *identifier;
     NSString *localizedTitle;
@@ -92,6 +94,8 @@ FU_EXTERN
 - (NSViewController *)newPlugInViewController;
 
 - (FUWindowController *)windowControllerForViewController:(NSViewController *)vc;
+
+@property (nonatomic, readonly, retain) NSArray *viewControllers;
 
 // return the single NSViewController which will control the 'Preferences' view that will appear in the Fluid Preferences window.
 // only one should ever be created. you should probably create it lazily in your implementation of this method.

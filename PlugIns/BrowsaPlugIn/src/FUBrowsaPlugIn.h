@@ -14,6 +14,7 @@
 
 #import <Fluidium/FUPlugIn.h>
 
+extern NSString *const FUBrowsaHomeURLStringDidChangeNotification;
 extern NSString *const FUBrowsaUserAgentStringDidChangeNotification;
 
 extern NSString *const kFUBrowsaHomeURLStringKey;
@@ -40,7 +41,6 @@ typedef enum {
 
     NSString *toolbarIconImageNameNormal;
     
-    NSMutableArray *viewControllers;
     NSInteger tag;
 }
 
@@ -52,7 +52,6 @@ typedef enum {
 - (void)postBrowsaUserAgentStringDidChangeNotification;
 
 @property (nonatomic, readonly, retain) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, retain) NSMutableArray *viewControllers;
 
 // Prefs
 @property (nonatomic, copy) NSString *homeURLString;

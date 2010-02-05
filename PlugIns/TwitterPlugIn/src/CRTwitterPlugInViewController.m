@@ -31,6 +31,9 @@
 
 
 - (void)dealloc {
+#ifdef FUDEBUG
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+#endif
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.plugIn = nil;

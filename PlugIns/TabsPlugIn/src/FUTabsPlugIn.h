@@ -19,9 +19,7 @@
 
 @interface FUTabsPlugIn : FUPlugIn {
     id <FUPlugInAPI>plugInAPI;    
-    NSMutableArray *viewControllers;
 }
 
 @property (nonatomic, retain, readonly) id <FUPlugInAPI>plugInAPI;
-@property (nonatomic, retain) NSMutableArray *viewControllers;
 @end
