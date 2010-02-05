@@ -20,6 +20,7 @@
 
 @interface FUWindowController ()
 - (void)closeWindow;
+- (void)script_setSelectedTabIndex:(NSInteger)i;
 @end
 
 @implementation FUDocument (Scripting)
@@ -33,7 +34,7 @@
 
 
 - (NSScriptObjectSpecifier *)objectSpecifier {
-    NSUInteger i = [[NSApp orderedDocuments] indexOfObjectIdenticalTo:self];
+    NSUInteger i = [[NSApp orderedDocuments] indexOfObject:self];
     
     if (NSNotFound == i) {
         return nil;
@@ -63,7 +64,8 @@
 
 
 - (void)setSelectedTabIndex:(NSUInteger)i {
-    [windowController setSelectedTabIndex:i - 1];
+    [windowController script_setSelectedTabIndex:i - 1];
+//    [windowController setSelectedTabIndex:i - 1];
 }
 
 

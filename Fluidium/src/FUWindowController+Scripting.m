@@ -84,9 +84,9 @@
         new = class_getInstanceMethod(self, @selector(script_takeTabIndexToCloseFrom:));
         method_exchangeImplementations(old, new);
         
-//        old = class_getInstanceMethod(self, @selector(setSelectedTabIndex:));
-//        new = class_getInstanceMethod(self, @selector(script_setSelectedTabIndex:));
-//        method_exchangeImplementations(old, new);
+        old = class_getInstanceMethod(self, @selector(setSelectedTabIndex:));
+        new = class_getInstanceMethod(self, @selector(script_setSelectedTabIndex:));
+        method_exchangeImplementations(old, new);
     }
 }
 
@@ -197,32 +197,104 @@
 //    [someAE setDescriptor:idxDesc forKeyword:keyAEData];
 //
 //    [someAE sendToOwnProcess];
-    
-    ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
-    
-    NSAppleEventDescriptor *descriptor = [AEVT class:'core' id:'setd' target:selfPSN,
 
-                                          [KEY : 'data'],
-                                          [INT : i],
-                                          
-                                          [KEY : '----'],
-                                          [RECORD : 'obj ',
-                                           [KEY : 'form'], [TYPE : 'prop'],
-                                           [KEY : 'want'], [TYPE : 'prop'],
-                                           [KEY : 'seld'], [TYPE : 'dSTI'],
-                                           [KEY : 'from'],
-                                           [RECORD : 'obj ',
-                                            [KEY : 'form'], [ENUM : 'indx'],
-                                            [KEY : 'want'], [TYPE : 'fDoc'],
-                                            [KEY : 'seld'], [INT  : 1],
-                                            [KEY : 'from'], [DESC null],
-                                            ENDRECORD],
-                                           ENDRECORD],
-                                          ENDRECORD];
-    
-    [descriptor sendWithImmediateReply];
     
     
+//    ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
+//    
+//    NSAppleEventDescriptor *descriptor = [AEVT class:'core' id:'setd' target:selfPSN,
+//
+//                                            [KEY : 'data'], [INT : i],
+//                                            [KEY : '----'], [RECORD : 'obj ',
+//                                                             [KEY : 'form'], [TYPE : 'prop'],
+//                                                             [KEY : 'want'], [TYPE : 'prop'],
+//                                                             [KEY : 'seld'], [TYPE : 'dSTI'],
+//                                                             [KEY : 'from'], [RECORD : 'obj ',
+//                                                                              [KEY : 'form'], [ENUM : 'indx'],
+//                                                                              [KEY : 'want'], [TYPE : 'fDoc'],
+//                                                                              [KEY : 'seld'], [INT  : 1],
+//                                                                              [KEY : 'from'], [DESC null],
+//                                                                              ENDRECORD],
+//                                                             ENDRECORD],
+//                                            ENDRECORD];
+//    
+//    [descriptor sendWithImmediateReply];
+    
+    NSUInteger docIdx = [[NSApp orderedDocuments] indexOfObject:[self document]] + 1;
+    docIdx;
+    NSUInteger tabIdx = i + 1;
+    
+//    NSDictionary *errInfo = nil;
+//    NSString *source = [NSString stringWithFormat:@"tell application \"Fluidium\"\ntell browser window %d\nset selected tab index to %d\nend tell\nend tell\n", docIdx, tabIdx];
+//    NSAppleScript *script = [[[NSAppleScript alloc] initWithSource:source] autorelease];
+//    [script compileAndReturnError:&errInfo];
+//    if (errInfo) {
+//        NSLog(@"%@", errInfo);
+//    }
+//    [script executeAndReturnError:&errInfo];
+//    if (errInfo) {
+//        NSLog(@"%@", errInfo);
+//    }
+
+    
+    //const OSType finderSignature = 'FuSS';
+    //AppleEvent event;
+    OSErr err;
+    AEBuildError buildErr;
+            
+    ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
+    AEDesc builtEvent, replyEvent;
+
+    const char *eventFormat =
+    "'----': 'obj '{ "         // Direct object is the file comment we want to modify
+    "  form: type(prop), "     //  ... the comment is an object's property...
+    "  seld: type(dSTI), "     //  ... selected by the 'dSTI' 4CC ...
+    "  want: type(prop), "     //  ... which we want to interpret as a property (not as e.g. text).
+    "  from: 'obj '{ "         // It's the property of an object...
+    "      form: enum(indx), "
+    "      want: type(fDoc), " //  ... of type 'file' ...
+    "      seld: @,"           //  ... selected by an alias ...
+    "      from: null() "      //  ... according to the receiving application.
+    "              }"
+    "             }, "
+    "data: @";                 // The data is what we want to set the direct object to.
+
+    AEInitializeDesc(&builtEvent);
+    AEInitializeDesc(&replyEvent);
+//    // 'core'\'setd'{ '----':'obj '{ 'form':'prop', 'want':'prop', 'seld':'dSTI', 'from':'obj '{ 'form':'indx', 'want':'fDoc', 'seld':1, 'from':'null'() } } }
+    err = AEBuildAppleEvent(
+            kAECoreSuite, kAESetData,
+            typeProcessSerialNumber, &selfPSN, sizeof(selfPSN),
+            kAutoGenerateReturnID, kAnyTransactionID,
+            &builtEvent,   /* event to be created */
+            &buildErr,   /* no error information required */
+            eventFormat, /* format string */
+            [[NSAppleEventDescriptor descriptorWithInt32:docIdx] aeDesc], /* param for 1st @ */
+            [[NSAppleEventDescriptor descriptorWithInt32:tabIdx] aeDesc]); /* param for 2nd @ */
+
+    
+//    err = AEBuildAppleEvent(
+//                            kAECoreSuite, kAESetData,
+//                            typeProcessSerialNumber, &selfPSN, sizeof(selfPSN),
+//                            kAutoGenerateReturnID, kAnyTransactionID,
+//                            &event,   /* event to be created */
+//                            NULL,   /* no error information required */
+//                            "'----':'obj '{want:type(prop),form:prop,seld:type('dSTI'),from:'obj '{'form':'indx','want':'fDoc','seld':@,'from':'null'()}},data:(@)", /* format string */
+//                            docIdx, /* param for 1st @@ */
+//                            tabIdx); /* param for 2nd @@ */
+
+    
+    if (err != noErr) {
+        [NSException raise:NSInternalInconsistencyException format:@"Unable to create AppleEvent: AEBuildAppleEvent() returns %d", err];
+    }
+    
+        NSLog(@"AEBuildErr : %d line %d", buildErr.fError, buildErr.fErrorPos);
+    
+    err = AESendMessage(&builtEvent, &replyEvent,
+                        kAENoReply, kAEDefaultTimeout);
+    
+    AEDisposeDesc(&builtEvent);
+    AEDisposeDesc(&replyEvent);
 }
 
 @end
