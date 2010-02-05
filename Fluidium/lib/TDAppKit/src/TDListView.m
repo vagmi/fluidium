@@ -18,7 +18,7 @@
 
 #define EXCEPTION_NAME @"TDListViewDataSourceException"
 #define DEFAULT_ITEM_EXTENT 44
-#define DRAG_RADIUS 30
+#define DRAG_RADIUS 22
 
 NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
@@ -202,7 +202,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark NSResponder
 
 - (void)mouseDown:(NSEvent *)evt {
-    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    NSPoint locInWin = [evt locationInWindow];
+    NSPoint p = [self convertPoint:locInWin fromView:nil];
     NSInteger i = [self indexForItemAtPoint:p];
 
     // handle double click
@@ -230,7 +231,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     BOOL withinDragRadius = YES;
         
     NSInteger radius = DRAG_RADIUS;
-    NSRect r = NSMakeRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
+    NSRect r = NSMakeRect(locInWin.x - radius, locInWin.y - radius, radius * 2, radius * 2);
     
     while (withinDragRadius) {
         evt = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask|NSPeriodicMask];
