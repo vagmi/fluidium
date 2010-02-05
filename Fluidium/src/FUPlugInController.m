@@ -58,20 +58,20 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 - (void)setUpMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)setUpPrefPanesForPlugInWrappers;
 - (void)setUpPrefPaneForPlugInWrapper:(FUPlugInWrapper *)wrap;
-- (void)toggleDrawerPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
+- (void)toggleDrawerPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
 - (void)toggleUtilityPanelPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleFloatingUtilityPanelPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleHUDPanelPlugInWrapper:(FUPlugInWrapper *)wrap;
 - (void)toggleFloatingHUDPanelPlugInWrapper:(FUPlugInWrapper *)wrap;
-- (void)togglePanelPluginWrapper:(FUPlugInWrapper *)plugInWrapper isFloating:(BOOL)isFloating isHUD:(BOOL)isHUD;
+- (void)togglePanelPluginWrapper:(FUPlugInWrapper *)wrap isFloating:(BOOL)isFloating isHUD:(BOOL)isHUD;
 - (NSPanel *)newPanelWithContentView:(NSView *)contentView isHUD:(BOOL)isHUD;
-- (void)toggleSplitViewTopPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
-- (void)toggleSplitViewBottomPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
-- (void)toggleSplitViewLeftPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
-- (void)toggleSplitViewRightPlugInWrapper:(FUPlugInWrapper *)plugInWrapper inWindow:(NSWindow *)window;
-- (void)toggleSplitViewPluginWrapper:(FUPlugInWrapper *)plugInWrapper isVertical:(BOOL)isVertical isFirst:(BOOL)isFirst inWindow:(NSWindow *)window;
-- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc;
-- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)plugInWrapper viewController:(NSViewController *)vc userInfo:(NSMutableDictionary *)userInfo;
+- (void)toggleSplitViewTopPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
+- (void)toggleSplitViewBottomPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
+- (void)toggleSplitViewLeftPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
+- (void)toggleSplitViewRightPlugInWrapper:(FUPlugInWrapper *)wrap inWindow:(NSWindow *)window;
+- (void)toggleSplitViewPluginWrapper:(FUPlugInWrapper *)wrap isVertical:(BOOL)isVertical isFirst:(BOOL)isFirst inWindow:(NSWindow *)window;
+- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)wrap viewController:(NSViewController *)vc;
+- (void)post:(NSString *)name forPlugInWrapper:(FUPlugInWrapper *)wrap viewController:(NSViewController *)vc userInfo:(NSMutableDictionary *)userInfo;
 
 @property (nonatomic, retain) NSMutableDictionary *allPlugInWrappersTable;
 @end
