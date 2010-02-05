@@ -71,4 +71,5 @@
 @synthesize aboutInfoDictionary;
 @synthesize preferredVerticalSplitPosition;
 @synthesize preferredHorizontalSplitPosition;
+@synthesize sortOrder;
 @end

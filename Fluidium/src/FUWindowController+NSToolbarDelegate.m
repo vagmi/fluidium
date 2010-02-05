@@ -67,8 +67,9 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
                          FUHomeItemIdentifier, 
                          FULocationItemIdentifier,
                          nil];
-    
-    [a addObjectsFromArray:[self allPlugInToolbarItemIdentifiers]];
+
+    NSArray *plugInIds = [self allPlugInToolbarItemIdentifiers];
+    [a addObjectsFromArray:plugInIds];
     return a;
 }
 
@@ -90,7 +91,8 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
                          FULocationItemIdentifier,
                          nil];    
 
-    [a addObjectsFromArray:[self allPlugInToolbarItemIdentifiers]];
+    NSArray *plugInIds = [self allPlugInToolbarItemIdentifiers];
+    [a addObjectsFromArray:plugInIds];
     return a;
 }
 

@@ -74,6 +74,7 @@ static CRTwitterPlugIn *instance = nil;
         self.defaultsDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
         self.preferredVerticalSplitPosition = 320;
         self.preferredHorizontalSplitPosition = 160;
+        self.sortOrder = 300;
     }
     return self;
 }

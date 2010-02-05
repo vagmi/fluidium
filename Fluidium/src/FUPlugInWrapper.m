@@ -250,6 +250,11 @@
     return [plugIn preferredVerticalSplitPosition];
 }
 
+
+- (NSInteger)sortOrder {
+    return [plugIn sortOrder];
+}
+
 @synthesize plugIn;
 @synthesize viewControllers;
 @synthesize viewPlacementMaskKey;

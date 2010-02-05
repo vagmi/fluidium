@@ -89,6 +89,7 @@ static NSInteger sTag = 0;
         
         self.preferredVerticalSplitPosition = 340;
         self.preferredHorizontalSplitPosition = 250;
+        self.sortOrder = 100 + tag;
         
         self.viewControllers = [NSMutableArray array];
     }

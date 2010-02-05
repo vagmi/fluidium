@@ -787,13 +787,45 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 #pragma mark -
 #pragma mark Properties
 
+NSInteger FUPlugInWrapperSort(id a, id b, void *ctx) {
+    NSInteger sortA = [a sortOrder];
+    NSInteger sortB = [b sortOrder];
+    
+    if (sortA < sortB) {
+        return NSOrderedAscending;
+    } else if (sortB < sortA) {
+        return NSOrderedDescending;
+    } else {
+        return NSOrderedSame;
+    }
+}
+
+
+NSInteger FUPlugInIdentifierSort(id a, id b, void *ctx) {
+    NSInteger sortA = [[[FUPlugInController instance] plugInWrapperForIdentifier:a] sortOrder];
+    NSInteger sortB = [[[FUPlugInController instance] plugInWrapperForIdentifier:b] sortOrder];
+    
+    if (sortA < sortB) {
+        return NSOrderedAscending;
+    } else if (sortB < sortA) {
+        return NSOrderedDescending;
+    } else {
+        return NSOrderedSame;
+    }
+}
+
+
 - (NSArray *)plugInWrappers {
-    return [allPlugInWrappersTable allValues];
+    NSMutableArray *ma = [NSMutableArray arrayWithArray:[allPlugInWrappersTable allValues]];
+    [ma sortUsingFunction:FUPlugInWrapperSort context:NULL];
+    return [[ma copy] autorelease];
 }
 
 
 - (NSArray *)allPlugInIdentifiers {
-    return [allPlugInWrappersTable allKeys];
+    NSMutableArray *ma = [NSMutableArray arrayWithArray:[allPlugInWrappersTable allKeys]];
+    [ma sortUsingFunction:FUPlugInIdentifierSort context:NULL];
+    return [[ma copy] autorelease];
 }
 
 @synthesize plugInMenu;

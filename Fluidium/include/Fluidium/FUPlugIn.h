@@ -66,7 +66,6 @@ typedef enum {
 // you can implement the NSWindowNotification callback methods if you like. they will be called if you do.
 FU_EXTERN
 @interface FUPlugIn : NSObject {
-@public
     NSViewController *preferencesViewController;
     NSString *identifier;
     NSString *localizedTitle;
@@ -80,6 +79,7 @@ FU_EXTERN
     NSDictionary *aboutInfoDictionary;
     CGFloat preferredVerticalSplitPosition;
     CGFloat preferredHorizontalSplitPosition;
+    NSInteger sortOrder;
 }
 
 // the plugInController is this plugin's API back to the Fluid SSB application.
@@ -137,6 +137,8 @@ FU_EXTERN
 @property (nonatomic, assign) CGFloat preferredVerticalSplitPosition;
 
 @property (nonatomic, assign) CGFloat preferredHorizontalSplitPosition;
+
+@property (nonatomic, assign) NSInteger sortOrder;
 @end
 
 #pragma GCC visibility pop

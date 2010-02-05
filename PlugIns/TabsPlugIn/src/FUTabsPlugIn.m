@@ -49,6 +49,7 @@
         
         self.preferredVerticalSplitPosition = 120;
         self.preferredHorizontalSplitPosition = 84;
+        self.sortOrder = 200;
         
         self.viewControllers = [NSMutableArray array];
     }

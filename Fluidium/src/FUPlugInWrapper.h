@@ -52,4 +52,5 @@
 @property (nonatomic, readonly) NSDictionary *aboutInfoDictionary;
 @property (nonatomic, readonly) CGFloat preferredVerticalSplitPosition;
 @property (nonatomic, readonly) CGFloat preferredHorizontalSplitPosition;
+@property (nonatomic, readonly) NSInteger sortOrder;
 @end
