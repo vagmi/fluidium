@@ -219,6 +219,13 @@
     if ([evt isCommandKeyPressed]) {
         NSInteger keyCode = [evt keyCode];
         if (LEFT_ARROW == keyCode || RIGHT_ARROW == keyCode) {
+
+            // don't steal the event from text fields/views
+            id resp = [self firstResponder];
+            if ([resp isKindOfClass:[NSTextField class]] || [resp isKindOfClass:[NSText class]]) {
+                return NO;
+            }
+            
             FUWindowController *wc = [self windowController];
             if (LEFT_ARROW == keyCode) {
                 [wc webGoBack:self];
