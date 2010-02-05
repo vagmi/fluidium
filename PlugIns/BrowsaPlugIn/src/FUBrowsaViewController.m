@@ -81,11 +81,9 @@ typedef enum {
 
 - (id)initWithNibName:(NSString *)name bundle:(NSBundle *)b {
     if (self = [super initWithNibName:name bundle:b]) {        
-        // necessary to prevent bindings exceptions
         self.URLString = @"";
         self.title = NSLocalizedString(@"Untitled", @"");
         self.favicon = [self defaultFavicon];
-        self.statusText = @"";
     }
     return self;
 }
@@ -97,6 +95,8 @@ typedef enum {
 #endif
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [locationComboBox unbind:@"image"];
 
     // taking some extra paranoid steps here with the webView to prevent crashing 
     // on one of the many callbacks/notifications that can be sent to or received by webviews
@@ -344,7 +344,7 @@ typedef enum {
     
     [savePanel beginSheetForDirectory:nil 
                                  file:filename 
-                       modalForWindow:[self.view window] 
+                       modalForWindow:[[plugIn windowControllerForViewController:self] window]
                         modalDelegate:self didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:) 
                           contextInfo:[URL retain]]; // retained
 }
@@ -396,7 +396,7 @@ typedef enum {
     self.favicon = [self defaultFavicon];
     
     // dont do this as it steals focus from the entire window
-    //[[self.view window] makeFirstResponder:webView];
+    //[[[plugIn windowControllerForViewController:self] window] makeFirstResponder:webView];
 }
 
 

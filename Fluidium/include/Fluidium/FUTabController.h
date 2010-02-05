@@ -30,8 +30,6 @@
     NSString *title;
     NSImage *favicon;
     NSString *statusText;
-    NSDictionary *clickElementInfo;
-    NSDictionary *hoverElementInfo;
     WebInspector *inspector;
 
     BOOL lastLoadFailed;
@@ -86,8 +84,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSImage *favicon;
 @property (nonatomic, copy) NSString *statusText;
-@property (nonatomic, retain) NSDictionary *clickElementInfo;
-@property (nonatomic, retain) NSDictionary *hoverElementInfo;
 @property (nonatomic, retain) WebInspector *inspector;
 @property (nonatomic) BOOL lastLoadFailed;
 

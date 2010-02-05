@@ -116,8 +116,6 @@ typedef enum {
     self.title = nil;
     self.favicon = nil;
     self.statusText = nil;
-    self.clickElementInfo = nil;
-    self.hoverElementInfo = nil;
     self.inspector = nil;
     self.suspendedCommand = nil;
     [super dealloc];
@@ -229,31 +227,31 @@ typedef enum {
 
 
 - (IBAction)openLinkInNewTabFromMenu:(id)sender {
+    NSDictionary *clickElementInfo = [sender representedObject];
     NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementLinkURLKey]];
     [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeTab];
-    self.clickElementInfo = nil;
 }
 
 
 - (IBAction)openLinkInNewWindowFromMenu:(id)sender {
+    NSDictionary *clickElementInfo = [sender representedObject];
     NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementLinkURLKey]];
     [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
-    self.clickElementInfo = nil;
 }
 
 
 - (IBAction)openFrameInNewWindowFromMenu:(id)sender {
+    NSDictionary *clickElementInfo = [sender representedObject];
     WebFrame *frame = [clickElementInfo objectForKey:WebElementFrameKey];
     NSURLRequest *req = [NSURLRequest requestWithURL:[[[frame dataSource] mainResource] URL]];
     [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
-    self.clickElementInfo = nil;
 }
 
 
 - (IBAction)openImageInNewWindowFromMenu:(id)sender {
+    NSDictionary *clickElementInfo = [sender representedObject];
     NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementImageURLKey]];
     [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
-    self.clickElementInfo = nil;
 }
 
 
@@ -267,11 +265,11 @@ typedef enum {
     NSString *s = [NSString stringWithFormat:FUDefaultWebSearchFormatString(), term];
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:s]];
     [[FUDocumentController instance] loadRequest:req];
-    self.clickElementInfo = nil;
 }
 
 
 - (IBAction)downloadLinkAsFromMenu:(id)sender {
+    NSDictionary *clickElementInfo = [sender representedObject];
     NSURL *URL = [clickElementInfo objectForKey:WebElementLinkURLKey];
     
     NSSavePanel *savePanel = [NSSavePanel savePanel];
@@ -722,25 +720,28 @@ typedef enum {
 
 
 - (NSArray *)webView:(WebView *)wv contextMenuItemsForElement:(NSDictionary *)info defaultMenuItems:(NSArray *)defaultItems {        
-    self.clickElementInfo = info;
     NSMutableArray *items = [NSMutableArray arrayWithArray:defaultItems];
     id removeMe = nil;
     
-    for (id item in items) {
+    for (id item in items) {        
         NSInteger t = [item tag];
         
         if (WebMenuItemTagOpenLinkInNewWindow == t) {
             [item setTarget:self];
             [item setAction:@selector(openLinkInNewWindowFromMenu:)];
+            [item setRepresentedObject:info];
         } else if (WebMenuItemTagOpenFrameInNewWindow == t) {
             [item setTarget:self];
             [item setAction:@selector(openFrameInNewWindowFromMenu:)];
+            [item setRepresentedObject:info];
         } else if (WebMenuItemTagOpenImageInNewWindow == t) {
             [item setTarget:self];
             [item setAction:@selector(openImageInNewWindowFromMenu:)];
+            [item setRepresentedObject:info];
         } else if (WebMenuItemTagSearchWeb == t) {
             [item setTarget:self];
             [item setAction:@selector(searchWebFromMenu:)];
+            [item setRepresentedObject:info];
         } else if ([NSLocalizedString(@"Open Link", @"") isEqualToString:[item title]]) {
             removeMe = item;
         }
@@ -760,6 +761,7 @@ typedef enum {
             [openInNewTabItem setTitle:NSLocalizedString(@"Open Link in New Tab", @"")];
             [openInNewTabItem setTarget:self];
             [openInNewTabItem setAction:@selector(openLinkInNewTabFromMenu:)];
+            [openInNewTabItem setRepresentedObject:info];
             [items insertObject:openInNewTabItem atIndex:0];
         }
         
@@ -769,6 +771,7 @@ typedef enum {
         [downloadAsItem setTitle:NSLocalizedString(@"Download Linked File As...", @"")];
         [downloadAsItem setTarget:self];
         [downloadAsItem setAction:@selector(downloadLinkAsFromMenu:)];
+        [downloadAsItem setRepresentedObject:info];
         [self insertItem:downloadAsItem intoMenuItems:items afterItemWithTag:WebMenuItemTagDownloadLinkToDisk];
     }
     
@@ -777,8 +780,6 @@ typedef enum {
 
 
 - (void)webView:(WebView *)wv mouseDidMoveOverElement:(NSDictionary *)info modifierFlags:(NSUInteger)flags {    
-    self.hoverElementInfo = info;
-    
     NSURL *URL = [info valueForKey:WebElementLinkURLKey];
     
     if (URL) {
@@ -991,8 +992,6 @@ typedef enum {
 @synthesize URLString;
 @synthesize initialURLString;
 @synthesize favicon;
-@synthesize clickElementInfo;
-@synthesize hoverElementInfo;
 @synthesize inspector;
 @synthesize statusText;
 @synthesize lastLoadFailed;
