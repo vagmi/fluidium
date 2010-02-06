@@ -334,14 +334,6 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     [[FUDocumentController instance] saveSession];
 }
 
-
-- (void)applicationDidLaunchWithPristinePerferences:(NSNotification *)n {
-    NSString *s = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"FUHomeURLString"];
-    if ([s length]) {
-        [[FUUserDefaults instance] setHomeURLString:s];
-    }    
-}
-
 @synthesize appName;
 @synthesize versionString;
 @synthesize appSupportDirPath;
