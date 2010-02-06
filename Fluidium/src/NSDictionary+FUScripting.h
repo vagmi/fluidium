@@ -15,5 +15,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSDictionary (FUScripting)
+// returns dictionary from AppleScript record descriptor
 + (id)scriptingRecordWithDescriptor:(NSAppleEventDescriptor *)desc;
 @end

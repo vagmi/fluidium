@@ -218,6 +218,9 @@
 		D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */; };
+		D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
+		D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */; };
+		D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */; };
 		D3D8FCBF111D709A0025650C /* FUNewBackgroundTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8FCBE111D709A0025650C /* FUNewBackgroundTabCommand.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
 		D3E13271110420EA007FE89E /* Fluidium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = D3E13270110420EA007FE89E /* Fluidium.sdef */; };
@@ -744,6 +747,10 @@
 		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
 		D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BrowsaPlugIn.xcodeproj; path = ../PlugIns/BrowsaPlugIn/BrowsaPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_handlers.png; path = res/img/prefpanes/prefpane_icon_handlers.png; sourceTree = "<group>"; };
+		D3D80014111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+NDAppleScriptObject.h"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.h"; sourceTree = "<group>"; };
+		D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+NDAppleScriptObject.m"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
+		D3D800E4111E18200025650C /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+NDCarbonUtilities.h"; path = "src/NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
+		D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		D3D8FCBD111D709A0025650C /* FUNewBackgroundTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNewBackgroundTabCommand.h; path = src/FUNewBackgroundTabCommand.h; sourceTree = "<group>"; };
 		D3D8FCBE111D709A0025650C /* FUNewBackgroundTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewBackgroundTabCommand.m; path = src/FUNewBackgroundTabCommand.m; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
@@ -834,6 +841,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D34B5E1C10CF6EF3006E17C4 /* Carbon.framework in Frameworks */,
+				D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				D3F4C3D410C8C7A300E0B474 /* WebKit.framework in Frameworks */,
 				D30BC44F10E187A40019816B /* Growl.framework in Frameworks */,
@@ -1324,6 +1332,10 @@
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
 				D373ECCB110B945600ECE3BE /* NSDictionary+FUScripting.h */,
 				D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */,
+				D3D80014111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.h */,
+				D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */,
+				D3D800E4111E18200025650C /* NSURL+NDCarbonUtilities.h */,
+				D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */,
 			);
 			name = Scripting;
 			sourceTree = "<group>";
@@ -2043,6 +2055,8 @@
 				D31C7B0611129A1900563A4D /* FUHandlerPreferences.m in Sources */,
 				D31C7B0A11129A5B00563A4D /* FUHandlerController.m in Sources */,
 				D3D8FCBF111D709A0025650C /* FUNewBackgroundTabCommand.m in Sources */,
+				D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
+				D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

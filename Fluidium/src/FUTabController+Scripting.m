@@ -23,6 +23,7 @@
 #import "FUActivation.h"
 #import "WebViewPrivate.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
+#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 
 #define DEFAULT_DELAY 1.0
 
@@ -141,16 +142,16 @@ typedef enum {
                     [listener ignore];
                     [windowController handleCommandClick:act URL:s];
                 } else {
-                    [self loadURL:s];
                     [listener ignore];
+                    [self loadURL:s];
                 }
             }
                 break;
             case WebNavigationTypeFormSubmitted:
             case WebNavigationTypeFormResubmitted:
-//                [self submitForm:req];
-//                [listener ignore];
-                [listener use];
+                [listener ignore];
+                [self script_submitForm:req];
+//                [listener use];
                 break;
             default:
                 break;
@@ -181,6 +182,32 @@ typedef enum {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
+    
+    NSMutableString *contentType = [NSMutableString stringWithString:[[req valueForHTTPHeaderField:@"Content-type"] lowercaseString]];
+    CFStringTrimWhitespace((CFMutableStringRef)contentType);
+    
+    if ([contentType isEqualToString:@"application/x-www-form-urlencoded"]) {
+
+        NSMutableDictionary *formValues = [NSMutableDictionary dictionary];
+
+        NSString *body = [[[NSString alloc] initWithData:[req HTTPBody] encoding:NSUTF8StringEncoding] autorelease];
+        // text=foo&more=&password=&select=one
+        NSArray *pairs = [body componentsSeparatedByString:@"&"];
+        for (NSString *pair in pairs) {
+            NSRange r = [pair rangeOfString:@"="];
+            if (NSNotFound != r.location) {
+                NSString *name = [pair substringToIndex:r.location];
+                NSString *value = [pair substringFromIndex:r.location + r.length];
+                value = value ? value : @"";
+                [formValues setObject:value forKey:name];
+            }
+        }
+
+        // must turn dictionary into NSAppleEventDescriptor
+        NSAppleEventDescriptor *formValuesDesc = [NSAppleEventDescriptor descriptorWithDictionary:formValues];
+        [someAE setParamDescriptor:formValuesDesc forKeyword:'Vals'];
+   }
+    
     [someAE sendToOwnProcess];
 }
 
