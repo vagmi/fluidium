@@ -43,11 +43,11 @@ typedef enum {
 
 - (IBAction)dockMenuItemClick:(id)sender;
 
-- (FUDocument *)openDocumentWithRequest:(NSURLRequest *)req makeKey:(BOOL)makeKey;
+- (FUDocument *)openDocumentWithURL:(NSString *)s makeKey:(BOOL)makeKey;
 
-- (FUTabController *)loadRequest:(NSURLRequest *)req; // prefers tabs
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground;
+- (FUTabController *)loadURL:(NSString *)s; // prefers tabs
+- (FUTabController *)loadURL:(NSString *)s destinationType:(FUDestinationType)type; // respects FUSelectNewWindowsOrTabsAsCreated
+- (FUTabController *)loadURL:(NSString *)s destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground;
 
 - (void)downloadRequest:(NSURLRequest *)req directory:(NSString *)dirPath filename:(NSString *)filename;
 

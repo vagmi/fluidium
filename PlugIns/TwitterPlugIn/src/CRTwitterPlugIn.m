@@ -201,14 +201,12 @@ static CRTwitterPlugIn *instance = nil;
 
 
 - (void)openURL:(NSURL *)URL inNewTabInForeground:(BOOL)inForeground {
-    NSURLRequest *req = [NSURLRequest requestWithURL:URL];
-    [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeTab inForeground:inForeground];
+    [plugInAPI loadURL:[URL absoluteString] destinationType:FUPlugInDestinationTypeTab inForeground:inForeground];
 }
 
 
 - (void)openURL:(NSURL *)URL inNewWindowInForeground:(BOOL)inForeground {
-    NSURLRequest *req = [NSURLRequest requestWithURL:URL];
-    [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeWindow inForeground:inForeground];
+    [plugInAPI loadURL:[URL absoluteString] destinationType:FUPlugInDestinationTypeWindow inForeground:inForeground];
 }
 
 

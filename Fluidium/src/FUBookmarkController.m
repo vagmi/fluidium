@@ -66,15 +66,13 @@
 
 - (IBAction)openBookmarkInNewWindow:(id)sender {
     FUBookmark *bmark = [sender representedObject];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:bmark.content]];
-    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
+    [[FUDocumentController instance] loadURL:bmark.content destinationType:FUDestinationTypeWindow];
 }
 
 
 - (IBAction)openBookmarkInNewTab:(id)sender {
     FUBookmark *bmark = [sender representedObject];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:bmark.content]];
-    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeTab];
+    [[FUDocumentController instance] loadURL:bmark.content destinationType:FUDestinationTypeTab];
 }
 
 

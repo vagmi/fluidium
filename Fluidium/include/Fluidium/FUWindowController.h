@@ -124,9 +124,9 @@
 
 - (BOOL)isFindPanelVisible;
 
-- (FUTabController *)loadRequestInSelectedTab:(NSURLRequest *)req;
-- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabAndSelect:(BOOL)select; // shouldCreate=YES, index=count
-- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
+- (FUTabController *)loadURLInSelectedTab:(NSString *)s;
+- (FUTabController *)loadURL:(NSString *)s inNewTabAndSelect:(BOOL)select; // shouldCreate=YES, index=count
+- (FUTabController *)loadURL:(NSString *)s inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
 
 - (FUTabController *)addNewTabAndSelect:(BOOL)select;
 - (FUTabController *)insertNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select;

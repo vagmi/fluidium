@@ -1619,8 +1619,7 @@
         
         for (NSURL *URL in URLs) {
             FUWindowController *wc = (FUWindowController *)[[self window] windowController];
-            NSURLRequest *req = [NSURLRequest requestWithURL:URL];
-            [wc loadRequest:req inNewTabAndSelect:YES];
+            [wc loadURL:[URL absoluteString] inNewTabAndSelect:YES];
             break;
         }
 

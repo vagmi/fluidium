@@ -68,7 +68,7 @@
 - (NSTabViewItem *)tabViewItemForTabController:(FUTabController *)tc;
 
 - (NSInteger)preferredIndexForNewTab;
-- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
+- (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s;
 
 - (BOOL)isToolbarVisible;
 - (void)showToolbarTemporarilyIfHidden;
@@ -271,7 +271,7 @@
 
     if (cmd.isTabbed) {
         for (NSString *URLString in cmd.moreURLStrings) {
-            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:NO];
+            [self loadURL:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:NO];
         }
     }
 }
@@ -295,8 +295,7 @@
     FUActivation *act = [FUActivation activationFromEvent:[[self window] currentEvent]];
     
     if (act.isCommandKeyPressed) {
-        NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
-        [self handleCommandClick:act request:req];
+        [self handleCommandClick:act URL:URLString];
     } else {
         [locationComboBox setStringValue:URLString];
         [self goToLocation:self];
@@ -508,11 +507,10 @@
     } else {
         FUActivation *act = [FUActivation activationFromEvent:[[self window] currentEvent]];
         
-        NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
         if (act.isCommandKeyPressed) {
-            [self handleCommandClick:act request:req];
+            [self handleCommandClick:act URL:URLString];
         } else {
-            [self loadRequest:req inNewTab:NO atIndex:self.selectedTabIndex andSelect:NO];
+            [self loadURL:URLString inNewTab:NO atIndex:self.selectedTabIndex andSelect:NO];
         }
     }
 }
@@ -555,18 +553,18 @@
 }
 
 
-- (FUTabController *)loadRequestInSelectedTab:(NSURLRequest *)req {
+- (FUTabController *)loadURLInSelectedTab:(NSString *)s {
     NSInteger i = self.selectedTabIndex;
-    return [self loadRequest:req inNewTab:NO atIndex:i andSelect:NO];
+    return [self loadURL:s inNewTab:NO atIndex:i andSelect:NO];
 }
 
 
-- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTabAndSelect:(BOOL)select {
-    return [self loadRequest:req inNewTab:YES atIndex:[self preferredIndexForNewTab] andSelect:select];
+- (FUTabController *)loadURL:(NSString *)s inNewTabAndSelect:(BOOL)select {
+    return [self loadURL:s inNewTab:YES atIndex:[self preferredIndexForNewTab] andSelect:select];
 }
 
 
-- (FUTabController *)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select {
+- (FUTabController *)loadURL:(NSString *)s inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select {
     FUTabController *tc = nil;
 
     // use selected tab if empty
@@ -586,7 +584,7 @@
         }
     }
     
-    [tc loadURL:[[req URL] absoluteString]];
+    [tc loadURL:s];
     
     return tc;
 }
@@ -1495,7 +1493,7 @@
 }
 
 
-- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req {    
+- (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s {    
     BOOL inTab = [[FUUserDefaults instance] tabbedBrowsingEnabled];
     BOOL select = [[FUUserDefaults instance] selectNewWindowsOrTabsAsCreated];
     
@@ -1511,9 +1509,9 @@
         }
         
         NSInteger i = [tabView numberOfTabViewItems] - 1;
-        [self loadRequest:req inNewTab:NO atIndex:i andSelect:NO];
+        [self loadURL:s inNewTab:NO atIndex:i andSelect:NO];
     } else {
-        [[FUDocumentController instance] openDocumentWithRequest:req makeKey:select];
+        [[FUDocumentController instance] openDocumentWithURL:s makeKey:select];
     }
 }
 

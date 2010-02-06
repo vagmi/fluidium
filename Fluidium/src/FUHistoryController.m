@@ -65,14 +65,14 @@
     WebHistoryItem *historyItem = [sender representedObject];
     
     FUDocumentController *dc = [FUDocumentController instance];
-    WebView *webView = [dc frontWebView];
+    FUTabController *tc = [dc frontTabController];
     
-    if (!webView) {
+    if (!tc) {
         [dc newDocument:self];
-        webView = [dc frontWebView];
+        tc = [dc frontTabController];
     }
     
-    [webView setMainFrameURL:[historyItem URLString]];
+    [tc loadURL:[historyItem URLString]];
 }
 
 

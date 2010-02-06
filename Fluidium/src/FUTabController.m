@@ -43,7 +43,7 @@ typedef enum {
 @end
 
 @interface FUWindowController ()
-- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
+- (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s;
 @end
 
 @interface FUTabController ()
@@ -222,30 +222,30 @@ typedef enum {
 
 - (IBAction)openLinkInNewTabFromMenu:(id)sender {
     NSDictionary *clickElementInfo = [sender representedObject];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementLinkURLKey]];
-    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeTab];
+    NSString *s = [[clickElementInfo objectForKey:WebElementLinkURLKey] absoluteString];
+    [[FUDocumentController instance] loadURL:s destinationType:FUDestinationTypeTab];
 }
 
 
 - (IBAction)openLinkInNewWindowFromMenu:(id)sender {
     NSDictionary *clickElementInfo = [sender representedObject];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementLinkURLKey]];
-    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
+    NSString *s = [[clickElementInfo objectForKey:WebElementLinkURLKey] absoluteString];
+    [[FUDocumentController instance] loadURL:s destinationType:FUDestinationTypeWindow];
 }
 
 
 - (IBAction)openFrameInNewWindowFromMenu:(id)sender {
     NSDictionary *clickElementInfo = [sender representedObject];
     WebFrame *frame = [clickElementInfo objectForKey:WebElementFrameKey];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[[[frame dataSource] mainResource] URL]];
-    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
+    NSString *s = [[[[frame dataSource] mainResource] URL] absoluteString];
+    [[FUDocumentController instance] loadURL:s destinationType:FUDestinationTypeWindow];
 }
 
 
 - (IBAction)openImageInNewWindowFromMenu:(id)sender {
     NSDictionary *clickElementInfo = [sender representedObject];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementImageURLKey]];
-    [[FUDocumentController instance] loadRequest:req destinationType:FUDestinationTypeWindow];
+    NSString *s = [[clickElementInfo objectForKey:WebElementLinkURLKey] absoluteString];
+    [[FUDocumentController instance] loadURL:s destinationType:FUDestinationTypeWindow];
 }
 
 
@@ -257,8 +257,7 @@ typedef enum {
     }
     
     NSString *s = [NSString stringWithFormat:FUDefaultWebSearchFormatString(), term];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:s]];
-    [[FUDocumentController instance] loadRequest:req];
+    [[FUDocumentController instance] loadURL:s];
 }
 
 
@@ -478,7 +477,7 @@ typedef enum {
         FUActivation *act = [FUActivation activationFromWebActionInfo:info];
         if (act.isCommandKeyPressed) {
             [listener ignore];
-            [windowController handleCommandClick:act request:req];
+            [windowController handleCommandClick:act URL:[[req URL] absoluteString]];
         } else {
             [listener use];
         }
@@ -504,9 +503,9 @@ typedef enum {
     FUActivation *act = [FUActivation activationFromWebActionInfo:info];
     if (act.isCommandKeyPressed) {
         [listener ignore];
-        [windowController handleCommandClick:act request:req];
+        [windowController handleCommandClick:act URL:[[req URL] absoluteString]];
     } else if ([[FUUserDefaults instance] targetedClicksCreateTabs]) {
-        [[[FUDocumentController instance] frontWindowController] loadRequest:req inNewTabAndSelect:YES];
+        [[[FUDocumentController instance] frontWindowController] loadURL:[[req URL] absoluteString] inNewTabAndSelect:YES];
     } else {
         // look for existing frame with this name. if found, use it
         FUTabController *tc = nil;
@@ -577,7 +576,7 @@ typedef enum {
 
 - (WebView *)webView:(WebView *)wv createWebViewWithRequest:(NSURLRequest *)req {
     FUDestinationType type = [[FUUserDefaults instance] targetedClicksCreateTabs] ? FUDestinationTypeTab : FUDestinationTypeWindow;
-    FUTabController *tc = [[FUDocumentController instance] loadRequest:req destinationType:type inForeground:YES]; // TODO this is supposed to be created offscreen in the background according to webkit docs
+    FUTabController *tc = [[FUDocumentController instance] loadURL:[[req URL] absoluteString] destinationType:type inForeground:YES]; // TODO this is supposed to be created offscreen in the background according to webkit docs
     return [tc webView];
 }
 

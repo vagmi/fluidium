@@ -27,10 +27,6 @@
 #import "FUPlugInAPI.h"
 #import <WebKit/WebKit.h>
 
-@interface FUWindowController ()
-- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
-@end
-
 @interface FUPlugInAPIImpl ()
 - (FUWindowController *)windowControllerForWindow:(NSWindow *)win;
 
@@ -118,18 +114,18 @@
 }
 
 
-- (void)loadRequest:(NSURLRequest *)req {
-    [[FUDocumentController instance] loadRequest:req];
+- (void)loadURL:(NSString *)URLString {
+    [[FUDocumentController instance] loadURL:URLString];
 }
 
 
-- (void)loadRequest:(NSURLRequest *)req destinationType:(FUPlugInDestinationType)type {
-    [[FUDocumentController instance] loadRequest:req destinationType:type];
+- (void)loadURL:(NSString *)URLString destinationType:(FUPlugInDestinationType)type {
+    [[FUDocumentController instance] loadURL:URLString destinationType:type];
 }
 
 
-- (void)loadRequest:(NSURLRequest *)req destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
-    [[FUDocumentController instance] loadRequest:req destinationType:type inForeground:inForeground];
+- (void)loadURL:(NSString *)URLString destinationType:(FUPlugInDestinationType)type inForeground:(BOOL)inForeground {
+    [[FUDocumentController instance] loadURL:URLString destinationType:type inForeground:inForeground];
 }
 
 

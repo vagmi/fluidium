@@ -292,30 +292,30 @@ typedef enum {
 
 
 - (IBAction)openLinkInNewTabFromMenu:(id)sender {
-    NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementLinkURLKey]];
-    [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeTab];
+    NSString *s = [[clickElementInfo objectForKey:WebElementLinkURLKey] absoluteString];
+    [plugInAPI loadURL:s destinationType:FUPlugInDestinationTypeTab];
     self.clickElementInfo = nil;
 }
 
 
 - (IBAction)openLinkInNewWindowFromMenu:(id)sender {
-    NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementLinkURLKey]];
-    [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeWindow];
+    NSString *s = [[clickElementInfo objectForKey:WebElementLinkURLKey] absoluteString];
+    [plugInAPI loadURL:s destinationType:FUPlugInDestinationTypeWindow];
     self.clickElementInfo = nil;
 }
 
 
 - (IBAction)openFrameInNewWindowFromMenu:(id)sender {
     WebFrame *frame = [clickElementInfo objectForKey:WebElementFrameKey];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[[[frame dataSource] mainResource] URL]];
-    [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeWindow];
+    NSString *s = [[[[frame dataSource] mainResource] URL] absoluteString];
+    [plugInAPI loadURL:s destinationType:FUPlugInDestinationTypeWindow];
     self.clickElementInfo = nil;
 }
 
 
 - (IBAction)openImageInNewWindowFromMenu:(id)sender {
-    NSURLRequest *req = [NSURLRequest requestWithURL:[clickElementInfo objectForKey:WebElementImageURLKey]];
-    [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeWindow];
+    NSString *s = [[clickElementInfo objectForKey:WebElementLinkURLKey] absoluteString];
+    [plugInAPI loadURL:s destinationType:FUPlugInDestinationTypeWindow];
     self.clickElementInfo = nil;
 }
 
@@ -328,8 +328,7 @@ typedef enum {
     }
     
     NSString *s = [NSString stringWithFormat:FUDefaultWebSearchFormatString(), term];
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:s]];
-    [plugInAPI loadRequest:req];
+    [plugInAPI loadURL:s];
     self.clickElementInfo = nil;
 }
 
@@ -456,11 +455,11 @@ typedef enum {
                     [listener use];
                     break;
                 case FUBrowsaSendLinksToCurrentTab:
-                    [[self windowController] loadRequestInSelectedTab:req];
+                    [[self windowController] loadURLInSelectedTab:[[req URL] absoluteString]];
                     [listener ignore];
                     break;
                 case FUBrowsaSendLinksToNewTab:
-                    [[self windowController] loadRequest:req inNewTabAndSelect:YES];
+                    [[self windowController] loadURL:[[req URL] absoluteString] inNewTabAndSelect:YES];
                     [listener ignore];
                     break;
                 case FUBrowsaSendLinksToDefaultBrowser:
@@ -498,7 +497,7 @@ typedef enum {
         [listener ignore];
         [[self windowController] handleCommandClick:act request:req];
     } else if ([[NSUserDefaults standardUserDefaults] boolForKey:kFUTargetedClicksCreateTabsKey]) {
-        [plugInAPI loadRequest:req destinationType:FUPlugInDestinationTypeTab inForeground:YES];
+        [plugInAPI loadURL:[[req URL] absoluteString] destinationType:FUPlugInDestinationTypeTab inForeground:YES];
     } else {
         // no support for finding existing frames for name for now. allow a new window to be created
         [listener use];

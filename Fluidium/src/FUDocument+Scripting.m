@@ -17,7 +17,6 @@
 #import "FUTabController+Scripting.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
-#import "FUBaseScriptCommand.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
 
 @interface FUWindowController ()
@@ -108,7 +107,8 @@
 
 
 - (id)handleLoadURLCommand:(NSScriptCommand *)cmd {
-    FUTabController *tc = [(FUBaseScriptCommand *)cmd targetTabController];
+    // don't call -[FUBaseScriptCommand targetTabController] here as it will route around the shortcut handling mechanism if there's no explicit tabController arg
+    FUTabController *tc = [[cmd evaluatedArguments] objectForKey:@"tabController"];
     if (tc) {
         return [tc handleLoadURLCommand:cmd];
     }

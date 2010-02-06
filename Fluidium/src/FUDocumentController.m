@@ -222,7 +222,7 @@
 #pragma mark -
 #pragma mark Public
 
-- (FUDocument *)openDocumentWithRequest:(NSURLRequest *)req makeKey:(BOOL)makeKey {
+- (FUDocument *)openDocumentWithURL:(NSString *)s makeKey:(BOOL)makeKey; {
     FUDocument *oldDoc = [self frontDocument];
     FUDocument *newDoc = [self openUntitledDocumentAndDisplay:makeKey error:nil];
     
@@ -237,33 +237,33 @@
         
     }
     
-    if (req) {
-        FUWebView *webView = [[[newDoc windowController] selectedTabController] webView];
-        [[webView mainFrame] loadRequest:req];
+    if ([s length]) {
+        FUTabController *tc = [[newDoc windowController] selectedTabController];
+        [tc loadURL:s];
     }
     
     return newDoc;
 }
 
 
-- (FUTabController *)loadRequest:(NSURLRequest *)req {
-    return [self loadRequest:req destinationType:[[FUUserDefaults instance] tabbedBrowsingEnabled] ? FUDestinationTypeTab : FUDestinationTypeWindow];
+- (FUTabController *)loadURL:(NSString *)s {
+    return [self loadURL:s destinationType:[[FUUserDefaults instance] tabbedBrowsingEnabled] ? FUDestinationTypeTab : FUDestinationTypeWindow];
 }
 
 
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type {
-    return [self loadRequest:req destinationType:type inForeground:[[FUUserDefaults instance] selectNewWindowsOrTabsAsCreated]];
+- (FUTabController *)loadURL:(NSString *)s destinationType:(FUDestinationType)type {
+    return [self loadURL:s destinationType:type inForeground:[[FUUserDefaults instance] selectNewWindowsOrTabsAsCreated]];
 }
 
 
-- (FUTabController *)loadRequest:(NSURLRequest *)req destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground {
+- (FUTabController *)loadURL:(NSString *)s destinationType:(FUDestinationType)type inForeground:(BOOL)inForeground {
     FUTabController *tc = nil;
     if (![[self documents] count] || FUDestinationTypeWindow == type) {
-        FUDocument *doc = [self openDocumentWithRequest:req makeKey:inForeground];
+        FUDocument *doc = [self openDocumentWithURL:s makeKey:inForeground];
         tc = [[doc windowController] selectedTabController];
     } else {
         FUWindowController *wc = [self frontWindowController];
-        tc = [wc loadRequest:req inNewTabAndSelect:inForeground];
+        tc = [wc loadURL:s inNewTabAndSelect:inForeground];
         [[wc window] makeKeyAndOrderFront:self]; // this is necessary if opening in a tab, and an auxilliary window is key
     }
     return tc;
@@ -347,7 +347,6 @@
 
 
 - (void)handleOpenContentsAppleEventWithURL:(NSString *)URLString {
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:URLString]];
     FUDestinationType type = FUDestinationTypeWindow;
 
     FUWindowController *wc = [self frontWindowController];
@@ -362,7 +361,7 @@
         }
     }
 
-    [self loadRequest:req destinationType:type inForeground:YES];
+    [self loadURL:URLString destinationType:type inForeground:YES];
 }
 
 
@@ -412,7 +411,7 @@
         NSArray *tabs = [d objectForKey:@"tabs"];
         
         for (NSString *URLString in tabs) {
-            [wc loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:YES];
+            [wc loadURL:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:YES];
         }
         
         wc.selectedTabIndex = [[d objectForKey:@"selectedTabIndex"] integerValue];

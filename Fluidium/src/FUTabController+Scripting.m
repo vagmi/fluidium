@@ -36,7 +36,7 @@ typedef enum {
 } WebExtraNavigationType;
 
 @interface FUWindowController ()
-- (void)handleCommandClick:(FUActivation *)act request:(NSURLRequest *)req;
+- (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s;
 @end
 
 @interface FUTabController (ScriptingPrivate)
@@ -128,6 +128,9 @@ typedef enum {
     WebNavigationType navType = [[info objectForKey:WebActionNavigationTypeKey] integerValue];
     
     if ([WebView _canHandleRequest:req]) {
+        
+        NSString *s = [[req URL] absoluteString];
+
         switch (navType) {
             case WebNavigationTypeOther:
             case WebNavigationTypeBackForward:
@@ -139,9 +142,9 @@ typedef enum {
                 FUActivation *act = [FUActivation activationFromWebActionInfo:info];
                 if (act.isCommandKeyPressed) {
                     [listener ignore];
-                    [windowController handleCommandClick:act request:req];
+                    [windowController handleCommandClick:act URL:s];
                 } else {
-                    [self loadURL:[[req URL] absoluteString]];
+                    [self loadURL:s];
                     [listener ignore];
                 }
             }
