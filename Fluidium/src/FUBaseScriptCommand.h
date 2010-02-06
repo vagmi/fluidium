@@ -14,11 +14,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class FUDocument;
 @class FUTabController;
 
 @interface FUBaseScriptCommand : NSScriptCommand {
 
 }
 
+- (FUDocument *)targetDocument;
 - (FUTabController *)targetTabController;
 @end

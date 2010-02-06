@@ -19,7 +19,7 @@
 @implementation FULoadURLCommand
 
 - (id)performDefaultImplementation {
-    return [[self targetTabController] handleLoadURLCommand:self];
+    return [[self targetDocument] handleLoadURLCommand:self];
 }
 
 @end

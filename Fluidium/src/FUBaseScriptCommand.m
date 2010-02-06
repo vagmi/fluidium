@@ -20,6 +20,20 @@
 
 @implementation FUBaseScriptCommand
 
+- (FUDocument *)targetDocument {
+    NSDictionary *args = [self evaluatedArguments];
+    
+    FUDocument *doc = [args objectForKey:@"document"];
+    doc = doc ? doc : [[FUDocumentController instance] frontDocument];
+    
+    if (!doc) {
+        doc = [[FUDocumentController instance] openUntitledDocumentAndDisplay:YES error:nil];
+    }
+    
+    return doc;
+}
+
+
 - (FUTabController *)targetTabController {
     NSDictionary *args = [self evaluatedArguments];
     

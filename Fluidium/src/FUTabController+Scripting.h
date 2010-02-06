@@ -20,6 +20,9 @@
 - (NSUInteger)orderedIndex;
 - (BOOL)isSelected;
 
+// command helper
+- (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
+
 // Commands
 - (id)handleCloseCommand:(NSCloseCommand *)cmd;
 

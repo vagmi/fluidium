@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import "FUDocument+Scripting.h"
+#import "FUWindowController+Scripting.h"
 #import "FUTabController+Scripting.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
@@ -101,7 +102,14 @@
 
 
 - (id)handleLoadURLCommand:(NSScriptCommand *)cmd {
-    return [[windowController selectedTabController] handleLoadURLCommand:cmd];
+    [[windowController selectedTabController] suspendExecutionUntilProgressFinishedWithCommand:cmd];
+    
+    // dont send this straight to the tabController. that would circumvent the shortcut handling mechanism
+    // which only works from the locationCombox. should we change that? for now, i say no.
+    NSString *s = [cmd directParameter];
+    [windowController.locationComboBox setStringValue:s];
+    [windowController script_goToLocation:nil];
+    return nil;
 }
 
 

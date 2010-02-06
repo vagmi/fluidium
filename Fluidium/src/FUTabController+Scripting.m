@@ -44,7 +44,6 @@ typedef enum {
 - (void)sendEvent_loadURL:(NSString *)URLString;
 - (void)sendEvent_submitForm:(NSURLRequest *)req;
 
-- (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
 - (void)suspendCommand:(NSScriptCommand *)cmd;
 - (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay;
 
