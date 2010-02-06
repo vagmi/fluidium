@@ -218,7 +218,6 @@
 		D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */; };
-		D3D8F95A111C1BA30025650C /* AEVTBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8F959111C1BA30025650C /* AEVTBuilder.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
 		D3E13271110420EA007FE89E /* Fluidium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = D3E13270110420EA007FE89E /* Fluidium.sdef */; };
 		D3E42F3B10CB152000A5BDEF /* FUDownloadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3210CB152000A5BDEF /* FUDownloadItem.m */; };
@@ -744,8 +743,6 @@
 		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
 		D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BrowsaPlugIn.xcodeproj; path = ../PlugIns/BrowsaPlugIn/BrowsaPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_handlers.png; path = res/img/prefpanes/prefpane_icon_handlers.png; sourceTree = "<group>"; };
-		D3D8F958111C1BA30025650C /* AEVTBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AEVTBuilder.h; path = src/AEVTBuilder.h; sourceTree = "<group>"; };
-		D3D8F959111C1BA30025650C /* AEVTBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AEVTBuilder.m; path = src/AEVTBuilder.m; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
 		D3DB01FA10D6141E0057D70C /* FUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUView.m; path = src/FUView.m; sourceTree = "<group>"; };
 		D3E13270110420EA007FE89E /* Fluidium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; name = Fluidium.sdef; path = res/conf/Fluidium.sdef; sourceTree = "<group>"; };
@@ -1324,8 +1321,6 @@
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
 				D373ECCB110B945600ECE3BE /* NSDictionary+FUScripting.h */,
 				D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */,
-				D3D8F958111C1BA30025650C /* AEVTBuilder.h */,
-				D3D8F959111C1BA30025650C /* AEVTBuilder.m */,
 			);
 			name = Scripting;
 			sourceTree = "<group>";
@@ -2042,7 +2037,6 @@
 				D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */,
 				D31C7B0611129A1900563A4D /* FUHandlerPreferences.m in Sources */,
 				D31C7B0A11129A5B00563A4D /* FUHandlerController.m in Sources */,
-				D3D8F95A111C1BA30025650C /* AEVTBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
