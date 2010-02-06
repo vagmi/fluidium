@@ -184,7 +184,22 @@ typedef enum {
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
     
     DOMHTMLFormElement *formEl = [info objectForKey:@"WebActionFormKey"];
-    [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[formEl getAttribute:@"name"]] forKeyword:'Name'];
+    DOMHTMLCollection *forms = [(DOMHTMLDocument *)[webView mainFrameDocument] forms];
+    NSInteger formIndex = -1;
+    NSInteger i = 0;
+    NSInteger len = [forms length];
+    for ( ; i < len; i++) {
+        DOMNode *el = [forms item:i];
+        if (el == formEl) {
+            formIndex = i;
+            break;
+        }
+        i++;
+    }
+    
+    NSAssert(formIndex > -1, @"");
+    NSString *xpath = [NSString stringWithFormat:@"(//forms)[%d]", formIndex];
+    [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
     
     NSMutableString *contentType = [NSMutableString stringWithString:[[req valueForHTTPHeaderField:@"Content-type"] lowercaseString]];
     CFStringTrimWhitespace((CFMutableStringRef)contentType);
