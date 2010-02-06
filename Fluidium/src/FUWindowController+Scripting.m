@@ -107,7 +107,6 @@
 - (IBAction)script_newTab:(id)sender {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'nTab'];
     NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
-    //    [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
     [someAE setParamDescriptor:docDesc forKeyword:'pDoc'];
     [someAE sendToOwnProcess];
 }
@@ -116,7 +115,6 @@
 - (IBAction)script_newBackgroundTab:(id)sender {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'bTab'];
     NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
-    //    [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
     [someAE setParamDescriptor:docDesc forKeyword:'pDoc'];
     [someAE sendToOwnProcess];
 }
