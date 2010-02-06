@@ -24,6 +24,8 @@
 - (void)script_loadURL:(NSString *)s;
 
 // command helper
+- (void)suspendCommand:(NSScriptCommand *)cmd;
+- (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay;
 - (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
 
 // Commands

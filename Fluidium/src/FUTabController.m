@@ -117,7 +117,13 @@ typedef enum {
     self.favicon = nil;
     self.statusText = nil;
     self.inspector = nil;
+    
+    // be paranoid. resume the command JIC it has been suspended.
+    if (suspendedCommand) {
+        [suspendedCommand resumeExecutionWithResult:nil];
+    }
     self.suspendedCommand = nil;
+    
     [super dealloc];
 }
 

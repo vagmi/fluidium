@@ -19,6 +19,8 @@
 #import "FUTabController.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
 
+#define DEFAULT_DELAY 1.0
+
 @interface FUWindowController ()
 - (void)closeWindow;
 - (void)script_setSelectedTabIndex:(NSInteger)i;
@@ -65,7 +67,14 @@
 
 
 - (void)setSelectedTabIndex:(NSUInteger)i {
-    [windowController script_setSelectedTabIndex:i - 1];
+    i = i - 1; // account for 1-based AppleScript indexing
+    
+    // delay the command a bit 
+    FUTabController *tc = [windowController tabControllerAtIndex:i];
+    [tc suspendCommand:[NSScriptCommand currentCommand]];
+    [tc resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+    
+    [windowController script_setSelectedTabIndex:i];
 }
 
 

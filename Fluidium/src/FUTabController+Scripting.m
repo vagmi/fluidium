@@ -44,9 +44,6 @@ typedef enum {
 
 - (void)script_submitForm:(NSURLRequest *)req;
 
-- (void)suspendCommand:(NSScriptCommand *)cmd;
-- (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay;
-
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args;
