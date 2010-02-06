@@ -142,7 +142,7 @@ typedef enum {
 
 - (IBAction)webReload:(id)sender {
     if (self.lastLoadFailed) {
-        [self goToLocation:self];
+        [self loadURL:URLString];
     } else {
         [webView reload:sender];
     }
@@ -155,14 +155,8 @@ typedef enum {
     
 
 - (IBAction)webGoHome:(id)sender {
-    self.URLString = [[FUUserDefaults instance] homeURLString];
-    [self goToLocation:self];
+    [self loadURL:[[FUUserDefaults instance] homeURLString]];
     
-}
-
-
-- (IBAction)goToLocation:(id)sender {
-    [self loadURL:URLString];
 }
 
 
@@ -862,8 +856,7 @@ typedef enum {
     }
     
     if ([s length]) {
-        self.URLString = s;
-        [self goToLocation:self];
+        [self loadURL:s];
         return YES;
     } else {
         return NO;

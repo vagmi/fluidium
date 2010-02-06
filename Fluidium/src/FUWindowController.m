@@ -266,8 +266,7 @@
         s = cmd.firstURLString;
     }
     
-    [[self selectedTabController] setURLString:s];
-    [[self selectedTabController] goToLocation:sender];
+    [[self selectedTabController] loadURL:s];
 
     if (cmd.isTabbed) {
         for (NSString *URLString in cmd.moreURLStrings) {

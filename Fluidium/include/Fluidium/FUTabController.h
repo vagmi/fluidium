@@ -49,8 +49,6 @@
 - (IBAction)webStopLoading:(id)sender;
 - (IBAction)webGoHome:(id)sender;
 
-- (IBAction)goToLocation:(id)sender;
-
 // context menu actions
 - (IBAction)openLinkInNewTabFromMenu:(id)sender;
 - (IBAction)openLinkInNewWindowFromMenu:(id)sender;

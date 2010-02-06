@@ -418,17 +418,23 @@
 
     <command name="new browser window" code="FuSSnDoc" description="Open a new browser window.">
         <cocoa class="FUNewDocumentCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used."/> -->
     </command>
 
     <command name="new tab" code="FuSSnTab" description="Open a new tab.">
         <cocoa class="FUNewTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used."/> -->
+        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used.">
+            <cocoa key="document"/>
+        </parameter>
     </command>
 
     <command name="new background tab" code="FuSSbTab" description="Open a new background tab.">
         <cocoa class="FUNewBackgroundTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new background tab. If not specified, frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new background tab. If not specified, frontmost window is used."/> -->
+        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to open a new background tab. If not specified, frontmost window is used.">
+            <cocoa key="document"/>
+        </parameter>
     </command>
 
     <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
