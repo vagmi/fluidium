@@ -411,7 +411,7 @@
         NSArray *tabs = [d objectForKey:@"tabs"];
         
         for (NSString *URLString in tabs) {
-            [wc loadURL:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:YES];
+            [wc loadURL:URLString inNewTabAndSelect:YES];
         }
         
         wc.selectedTabIndex = [[d objectForKey:@"selectedTabIndex"] integerValue];

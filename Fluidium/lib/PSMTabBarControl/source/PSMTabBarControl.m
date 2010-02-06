@@ -612,6 +612,15 @@
 #pragma mark -
 #pragma mark Functionality
 
+// BEGIN FLUIDIUM
+// this routes tab selection thru scripting for recording
+- (void)selectTabViewItem:(NSTabViewItem *)tabItem {
+    FUWindowController *wc = [[self window] windowController];
+    [wc setSelectedTabIndex:[tabView indexOfTabViewItem:tabItem]];
+}
+// END FLUIDIUM
+
+
 - (void)addTabViewItem:(NSTabViewItem *)item
 // BEGIN FLUIDIUM
 {
@@ -1651,7 +1660,8 @@
 
 	id <NSDraggingInfo> sender = [timer userInfo];
 	PSMTabBarCell *cell = [self cellForPoint:[self convertPoint:[sender draggingLocation] fromView:nil] cellFrame:nil];
-	[tabView selectTabViewItem:[cell representedObject]];
+    [self selectTabViewItem:[cell representedObject]];
+	//[tabView selectTabViewItem:[cell representedObject]];
 
 	_tabViewItemWithSpring = nil;
 	[_springTimer invalidate];
@@ -1664,7 +1674,8 @@
 - (void)overflowMenuAction:(id)sender
 {
 	NSTabViewItem *tabViewItem = (NSTabViewItem *)[sender representedObject];
-	[tabView selectTabViewItem:tabViewItem];
+    [self selectTabViewItem:tabViewItem];
+	//[tabView selectTabViewItem:tabViewItem];
 }
 
 - (void)closeTabClick:(id)sender
@@ -1697,7 +1708,8 @@
 
 - (void)tabClick:(id)sender
 {
-    [tabView selectTabViewItem:[sender representedObject]];
+    [self selectTabViewItem:[sender representedObject]];
+    //[tabView selectTabViewItem:[sender representedObject]];
 }
 
 - (void)tabNothing:(id)sender
