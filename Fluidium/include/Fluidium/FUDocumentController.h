@@ -39,6 +39,7 @@ typedef enum {
 - (IBAction)openLocation:(id)sender;
 - (IBAction)openSearch:(id)sender;
 - (IBAction)newTab:(id)sender;
+- (IBAction)newBackgroundTab:(id)sender;
 
 - (IBAction)dockMenuItemClick:(id)sender;
 

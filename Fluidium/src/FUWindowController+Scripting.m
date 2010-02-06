@@ -30,6 +30,10 @@
         new = class_getInstanceMethod(self, @selector(script_newTab:));
         method_exchangeImplementations(old, new);
         
+        old = class_getInstanceMethod(self, @selector(newBackgroundTab:));
+        new = class_getInstanceMethod(self, @selector(script_newBackgroundTab:));
+        method_exchangeImplementations(old, new);
+        
         old = class_getInstanceMethod(self, @selector(closeTab:));
         new = class_getInstanceMethod(self, @selector(script_closeTab:));
         method_exchangeImplementations(old, new);
@@ -101,12 +105,22 @@
 
 
 - (IBAction)script_newTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'nTab'];
+    NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
+    [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
+    [someAE sendToOwnProcess];
+}
+
+
+- (IBAction)script_newBackgroundTab:(id)sender {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'bTab'];
+    NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
+    [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
+    [someAE sendToOwnProcess];
 }
 
 
 - (IBAction)script_closeTab:(id)sender {
-    //[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cTab'];
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[[self selectedTabController] objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];

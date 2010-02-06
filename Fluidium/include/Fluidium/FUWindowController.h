@@ -96,6 +96,7 @@
 - (IBAction)closeWindow:(id)sender;
 
 - (IBAction)newTab:(id)sender;
+- (IBAction)newBackgroundTab:(id)sender;
 - (IBAction)closeTab:(id)sender;
 - (IBAction)performClose:(id)sender;
 

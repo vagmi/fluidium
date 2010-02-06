@@ -17,6 +17,7 @@
 #import "FUTabController+Scripting.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
+#import "FUBaseScriptCommand.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
 
 @interface FUWindowController ()
@@ -66,7 +67,6 @@
 
 - (void)setSelectedTabIndex:(NSUInteger)i {
     [windowController script_setSelectedTabIndex:i - 1];
-//    [windowController setSelectedTabIndex:i - 1];
 }
 
 
@@ -84,25 +84,36 @@
 #pragma mark Commands
 
 - (id)handleCloseCommand:(NSCloseCommand *)cmd {
-    [windowController closeWindow:nil];
+    [windowController script_closeWindow:nil];
     return nil;
 }
 
 
 - (id)handleNewTabCommand:(NSScriptCommand *)cmd {
-    [windowController newTab:nil];
+    [windowController script_newTab:nil];
+    return nil;
+}
+
+
+- (id)handleNewBackgroundTabCommand:(NSScriptCommand *)cmd {
+    [windowController script_newBackgroundTab:nil];
     return nil;
 }
 
 
 - (id)handleCloseTabCommand:(NSScriptCommand *)cmd {
-    [windowController closeTab:nil];
+    [windowController script_closeTab:nil];
     return nil;
 }
 
 
 - (id)handleLoadURLCommand:(NSScriptCommand *)cmd {
-    [[windowController selectedTabController] suspendExecutionUntilProgressFinishedWithCommand:cmd];
+    FUTabController *tc = [(FUBaseScriptCommand *)cmd targetTabController];
+    if (tc) {
+        return [tc handleLoadURLCommand:cmd];
+    }
+    tc = [windowController selectedTabController];
+    [tc suspendExecutionUntilProgressFinishedWithCommand:cmd];
     
     // dont send this straight to the tabController. that would circumvent the shortcut handling mechanism
     // which only works from the locationCombox. should we change that? for now, i say no.
@@ -119,67 +130,67 @@
 
 
 - (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd {
-    [windowController selectPreviousTab:nil];
+    [windowController script_selectPreviousTab:nil];
     return nil;
 }
 
 
 - (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd {
-    [windowController selectNextTab:nil];
+    [windowController script_selectNextTab:nil];
     return nil;
 }
 
 
 - (id)handleGoToLocationCommand:(NSScriptCommand *)cmd {
-    [windowController goToLocation:nil];
+    [windowController script_goToLocation:nil];
     return nil;
 }
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
-    [windowController webGoBack:nil];
+    [windowController script_webGoBack:nil];
     return nil;
 }
 
 
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
-    [windowController webGoForward:nil];
+    [windowController script_webGoForward:nil];
     return nil;
 }
 
 
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
-    [windowController webReload:nil];
+    [windowController script_webReload:nil];
     return nil;
 }
 
 
 - (id)handleStopLoadingCommand:(NSScriptCommand *)cmd {
-    [windowController webStopLoading:nil];
+    [windowController script_webStopLoading:nil];
     return nil;
 }
 
 
 - (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
-    [windowController webGoHome:nil];
+    [windowController script_webGoHome:nil];
     return nil;
 }
 
 
 - (id)handleZoomInCommand:(NSScriptCommand *)cmd {
-    [windowController zoomIn:nil];
+    [windowController script_zoomIn:nil];
     return nil;
 }
 
 
 - (id)handleZoomOutCommand:(NSScriptCommand *)cmd {
-    [windowController zoomOut:nil];
+    [windowController script_zoomOut:nil];
     return nil;
 }
 
 
 - (id)handleActualSizeCommand:(NSScriptCommand *)cmd {
-    [windowController actualSize:nil];
+    [windowController script_actualSize:nil];
     return nil;
 }
 

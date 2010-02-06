@@ -73,7 +73,7 @@
 - (CGFloat)estimatedProgress;
 - (NSString *)documentSource;
 
-- (void)loadRequest:(NSURLRequest *)req;
+- (void)loadURL:(NSString *)s;
 
 @property (nonatomic, assign, readonly) FUWindowController *windowController; // weak ref
 @property (nonatomic, retain) NSView *view;

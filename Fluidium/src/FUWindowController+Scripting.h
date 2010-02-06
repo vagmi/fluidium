@@ -17,6 +17,7 @@
 @interface FUWindowController (Scripting)
 - (IBAction)script_closeWindow:(id)sender;
 - (IBAction)script_newTab:(id)sender;
+- (IBAction)script_newBackgroundTab:(id)sender;
 - (IBAction)script_closeTab:(id)sender;
 - (IBAction)script_goToLocation:(id)sender;
 - (IBAction)script_webGoBack:(id)sender;

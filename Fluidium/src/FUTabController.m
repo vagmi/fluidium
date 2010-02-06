@@ -162,13 +162,7 @@ typedef enum {
 
 
 - (IBAction)goToLocation:(id)sender {
-    if (![URLString length]) {
-        return;
-    }
-    
-    self.title = NSLocalizedString(@"Loading...", @"");
-    self.URLString = [URLString stringByEnsuringURLSchemePrefix];
-    [webView setMainFrameURL:URLString];
+    [self loadURL:URLString];
 }
 
 
@@ -351,8 +345,14 @@ typedef enum {
 }
 
 
-- (void)loadRequest:(NSURLRequest *)req {
-    [[webView mainFrame] loadRequest:req];
+- (void)loadURL:(NSString *)s {
+    if (![s length]) {
+        return;
+    }
+        
+    self.title = NSLocalizedString(@"Loading...", @"");
+    self.URLString = [s stringByEnsuringURLSchemePrefix];
+    [webView setMainFrameURL:URLString];
 }
 
 

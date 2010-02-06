@@ -32,7 +32,11 @@
         old = class_getInstanceMethod(self, @selector(newTab:));
         new = class_getInstanceMethod(self, @selector(script_newTab:));
         method_exchangeImplementations(old, new);
-
+        
+        old = class_getInstanceMethod(self, @selector(newBackgroundTab:));
+        new = class_getInstanceMethod(self, @selector(script_newBackgroundTab:));
+        method_exchangeImplementations(old, new);
+        
     }
 }
 
@@ -47,6 +51,11 @@
 
 - (IBAction)script_newTab:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
+}
+
+
+- (IBAction)script_newBackgroundTab:(id)sender {
+    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'bTab'];
 }
 
 @end

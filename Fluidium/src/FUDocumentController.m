@@ -111,6 +111,11 @@
 }
 
 
+- (IBAction)newBackgroundTab:(id)sender {
+    [self newDocument:sender];
+}
+
+
 // support for user JavaScript dock menu item callbacks
 - (IBAction)dockMenuItemClick:(id)sender {
     FUTabController *tc = [self frontTabController];

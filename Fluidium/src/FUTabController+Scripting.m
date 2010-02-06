@@ -42,8 +42,7 @@ typedef enum {
 @interface FUTabController (ScriptingPrivate)
 - (BOOL)shouldHandleRequest:(NSURLRequest *)inReq;
 
-- (void)sendEvent_loadURL:(NSString *)s;
-- (void)sendEvent_submitForm:(NSURLRequest *)req;
+- (void)script_submitForm:(NSURLRequest *)req;
 
 - (void)suspendCommand:(NSScriptCommand *)cmd;
 - (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay;
@@ -76,10 +75,10 @@ typedef enum {
 @implementation FUTabController (Scripting)
 
 + (void)initialize {
-    if ([FUWindowController class] == self) {
+    if ([FUTabController class] == self) {
         
-        Method old = class_getInstanceMethod(self, @selector(goToLocation:));
-        Method new = class_getInstanceMethod(self, @selector(script_goToLocation:));
+        Method old = class_getInstanceMethod(self, @selector(loadURL:));
+        Method new = class_getInstanceMethod(self, @selector(script_loadURL:));
         method_exchangeImplementations(old, new);
         
     }
@@ -142,14 +141,14 @@ typedef enum {
                     [listener ignore];
                     [windowController handleCommandClick:act request:req];
                 } else {
-                    [self sendEvent_loadURL:[[req URL] absoluteString]];
+                    [self loadURL:[[req URL] absoluteString]];
                     [listener ignore];
                 }
             }
                 break;
             case WebNavigationTypeFormSubmitted:
             case WebNavigationTypeFormResubmitted:
-//                [self sendEvent_submitForm:req];
+//                [self submitForm:req];
 //                [listener ignore];
                 [listener use];
                 break;
@@ -169,16 +168,7 @@ typedef enum {
 }
 
 
-- (IBAction)script_goToLocation:(id)sender {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
-    NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
-    [someAE setDescriptor:[NSAppleEventDescriptor descriptorWithString:URLString] forKeyword:keyDirectObject];
-    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
-    [someAE sendToOwnProcess];
-}
-
-
-- (void)sendEvent_loadURL:(NSString *)s {
+- (void)script_loadURL:(NSString *)s {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
     [someAE setDescriptor:[NSAppleEventDescriptor descriptorWithString:s] forKeyword:keyDirectObject];
@@ -187,7 +177,7 @@ typedef enum {
 }
 
 
-- (void)sendEvent_submitForm:(NSURLRequest *)req {
+- (void)script_submitForm:(NSURLRequest *)req {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
@@ -256,8 +246,7 @@ typedef enum {
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
 
     NSString *s = [cmd directParameter];
-    self.URLString = s;
-    [self script_goToLocation:nil];
+    [self script_loadURL:s];
     return nil;
 }
 

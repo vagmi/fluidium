@@ -17,4 +17,5 @@
 @interface FUDocumentController (Scripting)
 - (IBAction)script_newDocument:(id)sender;
 - (IBAction)script_newTab:(id)sender;
+- (IBAction)script_newBackgroundTab:(id)sender;
 @end

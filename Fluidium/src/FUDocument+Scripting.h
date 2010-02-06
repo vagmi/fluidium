@@ -27,6 +27,7 @@
 
 // Commands
 - (id)handleNewTabCommand:(NSScriptCommand *)cmd;
+- (id)handleNewBackgroundTabCommand:(NSScriptCommand *)cmd;
 - (id)handleCloseTabCommand:(NSScriptCommand *)cmd;
 
 - (id)handleCloseCommand:(NSCloseCommand *)cmd;

@@ -352,6 +352,11 @@
 }
 
 
+- (IBAction)newBackgroundTab:(id)sender {
+    [self addNewTabAndSelect:NO];
+}
+
+
 - (IBAction)closeWindow:(id)sender {
     [self closeWindow];
 }
@@ -581,17 +586,15 @@
         }
     }
     
-    [[[tc webView] mainFrame] loadRequest:req];
-
-//    tc.URLString = [[req URL] absoluteString];
-//    [tc goToLocation:self];
+    [tc loadURL:[[req URL] absoluteString]];
     
     return tc;
 }
 
 
 - (FUTabController *)addNewTabAndSelect:(BOOL)select {
-    return [self insertNewTabAtIndex:[self preferredIndexForNewTab] andSelect:select];
+    NSInteger i = [self preferredIndexForNewTab];
+    return [self insertNewTabAtIndex:i andSelect:select];
 }
 
 
@@ -1199,7 +1202,7 @@
     NSURL *URL = [WebView URLFromPasteboard:pboard];
     
     FUTabController *tc = [tabItem identifier];
-    [tc loadRequest:[NSURLRequest requestWithURL:URL]];
+    [tc loadURL:[URL absoluteString]];
 }
 
 
@@ -1500,8 +1503,15 @@
     inTab = act.isOptionKeyPressed ? !inTab : inTab;
     
     if (inTab) {
-        NSInteger i = [tabView numberOfTabViewItems];
-        [self loadRequest:req inNewTab:YES atIndex:i andSelect:select];
+        // using actions here to route thru scripting for recording
+        if (select) {
+            [self newTab:self];
+        } else {
+            [self newBackgroundTab:self];
+        }
+        
+        NSInteger i = [tabView numberOfTabViewItems] - 1;
+        [self loadRequest:req inNewTab:NO atIndex:i andSelect:NO];
     } else {
         [[FUDocumentController instance] openDocumentWithRequest:req makeKey:select];
     }

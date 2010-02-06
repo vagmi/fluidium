@@ -426,6 +426,11 @@
         <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used."/>
     </command>
 
+    <command name="new background tab" code="FuSSbTab" description="Open a new background tab.">
+        <cocoa class="FUNewBackgroundTabCommand"/>
+        <direct-parameter type="specifier" optional="yes" description="A browser window in which to open a new background tab. If not specified, frontmost window is used."/>
+    </command>
+
     <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
         <cocoa class="FUSelectPreviousTabCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A browser window in which to select the previous tab. If not specified, frontmost window is used."/>
@@ -503,6 +508,9 @@
         </responds-to>
         <responds-to command="new tab">
             <cocoa method="handleNewTabCommand:"/>
+        </responds-to>
+        <responds-to command="new background tab">
+            <cocoa method="handleNewBackgroundTabCommand:"/>
         </responds-to>
         <responds-to command="select previous tab">
             <cocoa method="handleSelectPreviousTabCommand:"/>

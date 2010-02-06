@@ -21,7 +21,7 @@
 - (BOOL)isSelected;
 
 // Actions
-- (IBAction)script_goToLocation:(id)sender;
+- (void)script_loadURL:(NSString *)s;
 
 // command helper
 - (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd;
