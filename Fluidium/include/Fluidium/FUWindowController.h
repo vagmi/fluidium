@@ -128,7 +128,7 @@
 - (FUTabController *)loadRequest:(NSURLRequest *)req inNewTab:(BOOL)shouldCreate atIndex:(NSInteger)i andSelect:(BOOL)select;
 
 - (FUTabController *)addNewTabAndSelect:(BOOL)select;
-- (FUTabController *)addNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select;
+- (FUTabController *)insertNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select;
 
 - (void)addTabController:(FUTabController *)tc;
 - (void)insertTabController:(FUTabController *)tc atIndex:(NSInteger)i;

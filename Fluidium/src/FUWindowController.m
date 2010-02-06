@@ -348,8 +348,7 @@
 //        return;
 //    }
     
-    NSInteger i = [tabView numberOfTabViewItems];
-    [self addNewTabAtIndex:i andSelect:YES];
+    [self addNewTabAndSelect:YES];
 }
 
 
@@ -370,6 +369,7 @@
 - (IBAction)performClose:(id)sender {
     [self closeTab:sender];
 }
+
 
 // overridden in (Scripting) category to send close events for background tabs thru the scripting architecture for recording
 - (IBAction)takeTabIndexToCloseFrom:(id)sender {
@@ -570,30 +570,36 @@
     }
         
     if (shouldCreate) {
-        tc = [self addNewTabAtIndex:i andSelect:select];
+        tc = [self insertNewTabAtIndex:i andSelect:select];
     } else {
         tc = [self tabControllerAtIndex:i];
         if (!tc) {
             tc = [self selectedTabController];
         }
+        if (select) {
+            [self selectTabController:tc];
+        }
     }
     
     [[[tc webView] mainFrame] loadRequest:req];
+
+//    tc.URLString = [[req URL] absoluteString];
+//    [tc goToLocation:self];
+    
     return tc;
 }
 
 
 - (FUTabController *)addNewTabAndSelect:(BOOL)select {
-    return [self addNewTabAtIndex:[self preferredIndexForNewTab] andSelect:select];
+    return [self insertNewTabAtIndex:[self preferredIndexForNewTab] andSelect:select];
 }
 
 
-- (FUTabController *)addNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select {
+- (FUTabController *)insertNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select {
     FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
     [self insertTabController:tc atIndex:i];
     if (select) {
-        self.selectedTabIndex = i;
-        [[self window] makeFirstResponder:locationComboBox];
+        [self selectTabController:tc];
     }
     return tc;
 }
@@ -656,6 +662,7 @@
 
 - (void)selectTabController:(FUTabController *)tc {
     self.selectedTabIndex = [tabView indexOfTabViewItem:[self tabViewItemForTabController:tc]];
+    [[self window] makeFirstResponder:locationComboBox];
 }
 
 

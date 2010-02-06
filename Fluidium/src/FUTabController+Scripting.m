@@ -16,6 +16,7 @@
 #import "FUDocument.h"
 #import "FUWindowController.h"
 #import "FUNotifications.h"
+#import <objc/runtime.h>
 #import <WebKit/WebKit.h>
 
 //
@@ -41,7 +42,7 @@ typedef enum {
 @interface FUTabController (ScriptingPrivate)
 - (BOOL)shouldHandleRequest:(NSURLRequest *)inReq;
 
-- (void)sendEvent_loadURL:(NSString *)URLString;
+- (void)sendEvent_loadURL:(NSString *)s;
 - (void)sendEvent_submitForm:(NSURLRequest *)req;
 
 - (void)suspendCommand:(NSScriptCommand *)cmd;
@@ -74,6 +75,17 @@ typedef enum {
 
 @implementation FUTabController (Scripting)
 
++ (void)initialize {
+    if ([FUWindowController class] == self) {
+        
+        Method old = class_getInstanceMethod(self, @selector(goToLocation:));
+        Method new = class_getInstanceMethod(self, @selector(script_goToLocation:));
+        method_exchangeImplementations(old, new);
+        
+    }
+}
+
+    
 - (FourCharCode)classCode {
     return 'fTab';
 }
@@ -157,6 +169,15 @@ typedef enum {
 }
 
 
+- (IBAction)script_goToLocation:(id)sender {
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
+    NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
+    [someAE setDescriptor:[NSAppleEventDescriptor descriptorWithString:URLString] forKeyword:keyDirectObject];
+    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
+    [someAE sendToOwnProcess];
+}
+
+
 - (void)sendEvent_loadURL:(NSString *)s {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
@@ -236,7 +257,7 @@ typedef enum {
 
     NSString *s = [cmd directParameter];
     self.URLString = s;
-    [self goToLocation:nil];
+    [self script_goToLocation:nil];
     return nil;
 }
 
