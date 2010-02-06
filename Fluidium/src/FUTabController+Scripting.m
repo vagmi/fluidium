@@ -43,7 +43,7 @@ typedef enum {
 @interface FUTabController (ScriptingPrivate)
 - (BOOL)shouldHandleRequest:(NSURLRequest *)inReq;
 
-- (void)script_submitForm:(NSURLRequest *)req;
+- (void)script_submitForm:(NSURLRequest *)req withActionInfo:(NSDictionary *)info;
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
@@ -150,7 +150,7 @@ typedef enum {
             case WebNavigationTypeFormSubmitted:
             case WebNavigationTypeFormResubmitted:
                 [listener ignore];
-                [self script_submitForm:req];
+                [self script_submitForm:req withActionInfo:info];
 //                [listener use];
                 break;
             default:
@@ -178,10 +178,13 @@ typedef enum {
 }
 
 
-- (void)script_submitForm:(NSURLRequest *)req {
+- (void)script_submitForm:(NSURLRequest *)req withActionInfo:(NSDictionary *)info {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
+    
+    DOMHTMLFormElement *formEl = [info objectForKey:@"WebActionFormKey"];
+    [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[formEl getAttribute:@"name"]] forKeyword:'Name'];
     
     NSMutableString *contentType = [NSMutableString stringWithString:[[req valueForHTTPHeaderField:@"Content-type"] lowercaseString]];
     CFStringTrimWhitespace((CFMutableStringRef)contentType);
