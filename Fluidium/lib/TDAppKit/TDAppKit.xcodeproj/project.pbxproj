@@ -38,6 +38,8 @@
 		D371246110F0526B00D7107B /* TDUberViewSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */; };
 		D3D8023E111E2D810025650C /* NSURLRequest+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8023C111E2D810025650C /* NSURLRequest+TDAdditions.m */; };
 		D3D80241111E2E890025650C /* NSURLRequest+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D80240111E2E890025650C /* NSURLRequest+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3D804FD111F484D0025650C /* TDDraggableBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D804FC111F484D0025650C /* TDDraggableBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3D804FF111F485D0025650C /* TDDraggableBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D804FE111F485D0025650C /* TDDraggableBar.m */; };
 		D3E1320A110403D5007FE89E /* TDColorView.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E13208110403D5007FE89E /* TDColorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3E1320B110403D5007FE89E /* TDColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E13209110403D5007FE89E /* TDColorView.m */; };
 		D3EB212A11013C4E00633715 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EB212911013C4E00633715 /* QuartzCore.framework */; };
@@ -101,6 +103,8 @@
 		D371245310F0522700D7107B /* TDLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLine.h; path = include/TDAppKit/TDLine.h; sourceTree = "<group>"; };
 		D3D8023C111E2D810025650C /* NSURLRequest+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+TDAdditions.m"; path = "src/NSURLRequest+TDAdditions.m"; sourceTree = "<group>"; };
 		D3D80240111E2E890025650C /* NSURLRequest+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+TDAdditions.h"; path = "include/TDAppKit/NSURLRequest+TDAdditions.h"; sourceTree = "<group>"; };
+		D3D804FC111F484D0025650C /* TDDraggableBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDraggableBar.h; path = include/TDAppKit/TDDraggableBar.h; sourceTree = "<group>"; };
+		D3D804FE111F485D0025650C /* TDDraggableBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDraggableBar.m; path = src/TDDraggableBar.m; sourceTree = "<group>"; };
 		D3E13208110403D5007FE89E /* TDColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDColorView.h; path = include/TDAppKit/TDColorView.h; sourceTree = "<group>"; };
 		D3E13209110403D5007FE89E /* TDColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDColorView.m; path = src/TDColorView.m; sourceTree = "<group>"; };
 		D3EB212911013C4E00633715 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -281,6 +285,8 @@
 			children = (
 				D371245210F0522700D7107B /* TDBar.h */,
 				D371244210F051E800D7107B /* TDBar.m */,
+				D3D804FC111F484D0025650C /* TDDraggableBar.h */,
+				D3D804FE111F485D0025650C /* TDDraggableBar.m */,
 				D371245310F0522700D7107B /* TDLine.h */,
 				D371244310F051E800D7107B /* TDLine.m */,
 				D3E13208110403D5007FE89E /* TDColorView.h */,
@@ -325,6 +331,7 @@
 				D33B19F111168A3300F754AD /* TDScroller.h in Headers */,
 				D33B19F211168A3300F754AD /* TDScrollView.h in Headers */,
 				D3D80241111E2E890025650C /* NSURLRequest+TDAdditions.h in Headers */,
+				D3D804FD111F484D0025650C /* TDDraggableBar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +434,7 @@
 				D33B19F511168A3A00F754AD /* TDScroller.m in Sources */,
 				D33B19F611168A3A00F754AD /* TDScrollView.m in Sources */,
 				D3D8023E111E2D810025650C /* NSURLRequest+TDAdditions.m in Sources */,
+				D3D804FF111F485D0025650C /* TDDraggableBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

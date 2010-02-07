@@ -13,14 +13,14 @@
 //  limitations under the License.
 
 #import <TDAppKit/TDBar.h>
-#import "FUDraggableBar.h"
+#import "TDDraggableBar.h"
 
 @class FUBookmark;
 @class FUBookmarkBarButton;
 @class FUBookmarkButtonSeparator;
 @class FUBookmarkBarOverflowButton;
 
-@interface FUBookmarkBar : FUDraggableBar {
+@interface FUBookmarkBar : TDDraggableBar {
     FUBookmarkButtonSeparator *separator;
     NSMutableArray *buttons;
     NSInteger currDropIndex;

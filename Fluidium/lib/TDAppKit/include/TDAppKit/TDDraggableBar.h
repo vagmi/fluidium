@@ -14,7 +14,7 @@
 
 #import <TDAppKit/TDBar.h>
 
-@interface FUDraggableBar : TDBar {
+@interface TDDraggableBar : TDBar {
 
 }
 

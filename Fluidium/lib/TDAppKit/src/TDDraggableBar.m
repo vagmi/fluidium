@@ -12,14 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUDraggableBar.h"
+#import <TDAppKit/TDDraggableBar.h>
 
-@implementation FUDraggableBar
+@implementation TDDraggableBar
 
 - (void)mouseDown:(NSEvent *)evt {
-    NSPoint startLocInWin = [evt locationInWindow];
+    NSPoint startLoc = [evt locationInWindow];
     
-    NSPoint lastLocInWin = startLocInWin;
+    NSPoint lastLoc = startLoc;
 
     BOOL keepDragging = YES;
     
@@ -30,17 +30,17 @@
             keepDragging = NO;
         }
 		
-        NSPoint newLocInWin = [evt locationInWindow];
-        if (NSEqualPoints(newLocInWin, lastLocInWin)) {
+        NSPoint newLoc = [evt locationInWindow];
+        if (NSEqualPoints(newLoc, lastLoc)) {
             continue;
         }
 		
         NSRect winFrame = [[self window] frame];
         NSPoint origin = winFrame.origin;
-		NSPoint newOrigin = NSMakePoint(origin.x + newLocInWin.x - startLocInWin.x, origin.y + newLocInWin.y - startLocInWin.y);
+		NSPoint newOrigin = NSMakePoint(origin.x + newLoc.x - startLoc.x, origin.y + newLoc.y - startLoc.y);
 		
         [[self window] setFrameOrigin:newOrigin];
-        lastLocInWin = newLocInWin;
+        lastLoc = newLoc;
     }
 }
 
