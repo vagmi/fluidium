@@ -121,7 +121,7 @@ typedef enum {
 #pragma mark -
 #pragma mark Web Recording
 
-- (void)webView:(WebView *)wv decidePolicyForNavigationAction:(NSDictionary *)info request:(NSURLRequest *)req frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
+- (void)foo_webView:(WebView *)wv decidePolicyForNavigationAction:(NSDictionary *)info request:(NSURLRequest *)req frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
     if (![self shouldHandleRequest:req]) {
         [listener ignore];
         return;
@@ -805,11 +805,16 @@ typedef enum {
                     }
                 }
             } else {
-                // this is a hack cuz sometimes the xpath doesnt work. dunno why
+                // this is a hack cuz sometimes the xpath `(//form)[0]` doesnt work. dunno why
                 NSString *prefix = @"(//form)[";
-                if ([xpath hasPrefix:prefix]) {
-                    i = [[xpath substringWithRange:NSMakeRange([prefix length], 1)] integerValue];
-                    [result addObject:[[(DOMHTMLDocument *)doc forms] item:i]];
+                if ([xpath hasPrefix:prefix] && [xpath hasSuffix:@"]"]) {
+                    NSScanner *scanner = [NSScanner scannerWithString:xpath];
+                    if ([scanner scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:nil]) {
+                        NSInteger idx;
+                        if ([scanner scanInteger:&idx]) {
+                            [result addObject:[[(DOMHTMLDocument *)doc forms] item:idx]];
+                        }
+                    }
                 }
             }
         } @catch (NSException *e) {

@@ -68,6 +68,8 @@
 - (NSTabViewItem *)tabViewItemForTabController:(FUTabController *)tc;
 
 - (NSInteger)preferredIndexForNewTab;
+
+- (FUTabController *)tabControllerForCommandClick:(FUActivation *)act;
 - (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s;
 
 - (BOOL)isToolbarVisible;
@@ -293,12 +295,13 @@
         
     FUActivation *act = [FUActivation activationFromEvent:[[self window] currentEvent]];
     
+    FUTabController *tc = nil;
     if (act.isCommandKeyPressed) {
-        [self handleCommandClick:act URL:URLString];
+        tc = [self tabControllerForCommandClick:act];
     } else {
-        [locationComboBox setStringValue:URLString];
-        [self goToLocation:self];
-    }    
+        tc = [self selectedTabController];
+    }
+    [tc loadURL:URLString];
 }
 
 
@@ -506,11 +509,13 @@
     } else {
         FUActivation *act = [FUActivation activationFromEvent:[[self window] currentEvent]];
         
+        FUTabController *tc = nil;
         if (act.isCommandKeyPressed) {
-            [self handleCommandClick:act URL:URLString];
+            tc = [self tabControllerForCommandClick:act];
         } else {
-            [self loadURL:URLString inNewTab:NO atIndex:self.selectedTabIndex andSelect:NO];
+            tc = [self selectedTabController];
         }
+        [tc loadURL:URLString];
     }
 }
 
@@ -667,7 +672,7 @@
 
 
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i {
-    if (i > [tabView numberOfTabViewItems] - 1) {
+    if (i < 0 || i > [tabView numberOfTabViewItems] - 1) {
         return nil;
     }
     NSTabViewItem *tabItem = [tabView tabViewItemAtIndex:i];
@@ -1492,7 +1497,7 @@
 }
 
 
-- (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s {    
+- (FUTabController *)tabControllerForCommandClick:(FUActivation *)act {
     BOOL inTab = [[FUUserDefaults instance] tabbedBrowsingEnabled];
     BOOL select = [[FUUserDefaults instance] selectNewWindowsOrTabsAsCreated];
     
@@ -1508,10 +1513,18 @@
         }
         
         NSInteger i = [tabView numberOfTabViewItems] - 1;
-        [self loadURL:s inNewTab:NO atIndex:i andSelect:NO];
+        return [self tabControllerAtIndex:i];
     } else {
-        [[FUDocumentController instance] openDocumentWithURL:s makeKey:select];
+        FUDocument *doc = [[FUDocumentController instance] openDocumentWithURL:nil makeKey:select];
+        return [[doc windowController] selectedTabController];
     }
+}
+
+
+- (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s {
+    FUTabController *tc = [self tabControllerForCommandClick:act];
+    NSAssert(tc, @"");
+    [tc loadURL:s];
 }
 
 
