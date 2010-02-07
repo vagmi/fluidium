@@ -242,30 +242,35 @@ typedef enum {
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
     [self webGoBack:nil];
     return nil;
 }
 
 
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
     [self webGoForward:nil];
     return nil;
 }
 
 
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
     [self webReload:nil];
     return nil;
 }
 
 
 - (id)handleStopLoadingCommand:(NSScriptCommand *)cmd {
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
     [self webStopLoading:nil];
     return nil;
 }
 
 
 - (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
     [self webGoHome:nil];
     return nil;
 }

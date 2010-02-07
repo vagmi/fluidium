@@ -14,18 +14,18 @@
 
 #import "FUReloadCommand.h"
 #import "FUDocumentController.h"
-#import "FUWindowController+Scripting.h"
+#import "FUTabController+Scripting.h"
 
 @implementation FUReloadCommand
 
 - (id)performDefaultImplementation {
     NSDictionary *args = [self evaluatedArguments];
     
-    id target = [args objectForKey:@"tabController"]; // may be nil
-    if (!target) {
-        target = [[FUDocumentController instance] frontWindowController];
+    FUTabController *tc = [args objectForKey:@"tabController"]; // may be nil
+    if (!tc) {
+        tc = [[FUDocumentController instance] frontTabController];
     }
-    [NSApp sendAction:@selector(script_webReload:) to:target from:nil];
+    [tc handleReloadCommand:self];
     
     return nil;
 }
