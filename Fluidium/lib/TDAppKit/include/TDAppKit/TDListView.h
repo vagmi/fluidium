@@ -120,7 +120,7 @@ extern NSString *const TDListItemPboardType;
 /* The return value indicates whether the list view can attempt to initiate a drag for the given event and items. 
  If the delegate does not implement this method, the list view will act as if it returned YES.
  */
-- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt;
+- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt slideBack:(BOOL *)slideBack;
 
 /*
  This method is called after it has been determined that a drag should begin, but before the drag has been started. 
@@ -163,6 +163,8 @@ extern NSString *const TDListItemPboardType;
  You must implement this method for your list view to be a drag destination.
  */
 - (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)index dropOperation:(TDListViewDropOperation)dropOperation;
+
+- (BOOL)listView:(TDListView *)lv shouldRunPoofAt:(NSPoint)endPointInScreen forRemovedItemAtIndex:(NSUInteger)index;
 
 @end
 

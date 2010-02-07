@@ -186,12 +186,18 @@
 
 
 - (void)listViewEmptyAreaWasDoubleClicked:(TDListView *)lv {
-    [[[self.view window] windowController] newTab:self];
+    [[self windowController] newTab:self];
 }
 
 
 #pragma mark -
 #pragma mark TDListViewDelegate Drag
+
+- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt slideBack:(BOOL *)slideBack {
+    *slideBack = NO;
+    return YES;
+}
+
 
 - (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSUInteger)i toPasteboard:(NSPasteboard *)pboard {
     FUWindowController *wc = [self windowController];
@@ -268,6 +274,23 @@
     }
     
     return NO;
+}
+
+
+- (BOOL)listView:(TDListView *)lv shouldRunPoofAt:(NSPoint)endPointInScreen forRemovedItemAtIndex:(NSUInteger)index {
+    if (!draggingTabController) {
+        return NO; // we dont yet support dragging tab thumbnails to a new window
+    }
+
+    FUWindowController *wc = [self windowController];
+    NSAssert(NSNotFound != index, @"");
+    NSAssert([wc indexOfTabController:draggingTabController] == index, @"");
+    
+    [wc removeTabController:draggingTabController];
+    self.draggingTabController = nil;
+    
+    [self updateAllTabModelsFromIndex:index];
+    return YES;
 }
 
 

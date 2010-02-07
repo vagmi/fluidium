@@ -268,8 +268,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     }
     
     BOOL canDrag = YES;
-    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:)]) {
-        canDrag = [delegate listView:self canDragItemAtIndex:draggingIndex withEvent:evt];
+    BOOL slideBack = YES;
+    if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:slideBack:)]) {
+        canDrag = [delegate listView:self canDragItemAtIndex:draggingIndex withEvent:evt slideBack:&slideBack];
     }
     if (!canDrag) return;
     
@@ -293,7 +294,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     p.y -= dragOffset.y;
     
     NSSize ignored = NSZeroSize;
-    [self dragImage:dragImg at:p offset:ignored event:evt pasteboard:pboard source:self slideBack:NO];
+    [self dragImage:dragImg at:p offset:ignored event:evt pasteboard:pboard source:self slideBack:slideBack];
 }
 
 
@@ -359,7 +360,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSRect dropZone = [self convertRect:[self visibleRect] toView:nil];
     
     if (!NSPointInRect(endPointInWin, dropZone)) {
-        [NSToolbarPoofAnimator runPoofAtPoint:endPointInScreen];
+        if (delegate && [delegate respondsToSelector:@selector(listView:shouldRunPoofAt:forRemovedItemAtIndex:)]) {
+            if ([delegate listView:self shouldRunPoofAt:endPointInScreen forRemovedItemAtIndex:draggingIndex]) {
+                [NSToolbarPoofAnimator runPoofAtPoint:endPointInScreen];
+            }
+        }
     }
 
     [self layoutItems];

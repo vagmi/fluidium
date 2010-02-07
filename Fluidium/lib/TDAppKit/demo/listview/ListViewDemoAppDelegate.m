@@ -114,7 +114,8 @@
 #pragma mark -
 #pragma mark TDListViewDelegate Drag and Drop
 
-- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt {
+- (BOOL)listView:(TDListView *)lv canDragItemAtIndex:(NSUInteger)i withEvent:(NSEvent *)evt slideBack:(BOOL *)slideBack {
+    *slideBack = YES;
     return YES;
 }
 
