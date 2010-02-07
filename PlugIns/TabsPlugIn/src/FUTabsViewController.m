@@ -226,6 +226,9 @@
 
 
 - (BOOL)listView:(TDListView *)lv acceptDrop:(id <NSDraggingInfo>)draggingInfo index:(NSUInteger)i dropOperation:(TDListViewDropOperation)dropOperation {
+    if (!draggingTabController) {
+        return NO; // we dont yet support dragging tab thumbnails to a new window
+    }
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
     
     FUWindowController *wc = [self windowController];
@@ -233,6 +236,7 @@
     NSURL *URL = nil;
     if ([types containsObject:TDTabPboardType]) {
         NSUInteger oldIndex = [wc indexOfTabController:draggingTabController];
+        NSAssert(NSNotFound != oldIndex, @"");
         if (i == oldIndex) { // same index. do nothing
             return YES;
         }
