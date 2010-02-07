@@ -476,7 +476,7 @@ enum {
                 NSEnumerator    * theEnumerator = [aDictionary keyEnumerator];
                 while( (theKey = [theEnumerator nextObject]) != nil )
                 {
-                        NSParameterAssert( [theKey isKindOfClass:theNumberClass] );
+                        NSParameterAssert( [theKey isKindOfClass:[NSNumber class]] );
                         [theDescriptor setDescriptor:[NSAppleEventDescriptor descriptorWithObject:[aDictionary objectForKey:theKey]] forKeyword:[theKey unsignedIntValue]];
                 }
         }

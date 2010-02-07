@@ -118,6 +118,10 @@
         }        
     }
     
+//    else if (NSLeftMouseDragged == [evt type]) {
+//        if (
+//    }
+    
     [super sendEvent:evt];
 }
 

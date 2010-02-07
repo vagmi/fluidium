@@ -3,17 +3,15 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
 		<string key="IBDocument.SystemVersion">10C540</string>
-		<string key="IBDocument.InterfaceBuilderVersion">740</string>
+		<string key="IBDocument.InterfaceBuilderVersion">759</string>
 		<string key="IBDocument.AppKitVersion">1038.25</string>
 		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">740</string>
+			<string key="NS.object.0">759</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100051"/>
-			<integer value="100037"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -47,7 +45,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{94, 86}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -142,11 +140,10 @@
 							</object>
 							<string key="NSFrameSize">{1087, 16}</string>
 							<reference key="NSSuperview" ref="568628114"/>
-							<string key="NSClassName">TDBar</string>
+							<string key="NSClassName">FUDraggableBar</string>
 						</object>
 					</object>
 					<string key="NSFrameSize">{1087, 718}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{94, 108}</string>
@@ -157,7 +154,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSSplitView" id="612320548">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">4394</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -352,7 +349,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 30}</string>
-				<reference key="NSSuperview"/>
 				<bool key="NSIsVertical">YES</bool>
 			</object>
 			<object class="NSCustomView" id="870163162">
@@ -1507,6 +1503,14 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">FUDraggableBar</string>
+					<string key="superclassName">TDBar</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">FUFindPanelView</string>
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1533,80 +1537,9 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">FUTabBarControl</string>
 					<string key="superclassName">PSMTabBarControl</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>moveTabToNewWindow:</string>
-							<string>reloadTab:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUTabBarControl.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUTabController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>actualSize:</string>
-							<string>downloadLinkAsFromMenu:</string>
-							<string>goBack:</string>
-							<string>goForward:</string>
-							<string>goHome:</string>
-							<string>goToLocation:</string>
-							<string>openFrameInNewWindowFromMenu:</string>
-							<string>openImageInNewWindowFromMenu:</string>
-							<string>openLinkInNewTabFromMenu:</string>
-							<string>openLinkInNewWindowFromMenu:</string>
-							<string>reload:</string>
-							<string>searchWebFromMenu:</string>
-							<string>showErrorConsole:</string>
-							<string>showWebInspector:</string>
-							<string>stopLoading:</string>
-							<string>zoomIn:</string>
-							<string>zoomOut:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">include/Fluidium/FUTabController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUTabController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUTabController+Scripting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1631,35 +1564,47 @@
 							<string>actualSize:</string>
 							<string>addBookmark:</string>
 							<string>bookmarkClicked:</string>
+							<string>closeTab:</string>
+							<string>closeWindow:</string>
 							<string>emptyCache:</string>
 							<string>endEditBookmark:</string>
 							<string>find:</string>
-							<string>goBack:</string>
-							<string>goForward:</string>
-							<string>goHome:</string>
 							<string>goToLocation:</string>
 							<string>hideFindPanel:</string>
 							<string>jumpToSelection:</string>
+							<string>newBackgroundTab:</string>
+							<string>newTab:</string>
 							<string>openLocation:</string>
 							<string>openSearch:</string>
-							<string>openTab:</string>
 							<string>performClose:</string>
-							<string>reload:</string>
 							<string>search:</string>
 							<string>selectNextTab:</string>
 							<string>selectPreviousTab:</string>
 							<string>showErrorConsole:</string>
 							<string>showFindPanel:</string>
 							<string>showWebInspector:</string>
-							<string>stopLoading:</string>
+							<string>takeTabIndexToCloseFrom:</string>
+							<string>takeTabIndexToMoveToNewWindowFrom:</string>
+							<string>takeTabIndexToReloadFrom:</string>
 							<string>toggleToolbarShown:</string>
 							<string>useSelectionForFind:</string>
 							<string>viewSource:</string>
+							<string>webGoBack:</string>
+							<string>webGoForward:</string>
+							<string>webGoHome:</string>
+							<string>webReload:</string>
+							<string>webStopLoading:</string>
 							<string>zoomIn:</string>
 							<string>zoomOut:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1738,6 +1683,54 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">src/FUWindowController+NSToolbarDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FUWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>noscript_goToLocation:</string>
+							<string>script_actualSize:</string>
+							<string>script_closeTab:</string>
+							<string>script_closeWindow:</string>
+							<string>script_newBackgroundTab:</string>
+							<string>script_newTab:</string>
+							<string>script_selectNextTab:</string>
+							<string>script_selectPreviousTab:</string>
+							<string>script_takeTabIndexToCloseFrom:</string>
+							<string>script_webGoBack:</string>
+							<string>script_webGoForward:</string>
+							<string>script_webGoHome:</string>
+							<string>script_webReload:</string>
+							<string>script_webStopLoading:</string>
+							<string>script_zoomIn:</string>
+							<string>script_zoomOut:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">src/FUWindowController+Scripting.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1884,6 +1877,17 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
+					</object>
+				</object>
+			</object>
+			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.1+">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">TDBar</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBDocumentRelativeSource</string>
+						<string key="minorKey">../lib/TDAppKit/include/TDAppKit/TDBar.h</string>
 					</object>
 				</object>
 			</object>
@@ -2494,6 +2498,7 @@
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
+		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<integer value="1050" key="NS.object.0"/>

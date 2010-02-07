@@ -493,7 +493,7 @@
     FUBookmark *bmark = nil;
     if (sender && [sender isKindOfClass:[NSMenuItem class]]) {
         bmark = [sender representedObject];
-    } else if (sender) {
+    } else if ([sender isMemberOfClass:[FUBookmark class]]) {
         bmark = sender;
     } else {
         return;
