@@ -12,8 +12,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <TDAppKit/TDBar.h>
-#import "TDDraggableBar.h"
+#import <TDAppKit/TDDraggableBar.h>
 
 @class FUBookmark;
 @class FUBookmarkBarButton;
