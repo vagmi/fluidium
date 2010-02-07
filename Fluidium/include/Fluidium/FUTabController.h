@@ -39,6 +39,7 @@
     BOOL didReceiveTitle;
     
     NSScriptCommand *suspendedCommand;
+    BOOL submittingFromScript;
 }
 
 - (id)initWithWindowController:(FUWindowController *)wc;

@@ -147,17 +147,19 @@ typedef enum {
                     [windowController handleCommandClick:act URL:s];
                 } else {
                     [listener ignore];
-                    [self loadURL:s];
+                    [self loadURL:s]; // send thru scripting
                 }
             }
                 break;
             case WebNavigationTypeFormSubmitted:
             case WebNavigationTypeFormResubmitted:
-                [listener ignore];
-                
-                // both use and send event manully. dunno why this works. it shouldn't. but it does.
-                [self script_submitForm:req withWebActionInfo:info];
-                //[listener use];
+                if (submittingFromScript) {
+                    submittingFromScript = NO;
+                    [listener use];
+                } else {
+                    [listener use   ];
+                    [self script_submitForm:req withWebActionInfo:info];
+                }
                 break;
             default:
                 break;
@@ -191,7 +193,9 @@ typedef enum {
     [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
     
     NSString *xpath = [self XPathForFormInWebActionInfo:info];
-    [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
+    if ([xpath length]) {
+        [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
+    }
     
     NSDictionary *formValues = [req formValues];
     if (formValues) {
@@ -205,6 +209,9 @@ typedef enum {
 
 - (NSString *)XPathForFormInWebActionInfo:(NSDictionary *)info {
     DOMHTMLFormElement *formEl = [info objectForKey:@"WebActionFormKey"];
+    if (!formEl) {
+        return nil;
+    }
     DOMHTMLCollection *forms = [(DOMHTMLDocument *)[webView mainFrameDocument] forms];
 
     NSInteger formIndex = -1;
@@ -510,6 +517,7 @@ typedef enum {
     
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
     
+    submittingFromScript = YES;
     [formEl submit];
     
     return nil;
@@ -783,10 +791,20 @@ typedef enum {
 
             NSUInteger i = 0;
             NSUInteger count = [nodes snapshotLength];
-            for ( ; i < count; i++) {
-                DOMNode *node = [nodes snapshotItem:i];
-                if ([node isKindOfClass:[DOMHTMLElement class]]) {
-                    [result addObject:node];
+            
+            if (count) {
+                for ( ; i < count; i++) {
+                    DOMNode *node = [nodes snapshotItem:i];
+                    if ([node isKindOfClass:[DOMHTMLElement class]]) {
+                        [result addObject:node];
+                    }
+                }
+            } else {
+                // this is a hack cuz sometimes the xpath doesnt work. dunno why
+                NSString *prefix = @"(//form)[";
+                if ([xpath hasPrefix:prefix]) {
+                    i = [[xpath substringWithRange:NSMakeRange([prefix length], 1)] integerValue];
+                    [result addObject:[[(DOMHTMLDocument *)doc forms] item:i]];
                 }
             }
         } @catch (NSException *e) {
