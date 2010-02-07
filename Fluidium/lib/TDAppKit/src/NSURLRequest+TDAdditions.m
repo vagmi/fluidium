@@ -14,35 +14,75 @@
 
 #import <TDAppKit/NSURLRequest+TDAdditions.h>
 
+@interface NSURLRequest (TDAdditionsPrivate)
+- (NSDictionary *)queryStringValues;
+- (NSDictionary *)bodyValues;
+- (NSDictionary *)argsFromString:(NSString *)s;
+@end
+
 @implementation NSURLRequest (TDAdditions)
 
 - (NSDictionary *)formValues {
-    NSMutableString *contentType = [NSMutableString stringWithString:[[self valueForHTTPHeaderField:@"Content-type"] lowercaseString]];
-    CFStringTrimWhitespace((CFMutableStringRef)contentType);
+    NSMutableDictionary *d = [NSMutableDictionary dictionary];
     
-    NSMutableDictionary *formValues = nil;
+    NSDictionary *bodyValues = [self bodyValues];
+    if (bodyValues) [d addEntriesFromDictionary:bodyValues];
 
-    if ([contentType isEqualToString:@"application/x-www-form-urlencoded"]) {
-        
-        NSString *body = [[[NSString alloc] initWithData:[self HTTPBody] encoding:NSUTF8StringEncoding] autorelease];
+    NSDictionary *queryStringValues = [self queryStringValues];
+    if (queryStringValues) [d addEntriesFromDictionary:queryStringValues];
+    
+    return [[d copy] autorelease];
+}
 
-        // text=foo&more=&password=&select=one
-        NSArray *pairs = [body componentsSeparatedByString:@"&"];
-        for (NSString *pair in pairs) {
-            NSRange r = [pair rangeOfString:@"="];
-            if (NSNotFound != r.location) {
-                NSString *name = [pair substringToIndex:r.location];
-                NSString *value = [pair substringFromIndex:r.location + r.length];
-                value = value ? value : @"";
-                if (!formValues) {
-                    formValues = [NSMutableDictionary dictionary];
-                }
-                [formValues setObject:value forKey:name];
-            }
-        }
+@end
+
+@implementation NSURLRequest (TDAdditionsPrivate)
+
+- (NSDictionary *)queryStringValues {
+    NSString *URLString = [[self URL] query];
+    if ([URLString hasPrefix:@"?"]) {
+        URLString = [URLString substringFromIndex:1];
     }
     
-    return formValues;
+    return [self argsFromString:URLString];
+    
+}
+
+- (NSDictionary *)bodyValues {
+//    NSMutableString *contentType = [NSMutableString stringWithString:[[self valueForHTTPHeaderField:@"Content-type"] lowercaseString]];
+//    CFStringTrimWhitespace((CFMutableStringRef)contentType);
+//
+//    if ([contentType isEqualToString:@"application/x-www-form-urlencoded"]) {
+
+    NSDictionary *bodyValues = nil;
+    
+    NSData *bodyData = [self HTTPBody];
+        
+    if ([bodyData length]) {
+        NSString *body = [[[NSString alloc] initWithData:bodyData encoding:NSUTF8StringEncoding] autorelease];
+        bodyValues = [self argsFromString:body];
+    }
+    
+    return bodyValues;
+}
+
+
+- (NSDictionary *)argsFromString:(NSString *)s {
+    NSMutableDictionary *d = [NSMutableDictionary dictionary];
+    
+    // text=foo&more=&password=&select=one
+    NSArray *pairs = [s componentsSeparatedByString:@"&"];
+    for (NSString *pair in pairs) {
+        NSRange r = [pair rangeOfString:@"="];
+        if (NSNotFound != r.location) {
+            NSString *name = [pair substringToIndex:r.location];
+            NSString *value = [pair substringFromIndex:r.location + r.length];
+            value = value ? value : @"";
+            [d setObject:value forKey:name];
+        }
+    }
+
+    return d;
 }
 
 @end
