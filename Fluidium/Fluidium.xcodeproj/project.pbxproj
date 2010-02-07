@@ -209,6 +209,7 @@
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
 		D3AF878510CFA34300C601A3 /* FUBehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */; };
+		D3B538C5111F7ABE0056D586 /* FUTabController+Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */; };
 		D3B8BC0310E837E400271454 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FB10C8D90C00E0B474 /* HMAppKitEx.m */; };
 		D3B8BC0410E837E400271454 /* HMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FD10C8D90C00E0B474 /* HMButton.m */; };
 		D3B8BC0510E837E400271454 /* HMButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FF10C8D90C00E0B474 /* HMButtonCell.m */; };
@@ -742,6 +743,8 @@
 		D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBehaviorPreferences.m; path = src/FUBehaviorPreferences.m; sourceTree = "<group>"; };
 		D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_behavior.png; path = res/img/prefpanes/prefpane_icon_behavior.png; sourceTree = "<group>"; };
 		D3AF878410CFA34300C601A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBehaviorPreferences.xib; sourceTree = "<group>"; };
+		D3B538C3111F7ABE0056D586 /* FUTabController+Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUTabController+Recording.h"; path = "src/FUTabController+Recording.h"; sourceTree = "<group>"; };
+		D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUTabController+Recording.m"; path = "src/FUTabController+Recording.m"; sourceTree = "<group>"; };
 		D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = prefpane_icon_tabs.tiff; path = res/img/prefpanes/prefpane_icon_tabs.tiff; sourceTree = "<group>"; };
 		D3D3731F10E3D32300203EB2 /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = include/Fluidium/FUNotifications.h; sourceTree = "<group>"; };
 		D3D3732010E3D32300203EB2 /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = src/FUNotifications.m; sourceTree = "<group>"; };
@@ -1335,6 +1338,8 @@
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
 				D373ECCB110B945600ECE3BE /* NSDictionary+FUScripting.h */,
 				D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */,
+				D3B538C3111F7ABE0056D586 /* FUTabController+Recording.h */,
+				D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */,
 				D3D80014111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.h */,
 				D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */,
 				D3D800E4111E18200025650C /* NSURL+NDCarbonUtilities.h */,
@@ -2063,6 +2068,7 @@
 				D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
 				D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */,
 				D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */,
+				D3B538C5111F7ABE0056D586 /* FUTabController+Recording.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
