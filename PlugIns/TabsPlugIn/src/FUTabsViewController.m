@@ -39,7 +39,7 @@
 
 @interface FUTabsViewController ()
 - (NSArray *)webViews;
-- (id)windowController;
+- (FUWindowController *)windowController;
 - (void)updateAllTabModels;
 - (void)updateAllTabModelsFromIndex:(NSInteger)startIndex;
 - (void)updateSelectedTabModel;
@@ -83,6 +83,12 @@
     self.drawer = nil;
     self.draggingTabController = nil;
     [super dealloc];
+}
+
+
+- (NSString *)description {
+    FUWindowController *wc = [self windowController];
+    return [NSString stringWithFormat:@"<FUTabsViewController %p %@ (tabs %d) (tabModels %d)>", self, [[wc window] title], [[wc tabControllers] count], [tabModels count]];
 }
 
 
@@ -265,33 +271,43 @@
 #pragma mark FUWindowControllerNotifcations
 
 - (void)windowControllerDidOpenTab:(NSNotification *)n {
+    FUTabController *tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
+    NSParameterAssert([tc windowController] == [self windowController]);
+
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [self updateAllTabModelsFromIndex:i];
     
-    FUTabController *tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
     [self startObserveringTabController:tc];
 }
 
 
 - (void)windowControllerWillCloseTab:(NSNotification *)n {
     FUTabController *tc = [[n userInfo] objectForKey:KEY_TAB_CONTROLLER];
+    NSParameterAssert([tc windowController] == [self windowController]);
+
     [self stopObserveringTabController:tc];
 }
 
 
 - (void)windowControllerDidCloseTab:(NSNotification *)n {
+    NSParameterAssert([[[n userInfo] objectForKey:KEY_TAB_CONTROLLER] windowController] == [self windowController]);
+
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
     [self updateAllTabModelsFromIndex:i];
 }
 
 
 - (void)windowControllerDidChangeSelectedTab:(NSNotification *)n {
+    NSParameterAssert([[[n userInfo] objectForKey:KEY_TAB_CONTROLLER] windowController] == [self windowController]);
+
     [self updateSelectedTabModel];
 }
 
 
 - (void)windowControllerDidChangeTabOrder:(NSNotification *)n {
-    NSUInteger index = [[[n userInfo] objectForKey:@"FUIndex"] unsignedIntegerValue];
+    NSParameterAssert([[[n userInfo] objectForKey:KEY_TAB_CONTROLLER] windowController] == [self windowController]);
+
+    NSUInteger index = [[[n userInfo] objectForKey:KEY_INDEX] unsignedIntegerValue];
     NSUInteger priorIndex = [[[n userInfo] objectForKey:@"FUPriorIndex"] unsignedIntegerValue];
     
     NSUInteger i = index < priorIndex ? index : priorIndex;
@@ -305,18 +321,21 @@
 
 - (void)tabControllerProgressDidStart:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
+    NSParameterAssert(i < [tabModels count]);
     [[tabModels objectAtIndex:i] setNeedsNewImage:YES];
 }
 
 
 - (void)tabControllerProgressDidChange:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
+    NSParameterAssert(i < [tabModels count]);
     [self updateTabModelAtIndex:i];
 }
 
 
 - (void)tabControllerProgressDidFinish:(NSNotification *)n {
     NSInteger i = [[[n userInfo] objectForKey:KEY_INDEX] integerValue];
+    NSParameterAssert(i < [tabModels count]);
     [[tabModels objectAtIndex:i] setNeedsNewImage:YES];
     
     [self performSelector:@selector(updateTabModelLaterAtIndex:) withObject:[NSNumber numberWithInteger:i] afterDelay:.2];
@@ -348,12 +367,8 @@
 }
 
 
-- (id)windowController {
-    if (drawer) {
-        return [[drawer parentWindow] windowController];
-    } else {
-        return [[self.view window] windowController];
-    }
+- (FUWindowController *)windowController {
+    return [plugIn windowControllerForViewController:self];
 }
 
 
@@ -363,20 +378,20 @@
     
 
 - (void)updateAllTabModelsFromIndex:(NSInteger)startIndex {
+    NSParameterAssert(startIndex > -1);
 
     NSArray *wvs = [self webViews];
-    NSInteger webViewsCount = [wvs count];
-    startIndex = startIndex > webViewsCount - 1 ? webViewsCount - 1 : startIndex; // make sure there's no exception here
+    NSUInteger webViewsCount = [wvs count];
+    NSUInteger lastWebViewIndex = webViewsCount - 1;
+    startIndex = startIndex > lastWebViewIndex ? lastWebViewIndex : startIndex; // make sure there's no exception here
     
-    NSMutableArray *newModels = nil;
-    if (startIndex && tabModels) {
-        newModels = [[[tabModels subarrayWithRange:NSMakeRange(0, startIndex)] mutableCopy] autorelease];
-    } else {
-        newModels = [NSMutableArray arrayWithCapacity:webViewsCount];
+    NSMutableArray *newModels = [NSMutableArray arrayWithCapacity:webViewsCount];
+    if (startIndex > 0 && tabModels) {
+        [newModels addObjectsFromArray:[tabModels subarrayWithRange:NSMakeRange(0, startIndex)]];
     }
 
     NSInteger newModelsCount = [newModels count];
-    NSInteger i = startIndex;
+    NSInteger i = startIndex;   
     for (i >= 0; i < webViewsCount; i++) {
         WebView *wv = [wvs objectAtIndex:i];
         FUTabModel *model = [[[FUTabModel alloc] init] autorelease];

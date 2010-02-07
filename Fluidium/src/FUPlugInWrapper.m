@@ -122,8 +122,9 @@
     [self addObserver:plugIn for:FUWindowControllerDidOpenNotification object:nil ifRespondsTo:@selector(windowControllerDidOpen:)];
 
     if (num > -1) {
-        FUWindowController *wc = [[FUDocumentController instance] frontWindowController];
-        NSWindow *win = [wc window];
+        NSWindow *win = [NSApp windowWithWindowNumber:num];
+        NSAssert([win windowNumber] == num, @"");
+        FUWindowController *wc = [win windowController];
 
         [self addObserver:vc for:FUWindowControllerWillCloseNotification object:wc ifRespondsTo:@selector(windowControllerWillClose:)];
 

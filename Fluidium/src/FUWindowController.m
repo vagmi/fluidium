@@ -616,6 +616,8 @@
 
 
 - (void)insertTabController:(FUTabController *)tc atIndex:(NSInteger)i {
+    NSParameterAssert(tc);
+    NSParameterAssert(i > -1);
     if ([tabControllers containsObject:tc]) {
         return;
     }
