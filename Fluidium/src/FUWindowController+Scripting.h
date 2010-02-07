@@ -15,11 +15,12 @@
 #import "FUWindowController.h"
 
 @interface FUWindowController (Scripting)
+- (IBAction)noscript_goToLocation:(id)sender;
+
 - (IBAction)script_closeWindow:(id)sender;
 - (IBAction)script_newTab:(id)sender;
 - (IBAction)script_newBackgroundTab:(id)sender;
 - (IBAction)script_closeTab:(id)sender;
-- (IBAction)script_goToLocation:(id)sender;
 - (IBAction)script_webGoBack:(id)sender;
 - (IBAction)script_webGoForward:(id)sender;
 - (IBAction)script_webReload:(id)sender;

@@ -221,6 +221,7 @@
 		D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
 		D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */; };
 		D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */; };
+		D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */; };
 		D3D8FCBF111D709A0025650C /* FUNewBackgroundTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8FCBE111D709A0025650C /* FUNewBackgroundTabCommand.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
 		D3E13271110420EA007FE89E /* Fluidium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = D3E13270110420EA007FE89E /* Fluidium.sdef */; };
@@ -751,6 +752,8 @@
 		D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+NDAppleScriptObject.m"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
 		D3D800E4111E18200025650C /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+NDCarbonUtilities.h"; path = "src/NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
+		D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSubmitFormCommand.h; path = src/FUSubmitFormCommand.h; sourceTree = "<group>"; };
+		D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSubmitFormCommand.m; path = src/FUSubmitFormCommand.m; sourceTree = "<group>"; };
 		D3D8FCBD111D709A0025650C /* FUNewBackgroundTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNewBackgroundTabCommand.h; path = src/FUNewBackgroundTabCommand.h; sourceTree = "<group>"; };
 		D3D8FCBE111D709A0025650C /* FUNewBackgroundTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewBackgroundTabCommand.m; path = src/FUNewBackgroundTabCommand.m; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
@@ -1349,6 +1352,8 @@
 				D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */,
 				D3ADF9D011045FDB0064C070 /* FULoadURLCommand.h */,
 				D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */,
+				D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */,
+				D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */,
 			);
 			name = "Script Only Script Commands";
 			sourceTree = "<group>";
@@ -2057,6 +2062,7 @@
 				D3D8FCBF111D709A0025650C /* FUNewBackgroundTabCommand.m in Sources */,
 				D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
 				D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */,
+				D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

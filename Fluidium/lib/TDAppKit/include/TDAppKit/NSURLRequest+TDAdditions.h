@@ -12,17 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <TDAppKit/TDUtils.h>
-#import <TDAppKit/NSImage+TDAdditions.h>
-#import <TDAppKit/NSBezierPath+TDAdditions.h>
-#import <TDAppKit/NSURLRequest+TDAdditions.h>
-#import <TDAppKit/TDGutterView.h>
-#import <TDAppKit/TDSourceCodeTextView.h>
-#import <TDAppKit/TDUberView.h>
-#import <TDAppKit/TDListView.h>
-#import <TDAppKit/TDListItem.h>
-#import <TDAppKit/TDScrollView.h>
-#import <TDAppKit/TDScroller.h>
-#import <TDAppKit/TDBar.h>
-#import <TDAppKit/TDLine.h>
-#import <TDAppKit/TDColorView.h>
+#import <Cocoa/Cocoa.h>
+
+@interface NSURLRequest (TDAdditions)
+- (NSDictionary *)formValues;
+@end

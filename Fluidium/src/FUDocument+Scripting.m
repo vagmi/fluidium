@@ -128,7 +128,8 @@
     // which only works from the locationCombox. should we change that? for now, i say no.
     NSString *s = [cmd directParameter];
     [windowController.locationComboBox setStringValue:s];
-    [windowController script_goToLocation:nil];
+    [windowController noscript_goToLocation:nil];
+    //[windowController goToLocation:nil];
     return nil;
 }
 
@@ -150,10 +151,10 @@
 }
 
 
-- (id)handleGoToLocationCommand:(NSScriptCommand *)cmd {
-    [windowController script_goToLocation:nil];
-    return nil;
-}
+//- (id)handleGoToLocationCommand:(NSScriptCommand *)cmd {
+//    [windowController script_goToLocation:nil];
+//    return nil;
+//}
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {

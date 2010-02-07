@@ -24,6 +24,7 @@
 #import "WebViewPrivate.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import <TDAppKit/NSURLRequest+TDAdditions.h>
 
 #define DEFAULT_DELAY 1.0
 
@@ -43,7 +44,10 @@ typedef enum {
 @interface FUTabController (ScriptingPrivate)
 - (BOOL)shouldHandleRequest:(NSURLRequest *)inReq;
 
-- (void)script_submitForm:(NSURLRequest *)req withActionInfo:(NSDictionary *)info;
+- (void)resumeSuspendedCommandAfterTabControllerProgressDidFinish:(NSNotification *)n;
+
+- (void)script_submitForm:(NSURLRequest *)req withWebActionInfo:(NSDictionary *)info;
+- (NSString *)XPathForFormInWebActionInfo:(NSDictionary *)info;
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
@@ -150,8 +154,10 @@ typedef enum {
             case WebNavigationTypeFormSubmitted:
             case WebNavigationTypeFormResubmitted:
                 [listener ignore];
-                [self script_submitForm:req withActionInfo:info];
-//                [listener use];
+                
+                // both use and send event manully. dunno why this works. it shouldn't. but it does.
+                [self script_submitForm:req withWebActionInfo:info];
+                //[listener use];
                 break;
             default:
                 break;
@@ -178,14 +184,31 @@ typedef enum {
 }
 
 
-- (void)script_submitForm:(NSURLRequest *)req withActionInfo:(NSDictionary *)info {
+- (void)script_submitForm:(NSURLRequest *)req withWebActionInfo:(NSDictionary *)info {
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
+
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
-    [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
+    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
     
+    NSString *xpath = [self XPathForFormInWebActionInfo:info];
+    [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
+    
+    NSDictionary *formValues = [req formValues];
+    if (formValues) {
+        NSAppleEventDescriptor *formValuesDesc = [NSAppleEventDescriptor descriptorWithDictionary:formValues];
+        [someAE setParamDescriptor:formValuesDesc forKeyword:'Vals'];
+    }
+    
+    [someAE sendToOwnProcess];
+}
+         
+
+- (NSString *)XPathForFormInWebActionInfo:(NSDictionary *)info {
     DOMHTMLFormElement *formEl = [info objectForKey:@"WebActionFormKey"];
     DOMHTMLCollection *forms = [(DOMHTMLDocument *)[webView mainFrameDocument] forms];
+
     NSInteger formIndex = -1;
+    
     NSInteger i = 0;
     NSInteger len = [forms length];
     for ( ; i < len; i++) {
@@ -194,42 +217,14 @@ typedef enum {
             formIndex = i;
             break;
         }
-        i++;
     }
     
     NSAssert(formIndex > -1, @"");
-    NSString *xpath = [NSString stringWithFormat:@"(//forms)[%d]", formIndex];
-    [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
-    
-    NSMutableString *contentType = [NSMutableString stringWithString:[[req valueForHTTPHeaderField:@"Content-type"] lowercaseString]];
-    CFStringTrimWhitespace((CFMutableStringRef)contentType);
-    
-    if ([contentType isEqualToString:@"application/x-www-form-urlencoded"]) {
-
-        NSMutableDictionary *formValues = [NSMutableDictionary dictionary];
-
-        NSString *body = [[[NSString alloc] initWithData:[req HTTPBody] encoding:NSUTF8StringEncoding] autorelease];
-        // text=foo&more=&password=&select=one
-        NSArray *pairs = [body componentsSeparatedByString:@"&"];
-        for (NSString *pair in pairs) {
-            NSRange r = [pair rangeOfString:@"="];
-            if (NSNotFound != r.location) {
-                NSString *name = [pair substringToIndex:r.location];
-                NSString *value = [pair substringFromIndex:r.location + r.length];
-                value = value ? value : @"";
-                [formValues setObject:value forKey:name];
-            }
-        }
-
-        // must turn dictionary into NSAppleEventDescriptor
-        NSAppleEventDescriptor *formValuesDesc = [NSAppleEventDescriptor descriptorWithDictionary:formValues];
-        [someAE setParamDescriptor:formValuesDesc forKeyword:'Vals'];
-   }
-    
-    [someAE sendToOwnProcess];
+    NSString *xpath = [NSString stringWithFormat:@"(//form)[%d]", formIndex];
+    return xpath;
 }
 
-                     
+
 #pragma mark -
 #pragma mark Commands
 
@@ -495,7 +490,7 @@ typedef enum {
     
     if (!formEl) {
         [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find form with name: %@", name]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find form with specifier: %@", name]];
         return nil;
     }
     
@@ -701,13 +696,13 @@ typedef enum {
 
 - (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(tabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
+    [nc addObserver:self selector:@selector(resumeSuspendedCommandAfterTabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
 
     [self suspendCommand:cmd];
 }
 
 
-- (void)tabControllerProgressDidFinish:(NSNotification *)n {
+- (void)resumeSuspendedCommandAfterTabControllerProgressDidFinish:(NSNotification *)n {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:self];
     

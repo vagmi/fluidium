@@ -1,4 +1,4 @@
-//  Copyright 2010 Todd Ditchendorf
+//  Copyright 2009 Todd Ditchendorf
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -12,17 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <TDAppKit/TDUtils.h>
-#import <TDAppKit/NSImage+TDAdditions.h>
-#import <TDAppKit/NSBezierPath+TDAdditions.h>
-#import <TDAppKit/NSURLRequest+TDAdditions.h>
-#import <TDAppKit/TDGutterView.h>
-#import <TDAppKit/TDSourceCodeTextView.h>
-#import <TDAppKit/TDUberView.h>
-#import <TDAppKit/TDListView.h>
-#import <TDAppKit/TDListItem.h>
-#import <TDAppKit/TDScrollView.h>
-#import <TDAppKit/TDScroller.h>
-#import <TDAppKit/TDBar.h>
-#import <TDAppKit/TDLine.h>
-#import <TDAppKit/TDColorView.h>
+#import "FUSubmitFormCommand.h"
+#import "FUTabController.h"
+#import "FUTabController+Scripting.h"
+
+@implementation FUSubmitFormCommand
+
+- (id)performDefaultImplementation {
+    return [[self targetTabController] handleSubmitFormCommand:self];
+}
+
+@end

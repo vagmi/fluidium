@@ -272,14 +272,17 @@
     <command name="do JavaScript" code="FuSSdoJS" description="Applies a string of JavaScript code to a document.">
         <cocoa class="FUDoJavaScriptCommand"/>
         <direct-parameter type="text" description="The JavaScript code to evaluate."/>
-        <!-- <parameter type="tab" name="in" code="fuTa" optional="yes" description="The tab in which the JavaScript should be evaluated.">
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="The tab in which the JavaScript should be evaluated.">
             <cocoa key="tabController"/>
-        </parameter> -->
+        </parameter>
         <result type="any"/>
     </command>
 
     <command name="click link" code="FuSSLink" description="Activates a hyperlink in this tab's web page.">
-        <direct-parameter type="specifier" optional="yes" description="A tab in which to click the link. If not specified, the selected tab in the frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A tab in which to click the link. If not specified, the selected tab in the frontmost window is used."/> -->
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to click the link. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
         <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id of the link to click.">
             <cocoa key="identifier"/>
         </parameter>
@@ -295,7 +298,10 @@
     </command>
 
     <command name="click button" code="FuSSBttn" description="Activates a button in this tab's web page.">
-        <direct-parameter type="specifier" optional="yes" description="A tab in which to click the button. If not specified, the selected tab in the frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A tab in which to click the button. If not specified, the selected tab in the frontmost window is used."/> -->
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to click the button. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
         <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id of the button to click.">
             <cocoa key="identifier"/>
         </parameter>
@@ -311,7 +317,10 @@
     </command>
 
     <command name="set value of element" code="FuSSSetV" description="Sets the value of an HTML input element in this tab's web page.">
-        <direct-parameter type="specifier" optional="yes" description="A tab in which to set the element value. If not specified, the selected tab in the frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A tab in which to set the element value. If not specified, the selected tab in the frontmost window is used."/> -->
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to set the element value. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
         <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the element.">
             <cocoa key="name"/>
         </parameter>
@@ -336,7 +345,10 @@
     </command>
 
     <command name="submit form" code="FuSSSbmt" description="Submits an HTML form in this tab's web page.">
-        <direct-parameter type="specifier" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used."/>
+        <cocoa class="FUSubmitFormCommand"/>
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
         <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the form to submit.">
             <cocoa key="name"/>
         </parameter>
@@ -352,7 +364,10 @@
     </command>
 
     <command name="assert" code="FuSSAsrt" description="Asserts a condition in this tab's web page is true. Throws an AppleScript error if false.">
-        <direct-parameter type="specifier" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A tab in which to assert the condition. If not specified, the selected tab in the frontmost window is used."/> -->
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to assert the condition. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
         <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Asserts the value of the title of the web page loaded in this tab.">
             <cocoa key="titleEquals"/>
         </parameter>
@@ -383,7 +398,10 @@
     </command>
 
     <command name="wait for condition" code="FuSSWait" description="Waits for a condition in this tab's web page to become true. Throws an AppleScript error if false after specified timeout.">
-        <direct-parameter type="specifier" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used."/>
+        <!-- <direct-parameter type="specifier" optional="yes" description="A tab in which to await the condition. If not specified, the selected tab in the frontmost window is used."/> -->
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to await the condition. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
         <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Waits for the title of the web page loaded in this tab to equal a give value.">
             <cocoa key="titleEquals"/>
         </parameter>
@@ -436,12 +454,16 @@
 
     <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
         <cocoa class="FUSelectPreviousTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A browser window in which to select the previous tab. If not specified, frontmost window is used."/>
+        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to select the previous tab. If not specified, frontmost window is used.">
+            <cocoa key="document"/>
+        </parameter>
     </command>
 
     <command name="select next tab" code="FuSSNeXT" description="Select the next tab.">
         <cocoa class="FUSelectNextTabCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="A browser window in which to select the next tab. If not specified, frontmost window is used."/>
+        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to select the next tab. If not specified, frontmost window is used.">
+            <cocoa key="document"/>
+        </parameter>
     </command>
 
     <command name="go back" code="FuSSBack" description="Go back.">

@@ -14,6 +14,9 @@
 
 #import "FUWindowController+Scripting.h"
 #import "FUTabController.h"
+#import "FUTabController+Scripting.h"
+#import "FUShortcutController.h"
+#import "FUShortcutCommand.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
 #import <objc/runtime.h>
 
@@ -36,10 +39,6 @@
         
         old = class_getInstanceMethod(self, @selector(closeTab:));
         new = class_getInstanceMethod(self, @selector(script_closeTab:));
-        method_exchangeImplementations(old, new);
-        
-        old = class_getInstanceMethod(self, @selector(goToLocation:));
-        new = class_getInstanceMethod(self, @selector(script_goToLocation:));
         method_exchangeImplementations(old, new);
         
         old = class_getInstanceMethod(self, @selector(webGoBack:));
@@ -93,6 +92,34 @@
 }
 
 #pragma mark -
+#pragma mark NoScript Actions
+
+- (IBAction)noscript_goToLocation:(id)sender {
+    NSMutableString *ms = [[[locationComboBox stringValue] mutableCopy] autorelease];
+    CFStringTrimWhitespace((CFMutableStringRef)ms);
+    
+    if (![ms length]) {
+        return;
+    }
+    
+    NSString *s = [[ms copy] autorelease];
+    FUShortcutCommand *cmd = [shortcutController commandForInput:s];
+    
+    if (cmd) {
+        s = cmd.firstURLString;
+    }
+    
+    [[self selectedTabController] script_loadURL:s]; // ! avoids scripting
+    
+    if (cmd.isTabbed) {
+        for (NSString *URLString in cmd.moreURLStrings) {
+            [self loadURL:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]] inNewTabAndSelect:NO];
+        }
+    }
+}
+
+
+#pragma mark -
 #pragma mark Script Actions
 
 - (IBAction)script_closeWindow:(id)sender {
@@ -124,14 +151,6 @@
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[[self selectedTabController] objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
-    [someAE sendToOwnProcess];
-}
-
-
-- (IBAction)script_goToLocation:(id)sender {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
-    NSAppleEventDescriptor *URLDesc = [NSAppleEventDescriptor descriptorWithString:[locationComboBox stringValue]];
-    [someAE setDescriptor:URLDesc forKeyword:keyDirectObject];
     [someAE sendToOwnProcess];
 }
 
