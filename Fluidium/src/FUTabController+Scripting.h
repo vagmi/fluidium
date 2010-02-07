@@ -20,9 +20,6 @@
 - (NSUInteger)orderedIndex;
 - (BOOL)isSelected;
 
-// Actions
-- (void)script_loadURL:(NSString *)s;
-
 // command helper
 - (void)suspendCommand:(NSScriptCommand *)cmd;
 - (void)resumeSuspendedCommandAfterDelay:(NSTimeInterval)delay;

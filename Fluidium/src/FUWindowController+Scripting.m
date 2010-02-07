@@ -20,6 +20,10 @@
 #import "NSAppleEventDescriptor+FUAdditions.h"
 #import <objc/runtime.h>
 
+@interface NSObject (FUScripting)
+- (void)script_loadURL:(NSString *)s;
+@end
+
 @implementation FUWindowController (Scripting)
 
 + (void)initialize {
@@ -109,7 +113,12 @@
         s = cmd.firstURLString;
     }
     
-    [[self selectedTabController] script_loadURL:s]; // ! avoids scripting
+    FUTabController *tc = [self selectedTabController];
+    if ([tc respondsToSelector:@selector(script_loadURL:)]) {
+        [tc script_loadURL:s]; // ! avoids scripting
+    } else {
+        [tc loadURL:s];
+    }
     
     if (cmd.isTabbed) {
         for (NSString *URLString in cmd.moreURLStrings) {

@@ -16,15 +16,7 @@
 #import "FUDocument.h"
 #import "FUWindowController.h"
 #import "FUNotifications.h"
-#import <objc/runtime.h>
 #import <WebKit/WebKit.h>
-
-//
-#import "FUActivation.h"
-#import "WebViewPrivate.h"
-#import "NSAppleEventDescriptor+FUAdditions.h"
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
-#import <TDAppKit/NSURLRequest+TDAdditions.h>
 
 #define DEFAULT_DELAY 1.0
 
@@ -33,21 +25,12 @@
 #define KEY_COMMAND @"FUCommand"
 #define DEFAULT_TIMEOUT 60.0
 
-typedef enum {
-    WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1
-} WebExtraNavigationType;
-
-@interface FUWindowController ()
-- (void)handleCommandClick:(FUActivation *)act URL:(NSString *)s;
+@interface NSObject (FUScripting)
+- (void)script_loadURL:(NSString *)s;
 @end
 
 @interface FUTabController (ScriptingPrivate)
-- (BOOL)shouldHandleRequest:(NSURLRequest *)inReq;
-
 - (void)resumeSuspendedCommandAfterTabControllerProgressDidFinish:(NSNotification *)n;
-
-- (void)script_submitForm:(NSURLRequest *)req withWebActionInfo:(NSDictionary *)info;
-- (NSString *)XPathForFormInWebActionInfo:(NSDictionary *)info;
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
@@ -76,17 +59,6 @@ typedef enum {
 
 @implementation FUTabController (Scripting)
 
-+ (void)initialize {
-    if ([FUTabController class] == self) {
-        
-        Method old = class_getInstanceMethod(self, @selector(loadURL:));
-        Method new = class_getInstanceMethod(self, @selector(script_loadURL:));
-        method_exchangeImplementations(old, new);
-        
-    }
-}
-
-    
 - (FourCharCode)classCode {
     return 'fTab';
 }
@@ -115,120 +87,6 @@ typedef enum {
 
 - (BOOL)isSelected {
     return self == [windowController selectedTabController];
-}
-
-
-#pragma mark -
-#pragma mark Web Recording
-
-- (void)foo_webView:(WebView *)wv decidePolicyForNavigationAction:(NSDictionary *)info request:(NSURLRequest *)req frame:(WebFrame *)frame decisionListener:(id <WebPolicyDecisionListener>)listener {
-    if (![self shouldHandleRequest:req]) {
-        [listener ignore];
-        return;
-    }
-    
-    WebNavigationType navType = [[info objectForKey:WebActionNavigationTypeKey] integerValue];
-    
-    if ([WebView _canHandleRequest:req]) {
-        
-        NSString *s = [[req URL] absoluteString];
-
-        switch (navType) {
-            case WebNavigationTypeOther:
-            case WebNavigationTypeBackForward:
-            case WebNavigationTypeReload:
-                [listener use];
-                break;
-            case WebNavigationTypeLinkClicked:
-            {
-                FUActivation *act = [FUActivation activationFromWebActionInfo:info];
-                if (act.isCommandKeyPressed) {
-                    [listener ignore];
-                    [windowController handleCommandClick:act URL:s];
-                } else {
-                    [listener ignore];
-                    [self loadURL:s]; // send thru scripting
-                }
-            }
-                break;
-            case WebNavigationTypeFormSubmitted:
-            case WebNavigationTypeFormResubmitted:
-                if (submittingFromScript) {
-                    submittingFromScript = NO;
-                    [listener use];
-                } else {
-                    [listener use   ];
-                    [self script_submitForm:req withWebActionInfo:info];
-                }
-                break;
-            default:
-                break;
-        }
-                     
-    } else if (WebNavigationTypePlugInRequest == navType) {
-        [listener use];
-    } else {
-        // A file URL shouldn't fall through to here, but if it did, it would be a security risk to open it.
-        if (![[req URL] isFileURL]) {
-            [[NSWorkspace sharedWorkspace] openURL:[req URL]];
-        }
-        [listener ignore];
-    }
-}
-
-
-- (void)script_loadURL:(NSString *)s {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
-    NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
-    [someAE setDescriptor:[NSAppleEventDescriptor descriptorWithString:s] forKeyword:keyDirectObject];
-    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
-    [someAE sendToOwnProcess];
-}
-
-
-- (void)script_submitForm:(NSURLRequest *)req withWebActionInfo:(NSDictionary *)info {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
-
-    NSString *xpath = [self XPathForFormInWebActionInfo:info];
-    if ([xpath length]) {
-        [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
-    }
-    
-    NSDictionary *formValues = [req formValues];
-    if (formValues) {
-        NSAppleEventDescriptor *formValuesDesc = [NSAppleEventDescriptor descriptorWithDictionary:formValues];
-        [someAE setParamDescriptor:formValuesDesc forKeyword:'Vals'];
-    }
-    
-    NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
-    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
-    
-    [someAE sendToOwnProcess];
-}
-         
-
-- (NSString *)XPathForFormInWebActionInfo:(NSDictionary *)info {
-    DOMHTMLFormElement *formEl = [info objectForKey:@"WebActionFormKey"];
-    if (!formEl) {
-        return nil;
-    }
-    DOMHTMLCollection *forms = [(DOMHTMLDocument *)[webView mainFrameDocument] forms];
-
-    NSInteger formIndex = -1;
-    
-    NSInteger i = 0;
-    NSInteger len = [forms length];
-    for ( ; i < len; i++) {
-        DOMNode *el = [forms item:i];
-        if (el == formEl) {
-            formIndex = i;
-            break;
-        }
-    }
-    
-    NSAssert(formIndex > -1, @"");
-    NSString *xpath = [NSString stringWithFormat:@"(//form)[%d]", formIndex];
-    return xpath;
 }
 
 
@@ -298,7 +156,11 @@ typedef enum {
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
 
     NSString *s = [cmd directParameter];
-    [self script_loadURL:s];
+    if ([self respondsToSelector:@selector(script_loadURL:)]) {
+        [self script_loadURL:s];
+    } else {
+        [self loadURL:s];
+    }
     return nil;
 }
 
