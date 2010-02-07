@@ -9,6 +9,7 @@
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #import "NSURL+NDCarbonUtilities.h"
 
+#if __LP64__
 enum {
     typeSMInt                     = typeSInt16,
     typeShortInteger              = typeSInt16,
@@ -22,6 +23,7 @@ enum {
     typeLongFloat                 = typeIEEE64BitFloatingPoint,
     typeExtended                  = 'exte'
 };
+#endif
 
 /*
  * class implementation NSAppleEventDescriptor (NDAppleScriptObject)
@@ -472,7 +474,6 @@ enum {
         {
                 NSNumber                        * theKey;
                 NSEnumerator    * theEnumerator = [aDictionary keyEnumerator];
-                Class                           theNumberClass = [NSNumber class];
                 while( (theKey = [theEnumerator nextObject]) != nil )
                 {
                         NSParameterAssert( [theKey isKindOfClass:theNumberClass] );
