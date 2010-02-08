@@ -16,7 +16,7 @@
 #import "CRTwitterPlugIn.h"
 #import "AGKeychain.h"
 
-#define KEYCHAIN_ITEM_NAME @"TwitterPlugIn"
+#define KEYCHAIN_ITEM_NAME @"CruzTwitterPlugIn"
 #define KEYCHAIN_ITEM_KIND_USERNAME @"Username"
 #define KEYCHAIN_ITEM_KIND_PASSWORD @"Password"
 
