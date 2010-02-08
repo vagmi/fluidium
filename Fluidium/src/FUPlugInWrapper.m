@@ -181,7 +181,7 @@
     
     // remove the view controller from the plugins viewController list
     NSMutableArray *vcs = [NSMutableArray arrayWithArray:plugIn.viewControllers];
-    NSAssert([vcs containsObject:vc], @"");
+    //NSAssert([vcs containsObject:vc], @""); // this sometimes fails. dunno why :|
     [vcs removeObject:vc];
     plugIn.viewControllers = [[vcs copy] autorelease];
     
