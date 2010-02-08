@@ -104,8 +104,12 @@
             [newAccountIDs addObject:accountID];
         } else {
             // either the username or password was missing (deleted by user). make sure they're both deleted (just to be tidy)
-//            [self deleteUsernameFromKeychainFor:accountID];
-//            [self deletePasswordFromKeychainFor:accountID];
+//            @try {
+//                [self deleteUsernameFromKeychainFor:accountID];
+//                [self deletePasswordFromKeychainFor:accountID];
+//            } @catch (NSException *e) {
+//                NSLog(@"failed to delete username or password: %@", e);
+//            }
         }
     }
     
@@ -180,8 +184,16 @@
     NSUndoManager *undoManager = [[[self view] window] undoManager];
     [[undoManager prepareWithInvocationTarget:self] insertObject:rule inAccountsAtIndex:i];
     
-    [self stopObservingRule:rule];
+    NSString *accountID = [self.accountIDs objectAtIndex:i];
+    @try {
+        [self stopObservingRule:rule];
 
+        [self deleteUsernameFromKeychainFor:accountID];
+        [self deletePasswordFromKeychainFor:accountID];
+    } @catch (NSException *e) {
+        NSLog(@"failed to delete username or password: %@", e);
+    }
+    
     [self.accounts removeObjectAtIndex:i];
     [self.accountIDs removeObjectAtIndex:i];
     
