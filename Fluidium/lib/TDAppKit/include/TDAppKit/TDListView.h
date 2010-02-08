@@ -43,6 +43,7 @@ extern NSString *const TDListItemPboardType;
     BOOL displaysClippedItems;
     
     NSMutableArray *items;
+    NSMutableArray *unusedItems;
     TDListItemQueue *queue;
     
     // drag and drop

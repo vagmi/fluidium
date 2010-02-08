@@ -34,6 +34,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)draggingSourceDragDidEnd;
 
 @property (nonatomic, retain) NSMutableArray *items;
+@property (nonatomic, retain) NSMutableArray *unusedItems;
 @property (nonatomic, retain) TDListItemQueue *queue;
 @property (nonatomic, retain) NSEvent *lastMouseDownEvent;
 @property (nonatomic, retain) NSMutableArray *itemFrames;
@@ -43,7 +44,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {        
-
+        
     }
     return self;
 }
@@ -57,6 +58,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     self.delegate = nil;
     self.backgroundColor = nil;
     self.items = nil;
+    self.unusedItems = nil;
     self.queue = nil;
     self.lastMouseDownEvent = nil;
     self.itemFrames = nil;
@@ -67,6 +69,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)awakeFromNib {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:[self superview]];
+    
+    self.items = [NSMutableArray array];
+    self.unusedItems = [NSMutableArray array];
 
     self.selectedItemIndex = -1;
     self.backgroundColor = [NSColor whiteColor];
@@ -493,10 +498,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
     for (TDListItem *item in items) {
         [queue enqueue:item];
-        [item removeFromSuperview];
+        [unusedItems addObject:item];
+        //[item removeFromSuperview];
     }
     
-    self.items = [NSMutableArray array];
+    [items removeAllObjects];
     
     NSRect viewportRect = [self visibleRect];
     BOOL isPortrait = self.isPortrait;
@@ -540,6 +546,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             [item setFrame:NSMakeRect(x, y, w, h)];
             [self addSubview:item];
             [items addObject:item];
+            [unusedItems removeObject:item];
         }
 
         if (isPortrait) {
@@ -548,6 +555,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             x += extent + itemMargin;
         }
     }
+    
+    for (TDListItem *item in unusedItems) {
+        [item removeFromSuperview];
+    }
+
+    [unusedItems removeAllObjects];
     
     NSRect frame = [self frame];
     if (isPortrait) {
@@ -654,6 +667,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 @synthesize selectedItemIndex;
 @synthesize orientation;
 @synthesize items;
+@synthesize unusedItems;
 @synthesize queue;
 @synthesize displaysClippedItems;
 @synthesize lastMouseDownEvent;
