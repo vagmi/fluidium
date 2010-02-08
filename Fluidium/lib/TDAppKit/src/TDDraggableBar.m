@@ -16,6 +16,18 @@
 
 @implementation TDDraggableBar
 
+// click thru support
+- (BOOL)acceptsFirstMouse:(NSEvent *)evt {
+    return YES;
+}
+
+
+// click thru support
+- (BOOL)shouldDelayWindowOrderingForEvent:(NSEvent *)evt {
+    return NO;
+}
+
+
 - (void)mouseDown:(NSEvent *)evt {
     NSPoint startLoc = [evt locationInWindow];
     

@@ -18,6 +18,7 @@
     NSArrayController *arrayController;
     NSMutableArray *accounts;
     NSMutableArray *accountIDs;
+    NSString *keychainName;
 }
 
 - (IBAction)toggleShowUsernames:(id)sender;
