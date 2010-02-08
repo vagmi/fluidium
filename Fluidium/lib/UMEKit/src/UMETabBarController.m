@@ -403,7 +403,7 @@
 
 
 - (void)highlightButtonAtIndex:(NSInteger)i {
-    if (i < 0 || i > [tabBarItems count] - 1) {
+    if (i < 0 || ![tabBarItems count] || i > [tabBarItems count] - 1) {
         return;
     }
 

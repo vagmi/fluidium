@@ -184,10 +184,10 @@
     NSUndoManager *undoManager = [[[self view] window] undoManager];
     [[undoManager prepareWithInvocationTarget:self] insertObject:rule inAccountsAtIndex:i];
     
+    [self stopObservingRule:rule];
+
     NSString *accountID = [self.accountIDs objectAtIndex:i];
     @try {
-        [self stopObservingRule:rule];
-
         [self deleteUsernameFromKeychainFor:accountID];
         [self deletePasswordFromKeychainFor:accountID];
     } @catch (NSException *e) {
