@@ -132,7 +132,7 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
 - (IBAction)changeFont:(id)sender {
     NSWindow *win = [NSApp mainWindow];
     
-    BOOL prefWinIsMain = [[win className] isEqualToString:@"OAPreferencesWindow"];
+    BOOL prefWinIsMain = [NSStringFromClass([win class]) isEqualToString:@"OAPreferencesWindow"];
     BOOL viewSourceWinIsMain = NO; //[win isKindOfClass:[TDSourceCodeTextView class]];
     
     if (prefWinIsMain) {
@@ -226,12 +226,15 @@ static NSString *const kFUApplicationLastVersionStringKey = @"FUApplicationLastV
     BOOL success = [self createDirAtPathIfDoesntExist:appSupportDirPath];
     
     if (success) {
-        path = [path stringByAppendingPathComponent:@"SSB"];
-        [self createDirAtPathIfDoesntExist:path];
+        if (fluidSSB) {
+            path = [path stringByAppendingPathComponent:@"SSB"];
+            [self createDirAtPathIfDoesntExist:path];
+
+            path = [path stringByAppendingPathComponent:appName];
+            [self createDirAtPathIfDoesntExist:path];
+        }
         
-        path = [path stringByAppendingPathComponent:appName];
         self.ssbSupportDirPath = path;
-        [self createDirAtPathIfDoesntExist:ssbSupportDirPath];
         
         self.downloadArchiveFilePath = [ssbSupportDirPath stringByAppendingPathComponent:@"DownloadArchive"];
         self.bookmarksFilePath = [ssbSupportDirPath stringByAppendingPathComponent:@"Bookmarks"];
