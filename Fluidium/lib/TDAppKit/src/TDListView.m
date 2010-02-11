@@ -383,6 +383,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {
+    delegateRespondsToValidateDrop = delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)];
+    
     if (!itemFrames) {
         self.itemFrames = [NSMutableArray arrayWithCapacity:[items count]];
         for (TDListItem *item in items) {
@@ -405,7 +407,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 /* TODO if the destination responded to draggingEntered: but not to draggingUpdated: the return value from draggingEntered: should be used */
 - (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)dragInfo {
-    if (!delegate || ![delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
+    if (!delegateRespondsToValidateDrop) {
         return NSDragOperationNone;
     }
     
@@ -455,9 +457,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         }    
     }
 
-    if (delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)]) {
-        dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
-    }
+    dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     
     //NSLog(@"over: %@. Drop %@ : %d", item, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
