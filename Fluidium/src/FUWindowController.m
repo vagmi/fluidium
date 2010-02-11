@@ -1555,6 +1555,7 @@
 }
 
 
+
 - (void)clearProgress {
     locationComboBox.progress = 0;
     [statusProgressIndicator setHidden:YES];

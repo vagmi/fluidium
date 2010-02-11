@@ -29,9 +29,10 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 @interface TDListView ()
 - (void)layoutItems;
 - (void)layoutItemsWhileDragging;
-- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
+- (NSUInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
 - (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i;
 - (void)draggingSourceDragDidEnd;
+- (void)unsuppressLayout;
 
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, retain) NSMutableArray *unusedItems;
@@ -382,9 +383,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {
-    self.itemFrames = [NSMutableArray arrayWithCapacity:[items count]];
-    for (TDListItem *item in items) {
-        [itemFrames addObject:[NSValue valueWithRect:[item frame]]];
+    if (!itemFrames) {
+        self.itemFrames = [NSMutableArray arrayWithCapacity:[items count]];
+        for (TDListItem *item in items) {
+            [itemFrames addObject:[NSValue valueWithRect:[item frame]]];
+        }
     }
     
     NSPasteboard *pboard = [dragInfo draggingPasteboard];
@@ -467,18 +470,25 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
-    for (TDListItem *item in items) {
-        [item setHidden:NO];
-    }
     if (dropIndex > draggingIndex) {
         dropIndex--;
     }
     self.itemFrames = nil;
+    
+    suppressLayout = YES;
+    [self performSelector:@selector(unsuppressLayout) withObject:nil afterDelay:.1];
+
     if (delegate && [delegate respondsToSelector:@selector(listView:acceptDrop:index:dropOperation:)]) {
         return [delegate listView:self acceptDrop:dragInfo index:dropIndex dropOperation:dropOp];
     } else {
         return NO;
     }
+}
+
+
+- (void)unsuppressLayout {
+    suppressLayout = NO;
+    [self layoutItems];
 }
 
 
@@ -492,6 +502,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)layoutItems {
+    if (suppressLayout) return;
+    
     if (!dataSource) {
         [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
     }
@@ -514,9 +526,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     NSInteger c = [dataSource numberOfItemsInListView:self];
     BOOL respondsToExtentForItem = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);
-    
-    //[NSAnimationContext beginGrouping];
-    //[[NSAnimationContext currentContext] setDuration:0];
     
     NSInteger i = 0;
     for ( ; i < c; i++) {
@@ -542,8 +551,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             if (!item) {
                 [NSException raise:EXCEPTION_NAME format:@"nil list item view returned for index: %d by: %@", i, dataSource];
             }
-            //[[item animator] setFrame:NSMakeRect(x, y, w, h)];
             [item setFrame:NSMakeRect(x, y, w, h)];
+            [item setHidden:NO];
             [self addSubview:item];
             [items addObject:item];
             [unusedItems removeObject:item];
@@ -571,8 +580,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         frame.size.width = x;
     }
     
-    //[NSAnimationContext endGrouping];
-
     [self setFrame:frame];
     
     //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([superview bounds]));
@@ -581,14 +588,16 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)layoutItemsWhileDragging {
+    if (-1 == draggingIndex) return;
+    
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
     TDListItem *draggingItem = [self itemAtIndex:draggingIndex];
     CGFloat draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
 
-    //[NSAnimationContext beginGrouping];
-    //[[NSAnimationContext currentContext] setDuration:.075];
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:.025];
     
     CGFloat extent = 0;
     NSUInteger i = 0;
@@ -611,18 +620,17 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             }
         }
         
-        //[[item animator] setFrame:frame];
-        [item setFrame:frame];
+        [[item animator] setFrame:frame];
         if (i != draggingIndex) {
             extent += self.isPortrait ? frame.size.height : frame.size.width;
         }
     }
 
-    //[NSAnimationContext endGrouping];
+    [NSAnimationContext endGrouping];
 }
 
 
-- (NSInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
+- (NSUInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
     NSInteger i = 0;
     for (NSValue *v in itemFrames) {
         if (NSPointInRect(p, [v rectValue])) {
