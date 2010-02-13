@@ -24,6 +24,8 @@
 @interface FUWindowController ()
 - (void)closeWindow;
 //- (void)script_setSelectedTabIndex:(NSInteger)i;
+
+@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
 @end
 
 @interface FUTabController ()
@@ -104,7 +106,7 @@
 
 
 - (void)setSelectedTabController:(FUTabController *)tc {
-    [windowController script_setSelectedTabController:tc];
+    [windowController script_selectTabController:tc];
 }
 
 

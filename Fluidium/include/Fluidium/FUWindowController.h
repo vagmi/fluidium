@@ -137,6 +137,8 @@
 - (void)removeTabController:(FUTabController *)tc;
 - (void)removeTabControllerAtIndex:(NSUInteger)i;
 
+- (void)selectTabController:(FUTabController *)tc;
+
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i;
 - (FUTabController *)lastTabController;
 - (FUTabController *)tabControllerForWebView:(WebView *)wv;
@@ -147,7 +149,6 @@
 - (NSArray *)webViews;
 
 @property (nonatomic) NSInteger selectedTabIndex;
-@property (nonatomic, retain) FUTabController *selectedTabController;
 
 @property (nonatomic, retain) IBOutlet NSSplitView *locationSplitView;
 @property (nonatomic, retain) IBOutlet FUProgressComboBox *locationComboBox;
@@ -169,6 +170,7 @@
 @property (nonatomic, retain) FUViewSourceWindowController *viewSourceController;
 @property (nonatomic, retain) FUShortcutController *shortcutController;
 @property (nonatomic, retain) NSMutableSet *tabControllers;
+@property (nonatomic, retain, readonly) FUTabController *selectedTabController; // use selectedTabIndex or selectTabController: to set
 @property (nonatomic, copy) NSString *currentTitle;
 @property (nonatomic, copy) NSString *findPanelTerm;
 @property (nonatomic, getter=isTypingInFindPanel) BOOL typingInFindPanel;

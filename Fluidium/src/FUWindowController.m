@@ -57,8 +57,6 @@
 @end
 
 @interface FUWindowController ()
-- (void)actuallySetSelectedTabController:(FUTabController *)tc;
-
 - (void)setUpTabBar;
 - (void)closeWindow;
 - (void)closeTab;
@@ -94,6 +92,8 @@
 - (void)updateEmptyTabBarLineVisibility;
 - (void)updateUberViewHeight;
 - (void)updateContentViewFrame;
+
+@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
 @end
 
 @implementation FUWindowController
@@ -138,12 +138,9 @@
     self.viewSourceController = nil;
     self.shortcutController = nil;
     self.tabControllers = nil;
+    self.selectedTabController = nil;
     self.currentTitle = nil;
     self.findPanelTerm = nil;
-    
-    // special case
-    [self actuallySetSelectedTabController:nil];
-
     [super dealloc];
 }
 
@@ -587,7 +584,7 @@
             tc = [self selectedTabController];
         }
         if (select) {
-            self.selectedTabController = tc;
+            [self selectTabController:tc];
         }
     }
     
@@ -607,7 +604,7 @@
     FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
     [self insertTabController:tc atIndex:i];
     if (select) {
-        self.selectedTabController = tc; // !! this is doing nothing currently
+        [self selectTabController:tc]; // !! this is doing nothing currently, cuz NSTabView auto selects added tabs (line above)
     }
     return tc;
 }
@@ -667,6 +664,12 @@
 - (void)removeTabControllerAtIndex:(NSUInteger)i {
     FUTabController *tc = [self tabControllerAtIndex:i];
     [self removeTabController:tc];
+}
+
+
+- (void)selectTabController:(FUTabController *)tc {
+    self.selectedTabIndex = [tabView indexOfTabViewItem:[self tabViewItemForTabController:tc]];
+    [[self window] makeFirstResponder:locationComboBox];
 }
 
 
@@ -776,22 +779,6 @@
     
     priorSelectedTabIndex = currentSelectedTabIndex;
     [tabView selectTabViewItemAtIndex:i];
-}
-
-
-- (void)setSelectedTabController:(FUTabController *)tc {
-    NSInteger i = [self indexOfTabController:tc];
-    [self setSelectedTabIndex:i];
-}
-
-
-- (void)actuallySetSelectedTabController:(FUTabController *)tc {
-    if (selectedTabController != tc) {
-        [self willChangeValueForKey:@"selectedTabController"];
-        [selectedTabController autorelease];
-        selectedTabController = [tc retain];
-        [self didChangeValueForKey:@"selectedTabController"];
-    }
 }
 
 
@@ -1145,10 +1132,8 @@
     
     if ([tabControllers containsObject:tc]) { // if the tab was just dragged to this tabBar from another window, we will not have created a tabController yet
 
-        // set selected tab controller
-        [self actuallySetSelectedTabController:tc];
-        //
-        
+        self.selectedTabController = tc;
+        [self selectTabController:tc]; // this fires apple event
         [self startObservingTabController:tc];
         [self clearProgress];
     }

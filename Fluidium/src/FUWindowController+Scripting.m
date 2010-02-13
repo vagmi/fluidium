@@ -25,6 +25,10 @@
 - (void)script_loadURL:(NSString *)s;
 @end
 
+@interface FUWindowController ()
+@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
+@end
+
 @implementation FUWindowController (Scripting)
 
 + (void)initialize {
@@ -84,8 +88,8 @@
         new = class_getInstanceMethod(self, @selector(script_takeTabIndexToCloseFrom:));
         method_exchangeImplementations(old, new);
         
-        old = class_getInstanceMethod(self, @selector(setSelectedTabController:));
-        new = class_getInstanceMethod(self, @selector(script_setSelectedTabController:));
+        old = class_getInstanceMethod(self, @selector(selectTabController:));
+        new = class_getInstanceMethod(self, @selector(script_selectTabController:));
         method_exchangeImplementations(old, new);
 
 //        old = class_getInstanceMethod(self, @selector(setSelectedTabIndex:));
@@ -220,13 +224,13 @@
 }
 
 
-- (void)script_setSelectedTabController:(FUTabController *)tc {
+- (void)script_selectTabController:(FUTabController *)tc {
     NSInteger i = [self indexOfTabController:tc];
     if (NSNotFound == i || i < 0) return;
     if (i > [tabView numberOfTabViewItems] - 1) return;
     
     // don't reselect the same tab. it effs up the priorSelectedTabIndex
-    if (tc == selectedTabController) return;
+    //if (tc == selectedTabController) return;
     
     NSInteger docIdx = [[NSApp orderedDocuments] indexOfObject:[self document]] + 1;
     NSInteger tabIdx = i + 1;

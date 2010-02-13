@@ -31,6 +31,6 @@
 - (IBAction)script_actualSize:(id)sender;
 - (IBAction)script_takeTabIndexToCloseFrom:(id)sender;
 
-- (void)script_setSelectedTabController:(FUTabController *)tc;
+- (void)script_selectTabController:(FUTabController *)tc;
 //- (void)script_setSelectedTabIndex:(NSInteger)i;
 @end
