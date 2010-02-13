@@ -476,7 +476,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     self.itemFrames = nil;
     
     suppressLayout = YES;
-    [self performSelector:@selector(unsuppressLayout) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(unsuppressLayout) withObject:nil afterDelay:.15];
 
     if (delegate && [delegate respondsToSelector:@selector(listView:acceptDrop:index:dropOperation:)]) {
         return [delegate listView:self acceptDrop:dragInfo index:dropIndex dropOperation:dropOp];
@@ -597,7 +597,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     CGFloat draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
 
     [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:.025];
+    [[NSAnimationContext currentContext] setDuration:.05];
     
     CGFloat extent = 0;
     NSUInteger i = 0;
