@@ -26,6 +26,8 @@
 + (void)initialize {
     if ([FUDocumentController class] == self) {
         
+#if FU_SCRIPTING_ENABLED
+
         Method old = class_getInstanceMethod(self, @selector(newDocument:));
         Method new = class_getInstanceMethod(self, @selector(script_newDocument:));
         method_exchangeImplementations(old, new);
@@ -37,7 +39,8 @@
         old = class_getInstanceMethod(self, @selector(newBackgroundTab:));
         new = class_getInstanceMethod(self, @selector(script_newBackgroundTab:));
         method_exchangeImplementations(old, new);
-        
+
+#endif
     }
 }
 

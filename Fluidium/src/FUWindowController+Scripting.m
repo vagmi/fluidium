@@ -34,6 +34,8 @@
 + (void)initialize {
     if ([FUWindowController class] == self) {
         
+#if FU_SCRIPTING_ENABLED
+
         Method old = class_getInstanceMethod(self, @selector(closeWindow:));
         Method new = class_getInstanceMethod(self, @selector(script_closeWindow:));
         method_exchangeImplementations(old, new);
@@ -93,6 +95,8 @@
 //        old = class_getInstanceMethod(self, @selector(setSelectedTabIndex:));
 //        new = class_getInstanceMethod(self, @selector(script_setSelectedTabIndex:));
 //        method_exchangeImplementations(old, new);
+        
+#endif
     }
 }
 

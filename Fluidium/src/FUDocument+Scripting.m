@@ -83,11 +83,11 @@
 }
 
 
-- (NSUInteger)selectedTabIndex {
-    return [windowController selectedTabIndex] + 1;
-}
-
-
+//- (NSUInteger)selectedTabIndex {
+//    return [windowController selectedTabIndex] + 1;
+//}
+//
+//
 //- (void)setSelectedTabIndex:(NSUInteger)i {
 //    i = i - 1; // account for 1-based AppleScript indexing
 //    
