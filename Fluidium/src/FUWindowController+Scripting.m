@@ -25,10 +25,6 @@
 - (void)script_loadURL:(NSString *)s;
 @end
 
-@interface FUWindowController ()
-@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
-@end
-
 @implementation FUWindowController (Scripting)
 
 + (void)initialize {
