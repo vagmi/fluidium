@@ -159,24 +159,6 @@
 }
 
 
-- (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_selectPreviousTab:nil];
-    return nil;
-}
-
-
-- (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_selectNextTab:nil];
-    return nil;
-}
-
-
-//- (id)handleGoToLocationCommand:(NSScriptCommand *)cmd {
-//    [windowController script_goToLocation:nil];
-//    return nil;
-//}
-
-
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
     [windowController script_webGoBack:nil];
     return nil;

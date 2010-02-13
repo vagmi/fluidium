@@ -200,8 +200,6 @@
 		D3ADFB0D1104E2540064C070 /* FUActualSizeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB0C1104E2540064C070 /* FUActualSizeCommand.m */; };
 		D3ADFB101104E25C0064C070 /* FUZoomInCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB0F1104E25C0064C070 /* FUZoomInCommand.m */; };
 		D3ADFB131104E2640064C070 /* FUZoomOutCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB121104E2640064C070 /* FUZoomOutCommand.m */; };
-		D3ADFB161104E26D0064C070 /* FUSelectNextTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB151104E26D0064C070 /* FUSelectNextTabCommand.m */; };
-		D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB181104E2760064C070 /* FUSelectPreviousTabCommand.m */; };
 		D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */; };
 		D3AF875C10CFA00A00C601A3 /* FUAppearancePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875B10CFA00A00C601A3 /* FUAppearancePreferences.m */; };
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
@@ -724,10 +722,6 @@
 		D3ADFB0F1104E25C0064C070 /* FUZoomInCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUZoomInCommand.m; path = src/FUZoomInCommand.m; sourceTree = "<group>"; };
 		D3ADFB111104E2640064C070 /* FUZoomOutCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUZoomOutCommand.h; path = src/FUZoomOutCommand.h; sourceTree = "<group>"; };
 		D3ADFB121104E2640064C070 /* FUZoomOutCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUZoomOutCommand.m; path = src/FUZoomOutCommand.m; sourceTree = "<group>"; };
-		D3ADFB141104E26D0064C070 /* FUSelectNextTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSelectNextTabCommand.h; path = src/FUSelectNextTabCommand.h; sourceTree = "<group>"; };
-		D3ADFB151104E26D0064C070 /* FUSelectNextTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSelectNextTabCommand.m; path = src/FUSelectNextTabCommand.m; sourceTree = "<group>"; };
-		D3ADFB171104E2760064C070 /* FUSelectPreviousTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSelectPreviousTabCommand.h; path = src/FUSelectPreviousTabCommand.h; sourceTree = "<group>"; };
-		D3ADFB181104E2760064C070 /* FUSelectPreviousTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSelectPreviousTabCommand.m; path = src/FUSelectPreviousTabCommand.m; sourceTree = "<group>"; };
 		D3ADFBC91104E9440064C070 /* FUDocumentController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUDocumentController+Scripting.h"; path = "src/FUDocumentController+Scripting.h"; sourceTree = "<group>"; };
 		D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUDocumentController+Scripting.m"; path = "src/FUDocumentController+Scripting.m"; sourceTree = "<group>"; };
 		D3AF875A10CFA00A00C601A3 /* FUAppearancePreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAppearancePreferences.h; path = src/FUAppearancePreferences.h; sourceTree = "<group>"; };
@@ -1375,10 +1369,6 @@
 				D3ADFB0F1104E25C0064C070 /* FUZoomInCommand.m */,
 				D3ADFB111104E2640064C070 /* FUZoomOutCommand.h */,
 				D3ADFB121104E2640064C070 /* FUZoomOutCommand.m */,
-				D3ADFB141104E26D0064C070 /* FUSelectNextTabCommand.h */,
-				D3ADFB151104E26D0064C070 /* FUSelectNextTabCommand.m */,
-				D3ADFB171104E2760064C070 /* FUSelectPreviousTabCommand.h */,
-				D3ADFB181104E2760064C070 /* FUSelectPreviousTabCommand.m */,
 			);
 			name = "Script Action Commands";
 			sourceTree = "<group>";
@@ -2037,8 +2027,6 @@
 				D3ADFB0D1104E2540064C070 /* FUActualSizeCommand.m in Sources */,
 				D3ADFB101104E25C0064C070 /* FUZoomInCommand.m in Sources */,
 				D3ADFB131104E2640064C070 /* FUZoomOutCommand.m in Sources */,
-				D3ADFB161104E26D0064C070 /* FUSelectNextTabCommand.m in Sources */,
-				D3ADFB191104E2760064C070 /* FUSelectPreviousTabCommand.m in Sources */,
 				D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */,
 				D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */,
 				D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */,

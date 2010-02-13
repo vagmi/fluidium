@@ -82,14 +82,6 @@
         new = class_getInstanceMethod(self, @selector(script_actualSize:));
         method_exchangeImplementations(old, new);
         
-        old = class_getInstanceMethod(self, @selector(selectPreviousTab:));
-        new = class_getInstanceMethod(self, @selector(script_selectPreviousTab:));
-        method_exchangeImplementations(old, new);
-        
-        old = class_getInstanceMethod(self, @selector(selectNextTab:));
-        new = class_getInstanceMethod(self, @selector(script_selectNextTab:));
-        method_exchangeImplementations(old, new);
-        
         old = class_getInstanceMethod(self, @selector(takeTabIndexToCloseFrom:));
         new = class_getInstanceMethod(self, @selector(script_takeTabIndexToCloseFrom:));
         method_exchangeImplementations(old, new);
@@ -213,16 +205,6 @@
 
 - (IBAction)script_actualSize:(id)sender {
     [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'ActS'];
-}
-
-
-- (IBAction)script_selectPreviousTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'PReV'];
-}
-
-
-- (IBAction)script_selectNextTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'NeXT'];
 }
 
 

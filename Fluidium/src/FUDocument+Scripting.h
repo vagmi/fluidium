@@ -31,9 +31,6 @@
 // Commands
 - (id)handleCreateCommand:(NSScriptCommand *)cmd;
 
-- (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd;
-- (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd;
-//- (id)handleGoToLocationCommand:(NSScriptCommand *)cmd;
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd;
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd;
 - (id)handleReloadCommand:(NSScriptCommand *)cmd;

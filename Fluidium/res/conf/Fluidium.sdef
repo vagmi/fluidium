@@ -432,20 +432,6 @@
         </parameter>
     </command>
 
-    <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
-        <cocoa class="FUSelectPreviousTabCommand"/>
-        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to select the previous tab. If not specified, frontmost window is used.">
-            <cocoa key="document"/>
-        </parameter>
-    </command>
-
-    <command name="select next tab" code="FuSSNeXT" description="Select the next tab.">
-        <cocoa class="FUSelectNextTabCommand"/>
-        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to select the next tab. If not specified, frontmost window is used.">
-            <cocoa key="document"/>
-        </parameter>
-    </command>
-
     <command name="go back" code="FuSSBack" description="Go back.">
         <cocoa class="FUGoBackCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A tab in which to go back. If not specified, the selected tab in the frontmost window is used."/>
@@ -530,12 +516,6 @@
         </responds-to>
         <responds-to command="do JavaScript">
             <cocoa method="handleDoJavaScriptCommand:"/>
-        </responds-to>
-        <responds-to command="select previous tab">
-            <cocoa method="handleSelectPreviousTabCommand:"/>
-        </responds-to>
-        <responds-to command="select next tab">
-            <cocoa method="handleSelectNextTabCommand:"/>
         </responds-to>
         <responds-to command="go back">
             <cocoa method="handleGoBackCommand:"/>

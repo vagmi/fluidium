@@ -26,8 +26,6 @@
 - (IBAction)script_webReload:(id)sender;
 - (IBAction)script_webStopLoading:(id)sender;
 - (IBAction)script_webGoHome:(id)sender;
-- (IBAction)script_selectPreviousTab:(id)sender;
-- (IBAction)script_selectNextTab:(id)sender;
 - (IBAction)script_zoomIn:(id)sender;
 - (IBAction)script_zoomOut:(id)sender;
 - (IBAction)script_actualSize:(id)sender;
