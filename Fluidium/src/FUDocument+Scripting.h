@@ -29,10 +29,7 @@
 - (NSArray *)orderedTabControllers;
 
 // Commands
-- (id)handleCloseTabCommand:(NSScriptCommand *)cmd;
 - (id)handleCreateCommand:(NSScriptCommand *)cmd;
-
-- (id)handleCloseCommand:(NSCloseCommand *)cmd;
 
 - (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd;
 - (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd;

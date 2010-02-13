@@ -192,7 +192,6 @@
 		D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */; };
 		D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */; };
 		D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */; };
-		D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */; };
 		D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */; };
 		D3ADFB001104E22B0064C070 /* FUGoForwardCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFF1104E22B0064C070 /* FUGoForwardCommand.m */; };
 		D3ADFB031104E2340064C070 /* FUGoHomeCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFB021104E2340064C070 /* FUGoHomeCommand.m */; };
@@ -709,8 +708,6 @@
 		D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUDocument+Scripting.m"; path = "src/FUDocument+Scripting.m"; sourceTree = "<group>"; };
 		D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUTabController+Scripting.h"; path = "src/FUTabController+Scripting.h"; sourceTree = "<group>"; };
 		D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUTabController+Scripting.m"; path = "src/FUTabController+Scripting.m"; sourceTree = "<group>"; };
-		D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCloseWindowCommand.h; path = src/FUCloseWindowCommand.h; sourceTree = "<group>"; };
-		D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCloseWindowCommand.m; path = src/FUCloseWindowCommand.m; sourceTree = "<group>"; };
 		D3ADFAFB1104E2210064C070 /* FUGoBackCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUGoBackCommand.h; path = src/FUGoBackCommand.h; sourceTree = "<group>"; };
 		D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUGoBackCommand.m; path = src/FUGoBackCommand.m; sourceTree = "<group>"; };
 		D3ADFAFE1104E22B0064C070 /* FUGoForwardCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUGoForwardCommand.h; path = src/FUGoForwardCommand.h; sourceTree = "<group>"; };
@@ -1362,8 +1359,6 @@
 			children = (
 				D39A36731126A0E100DC5176 /* FUCreateCommand.h */,
 				D39A36741126A0E100DC5176 /* FUCreateCommand.m */,
-				D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */,
-				D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */,
 				D3ADFAFB1104E2210064C070 /* FUGoBackCommand.h */,
 				D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */,
 				D3ADFAFE1104E22B0064C070 /* FUGoForwardCommand.h */,
@@ -2034,7 +2029,6 @@
 				D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */,
 				D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */,
 				D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */,
-				D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */,
 				D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */,
 				D3ADFB001104E22B0064C070 /* FUGoForwardCommand.m in Sources */,
 				D3ADFB031104E2340064C070 /* FUGoHomeCommand.m in Sources */,

@@ -113,12 +113,6 @@
 #pragma mark -
 #pragma mark Commands
 
-- (id)handleCloseCommand:(NSCloseCommand *)cmd {
-    [windowController script_closeWindow:nil];
-    return nil;
-}
-
-
 - (id)handleCreateCommand:(NSCreateCommand *)cmd {
     NSDictionary *props = [[cmd evaluatedArguments] objectForKey:@"KeyDictionary"];
     
@@ -138,12 +132,6 @@
     }
     
     return [tc objectSpecifier];
-}
-
-
-- (id)handleCloseTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_closeTab:nil];
-    return nil;
 }
 
 
