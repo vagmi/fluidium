@@ -261,6 +261,9 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
     
+    <!-- 
+    ************ FLUIDIUM COMMANDS *****************
+    -->
     <command name="load URL" code="FuSSLoad" description="Load a URL.">
         <cocoa class="FULoadURLCommand"/>
         <direct-parameter type="text" description="The URL to load."/>
