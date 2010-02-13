@@ -60,9 +60,9 @@ extern NSString *const TDListItemPboardType;
 }
 
 - (void)reloadData;
-- (id)dequeueReusableItemWithIdentifier:(NSString *)s;
+- (TDListItem *)dequeueReusableItemWithIdentifier:(NSString *)s;
 - (NSUInteger)indexForItemAtPoint:(NSPoint)p;
-- (id)itemAtIndex:(NSUInteger)i;
+- (TDListItem *)itemAtIndex:(NSUInteger)i;
 - (NSRect)frameForItemAtIndex:(NSUInteger)index;
 
 /* Drag and drop support */

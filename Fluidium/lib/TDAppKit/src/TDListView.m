@@ -92,7 +92,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark Notifications
 
 - (void)viewBoundsChanged:(NSNotification *)n {
-    [self layoutItems];
+    // if this returns false, the view hierarchy is being torn down. 
+    // don't try to layout in that case cuz it crashes on Leopard
+    if ([[n object] superview]) {
+        [self layoutItems];
+    }
 }
 
 
@@ -105,7 +109,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 }
 
 
-- (id)dequeueReusableItemWithIdentifier:(NSString *)s {
+- (TDListItem *)dequeueReusableItemWithIdentifier:(NSString *)s {
     TDListItem *item = [queue dequeueWithIdentifier:s];
     [item prepareForReuse];
     return item;
@@ -138,7 +142,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 }
 
 
-- (id)itemAtIndex:(NSUInteger)i {
+- (TDListItem *)itemAtIndex:(NSUInteger)i {
     if (i < 0 || i >= [items count]) return nil;
     
     return [items objectAtIndex:i];

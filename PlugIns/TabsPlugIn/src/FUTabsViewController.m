@@ -147,7 +147,7 @@
 
 
 - (TDListItem *)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
-    FUTabListItem *itemView = [lv dequeueReusableItemWithIdentifier:[FUTabListItem reuseIdentifier]];
+    FUTabListItem *itemView = (FUTabListItem *)[lv dequeueReusableItemWithIdentifier:[FUTabListItem reuseIdentifier]];
     
     if (!itemView) {
         itemView = [[[FUTabListItem alloc] init] autorelease];

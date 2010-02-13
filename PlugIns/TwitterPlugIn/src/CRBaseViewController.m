@@ -101,8 +101,8 @@
 }
 
 
-- (id)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
-    CRTweetListItem *item = [listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
+- (TDListItem *)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
+    CRTweetListItem *item = (CRTweetListItem *)[listView dequeueReusableItemWithIdentifier:[CRTweetListItem reuseIdentifier]];
     
     if (!item) {
         item = [[[CRTweetListItem alloc] init] autorelease];
