@@ -140,6 +140,7 @@
 - (void)selectTabController:(FUTabController *)tc;
 
 - (FUTabController *)tabControllerAtIndex:(NSInteger)i;
+- (FUTabController *)lastTabController;
 - (FUTabController *)tabControllerForWebView:(WebView *)wv;
 - (NSInteger)indexOfTabController:(FUTabController *)tc;
 

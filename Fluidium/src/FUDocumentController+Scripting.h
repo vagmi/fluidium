@@ -16,6 +16,8 @@
 
 @interface FUDocumentController (Scripting)
 - (IBAction)script_newDocument:(id)sender;
+
+// TODO do these two methods need to exist?
 - (IBAction)script_newTab:(id)sender;
 - (IBAction)script_newBackgroundTab:(id)sender;
 @end

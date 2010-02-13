@@ -22,25 +22,25 @@
 }
 
 
-+ (NSAppleEventDescriptor *)appleEventForFluidiumEventID:(FourCharCode)code {
-    return [self appleEventForClass:'FuSS' eventID:code];
++ (NSAppleEventDescriptor *)appleEventWithFluidiumEventID:(FourCharCode)code {
+    return [self appleEventWithClass:'FuSS' eventID:code];
 }
 
 
-+ (NSAppleEventDescriptor *)appleEventForClass:(FourCharCode)class eventID:(FourCharCode)code {
++ (NSAppleEventDescriptor *)appleEventWithClass:(FourCharCode)class eventID:(FourCharCode)code {
     NSAppleEventDescriptor *targetDesc = [NSAppleEventDescriptor descriptorForFluidiumProcess];
     return [NSAppleEventDescriptor appleEventWithEventClass:class eventID:code targetDescriptor:targetDesc returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 }
 
 
 + (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:code];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithFluidiumEventID:code];
     return [someAE sendToOwnProcess];
 }
 
 
 + (OSErr)sendVerbFirstEventWithCoreEventID:(FourCharCode)code {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:code];    
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:code];    
     return [someAE sendToOwnProcess];
 }
 

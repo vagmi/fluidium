@@ -70,6 +70,16 @@ typedef enum {
 
 @implementation FUTabController
 
+- (id)init {
+    return [self initWithWindowController:nil];
+}
+
+
+- (void)classDescriptionNeeded:(NSNotification *)n {
+    
+}
+
+
 - (id)initWithWindowController:(FUWindowController *)wc {
     if (self = [super init]) {
         self.windowController = wc;
@@ -80,6 +90,9 @@ typedef enum {
         self.title = NSLocalizedString(@"Untitled", @"");
         self.favicon = [self defaultFavicon];
         self.statusText = @"";
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(classDescriptionNeeded:) name:NSClassDescriptionNeededForClassNotification object:[self class]];
     }
     return self;
 }

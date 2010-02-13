@@ -18,6 +18,7 @@
 #import "FUShortcutController.h"
 #import "FUShortcutCommand.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
+#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #import <objc/runtime.h>
 
 @interface NSObject (FUScripting)
@@ -133,7 +134,7 @@
 
 - (IBAction)script_closeWindow:(id)sender {
     //[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
     [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
     [someAE sendToOwnProcess];
@@ -141,23 +142,26 @@
 
 
 - (IBAction)script_newTab:(id)sender {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'nTab'];
-    NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
-    [someAE setParamDescriptor:docDesc forKeyword:'pDoc'];
-    [someAE sendToOwnProcess];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    [aevt sendToOwnProcess]; 
 }
 
 
 - (IBAction)script_newBackgroundTab:(id)sender {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'bTab'];
-    NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
-    [someAE setParamDescriptor:docDesc forKeyword:'pDoc'];
-    [someAE sendToOwnProcess];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    
+    NSDictionary *props = [NSDictionary dictionaryWithObject:[NSAppleEventDescriptor descriptorWithFalseBoolean] forKey:[NSNumber numberWithInteger:'tSel']];
+    [aevt setParamDescriptor:[NSAppleEventDescriptor recordDescriptorWithDictionary:props] forKeyword:'prdt'];
+    [aevt sendToOwnProcess]; 
 }
 
 
 - (IBAction)script_closeTab:(id)sender {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[[self selectedTabController] objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
     [someAE sendToOwnProcess];
@@ -218,7 +222,7 @@
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
     NSAssert([tc windowController] == self, @"");
     
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[tc objectSpecifier] descriptor];
     [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
     

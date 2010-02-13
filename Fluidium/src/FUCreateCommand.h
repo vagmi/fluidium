@@ -12,21 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUNewBackgroundTabCommand.h"
-#import "FUDocumentController+Scripting.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUNewBackgroundTabCommand
-
-- (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
+@interface FUCreateCommand : NSCreateCommand {
     
-    id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    if (!target) {
-        target = [[FUDocumentController instance] frontWindowController];
-    }
-    [NSApp sendAction:@selector(script_newBackgroundTab:) to:target from:nil];
-    
-    return nil;
 }
 
 @end

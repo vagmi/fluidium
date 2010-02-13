@@ -166,6 +166,7 @@
 		D38420D11102BEE600605809 /* FUActivation.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D346E32710CD7C6600BA0B15 /* FUActivation.h */; };
 		D38420D21102BF0100605809 /* FUBookmarkController.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D32803F210CC7BFA00BB363B /* FUBookmarkController.h */; };
 		D38420D31102BF0C00605809 /* FUBookmark.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3E4345B10CB8D4C00A5BDEF /* FUBookmark.h */; };
+		D39A36751126A0E100DC5176 /* FUCreateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A36741126A0E100DC5176 /* FUCreateCommand.m */; };
 		D3A3269510FEFF6E00032B66 /* OAPreferenceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */; };
 		D3A3269610FEFF6E00032B66 /* OAPreferenceClientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268A10FEFF6E00032B66 /* OAPreferenceClientRecord.m */; };
 		D3A3269710FEFF6E00032B66 /* OAPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268C10FEFF6E00032B66 /* OAPreferenceController.m */; };
@@ -191,8 +192,6 @@
 		D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */; };
 		D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */; };
 		D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */; };
-		D3ADFAEB1104E1870064C070 /* FUNewDocumentCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAEA1104E1870064C070 /* FUNewDocumentCommand.m */; };
-		D3ADFAEE1104E1970064C070 /* FUNewTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */; };
 		D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */; };
 		D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */; };
 		D3ADFB001104E22B0064C070 /* FUGoForwardCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ADFAFF1104E22B0064C070 /* FUGoForwardCommand.m */; };
@@ -223,7 +222,6 @@
 		D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */; };
 		D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */; };
 		D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */; };
-		D3D8FCBF111D709A0025650C /* FUNewBackgroundTabCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8FCBE111D709A0025650C /* FUNewBackgroundTabCommand.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
 		D3E13271110420EA007FE89E /* Fluidium.sdef in Resources */ = {isa = PBXBuildFile; fileRef = D3E13270110420EA007FE89E /* Fluidium.sdef */; };
 		D3E42F3B10CB152000A5BDEF /* FUDownloadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E42F3210CB152000A5BDEF /* FUDownloadItem.m */; };
@@ -663,6 +661,8 @@
 		D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBaseScriptCommand.m; path = src/FUBaseScriptCommand.m; sourceTree = "<group>"; };
 		D3778DFD10FF1F4900EEA25F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/OAPreferencesWindow.xib; sourceTree = "<group>"; };
 		D38421491102C95900605809 /* FUDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocumentController.h; path = include/Fluidium/FUDocumentController.h; sourceTree = "<group>"; };
+		D39A36731126A0E100DC5176 /* FUCreateCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCreateCommand.h; path = src/FUCreateCommand.h; sourceTree = "<group>"; };
+		D39A36741126A0E100DC5176 /* FUCreateCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCreateCommand.m; path = src/FUCreateCommand.m; sourceTree = "<group>"; };
 		D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClient.h; sourceTree = "<group>"; };
 		D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAPreferenceClient.m; sourceTree = "<group>"; };
 		D3A3268910FEFF6E00032B66 /* OAPreferenceClientRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClientRecord.h; sourceTree = "<group>"; };
@@ -709,10 +709,6 @@
 		D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUDocument+Scripting.m"; path = "src/FUDocument+Scripting.m"; sourceTree = "<group>"; };
 		D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUTabController+Scripting.h"; path = "src/FUTabController+Scripting.h"; sourceTree = "<group>"; };
 		D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUTabController+Scripting.m"; path = "src/FUTabController+Scripting.m"; sourceTree = "<group>"; };
-		D3ADFAE91104E1870064C070 /* FUNewDocumentCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNewDocumentCommand.h; path = src/FUNewDocumentCommand.h; sourceTree = "<group>"; };
-		D3ADFAEA1104E1870064C070 /* FUNewDocumentCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewDocumentCommand.m; path = src/FUNewDocumentCommand.m; sourceTree = "<group>"; };
-		D3ADFAEC1104E1970064C070 /* FUNewTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNewTabCommand.h; path = src/FUNewTabCommand.h; sourceTree = "<group>"; };
-		D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewTabCommand.m; path = src/FUNewTabCommand.m; sourceTree = "<group>"; };
 		D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCloseWindowCommand.h; path = src/FUCloseWindowCommand.h; sourceTree = "<group>"; };
 		D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCloseWindowCommand.m; path = src/FUCloseWindowCommand.m; sourceTree = "<group>"; };
 		D3ADFAFB1104E2210064C070 /* FUGoBackCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUGoBackCommand.h; path = src/FUGoBackCommand.h; sourceTree = "<group>"; };
@@ -757,8 +753,6 @@
 		D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSubmitFormCommand.h; path = src/FUSubmitFormCommand.h; sourceTree = "<group>"; };
 		D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSubmitFormCommand.m; path = src/FUSubmitFormCommand.m; sourceTree = "<group>"; };
-		D3D8FCBD111D709A0025650C /* FUNewBackgroundTabCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNewBackgroundTabCommand.h; path = src/FUNewBackgroundTabCommand.h; sourceTree = "<group>"; };
-		D3D8FCBE111D709A0025650C /* FUNewBackgroundTabCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNewBackgroundTabCommand.m; path = src/FUNewBackgroundTabCommand.m; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
 		D3DB01FA10D6141E0057D70C /* FUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUView.m; path = src/FUView.m; sourceTree = "<group>"; };
 		D3E13270110420EA007FE89E /* Fluidium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; name = Fluidium.sdef; path = res/conf/Fluidium.sdef; sourceTree = "<group>"; };
@@ -1366,14 +1360,10 @@
 		D3ADFAE61104E1660064C070 /* Script Action Commands */ = {
 			isa = PBXGroup;
 			children = (
-				D3ADFAE91104E1870064C070 /* FUNewDocumentCommand.h */,
-				D3ADFAEA1104E1870064C070 /* FUNewDocumentCommand.m */,
+				D39A36731126A0E100DC5176 /* FUCreateCommand.h */,
+				D39A36741126A0E100DC5176 /* FUCreateCommand.m */,
 				D3ADFAF51104E20E0064C070 /* FUCloseWindowCommand.h */,
 				D3ADFAF61104E20E0064C070 /* FUCloseWindowCommand.m */,
-				D3ADFAEC1104E1970064C070 /* FUNewTabCommand.h */,
-				D3ADFAED1104E1970064C070 /* FUNewTabCommand.m */,
-				D3D8FCBD111D709A0025650C /* FUNewBackgroundTabCommand.h */,
-				D3D8FCBE111D709A0025650C /* FUNewBackgroundTabCommand.m */,
 				D3ADFAFB1104E2210064C070 /* FUGoBackCommand.h */,
 				D3ADFAFC1104E2210064C070 /* FUGoBackCommand.m */,
 				D3ADFAFE1104E22B0064C070 /* FUGoForwardCommand.h */,
@@ -2044,8 +2034,6 @@
 				D3ADF9D211045FDB0064C070 /* FULoadURLCommand.m in Sources */,
 				D3ADFAA0110468450064C070 /* FUDocument+Scripting.m in Sources */,
 				D3ADFAA31104684F0064C070 /* FUTabController+Scripting.m in Sources */,
-				D3ADFAEB1104E1870064C070 /* FUNewDocumentCommand.m in Sources */,
-				D3ADFAEE1104E1970064C070 /* FUNewTabCommand.m in Sources */,
 				D3ADFAF71104E20E0064C070 /* FUCloseWindowCommand.m in Sources */,
 				D3ADFAFD1104E2210064C070 /* FUGoBackCommand.m in Sources */,
 				D3ADFB001104E22B0064C070 /* FUGoForwardCommand.m in Sources */,
@@ -2064,11 +2052,11 @@
 				D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */,
 				D31C7B0611129A1900563A4D /* FUHandlerPreferences.m in Sources */,
 				D31C7B0A11129A5B00563A4D /* FUHandlerController.m in Sources */,
-				D3D8FCBF111D709A0025650C /* FUNewBackgroundTabCommand.m in Sources */,
 				D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
 				D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */,
 				D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */,
 				D3B538C5111F7ABE0056D586 /* FUTabController+Recording.m in Sources */,
+				D39A36751126A0E100DC5176 /* FUCreateCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

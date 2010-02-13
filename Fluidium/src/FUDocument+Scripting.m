@@ -24,6 +24,12 @@
 @interface FUWindowController ()
 - (void)closeWindow;
 - (void)script_setSelectedTabIndex:(NSInteger)i;
+
+@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
+@end
+
+@interface FUTabController ()
+@property (nonatomic, assign, readwrite) FUWindowController *windowController; // weak ref
 @end
 
 @implementation FUDocument (Scripting)
@@ -58,6 +64,22 @@
         [tabs addObject:[tabItem identifier]];
     }
     return [[tabs copy] autorelease];
+}
+
+
+- (NSString *)selectedTabURLString {
+    return [[self selectedTabController] URLString];
+}
+
+
+
+- (NSString *)selectedDocumentSource {
+    return [[self selectedTabController] documentSource];
+}
+
+
+- (BOOL)isSelectedTabProcessing {
+    return [[self selectedTabController] isProcessing];
 }
 
 
@@ -97,15 +119,25 @@
 }
 
 
-- (id)handleNewTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_newTab:nil];
-    return nil;
-}
+- (id)handleCreateCommand:(NSCreateCommand *)cmd {
+    NSDictionary *props = [[cmd evaluatedArguments] objectForKey:@"KeyDictionary"];
+    
+    BOOL isSelected = YES;
+    if (props) {
+        isSelected = [[props objectForKey:@"isSelected"] boolValue];
+    }
+    
+    FUTabController *tc = nil;
 
-
-- (id)handleNewBackgroundTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_newBackgroundTab:nil];
-    return nil;
+    if (isSelected) {
+        [windowController script_newTab:nil];
+        tc = [windowController selectedTabController];
+    } else {
+        [windowController script_newBackgroundTab:nil];
+        tc = [windowController lastTabController];
+    }
+    
+    return [tc objectSpecifier];
 }
 
 

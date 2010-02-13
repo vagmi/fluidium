@@ -18,6 +18,7 @@
 #import "FUWindowController+Scripting.h"
 #import "FUTabController.h"
 #import "NSAppleEventDescriptor+FUAdditions.h"
+#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #import <objc/runtime.h>
 
 @implementation FUDocumentController (Scripting)
@@ -45,17 +46,30 @@
 #pragma mark Actions
 
 - (IBAction)script_newDocument:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nDoc'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fDoc'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    [aevt sendToOwnProcess]; 
 }
 
 
+// TODO do these two methods need to exist?
 - (IBAction)script_newTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    [aevt sendToOwnProcess]; 
 }
 
 
 - (IBAction)script_newBackgroundTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'bTab'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    
+    NSDictionary *props = [NSDictionary dictionaryWithObject:[NSAppleEventDescriptor descriptorWithFalseBoolean] forKey:[NSNumber numberWithInteger:'tSel']];
+    [aevt setParamDescriptor:[NSAppleEventDescriptor recordDescriptorWithDictionary:props] forKeyword:'prdt'];
+    [aevt sendToOwnProcess]; 
 }
 
 @end

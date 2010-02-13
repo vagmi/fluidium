@@ -682,6 +682,11 @@
 }
 
 
+- (FUTabController *)lastTabController {
+    return [self tabControllerAtIndex:[tabView numberOfTabViewItems] - 1];
+}
+
+
 - (FUTabController *)tabControllerForWebView:(WebView *)wv {
     for (FUTabController *tc in tabControllers) {
         if (wv == [tc webView]) {
