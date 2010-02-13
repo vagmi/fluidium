@@ -22,7 +22,7 @@
 @property (nonatomic, readonly, copy) NSString *selectedTabURLString;
 @property (nonatomic, readonly, copy) NSString *selectedDocumentSource;
 @property (nonatomic, readonly, assign, getter=isSelectedTabProcessing) BOOL selectedTabProcessing;
-@property (nonatomic, readwrite, assign) NSUInteger selectedTabIndex;
+//@property (nonatomic, readwrite, assign) NSUInteger selectedTabIndex;
 @property (nonatomic, readwrite, retain) FUTabController *selectedTabController;
 
 // Elements

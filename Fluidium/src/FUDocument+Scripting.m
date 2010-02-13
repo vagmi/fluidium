@@ -23,7 +23,7 @@
 
 @interface FUWindowController ()
 - (void)closeWindow;
-- (void)script_setSelectedTabIndex:(NSInteger)i;
+//- (void)script_setSelectedTabIndex:(NSInteger)i;
 
 @property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
 @end
@@ -88,16 +88,16 @@
 }
 
 
-- (void)setSelectedTabIndex:(NSUInteger)i {
-    i = i - 1; // account for 1-based AppleScript indexing
-    
-    // delay the command a bit 
-    FUTabController *tc = [windowController tabControllerAtIndex:i];
-    [tc suspendCommand:[NSScriptCommand currentCommand]];
-    [tc resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
-    
-    [windowController script_setSelectedTabIndex:i];
-}
+//- (void)setSelectedTabIndex:(NSUInteger)i {
+//    i = i - 1; // account for 1-based AppleScript indexing
+//    
+//    // delay the command a bit 
+//    FUTabController *tc = [windowController tabControllerAtIndex:i];
+//    [tc suspendCommand:[NSScriptCommand currentCommand]];
+//    [tc resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+//    
+//    [windowController script_setSelectedTabIndex:i];
+//}
 
 
 - (FUTabController *)selectedTabController {

@@ -25,6 +25,10 @@
 - (void)script_loadURL:(NSString *)s;
 @end
 
+@interface FUWindowController ()
+@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
+@end
+
 @implementation FUWindowController (Scripting)
 
 + (void)initialize {
@@ -90,9 +94,13 @@
         new = class_getInstanceMethod(self, @selector(script_takeTabIndexToCloseFrom:));
         method_exchangeImplementations(old, new);
         
-        old = class_getInstanceMethod(self, @selector(setSelectedTabIndex:));
-        new = class_getInstanceMethod(self, @selector(script_setSelectedTabIndex:));
+        old = class_getInstanceMethod(self, @selector(setSelectedTabController:));
+        new = class_getInstanceMethod(self, @selector(script_setSelectedTabController:));
         method_exchangeImplementations(old, new);
+
+//        old = class_getInstanceMethod(self, @selector(setSelectedTabIndex:));
+//        new = class_getInstanceMethod(self, @selector(script_setSelectedTabIndex:));
+//        method_exchangeImplementations(old, new);
     }
 }
 
@@ -230,13 +238,13 @@
 }
 
 
-- (void)script_setSelectedTabIndex:(NSInteger)i {
-    if (i < 0) return;
+- (void)script_setSelectedTabController:(FUTabController *)tc {
+    NSInteger i = [self indexOfTabController:tc];
+    if (NSNotFound == i || i < 0) return;
     if (i > [tabView numberOfTabViewItems] - 1) return;
     
     // don't reselect the same tab. it effs up the priorSelectedTabIndex
-    NSInteger currentSelectedTabIndex = self.selectedTabIndex;
-    if (i == currentSelectedTabIndex) return;
+    if (tc == selectedTabController) return;
     
     NSInteger docIdx = [[NSApp orderedDocuments] indexOfObject:[self document]] + 1;
     NSInteger tabIdx = i + 1;
@@ -251,18 +259,28 @@
 
     const char *eventFormat =
         "'----': 'obj '{ "         // Direct object is the file comment we want to modify
-        "  form: enum(prop), "     //  ... the 'selected tab index' is an object's property...
-        "  seld: type(dSTI), "     //  ... selected by the 'dSTI' 4CC ...
+        "  form: enum(prop), "     //  ... the 'selected tab' is an object's property...
+        "  seld: type(dSTb), "     //  ... specified by the 'dSTb' 4CC ...
         "  want: type(prop), "     //  ... which we want to interpret as a property (not as e.g. text).
         "  from: 'obj '{ "         // It's the property of an object...
-        "      form: enum(indx), "
+        "      form: enum(indx), " //  ... that is an element ...
         "      want: type(fDoc), " //  ... of type 'fDoc' ...
         "      seld: @,"           //  ... selected by an index ...
-        "      from: null() "      //  ... according to the receiving application.
+        "      from: null() "      //  ... of the receiving application.
         "              }"
         "             }, "
-        "data: @";                 // The data is what we want to set the direct object to.
-
+        "data: 'obj '{ "           //  set the value of the specified direct object to an object ...
+        "  form: enum(indx), "     //  ... that is an element ...
+        "  seld: @, "              //  ... at index ...
+        "  want: type(fTab), "     //  ... specified by the 'fTab' 4CC
+        "  from: 'obj '{ "         // It's the element of an object...
+        "      form: enum(indx), " //  ... that is an element ...
+        "      want: type(fDoc), " //  ... of type 'fDoc' ...
+        "      seld: @,"           //  ... selected by an index ...
+        "      from: null() "      //  ... of the receiving application.
+        "              }"
+        "             } ";
+    
     AEInitializeDesc(&builtEvent);
     AEInitializeDesc(&replyEvent);
     err = AEBuildAppleEvent(
@@ -273,7 +291,8 @@
             &buildErr, 
             eventFormat, 
             [[NSAppleEventDescriptor descriptorWithInt32:docIdx] aeDesc],
-            [[NSAppleEventDescriptor descriptorWithInt32:tabIdx] aeDesc]);
+            [[NSAppleEventDescriptor descriptorWithInt32:tabIdx] aeDesc], 
+            [[NSAppleEventDescriptor descriptorWithInt32:docIdx] aeDesc]);
 
     if (err != noErr) {
         [NSException raise:NSInternalInconsistencyException format:@"Unable to create AppleEvent: AEBuildAppleEvent() returns %d", err];
@@ -285,5 +304,61 @@
     AEDisposeDesc(&builtEvent);
     AEDisposeDesc(&replyEvent);
 }
+
+//- (void)script_setSelectedTabIndex:(NSInteger)i {
+//    if (i < 0) return;
+//    if (i > [tabView numberOfTabViewItems] - 1) return;
+//    
+//    // don't reselect the same tab. it effs up the priorSelectedTabIndex
+//    NSInteger currentSelectedTabIndex = self.selectedTabIndex;
+//    if (i == currentSelectedTabIndex) return;
+//    
+//    NSInteger docIdx = [[NSApp orderedDocuments] indexOfObject:[self document]] + 1;
+//    NSInteger tabIdx = i + 1;
+//    
+//    OSErr err;
+//    AEBuildError buildErr;
+//            
+//    ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
+//    AEDesc builtEvent, replyEvent;
+//
+//    // 'core'\'setd'{ '----':'obj '{ 'form':'prop', 'want':'prop', 'seld':'dSTI', 'from':'obj '{ 'form':'indx', 'want':'fDoc', 'seld':1, 'from':'null'() } } }
+//
+//    const char *eventFormat =
+//        "'----': 'obj '{ "         // Direct object is the file comment we want to modify
+//        "  form: enum(prop), "     //  ... the 'selected tab index' is an object's property...
+//        "  seld: type(dSTI), "     //  ... selected by the 'dSTI' 4CC ...
+//        "  want: type(prop), "     //  ... which we want to interpret as a property (not as e.g. text).
+//        "  from: 'obj '{ "         // It's the property of an object...
+//        "      form: enum(indx), "
+//        "      want: type(fDoc), " //  ... of type 'fDoc' ...
+//        "      seld: @,"           //  ... selected by an index ...
+//        "      from: null() "      //  ... according to the receiving application.
+//        "              }"
+//        "             }, "
+//        "data: @";                 // The data is what we want to set the direct object to.
+//
+//    AEInitializeDesc(&builtEvent);
+//    AEInitializeDesc(&replyEvent);
+//    err = AEBuildAppleEvent(
+//            kAECoreSuite, kAESetData,
+//            typeProcessSerialNumber, &selfPSN, sizeof(selfPSN),
+//            kAutoGenerateReturnID, kAnyTransactionID,
+//            &builtEvent, 
+//            &buildErr, 
+//            eventFormat, 
+//            [[NSAppleEventDescriptor descriptorWithInt32:docIdx] aeDesc],
+//            [[NSAppleEventDescriptor descriptorWithInt32:tabIdx] aeDesc]);
+//
+//    if (err != noErr) {
+//        [NSException raise:NSInternalInconsistencyException format:@"Unable to create AppleEvent: AEBuildAppleEvent() returns %d", err];
+//        NSLog(@"AEBuildErr : %d line %d", buildErr.fError, buildErr.fErrorPos);
+//    }
+//    
+//    err = AESendMessage(&builtEvent, &replyEvent, kAENoReply, kAEDefaultTimeout);
+//    
+//    AEDisposeDesc(&builtEvent);
+//    AEDisposeDesc(&replyEvent);
+//}
 
 @end
