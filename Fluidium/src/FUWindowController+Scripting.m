@@ -137,7 +137,6 @@
 #pragma mark Script Actions
 
 - (IBAction)script_closeWindow:(id)sender {
-    //[NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'cDoc'];
     NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
     [someAE setDescriptor:docDesc forKeyword:keyDirectObject];

@@ -15,8 +15,6 @@
 #import <Cocoa/Cocoa.h>
 #import <Fluidium/FUPlugIn.h>
 
-@class FUTabsPreferencesViewController;
-
 @interface FUTabsPlugIn : FUPlugIn {
     id <FUPlugInAPI>plugInAPI;    
 }
