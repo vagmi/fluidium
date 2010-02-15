@@ -34,14 +34,14 @@
 
 
 + (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithFluidiumEventID:code];
-    return [someAE sendToOwnProcess];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithFluidiumEventID:code];
+    return [aevt sendToOwnProcess];
 }
 
 
 + (OSErr)sendVerbFirstEventWithCoreEventID:(FourCharCode)code {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:code];    
-    return [someAE sendToOwnProcess];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:code];    
+    return [aevt sendToOwnProcess];
 }
 
 

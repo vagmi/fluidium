@@ -137,10 +137,10 @@
 #pragma mark Script Actions
 
 - (IBAction)script_closeWindow:(id)sender {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
-    [someAE setDescriptor:docDesc forKeyword:keyDirectObject];
-    [someAE sendToOwnProcess];
+    [aevt setDescriptor:docDesc forKeyword:keyDirectObject];
+    [aevt sendToOwnProcess];
 }
 
 
@@ -164,10 +164,10 @@
 
 
 - (IBAction)script_closeTab:(id)sender {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[[self selectedTabController] objectSpecifier] descriptor];
-    [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
-    [someAE sendToOwnProcess];
+    [aevt setDescriptor:tcDesc forKeyword:keyDirectObject];
+    [aevt sendToOwnProcess];
 }
 
 
@@ -215,11 +215,11 @@
     FUTabController *tc = [self tabControllerAtIndex:[sender tag]];
     NSAssert([tc windowController] == self, @"");
     
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[tc objectSpecifier] descriptor];
-    [someAE setDescriptor:tcDesc forKeyword:keyDirectObject];
+    [aevt setDescriptor:tcDesc forKeyword:keyDirectObject];
     
-    [someAE sendToOwnProcess];
+    [aevt sendToOwnProcess];
 }
 
 

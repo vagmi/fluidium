@@ -118,32 +118,32 @@ typedef enum {
 
 
 - (void)script_loadURL:(NSString *)s {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
-    [someAE setDescriptor:[NSAppleEventDescriptor descriptorWithString:s] forKeyword:keyDirectObject];
-    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
-    [someAE sendToOwnProcess];
+    [aevt setDescriptor:[NSAppleEventDescriptor descriptorWithString:s] forKeyword:keyDirectObject];
+    [aevt setParamDescriptor:tcDesc forKeyword:'tPrm'];
+    [aevt sendToOwnProcess];
 }
 
 
 - (void)script_submitForm:(NSURLRequest *)req withWebActionInfo:(NSDictionary *)info {
-    NSAppleEventDescriptor *someAE = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
     
     NSString *xpath = [self XPathForFormInWebActionInfo:info];
     if ([xpath length]) {
-        [someAE setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
+        [aevt setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:xpath] forKeyword:'XPth'];
     }
     
     NSDictionary *formValues = [req formValues];
     if (formValues) {
         NSAppleEventDescriptor *formValuesDesc = [NSAppleEventDescriptor descriptorWithDictionary:formValues];
-        [someAE setParamDescriptor:formValuesDesc forKeyword:'Vals'];
+        [aevt setParamDescriptor:formValuesDesc forKeyword:'Vals'];
     }
     
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
-    [someAE setParamDescriptor:tcDesc forKeyword:'tPrm'];
+    [aevt setParamDescriptor:tcDesc forKeyword:'tPrm'];
     
-    [someAE sendToOwnProcess];
+    [aevt sendToOwnProcess];
 }
 
 
