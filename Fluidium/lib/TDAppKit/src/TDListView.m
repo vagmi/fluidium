@@ -526,6 +526,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     NSInteger c = [dataSource numberOfItemsInListView:self];
     BOOL respondsToExtentForItem = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);
+    BOOL respondsToWillDisplay = (delegate && [delegate respondsToSelector:@selector(listView:willDisplayItem:atIndex:)]);
     
     NSInteger i = 0;
     for ( ; i < c; i++) {
@@ -556,6 +557,10 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             [self addSubview:item];
             [items addObject:item];
             [unusedItems removeObject:item];
+
+            if (respondsToWillDisplay) {
+                [delegate listView:self willDisplayItem:item atIndex:i];
+            }
         }
 
         if (isPortrait) {
