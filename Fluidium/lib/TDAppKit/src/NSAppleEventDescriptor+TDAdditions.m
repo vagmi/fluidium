@@ -12,11 +12,11 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "NSAppleEventDescriptor+FUAdditions.h"
+#import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
 
-@implementation NSAppleEventDescriptor (FUAdditions)
+@implementation NSAppleEventDescriptor (TDAdditions)
 
-+ (NSAppleEventDescriptor *)descriptorForFluidiumProcess {
++ (NSAppleEventDescriptor *)descriptorForOwnProcess {
     ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
     return [NSAppleEventDescriptor descriptorWithDescriptorType:typeProcessSerialNumber bytes:&selfPSN length:sizeof(selfPSN)];
 }
@@ -28,7 +28,7 @@
 
 
 + (NSAppleEventDescriptor *)appleEventWithClass:(FourCharCode)class eventID:(FourCharCode)code {
-    NSAppleEventDescriptor *targetDesc = [NSAppleEventDescriptor descriptorForFluidiumProcess];
+    NSAppleEventDescriptor *targetDesc = [NSAppleEventDescriptor descriptorForOwnProcess];
     return [NSAppleEventDescriptor appleEventWithEventClass:class eventID:code targetDescriptor:targetDesc returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 }
 

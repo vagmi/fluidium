@@ -17,8 +17,8 @@
 #import "FUWindowController.h"
 #import "FUWindowController+Scripting.h"
 #import "FUTabController.h"
-#import "NSAppleEventDescriptor+FUAdditions.h"
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
+#import <TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h>
 #import <objc/runtime.h>
 
 @implementation FUDocumentController (Scripting)

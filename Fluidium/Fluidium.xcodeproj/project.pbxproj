@@ -143,7 +143,6 @@
 		D34B604C10CF7E4B006E17C4 /* FUIconController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34B604B10CF7E4B006E17C4 /* FUIconController.m */; };
 		D34B610110CF92B7006E17C4 /* prefpane_icon_appearance.png in Resources */ = {isa = PBXBuildFile; fileRef = D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */; };
 		D34B610910CF92DD006E17C4 /* FUAppearancePreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34B610710CF92DD006E17C4 /* FUAppearancePreferences.xib */; };
-		D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D350748411051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m */; };
 		D35CBD2110D35CCB00DA1898 /* FUUserscriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */; };
 		D35CBD7A10D3652600DA1898 /* FUUserscriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD7910D3652600DA1898 /* FUUserscriptViewController.m */; };
 		D35CBD8B10D3664000DA1898 /* FUUserthingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD8A10D3664000DA1898 /* FUUserthingViewController.m */; };
@@ -215,8 +214,6 @@
 		D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */; };
-		D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
-		D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */; };
 		D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */; };
 		D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
@@ -635,8 +632,6 @@
 		D34B604B10CF7E4B006E17C4 /* FUIconController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUIconController.m; path = src/FUIconController.m; sourceTree = SOURCE_ROOT; };
 		D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_appearance.png; path = res/img/prefpanes/prefpane_icon_appearance.png; sourceTree = "<group>"; };
 		D34B610810CF92DD006E17C4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUAppearancePreferences.xib; sourceTree = "<group>"; };
-		D350748311051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+FUAdditions.h"; path = "src/NSAppleEventDescriptor+FUAdditions.h"; sourceTree = "<group>"; };
-		D350748411051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+FUAdditions.m"; path = "src/NSAppleEventDescriptor+FUAdditions.m"; sourceTree = "<group>"; };
 		D35CBD1F10D35CCB00DA1898 /* FUUserscriptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptController.h; path = src/FUUserscriptController.h; sourceTree = "<group>"; };
 		D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserscriptController.m; path = src/FUUserscriptController.m; sourceTree = "<group>"; };
 		D35CBD7810D3652600DA1898 /* FUUserscriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptViewController.h; path = src/FUUserscriptViewController.h; sourceTree = "<group>"; };
@@ -738,10 +733,6 @@
 		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
 		D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BrowsaPlugIn.xcodeproj; path = ../PlugIns/BrowsaPlugIn/BrowsaPlugIn.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_handlers.png; path = res/img/prefpanes/prefpane_icon_handlers.png; sourceTree = "<group>"; };
-		D3D80014111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+NDAppleScriptObject.h"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.h"; sourceTree = "<group>"; };
-		D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+NDAppleScriptObject.m"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
-		D3D800E4111E18200025650C /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+NDCarbonUtilities.h"; path = "src/NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
-		D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSubmitFormCommand.h; path = src/FUSubmitFormCommand.h; sourceTree = "<group>"; };
 		D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSubmitFormCommand.m; path = src/FUSubmitFormCommand.m; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
@@ -1311,8 +1302,6 @@
 			children = (
 				D3ADFAE61104E1660064C070 /* Script Action Commands */,
 				D3ADFAD41104E0860064C070 /* Script Only Script Commands */,
-				D350748311051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.h */,
-				D350748411051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m */,
 				D3ADFBC91104E9440064C070 /* FUDocumentController+Scripting.h */,
 				D3ADFBCA1104E9440064C070 /* FUDocumentController+Scripting.m */,
 				D3ADFA9E110468450064C070 /* FUDocument+Scripting.h */,
@@ -1325,10 +1314,6 @@
 				D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */,
 				D3B538C3111F7ABE0056D586 /* FUTabController+Recording.h */,
 				D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */,
-				D3D80014111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.h */,
-				D3D80015111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m */,
-				D3D800E4111E18200025650C /* NSURL+NDCarbonUtilities.h */,
-				D3D800E5111E18200025650C /* NSURL+NDCarbonUtilities.m */,
 			);
 			name = Scripting;
 			sourceTree = "<group>";
@@ -2028,14 +2013,11 @@
 				D3ADFB101104E25C0064C070 /* FUZoomInCommand.m in Sources */,
 				D3ADFB131104E2640064C070 /* FUZoomOutCommand.m in Sources */,
 				D3ADFBCB1104E9440064C070 /* FUDocumentController+Scripting.m in Sources */,
-				D350748511051ADF0040C287 /* NSAppleEventDescriptor+FUAdditions.m in Sources */,
 				D3ACEC571106CE2B005A3CF6 /* FUWindowController+Scripting.m in Sources */,
 				D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */,
 				D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */,
 				D31C7B0611129A1900563A4D /* FUHandlerPreferences.m in Sources */,
 				D31C7B0A11129A5B00563A4D /* FUHandlerController.m in Sources */,
-				D3D80016111E159E0025650C /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
-				D3D800E6111E18200025650C /* NSURL+NDCarbonUtilities.m in Sources */,
 				D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */,
 				D3B538C5111F7ABE0056D586 /* FUTabController+Recording.m in Sources */,
 				D39A36751126A0E100DC5176 /* FUCreateCommand.m in Sources */,

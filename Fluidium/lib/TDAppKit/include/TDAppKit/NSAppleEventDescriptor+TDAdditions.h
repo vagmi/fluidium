@@ -14,8 +14,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSAppleEventDescriptor (FUAdditions)
-+ (NSAppleEventDescriptor *)descriptorForFluidiumProcess;
+@interface NSAppleEventDescriptor (TDAdditions)
++ (NSAppleEventDescriptor *)descriptorForOwnProcess;
 
 + (NSAppleEventDescriptor *)appleEventWithFluidiumEventID:(FourCharCode)code;
 + (NSAppleEventDescriptor *)appleEventWithClass:(FourCharCode)suite eventID:(FourCharCode)code;

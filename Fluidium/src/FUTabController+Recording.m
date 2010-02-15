@@ -17,8 +17,8 @@
 #import "FUWindowController.h"
 #import "FUActivation.h"
 #import "WebViewPrivate.h"
-#import "NSAppleEventDescriptor+FUAdditions.h"
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
+#import <TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h>
 #import <TDAppKit/NSURLRequest+TDAdditions.h>
 #import <objc/runtime.h>
 #import <WebKit/WebKit.h>

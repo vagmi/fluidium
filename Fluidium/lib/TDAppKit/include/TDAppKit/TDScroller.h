@@ -8,8 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TDScroller : NSScroller 
-{
+@interface TDScroller : NSScroller {
 	BOOL isVertical;
 }
 

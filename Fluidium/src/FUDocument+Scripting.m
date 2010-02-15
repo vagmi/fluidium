@@ -17,7 +17,7 @@
 #import "FUTabController+Scripting.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
-#import "NSAppleEventDescriptor+FUAdditions.h"
+#import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
 
 #define DEFAULT_DELAY 1.0
 

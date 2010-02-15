@@ -17,8 +17,8 @@
 #import "FUTabController+Scripting.h"
 #import "FUShortcutController.h"
 #import "FUShortcutCommand.h"
-#import "NSAppleEventDescriptor+FUAdditions.h"
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
+#import <TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h>
 #import <objc/runtime.h>
 
 @interface NSObject (FUScripting)
