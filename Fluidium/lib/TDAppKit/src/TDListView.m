@@ -39,6 +39,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 @property (nonatomic, retain) TDListItemQueue *queue;
 @property (nonatomic, retain) NSEvent *lastMouseDownEvent;
 @property (nonatomic, retain) NSMutableArray *itemFrames;
+@property (nonatomic, assign) NSPoint dragOffset;
 @end
 
 @implementation TDListView
@@ -245,6 +246,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         switch ([evt type]) {
             case NSLeftMouseDragged:
                 if (NSPointInRect([evt locationInWindow], r)) {
+                    // still within drag radius tolerance. dont drag yet
                     break;
                 }
                 draggingIndex = i;
@@ -265,7 +267,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (void)mouseDragged:(NSEvent *)evt {
     // have to get the image before calling any delegate methods... they may rearrange or remove views which would cause us to have the wrong image
-    dragOffset = NSZeroPoint;
+    self.dragOffset = NSZeroPoint;
     NSImage *dragImg = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
         dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingIndex withEvent:lastMouseDownEvent offset:&dragOffset];
@@ -461,9 +463,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     //NSLog(@"over: %@. Drop %@ : %d", item, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
 
-    if (isDraggingListItem) {
+    //if (isDraggingListItem) {
         [self layoutItemsWhileDragging];
-    }
+    //}
     
     return dragOp;
 }
@@ -593,13 +595,18 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)layoutItemsWhileDragging {
-    if (-1 == draggingIndex) return;
+    //if (-1 == draggingIndex) return;
     
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
     TDListItem *draggingItem = [self itemAtIndex:draggingIndex];
-    CGFloat draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
+    CGFloat draggingExtent = 0;
+    if (draggingItem) {
+        draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
+    } else {
+        draggingExtent = (itemExtent > 0) ? itemExtent : DEFAULT_ITEM_EXTENT;
+    }
 
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:.05];
@@ -685,4 +692,5 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 @synthesize displaysClippedItems;
 @synthesize lastMouseDownEvent;
 @synthesize itemFrames;
+@synthesize dragOffset;
 @end
