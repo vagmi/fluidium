@@ -35,21 +35,30 @@
 
 + (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code {
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithFluidiumEventID:code];
-    return [aevt sendToOwnProcess];
+    return [aevt sendToOwnProcessNoReply];
 }
 
 
 + (OSErr)sendVerbFirstEventWithCoreEventID:(FourCharCode)code {
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:code];    
-    return [aevt sendToOwnProcess];
+    return [aevt sendToOwnProcessNoReply];
 }
 
 
-- (OSErr)sendToOwnProcess {
-    const AppleEvent *aeDesc = [self aeDesc];
+- (OSErr)sendToOwnProcessNoReply {
+    const AppleEvent *aevt = [self aeDesc];
 
     OSErr err = noErr; 
-    err = AESendMessage(aeDesc, NULL, kAENoReply|kAENeverInteract, kAEDefaultTimeout);
+    err = AESendMessage(aevt, NULL, kAENoReply|kAENeverInteract, kAEDefaultTimeout);
+    return err;
+}
+
+
+- (OSErr)sendToOwnProcessWaitReply:(AppleEvent *)replyEvt {
+    const AppleEvent *aevt = [self aeDesc];
+    
+    OSErr err = noErr; 
+    err = AESendMessage(aevt, replyEvt, kAEWaitReply|kAENeverInteract, kAEDefaultTimeout);
     return err;
 }
 

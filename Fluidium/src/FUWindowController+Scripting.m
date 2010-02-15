@@ -140,7 +140,7 @@
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *docDesc = [[[self document] objectSpecifier] descriptor];
     [aevt setDescriptor:docDesc forKeyword:keyDirectObject];
-    [aevt sendToOwnProcess];
+    [aevt sendToOwnProcessNoReply];
 }
 
 
@@ -148,7 +148,7 @@
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
     NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
     [aevt setParamDescriptor:cls forKeyword:'kocl'];
-    [aevt sendToOwnProcess]; 
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 
@@ -159,7 +159,7 @@
     
     NSDictionary *props = [NSDictionary dictionaryWithObject:[NSAppleEventDescriptor descriptorWithFalseBoolean] forKey:[NSNumber numberWithInteger:'tSel']];
     [aevt setParamDescriptor:[NSAppleEventDescriptor recordDescriptorWithDictionary:props] forKeyword:'prdt'];
-    [aevt sendToOwnProcess]; 
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 
@@ -167,7 +167,7 @@
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'clos'];
     NSAppleEventDescriptor *tcDesc = [[[self selectedTabController] objectSpecifier] descriptor];
     [aevt setDescriptor:tcDesc forKeyword:keyDirectObject];
-    [aevt sendToOwnProcess];
+    [aevt sendToOwnProcessNoReply];
 }
 
 
@@ -219,7 +219,7 @@
     NSAppleEventDescriptor *tcDesc = [[tc objectSpecifier] descriptor];
     [aevt setDescriptor:tcDesc forKeyword:keyDirectObject];
     
-    [aevt sendToOwnProcess];
+    [aevt sendToOwnProcessNoReply];
 }
 
 

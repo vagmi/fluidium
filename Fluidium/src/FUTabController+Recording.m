@@ -122,7 +122,7 @@ typedef enum {
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
     [aevt setDescriptor:[NSAppleEventDescriptor descriptorWithString:s] forKeyword:keyDirectObject];
     [aevt setParamDescriptor:tcDesc forKeyword:'tPrm'];
-    [aevt sendToOwnProcess];
+    [aevt sendToOwnProcessNoReply];
 }
 
 
@@ -143,7 +143,7 @@ typedef enum {
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
     [aevt setParamDescriptor:tcDesc forKeyword:'tPrm'];
     
-    [aevt sendToOwnProcess];
+    [aevt sendToOwnProcessNoReply];
 }
 
 

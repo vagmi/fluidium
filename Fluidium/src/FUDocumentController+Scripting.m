@@ -52,7 +52,7 @@
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
     NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fDoc'];
     [aevt setParamDescriptor:cls forKeyword:'kocl'];
-    [aevt sendToOwnProcess]; 
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 
@@ -61,7 +61,7 @@
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
     NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
     [aevt setParamDescriptor:cls forKeyword:'kocl'];
-    [aevt sendToOwnProcess]; 
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 
@@ -72,7 +72,7 @@
     
     NSDictionary *props = [NSDictionary dictionaryWithObject:[NSAppleEventDescriptor descriptorWithFalseBoolean] forKey:[NSNumber numberWithInteger:'tSel']];
     [aevt setParamDescriptor:[NSAppleEventDescriptor recordDescriptorWithDictionary:props] forKeyword:'prdt'];
-    [aevt sendToOwnProcess]; 
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 @end
