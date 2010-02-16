@@ -13,7 +13,7 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-#import <Growl/Growl.h>
+//#import <Growl/Growl.h>
 
 @class FUDocument;
 @class FUWindowController;
@@ -26,7 +26,8 @@ typedef enum {
     FUDestinationTypeTab
 } FUDestinationType;
 
-@interface FUDocumentController : NSDocumentController <GrowlApplicationBridgeDelegate> {
+//@interface FUDocumentController : NSDocumentController <GrowlApplicationBridgeDelegate> {
+@interface FUDocumentController : NSDocumentController {
     NSWindow *hiddenWindow;
 }
 

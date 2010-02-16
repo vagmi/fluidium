@@ -19,22 +19,18 @@
 @interface FUDocument (Scripting)
 
 // Properties
-@property (nonatomic, assign) NSUInteger selectedTabIndex;
-@property (nonatomic, retain) FUTabController *selectedTabController;
+@property (nonatomic, readonly, copy) NSString *selectedTabURLString;
+@property (nonatomic, readonly, copy) NSString *selectedDocumentSource;
+@property (nonatomic, readonly, assign, getter=isSelectedTabProcessing) BOOL selectedTabProcessing;
+//@property (nonatomic, readwrite, assign) NSUInteger selectedTabIndex;
+@property (nonatomic, readwrite, retain) FUTabController *selectedTabController;
 
 // Elements
 - (NSArray *)orderedTabControllers;
 
 // Commands
-- (id)handleNewTabCommand:(NSScriptCommand *)cmd;
-- (id)handleNewBackgroundTabCommand:(NSScriptCommand *)cmd;
-- (id)handleCloseTabCommand:(NSScriptCommand *)cmd;
+- (id)handleCreateCommand:(NSScriptCommand *)cmd;
 
-- (id)handleCloseCommand:(NSCloseCommand *)cmd;
-
-- (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd;
-- (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd;
-//- (id)handleGoToLocationCommand:(NSScriptCommand *)cmd;
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd;
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd;
 - (id)handleReloadCommand:(NSScriptCommand *)cmd;

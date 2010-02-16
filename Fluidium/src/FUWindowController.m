@@ -604,7 +604,7 @@
     FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
     [self insertTabController:tc atIndex:i];
     if (select) {
-        [self selectTabController:tc];
+        [self selectTabController:tc]; // !! this is doing nothing currently, cuz NSTabView auto selects added tabs (line above)
     }
     return tc;
 }
@@ -635,7 +635,7 @@
     [tabItem bind:@"label" toObject:tc withKeyPath:@"title" options:nil];
     
     if (i == [tabView numberOfTabViewItems]) {
-        [tabView addTabViewItem:tabItem];
+        [tabView addTabViewItem:tabItem]; // !! this apparently selects the new tab no matter what
     } else {
         [tabView insertTabViewItem:tabItem atIndex:i];
     }
@@ -679,6 +679,11 @@
     }
     NSTabViewItem *tabItem = [tabView tabViewItemAtIndex:i];
     return [tabItem identifier];
+}
+
+
+- (FUTabController *)lastTabController {
+    return [self tabControllerAtIndex:[tabView numberOfTabViewItems] - 1];
 }
 
 
@@ -765,7 +770,7 @@
 
 
 - (void)setSelectedTabIndex:(NSInteger)i {
-    if (i < 0) return;
+    if (NSNotFound == i || i < 0) return;
     if (i > [tabView numberOfTabViewItems] - 1) return;
     
     // don't reselect the same tab. it effs up the priorSelectedTabIndex
@@ -1128,6 +1133,7 @@
     if ([tabControllers containsObject:tc]) { // if the tab was just dragged to this tabBar from another window, we will not have created a tabController yet
 
         self.selectedTabController = tc;
+        [self selectTabController:tc]; // this fires apple event
         [self startObservingTabController:tc];
         [self clearProgress];
     }

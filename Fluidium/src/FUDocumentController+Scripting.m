@@ -17,7 +17,8 @@
 #import "FUWindowController.h"
 #import "FUWindowController+Scripting.h"
 #import "FUTabController.h"
-#import "NSAppleEventDescriptor+FUAdditions.h"
+#import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
+#import <TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h>
 #import <objc/runtime.h>
 
 @implementation FUDocumentController (Scripting)
@@ -25,6 +26,8 @@
 + (void)initialize {
     if ([FUDocumentController class] == self) {
         
+#if FU_SCRIPTING_ENABLED
+
         Method old = class_getInstanceMethod(self, @selector(newDocument:));
         Method new = class_getInstanceMethod(self, @selector(script_newDocument:));
         method_exchangeImplementations(old, new);
@@ -36,7 +39,8 @@
         old = class_getInstanceMethod(self, @selector(newBackgroundTab:));
         new = class_getInstanceMethod(self, @selector(script_newBackgroundTab:));
         method_exchangeImplementations(old, new);
-        
+
+#endif
     }
 }
 
@@ -45,17 +49,30 @@
 #pragma mark Actions
 
 - (IBAction)script_newDocument:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nDoc'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fDoc'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 
+// TODO do these two methods need to exist?
 - (IBAction)script_newTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'nTab'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 
 - (IBAction)script_newBackgroundTab:(id)sender {
-    [NSAppleEventDescriptor sendVerbFirstEventWithFluidiumEventID:'bTab'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
+    [aevt setParamDescriptor:cls forKeyword:'kocl'];
+    
+    NSDictionary *props = [NSDictionary dictionaryWithObject:[NSAppleEventDescriptor descriptorWithFalseBoolean] forKey:[NSNumber numberWithInteger:'tSel']];
+    [aevt setParamDescriptor:[NSAppleEventDescriptor recordDescriptorWithDictionary:props] forKeyword:'prdt'];
+    [aevt sendToOwnProcessNoReply]; 
 }
 
 @end

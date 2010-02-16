@@ -30,6 +30,12 @@
 		D33B19F211168A3300F754AD /* TDScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33B19F011168A3300F754AD /* TDScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D33B19F511168A3A00F754AD /* TDScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = D33B19F311168A3A00F754AD /* TDScroller.m */; };
 		D33B19F611168A3A00F754AD /* TDScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D33B19F411168A3A00F754AD /* TDScrollView.m */; };
+		D366C1B71128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = D366C1B51128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D366C1B81128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D366C1B61128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D366C1BA1128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1B91128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m */; };
+		D366C1EC112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1EB112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
+		D366C1EF112902E500547FD6 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D366C1ED112902E400547FD6 /* NSURL+NDCarbonUtilities.h */; };
+		D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
 		D371244810F0520800D7107B /* TDBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244210F051E800D7107B /* TDBar.m */; };
 		D371244910F0520D00D7107B /* TDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244310F051E800D7107B /* TDLine.m */; };
@@ -96,6 +102,12 @@
 		D33B19F011168A3300F754AD /* TDScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDScrollView.h; path = include/TDAppKit/TDScrollView.h; sourceTree = "<group>"; };
 		D33B19F311168A3A00F754AD /* TDScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDScroller.m; path = src/TDScroller.m; sourceTree = "<group>"; };
 		D33B19F411168A3A00F754AD /* TDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDScrollView.m; path = src/TDScrollView.m; sourceTree = "<group>"; };
+		D366C1B51128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+NDAppleScriptObject.h"; path = "include/TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h"; sourceTree = "<group>"; };
+		D366C1B61128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+TDAdditions.h"; path = "include/TDAppKit/NSAppleEventDescriptor+TDAdditions.h"; sourceTree = "<group>"; };
+		D366C1B91128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+TDAdditions.m"; path = "src/NSAppleEventDescriptor+TDAdditions.m"; sourceTree = "<group>"; };
+		D366C1EB112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+NDAppleScriptObject.m"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
+		D366C1ED112902E400547FD6 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+NDCarbonUtilities.h"; path = "src/NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
+		D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
 		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
@@ -184,6 +196,7 @@
 				D31CC02310EFC6BB0013347D /* TDAppKit.h */,
 				D3EB2341110163F700633715 /* TDUtils.h */,
 				D3EB2342110163F700633715 /* TDUtils.m */,
+				D366C1AD1128FEE900547FD6 /* AppleEvents */,
 				D3EB233A1101631300633715 /* AppKit Categories */,
 				D318A04A10F856FA00B6AA21 /* SourceCodeTextView */,
 				D31CBFBA10EFB7E90013347D /* UberView */,
@@ -280,6 +293,19 @@
 			name = ScrollView;
 			sourceTree = "<group>";
 		};
+		D366C1AD1128FEE900547FD6 /* AppleEvents */ = {
+			isa = PBXGroup;
+			children = (
+				D366C1B51128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h */,
+				D366C1EB112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m */,
+				D366C1B61128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h */,
+				D366C1B91128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m */,
+				D366C1ED112902E400547FD6 /* NSURL+NDCarbonUtilities.h */,
+				D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */,
+			);
+			name = AppleEvents;
+			sourceTree = "<group>";
+		};
 		D371244010F051D600D7107B /* Misc Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +358,9 @@
 				D33B19F211168A3300F754AD /* TDScrollView.h in Headers */,
 				D3D80241111E2E890025650C /* NSURLRequest+TDAdditions.h in Headers */,
 				D3D804FD111F484D0025650C /* TDDraggableBar.h in Headers */,
+				D366C1B71128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */,
+				D366C1B81128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h in Headers */,
+				D366C1EF112902E500547FD6 /* NSURL+NDCarbonUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +464,9 @@
 				D33B19F611168A3A00F754AD /* TDScrollView.m in Sources */,
 				D3D8023E111E2D810025650C /* NSURLRequest+TDAdditions.m in Sources */,
 				D3D804FF111F485D0025650C /* TDDraggableBar.m in Sources */,
+				D366C1BA1128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m in Sources */,
+				D366C1EC112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
+				D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

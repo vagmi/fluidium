@@ -44,7 +44,6 @@
 - (id)handleSetElementValueCommand:(NSScriptCommand *)cmd;
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd;
 
-
 - (id)handleAssertCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertTitleEqualsCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd;

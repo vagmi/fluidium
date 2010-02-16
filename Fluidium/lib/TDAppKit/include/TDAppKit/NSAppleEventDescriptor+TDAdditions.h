@@ -12,22 +12,17 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUSelectPreviousTabCommand.h"
-#import "FUDocumentController.h"
-#import "FUWindowController+Scripting.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUSelectPreviousTabCommand
+@interface NSAppleEventDescriptor (TDAdditions)
++ (NSAppleEventDescriptor *)descriptorForOwnProcess;
 
-- (id)performDefaultImplementation {
-    NSDictionary *args = [self evaluatedArguments];
-    
-    id target = [[args objectForKey:@"document"] windowController]; // may be nil
-    if (!target) {
-        target = [[FUDocumentController instance] frontWindowController];
-    }
-    [NSApp sendAction:@selector(script_selectPreviousTab:) to:target from:nil];
-    
-    return nil;
-}
++ (NSAppleEventDescriptor *)appleEventWithFluidiumEventID:(FourCharCode)code;
++ (NSAppleEventDescriptor *)appleEventWithClass:(FourCharCode)suite eventID:(FourCharCode)code;
 
++ (OSErr)sendVerbFirstEventWithFluidiumEventID:(FourCharCode)code;
++ (OSErr)sendVerbFirstEventWithCoreEventID:(FourCharCode)code;
+
+- (OSErr)sendToOwnProcessNoReply;
+- (OSErr)sendToOwnProcessWaitReply:(AppleEvent *)replyEvt;
 @end

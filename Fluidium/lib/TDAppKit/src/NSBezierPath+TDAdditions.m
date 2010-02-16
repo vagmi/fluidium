@@ -29,28 +29,28 @@
     radius = MIN(radius, 0.5f * MIN(NSWidth(r), NSHeight(r)));
     NSRect rect = NSInsetRect(r, radius, radius);
     
-    if (corners & TDCornerBottomLeft) {
+    if (corners & TDCornerTopLeft) {
         [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(rect), NSMinY(rect)) radius:radius startAngle:180.0 endAngle:270.0];
     } else {
         NSPoint cornerPoint = NSMakePoint(NSMinX(r), NSMinY(r));
         [path appendBezierPathWithPoints:&cornerPoint count:1];
     }
     
-    if (corners & TDCornerBottomRight) {
+    if (corners & TDCornerTopRight) {
         [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(rect), NSMinY(rect)) radius:radius startAngle:270.0 endAngle:360.0];
     } else {
         NSPoint cornerPoint = NSMakePoint(NSMaxX(r), NSMinY(r));
         [path appendBezierPathWithPoints:&cornerPoint count:1];
     }
     
-    if (corners & TDCornerTopRight) {
+    if (corners & TDCornerBottomRight) {
         [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(rect), NSMaxY(rect)) radius:radius startAngle:0.0 endAngle:90.0];
     } else {
         NSPoint cornerPoint = NSMakePoint(NSMaxX(r), NSMaxY(r));
         [path appendBezierPathWithPoints:&cornerPoint count:1];
     }
     
-    if (corners & TDCornerTopLeft) {
+    if (corners & TDCornerBottomLeft) {
         [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(rect), NSMaxY(rect)) radius:radius startAngle:90.0 endAngle:180.0];
     } else {
         NSPoint cornerPoint = NSMakePoint(NSMinX(r), NSMaxY(r));

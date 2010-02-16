@@ -136,7 +136,7 @@
         </command>
 
         <command name="make" code="corecrel" description="Create a new object.">
-            <cocoa class="NSCreateCommand"/>
+            <cocoa class="FUCreateCommand"/>
             <parameter name="new" code="kocl" type="type" description="The class of the new object.">
                 <cocoa key="ObjectClass"/>
             </parameter>
@@ -261,6 +261,9 @@
 
 <suite name="Fluidium Suite" code="FuSS" description="Fluidium specific classes.">
     
+    <!-- 
+    ************ FLUIDIUM COMMANDS *****************
+    -->
     <command name="load URL" code="FuSSLoad" description="Load a URL.">
         <cocoa class="FULoadURLCommand"/>
         <direct-parameter type="text" description="The URL to load."/>
@@ -429,38 +432,6 @@
         </parameter>
     </command>
 
-    <command name="new browser window" code="FuSSnDoc" description="Open a new browser window.">
-        <cocoa class="FUNewDocumentCommand"/>
-    </command>
-
-    <command name="new tab" code="FuSSnTab" description="Open a new tab.">
-        <cocoa class="FUNewTabCommand"/>
-        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to open a new tab. If not specified, frontmost window is used.">
-            <cocoa key="document"/>
-        </parameter>
-    </command>
-
-    <command name="new background tab" code="FuSSbTab" description="Open a new background tab.">
-        <cocoa class="FUNewBackgroundTabCommand"/>
-        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to open a new background tab. If not specified, frontmost window is used.">
-            <cocoa key="document"/>
-        </parameter>
-    </command>
-
-    <command name="select previous tab" code="FuSSPReV" description="Select the previous tab.">
-        <cocoa class="FUSelectPreviousTabCommand"/>
-        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to select the previous tab. If not specified, frontmost window is used.">
-            <cocoa key="document"/>
-        </parameter>
-    </command>
-
-    <command name="select next tab" code="FuSSNeXT" description="Select the next tab.">
-        <cocoa class="FUSelectNextTabCommand"/>
-        <parameter type="specifier" name="in" code="pDoc" optional="yes" description="A browser window in which to select the next tab. If not specified, frontmost window is used.">
-            <cocoa key="document"/>
-        </parameter>
-    </command>
-
     <command name="go back" code="FuSSBack" description="Go back.">
         <cocoa class="FUGoBackCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A tab in which to go back. If not specified, the selected tab in the frontmost window is used."/>
@@ -496,22 +467,39 @@
         <direct-parameter type="specifier" optional="yes" description="A tab to zoom out. If not specified, the selected tab in the frontmost window is zoomed."/>
     </command>
 
-    <command name="make actual size" code="FuSSActS" description="Zoom contents of the page to actual size.">
+    <command name="show actual size" code="FuSSActS" description="Zoom contents of the page to actual size.">
         <cocoa class="FUActualSizeCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A tab to zoom. If not specified, the selected tab in the frontmost window is zoomed."/>
     </command>
 
+
+
+    <!-- 
+    ************ BROWSER WINDOW *****************
+    -->
     <class name="browser window" plural="browser windows" inherits="document" code="fDoc" description="A browser window.">
         <cocoa class="FUDocument"/>
 
-        <property name="title" code="pnam" type="text" access="r" description="The current title of this window (same as the title of the selected tab).">
+        <property name="title" code="pnam" type="text" access="r" description="The current title of the web page currently loaded in this window (same as the title of the selected tab in this window).">
             <cocoa key="displayName"/>
         </property>
 
-        <property name="selected tab index" code="dSTI" type="integer" access="rw" description="The index of the selected tab in this window.">
-            <cocoa key="selectedTabIndex"/>
+        <property name="URL" code="tURL" type="text" access="r" description="The URL of the web page currently loaded in this tab (same as the URL of the selected tab in this window).">
+            <cocoa key="selectedTabURLString"/>
         </property>
         
+        <property name="loading" code="tLdg" type="boolean" access="r" description="True if this window's web page is currently loading. Otherwise false. (same as the loading property of the selected tab in this window).">
+            <cocoa key="isSelectedTabProcessing"/>
+        </property>
+
+        <property name="source" code="conT" type="text" access="r" description="The HTML source of the web page currently loaded in this window (same as the source of the selected tab in this window).">
+            <cocoa key="selectedTabDocumentSource"/>
+        </property>
+
+        <!-- <property name="selected tab index" code="dSTI" type="integer" access="rw" description="The index of the selected tab in this window.">
+            <cocoa key="selectedTabIndex"/>
+        </property>
+         -->
         <property name="selected tab" code="dSTb" type="tab" access="rw" description="The selected tab in this window.">
             <cocoa key="selectedTabController"/>
         </property>
@@ -520,23 +508,14 @@
             <cocoa key="orderedTabControllers"/>
         </element>
 
+        <responds-to command="make">
+            <cocoa method="handleCreateCommand:"/>
+        </responds-to>
         <responds-to command="load URL">
             <cocoa method="handleLoadURLCommand:"/>
         </responds-to>
         <responds-to command="do JavaScript">
             <cocoa method="handleDoJavaScriptCommand:"/>
-        </responds-to>
-        <responds-to command="new tab">
-            <cocoa method="handleNewTabCommand:"/>
-        </responds-to>
-        <responds-to command="new background tab">
-            <cocoa method="handleNewBackgroundTabCommand:"/>
-        </responds-to>
-        <responds-to command="select previous tab">
-            <cocoa method="handleSelectPreviousTabCommand:"/>
-        </responds-to>
-        <responds-to command="select next tab">
-            <cocoa method="handleSelectNextTabCommand:"/>
         </responds-to>
         <responds-to command="go back">
             <cocoa method="handleGoBackCommand:"/>
@@ -559,13 +538,16 @@
         <responds-to command="zoom out">
             <cocoa method="handleZoomOutCommand:"/>
         </responds-to>
-        <responds-to command="make actual size">
+        <responds-to command="show actual size">
             <cocoa method="handleActualSizeCommand:"/>
         </responds-to>
     </class>
 
 
 
+    <!-- 
+    ************ TAB *****************
+    -->
     <class name="tab" plural="tabs" code="fTab" description="A browser tab.">
         <cocoa class="FUTabController"/>
         
@@ -642,7 +624,7 @@
         <responds-to command="zoom out">
             <cocoa method="handleZoomOutCommand:"/>
         </responds-to>
-        <responds-to command="make actual size">
+        <responds-to command="show actual size">
             <cocoa method="handleActualSizeCommand:"/>
         </responds-to>
     </class>

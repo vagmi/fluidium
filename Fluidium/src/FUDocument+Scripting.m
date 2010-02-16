@@ -17,13 +17,19 @@
 #import "FUTabController+Scripting.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
-#import "NSAppleEventDescriptor+FUAdditions.h"
+#import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
 
 #define DEFAULT_DELAY 1.0
 
 @interface FUWindowController ()
 - (void)closeWindow;
-- (void)script_setSelectedTabIndex:(NSInteger)i;
+//- (void)script_setSelectedTabIndex:(NSInteger)i;
+
+@property (nonatomic, retain, readwrite) FUTabController *selectedTabController;
+@end
+
+@interface FUTabController ()
+@property (nonatomic, assign, readwrite) FUWindowController *windowController; // weak ref
 @end
 
 @implementation FUDocument (Scripting)
@@ -61,21 +67,37 @@
 }
 
 
-- (NSUInteger)selectedTabIndex {
-    return [windowController selectedTabIndex] + 1;
+- (NSString *)selectedTabURLString {
+    return [[self selectedTabController] URLString];
 }
 
 
-- (void)setSelectedTabIndex:(NSUInteger)i {
-    i = i - 1; // account for 1-based AppleScript indexing
-    
-    // delay the command a bit 
-    FUTabController *tc = [windowController tabControllerAtIndex:i];
-    [tc suspendCommand:[NSScriptCommand currentCommand]];
-    [tc resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
-    
-    [windowController script_setSelectedTabIndex:i];
+
+- (NSString *)selectedDocumentSource {
+    return [[self selectedTabController] documentSource];
 }
+
+
+- (BOOL)isSelectedTabProcessing {
+    return [[self selectedTabController] isProcessing];
+}
+
+
+//- (NSUInteger)selectedTabIndex {
+//    return [windowController selectedTabIndex] + 1;
+//}
+//
+//
+//- (void)setSelectedTabIndex:(NSUInteger)i {
+//    i = i - 1; // account for 1-based AppleScript indexing
+//    
+//    // delay the command a bit 
+//    FUTabController *tc = [windowController tabControllerAtIndex:i];
+//    [tc suspendCommand:[NSScriptCommand currentCommand]];
+//    [tc resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+//    
+//    [windowController script_setSelectedTabIndex:i];
+//}
 
 
 - (FUTabController *)selectedTabController {
@@ -84,34 +106,32 @@
 
 
 - (void)setSelectedTabController:(FUTabController *)tc {
-    [windowController selectTabController:tc];
+    [windowController script_selectTabController:tc];
 }
 
 
 #pragma mark -
 #pragma mark Commands
 
-- (id)handleCloseCommand:(NSCloseCommand *)cmd {
-    [windowController script_closeWindow:nil];
-    return nil;
-}
+- (id)handleCreateCommand:(NSCreateCommand *)cmd {
+    NSDictionary *props = [[cmd evaluatedArguments] objectForKey:@"KeyDictionary"];
+    
+    BOOL isSelected = YES;
+    if (props) {
+        isSelected = [[props objectForKey:@"isSelected"] boolValue];
+    }
+    
+    FUTabController *tc = nil;
 
-
-- (id)handleNewTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_newTab:nil];
-    return nil;
-}
-
-
-- (id)handleNewBackgroundTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_newBackgroundTab:nil];
-    return nil;
-}
-
-
-- (id)handleCloseTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_closeTab:nil];
-    return nil;
+    if (isSelected) {
+        [windowController script_newTab:nil];
+        tc = [windowController selectedTabController];
+    } else {
+        [windowController script_newBackgroundTab:nil];
+        tc = [windowController lastTabController];
+    }
+    
+    return [tc objectSpecifier];
 }
 
 
@@ -137,24 +157,6 @@
 - (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
     return [[windowController selectedTabController] handleDoJavaScriptCommand:cmd];
 }
-
-
-- (id)handleSelectPreviousTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_selectPreviousTab:nil];
-    return nil;
-}
-
-
-- (id)handleSelectNextTabCommand:(NSScriptCommand *)cmd {
-    [windowController script_selectNextTab:nil];
-    return nil;
-}
-
-
-//- (id)handleGoToLocationCommand:(NSScriptCommand *)cmd {
-//    [windowController script_goToLocation:nil];
-//    return nil;
-//}
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {

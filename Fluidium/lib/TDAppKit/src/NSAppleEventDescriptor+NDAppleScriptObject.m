@@ -6,7 +6,7 @@
  *  Copyright (c) 2001 Nathan Day. All rights reserved.
  */
 
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import <TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h>
 #import "NSURL+NDCarbonUtilities.h"
 
 #if __LP64__
