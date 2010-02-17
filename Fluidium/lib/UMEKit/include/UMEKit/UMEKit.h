@@ -11,6 +11,8 @@
 #import <UMEKit/UMEInterface.h>
 #import <UMEKit/UMEViewController.h>
 
+#import <UMEKit/UMEToolBar.h>
+
 #import <UMEKit/UMENavigationController.h>
 #import <UMEKit/UMENavigationBar.h>
 #import <UMEKit/UMENavigationItem.h>

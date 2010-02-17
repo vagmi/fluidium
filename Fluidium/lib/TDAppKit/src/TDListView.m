@@ -334,29 +334,13 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
     TDListItem *item = [self itemAtIndex:i];
-    NSRect r = [item bounds];
-    NSBitmapImageRep *bitmap = [item bitmapImageRepForCachingDisplayInRect:r];
-    [item cacheDisplayInRect:r toBitmapImageRep:bitmap];
     
-    NSSize imgSize = [bitmap size];
-    NSImage *img = [[[NSImage alloc] initWithSize:imgSize] autorelease];
-    [img addRepresentation:bitmap];
-    
-    NSImage *result = [[[NSImage alloc] initWithSize:imgSize] autorelease];
-    [result lockFocus];
-    NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
-    NSImageInterpolation savedInterpolation = [currentContext imageInterpolation];
-    [currentContext setImageInterpolation:NSImageInterpolationHigh];
-    [img drawInRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) fromRect:NSMakeRect(0, 0, imgSize.width, imgSize.height) operation:NSCompositeSourceOver fraction:.5];
-    [currentContext setImageInterpolation:savedInterpolation];
-    [result unlockFocus];
-
     if (dragImageOffset) {
         NSPoint p = [item convertPoint:[evt locationInWindow] fromView:nil];
         *dragImageOffset = NSMakePoint(p.x, p.y - NSHeight([item frame]));
     }
-    
-    return result;
+
+    return [item draggingImage];
 }
 
 

@@ -22,5 +22,7 @@
 
 - (void)prepareForReuse;
 
+- (NSImage *)draggingImage;
+
 @property (nonatomic, copy) NSString *reuseIdentifier;
 @end

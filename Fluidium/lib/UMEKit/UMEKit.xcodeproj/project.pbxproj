@@ -59,6 +59,8 @@
 		D39BF5B610883FA100E399F3 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D39BF5B510883FA100E399F3 /* SecondView.xib */; };
 		D39BF5CC1088406400E399F3 /* ThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D39BF5CB1088406400E399F3 /* ThirdView.xib */; };
 		D3A452641086DC0B003E7C9D /* tabbar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A452631086DC0B003E7C9D /* tabbar_bg.png */; };
+		D3AB4B3A112B97B70091CE4B /* UMEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AB4B38112B97B70091CE4B /* UMEToolbar.m */; };
+		D3AB4B42112B97CF0091CE4B /* UMEToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AB4B41112B97CF0091CE4B /* UMEToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C3AF7E10852D4200ED4547 /* back_button_bg_hi_01.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C3AF7510852D4200ED4547 /* back_button_bg_hi_01.png */; };
 		D3C3AF7F10852D4200ED4547 /* back_button_bg_hi_02.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C3AF7610852D4200ED4547 /* back_button_bg_hi_02.png */; };
 		D3C3AF8010852D4200ED4547 /* back_button_bg_hi_03.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C3AF7710852D4200ED4547 /* back_button_bg_hi_03.png */; };
@@ -214,6 +216,8 @@
 		D39BF5B510883FA100E399F3 /* SecondView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SecondView.xib; path = demoapp/SecondView.xib; sourceTree = "<group>"; };
 		D39BF5CB1088406400E399F3 /* ThirdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ThirdView.xib; path = demoapp/ThirdView.xib; sourceTree = "<group>"; };
 		D3A452631086DC0B003E7C9D /* tabbar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabbar_bg.png; path = res/img/tabbar_bg.png; sourceTree = "<group>"; };
+		D3AB4B38112B97B70091CE4B /* UMEToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMEToolbar.m; path = src/UMEToolbar.m; sourceTree = "<group>"; };
+		D3AB4B41112B97CF0091CE4B /* UMEToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UMEToolbar.h; path = include/UMEKit/UMEToolbar.h; sourceTree = "<group>"; };
 		D3C3AF7510852D4200ED4547 /* back_button_bg_hi_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_bg_hi_01.png; path = res/img/back_button_bg_hi_01.png; sourceTree = "<group>"; };
 		D3C3AF7610852D4200ED4547 /* back_button_bg_hi_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_bg_hi_02.png; path = res/img/back_button_bg_hi_02.png; sourceTree = "<group>"; };
 		D3C3AF7710852D4200ED4547 /* back_button_bg_hi_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_bg_hi_03.png; path = res/img/back_button_bg_hi_03.png; sourceTree = "<group>"; };
@@ -367,6 +371,8 @@
 				D3DEC1AB10701106006B582A /* UMENavigationItem.m */,
 				D3DEC241107013DF006B582A /* UMENavigationBar.h */,
 				D3DEC237107013A7006B582A /* UMENavigationBar.m */,
+				D3AB4B41112B97CF0091CE4B /* UMEToolbar.h */,
+				D3AB4B38112B97B70091CE4B /* UMEToolbar.m */,
 				D3DEC1BC1070114D006B582A /* UMETabBarController.h */,
 				D3DEC1B310701123006B582A /* UMETabBarController.m */,
 				D3DEC1BB1070114D006B582A /* UMETabBar.h */,
@@ -595,6 +601,7 @@
 				D3E571CD1091255500810BCD /* UMEBarButtonItemButtonCell.h in Headers */,
 				D3E571FD109125E500810BCD /* UMEActivityBarButtonItemButtonCell.h in Headers */,
 				D306BB6B10916A3A0011DE1B /* UMETabBarItemButtonCell.h in Headers */,
+				D3AB4B42112B97CF0091CE4B /* UMEToolbar.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -780,6 +787,7 @@
 				D3E571CC1091255500810BCD /* UMEBarButtonItemButtonCell.m in Sources */,
 				D3E571FC109125E500810BCD /* UMEActivityBarButtonItemButtonCell.m in Sources */,
 				D306BB6A10916A3A0011DE1B /* UMETabBarItemButtonCell.m in Sources */,
+				D3AB4B3A112B97B70091CE4B /* UMEToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -64,7 +64,7 @@
 - (TDListItem *)listView:(TDListView *)lv itemAtIndex:(NSInteger)i {
     static NSString *sIdentifier = @"foo";
     
-    DemoListItemView *itemView = [listView dequeueReusableItemWithIdentifier:sIdentifier];
+    DemoListItemView *itemView = (DemoListItemView *)[listView dequeueReusableItemWithIdentifier:sIdentifier];
     
     if (!itemView) {
         itemView = [[[DemoListItemView alloc] initWithFrame:NSZeroRect reuseIdentifier:sIdentifier] autorelease];
@@ -127,7 +127,7 @@
  You need to implement this method for your list view to be a drag source.
  */
 - (BOOL)listView:(TDListView *)lv writeItemAtIndex:(NSUInteger)i toPasteboard:(NSPasteboard *)pboard {
-    DemoListItemView *itemView = [listView itemAtIndex:i];
+    DemoListItemView *itemView = (DemoListItemView *)[listView itemAtIndex:i];
     if (itemView) {
         [pboard declareTypes:[NSArray arrayWithObjects:NSColorPboardType, nil] owner:self];
         [itemView.color writeToPasteboard:pboard];

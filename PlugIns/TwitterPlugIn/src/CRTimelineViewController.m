@@ -630,7 +630,7 @@
 - (id)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
     NSUInteger c = [tweets count];
     if (i == c) {
-        CRMoreListItem *item = [listView dequeueReusableItemWithIdentifier:[CRMoreListItem reuseIdentifier]];
+        CRMoreListItem *item = (CRMoreListItem *)[listView dequeueReusableItemWithIdentifier:[CRMoreListItem reuseIdentifier]];
         
         if (!item) {
             item = [[[CRMoreListItem alloc] init] autorelease];
