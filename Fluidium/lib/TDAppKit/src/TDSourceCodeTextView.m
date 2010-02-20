@@ -49,12 +49,14 @@
 
 
 - (void)renderGutter {
-    if (![[self window] isVisible]) return;
+    //if (![[self window] isVisible]) return;
     NSArray *rects = nil;
     NSUInteger start = 0;
     [self getRectsOfVisibleLines:&rects startingLineNumber:&start];
-    gutterView.lineNumberRects = rects;
-    gutterView.startLineNumber = start;
+    if ([rects count]) {
+        gutterView.lineNumberRects = rects;
+        gutterView.startLineNumber = start;
+    }
     [gutterView setNeedsDisplay:YES];        
 }
 
@@ -81,33 +83,34 @@
 
 - (void)getRectsOfVisibleLines:(NSArray **)outRects startingLineNumber:(NSUInteger *)outStart {
     NSMutableArray *result = [NSMutableArray array];
-    NSString *s = self.string;
+    NSString *s = [self string];
     
-    NSLayoutManager *layoutMgr = self.textContainer.layoutManager;
-    NSRect boundingRect = [scrollView.contentView documentVisibleRect];
+    NSLayoutManager *layoutMgr = [[self textContainer] layoutManager];
+    NSRect boundingRect = [[scrollView contentView] documentVisibleRect];
     CGFloat scrollY = boundingRect.origin.y;
-    NSRange visibleGlyphRange = [layoutMgr glyphRangeForBoundingRect:boundingRect inTextContainer:self.textContainer];
+    NSRange visibleGlyphRange = [layoutMgr glyphRangeForBoundingRect:boundingRect inTextContainer:[self textContainer]];
         
     NSUInteger index = visibleGlyphRange.location;
     NSUInteger length = index + visibleGlyphRange.length;
 
-    (*outStart) = [self lineNumberForIndex:index + 1];
+    *outStart = [self lineNumberForIndex:index + 1];
     
+    NSRect rect = NSZeroRect;
     while (index < length) {
         NSRange r = [s lineRangeForRange:NSMakeRange(index, 0)];
         index = NSMaxRange(r);
-        NSRect rect = [layoutMgr lineFragmentRectForGlyphAtIndex:r.location effectiveRange:NULL withoutAdditionalLayout:YES];
+        rect = [layoutMgr lineFragmentRectForGlyphAtIndex:r.location effectiveRange:NULL withoutAdditionalLayout:YES];
         rect.origin.y -= scrollY;
         [result addObject:[NSValue valueWithRect:rect]];
     }
-    
-    (*outRects) = result;
+        
+    *outRects = result;
 }
 
 
 - (NSUInteger)lineNumberForIndex:(NSUInteger)inIndex {
-    NSString *s = self.string;
-    NSUInteger numberOfLines, index, stringLength = s.length;
+    NSString *s = [self string];
+    NSUInteger numberOfLines, index, stringLength = [s length];
     
     for (index = 0, numberOfLines = 0; index < stringLength; numberOfLines++) {
         NSRange r = [s lineRangeForRange:NSMakeRange(index, 0)];

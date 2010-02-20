@@ -22,11 +22,12 @@
 
 - (void)awakeFromNib {
     self.attrs = [NSDictionary dictionaryWithObjectsAndKeys:
-                  [NSFont userFixedPitchFontOfSize:11.], NSFontAttributeName,
+                  [NSFont userFixedPitchFontOfSize:11], NSFontAttributeName,
                   [NSColor grayColor], NSForegroundColorAttributeName,
                   nil];
     
     self.borderColor = [NSColor grayColor];
+    self.lineNumberRects = [NSArray arrayWithObject:[NSValue valueWithRect:NSMakeRect(0, 0, 100, 14)]];
 }
 
 
@@ -61,12 +62,12 @@
     [borderColor set];
     [NSBezierPath strokeLineFromPoint:p1 toPoint:p2];
     
-    if (!lineNumberRects.count) {
+    if (![lineNumberRects count]) {
         return;
     }
     
     NSUInteger i = startLineNumber;
-    NSUInteger count = i + lineNumberRects.count;
+    NSUInteger count = i + [lineNumberRects count];
     
     for ( ; i < count; i++) {
         NSRect r = [[lineNumberRects objectAtIndex:i - startLineNumber] rectValue];
