@@ -30,7 +30,9 @@
 @end
 
 @interface FUTabController (ScriptingPrivate)
-- (void)resumeSuspendedCommandAfterTabControllerProgressDidFinish:(NSNotification *)n;
+- (void)resumeSuspendedCommandAfterTabControllerDidFailLoad:(NSNotification *)n;
+- (void)resumeSuspendedCommandAfterTabControllerDidFinishLoad:(NSNotification *)n;
+- (void)stopObservingLoad;
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
@@ -100,22 +102,40 @@
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
-    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-    [self webGoBack:nil];
+    if ([[self webView] canGoBack]) {
+        [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+        [self webGoBack:nil];
+    } else {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:@"The selected tab cannot currently go back."];
+    }
+
     return nil;
 }
 
 
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
-    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-    [self webGoForward:nil];
+    if ([[self webView] canGoForward]) {
+        [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+        [self webGoForward:nil];
+    } else {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:@"The selected tab cannot currently go forward."];
+    }
+    
     return nil;
 }
 
 
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
-    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-    [self webReload:nil];
+    if ([[self webView] canReload]) {
+        [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+        [self webReload:nil];
+    } else {
+        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorString:@"The selected tab cannot currently reload."];
+    }
+    
     return nil;
 }
 
@@ -576,19 +596,39 @@
 
 - (void)suspendExecutionUntilProgressFinishedWithCommand:(NSScriptCommand *)cmd {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(resumeSuspendedCommandAfterTabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
+    //    [nc addObserver:self selector:@selector(resumeSuspendedCommandAfterTabControllerProgressDidFinish:) name:FUTabControllerProgressDidFinishNotification object:self];
+
+    [nc addObserver:self selector:@selector(resumeSuspendedCommandAfterTabControllerDidFailLoad:) name:FUTabControllerDidFailLoadNotification object:self];
+    [nc addObserver:self selector:@selector(resumeSuspendedCommandAfterTabControllerDidFinishLoad:) name:FUTabControllerDidFinishLoadNotification object:self];
 
     [self suspendCommand:cmd];
 }
 
 
-- (void)resumeSuspendedCommandAfterTabControllerProgressDidFinish:(NSNotification *)n {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:FUTabControllerProgressDidFinishNotification object:self];
+- (void)resumeSuspendedCommandAfterTabControllerDidFailLoad:(NSNotification *)n {
+    [self stopObservingLoad];
+    
+    NSString *msg = [[n userInfo] objectForKey:FUErrorDescriptionKey];
+
+    [suspendedCommand setScriptErrorNumber:47];    
+    [suspendedCommand setScriptErrorString:[NSString stringWithFormat:@"Failed to load URL. Reason: %@", msg]];
     
     [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
 }
 
+
+- (void)resumeSuspendedCommandAfterTabControllerDidFinishLoad:(NSNotification *)n {
+    [self stopObservingLoad];
+    
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+}
+
+
+- (void)stopObservingLoad {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:FUTabControllerDidFailLoadNotification object:self];
+    [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:self];
+}
 
 - (void)suspendCommand:(NSScriptCommand *)cmd {
     self.suspendedCommand = cmd;

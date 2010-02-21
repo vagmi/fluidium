@@ -138,19 +138,20 @@
 - (id)handleLoadURLCommand:(NSScriptCommand *)cmd {
     // don't call -[FUBaseScriptCommand targetTabController] here as it will route around the shortcut handling mechanism if there's no explicit tabController arg
     FUTabController *tc = [[cmd evaluatedArguments] objectForKey:@"tabController"];
-    if (tc) {
-        return [tc handleLoadURLCommand:cmd];
+    if (!tc) {
+        tc = [windowController selectedTabController];
     }
-    tc = [windowController selectedTabController];
-    [tc suspendExecutionUntilProgressFinishedWithCommand:cmd];
-    
-    // dont send this straight to the tabController. that would circumvent the shortcut handling mechanism
-    // which only works from the locationCombox. should we change that? for now, i say no.
-    NSString *s = [cmd directParameter];
-    [windowController.locationComboBox setStringValue:s];
-    [windowController noscript_goToLocation:nil];
-    //[windowController goToLocation:nil];
-    return nil;
+    return [tc handleLoadURLCommand:cmd];
+//    
+//    [tc suspendExecutionUntilProgressFinishedWithCommand:cmd];
+//    
+//    // dont send this straight to the tabController. that would circumvent the shortcut handling mechanism
+//    // which only works from the locationCombox. should we change that? for now, i say no.
+//    NSString *s = [cmd directParameter];
+//    [windowController.locationComboBox setStringValue:s];
+//    [windowController noscript_goToLocation:nil];
+//    //[windowController goToLocation:nil];
+//    return nil;
 }
 
 
@@ -160,50 +161,74 @@
 
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd {
-    [windowController script_webGoBack:nil];
-    return nil;
+    return [[windowController selectedTabController] handleGoBackCommand:cmd];
+//    if ([[[windowController selectedTabController] webView] canGoBack]) {
+//        [windowController script_webGoBack:nil];
+//    } else {
+//        [self setScriptErrorNumber:47];
+//        [self setScriptErrorString:@"The selected tab cannot currently go back."];
+//    }
+//    return nil;
 }
 
 
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd {
-    [windowController script_webGoForward:nil];
-    return nil;
+    return [[windowController selectedTabController] handleGoForwardCommand:cmd];
+//    if ([[[windowController selectedTabController] webView] canGoForward]) {
+//        [windowController script_webGoForward:nil];
+//    } else {
+//        [self setScriptErrorNumber:47];
+//        [self setScriptErrorString:@"The selected tab cannot currently go forward."];
+//    }
+//    
+//    return nil;
 }
 
 
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
-    [windowController script_webReload:nil];
-    return nil;
+    return [[windowController selectedTabController] handleReloadCommand:cmd];
+//    if ([[[windowController selectedTabController] webView] canReload]) {
+//        [windowController script_webReload:nil];
+//    } else {
+//        [self setScriptErrorNumber:47];
+//        [self setScriptErrorString:@"The selected tab cannot currently reload."];
+//    }
+//    return nil;
 }
 
 
 - (id)handleStopLoadingCommand:(NSScriptCommand *)cmd {
-    [windowController script_webStopLoading:nil];
-    return nil;
+    return [[windowController selectedTabController] handleStopLoadingCommand:cmd];
+//    [windowController script_webStopLoading:nil];
+//    return nil;
 }
 
 
 - (id)handleGoHomeCommand:(NSScriptCommand *)cmd {
-    [windowController script_webGoHome:nil];
-    return nil;
+    return [[windowController selectedTabController] handleGoHomeCommand:cmd];
+//    [windowController script_webGoHome:nil];
+//    return nil;
 }
 
 
 - (id)handleZoomInCommand:(NSScriptCommand *)cmd {
-    [windowController script_zoomIn:nil];
-    return nil;
+    return [[windowController selectedTabController] handleZoomInCommand:cmd];
+//    [windowController script_zoomIn:nil];
+//    return nil;
 }
 
 
 - (id)handleZoomOutCommand:(NSScriptCommand *)cmd {
-    [windowController script_zoomOut:nil];
-    return nil;
+    return [[windowController selectedTabController] handleZoomOutCommand:cmd];
+//    [windowController script_zoomOut:nil];
+//    return nil;
 }
 
 
 - (id)handleActualSizeCommand:(NSScriptCommand *)cmd {
-    [windowController script_actualSize:nil];
-    return nil;
+    return [[windowController selectedTabController] handleActualSizeCommand:cmd];
+//    [windowController script_actualSize:nil];
+//    return nil;
 }
 
 @end

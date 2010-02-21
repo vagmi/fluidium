@@ -25,9 +25,8 @@
     if (!tc) {
         tc = [[FUDocumentController instance] frontTabController];
     }
-    [tc handleGoForwardCommand:self];
     
-    return nil;
+    return [tc handleGoForwardCommand:self];
 }
 
 @end
