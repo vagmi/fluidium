@@ -56,6 +56,8 @@ typedef enum {
 - (NSImage *)defaultFavicon;
 
 - (void)postNotificationName:(NSString *)name;
+- (void)postNotificationName:(NSString *)name userInfo:(NSDictionary *)additionalInfo;
+
 - (BOOL)shouldHandleRequest:(NSURLRequest *)inReq;
 - (BOOL)insertItem:(NSMenuItem *)item intoMenuItems:(NSMutableArray *)items afterItemWithTag:(NSInteger)tag;
 - (NSInteger)indexOfItemWithTag:(NSUInteger)tag inMenuItems:(NSArray *)items;
@@ -884,7 +886,11 @@ typedef enum {
 
 
 - (void)handleLoadFail:(NSError *)err {
-    [self postNotificationName:FUTabControllerDidFailLoadNotification];
+    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
+                          err, FUErrorKey,
+                          [err localizedDescription], FUErrorDescriptionKey,
+                          nil];
+    [self postNotificationName:FUTabControllerDidFailLoadNotification userInfo:info];
 
     NSInteger code = [err code];
     
@@ -916,11 +922,17 @@ typedef enum {
     return [[WebIconDatabase sharedIconDatabase] defaultFavicon];
 }
 
-                 
+
 - (void)postNotificationName:(NSString *)name {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInteger:[windowController indexOfTabController:self]], FUIndexKey,
-                              nil];
+    [self postNotificationName:name userInfo:nil];
+}
+
+
+- (void)postNotificationName:(NSString *)name userInfo:(NSDictionary *)additionalInfo {
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInteger:[windowController indexOfTabController:self]], FUIndexKey,
+                                     nil];
+    [userInfo addEntriesFromDictionary:additionalInfo];
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:self userInfo:userInfo];
 }
 

@@ -164,7 +164,7 @@
     [self beginFetchLoop];
     [self startDatesLoop];
 
-    [listView setSelectedItemIndex:-1];
+    [listView setSelectedItemIndex:NSNotFound];
 }
 
 
@@ -351,7 +351,7 @@
 - (void)clearList {
     if ([tweets count]) {
         self.tweets = [NSMutableArray array];
-        [listView setSelectedItemIndex:-1];
+        [listView setSelectedItemIndex:NSNotFound];
         [listView reloadData];
     }
 }
@@ -589,7 +589,7 @@
         [newTweets sortUsingDescriptors:tweetSortDescriptors];
     }
 
-    [listView setSelectedItemIndex:-1];
+    [listView setSelectedItemIndex:NSNotFound];
     [self updateDisplayedDates];
     [self showRefreshBarButtonItem];
 }

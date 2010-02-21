@@ -405,7 +405,7 @@
     
 
 - (void)updateAllTabModelsFromIndex:(NSInteger)startIndex {
-    NSParameterAssert(startIndex > -1);
+    NSParameterAssert(startIndex >= 0);
 
     NSArray *wvs = [self webViews];
     NSUInteger webViewsCount = [wvs count];

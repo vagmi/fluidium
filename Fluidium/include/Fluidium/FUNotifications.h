@@ -61,6 +61,8 @@ extern NSString *const FUWindowControllerDidChangeTabOrderNotification;
 extern NSString *const FUTabControllerKey;
 extern NSString *const FUIndexKey;
 extern NSString *const FUPriorIndexKey;
+extern NSString *const FUErrorKey;
+extern NSString *const FUErrorDescriptionKey;
 
 @interface NSObject (FUWindowControllerNotifications)
 - (void)windowControllerDidOpen:(NSNotification *)n;

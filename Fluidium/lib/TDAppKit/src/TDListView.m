@@ -75,7 +75,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     self.items = [NSMutableArray array];
     self.unusedItems = [NSMutableArray array];
 
-    self.selectedItemIndex = -1;
+    self.selectedItemIndex = NSNotFound;
     self.backgroundColor = [NSColor whiteColor];
     self.itemExtent = DEFAULT_ITEM_EXTENT;
     
@@ -83,7 +83,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     self.displaysClippedItems = YES;
     
-    draggingIndex = -1;
+    draggingIndex = NSNotFound;
     [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
     [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
 }
@@ -139,7 +139,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         n += extent;
     }
     
-    return -1;
+    return NSNotFound;
 }
 
 
@@ -157,9 +157,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (void)setSelectedItemIndex:(NSInteger)i {
     if (i != selectedItemIndex) {
-        if (-1 != i) { // dont consult delegate if we are deselecting
+        if (NSNotFound != i) { // dont consult delegate if we are deselecting
             if (delegate && [delegate respondsToSelector:@selector(listView:willSelectItemAtIndex:)]) {
-                if (-1 == [delegate listView:self willSelectItemAtIndex:i]) {
+                if (NSNotFound == [delegate listView:self willSelectItemAtIndex:i]) {
                     return;
                 }
             }
@@ -168,7 +168,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         selectedItemIndex = i;
         [self reloadData];
         
-        if (selectedItemIndex > -1 && delegate && [delegate respondsToSelector:@selector(listView:didSelectItemAtIndex:)]) {
+        if (selectedItemIndex != NSNotFound && delegate && [delegate respondsToSelector:@selector(listView:didSelectItemAtIndex:)]) {
             [delegate listView:self didSelectItemAtIndex:i];
         }
     }
@@ -219,7 +219,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
     // handle double click
     if ([evt clickCount] > 1) {
-        if (-1 == i) {
+        if (NSNotFound == i) {
             if (delegate && [delegate respondsToSelector:@selector(listViewEmptyAreaWasDoubleClicked:)]) {
                 [delegate listViewEmptyAreaWasDoubleClicked:self];
             }
@@ -233,7 +233,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     self.lastMouseDownEvent = evt;
     
-    if (-1 != i) {
+    if (NSNotFound != i) {
         self.selectedItemIndex = i;
     }
     
@@ -295,7 +295,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     }
     if (!canDrag) return;
     
-    self.selectedItemIndex = -1;
+    self.selectedItemIndex = NSNotFound;
     
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
     
@@ -402,7 +402,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     }
     
     NSDragOperation dragOp = NSDragOperationNone;
-    BOOL isDraggingListItem = (draggingIndex > -1 || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
+    BOOL isDraggingListItem = (draggingIndex != NSNotFound || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
     
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
@@ -583,7 +583,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)layoutItemsWhileDragging {
-    //if (-1 == draggingIndex) return;
+    //if (NSNotFound == draggingIndex) return;
     
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
@@ -642,7 +642,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         }
         i++;
     }
-    return -1;
+    return NSNotFound;
 }
 
 
@@ -662,7 +662,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)draggingSourceDragDidEnd {
-    draggingIndex = -1;
+    draggingIndex = NSNotFound;
     self.lastMouseDownEvent = nil;
 }
 

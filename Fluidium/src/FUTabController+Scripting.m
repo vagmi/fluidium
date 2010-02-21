@@ -305,6 +305,11 @@
     if (name) {
         if (formEl) {
             foundEl = (DOMElement *)[[formEl elements] namedItem:name];
+        } else {
+            NSArray *els = [self elementsForXPath:[NSString stringWithFormat:@"(//*[@name='%@'])[1]", name]];
+            if ([els count]) {
+                foundEl = [els objectAtIndex:0];
+            }
         }
     } else if (identifier) {
         NSArray *els = nil;

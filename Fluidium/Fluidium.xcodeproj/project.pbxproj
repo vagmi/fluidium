@@ -234,6 +234,9 @@
 		D3E4346D10CB8D4C00A5BDEF /* FUBookmarkBarOverflowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4346410CB8D4C00A5BDEF /* FUBookmarkBarOverflowButton.m */; };
 		D3E4346E10CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4346610CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m */; };
 		D3E4346F10CB8D4C00A5BDEF /* FUBookmarkWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */; };
+		D3E616771130DD41006729E9 /* FUSetElementValueCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E616761130DD41006729E9 /* FUSetElementValueCommand.m */; };
+		D3E616BA1130DEF2006729E9 /* FUClickLinkCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E616B91130DEF2006729E9 /* FUClickLinkCommand.m */; };
+		D3E616BD1130DEFB006729E9 /* FUClickButtonCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E616BC1130DEFB006729E9 /* FUClickButtonCommand.m */; };
 		D3F4C3D410C8C7A300E0B474 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F4C3D310C8C7A300E0B474 /* WebKit.framework */; };
 		D3F4C53610C8CF4600E0B474 /* FUWindowToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C53510C8CF4600E0B474 /* FUWindowToolbar.m */; };
 		D3F4C55410C8D1D300E0B474 /* FUApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C55310C8D1D300E0B474 /* FUApplication.m */; };
@@ -768,6 +771,12 @@
 		D3E4346610CB8D4C00A5BDEF /* FUBookmarkButtonSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkButtonSeparator.m; path = src/FUBookmarkButtonSeparator.m; sourceTree = "<group>"; };
 		D3E4346710CB8D4C00A5BDEF /* FUBookmarkWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkWindowController.h; path = src/FUBookmarkWindowController.h; sourceTree = "<group>"; };
 		D3E4346810CB8D4C00A5BDEF /* FUBookmarkWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkWindowController.m; path = src/FUBookmarkWindowController.m; sourceTree = "<group>"; };
+		D3E616751130DD41006729E9 /* FUSetElementValueCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSetElementValueCommand.h; path = src/FUSetElementValueCommand.h; sourceTree = "<group>"; };
+		D3E616761130DD41006729E9 /* FUSetElementValueCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSetElementValueCommand.m; path = src/FUSetElementValueCommand.m; sourceTree = "<group>"; };
+		D3E616B81130DEF2006729E9 /* FUClickLinkCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUClickLinkCommand.h; path = src/FUClickLinkCommand.h; sourceTree = "<group>"; };
+		D3E616B91130DEF2006729E9 /* FUClickLinkCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUClickLinkCommand.m; path = src/FUClickLinkCommand.m; sourceTree = "<group>"; };
+		D3E616BB1130DEFB006729E9 /* FUClickButtonCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUClickButtonCommand.h; path = src/FUClickButtonCommand.h; sourceTree = "<group>"; };
+		D3E616BC1130DEFB006729E9 /* FUClickButtonCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUClickButtonCommand.m; path = src/FUClickButtonCommand.m; sourceTree = "<group>"; };
 		D3EB1C811100130800633715 /* NSToolbar-OAExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSToolbar-OAExtensions.h"; sourceTree = "<group>"; };
 		D3EB1C821100130800633715 /* NSToolbar-OAExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSToolbar-OAExtensions.m"; sourceTree = "<group>"; };
 		D3EB1CA71100146000633715 /* OBDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBDefines.h; sourceTree = "<group>"; };
@@ -1126,7 +1135,7 @@
 			children = (
 				D346E48F10CE434A00BA0B15 /* ParseKit.framework */,
 				D346E49110CE434A00BA0B15 /* JSParseKit.framework */,
-				D346E49310CE434A00BA0B15 /* parsekit.a */,
+				D346E49310CE434A00BA0B15 /* libparsekit.a */,
 				D346E49510CE434A00BA0B15 /* Tests.octest */,
 				D346E49710CE434A00BA0B15 /* DemoApp.app */,
 				D346E49910CE434A00BA0B15 /* DebugApp.app */,
@@ -1327,6 +1336,12 @@
 				D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */,
 				D3ADF9D011045FDB0064C070 /* FULoadURLCommand.h */,
 				D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */,
+				D3E616B81130DEF2006729E9 /* FUClickLinkCommand.h */,
+				D3E616B91130DEF2006729E9 /* FUClickLinkCommand.m */,
+				D3E616BB1130DEFB006729E9 /* FUClickButtonCommand.h */,
+				D3E616BC1130DEFB006729E9 /* FUClickButtonCommand.m */,
+				D3E616751130DD41006729E9 /* FUSetElementValueCommand.h */,
+				D3E616761130DD41006729E9 /* FUSetElementValueCommand.m */,
 				D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */,
 				D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */,
 			);
@@ -1699,10 +1714,10 @@
 			remoteRef = D346E49010CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D346E49310CE434A00BA0B15 /* parsekit.a */ = {
+		D346E49310CE434A00BA0B15 /* libparsekit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = parsekit.a;
+			path = libparsekit.a;
 			remoteRef = D346E49210CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2021,6 +2036,9 @@
 				D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */,
 				D3B538C5111F7ABE0056D586 /* FUTabController+Recording.m in Sources */,
 				D39A36751126A0E100DC5176 /* FUCreateCommand.m in Sources */,
+				D3E616771130DD41006729E9 /* FUSetElementValueCommand.m in Sources */,
+				D3E616BA1130DEF2006729E9 /* FUClickLinkCommand.m in Sources */,
+				D3E616BD1130DEFB006729E9 /* FUClickButtonCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

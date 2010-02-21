@@ -38,6 +38,8 @@ NSString *const FUWindowControllerDidChangeTabOrderNotification = @"FUWindowCont
 NSString *const FUTabControllerKey = @"FUTabController";
 NSString *const FUIndexKey = @"FUIndex";
 NSString *const FUPriorIndexKey = @"FUPriorIndex";
+NSString *const FUErrorKey = @"FUError";
+NSString *const FUErrorDescriptionKey = @"FUErrorDescription";
 
 // FUTabControllerNotifications
 NSString *const FUTabControllerProgressDidStartNotification = @"FUTabControllerProgressDidStartNotification";

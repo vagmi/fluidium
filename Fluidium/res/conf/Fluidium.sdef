@@ -282,6 +282,7 @@
     </command>
 
     <command name="click link" code="FuSSLink" description="Activates a hyperlink in this tab's web page.">
+        <cocoa class="FUClickLinkCommand"/>
         <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id of the link to click.">
             <cocoa key="identifier"/>
         </parameter>
@@ -300,6 +301,7 @@
     </command>
 
     <command name="click button" code="FuSSBttn" description="Activates a button in this tab's web page.">
+        <cocoa class="FUClickButtonCommand"/>
         <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id of the button to click.">
             <cocoa key="identifier"/>
         </parameter>
@@ -318,6 +320,7 @@
     </command>
 
     <command name="set value of element" code="FuSSSetV" description="Sets the value of an HTML input element in this tab's web page.">
+        <cocoa class="FUSetElementValueCommand"/>
         <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the element.">
             <cocoa key="name"/>
         </parameter>
