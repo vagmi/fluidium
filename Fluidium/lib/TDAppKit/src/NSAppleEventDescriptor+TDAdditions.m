@@ -58,7 +58,7 @@
     const AppleEvent *aevt = [self aeDesc];
     
     OSErr err = noErr; 
-    err = AESendMessage(aevt, replyEvt, kAEWaitReply|kAENeverInteract, kAEDefaultTimeout);
+    err = AESendMessage(aevt, replyEvt, kAEWaitReply|kAENeverInteract|kAECanSwitchLayer, kAEDefaultTimeout);
     return err;
 }
 
