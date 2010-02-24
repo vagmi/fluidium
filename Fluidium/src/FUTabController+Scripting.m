@@ -128,7 +128,7 @@
 
 
 - (id)handleReloadCommand:(NSScriptCommand *)cmd {
-    if ([[self webView] canReload]) {
+    if ([[self webView] mainFrameURL]) {
         [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
         [self webReload:nil];
     } else {
