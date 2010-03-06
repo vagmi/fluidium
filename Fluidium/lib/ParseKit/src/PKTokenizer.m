@@ -136,7 +136,7 @@
 
 - (void)setReader:(PKReader *)r {
     if (reader != r) {
-        [reader release];
+        [reader autorelease];
         reader = [r retain];
         reader.string = string;
     }
@@ -145,7 +145,7 @@
 
 - (void)setString:(NSString *)s {
     if (string != s) {
-        [string release];
+        [string autorelease];
         string = [s retain];
     }
     reader.string = string;
@@ -155,7 +155,7 @@
 #pragma mark -
 
 - (PKTokenizerState *)tokenizerStateFor:(PKUniChar)c {
-    if (c < 0 || c > 255) {
+    if (c < 0 || c >= STATE_COUNT) {
         // customization above 255 is not supported, so fetch default.
         return [self defaultTokenizerStateFor:c];
     } else {

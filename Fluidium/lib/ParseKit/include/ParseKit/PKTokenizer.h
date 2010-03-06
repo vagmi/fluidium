@@ -13,7 +13,6 @@
 @class PKTokenizerState;
 @class PKNumberState;
 @class PKQuoteState;
-@class PKSlashState;
 @class PKCommentState;
 @class PKSymbolState;
 @class PKWhitespaceState;

@@ -74,7 +74,7 @@ static PKTokenEOF *EOFToken = nil;
 
 
 - (NSUInteger)offset {
-    return -1;
+    return NSNotFound;
 }
 
 @end
@@ -163,17 +163,17 @@ static PKTokenEOF *EOFToken = nil;
     }
     
     PKToken *tok = (PKToken *)obj;
-    if (tokenType != tok.tokenType) {
+    if (tokenType != tok->tokenType) {
         return NO;
     }
     
-    if (self.isNumber) {
-        return floatValue == tok.floatValue;
+    if (number) {
+        return floatValue == tok->floatValue;
     } else {
         if (ignoringCase) {
-            return (NSOrderedSame == [stringValue caseInsensitiveCompare:tok.stringValue]);
+            return (NSOrderedSame == [stringValue caseInsensitiveCompare:tok->stringValue]);
         } else {
-            return [stringValue isEqualToString:tok.stringValue];
+            return [stringValue isEqualToString:tok->stringValue];
         }
     }
 }
@@ -182,7 +182,7 @@ static PKTokenEOF *EOFToken = nil;
 - (id)value {
     if (!value) {
         id v = nil;
-        if (self.isNumber) {
+        if (number) {
             v = [NSNumber numberWithFloat:floatValue];
         } else {
             v = stringValue;

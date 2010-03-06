@@ -28,7 +28,7 @@
         self.children = [NSMutableDictionary dictionary];
 
         // this private property is an optimization. 
-        // cache the NSString for the char to prevent it being constantly recreated in -determinAncestry
+        // cache the NSString for the char to prevent it being constantly recreated in -determineAncestry
         self.string = [NSString stringWithFormat:@"%C", character];
 
         [self determineAncestry];
@@ -47,15 +47,15 @@
 
 
 - (void)determineAncestry {
-    if (PKEOF == parent.character) { // optimization for sinlge-char symbol (parent is symbol root node)
+    if (PKEOF == parent->character) { // optimization for sinlge-char symbol (parent is symbol root node)
         self.ancestry = string;
     } else {
         NSMutableString *result = [NSMutableString string];
         
         PKSymbolNode *n = self;
-        while (PKEOF != n.character) {
-            [result insertString:n.string atIndex:0];
-            n = n.parent;
+        while (PKEOF != n->character) {
+            [result insertString:n->string atIndex:0];
+            n = n->parent;
         }
         
         //self.ancestry = [[result copy] autorelease]; // assign an immutable copy
