@@ -45,4 +45,5 @@
 @property (nonatomic, retain) NSMutableArray *tabModels;
 @property (nonatomic, retain) NSDrawer *drawer;
 @property (nonatomic, retain) id draggingTabController;
+@property (nonatomic, retain) FUTabModel *selectedModel;
 @end

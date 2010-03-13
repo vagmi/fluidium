@@ -82,6 +82,7 @@
     self.tabModels = nil;
     self.drawer = nil;
     self.draggingTabController = nil;
+	self.selectedModel = nil;
     [super dealloc];
 }
 
@@ -451,7 +452,7 @@
     }
     
     if (selectedIndex >= 0 && selectedIndex < [tabModels count]) {
-        selectedModel = [tabModels objectAtIndex:selectedIndex];
+        self.selectedModel = [tabModels objectAtIndex:selectedIndex];
         selectedModel.selected = YES;
         
         [listView setSelectedItemIndex:selectedIndex];
@@ -543,4 +544,5 @@
 @synthesize tabModels;
 @synthesize drawer;
 @synthesize draggingTabController;
+@synthesize selectedModel;
 @end
