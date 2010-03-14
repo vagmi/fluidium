@@ -47,15 +47,15 @@
 
 
 - (void)determineAncestry {
-    if (PKEOF == parent->character) { // optimization for sinlge-char symbol (parent is symbol root node)
+    if (PKEOF == parent.character) { // optimization for sinlge-char symbol (parent is symbol root node)
         self.ancestry = string;
     } else {
         NSMutableString *result = [NSMutableString string];
         
         PKSymbolNode *n = self;
-        while (PKEOF != n->character) {
-            [result insertString:n->string atIndex:0];
-            n = n->parent;
+        while (PKEOF != n.character) {
+            [result insertString:n.string atIndex:0];
+            n = n.parent;
         }
         
         //self.ancestry = [[result copy] autorelease]; // assign an immutable copy
