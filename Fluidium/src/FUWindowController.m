@@ -605,6 +605,7 @@
     [self insertTabController:tc atIndex:i];
     if (select) {
         [self selectTabController:tc]; // !! this is doing nothing currently, cuz NSTabView auto selects added tabs (line above)
+		[[self window] makeFirstResponder:locationComboBox];
     }
     return tc;
 }
@@ -669,7 +670,7 @@
 
 - (void)selectTabController:(FUTabController *)tc {
     self.selectedTabIndex = [tabView indexOfTabViewItem:[self tabViewItemForTabController:tc]];
-    [[self window] makeFirstResponder:locationComboBox];
+    //[[self window] makeFirstResponder:locationComboBox];
 }
 
 
@@ -1136,6 +1137,14 @@
         [self selectTabController:tc]; // this fires apple event
         [self startObservingTabController:tc];
         [self clearProgress];
+
+		// if 
+		if ([selectedTabController canReload]) {
+			[[self window] makeFirstResponder:[selectedTabController webView]];
+		} else {
+			[[self window] makeFirstResponder:locationComboBox];
+		}
+			
     }
 
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:

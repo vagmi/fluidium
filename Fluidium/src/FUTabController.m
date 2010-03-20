@@ -416,6 +416,7 @@ typedef enum {
     // remove old dock menu items
     javaScriptBridge.dockMenuItems = nil;
 
+    [self setValue:[NSNumber numberWithBool:YES] forKey:@"canReload"];
     [self postNotificationName:FUTabControllerDidCommitLoadNotification];
 }
 
@@ -441,7 +442,7 @@ typedef enum {
     if (!didReceiveTitle) {
         self.title = URLString;
     }
-    [self setValue:[NSNumber numberWithBool:YES] forKey:@"canReload"];
+
     [self postNotificationName:FUTabControllerDidFinishLoadNotification];
 }
 
