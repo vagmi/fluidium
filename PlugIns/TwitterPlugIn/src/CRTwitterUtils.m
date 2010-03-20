@@ -200,8 +200,8 @@ NSAttributedString *CRAttributedStatus(NSString *inStatus, NSArray **outMentions
             as = CRAttributedHashtag(t, tok, poundTok);
         } else if ([httpTok isEqual:tok] || [httpsTok isEqual:tok]) {
             as = CRAttributedURL(t, tok, colonSlashSlashTok);
-        } else if ([ltTok isEqual:tok]) {
-            as = CRAttrStr(@"&lt;", sDefaultAttrs);
+//        } else if ([ltTok isEqual:tok]) {
+//            as = CRAttrStr(@"&lt;", sDefaultAttrs);
         } else {
             as = CRAttrStr([tok stringValue], sDefaultAttrs);
         }
