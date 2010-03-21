@@ -1138,8 +1138,7 @@
         [self startObservingTabController:tc];
         [self clearProgress];
 
-		// if 
-		if ([selectedTabController canReload]) {
+        if ([selectedTabController canReload]) {
 			[[self window] makeFirstResponder:[selectedTabController webView]];
 		} else {
 			[[self window] makeFirstResponder:locationComboBox];
