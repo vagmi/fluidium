@@ -29,7 +29,7 @@
 - (NSArray *)orderedTabControllers;
 
 // Commands
-- (id)handleCreateCommand:(NSScriptCommand *)cmd;
+- (id)handleCreateCommand:(NSCreateCommand *)cmd;
 
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd;
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd;
