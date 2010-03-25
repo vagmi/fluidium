@@ -56,6 +56,10 @@
 
         [self setUserStyleSheetEnabled:YES];
         [self setUserStyleSheetLocation:[[FUUserstyleController instance] defaultCSSURL]];
+        
+#if FU_LOCAL_STORAGE_ENABLED
+        [self setDatabasesEnabled:YES];
+#endif
     }
     return self;
 }

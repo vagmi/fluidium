@@ -588,6 +588,16 @@ typedef enum {
 
 
 #pragma mark -
+#pragma mark WebQuotaDelegate
+
+#if FU_LOCAL_STORAGE_ENABLED
+- (void)webView:(WebView *)wv frame:(WebFrame *)frame exceededDatabaseQuotaForSecurityOrigin:(WebSecurityOrigin *)origin database:(NSString *)databaseIdentifier {
+    origin.quota = 500 * 1024 * 1024;
+}
+#endif
+
+
+#pragma mark -
 #pragma mark WebUIDelegate
 
 - (WebView *)webView:(WebView *)wv createWebViewWithRequest:(NSURLRequest *)req {

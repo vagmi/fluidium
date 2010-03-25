@@ -114,6 +114,11 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 + (void)setUpUserDefaults {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultValues" ofType:@"plist"];
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+
+#if FU_LOCAL_STORAGE_ENABLED
+    [[NSUserDefaults standardUserDefaults] setObject:@"/tmp" forKey:@"WebDatabaseDirectory"]
+    [[NSUserDefaults standardUserDefaults] synchronize];
+#endif
     
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaultValues];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
