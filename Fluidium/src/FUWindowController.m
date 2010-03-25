@@ -1138,6 +1138,7 @@
         [self startObservingTabController:tc];
         [self clearProgress];
 
+        // if the tab has web content, select the webView. otherwise select the loc bar
         if ([selectedTabController canReload]) {
 			[[self window] makeFirstResponder:[selectedTabController webView]];
 		} else {
