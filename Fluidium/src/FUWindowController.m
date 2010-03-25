@@ -1128,7 +1128,7 @@
 }
 
 
-- (void)tabView:(NSTabView *)tv didSelectTabViewItem:(NSTabViewItem *)tabItem {    
+- (void)tabView:(NSTabView *)tv didSelectTabViewItem:(NSTabViewItem *)tabItem {
     FUTabController *tc = [tabItem identifier];
     
     if ([tabControllers containsObject:tc]) { // if the tab was just dragged to this tabBar from another window, we will not have created a tabController yet
