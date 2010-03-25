@@ -648,6 +648,8 @@
 		D35CC25E10D41DD900DA1898 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUUserAgentWindow.xib; sourceTree = "<group>"; };
 		D35CC54610D4829400DA1898 /* DOMNode+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMNode+FUAdditions.h"; path = "src/DOMNode+FUAdditions.h"; sourceTree = "<group>"; };
 		D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMNode+FUAdditions.m"; path = "src/DOMNode+FUAdditions.m"; sourceTree = "<group>"; };
+		D372A2F8115C146900516A0B /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebPreferencesPrivate.h; path = src/WebPreferencesPrivate.h; sourceTree = "<group>"; };
+		D372A2FB115C168100516A0B /* WebSecurityOriginPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebSecurityOriginPrivate.h; path = src/WebSecurityOriginPrivate.h; sourceTree = "<group>"; };
 		D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+FUAdditions.h"; path = "src/NSFileManager+FUAdditions.h"; sourceTree = "<group>"; };
 		D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+FUAdditions.m"; path = "src/NSFileManager+FUAdditions.m"; sourceTree = "<group>"; };
 		D373ECCB110B945600ECE3BE /* NSDictionary+FUScripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+FUScripting.h"; path = "src/NSDictionary+FUScripting.h"; sourceTree = "<group>"; };
@@ -1518,6 +1520,7 @@
 		D3F4C58E10C8D62800E0B474 /* WebKit */ = {
 			isa = PBXGroup;
 			children = (
+				D372A2F8115C146900516A0B /* WebPreferencesPrivate.h */,
 				D3F4C59710C8D63400E0B474 /* WebViewPrivate.h */,
 				D3F4C59410C8D63400E0B474 /* WebFramePrivate.h */,
 				D3F292ED10E7B32500CCB392 /* WebFrameViewPrivate.h */,
@@ -1527,6 +1530,7 @@
 				D3F4C59610C8D63400E0B474 /* WebURLsWithTitles.h */,
 				D30BC47E10E18D0F0019816B /* WebInspector.h */,
 				D33B1A6C11168E6B00F754AD /* WebDynamicScrollBarsView.h */,
+				D372A2FB115C168100516A0B /* WebSecurityOriginPrivate.h */,
 			);
 			name = WebKit;
 			sourceTree = "<group>";

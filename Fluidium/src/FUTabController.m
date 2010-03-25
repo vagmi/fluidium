@@ -33,6 +33,7 @@
 #import "WebViewPrivate.h"
 #import "WebUIDelegatePrivate.h"
 #import "WebInspector.h"
+#import "WebSecurityOriginPrivate.h"
 
 typedef enum {
     WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1

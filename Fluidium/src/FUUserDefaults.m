@@ -116,7 +116,7 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionaryWithContentsOfFile:path];
 
 #if FU_LOCAL_STORAGE_ENABLED
-    [[NSUserDefaults standardUserDefaults] setObject:@"/tmp" forKey:@"WebDatabaseDirectory"]
+    [[NSUserDefaults standardUserDefaults] setObject:@"/tmp" forKey:@"WebDatabaseDirectory"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 #endif
     

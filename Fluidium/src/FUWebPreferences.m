@@ -16,6 +16,7 @@
 #import "FUUserDefaults.h"
 #import "FUUserstyleController.h"
 #import "FUNotifications.h"
+#import "WebPreferencesPrivate.h"
 
 @implementation FUWebPreferences
 
@@ -57,8 +58,14 @@
         [self setUserStyleSheetEnabled:YES];
         [self setUserStyleSheetLocation:[[FUUserstyleController instance] defaultCSSURL]];
         
+        // PRIVATE
+        [self setShrinksStandaloneImagesToFit:YES];
+
 #if FU_LOCAL_STORAGE_ENABLED
         [self setDatabasesEnabled:YES];
+        
+        // [self setOfflineWebApplicationCacheEnabled:YES]; ??
+        // [self setLocalStorageEnabled:YES]; ??
 #endif
     }
     return self;
