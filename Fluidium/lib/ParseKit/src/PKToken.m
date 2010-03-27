@@ -89,6 +89,8 @@ static PKTokenEOF *EOFToken = nil;
 @property (nonatomic, readwrite, getter=isWhitespace) BOOL whitespace;
 @property (nonatomic, readwrite, getter=isComment) BOOL comment;
 @property (nonatomic, readwrite, getter=isDelimitedString) BOOL delimitedString;
+@property (nonatomic, readwrite, getter=isURL) BOOL URL;
+@property (nonatomic, readwrite, getter=isEmail) BOOL email;
 
 @property (nonatomic, readwrite) CGFloat floatValue;
 @property (nonatomic, readwrite, copy) NSString *stringValue;
@@ -125,6 +127,8 @@ static PKTokenEOF *EOFToken = nil;
         self.whitespace = (PKTokenTypeWhitespace == t);
         self.comment = (PKTokenTypeComment == t);
         self.delimitedString = (PKTokenTypeDelimitedString == t);
+        self.URL = (PKTokenTypeURL == t);
+        self.email = (PKTokenTypeEmail == t);
     }
     return self;
 }
@@ -209,6 +213,10 @@ static PKTokenEOF *EOFToken = nil;
         typeString = @"Comment";
     } else if (self.isDelimitedString) {
         typeString = @"Delimited String";
+    } else if (self.isURL) {
+        typeString = @"URL";
+    } else if (self.isEmail) {
+        typeString = @"Email";
     }
     return [NSString stringWithFormat:@"<%@ %C%@%C>", typeString, 0x00AB, self.value, 0x00BB];
 }
@@ -225,6 +233,8 @@ static PKTokenEOF *EOFToken = nil;
 @synthesize whitespace;
 @synthesize comment;
 @synthesize delimitedString;
+@synthesize URL;
+@synthesize email;
 @synthesize floatValue;
 @synthesize stringValue;
 @synthesize tokenType;

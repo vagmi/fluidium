@@ -1,5 +1,5 @@
 //
-//  PKTokenizerTest.m
+//  TDTokenizerTest.m
 //  ParseKit
 //
 //  Created by Todd Ditchendorf on 7/11/08.
@@ -122,7 +122,7 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    TDEquals(tok.offset, (NSUInteger)PKEOF);
+    TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -151,7 +151,7 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    TDEquals(tok.offset, (NSUInteger)PKEOF);
+    TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -188,7 +188,7 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    TDEquals(tok.offset, (NSUInteger)PKEOF);
+    TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -618,4 +618,20 @@
     TDEqualObjects(eof, [t nextToken]);
 }
 
+
+//- (void)testURLToken {
+//    s = @"http://apple.com";
+//    t = [PKTokenizer tokenizerWithString:s];
+//    
+//    PKToken *eof = [PKToken EOFToken];
+//    PKToken *tok = nil;
+//        
+//    tok = [t nextToken];
+//    TDNotNil(tok);
+//    TDEquals(PKTokenTypeURL, tok.tokenType);
+//    
+//    tok = [t nextToken];
+//    TDEqualObjects(eof, tok);
+//}
+//
 @end

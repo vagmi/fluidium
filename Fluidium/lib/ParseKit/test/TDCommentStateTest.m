@@ -29,7 +29,7 @@
     t.string = s;
     tok = [commentState nextTokenFromReader:r startingWith:'/' tokenizer:t];
     TDEqualObjects(tok, [PKToken EOFToken]);
-    TDEquals(tok.offset, (NSUInteger)-1);
+    TDEquals((PKUniChar)tok.offset, (PKUniChar)-1);
     TDEquals([r read], PKEOF);
 }
 
@@ -107,7 +107,7 @@
     [t setTokenizerState:commentState from:'#' to:'#'];
     tok = [t nextToken];
     TDTrue(tok == [PKToken EOFToken]);
-    TDEquals(tok.offset, (NSUInteger)-1);
+    TDEquals((PKUniChar)tok.offset, (PKUniChar)-1);
 }
 
 

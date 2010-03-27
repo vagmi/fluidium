@@ -460,6 +460,11 @@
 		D3DDDAFE0F083C9700A58000 /* TDCommentStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DDDAFD0F083C9700A58000 /* TDCommentStateTest.m */; };
 		D3DDDCAD0F0880D800A58000 /* example1.srgs in Resources */ = {isa = PBXBuildFile; fileRef = D3DDDCAC0F0880D800A58000 /* example1.srgs */; };
 		D3DDDCAE0F0880D800A58000 /* example1.srgs in Resources */ = {isa = PBXBuildFile; fileRef = D3DDDCAC0F0880D800A58000 /* example1.srgs */; };
+		D3E14C37115D47B3003BB515 /* PKURLState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E14C35115D47B3003BB515 /* PKURLState.m */; };
+		D3E14C39115D47B3003BB515 /* PKURLState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E14C35115D47B3003BB515 /* PKURLState.m */; };
+		D3E14C40115D490C003BB515 /* TDURLStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E14C3F115D490C003BB515 /* TDURLStateTest.m */; };
+		D3E14C45115D4A88003BB515 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E14C44115D4A88003BB515 /* PKURLState.h */; };
+		D3E14C46115D4A88003BB515 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E14C44115D4A88003BB515 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3E27A320E741DD20078CC2C /* small-xml-file.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */; };
 		D3E27A330E741DD20078CC2C /* apple-boss.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FB40E5A944A00496BD3 /* apple-boss.xml */; };
 		D3E39C3F0FC5FFD10022DAB9 /* TDDelimitStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */; };
@@ -1108,6 +1113,10 @@
 		D3DDDC270F085C5400A58000 /* TDSlashState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSlashState.h; path = test/TDSlashState.h; sourceTree = "<group>"; };
 		D3DDDC280F085C5400A58000 /* TDSlashState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSlashState.m; path = test/TDSlashState.m; sourceTree = "<group>"; };
 		D3DDDCAC0F0880D800A58000 /* example1.srgs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example1.srgs; path = res/example1.srgs; sourceTree = "<group>"; };
+		D3E14C35115D47B3003BB515 /* PKURLState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKURLState.m; path = src/PKURLState.m; sourceTree = "<group>"; };
+		D3E14C3E115D490C003BB515 /* TDURLStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDURLStateTest.h; path = test/TDURLStateTest.h; sourceTree = "<group>"; };
+		D3E14C3F115D490C003BB515 /* TDURLStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDURLStateTest.m; path = test/TDURLStateTest.m; sourceTree = "<group>"; };
+		D3E14C44115D4A88003BB515 /* PKURLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKURLState.h; path = include/ParseKit/PKURLState.h; sourceTree = "<group>"; };
 		D3E39C3D0FC5FFD10022DAB9 /* TDDelimitStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDelimitStateTest.h; path = test/TDDelimitStateTest.h; sourceTree = "<group>"; };
 		D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDelimitStateTest.m; path = test/TDDelimitStateTest.m; sourceTree = "<group>"; };
 		D3E784BC0E53DA28008C7D61 /* apple-boss.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "apple-boss.json"; path = "res/apple-boss.json"; sourceTree = "<group>"; };
@@ -1518,6 +1527,8 @@
 				D3C221E70FFE8C60004514FE /* PKMultiLineCommentState.h */,
 				D34BAEC80FF9D56400D7773A /* PKMultiLineCommentState.m */,
 				D3541F890DFB108300429B4F /* symbol */,
+				D3E14C44115D4A88003BB515 /* PKURLState.h */,
+				D3E14C35115D47B3003BB515 /* PKURLState.m */,
 			);
 			name = states;
 			sourceTree = "<group>";
@@ -1554,6 +1565,8 @@
 				D3DDDAFD0F083C9700A58000 /* TDCommentStateTest.m */,
 				D3E39C3D0FC5FFD10022DAB9 /* TDDelimitStateTest.h */,
 				D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */,
+				D3E14C3E115D490C003BB515 /* TDURLStateTest.h */,
+				D3E14C3F115D490C003BB515 /* TDURLStateTest.m */,
 			);
 			name = "tokenizer states";
 			sourceTree = "<group>";
@@ -2366,6 +2379,7 @@
 				D3C2222E0FFE8DEE004514FE /* NSString+ParseKitAdditions.h in Headers */,
 				D3F0E2480FFE8EB900C9DF74 /* PKQuoteState.h in Headers */,
 				D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */,
+				D3E14C46115D4A88003BB515 /* PKURLState.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2474,6 +2488,7 @@
 				D3F0E2490FFE8EB900C9DF74 /* PKQuoteState.h in Headers */,
 				D3F0E3CB0FFEB70100C9DF74 /* PKNumber.h in Headers */,
 				D37A28681013942A00E936B7 /* PKGrammarParser.h in Headers */,
+				D3E14C45115D4A88003BB515 /* PKURLState.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2841,6 +2856,7 @@
 				D34BAFDE0FF9E95500D7773A /* PKParserFactory.m in Sources */,
 				D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */,
 				D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */,
+				D3E14C37115D47B3003BB515 /* PKURLState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3061,6 +3077,7 @@
 				D3D1BF2B1039445C003656E5 /* SAXTest.m in Sources */,
 				D38E97CC1061CF6500739C39 /* TDTokenizerBlocksTest.m in Sources */,
 				D38E98D81062C5BA00739C39 /* TDParserBlocksTest.m in Sources */,
+				D3E14C40115D490C003BB515 /* TDURLStateTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3121,6 +3138,7 @@
 				D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */,
 				D3F0E3CC0FFEB70700C9DF74 /* PKNumber.m in Sources */,
 				D37A28671013942300E936B7 /* PKGrammarParser.m in Sources */,
+				D3E14C39115D47B3003BB515 /* PKURLState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

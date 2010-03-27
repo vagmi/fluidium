@@ -51,6 +51,9 @@
         self.whitespaceState = [[[PKWhitespaceState alloc] init] autorelease];
         self.wordState       = [[[PKWordState alloc] init] autorelease];
         self.delimitState    = [[[PKDelimitState alloc] init] autorelease];
+        self.URLState        = [[[PKURLState alloc] init] autorelease];
+        
+        URLState.fallbackState = wordState;
         
         self.tokenizerStates = [NSMutableArray arrayWithCapacity:STATE_COUNT];
         
@@ -83,6 +86,7 @@
     self.whitespaceState = nil;
     self.wordState = nil;
     self.delimitState = nil;
+    self.URLState = nil;
     [super dealloc];
 }
 
@@ -164,6 +168,7 @@
     }
 }
 
+
 - (PKTokenizerState *)defaultTokenizerStateFor:(PKUniChar)c {
     if (c >= 0 && c <= ' ') {            // From:  0 to: 32    From:0x00 to:0x20
         return whitespaceState;
@@ -192,11 +197,11 @@
     } else if (c >= 58 && c <= 64) {
         return symbolState;
     } else if (c >= 'A' && c <= 'Z') {   // From: 65 to: 90    From:0x41 to:0x5A
-        return wordState;
+        return wordState; //URLState;
     } else if (c >= 91 && c <= 96) {
         return symbolState;
     } else if (c >= 'a' && c <= 'z') {   // From: 97 to:122    From:0x61 to:0x7A
-        return wordState;
+        return wordState; //URLState;
     } else if (c >= 123 && c <= 191) {
         return symbolState;
     } else if (c >= 0xC0 && c <= 0xFF) { // From:192 to:255    From:0xC0 to:0xFF
@@ -229,6 +234,7 @@
 @synthesize whitespaceState;
 @synthesize wordState;
 @synthesize delimitState;
+@synthesize URLState;
 @synthesize string;
 @synthesize reader;
 @synthesize tokenizerStates;

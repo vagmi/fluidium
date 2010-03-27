@@ -29,7 +29,9 @@ typedef enum {
     PKTokenTypeWhitespace,
     PKTokenTypeComment,
     PKTokenTypeDelimitedString,
-    PKTokenTypeAny
+    PKTokenTypeAny,
+    PKTokenTypeURL,
+    PKTokenTypeEmail
 } PKTokenType;
 
 /*!
@@ -49,6 +51,8 @@ typedef enum {
     BOOL whitespace;
     BOOL comment;
     BOOL delimitedString;
+    BOOL URL;
+    BOOL email;
     
     id value;
     NSUInteger offset;
@@ -133,6 +137,18 @@ typedef enum {
     @brief      True if this token is a delimited string. getter=isDelimitedString
 */
 @property (nonatomic, readonly, getter=isDelimitedString) BOOL delimitedString;
+
+/*!
+    @property   URL
+    @brief      True if this token is a URL. getter=isURL
+*/
+@property (nonatomic, readonly, getter=isURL) BOOL URL;
+
+/*!
+    @property   email
+    @brief      True if this token is an email address. getter=isEmail
+*/
+@property (nonatomic, readonly, getter=isEmailString) BOOL email;
 
 /*!
     @property   tokenType
