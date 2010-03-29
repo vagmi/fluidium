@@ -28,7 +28,6 @@
 
 - (NSMutableArray *)tweetsFromStatuses:(NSArray *)inStatuses;
 
-
 - (void)pushTimelineFor:(NSString *)username;
 - (void)handleUsernameClicked:(NSString *)username;
 - (void)openUserPageInNewTabOrWindow:(NSString *)username;

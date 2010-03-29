@@ -33,6 +33,8 @@
 
 #define DATES_INTERVAL_SECS 30
 
+#define TWEET_LIMIT 250
+
 @interface CRTimelineViewController ()
 - (id)initWithNibName:(NSString *)s bundle:(NSBundle *)b type:(CRTimelineType)t;
 
@@ -59,7 +61,8 @@
 - (void)enableFetching;
 - (void)showProgressBarButtonItem;
 
-- (void)clearList;
+- (void)trimTweetList;
+- (void)clearTweetList;
 - (void)pushThread:(NSString *)statusID;
 - (void)updateDisplayedDates;
 
@@ -214,6 +217,8 @@
     if (!visible || [self isTooSoonToFetchAgain]) {
         return;
     }
+    
+    [self trimTweetList];
     [self showProgressBarButtonItem];
     [self killFetchTimer];
     if (CRTimelineTypeUser != type) {
@@ -331,7 +336,7 @@
 - (void)refreshWithSelectedUsername {
     [self killFetchTimer];
     [self killEnableTimer];
-    [self clearList];
+    [self clearTweetList];
 
     self.tweets = nil;
     
@@ -348,7 +353,18 @@
 }
 
 
-- (void)clearList {
+- (void)trimTweetList {
+    NSUInteger count = [tweets count];
+    if (count > TWEET_LIMIT) {
+        NSRange r = NSMakeRange(TWEET_LIMIT, count - TWEET_LIMIT);
+        [tweets removeObjectsInRange:r];
+        [listView setSelectedItemIndex:NSNotFound];
+        [listView reloadData];
+    }
+}
+
+
+- (void)clearTweetList {
     if ([tweets count]) {
         self.tweets = [NSMutableArray array];
         [listView setSelectedItemIndex:NSNotFound];
