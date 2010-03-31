@@ -197,11 +197,11 @@
     } else if (c >= 58 && c <= 64) {
         return symbolState;
     } else if (c >= 'A' && c <= 'Z') {   // From: 65 to: 90    From:0x41 to:0x5A
-        return wordState; //URLState;
+        return URLState;
     } else if (c >= 91 && c <= 96) {
         return symbolState;
     } else if (c >= 'a' && c <= 'z') {   // From: 97 to:122    From:0x61 to:0x7A
-        return wordState; //URLState;
+        return URLState;
     } else if (c >= 123 && c <= 191) {
         return symbolState;
     } else if (c >= 0xC0 && c <= 0xFF) { // From:192 to:255    From:0xC0 to:0xFF

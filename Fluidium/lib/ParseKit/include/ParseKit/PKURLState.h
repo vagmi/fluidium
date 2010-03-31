@@ -15,7 +15,7 @@
     @details    
 */    
 @interface PKURLState : PKTokenizerState {
-
+    PKUniChar c;
 }
 
 @end

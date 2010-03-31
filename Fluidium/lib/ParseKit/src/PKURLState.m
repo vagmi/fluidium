@@ -25,7 +25,10 @@
 @end
 
 @interface PKURLState ()
-- (BOOL)isBreak:(PKUniChar)c;
+- (BOOL)parseSchemeFromReader:(PKReader *)r;
+- (BOOL)parseHostFromReader:(PKReader *)r;
+- (void)parsePathFromReader:(PKReader *)r;
+
 - (BOOL)matchesRegex:(NSString *)s;
 @end
 
@@ -40,18 +43,21 @@
     NSParameterAssert(r);
     [self resetWithReader:r];
     
-    PKUniChar c = cin;
-    do {
-        [self append:c];
-        c = [r read];
-    } while (![self isBreak:c]);
+    c = cin;
+    BOOL matched = [self parseSchemeFromReader:r];
+    if (matched) {
+        matched = [self parseHostFromReader:r];
+    }
+    if (matched) {
+        [self parsePathFromReader:r];
+    }
     
     if (PKEOF != c) {
         [r unread];
     }
-    
+
     NSString *s = [self bufferedString];
-    if ([self matchesRegex:s]) {
+    if (matched/* && [self matchesRegex:s]*/) {
         PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeURL stringValue:s floatValue:0.0];
         tok.offset = offset;
         return tok;
@@ -59,11 +65,6 @@
         [r unread:[s length] - 1];
         return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
     }
-}
-
-
-- (BOOL)isBreak:(PKUniChar)c {
-    return PKEOF == c || ' ' == c || '\n' == c || '\r' == c || '\t' == c || ')' == c || '<' == c || '>' == c;
 }
 
 
@@ -80,6 +81,90 @@
     // Allan Storm
     //    //  \b(([\w-]+://?|www[.])[^\s()<>]+(?:(?:\([\w\d)]+\)[^\s()<>]*)+|([^[:punct:]\s]|/)))
     //    return [s isMatchedByRegex:@"\\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:(?:\\([\\w\\d)]+\\)[^\\s()<>]*)+|([^[:punct:]\\s]|/)))"];
+}
+
+
+- (BOOL)parseSchemeFromReader:(PKReader *)r {
+    BOOL result = NO;
+
+    // [[:alpha:]-]+://?
+    for (;;) {
+        if (isalnum(c) || '-' == c) {
+            [self append:c];
+        } else if (':' == c) {
+            [self append:c];
+            
+            c = [r read];
+            if ('/' == c) { // endgame
+                [self append:c];
+                c = [r read];
+                if ('/' == c) {
+                    [self append:c];
+                    c = [r read];
+                }
+                result = YES;
+                break;
+            } else {
+                result = NO;
+                break;
+            }
+        } else {
+            result = NO;
+            break;
+        }
+
+        c = [r read];
+    }
+    
+    return result;
+}
+
+
+- (BOOL)parseHostFromReader:(PKReader *)r {
+    BOOL result = NO;
+    BOOL atLeastOneChar = NO;
+    
+    // ^[:space:]()<>
+    for (;;) {
+        if (PKEOF == c || isspace(c) || '(' == c || ')' == c || '<' == c || '>' == c) {
+            result = NO;
+            break;
+        } else if ('/' == c && atLeastOneChar) {
+            //[self append:c];
+            result = YES;
+            break;
+        } else {
+            atLeastOneChar = YES;
+            [self append:c];
+            c = [r read];
+        }
+    }
+    
+    return result;
+}
+
+
+- (void)parsePathFromReader:(PKReader *)r {
+    BOOL hasOpenParen = NO;
+    
+    for (;;) {
+        if (PKEOF == c || isspace(c) || '<' == c || '>' == c || '.' == c) {
+            break;
+        } else if (')' == c) {
+            if (hasOpenParen) {
+                hasOpenParen = NO;
+                [self append:c];
+            } else {
+                break;
+            }
+        } else {
+            if (!hasOpenParen) {
+                hasOpenParen = ('(' == c);
+            }
+            [self append:c];
+        }
+        c = [r read];
+    }
 }
 
 /*

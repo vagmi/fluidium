@@ -21,68 +21,140 @@
 }
 
 
-//- (void)testFooComBlahBlah {
-//    s = @"http://foo.com/blah_blah";
-//    t.string = s;
-//        
-//    tok = [t nextToken];
-//    
-//    TDTrue(tok.isURL);
-//    TDEqualObjects(tok.stringValue, s);
-//    TDEquals(tok.floatValue, (CGFloat)0.0);
-//    
-//    tok = [t nextToken];
-//    TDEqualObjects(tok, [PKToken EOFToken]);
-//}
-//
-//
-//- (void)testFooComBlahBlahSlash {
-//    s = @"http://foo.com/blah_blah/";
-//    t.string = s;
-//    
-//    tok = [t nextToken];
-//    
-//    TDTrue(tok.isURL);
-//    TDEqualObjects(tok.stringValue, s);
-//    TDEquals(tok.floatValue, (CGFloat)0.0);
-//    
-//    tok = [t nextToken];
-//    TDEqualObjects(tok, [PKToken EOFToken]);
-//}
-//
-//
-//- (void)testSomethingLikeFooComBlahBlahSlash {
-//    s = @"(Something like http://foo.com/blah_blah)";
-//    t.string = s;
-//    
-//    tok = [t nextToken];
-//    TDTrue(tok.isSymbol);
-//    TDEqualObjects(tok.stringValue, @"(");
-//    TDEquals(tok.floatValue, (CGFloat)0.0);
-//    
-//    tok = [t nextToken];
-//    TDTrue(tok.isWord);
-//    TDEqualObjects(tok.stringValue, @"Something");
-//    TDEquals(tok.floatValue, (CGFloat)0.0);
-//    
-//    tok = [t nextToken];
-//    TDTrue(tok.isWord);
-//    TDEqualObjects(tok.stringValue, @"like");
-//    TDEquals(tok.floatValue, (CGFloat)0.0);
-//    
-//    tok = [t nextToken];
-//    TDTrue(tok.isURL);
-//    TDEqualObjects(tok.stringValue, @"http://foo.com/blah_blah");
-//    TDEquals(tok.floatValue, (CGFloat)0.0);
-//    
-//    tok = [t nextToken];
-//    TDTrue(tok.isSymbol);
-//    TDEqualObjects(tok.stringValue, @")");
-//    TDEquals(tok.floatValue, (CGFloat)0.0);
-//    
-//    tok = [t nextToken];
-//    TDEqualObjects(tok, [PKToken EOFToken]);
-//}
+- (void)testFooComBlahBlah {
+    s = @"http://foo.com/blah_blah";
+    t.string = s;
+        
+    tok = [t nextToken];
+    
+    TDTrue(tok.isURL);
+    TDEqualObjects(tok.stringValue, s);
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDEqualObjects(tok, [PKToken EOFToken]);
+}
+
+
+- (void)testFooComBlahBlahSlash {
+    s = @"http://foo.com/blah_blah/";
+    t.string = s;
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isURL);
+    TDEqualObjects(tok.stringValue, s);
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDEqualObjects(tok, [PKToken EOFToken]);
+}
+
+
+- (void)testSomethingLikeFooComBlahBlahSlash {
+    s = @"(Something like http://foo.com/blah_blah)";
+    t.string = s;
+    
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @"(");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isWord);
+    TDEqualObjects(tok.stringValue, @"Something");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isWord);
+    TDEqualObjects(tok.stringValue, @"like");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isURL);
+    TDEqualObjects(tok.stringValue, @"http://foo.com/blah_blah");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @")");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDEqualObjects(tok, [PKToken EOFToken]);
+}
+
+
+- (void)testFooComBlahBlahWiki {
+    s = @"http://foo.com/blah_blah_(wikipedia)";
+    t.string = s;
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isURL);
+    TDEqualObjects(tok.stringValue, s);
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDEqualObjects(tok, [PKToken EOFToken]);
+}
+
+
+- (void)testSomethingLikeFooComBlahBlahWiki {
+    s = @"(Something like http://foo.com/blah_blah_(wikipedia))";
+    t.string = s;
+    
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @"(");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isWord);
+    TDEqualObjects(tok.stringValue, @"Something");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isWord);
+    TDEqualObjects(tok.stringValue, @"like");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isURL);
+    TDEqualObjects(tok.stringValue, @"http://foo.com/blah_blah_(wikipedia)");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @")");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDEqualObjects(tok, [PKToken EOFToken]);
+}
+
+
+- (void)testFooComBlahBlahDot {
+    s = @"http://foo.com/blah_blah.";
+    t.string = s;
+    
+    tok = [t nextToken];
+    
+    TDTrue(tok.isURL);
+    TDEqualObjects(tok.stringValue, @"http://foo.com/blah_blah");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDTrue(tok.isSymbol);
+    TDEqualObjects(tok.stringValue, @".");
+    TDEquals(tok.floatValue, (CGFloat)0.0);
+    
+    tok = [t nextToken];
+    TDEqualObjects(tok, [PKToken EOFToken]);
+}
+
+
+
 
 /*
  http://foo.com/blah_blah

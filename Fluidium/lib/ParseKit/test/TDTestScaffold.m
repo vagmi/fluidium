@@ -8,7 +8,7 @@
 
 #import "TDTestScaffold.h"
 
-#define RUN_ALL_TEST_CASES 1
+#define RUN_ALL_TEST_CASES 0
 #define SOLO_TEST_CASE @"TDURLStateTest"
 
 @interface SenTestSuite (TDAdditions)
