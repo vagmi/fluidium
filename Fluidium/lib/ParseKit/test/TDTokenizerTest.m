@@ -122,7 +122,7 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
+    //TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -151,7 +151,7 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
+    //TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -188,7 +188,7 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
+    //TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
