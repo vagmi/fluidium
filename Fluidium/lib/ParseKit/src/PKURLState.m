@@ -25,6 +25,7 @@
 @end
 
 @interface PKURLState ()
+- (BOOL)parseWWWFromReader:(PKReader *)r;
 - (BOOL)parseSchemeFromReader:(PKReader *)r;
 - (BOOL)parseHostFromReader:(PKReader *)r;
 - (void)parsePathFromReader:(PKReader *)r;
@@ -44,7 +45,12 @@
     [self resetWithReader:r];
     
     c = cin;
-    BOOL matched = [self parseSchemeFromReader:r];
+    BOOL matched = NO;
+    if ('w' == c) {
+        matched = [self parseWWWFromReader:r];
+    } else {
+        matched = [self parseSchemeFromReader:r];
+    }
     if (matched) {
         matched = [self parseHostFromReader:r];
     }
@@ -81,6 +87,32 @@
     // Allan Storm
     //    //  \b(([\w-]+://?|www[.])[^\s()<>]+(?:(?:\([\w\d)]+\)[^\s()<>]*)+|([^[:punct:]\s]|/)))
     //    return [s isMatchedByRegex:@"\\b(([\\w-]+://?|www[.])[^\\s()<>]+(?:(?:\\([\\w\\d)]+\\)[^\\s()<>]*)+|([^[:punct:]\\s]|/)))"];
+}
+
+
+- (BOOL)parseWWWFromReader:(PKReader *)r {
+    BOOL result = NO;
+    NSInteger wcount = 0;
+    
+    while ('w' == c) {
+        wcount++;
+        [self append:c];
+        c = [r read];
+
+        if (3 == wcount) {
+            if ('.' == c) {
+                [self append:c];
+                c = [r read];
+                result = YES;
+                break;
+            } else {
+                result = NO;
+                break;
+            }
+        }
+    }
+    
+    return result;
 }
 
 
@@ -122,19 +154,23 @@
 
 - (BOOL)parseHostFromReader:(PKReader *)r {
     BOOL result = NO;
-    BOOL atLeastOneChar = NO;
+    BOOL hasAtLeastOneChar = NO;
+//    BOOL hasDot = NO;
     
     // ^[:space:]()<>
     for (;;) {
         if (PKEOF == c || isspace(c) || '(' == c || ')' == c || '<' == c || '>' == c) {
-            result = NO;
+            result = hasAtLeastOneChar;
             break;
-        } else if ('/' == c && atLeastOneChar) {
+        } else if ('/' == c && hasAtLeastOneChar/* && hasDot*/) {
             //[self append:c];
             result = YES;
             break;
         } else {
-            atLeastOneChar = YES;
+//            if ('.' == c) {
+//                hasDot = YES;
+//            }
+            hasAtLeastOneChar = YES;
             [self append:c];
             c = [r read];
         }
