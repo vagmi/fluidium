@@ -22,18 +22,11 @@ static PKTokenizer *t = nil;
 static PKToken *ltTok = nil;
 static PKToken *atTok = nil;
 static PKToken *poundTok = nil;
-static PKToken *httpTok = nil;
-static PKToken *httpsTok = nil;
-static PKToken *colonSlashSlashTok = nil;
 
 static void CRSetupTokens() {
-    //PKToken *wwwTok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"www." floatValue:0];
     ltTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"<" floatValue:0];
     atTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"@" floatValue:0];
     poundTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"#" floatValue:0];
-    httpTok = [[PKToken alloc] initWithTokenType:PKTokenTypeWord stringValue:@"http" floatValue:0];
-    httpsTok = [[PKToken alloc] initWithTokenType:PKTokenTypeWord stringValue:@"https" floatValue:0];
-    colonSlashSlashTok = [[PKToken alloc] initWithTokenType:PKTokenTypeSymbol stringValue:@"://" floatValue:0];
     
     t = [[PKTokenizer alloc] init];
     [t.symbolState remove:@"<="];
@@ -55,9 +48,6 @@ static void CRSetupTokens() {
     t.whitespaceState.reportsWhitespaceTokens = YES;
     [t setTokenizerState:t.whitespaceState from:'(' to:')'];
     [t.whitespaceState setWhitespaceChars:YES from:'(' to:')'];
-    
-    [t.symbolState add:[colonSlashSlashTok stringValue]];
-    //[t.symbolState add:[wwwTok stringValue]];
     
     [t setTokenizerState:t.wordState from:'0' to:'9'];
 }
@@ -148,7 +138,7 @@ static NSMutableDictionary *CRURLAttrsWithLink(NSString *URLString) {
 
 static NSAttributedString *CRAttributedHashtag(PKTokenizer *t, PKToken *inTok, PKToken *poundTok);
 static NSAttributedString *CRAttributedUsername(PKTokenizer *t, PKToken *inTok, PKToken *atTok, NSString **outUsername);
-static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok);
+static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inURLTok);
 
 NSDictionary *CRDefaultStatusAttributes() {
     if (!sDefaultAttrs) {
@@ -198,8 +188,8 @@ NSAttributedString *CRAttributedStatus(NSString *inStatus, NSArray **outMentions
             }
         } else if ([poundTok isEqual:tok]) {
             as = CRAttributedHashtag(t, tok, poundTok);
-        } else if ([httpTok isEqual:tok] || [httpsTok isEqual:tok]) {
-            as = CRAttributedURL(t, tok, colonSlashSlashTok);
+        } else if (tok.isURL) {
+            as = CRAttributedURL(t, tok);
 //        } else if ([ltTok isEqual:tok]) {
 //            as = CRAttrStr(@"&lt;", sDefaultAttrs);
         } else {
@@ -279,28 +269,9 @@ static NSAttributedString *CRAttributedUsername(PKTokenizer *t, PKToken *inTok, 
 }
 
 
-static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok) {
-    PKToken *tok = [t nextToken];
-    if (![colonSlashSlashTok isEqual:tok]) {
-        NSString *s = [NSString stringWithFormat:@"%@%@", [inTok stringValue], [tok stringValue]];
-        return CRAttrStr(s, sDefaultAttrs);
-    }
-    
-    PKToken *eof = [PKToken EOFToken];
-    NSMutableString *ms = [NSMutableString string];
-    
-    NSString *s = nil;
-    while (tok = [t nextToken]) {
-        s = [tok stringValue];
-        
-        if (eof == tok || tok.isWhitespace) {
-            break;
-        } else if ([s length] && ((PKUniChar)[s characterAtIndex:0]) > 255) { // no non-ascii chars plz
-            break;
-        } else {
-            [ms appendString:s];
-        }
-    }
+static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok) {
+    NSString *s = inTok.stringValue;
+    NSMutableString *ms = [NSMutableString stringWithString:s];
     
     NSString *display = [[ms copy] autorelease];
     NSInteger maxLen = 32;
@@ -312,19 +283,14 @@ static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok, PKTok
         display = [display substringToIndex:[display length] - 1];
     }
     
-    //ms = [NSMutableString stringWithFormat:@"<a class='url' href='http://%@' onclick='cruz.linkClicked(\"http://%@\"); return false;'>%@</a>", ms, ms, display];
-    
-    NSString *URLString = [NSString stringWithFormat:@"http://%@", ms];
-
-    NSMutableAttributedString *mas = CRAttrStr(display, CRUsernameAttrsWithLink(URLString));
-    if (s) [mas appendAttributedString:CRAttrStr(s, sDefaultAttrs)];
+    NSMutableAttributedString *mas = CRAttrStr(display, CRUsernameAttrsWithLink(s));
     return mas;
 }
 
 
 static NSString *CRMarkedUpHashtag(PKTokenizer *t, PKToken *inTok, PKToken *poundTok);
 static NSString *CRMarkedUpUsername(PKTokenizer *t, PKToken *inTok, PKToken *atTok, NSString **outUsername);
-static NSString *CRMarkedUpURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok);
+static NSString *CRMarkedUpURL(PKTokenizer *t, PKToken *inTok);
 
 NSString *CRMarkedUpStatus(NSString *inStatus, NSArray **outMentions) {
     NSMutableArray *mentions = nil;
@@ -352,8 +318,8 @@ NSString *CRMarkedUpStatus(NSString *inStatus, NSArray **outMentions) {
             }
         } else if ([poundTok isEqual:tok]) {
             s = CRMarkedUpHashtag(t, tok, poundTok);
-        } else if ([httpTok isEqual:tok] || [httpsTok isEqual:tok]) {
-            s = CRMarkedUpURL(t, tok, colonSlashSlashTok);
+        } else if (tok.isURL) {
+            s = CRMarkedUpURL(t, tok);
         } else if ([ltTok isEqual:tok]) {
             s = @"&lt;";
         } else {
@@ -425,27 +391,9 @@ static NSString *CRMarkedUpUsername(PKTokenizer *t, PKToken *inTok, PKToken *atT
 }
 
 
-static NSString *CRMarkedUpURL(PKTokenizer *t, PKToken *inTok, PKToken *colonSlashSlashTok) {
-    PKToken *tok = [t nextToken];
-    if (![colonSlashSlashTok isEqual:tok]) {
-        return [NSString stringWithFormat:@"%@%@", [inTok stringValue], [tok stringValue]];
-    }
-    
-    PKToken *eof = [PKToken EOFToken];
-    NSMutableString *ms = [NSMutableString string];
-    
-    NSString *s = nil;
-    while (tok = [t nextToken]) {
-        s = [tok stringValue];
-        
-        if (eof == tok || tok.isWhitespace) {
-            break;
-        } else if ([s length] && ((PKUniChar)[s characterAtIndex:0]) > 255) { // no non-ascii chars plz
-            break;
-        } else {
-            [ms appendString:s];
-        }
-    }
+static NSString *CRMarkedUpURL(PKTokenizer *t, PKToken *inTok) {
+    NSString *s = inTok.stringValue;
+    NSMutableString *ms = [NSMutableString stringWithString:s];
     
     NSString *display = [[ms copy] autorelease];
     NSInteger maxLen = 32;
