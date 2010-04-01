@@ -445,6 +445,7 @@
 		D3C5A90C116410C2002B77D7 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C5A908116410C2002B77D7 /* PKEmailState.m */; };
 		D3C5A92F116422D5002B77D7 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C5A92E116422D5002B77D7 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C5A930116422D5002B77D7 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C5A92E116422D5002B77D7 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3C5A962116423A6002B77D7 /* TDEmailStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C5A961116423A6002B77D7 /* TDEmailStateTest.m */; };
 		D3C7D9DA0A412874005DD154 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D3C85C7B0E63B438000445FD /* TDArithmeticParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */; };
 		D3C85C800E63B9E9000445FD /* TDArithmeticParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7F0E63B9E9000445FD /* TDArithmeticParserTest.m */; };
@@ -1094,6 +1095,8 @@
 		D3C222290FFE8DAC004514FE /* PKParserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParserFactory.h; path = include/ParseKit/PKParserFactory.h; sourceTree = "<group>"; };
 		D3C5A908116410C2002B77D7 /* PKEmailState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKEmailState.m; path = src/PKEmailState.m; sourceTree = "<group>"; };
 		D3C5A92E116422D5002B77D7 /* PKEmailState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKEmailState.h; path = include/ParseKit/PKEmailState.h; sourceTree = "<group>"; };
+		D3C5A960116423A6002B77D7 /* TDEmailStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDEmailStateTest.h; sourceTree = "<group>"; };
+		D3C5A961116423A6002B77D7 /* TDEmailStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDEmailStateTest.m; sourceTree = "<group>"; };
 		D3C7D87A0A411FBF005DD154 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C85C790E63B438000445FD /* TDArithmeticParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDArithmeticParser.h; path = test/TDArithmeticParser.h; sourceTree = "<group>"; };
 		D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDArithmeticParser.m; path = test/TDArithmeticParser.m; sourceTree = "<group>"; };
@@ -1575,6 +1578,8 @@
 				D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */,
 				D3E14C3E115D490C003BB515 /* TDURLStateTest.h */,
 				D3E14C3F115D490C003BB515 /* TDURLStateTest.m */,
+				D3C5A960116423A6002B77D7 /* TDEmailStateTest.h */,
+				D3C5A961116423A6002B77D7 /* TDEmailStateTest.m */,
 			);
 			name = "tokenizer states";
 			sourceTree = "<group>";
@@ -3089,6 +3094,7 @@
 				D38E97CC1061CF6500739C39 /* TDTokenizerBlocksTest.m in Sources */,
 				D38E98D81062C5BA00739C39 /* TDParserBlocksTest.m in Sources */,
 				D3E14C40115D490C003BB515 /* TDURLStateTest.m in Sources */,
+				D3C5A962116423A6002B77D7 /* TDEmailStateTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
