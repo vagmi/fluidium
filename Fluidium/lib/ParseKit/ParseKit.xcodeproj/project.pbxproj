@@ -441,6 +441,10 @@
 		D3C2222E0FFE8DEE004514FE /* NSString+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */; };
 		D3C2222F0FFE8DEF004514FE /* NSString+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */; };
 		D3C222300FFE8DF3004514FE /* NSArray+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */; };
+		D3C5A909116410C2002B77D7 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C5A907116410C2002B77D7 /* PKEmailState.h */; };
+		D3C5A90A116410C2002B77D7 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C5A908116410C2002B77D7 /* PKEmailState.m */; };
+		D3C5A90B116410C2002B77D7 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C5A907116410C2002B77D7 /* PKEmailState.h */; };
+		D3C5A90C116410C2002B77D7 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C5A908116410C2002B77D7 /* PKEmailState.m */; };
 		D3C7D9DA0A412874005DD154 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D3C85C7B0E63B438000445FD /* TDArithmeticParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */; };
 		D3C85C800E63B9E9000445FD /* TDArithmeticParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7F0E63B9E9000445FD /* TDArithmeticParserTest.m */; };
@@ -1088,6 +1092,8 @@
 		D3C222230FFE8D49004514FE /* PKLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKLetter.h; path = include/ParseKit/PKLetter.h; sourceTree = "<group>"; };
 		D3C222260FFE8D6B004514FE /* PKSpecificChar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSpecificChar.h; path = include/ParseKit/PKSpecificChar.h; sourceTree = "<group>"; };
 		D3C222290FFE8DAC004514FE /* PKParserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParserFactory.h; path = include/ParseKit/PKParserFactory.h; sourceTree = "<group>"; };
+		D3C5A907116410C2002B77D7 /* PKEmailState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKEmailState.h; path = src/PKEmailState.h; sourceTree = "<group>"; };
+		D3C5A908116410C2002B77D7 /* PKEmailState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKEmailState.m; path = src/PKEmailState.m; sourceTree = "<group>"; };
 		D3C7D87A0A411FBF005DD154 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C85C790E63B438000445FD /* TDArithmeticParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDArithmeticParser.h; path = test/TDArithmeticParser.h; sourceTree = "<group>"; };
 		D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDArithmeticParser.m; path = test/TDArithmeticParser.m; sourceTree = "<group>"; };
@@ -1529,6 +1535,8 @@
 				D3541F890DFB108300429B4F /* symbol */,
 				D3E14C44115D4A88003BB515 /* PKURLState.h */,
 				D3E14C35115D47B3003BB515 /* PKURLState.m */,
+				D3C5A907116410C2002B77D7 /* PKEmailState.h */,
+				D3C5A908116410C2002B77D7 /* PKEmailState.m */,
 			);
 			name = states;
 			sourceTree = "<group>";
@@ -2380,6 +2388,7 @@
 				D3F0E2480FFE8EB900C9DF74 /* PKQuoteState.h in Headers */,
 				D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */,
 				D3E14C46115D4A88003BB515 /* PKURLState.h in Headers */,
+				D3C5A90B116410C2002B77D7 /* PKEmailState.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2489,6 +2498,7 @@
 				D3F0E3CB0FFEB70100C9DF74 /* PKNumber.h in Headers */,
 				D37A28681013942A00E936B7 /* PKGrammarParser.h in Headers */,
 				D3E14C45115D4A88003BB515 /* PKURLState.h in Headers */,
+				D3C5A909116410C2002B77D7 /* PKEmailState.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2857,6 +2867,7 @@
 				D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */,
 				D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */,
 				D3E14C37115D47B3003BB515 /* PKURLState.m in Sources */,
+				D3C5A90C116410C2002B77D7 /* PKEmailState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3139,6 +3150,7 @@
 				D3F0E3CC0FFEB70700C9DF74 /* PKNumber.m in Sources */,
 				D37A28671013942300E936B7 /* PKGrammarParser.m in Sources */,
 				D3E14C39115D47B3003BB515 /* PKURLState.m in Sources */,
+				D3C5A90A116410C2002B77D7 /* PKEmailState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

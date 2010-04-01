@@ -11,7 +11,7 @@
 
 /*!
     @class      PKURLState 
-    @brief      A number state returns a URL from a reader.
+    @brief      A URL state returns a URL from a reader.
     @details    
 */    
 @interface PKURLState : PKTokenizerState {
