@@ -35,6 +35,14 @@
 
 @implementation PKURLState
 
+- (id)init {
+    if (self = [super init]) {
+        self.allowsWWWPrefix = YES;
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     [super dealloc];
 }
@@ -46,7 +54,7 @@
     
     c = cin;
     BOOL matched = NO;
-    if ('w' == c) {
+    if (allowsWWWPrefix && 'w' == c) {
         matched = [self parseWWWFromReader:r];
     } else {
         matched = [self parseSchemeFromReader:r];
@@ -58,12 +66,18 @@
         [self parsePathFromReader:r];
     }
     
+    NSString *s = [self bufferedString];
+
     if (PKEOF != c) {
         [r unread];
-    }
-
-    NSString *s = [self bufferedString];
+    } 
+    
     if (matched) {
+        if ([s hasSuffix:@","]) {
+            [r unread];
+            s = [s substringToIndex:[s length] - 1];
+        }
+        
         PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeURL stringValue:s floatValue:0.0];
         tok.offset = offset;
         return tok;
@@ -187,4 +201,5 @@
     }
 }
 
+@synthesize allowsWWWPrefix;
 @end

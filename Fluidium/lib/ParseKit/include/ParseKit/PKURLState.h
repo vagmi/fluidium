@@ -16,6 +16,8 @@
 */    
 @interface PKURLState : PKTokenizerState {
     PKUniChar c;
+    BOOL allowsWWWPrefix;
 }
 
+@property (nonatomic) BOOL allowsWWWPrefix;
 @end

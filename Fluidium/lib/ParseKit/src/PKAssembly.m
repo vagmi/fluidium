@@ -1,20 +1,35 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKAssembly.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 7/13/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import <ParseKit/PKAssembly.h>
 
 static NSString * const PKAssemblyDefaultDelimiter = @"/";
 
 @interface PKAssembly ()
+- (id)peek;
+- (id)next;
+- (BOOL)hasMore;
+- (NSString *)consumedObjectsJoinedByString:(NSString *)delimiter;
+- (NSString *)remainingObjectsJoinedByString:(NSString *)delimiter;
+
 @property (nonatomic, readwrite, retain) NSMutableArray *stack;
 @property (nonatomic) NSUInteger index;
 @property (nonatomic, retain) NSString *string;
 @property (nonatomic, readwrite, retain) NSString *defaultDelimiter;
+@property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, readonly) NSUInteger objectsConsumed;
+@property (nonatomic, readonly) NSUInteger objectsRemaining;
 @end
 
 @implementation PKAssembly
@@ -80,7 +95,7 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
     }
     
     PKAssembly *a = (PKAssembly *)obj;
-    if (a.length != self.length) {
+    if ([a length] != [self length]) {
         return NO;
     }
 
@@ -88,7 +103,7 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
         return NO;
     }
     
-    if (a.stack.count != stack.count) {
+    if ([a.stack count] != [stack count]) {
         return NO;
     }
     
@@ -146,7 +161,7 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
 
 - (id)pop {
     id result = nil;
-    if (stack.count) {
+    if (![self isStackEmpty]) {
         result = [[[stack lastObject] retain] autorelease];
         [stack removeLastObject];
     }
@@ -162,14 +177,14 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
 
 
 - (BOOL)isStackEmpty {
-    return 0 == stack.count;
+    return 0 == [stack count];
 }
 
 
 - (NSArray *)objectsAbove:(id)fence {
     NSMutableArray *result = [NSMutableArray array];
     
-    while (stack.count) {        
+    while (![self isStackEmpty]) {        
         id obj = [self pop];
         
         if ([obj isEqual:fence]) {
@@ -189,7 +204,7 @@ static NSString * const PKAssemblyDefaultDelimiter = @"/";
     [s appendString:@"["];
     
     NSUInteger i = 0;
-    NSUInteger len = stack.count;
+    NSUInteger len = [stack count];
     
     for (id obj in stack) {
         [s appendString:[obj description]];

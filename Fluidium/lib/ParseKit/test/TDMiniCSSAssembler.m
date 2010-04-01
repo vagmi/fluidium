@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKMiniCSSAssembler.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 12/23/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "TDMiniCSSAssembler.h"
 #import "NSString+ParseKitAdditions.h"
@@ -96,7 +102,7 @@
     [a pop]; // discard curly
 
     NSInteger i = 0;
-    NSInteger count = objs.count;
+    NSInteger count = [objs count];
     for ( ; i < count - 1; i++) {
         id propVal = [objs objectAtIndex:i];
         id propName = [objs objectAtIndex:++i];
@@ -134,7 +140,7 @@
     [props removeObjectForKey:@"background-color"];
     
     NSString *fontFamily = [props objectForKey:@"font-family"];
-    if (!fontFamily.length) {
+    if (![fontFamily length]) {
         fontFamily = @"Monaco";
     }
     
@@ -167,7 +173,7 @@
 //    NSString *s = tok.stringValue;
 //    NSColor *color = nil;
 //    
-//    if (6 == s.length) {
+//    if (6 == [s length]) {
 //        NSString *redStr   = [s substringWithRange:NSMakeRange(0, 2)];
 //        NSString *greenStr = [s substringWithRange:NSMakeRange(2, 2)];
 //        NSString *blueStr  = [s substringWithRange:NSMakeRange(4, 2)];

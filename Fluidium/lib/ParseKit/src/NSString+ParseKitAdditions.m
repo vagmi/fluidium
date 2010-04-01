@@ -11,7 +11,7 @@
 @implementation NSString (ParseKitAdditions)
 
 - (NSString *)stringByTrimmingQuotes {
-    NSUInteger len = self.length;
+    NSUInteger len = [self length];
     
     if (len < 2) {
         return self;

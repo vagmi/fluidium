@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  TDTokenizerTest.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 7/11/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "TDTokenizerTest.h"
 #import "ParseKit.h"
@@ -122,7 +128,6 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    //TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -151,7 +156,6 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    //TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -188,7 +192,6 @@
     tok = [t nextToken];
     TDNotNil(tok);
     TDTrue(tok == eof);
-    //TDEquals((PKUniChar)tok.offset, (PKUniChar)PKEOF);
 }
 
 
@@ -618,20 +621,4 @@
     TDEqualObjects(eof, [t nextToken]);
 }
 
-
-//- (void)testURLToken {
-//    s = @"http://apple.com";
-//    t = [PKTokenizer tokenizerWithString:s];
-//    
-//    PKToken *eof = [PKToken EOFToken];
-//    PKToken *tok = nil;
-//        
-//    tok = [t nextToken];
-//    TDNotNil(tok);
-//    TDEquals(PKTokenTypeURL, tok.tokenType);
-//    
-//    tok = [t nextToken];
-//    TDEqualObjects(eof, tok);
-//}
-//
 @end

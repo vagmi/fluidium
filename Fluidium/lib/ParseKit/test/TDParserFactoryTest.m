@@ -635,7 +635,7 @@
     TDEqualObjects(@"[Sequence]'foo'/ /'bar'^", [res description]);
     PKSequence *seq = [res pop];
     TDTrue([seq isMemberOfClass:[PKSequence class]]);
-    TDEquals((NSUInteger)2, seq.subparsers.count);
+    TDEquals((NSUInteger)2, [seq.subparsers count]);
     
     PKLiteral *c = [seq.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -664,7 +664,7 @@
     TDEqualObjects(@"[Sequence]'foo'/ /'bar'/ /'baz'^", [res description]);
     PKSequence *seq = [res pop];
     TDTrue([seq isMemberOfClass:[PKSequence class]]);
-    TDEquals((NSUInteger)3, seq.subparsers.count);
+    TDEquals((NSUInteger)3, [seq.subparsers count]);
     
     PKLiteral *c = [seq.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -697,7 +697,7 @@
 
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKLiteral *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -733,7 +733,7 @@
 
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKLiteral *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -777,7 +777,7 @@
 
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKLiteral *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -831,7 +831,7 @@
     TDEqualObjects(@"[Alternation]'foo'/|/'bar'/?^", [res description]);
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKLiteral *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -875,7 +875,7 @@
     
     PKAlternation *alt = (PKAlternation *)rep.subparser;
     TDTrue([alt class] == [PKAlternation class]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKLiteral *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -906,11 +906,11 @@
     PKSequence *seq = [res pop];
     TDTrue([seq isMemberOfClass:[PKSequence class]]);
     
-    TDEquals((NSUInteger)2, seq.subparsers.count);
+    TDEquals((NSUInteger)2, [seq.subparsers count]);
     
     PKAlternation *alt = [seq.subparsers objectAtIndex:0];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKLiteral *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -955,13 +955,13 @@
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
     
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     PKEmpty *e = [alt.subparsers objectAtIndex:0];
     TDTrue([PKEmpty class] == [e class]);
     
     alt = [alt.subparsers objectAtIndex:1];
     TDEqualObjects([alt class], [PKAlternation class]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKLiteral *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isKindOfClass:[PKLiteral class]]);
@@ -1055,7 +1055,7 @@
     PKSequence *seq = [res pop];
     TDEqualObjects([seq class], [PKSequence class]);
     
-    TDEquals((NSUInteger)2, seq.subparsers.count);
+    TDEquals((NSUInteger)2, [seq.subparsers count]);
     PKNumber *n = [seq.subparsers objectAtIndex:0];
     TDEqualObjects([n class], [PKNumber class]);
 
@@ -1093,7 +1093,7 @@
     PKSequence *seq = [res pop];
     TDEqualObjects([seq class], [PKSequence class]);
     
-    TDEquals((NSUInteger)3, seq.subparsers.count);
+    TDEquals((NSUInteger)3, [seq.subparsers count]);
 
     PKNumber *n = [seq.subparsers objectAtIndex:0];
     TDEqualObjects([n class], [PKNumber class]);

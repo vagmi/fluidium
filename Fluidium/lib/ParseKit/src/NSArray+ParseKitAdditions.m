@@ -16,7 +16,7 @@
 
 
 - (NSMutableArray *)reversedMutableArray {
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
     for (id obj in [self reverseObjectEnumerator]) {
         [result addObject:obj];
     }

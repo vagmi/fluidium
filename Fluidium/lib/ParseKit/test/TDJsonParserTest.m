@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKJsonParserTest.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 7/17/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "TDJsonParserTest.h"
 #import "TDJsonParser.h"
@@ -298,41 +304,41 @@
     TDNotNil(sizes);
     TDTrue([sizes isKindOfClass:[NSArray class]]);
     
-    TDEquals(3, (int)sizes.count);
+    TDEquals(3, (int)[sizes count]);
     
     NSArray *first = [sizes objectAtIndex:0];
     TDNotNil(first);
     TDTrue([first isKindOfClass:[NSArray class]]);
-    TDEquals(2, (int)first.count);
+    TDEquals(2, (int)[first count]);
     
     NSArray *firstKey = [first objectAtIndex:0];
     TDNotNil(firstKey);
     TDTrue([firstKey isKindOfClass:[NSArray class]]);
-    TDEquals(2, (int)firstKey.count);
+    TDEquals(2, (int)[firstKey count]);
     TDEqualObjects([NSNumber numberWithInteger:150], [firstKey objectAtIndex:0]);
     TDEqualObjects([NSNumber numberWithInteger:37], [firstKey objectAtIndex:1]);
     
     NSArray *second = [sizes objectAtIndex:1];
     TDNotNil(second);
     TDTrue([second isKindOfClass:[NSArray class]]);
-    TDEquals(2, (int)second.count);
+    TDEquals(2, (int)[second count]);
     
     NSArray *secondKey = [second objectAtIndex:0];
     TDNotNil(secondKey);
     TDTrue([secondKey isKindOfClass:[NSArray class]]);
-    TDEquals(2, (int)secondKey.count);
+    TDEquals(2, (int)[secondKey count]);
     TDEqualObjects([NSNumber numberWithInteger:200], [secondKey objectAtIndex:0]);
     TDEqualObjects([NSNumber numberWithInteger:50], [secondKey objectAtIndex:1]);
     
     NSArray *third = [sizes objectAtIndex:2];
     TDNotNil(third);
     TDTrue([third isKindOfClass:[NSArray class]]);
-    TDEquals(2, (int)third.count);
+    TDEquals(2, (int)[third count]);
     
     NSArray *thirdKey = [third objectAtIndex:0];
     TDNotNil(thirdKey);
     TDTrue([thirdKey isKindOfClass:[NSArray class]]);
-    TDEquals(2, (int)thirdKey.count);
+    TDEquals(2, (int)[thirdKey count]);
     TDEqualObjects([NSNumber numberWithInteger:200], [thirdKey objectAtIndex:0]);
     TDEqualObjects([NSNumber numberWithInteger:50], [thirdKey objectAtIndex:1]);
     

@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKCharacterAssembly.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 7/13/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import <ParseKit/PKCharacterAssembly.h>
 #import <ParseKit/PKTypes.h>
@@ -41,7 +47,7 @@
 
 
 - (id)peek {
-    if (index >= string.length) {
+    if (index >= [string length]) {
         return nil;
     }
     PKUniChar c = [string characterAtIndex:index];
@@ -59,12 +65,12 @@
 
 
 - (BOOL)hasMore {
-    return (index < string.length);
+    return (index < [string length]);
 }
 
 
 - (NSUInteger)length {
-    return string.length;
+    return [string length];
 } 
 
 
@@ -74,7 +80,7 @@
 
 
 - (NSUInteger)objectsRemaining {
-    return (string.length - index);
+    return ([string length] - index);
 }
 
 
@@ -96,7 +102,7 @@
     [s appendString:@"["];
     
     NSUInteger i = 0;
-    NSUInteger len = stack.count;
+    NSUInteger len = [stack count];
     
     for (id obj in self.stack) {
         if ([obj isKindOfClass:[NSNumber class]]) { // ***this is needed for Char Assemblies

@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKCommentState.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 12/28/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import <ParseKit/PKCommentState.h>
 #import <ParseKit/PKTokenizer.h>
@@ -65,22 +71,22 @@
 
 
 - (void)addSingleLineStartMarker:(NSString *)start {
-    NSParameterAssert(start.length);
+    NSParameterAssert([start length]);
     [rootNode add:start];
     [singleLineState addStartMarker:start];
 }
 
 
 - (void)removeSingleLineStartMarker:(NSString *)start {
-    NSParameterAssert(start.length);
+    NSParameterAssert([start length]);
     [rootNode remove:start];
     [singleLineState removeStartMarker:start];
 }
 
 
 - (void)addMultiLineStartMarker:(NSString *)start endMarker:(NSString *)end {
-    NSParameterAssert(start.length);
-    NSParameterAssert(end.length);
+    NSParameterAssert([start length]);
+    NSParameterAssert([end length]);
     [rootNode add:start];
     [rootNode add:end];
     [multiLineState addStartMarker:start endMarker:end];
@@ -88,7 +94,7 @@
 
 
 - (void)removeMultiLineStartMarker:(NSString *)start {
-    NSParameterAssert(start.length);
+    NSParameterAssert([start length]);
     [rootNode remove:start];
     [multiLineState removeStartMarker:start];
 }
@@ -101,25 +107,36 @@
     [self resetWithReader:r];
 
     NSString *symbol = [rootNode nextSymbol:r startingWith:cin];
-
-    if ([multiLineState.startMarkers containsObject:symbol]) {
-        multiLineState.currentStartMarker = symbol;
-        PKToken *tok = [multiLineState nextTokenFromReader:r startingWith:cin tokenizer:t];
-        if (tok.isComment) {
-            tok.offset = offset;
+    PKToken *tok = nil;
+    
+    while ([symbol length]) {
+        if ([multiLineState.startMarkers containsObject:symbol]) {
+            multiLineState.currentStartMarker = symbol;
+            tok = [multiLineState nextTokenFromReader:r startingWith:cin tokenizer:t];
+            if (tok.isComment) {
+                tok.offset = offset;
+            }
+        } else if ([singleLineState.startMarkers containsObject:symbol]) {
+            singleLineState.currentStartMarker = symbol;
+            tok = [singleLineState nextTokenFromReader:r startingWith:cin tokenizer:t];
+            if (tok.isComment) {
+                tok.offset = offset;
+            }
         }
-        return tok;
-    } else if ([singleLineState.startMarkers containsObject:symbol]) {
-        singleLineState.currentStartMarker = symbol;
-        PKToken *tok = [singleLineState nextTokenFromReader:r startingWith:cin tokenizer:t];
-        if (tok.isComment) {
-            tok.offset = offset;
+        
+        if (tok) {
+            return tok;
+        } else {
+            if ([symbol length] > 1) {
+                symbol = [symbol substringToIndex:[symbol length] -1];
+            } else {
+                break;
+            }
+            [r unread:1];
         }
-        return tok;
-    } else {
-        [r unread:[symbol length] - 1];
-        return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
     }
+
+    return [[self nextTokenizerStateFor:cin tokenizer:t] nextTokenFromReader:r startingWith:cin tokenizer:t];
 }
 
 @synthesize rootNode;

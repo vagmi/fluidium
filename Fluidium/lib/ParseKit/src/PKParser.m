@@ -1,15 +1,26 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKParser.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 1/20/06.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import <ParseKit/PKParser.h>
 #import <ParseKit/PKAssembly.h>
 #import <ParseKit/PKTokenAssembly.h>
 #import <ParseKit/PKTokenizer.h>
+
+@interface PKAssembly ()
+- (BOOL)hasMore;
+@property (nonatomic, readonly) NSUInteger objectsConsumed;
+@end
 
 @interface PKParser ()
 - (NSSet *)matchAndAssemble:(NSSet *)inAssemblies;
@@ -28,11 +39,9 @@
 
 
 - (void)dealloc {
-#ifdef MAC_OS_X_VERSION_10_6
-#if !TARGET_OS_IPHONE
+#ifdef TARGET_OS_SNOW_LEOPARD
     self.assemblerBlock = nil;
     self.preassemblerBlock = nil;
-#endif
 #endif
     self.assembler = nil;
     self.assemblerSelector = nil;
@@ -91,15 +100,13 @@
 - (NSSet *)matchAndAssemble:(NSSet *)inAssemblies {
     NSParameterAssert(inAssemblies);
 
-#ifdef MAC_OS_X_VERSION_10_6
-#if !TARGET_OS_IPHONE
+#ifdef TARGET_OS_SNOW_LEOPARD
     if (preassemblerBlock) {
         for (PKAssembly *a in inAssemblies) {
             preassemblerBlock(a);
         }
     } else 
 #endif
-#endif        
     if (preassembler) {
         NSAssert2([preassembler respondsToSelector:preassemblerSelector], @"provided preassembler %@ should respond to %s", preassembler, preassemblerSelector);
         for (PKAssembly *a in inAssemblies) {
@@ -109,14 +116,12 @@
     
     NSSet *outAssemblies = [self allMatchesFor:inAssemblies];
 
-#ifdef MAC_OS_X_VERSION_10_6
-#if !TARGET_OS_IPHONE
+#ifdef TARGET_OS_SNOW_LEOPARD
     if (assemblerBlock) {
         for (PKAssembly *a in outAssemblies) {
             assemblerBlock(a);
         }
     } else 
-#endif        
 #endif
     if (assembler) {
         NSAssert2([assembler respondsToSelector:assemblerSelector], @"provided assembler %@ should respond to %s", assembler, assemblerSelector);
@@ -148,18 +153,16 @@
 
 - (NSString *)description {
     NSString *className = [NSStringFromClass([self class]) substringFromIndex:2];
-    if (name.length) {
+    if ([name length]) {
         return [NSString stringWithFormat:@"%@ (%@)", className, name];
     } else {
         return [NSString stringWithFormat:@"%@", className];
     }
 }
 
-#ifdef MAC_OS_X_VERSION_10_6
-#if !TARGET_OS_IPHONE
+#ifdef TARGET_OS_SNOW_LEOPARD
 @synthesize assemblerBlock;
 @synthesize preassemblerBlock;
-#endif
 #endif
 @synthesize assembler;
 @synthesize assemblerSelector;

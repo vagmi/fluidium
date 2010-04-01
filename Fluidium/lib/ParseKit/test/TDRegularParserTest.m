@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKRegularParserTest.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 8/14/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "TDRegularParserTest.h"
 
@@ -62,7 +68,7 @@
     TDEqualObjects(@"[Sequence]ab^", [res description]);
     PKSequence *seq = [res pop];
     TDTrue([seq isMemberOfClass:[PKSequence class]]);
-    TDEquals((NSUInteger)2, seq.subparsers.count);
+    TDEquals((NSUInteger)2, [seq.subparsers count]);
     
     PKSpecificChar *c = [seq.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -90,7 +96,7 @@
     TDEqualObjects(@"[Sequence]abc^", [res description]);
     PKSequence *seq = [res pop];
     TDTrue([seq isMemberOfClass:[PKSequence class]]);
-    TDEquals((NSUInteger)3, seq.subparsers.count);
+    TDEquals((NSUInteger)3, [seq.subparsers count]);
     
     PKSpecificChar *c = [seq.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -121,7 +127,7 @@
     TDEqualObjects(@"[Alternation]a|b^", [res description]);
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -149,7 +155,7 @@
     TDEqualObjects(@"[Alternation]4|7^", [res description]);
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -177,7 +183,7 @@
     TDEqualObjects(@"[Alternation]a|b*^", [res description]);
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -208,7 +214,7 @@
     TDEqualObjects(@"[Alternation]a|b+^", [res description]);
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -251,7 +257,7 @@
     TDEqualObjects(@"[Alternation]a|b?^", [res description]);
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -294,7 +300,7 @@
     
     PKAlternation *alt = (PKAlternation *)rep.subparser;
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -324,11 +330,11 @@
     PKSequence *seq = [res pop];
     TDTrue([seq isMemberOfClass:[PKSequence class]]);
 
-    TDEquals((NSUInteger)2, seq.subparsers.count);
+    TDEquals((NSUInteger)2, [seq.subparsers count]);
 
     PKAlternation *alt = [seq.subparsers objectAtIndex:0];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);
@@ -372,13 +378,13 @@
     PKAlternation *alt = [res pop];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
     
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     PKEmpty *e = [alt.subparsers objectAtIndex:0];
     TDTrue([PKEmpty class] == [e class]);
     
     alt = [alt.subparsers objectAtIndex:1];
     TDTrue([alt isMemberOfClass:[PKAlternation class]]);
-    TDEquals((NSUInteger)2, alt.subparsers.count);
+    TDEquals((NSUInteger)2, [alt.subparsers count]);
     
     PKSpecificChar *c = [alt.subparsers objectAtIndex:0];
     TDTrue([c isMemberOfClass:[PKSpecificChar class]]);

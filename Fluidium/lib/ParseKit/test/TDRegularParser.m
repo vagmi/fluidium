@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKRegularParser.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 8/14/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "TDRegularParser.h"
 
@@ -271,14 +277,14 @@
         NSAssert([obj isKindOfClass:[PKParser class]], @"");
     }
     
-    if (objs.count > 1) {
+    if ([objs count] > 1) {
         PKSequence *seq = [PKSequence sequence];
         for (id obj in [objs reverseObjectEnumerator]) {
             [seq add:obj];
         }
         [a push:seq];
     } else {
-        NSAssert((NSUInteger)1 == objs.count, @"");
+        NSAssert((NSUInteger)1 == [objs count], @"");
         PKParser *p = [objs objectAtIndex:0];
         [a push:p];
     }

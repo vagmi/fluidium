@@ -1,10 +1,16 @@
+//  Copyright 2010 Todd Ditchendorf
 //
-//  PKJsonParser.m
-//  ParseKit
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-//  Created by Todd Ditchendorf on 7/18/08.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 #import "TDJsonParser.h"
 #import "ParseKit.h"
@@ -262,7 +268,7 @@
 
 - (void)didMatchArray:(PKAssembly *)a {
     NSArray *elements = [a objectsAbove:self.bracket];
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:elements.count];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[elements count]];
     
     for (id element in [elements reverseObjectEnumerator]) {
         if (element) {
@@ -276,10 +282,10 @@
 
 - (void)didMatchObject:(PKAssembly *)a {
     NSArray *elements = [a objectsAbove:self.curly];
-    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:elements.count / 2.];
+    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:[elements count] / 2.];
     
     NSInteger i = 0;
-    for ( ; i < elements.count - 1; i++) {
+    for ( ; i < [elements count] - 1; i++) {
         id value = [elements objectAtIndex:i++];
         NSString *key = [elements objectAtIndex:i];
         if (key && value) {

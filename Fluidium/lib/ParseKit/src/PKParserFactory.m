@@ -281,7 +281,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     // discover the actual parser class types
     for (NSString *parserName in parserTokensTable) {
         NSString *className = [self parserClassNameFromTokenArray:[parserTokensTable objectForKey:parserName]];
-        NSAssert1(className.length, @"Could not build ClassName from token array for parserName: %@", parserName);
+        NSAssert1([className length], @"Could not build ClassName from token array for parserName: %@", parserName);
         [parserClassTable setObject:className forKey:parserName];
     }
     isGatheringClasses = NO;
@@ -345,7 +345,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
 			NSString *s = [tok.stringValue stringByTrimmingQuotes];
-			if (s.length) {
+			if ([s length]) {
 				NSInteger c = [s characterAtIndex:0];
 				[t.wordState setWordChars:YES from:c to:c];
 			}
@@ -360,7 +360,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
 			NSString *s = [tok.stringValue stringByTrimmingQuotes];
-			if (s.length) {
+			if ([s length]) {
                 NSInteger c = 0;
                 if ([s hasPrefix:@"#x"]) {
                     c = [s integerValue];
@@ -387,12 +387,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     // multi-line comments
     toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@multiLineComment"]];
     toks = [toks arrayByAddingObjectsFromArray:[parserTokensTable objectForKey:@"@multiLineComments"]];
-    NSAssert(0 == toks.count % 2, @"@multiLineComments must be specified as quoted strings in multiples of 2");
+    NSAssert(0 == [toks count] % 2, @"@multiLineComments must be specified as quoted strings in multiples of 2");
     [parserTokensTable removeObjectForKey:@"@multiLineComment"];
     [parserTokensTable removeObjectForKey:@"@multiLineComments"];
-    if (toks.count > 1) {
+    if ([toks count] > 1) {
         NSInteger i = 0;
-        for ( ; i < toks.count - 1; i++) {
+        for ( ; i < [toks count] - 1; i++) {
             PKToken *startTok = [toks objectAtIndex:i];
             PKToken *endTok = [toks objectAtIndex:++i];
             if (startTok.isQuotedString && endTok.isQuotedString) {
@@ -406,12 +406,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     // delimited strings
     toks = [NSArray arrayWithArray:[parserTokensTable objectForKey:@"@delimitedString"]];
     toks = [toks arrayByAddingObjectsFromArray:[parserTokensTable objectForKey:@"@delimitedStrings"]];
-    NSAssert(0 == toks.count % 3, @"@delimitedString must be specified as quoted strings in multiples of 3");
+    NSAssert(0 == [toks count] % 3, @"@delimitedString must be specified as quoted strings in multiples of 3");
     [parserTokensTable removeObjectForKey:@"@delimitedString"];
     [parserTokensTable removeObjectForKey:@"@delimitedStrings"];
-    if (toks.count > 1) {
+    if ([toks count] > 1) {
         NSInteger i = 0;
-        for ( ; i < toks.count - 2; i++) {
+        for ( ; i < [toks count] - 2; i++) {
             PKToken *startTok = [toks objectAtIndex:i];
             PKToken *endTok = [toks objectAtIndex:++i];
             PKToken *charSetTok = [toks objectAtIndex:++i];
@@ -434,7 +434,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 - (BOOL)boolForTokenForKey:(NSString *)key {
     BOOL result = NO;
     NSArray *toks = [parserTokensTable objectForKey:key];
-    if (toks.count) {
+    if ([toks count]) {
         PKToken *tok = [toks objectAtIndex:0];
         if (tok.isWord && [tok.stringValue isEqualToString:@"YES"]) {
             result = YES;
@@ -450,7 +450,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     for (PKToken *tok in toks) {
         if (tok.isQuotedString) {
             NSString *s = [tok.stringValue stringByTrimmingQuotes];
-            if (1 == s.length) {
+            if (1 == [s length]) {
                 NSInteger c = [s characterAtIndex:0];
                 [t setTokenizerState:state from:c to:c];
             }
@@ -462,7 +462,7 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)setFallbackStateOn:(PKTokenizerState *)state withTokenizer:(PKTokenizer *)t forTokensForKey:(NSString *)key {
     NSArray *toks = [parserTokensTable objectForKey:key];
-    if (toks.count) {
+    if ([toks count]) {
         PKToken *tok = [toks objectAtIndex:0];
         if (tok.isWord) {
             PKTokenizerState *fallbackState = [t valueForKey:tok.stringValue];
@@ -597,12 +597,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     }
     
     if (selName) {
-        NSAssert(selName.length, @"");
+        NSAssert([selName length], @"");
         [selectorTable setObject:selName forKey:parserName];
     }
 	NSMutableDictionary *d = a.target;
     //NSLog(@"parserName: %@", parserName);
-    NSAssert(toks.count, @"");
+    NSAssert([toks count], @"");
     
     // support for multiple @delimitedString = ... tokenizer directives
     if ([parserName hasPrefix:@"@"]) {
@@ -612,7 +612,7 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
         
         NSArray *existingToks = [d objectForKey:parserName];
-        if (existingToks.count) {
+        if ([existingToks count]) {
             toks = [toks arrayByAddingObjectsFromArray:existingToks];
         }
     }
@@ -667,16 +667,16 @@ void PKReleaseSubparserTree(PKParser *p) {
 
 - (void)didMatchExpression:(PKAssembly *)a {
     NSArray *objs = [a objectsAbove:paren];
-    NSAssert(objs.count, @"");
+    NSAssert([objs count], @"");
     [a pop]; // pop '('
     
-    if (objs.count > 1) {
+    if ([objs count] > 1) {
         PKSequence *seq = [PKSequence sequence];
         for (id obj in [objs reverseObjectEnumerator]) {
             [seq add:obj];
         }
         [a push:seq];
-    } else if (objs.count) {
+    } else if ([objs count]) {
         [a push:[objs objectAtIndex:0]];
     }
 }
@@ -711,7 +711,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(tok.isWord, @"");
 
     NSString *s = tok.stringValue;
-    NSAssert(s.length > 0, @"");
+    NSAssert([s length] > 0, @"");
 
     PKPatternOptions opts = PKPatternOptionsNone;
     if (NSNotFound != [s rangeOfString:@"i"].location) {
@@ -748,7 +748,7 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSAssert(tok.isDelimitedString, @"");
 
     NSString *s = tok.stringValue;
-    NSAssert(s.length > 2, @"");
+    NSAssert([s length] > 2, @"");
     
     NSAssert([s hasPrefix:@"/"], @"");
     NSAssert([s hasSuffix:@"/"], @"");
@@ -845,10 +845,10 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSArray *toks = [a objectsAbove:paren];
     [a pop]; // discard '(' fence
     
-    NSAssert(toks.count > 0 && toks.count < 3, @"");
+    NSAssert([toks count] > 0 && [toks count] < 3, @"");
     NSString *start = [[[toks lastObject] stringValue] stringByTrimmingQuotes];
     NSString *end = nil;
-    if (toks.count > 1) {
+    if ([toks count] > 1) {
         end = [[[toks objectAtIndex:0] stringValue] stringByTrimmingQuotes];
     }
 
@@ -908,12 +908,12 @@ void PKReleaseSubparserTree(PKParser *p) {
     NSArray *toks = [a objectsAbove:self.curly];
     [a pop]; // discard '{' tok
 
-    NSAssert(toks.count > 0, @"");
+    NSAssert([toks count] > 0, @"");
     
     PKToken *tok = [toks lastObject];
     CGFloat start = tok.floatValue;
     CGFloat end = start;
-    if (toks.count > 1) {
+    if ([toks count] > 1) {
         tok = [toks objectAtIndex:0];
         end = tok.floatValue;
     }
@@ -948,14 +948,14 @@ void PKReleaseSubparserTree(PKParser *p) {
         }
     }
     
-    if (parsers.count > 1) {
+    if ([parsers count] > 1) {
         PKSequence *seq = [PKSequence sequence];
         for (PKParser *p in [parsers reverseObjectEnumerator]) {
             [seq add:p];
         }
         
         [a push:seq];
-    } else if (1 == parsers.count) {
+    } else if (1 == [parsers count]) {
         [a push:[parsers objectAtIndex:0]];
     }
 }
