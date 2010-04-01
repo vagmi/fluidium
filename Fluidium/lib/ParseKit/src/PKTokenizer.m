@@ -52,8 +52,10 @@
         self.wordState       = [[[PKWordState alloc] init] autorelease];
         self.delimitState    = [[[PKDelimitState alloc] init] autorelease];
         self.URLState        = [[[PKURLState alloc] init] autorelease];
+        self.emailState      = [[[PKEmailState alloc] init] autorelease];
         
         URLState.fallbackState = wordState;
+        //emailState.fallbackState = wordState;
         
         self.tokenizerStates = [NSMutableArray arrayWithCapacity:STATE_COUNT];
         
@@ -87,6 +89,7 @@
     self.wordState = nil;
     self.delimitState = nil;
     self.URLState = nil;
+    self.emailState = nil;
     [super dealloc];
 }
 
@@ -235,6 +238,7 @@
 @synthesize wordState;
 @synthesize delimitState;
 @synthesize URLState;
+@synthesize emailState;
 @synthesize string;
 @synthesize reader;
 @synthesize tokenizerStates;

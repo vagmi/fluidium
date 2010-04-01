@@ -60,6 +60,7 @@
 #import <ParseKit/PKSingleLineCommentState.h>
 #import <ParseKit/PKMultiLineCommentState.h>
 #import <ParseKit/PKURLState.h>
+#import <ParseKit/PKEmailState.h>
 #import <ParseKit/PKSymbolNode.h>
 #import <ParseKit/PKSymbolRootNode.h>
 #import <ParseKit/PKSymbolState.h>

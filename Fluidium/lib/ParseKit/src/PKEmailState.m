@@ -63,25 +63,22 @@
 
 - (BOOL)parseNameFromReader:(PKReader *)r {
     BOOL result = NO;
-//    NSInteger wcount = 0;
-//    
-//    while ('w' == c) {
-//        wcount++;
-//        [self append:c];
-//        c = [r read];
-//        
-//        if (3 == wcount) {
-//            if ('.' == c) {
-//                [self append:c];
-//                c = [r read];
-//                result = YES;
-//                break;
-//            } else {
-//                result = NO;
-//                break;
-//            }
-//        }
-//    }
+    BOOL hasAtLeastOneChar = NO;
+
+    for (;;) {
+        if (PKEOF == c || isspace(c)) {
+            result = NO;
+            break;
+        } else if ('@' == c && hasAtLeastOneChar) {
+            [self append:c];
+            result = YES;
+            break;
+        } else {
+            hasAtLeastOneChar = YES;
+            [self append:c];
+            c = [r read];
+        }
+    }
     
     return result;
 }
@@ -89,25 +86,23 @@
 
 - (BOOL)parseHostFromReader:(PKReader *)r {
     BOOL result = NO;
-    //    NSInteger wcount = 0;
-    //    
-    //    while ('w' == c) {
-    //        wcount++;
-    //        [self append:c];
-    //        c = [r read];
-    //        
-    //        if (3 == wcount) {
-    //            if ('.' == c) {
-    //                [self append:c];
-    //                c = [r read];
-    //                result = YES;
-    //                break;
-    //            } else {
-    //                result = NO;
-    //                break;
-    //            }
-    //        }
-    //    }
+    BOOL hasAtLeastOneChar = NO;
+    BOOL hasDot = NO;
+    
+    // ^[:space:]()<>/
+    for (;;) {
+        if (PKEOF == c || isspace(c) || '(' == c || ')' == c || '<' == c || '>' == c || '/' == c) {
+            result = hasAtLeastOneChar && hasDot;
+            break;
+        } else {
+            if ('.' == c) {
+                hasDot = YES;
+            }
+            hasAtLeastOneChar = YES;
+            [self append:c];
+            c = [r read];
+        }
+    }
     
     return result;
 }
