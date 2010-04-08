@@ -30,12 +30,12 @@
 
 @implementation PKTokenizer
 
-+ (id)tokenizer {
++ (PKTokenizer *)tokenizer {
     return [self tokenizerWithString:nil];
 }
 
 
-+ (id)tokenizerWithString:(NSString *)s {
++ (PKTokenizer *)tokenizerWithString:(NSString *)s {
     return [[[self alloc] initWithString:s] autorelease];
 }
 
@@ -59,9 +59,12 @@
         self.delimitState    = [[[PKDelimitState alloc] init] autorelease];
         self.URLState        = [[[PKURLState alloc] init] autorelease];
         self.emailState      = [[[PKEmailState alloc] init] autorelease];
+        self.twitterState    = [[[PKTwitterState alloc] init] autorelease];
         
-        URLState.fallbackState = wordState;
-        //emailState.fallbackState = wordState;
+        quoteState.fallbackState = symbolState;
+        URLState.fallbackState = emailState;
+        emailState.fallbackState = wordState;
+        twitterState.fallbackState = symbolState;
         
         self.tokenizerStates = [NSMutableArray arrayWithCapacity:STATE_COUNT];
         
@@ -96,6 +99,7 @@
     self.delimitState = nil;
     self.URLState = nil;
     self.emailState = nil;
+    self.twitterState = nil;
     [super dealloc];
 }
 
@@ -201,7 +205,9 @@
         return symbolState;
     } else if (c >= '0' && c <= '9') {   // From: 48 to: 57    From:0x30 to:0x39
         return numberState;
-    } else if (c >= 58 && c <= 64) {
+    } else if (c >= 58 && c <= 63) {
+        return symbolState;
+    } else if (c == '@') {               // From: 64 to: 64    From:0x40 to:0x40
         return symbolState;
     } else if (c >= 'A' && c <= 'Z') {   // From: 65 to: 90    From:0x41 to:0x5A
         return URLState;
@@ -243,6 +249,7 @@
 @synthesize delimitState;
 @synthesize URLState;
 @synthesize emailState;
+@synthesize twitterState;
 @synthesize string;
 @synthesize reader;
 @synthesize tokenizerStates;

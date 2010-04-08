@@ -26,6 +26,7 @@
 @class PKDelimitState;
 @class PKURLState;
 @class PKEmailState;
+@class PKTwitterState;
 @class PKReader;
 
 /*!
@@ -44,6 +45,7 @@
       '0'    '9'    numberState
       '-'    '-'    numberState
       '.'    '.'    numberState
+      '@'    '@'    twitterState
       '"'    '"'    quoteState
      '\''   '\''    quoteState
       '/'    '/'    commentState
@@ -65,20 +67,21 @@
     PKDelimitState *delimitState;
     PKURLState *URLState;
     PKEmailState *emailState;
+    PKTwitterState *twitterState;
 }
 
 /*!
     @brief      Convenience factory method. Sets string from which to to read to <tt>nil</tt>.
     @result     An initialized tokenizer.
 */
-+ (id)tokenizer;
++ (PKTokenizer *)tokenizer;
 
 /*!
     @brief      Convenience factory method.
     @param      s string to read from.
     @result     An autoreleased initialized tokenizer.
 */
-+ (id)tokenizerWithString:(NSString *)s;
++ (PKTokenizer *)tokenizerWithString:(NSString *)s;
 
 /*!
     @brief      Designated Initializer. Constructs a tokenizer to read from the supplied string.
@@ -160,4 +163,5 @@
 
 @property (nonatomic, retain) PKURLState *URLState;
 @property (nonatomic, retain) PKEmailState *emailState;
+@property (nonatomic, retain) PKTwitterState *twitterState;
 @end

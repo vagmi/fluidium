@@ -14,6 +14,10 @@
 		D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3126D040FFD9BA700CBF4C4 /* PKNegation.m */; };
 		D315DF720FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
 		D315DF730FEF59B600D876C8 /* date.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D315DF710FEF59B600D876C8 /* date.grammar */; };
+		D319E42A106D8A1F008C63DD /* arithmetic.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D319E429106D8A1F008C63DD /* arithmetic.grammar */; };
+		D319E42B106D8A1F008C63DD /* arithmetic.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D319E429106D8A1F008C63DD /* arithmetic.grammar */; };
+		D319E42E106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D319E42D106D8A31008C63DD /* TDArithmeticAssembler.m */; };
+		D319E42F106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D319E42D106D8A31008C63DD /* TDArithmeticAssembler.m */; };
 		D31A15260F6DE449002AFDF1 /* javascript.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D31A15250F6DE449002AFDF1 /* javascript.grammar */; };
 		D31A15270F6DE449002AFDF1 /* javascript.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D31A15250F6DE449002AFDF1 /* javascript.grammar */; };
 		D31A16520F7038C2002AFDF1 /* TDJavaScriptParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D31A16510F7038C2002AFDF1 /* TDJavaScriptParser.m */; };
@@ -95,6 +99,11 @@
 		D3385FDA0FCFB1FF003BF729 /* TDPredicateEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FD80FCFB1FF003BF729 /* TDPredicateEvaluator.m */; };
 		D3385FDE0FCFB227003BF729 /* TDPredicateEvaluatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3385FDC0FCFB227003BF729 /* TDPredicateEvaluatorTest.m */; };
 		D338E5BB0FF5DDCB003DE6AA /* TDDifferenceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D338E5BA0FF5DDCB003DE6AA /* TDDifferenceTest.m */; };
+		D33DC195116562DB004CE58C /* TDTwitterStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC194116562DB004CE58C /* TDTwitterStateTest.m */; };
+		D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
+		D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */ = {isa = PBXBuildFile; fileRef = D33DC1971165634F004CE58C /* PKTwitterState.m */; };
+		D33DC1A011656952004CE58C /* PKTwitterState.h in Headers */ = {isa = PBXBuildFile; fileRef = D33DC19F11656952004CE58C /* PKTwitterState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D33DC1A111656952004CE58C /* PKTwitterState.h in Headers */ = {isa = PBXBuildFile; fileRef = D33DC19F11656952004CE58C /* PKTwitterState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D341850C0E520D640081B0DC /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D34BAC230FF87F8600D7773A /* TDParserFactoryTest3.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAC220FF87F8600D7773A /* TDParserFactoryTest3.m */; };
 		D34BAC4B0FF892C200D7773A /* XPathParserGrammarTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D34BAC4A0FF892C200D7773A /* XPathParserGrammarTest.m */; };
@@ -238,7 +247,16 @@
 		D355C8810FEB36A1006A91A4 /* xml.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8800FEB36A1006A91A4 /* xml.grammar */; };
 		D355C8840FEB4B94006A91A4 /* proto.grammar in Resources */ = {isa = PBXBuildFile; fileRef = D355C8830FEB4B94006A91A4 /* proto.grammar */; };
 		D3587EAF0FE83EC900DDD023 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
-		D35F4AC711643CE3003811F3 /* TDEmailStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4AC611643CE3003811F3 /* TDEmailStateTest.m */; };
+		D35F4A8711643630003811F3 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8511643630003811F3 /* PKEmailState.m */; };
+		D35F4A8811643630003811F3 /* PKURLState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8611643630003811F3 /* PKURLState.m */; };
+		D35F4A8911643630003811F3 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8511643630003811F3 /* PKEmailState.m */; };
+		D35F4A8A11643630003811F3 /* PKURLState.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4A8611643630003811F3 /* PKURLState.m */; };
+		D35F4A8D11643662003811F3 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8B11643662003811F3 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35F4A8E11643662003811F3 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8C11643662003811F3 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35F4A8F11643662003811F3 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8B11643662003811F3 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35F4A9011643662003811F3 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D35F4A8C11643662003811F3 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D35F4AA21164380C003811F3 /* TDURLStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4AA11164380C003811F3 /* TDURLStateTest.m */; };
+		D35F4ABA11643979003811F3 /* TDEmailStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D35F4AB911643979003811F3 /* TDEmailStateTest.m */; };
 		D36568A70EEF9FE900226554 /* TDPlistParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D36568A60EEF9FE900226554 /* TDPlistParser.m */; };
 		D36568AA0EEFA05300226554 /* TDPlistParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D36568A90EEFA05300226554 /* TDPlistParserTest.m */; };
 		D3656DFE0EF2620E00226554 /* TDTokenArraySourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3656DFD0EF2620E00226554 /* TDTokenArraySourceTest.m */; };
@@ -442,10 +460,6 @@
 		D3C2222E0FFE8DEE004514FE /* NSString+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */; };
 		D3C2222F0FFE8DEF004514FE /* NSString+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD50FF9E95500D7773A /* NSString+ParseKitAdditions.h */; };
 		D3C222300FFE8DF3004514FE /* NSArray+ParseKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34BAFD30FF9E95500D7773A /* NSArray+ParseKitAdditions.h */; };
-		D3C5A90A116410C2002B77D7 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C5A908116410C2002B77D7 /* PKEmailState.m */; };
-		D3C5A90C116410C2002B77D7 /* PKEmailState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C5A908116410C2002B77D7 /* PKEmailState.m */; };
-		D3C5A92F116422D5002B77D7 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C5A92E116422D5002B77D7 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3C5A930116422D5002B77D7 /* PKEmailState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C5A92E116422D5002B77D7 /* PKEmailState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3C7D9DA0A412874005DD154 /* ParseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* ParseKit.framework */; };
 		D3C85C7B0E63B438000445FD /* TDArithmeticParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */; };
 		D3C85C800E63B9E9000445FD /* TDArithmeticParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C85C7F0E63B9E9000445FD /* TDArithmeticParserTest.m */; };
@@ -465,11 +479,6 @@
 		D3DDDAFE0F083C9700A58000 /* TDCommentStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DDDAFD0F083C9700A58000 /* TDCommentStateTest.m */; };
 		D3DDDCAD0F0880D800A58000 /* example1.srgs in Resources */ = {isa = PBXBuildFile; fileRef = D3DDDCAC0F0880D800A58000 /* example1.srgs */; };
 		D3DDDCAE0F0880D800A58000 /* example1.srgs in Resources */ = {isa = PBXBuildFile; fileRef = D3DDDCAC0F0880D800A58000 /* example1.srgs */; };
-		D3E14C37115D47B3003BB515 /* PKURLState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E14C35115D47B3003BB515 /* PKURLState.m */; };
-		D3E14C39115D47B3003BB515 /* PKURLState.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E14C35115D47B3003BB515 /* PKURLState.m */; };
-		D3E14C40115D490C003BB515 /* TDURLStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E14C3F115D490C003BB515 /* TDURLStateTest.m */; };
-		D3E14C45115D4A88003BB515 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E14C44115D4A88003BB515 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3E14C46115D4A88003BB515 /* PKURLState.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E14C44115D4A88003BB515 /* PKURLState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3E27A320E741DD20078CC2C /* small-xml-file.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36EA3AF0E5EA67E00496BD3 /* small-xml-file.xml */; };
 		D3E27A330E741DD20078CC2C /* apple-boss.xml in Resources */ = {isa = PBXBuildFile; fileRef = D36E9FB40E5A944A00496BD3 /* apple-boss.xml */; };
 		D3E39C3F0FC5FFD10022DAB9 /* TDDelimitStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */; };
@@ -636,6 +645,9 @@
 		D3126D420FFDB4C600CBF4C4 /* TDExclusionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDExclusionTest.m; path = test/TDExclusionTest.m; sourceTree = "<group>"; };
 		D31270F80FFE898300CBF4C4 /* PKExclusion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKExclusion.m; path = test/PKExclusion.m; sourceTree = "<group>"; };
 		D315DF710FEF59B600D876C8 /* date.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = date.grammar; path = res/date.grammar; sourceTree = "<group>"; };
+		D319E429106D8A1F008C63DD /* arithmetic.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arithmetic.grammar; path = res/arithmetic.grammar; sourceTree = "<group>"; };
+		D319E42C106D8A31008C63DD /* TDArithmeticAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDArithmeticAssembler.h; path = test/TDArithmeticAssembler.h; sourceTree = "<group>"; };
+		D319E42D106D8A31008C63DD /* TDArithmeticAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDArithmeticAssembler.m; path = test/TDArithmeticAssembler.m; sourceTree = "<group>"; };
 		D31A15250F6DE449002AFDF1 /* javascript.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = javascript.grammar; path = res/javascript.grammar; sourceTree = "<group>"; };
 		D31A16500F7038C2002AFDF1 /* TDJavaScriptParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJavaScriptParser.h; path = test/TDJavaScriptParser.h; sourceTree = "<group>"; };
 		D31A16510F7038C2002AFDF1 /* TDJavaScriptParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJavaScriptParser.m; path = test/TDJavaScriptParser.m; sourceTree = "<group>"; };
@@ -776,6 +788,10 @@
 		D3385FDC0FCFB227003BF729 /* TDPredicateEvaluatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPredicateEvaluatorTest.m; path = test/TDPredicateEvaluatorTest.m; sourceTree = "<group>"; };
 		D338E5B90FF5DDCB003DE6AA /* TDDifferenceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDifferenceTest.h; path = test/TDDifferenceTest.h; sourceTree = "<group>"; };
 		D338E5BA0FF5DDCB003DE6AA /* TDDifferenceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDifferenceTest.m; path = test/TDDifferenceTest.m; sourceTree = "<group>"; };
+		D33DC193116562DB004CE58C /* TDTwitterStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTwitterStateTest.h; path = test/TDTwitterStateTest.h; sourceTree = "<group>"; };
+		D33DC194116562DB004CE58C /* TDTwitterStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTwitterStateTest.m; path = test/TDTwitterStateTest.m; sourceTree = "<group>"; };
+		D33DC1971165634F004CE58C /* PKTwitterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKTwitterState.m; path = src/PKTwitterState.m; sourceTree = "<group>"; };
+		D33DC19F11656952004CE58C /* PKTwitterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKTwitterState.h; path = include/ParseKit/PKTwitterState.h; sourceTree = "<group>"; };
 		D34185040E520D3F0081B0DC /* DebugApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebugApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D34BAC210FF87F8600D7773A /* TDParserFactoryTest3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParserFactoryTest3.h; path = test/TDParserFactoryTest3.h; sourceTree = "<group>"; };
 		D34BAC220FF87F8600D7773A /* TDParserFactoryTest3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDParserFactoryTest3.m; path = test/TDParserFactoryTest3.m; sourceTree = "<group>"; };
@@ -925,8 +941,14 @@
 		D355C6300FE9EFEA006A91A4 /* TDNSPredicateEvaluatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNSPredicateEvaluatorTest.m; path = test/TDNSPredicateEvaluatorTest.m; sourceTree = "<group>"; };
 		D355C8800FEB36A1006A91A4 /* xml.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xml.grammar; path = res/xml.grammar; sourceTree = "<group>"; };
 		D355C8830FEB4B94006A91A4 /* proto.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = proto.grammar; path = res/proto.grammar; sourceTree = "<group>"; };
-		D35F4AC511643CE3003811F3 /* TDEmailStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDEmailStateTest.h; path = test/TDEmailStateTest.h; sourceTree = "<group>"; };
-		D35F4AC611643CE3003811F3 /* TDEmailStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDEmailStateTest.m; path = test/TDEmailStateTest.m; sourceTree = "<group>"; };
+		D35F4A8511643630003811F3 /* PKEmailState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKEmailState.m; path = src/PKEmailState.m; sourceTree = "<group>"; };
+		D35F4A8611643630003811F3 /* PKURLState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKURLState.m; path = src/PKURLState.m; sourceTree = "<group>"; };
+		D35F4A8B11643662003811F3 /* PKEmailState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKEmailState.h; path = include/ParseKit/PKEmailState.h; sourceTree = "<group>"; };
+		D35F4A8C11643662003811F3 /* PKURLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKURLState.h; path = include/ParseKit/PKURLState.h; sourceTree = "<group>"; };
+		D35F4AA01164380C003811F3 /* TDURLStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDURLStateTest.h; path = test/TDURLStateTest.h; sourceTree = "<group>"; };
+		D35F4AA11164380C003811F3 /* TDURLStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDURLStateTest.m; path = test/TDURLStateTest.m; sourceTree = "<group>"; };
+		D35F4AB811643979003811F3 /* TDEmailStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDEmailStateTest.h; path = test/TDEmailStateTest.h; sourceTree = "<group>"; };
+		D35F4AB911643979003811F3 /* TDEmailStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDEmailStateTest.m; path = test/TDEmailStateTest.m; sourceTree = "<group>"; };
 		D36568A50EEF9FE900226554 /* TDPlistParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPlistParser.h; path = test/TDPlistParser.h; sourceTree = "<group>"; };
 		D36568A60EEF9FE900226554 /* TDPlistParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPlistParser.m; path = test/TDPlistParser.m; sourceTree = "<group>"; };
 		D36568A80EEFA05300226554 /* TDPlistParserTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPlistParserTest.h; path = test/TDPlistParserTest.h; sourceTree = "<group>"; };
@@ -1095,8 +1117,6 @@
 		D3C222230FFE8D49004514FE /* PKLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKLetter.h; path = include/ParseKit/PKLetter.h; sourceTree = "<group>"; };
 		D3C222260FFE8D6B004514FE /* PKSpecificChar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKSpecificChar.h; path = include/ParseKit/PKSpecificChar.h; sourceTree = "<group>"; };
 		D3C222290FFE8DAC004514FE /* PKParserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKParserFactory.h; path = include/ParseKit/PKParserFactory.h; sourceTree = "<group>"; };
-		D3C5A908116410C2002B77D7 /* PKEmailState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKEmailState.m; path = src/PKEmailState.m; sourceTree = "<group>"; };
-		D3C5A92E116422D5002B77D7 /* PKEmailState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKEmailState.h; path = include/ParseKit/PKEmailState.h; sourceTree = "<group>"; };
 		D3C7D87A0A411FBF005DD154 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C85C790E63B438000445FD /* TDArithmeticParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDArithmeticParser.h; path = test/TDArithmeticParser.h; sourceTree = "<group>"; };
 		D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDArithmeticParser.m; path = test/TDArithmeticParser.m; sourceTree = "<group>"; };
@@ -1122,10 +1142,6 @@
 		D3DDDC270F085C5400A58000 /* TDSlashState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSlashState.h; path = test/TDSlashState.h; sourceTree = "<group>"; };
 		D3DDDC280F085C5400A58000 /* TDSlashState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSlashState.m; path = test/TDSlashState.m; sourceTree = "<group>"; };
 		D3DDDCAC0F0880D800A58000 /* example1.srgs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = example1.srgs; path = res/example1.srgs; sourceTree = "<group>"; };
-		D3E14C35115D47B3003BB515 /* PKURLState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKURLState.m; path = src/PKURLState.m; sourceTree = "<group>"; };
-		D3E14C3E115D490C003BB515 /* TDURLStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDURLStateTest.h; path = test/TDURLStateTest.h; sourceTree = "<group>"; };
-		D3E14C3F115D490C003BB515 /* TDURLStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDURLStateTest.m; path = test/TDURLStateTest.m; sourceTree = "<group>"; };
-		D3E14C44115D4A88003BB515 /* PKURLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKURLState.h; path = include/ParseKit/PKURLState.h; sourceTree = "<group>"; };
 		D3E39C3D0FC5FFD10022DAB9 /* TDDelimitStateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDelimitStateTest.h; path = test/TDDelimitStateTest.h; sourceTree = "<group>"; };
 		D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDelimitStateTest.m; path = test/TDDelimitStateTest.m; sourceTree = "<group>"; };
 		D3E784BC0E53DA28008C7D61 /* apple-boss.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "apple-boss.json"; path = "res/apple-boss.json"; sourceTree = "<group>"; };
@@ -1535,11 +1551,13 @@
 				D34BAECE0FF9D56400D7773A /* PKSingleLineCommentState.m */,
 				D3C221E70FFE8C60004514FE /* PKMultiLineCommentState.h */,
 				D34BAEC80FF9D56400D7773A /* PKMultiLineCommentState.m */,
+				D35F4A8B11643662003811F3 /* PKEmailState.h */,
+				D35F4A8511643630003811F3 /* PKEmailState.m */,
+				D35F4A8C11643662003811F3 /* PKURLState.h */,
+				D35F4A8611643630003811F3 /* PKURLState.m */,
+				D33DC19F11656952004CE58C /* PKTwitterState.h */,
+				D33DC1971165634F004CE58C /* PKTwitterState.m */,
 				D3541F890DFB108300429B4F /* symbol */,
-				D3E14C44115D4A88003BB515 /* PKURLState.h */,
-				D3E14C35115D47B3003BB515 /* PKURLState.m */,
-				D3C5A92E116422D5002B77D7 /* PKEmailState.h */,
-				D3C5A908116410C2002B77D7 /* PKEmailState.m */,
 			);
 			name = states;
 			sourceTree = "<group>";
@@ -1576,10 +1594,12 @@
 				D3DDDAFD0F083C9700A58000 /* TDCommentStateTest.m */,
 				D3E39C3D0FC5FFD10022DAB9 /* TDDelimitStateTest.h */,
 				D3E39C3E0FC5FFD10022DAB9 /* TDDelimitStateTest.m */,
-				D3E14C3E115D490C003BB515 /* TDURLStateTest.h */,
-				D3E14C3F115D490C003BB515 /* TDURLStateTest.m */,
-				D35F4AC511643CE3003811F3 /* TDEmailStateTest.h */,
-				D35F4AC611643CE3003811F3 /* TDEmailStateTest.m */,
+				D35F4AA01164380C003811F3 /* TDURLStateTest.h */,
+				D35F4AA11164380C003811F3 /* TDURLStateTest.m */,
+				D35F4AB811643979003811F3 /* TDEmailStateTest.h */,
+				D35F4AB911643979003811F3 /* TDEmailStateTest.m */,
+				D33DC193116562DB004CE58C /* TDTwitterStateTest.h */,
+				D33DC194116562DB004CE58C /* TDTwitterStateTest.m */,
 			);
 			name = "tokenizer states";
 			sourceTree = "<group>";
@@ -2045,6 +2065,9 @@
 		D3C85C770E63B400000445FD /* arithmetic */ = {
 			isa = PBXGroup;
 			children = (
+				D319E429106D8A1F008C63DD /* arithmetic.grammar */,
+				D319E42C106D8A31008C63DD /* TDArithmeticAssembler.h */,
+				D319E42D106D8A31008C63DD /* TDArithmeticAssembler.m */,
 				D3C85C790E63B438000445FD /* TDArithmeticParser.h */,
 				D3C85C7A0E63B438000445FD /* TDArithmeticParser.m */,
 				D3C85C7E0E63B9E9000445FD /* TDArithmeticParserTest.h */,
@@ -2392,8 +2415,9 @@
 				D3C2222E0FFE8DEE004514FE /* NSString+ParseKitAdditions.h in Headers */,
 				D3F0E2480FFE8EB900C9DF74 /* PKQuoteState.h in Headers */,
 				D3376D5910093A1600E4602E /* PKGrammarParser.h in Headers */,
-				D3E14C46115D4A88003BB515 /* PKURLState.h in Headers */,
-				D3C5A930116422D5002B77D7 /* PKEmailState.h in Headers */,
+				D35F4A8D11643662003811F3 /* PKEmailState.h in Headers */,
+				D35F4A8E11643662003811F3 /* PKURLState.h in Headers */,
+				D33DC1A111656952004CE58C /* PKTwitterState.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2502,8 +2526,9 @@
 				D3F0E2490FFE8EB900C9DF74 /* PKQuoteState.h in Headers */,
 				D3F0E3CB0FFEB70100C9DF74 /* PKNumber.h in Headers */,
 				D37A28681013942A00E936B7 /* PKGrammarParser.h in Headers */,
-				D3E14C45115D4A88003BB515 /* PKURLState.h in Headers */,
-				D3C5A92F116422D5002B77D7 /* PKEmailState.h in Headers */,
+				D35F4A8F11643662003811F3 /* PKEmailState.h in Headers */,
+				D35F4A9011643662003811F3 /* PKURLState.h in Headers */,
+				D33DC1A011656952004CE58C /* PKTwitterState.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2721,6 +2746,7 @@
 				D315DF730FEF59B600D876C8 /* date.grammar in Resources */,
 				D34BAC9A0FF8A9AD00D7773A /* xpath1_0.grammar in Resources */,
 				D3668293101D2C000008632C /* erb.grammar in Resources */,
+				D319E42B106D8A1F008C63DD /* arithmetic.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2779,6 +2805,7 @@
 				D355C8840FEB4B94006A91A4 /* proto.grammar in Resources */,
 				D315DF720FEF59B600D876C8 /* date.grammar in Resources */,
 				D3668292101D2BFA0008632C /* erb.grammar in Resources */,
+				D319E42A106D8A1F008C63DD /* arithmetic.grammar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2871,8 +2898,9 @@
 				D34BAFDE0FF9E95500D7773A /* PKParserFactory.m in Sources */,
 				D3126D060FFD9BA700CBF4C4 /* PKNegation.m in Sources */,
 				D3376D5A10093A1600E4602E /* PKGrammarParser.m in Sources */,
-				D3E14C37115D47B3003BB515 /* PKURLState.m in Sources */,
-				D3C5A90C116410C2002B77D7 /* PKEmailState.m in Sources */,
+				D35F4A8711643630003811F3 /* PKEmailState.m in Sources */,
+				D35F4A8811643630003811F3 /* PKURLState.m in Sources */,
+				D33DC19B1165634F004CE58C /* PKTwitterState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2919,6 +2947,7 @@
 				D355C62E0FE9EFD6006A91A4 /* TDNSPredicateEvaluator.m in Sources */,
 				D3BBBC9D0FEC9756007DF30D /* TDXMLParser.m in Sources */,
 				D3376D8F10096C0700E4602E /* PKAST.m in Sources */,
+				D319E42F106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3093,8 +3122,10 @@
 				D3D1BF2B1039445C003656E5 /* SAXTest.m in Sources */,
 				D38E97CC1061CF6500739C39 /* TDTokenizerBlocksTest.m in Sources */,
 				D38E98D81062C5BA00739C39 /* TDParserBlocksTest.m in Sources */,
-				D3E14C40115D490C003BB515 /* TDURLStateTest.m in Sources */,
-				D35F4AC711643CE3003811F3 /* TDEmailStateTest.m in Sources */,
+				D319E42E106D8A31008C63DD /* TDArithmeticAssembler.m in Sources */,
+				D35F4AA21164380C003811F3 /* TDURLStateTest.m in Sources */,
+				D35F4ABA11643979003811F3 /* TDEmailStateTest.m in Sources */,
+				D33DC195116562DB004CE58C /* TDTwitterStateTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3155,8 +3186,9 @@
 				D3126DEC0FFDBC1D00CBF4C4 /* PKNegation.m in Sources */,
 				D3F0E3CC0FFEB70700C9DF74 /* PKNumber.m in Sources */,
 				D37A28671013942300E936B7 /* PKGrammarParser.m in Sources */,
-				D3E14C39115D47B3003BB515 /* PKURLState.m in Sources */,
-				D3C5A90A116410C2002B77D7 /* PKEmailState.m in Sources */,
+				D35F4A8911643630003811F3 /* PKEmailState.m in Sources */,
+				D35F4A8A11643630003811F3 /* PKURLState.m in Sources */,
+				D33DC1991165634F004CE58C /* PKTwitterState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3205,7 +3237,7 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3219,19 +3251,19 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GENERATE_PROFILING_CODE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(TARGET_BUILD_DIR)";
 				LLVM_LTO = NO;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 				);
 				PRODUCT_NAME = ParseKit;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "";
 				WARNING_CFLAGS = "-Wundeclared-selector";
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = YES;
@@ -3243,7 +3275,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "$(TDPARSEKIT_FRAMEWORK_TARGET_PATH)";
@@ -3254,14 +3285,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ParseKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = "";
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(TDPARSEKIT_FRAMEWORK_TARGET_PATH)";
+				INSTALL_PATH = "$(TARGET_BUILD_DIR)";
+				LLVM_LTO = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+				);
 				PRODUCT_NAME = ParseKit;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "";
 				TDPARSEKIT_FRAMEWORK_TARGET_PATH = "@executable_path/../Frameworks";
 				WARNING_CFLAGS = "-Wundeclared-selector";
 				WRAPPER_EXTENSION = framework;
@@ -3557,6 +3591,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(LIBXML_PATH)";
 				INFOPLIST_FILE = "test/Tests-Info.plist";
@@ -3603,6 +3638,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "$(LIBXML_PATH)";
 				INFOPLIST_FILE = "test/Tests-Info.plist";

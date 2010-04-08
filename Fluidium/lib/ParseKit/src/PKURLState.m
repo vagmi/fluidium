@@ -48,15 +48,30 @@
 }
 
 
+- (void)append:(PKUniChar)ch {
+    lastChar = ch;
+    [super append:ch];
+}
+
+
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
     [self resetWithReader:r];
     
+    lastChar = PKEOF;
     c = cin;
     BOOL matched = NO;
     if (allowsWWWPrefix && 'w' == c) {
         matched = [self parseWWWFromReader:r];
-    } else {
+
+        if (!matched) {
+            [r unread:[[self bufferedString] length]];
+            [self resetWithReader:r];
+            c = cin;
+        }
+    }
+    
+    if (!matched) {
         matched = [self parseSchemeFromReader:r];
     }
     if (matched) {
@@ -73,9 +88,9 @@
     } 
     
     if (matched) {
-        if ([s hasSuffix:@","]) {
-            [r unread];
+        if ('.' == lastChar || ',' == lastChar) {
             s = [s substringToIndex:[s length] - 1];
+            [r unread];
         }
         
         PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeURL stringValue:s floatValue:0.0];
@@ -161,7 +176,6 @@
             result = hasAtLeastOneChar;
             break;
         } else if ('/' == c && hasAtLeastOneChar/* && hasDot*/) {
-            //[self append:c];
             result = YES;
             break;
         } else {
@@ -182,7 +196,7 @@
     BOOL hasOpenParen = NO;
     
     for (;;) {
-        if (PKEOF == c || isspace(c) || '<' == c || '>' == c || '.' == c) {
+        if (PKEOF == c || isspace(c) || '<' == c || '>' == c) {
             break;
         } else if (')' == c) {
             if (hasOpenParen) {

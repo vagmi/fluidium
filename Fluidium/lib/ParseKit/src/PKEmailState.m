@@ -35,10 +35,17 @@
 }
 
 
+- (void)append:(PKUniChar)ch {
+    lastChar = ch;
+    [super append:ch];
+}
+
+
 - (PKToken *)nextTokenFromReader:(PKReader *)r startingWith:(PKUniChar)cin tokenizer:(PKTokenizer *)t {
     NSParameterAssert(r);
     [self resetWithReader:r];
     
+    lastChar = PKEOF;
     c = cin;
     BOOL matched = [self parseNameFromReader:r];
     if (matched) {
@@ -51,6 +58,11 @@
     
     NSString *s = [self bufferedString];
     if (matched) {
+        if ('.' == lastChar) {
+            s = [s substringToIndex:[s length] - 1];
+            [r unread];
+        }
+        
         PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeEmail stringValue:s floatValue:0.0];
         tok.offset = offset;
         return tok;
@@ -70,7 +82,7 @@
             result = NO;
             break;
         } else if ('@' == c && hasAtLeastOneChar) {
-            [self append:c];
+            //[self append:c];
             result = YES;
             break;
         } else {
