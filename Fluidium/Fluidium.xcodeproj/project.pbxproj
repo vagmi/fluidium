@@ -403,6 +403,13 @@
 			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = TwitterPlugIn;
 		};
+		D36E1E9B11702E4700110DBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D36E1E9511702E4700110DBA /* TDFooBarDemo.app */;
+			remoteInfo = TDFooBarDemo;
+		};
 		D38422EF1102D39200605809 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -1014,6 +1021,7 @@
 			children = (
 				D31CC0CA10EFCB590013347D /* TDAppKit.framework */,
 				D31CC0CC10EFCB590013347D /* ListViewDemoApp.app */,
+				D36E1E9C11702E4700110DBA /* TDFooBarDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1772,6 +1780,13 @@
 			fileType = wrapper.cfbundle;
 			path = Twitter.fluidplugin;
 			remoteRef = D346E5D010CE452000BA0B15 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D36E1E9C11702E4700110DBA /* TDFooBarDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TDFooBarDemo.app;
+			remoteRef = D36E1E9B11702E4700110DBA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D3D3766510E4091800203EB2 /* Browsa.fluidplugin */ = {

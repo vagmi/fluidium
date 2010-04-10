@@ -36,6 +36,12 @@
 		D366C1EC112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1EB112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
 		D366C1EF112902E500547FD6 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D366C1ED112902E400547FD6 /* NSURL+NDCarbonUtilities.h */; };
 		D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */; };
+		D36E1EA111702E5500110DBA /* TDFooBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1E9F11702E5500110DBA /* TDFooBar.m */; };
+		D36E1EAC11702E6A00110DBA /* TDFooBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EAB11702E6A00110DBA /* TDFooBar.h */; };
+		D36E1EB511702F4E00110DBA /* TDFooBarTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */; };
+		D36E1EB611702F4E00110DBA /* TDFooBarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */; };
+		D36E1ED911703A1000110DBA /* TDFooBarListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1ED711703A1000110DBA /* TDFooBarListItem.h */; };
+		D36E1EDA11703A1000110DBA /* TDFooBarListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1ED811703A1000110DBA /* TDFooBarListItem.m */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
 		D371244810F0520800D7107B /* TDBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244210F051E800D7107B /* TDBar.m */; };
 		D371244910F0520D00D7107B /* TDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244310F051E800D7107B /* TDLine.m */; };
@@ -108,6 +114,14 @@
 		D366C1EB112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+NDAppleScriptObject.m"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
 		D366C1ED112902E400547FD6 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+NDCarbonUtilities.h"; path = "src/NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
+		D36E1E9511702E4700110DBA /* TDFooBarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDFooBarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D36E1E9711702E4700110DBA /* TDFooBarDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TDFooBarDemo-Info.plist"; sourceTree = "<group>"; };
+		D36E1E9F11702E5500110DBA /* TDFooBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBar.m; path = src/TDFooBar.m; sourceTree = "<group>"; };
+		D36E1EAB11702E6A00110DBA /* TDFooBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBar.h; path = include/TDAppKit/TDFooBar.h; sourceTree = "<group>"; };
+		D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarTextField.h; path = src/TDFooBarTextField.h; sourceTree = "<group>"; };
+		D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarTextField.m; path = src/TDFooBarTextField.m; sourceTree = "<group>"; };
+		D36E1ED711703A1000110DBA /* TDFooBarListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarListItem.h; path = src/TDFooBarListItem.h; sourceTree = "<group>"; };
+		D36E1ED811703A1000110DBA /* TDFooBarListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarListItem.m; path = src/TDFooBarListItem.m; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
 		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
@@ -147,6 +161,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D36E1E9311702E4700110DBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -155,6 +176,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* TDAppKit.framework */,
 				D31CBFE910EFB9630013347D /* ListViewDemoApp.app */,
+				D36E1E9511702E4700110DBA /* TDFooBarDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,6 +190,7 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				D36E1E9711702E4700110DBA /* TDFooBarDemo-Info.plist */,
 			);
 			name = TDAppKit;
 			sourceTree = "<group>";
@@ -196,6 +219,7 @@
 				D31CC02310EFC6BB0013347D /* TDAppKit.h */,
 				D3EB2341110163F700633715 /* TDUtils.h */,
 				D3EB2342110163F700633715 /* TDUtils.m */,
+				D36E1E8C11702E2700110DBA /* FooBar */,
 				D366C1AD1128FEE900547FD6 /* AppleEvents */,
 				D3EB233A1101631300633715 /* AppKit Categories */,
 				D318A04A10F856FA00B6AA21 /* SourceCodeTextView */,
@@ -306,6 +330,19 @@
 			name = AppleEvents;
 			sourceTree = "<group>";
 		};
+		D36E1E8C11702E2700110DBA /* FooBar */ = {
+			isa = PBXGroup;
+			children = (
+				D36E1EAB11702E6A00110DBA /* TDFooBar.h */,
+				D36E1E9F11702E5500110DBA /* TDFooBar.m */,
+				D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */,
+				D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */,
+				D36E1ED711703A1000110DBA /* TDFooBarListItem.h */,
+				D36E1ED811703A1000110DBA /* TDFooBarListItem.m */,
+			);
+			name = FooBar;
+			sourceTree = "<group>";
+		};
 		D371244010F051D600D7107B /* Misc Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +398,9 @@
 				D366C1B71128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */,
 				D366C1B81128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h in Headers */,
 				D366C1EF112902E500547FD6 /* NSURL+NDCarbonUtilities.h in Headers */,
+				D36E1EAC11702E6A00110DBA /* TDFooBar.h in Headers */,
+				D36E1EB511702F4E00110DBA /* TDFooBarTextField.h in Headers */,
+				D36E1ED911703A1000110DBA /* TDFooBarListItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +444,23 @@
 			productReference = D31CBFE910EFB9630013347D /* ListViewDemoApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D36E1E9411702E4700110DBA /* TDFooBarDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D36E1E9D11702E4700110DBA /* Build configuration list for PBXNativeTarget "TDFooBarDemo" */;
+			buildPhases = (
+				D36E1E9111702E4700110DBA /* Resources */,
+				D36E1E9211702E4700110DBA /* Sources */,
+				D36E1E9311702E4700110DBA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TDFooBarDemo;
+			productName = TDFooBarDemo;
+			productReference = D36E1E9511702E4700110DBA /* TDFooBarDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -419,6 +476,7 @@
 			targets = (
 				8DC2EF4F0486A6940098B216 /* TDAppKit */,
 				D31CBFE810EFB9630013347D /* ListViewDemoApp */,
+				D36E1E9411702E4700110DBA /* TDFooBarDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -437,6 +495,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D31CC0B010EFC9750013347D /* ListViewDemoMainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D36E1E9111702E4700110DBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +532,9 @@
 				D366C1BA1128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m in Sources */,
 				D366C1EC112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
 				D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */,
+				D36E1EA111702E5500110DBA /* TDFooBar.m in Sources */,
+				D36E1EB611702F4E00110DBA /* TDFooBarTextField.m in Sources */,
+				D36E1EDA11703A1000110DBA /* TDFooBarListItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +545,13 @@
 				D31CBFF410EFBA3C0013347D /* ListViewDemoAppDelegate.m in Sources */,
 				D31CBFFA10EFBD360013347D /* DemoListItemView.m in Sources */,
 				D31CC05E10EFC80B0013347D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D36E1E9211702E4700110DBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +709,55 @@
 			};
 			name = Release;
 		};
+		D36E1E9811702E4700110DBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "TDFooBarDemo-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TDFooBarDemo;
+				SDKROOT = iphoneos4.0;
+			};
+			name = Debug;
+		};
+		D36E1E9911702E4700110DBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "TDFooBarDemo-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TDFooBarDemo;
+				SDKROOT = iphoneos4.0;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -660,6 +784,15 @@
 			buildConfigurations = (
 				D31CBFEC10EFB9640013347D /* Debug */,
 				D31CBFED10EFB9640013347D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D36E1E9D11702E4700110DBA /* Build configuration list for PBXNativeTarget "TDFooBarDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D36E1E9811702E4700110DBA /* Debug */,
+				D36E1E9911702E4700110DBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
