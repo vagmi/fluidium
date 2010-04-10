@@ -9,7 +9,9 @@
 #import <TDAppKit/TDFooBar.h>
 #import "TDFooBarListItem.h"
 
-#define LIST_MARGIN_Y 2.0
+#define TEXT_MARGIN_X 5.0
+#define TEXT_MARGIN_Y 5.0
+#define LIST_MARGIN_Y 25.0
 
 @implementation TDFooBar
 
@@ -22,10 +24,17 @@
 
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     self.dataSource = nil;
     self.textField = nil;
     self.listView = nil;
     [super dealloc];
+}
+
+
+- (BOOL)isFlipped {
+    return YES;
 }
 
 
@@ -46,30 +55,30 @@
 
 
 - (NSRect)textFieldRectForBounds:(NSRect)bounds {
-    return NSMakeRect(0, 0, bounds.size.width, bounds.size.height);
+    return NSMakeRect(TEXT_MARGIN_X, TEXT_MARGIN_Y, bounds.size.width - (TEXT_MARGIN_X * 2), 20);
 }
 
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
-    return NSMakeRect(0, NSMaxY(bounds) + LIST_MARGIN_Y, bounds.size.width, NSHeight([listView frame]));
+    return NSMakeRect(0, LIST_MARGIN_Y, bounds.size.width, [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView]);
 }
 
 
 #pragma mark -
 #pragma mark NSTextFieldNotifictions
 
-- (void)textDidBeginEditing:(NSNotification *)n {
-    [self.listView setHidden:YES];
-    [self addSubview:self.listView];
+- (void)controlTextDidBeginEditing:(NSNotification *)n {
+    [[[self window] contentView] addSubview:self.listView];
+    [self.listView setHidden:NO];
 }
 
 
-- (void)textDidEndEditing:(NSNotification *)n {
+- (void)controlTextDidEndEditing:(NSNotification *)n {
     [self.listView removeFromSuperview];
 }
 
 
-- (void)textDidChange:(NSNotification *)n {
+- (void)controlTextDidChange:(NSNotification *)n {
     [self.listView reloadData];
 }
 
@@ -78,13 +87,13 @@
 #pragma mark TDListViewDataSource
 
 - (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
-    NSAssert(dataSource, @"must provide a FooBarDataSource");
+    //NSAssert(dataSource, @"must provide a FooBarDataSource");
     return [dataSource numberOfItemsInFooBar:self];
 }
 
 
 - (TDListItem *)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
-    NSAssert(dataSource, @"must provide a FooBarDataSource");
+    //NSAssert(dataSource, @"must provide a FooBarDataSource");
     
     TDFooBarListItem *item = (TDFooBarListItem *)[listView dequeueReusableItemWithIdentifier:[TDFooBarListItem reuseIdentifier]];
     if (!item) {
@@ -133,6 +142,11 @@
     if (!textField) {
         NSRect r = [self textFieldRectForBounds:[self bounds]];
         self.textField = [[[NSTextField alloc] initWithFrame:r] autorelease];
+        [textField setDelegate:self];
+//        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+//        [nc addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:textField];
+//        [nc addObserver:self selector:@selector(textDidBeginEditing:) name:NSTextDidBeginEditingNotification object:textField];
+//        [nc addObserver:self selector:@selector(textDidEndEditing:) name:NSTextDidEndEditingNotification object:textField];
         [self addSubview:textField];
     }
     return textField;
@@ -145,7 +159,6 @@
         self.listView = [[[TDListView alloc] initWithFrame:r] autorelease];
         listView.dataSource = self;
         listView.delegate = self;
-        [self addSubview:listView];
     }
     return listView;
 }
