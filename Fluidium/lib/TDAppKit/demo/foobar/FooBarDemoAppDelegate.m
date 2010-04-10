@@ -10,6 +10,10 @@
 
 @implementation FooBarDemoAppDelegate
 
+- (void)awakeFromNib {
+    [[window contentView] setWantsLayer:YES];
+}
+
 #pragma mark -
 #pragma mark TDFooBarDataSource
 

@@ -10,6 +10,27 @@
 
 @implementation TDFooBarListView
 
+- (id)init {
+    return [self initWithFrame:NSZeroRect];
+}
+
+
+- (id)initWithFrame:(NSRect)frame {
+    if (self = [super initWithFrame:frame]) {        
+        [self setWantsLayer:YES];
+
+        NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
+        [shadow setShadowOffset:NSMakeSize(10, -10)];
+        [shadow setShadowBlurRadius:10];
+        [shadow setShadowColor:[NSColor blackColor]];
+        
+        [self setShadow:shadow];
+        [self setAlphaValue:.8];
+    }
+    return self;
+}
+
+
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect bounds = [self bounds];
 

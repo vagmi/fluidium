@@ -10,7 +10,7 @@
 #import <TDAppKit/TDAppKit.h>
 
 @interface FooBarDemoAppDelegate : NSObject <TDFooBarDataSource> {
-
+    IBOutlet NSWindow *window;
 }
 
 @end
