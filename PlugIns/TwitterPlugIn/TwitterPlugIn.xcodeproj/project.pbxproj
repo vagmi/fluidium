@@ -154,6 +154,13 @@
 			remoteGlobalIDString = D389F2030F196A7500558235;
 			remoteInfo = JSDemoApp;
 		};
+		D36E1F6C11703EA200110DBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D307ECB41113CDA0005FC7A5 /* TDAppKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */;
+			remoteInfo = FooBarDemoApp;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -362,6 +369,7 @@
 			children = (
 				D307ECBA1113CDA0005FC7A5 /* TDAppKit.framework */,
 				D307ECBC1113CDA0005FC7A5 /* ListViewDemoApp.app */,
+				D36E1F6D11703EA200110DBA /* FooBarDemoApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -642,6 +650,14 @@
 			path = JSDemoApp.app;
 			remoteRef = D33930E010D4929F000FC7C1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D36E1F6D11703EA200110DBA /* FooBarDemoApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			name = FooBarDemoApp.app;
+			path = build/Debug/FooBarDemoApp.app;
+			remoteRef = D36E1F6C11703EA200110DBA /* PBXContainerItemProxy */;
+			sourceTree = "<group>";
 		};
 /* End PBXReferenceProxy section */
 

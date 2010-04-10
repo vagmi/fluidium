@@ -37,11 +37,15 @@
 		D366C1EF112902E500547FD6 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D366C1ED112902E400547FD6 /* NSURL+NDCarbonUtilities.h */; };
 		D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */; };
 		D36E1EA111702E5500110DBA /* TDFooBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1E9F11702E5500110DBA /* TDFooBar.m */; };
-		D36E1EAC11702E6A00110DBA /* TDFooBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EAB11702E6A00110DBA /* TDFooBar.h */; };
+		D36E1EAC11702E6A00110DBA /* TDFooBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EAB11702E6A00110DBA /* TDFooBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36E1EB511702F4E00110DBA /* TDFooBarTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */; };
 		D36E1EB611702F4E00110DBA /* TDFooBarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */; };
 		D36E1ED911703A1000110DBA /* TDFooBarListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1ED711703A1000110DBA /* TDFooBarListItem.h */; };
 		D36E1EDA11703A1000110DBA /* TDFooBarListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1ED811703A1000110DBA /* TDFooBarListItem.m */; };
+		D36E1F6311703E9300110DBA /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */; };
+		D36E1F6E11703EAD00110DBA /* FooBarDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1F2411703D9D00110DBA /* FooBarDemoAppDelegate.m */; };
+		D36E1F6F11703EB500110DBA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1F2911703DCB00110DBA /* main.m */; };
+		D36E1F7111703EBD00110DBA /* FooBarDemoMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E1F2611703DB700110DBA /* FooBarDemoMainMenu.xib */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
 		D371244810F0520800D7107B /* TDBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244210F051E800D7107B /* TDBar.m */; };
 		D371244910F0520D00D7107B /* TDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244310F051E800D7107B /* TDLine.m */; };
@@ -70,6 +74,13 @@
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = TDAppKit;
+		};
+		D36E1F6111703E8F00110DBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* TDAppKit */;
 			remoteInfo = TDAppKit;
 		};
 /* End PBXContainerItemProxy section */
@@ -114,14 +125,18 @@
 		D366C1EB112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+NDAppleScriptObject.m"; path = "src/NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
 		D366C1ED112902E400547FD6 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+NDCarbonUtilities.h"; path = "src/NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
-		D36E1E9511702E4700110DBA /* TDFooBarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDFooBarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D36E1E9711702E4700110DBA /* TDFooBarDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TDFooBarDemo-Info.plist"; sourceTree = "<group>"; };
 		D36E1E9F11702E5500110DBA /* TDFooBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBar.m; path = src/TDFooBar.m; sourceTree = "<group>"; };
 		D36E1EAB11702E6A00110DBA /* TDFooBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBar.h; path = include/TDAppKit/TDFooBar.h; sourceTree = "<group>"; };
 		D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarTextField.h; path = src/TDFooBarTextField.h; sourceTree = "<group>"; };
 		D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarTextField.m; path = src/TDFooBarTextField.m; sourceTree = "<group>"; };
 		D36E1ED711703A1000110DBA /* TDFooBarListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarListItem.h; path = src/TDFooBarListItem.h; sourceTree = "<group>"; };
 		D36E1ED811703A1000110DBA /* TDFooBarListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarListItem.m; path = src/TDFooBarListItem.m; sourceTree = "<group>"; };
+		D36E1F2311703D9D00110DBA /* FooBarDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FooBarDemoAppDelegate.h; path = demo/foobar/FooBarDemoAppDelegate.h; sourceTree = "<group>"; };
+		D36E1F2411703D9D00110DBA /* FooBarDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FooBarDemoAppDelegate.m; path = demo/foobar/FooBarDemoAppDelegate.m; sourceTree = "<group>"; };
+		D36E1F2611703DB700110DBA /* FooBarDemoMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FooBarDemoMainMenu.xib; path = demo/foobar/FooBarDemoMainMenu.xib; sourceTree = "<group>"; };
+		D36E1F2911703DCB00110DBA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = demo/foobar/main.m; sourceTree = "<group>"; };
+		D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = FooBarDemoApp.app; path = build/Debug/FooBarDemoApp.app; sourceTree = "<group>"; };
+		D36E1F5D11703E8300110DBA /* FooBarDemoApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FooBarDemoApp-Info.plist"; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
 		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
@@ -161,10 +176,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D36E1E9311702E4700110DBA /* Frameworks */ = {
+		D36E1F5911703E8300110DBA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36E1F6311703E9300110DBA /* TDAppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +192,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* TDAppKit.framework */,
 				D31CBFE910EFB9630013347D /* ListViewDemoApp.app */,
-				D36E1E9511702E4700110DBA /* TDFooBarDemo.app */,
+				D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,12 +201,12 @@
 			isa = PBXGroup;
 			children = (
 				08FB77AEFE84172EC02AAC07 /* TDAppKit Framework */,
+				D36E1F1E11703D5500110DBA /* FooBar Demo App */,
 				D31CBFF010EFB9710013347D /* ListView Demo App */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				D36E1E9711702E4700110DBA /* TDFooBarDemo-Info.plist */,
 			);
 			name = TDAppKit;
 			sourceTree = "<group>";
@@ -343,6 +359,18 @@
 			name = FooBar;
 			sourceTree = "<group>";
 		};
+		D36E1F1E11703D5500110DBA /* FooBar Demo App */ = {
+			isa = PBXGroup;
+			children = (
+				D36E1F2311703D9D00110DBA /* FooBarDemoAppDelegate.h */,
+				D36E1F2411703D9D00110DBA /* FooBarDemoAppDelegate.m */,
+				D36E1F2911703DCB00110DBA /* main.m */,
+				D36E1F5D11703E8300110DBA /* FooBarDemoApp-Info.plist */,
+				D36E1F2611703DB700110DBA /* FooBarDemoMainMenu.xib */,
+			);
+			name = "FooBar Demo App";
+			sourceTree = "<group>";
+		};
 		D371244010F051D600D7107B /* Misc Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,21 +472,22 @@
 			productReference = D31CBFE910EFB9630013347D /* ListViewDemoApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D36E1E9411702E4700110DBA /* TDFooBarDemo */ = {
+		D36E1F5A11703E8300110DBA /* FooBarDemoApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D36E1E9D11702E4700110DBA /* Build configuration list for PBXNativeTarget "TDFooBarDemo" */;
+			buildConfigurationList = D36E1F6011703E8400110DBA /* Build configuration list for PBXNativeTarget "FooBarDemoApp" */;
 			buildPhases = (
-				D36E1E9111702E4700110DBA /* Resources */,
-				D36E1E9211702E4700110DBA /* Sources */,
-				D36E1E9311702E4700110DBA /* Frameworks */,
+				D36E1F5711703E8300110DBA /* Resources */,
+				D36E1F5811703E8300110DBA /* Sources */,
+				D36E1F5911703E8300110DBA /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D36E1F6211703E8F00110DBA /* PBXTargetDependency */,
 			);
-			name = TDFooBarDemo;
-			productName = TDFooBarDemo;
-			productReference = D36E1E9511702E4700110DBA /* TDFooBarDemo.app */;
+			name = FooBarDemoApp;
+			productName = FooBarDemoApp;
+			productReference = D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -476,7 +505,7 @@
 			targets = (
 				8DC2EF4F0486A6940098B216 /* TDAppKit */,
 				D31CBFE810EFB9630013347D /* ListViewDemoApp */,
-				D36E1E9411702E4700110DBA /* TDFooBarDemo */,
+				D36E1F5A11703E8300110DBA /* FooBarDemoApp */,
 			);
 		};
 /* End PBXProject section */
@@ -498,10 +527,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D36E1E9111702E4700110DBA /* Resources */ = {
+		D36E1F5711703E8300110DBA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36E1F7111703EBD00110DBA /* FooBarDemoMainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,10 +578,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D36E1E9211702E4700110DBA /* Sources */ = {
+		D36E1F5811703E8300110DBA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36E1F6E11703EAD00110DBA /* FooBarDemoAppDelegate.m in Sources */,
+				D36E1F6F11703EB500110DBA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +594,11 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* TDAppKit */;
 			targetProxy = D31CC01610EFC6490013347D /* PBXContainerItemProxy */;
+		};
+		D36E1F6211703E8F00110DBA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* TDAppKit */;
+			targetProxy = D36E1F6111703E8F00110DBA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -709,51 +746,50 @@
 			};
 			name = Release;
 		};
-		D36E1E9811702E4700110DBA /* Debug */ = {
+		D36E1F5E11703E8400110DBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
-				INFOPLIST_FILE = "TDFooBarDemo-Info.plist";
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "FooBarDemoApp-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 					"-framework",
-					UIKit,
+					AppKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = TDFooBarDemo;
-				SDKROOT = iphoneos4.0;
+				PRODUCT_NAME = FooBarDemoApp;
 			};
 			name = Debug;
 		};
-		D36E1E9911702E4700110DBA /* Release */ = {
+		D36E1F5F11703E8400110DBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
-				INFOPLIST_FILE = "TDFooBarDemo-Info.plist";
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "FooBarDemoApp-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
 					"-framework",
-					UIKit,
+					AppKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = TDFooBarDemo;
-				SDKROOT = iphoneos4.0;
+				PRODUCT_NAME = FooBarDemoApp;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -788,11 +824,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D36E1E9D11702E4700110DBA /* Build configuration list for PBXNativeTarget "TDFooBarDemo" */ = {
+		D36E1F6011703E8400110DBA /* Build configuration list for PBXNativeTarget "FooBarDemoApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D36E1E9811702E4700110DBA /* Debug */,
-				D36E1E9911702E4700110DBA /* Release */,
+				D36E1F5E11703E8400110DBA /* Debug */,
+				D36E1F5F11703E8400110DBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

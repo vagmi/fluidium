@@ -403,12 +403,12 @@
 			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = TwitterPlugIn;
 		};
-		D36E1E9B11702E4700110DBA /* PBXContainerItemProxy */ = {
+		D36E1F6911703EA200110DBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D36E1E9511702E4700110DBA /* TDFooBarDemo.app */;
-			remoteInfo = TDFooBarDemo;
+			remoteGlobalIDString = D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */;
+			remoteInfo = FooBarDemoApp;
 		};
 		D38422EF1102D39200605809 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1021,7 +1021,7 @@
 			children = (
 				D31CC0CA10EFCB590013347D /* TDAppKit.framework */,
 				D31CC0CC10EFCB590013347D /* ListViewDemoApp.app */,
-				D36E1E9C11702E4700110DBA /* TDFooBarDemo.app */,
+				D36E1F6A11703EA200110DBA /* FooBarDemoApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1782,12 +1782,13 @@
 			remoteRef = D346E5D010CE452000BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D36E1E9C11702E4700110DBA /* TDFooBarDemo.app */ = {
+		D36E1F6A11703EA200110DBA /* FooBarDemoApp.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			path = TDFooBarDemo.app;
-			remoteRef = D36E1E9B11702E4700110DBA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
+			name = FooBarDemoApp.app;
+			path = build/Debug/FooBarDemoApp.app;
+			remoteRef = D36E1F6911703EA200110DBA /* PBXContainerItemProxy */;
+			sourceTree = "<group>";
 		};
 		D3D3766510E4091800203EB2 /* Browsa.fluidplugin */ = {
 			isa = PBXReferenceProxy;

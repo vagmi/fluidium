@@ -15,5 +15,7 @@
 + (NSString *)reuseIdentifier;
 + (CGFloat)defaultHeight;
 
+- (NSRect)labelRectForBounds:(NSRect)bounds;
+
 @property (nonatomic, copy) NSString *labelText;
 @end

@@ -87,9 +87,9 @@
     }
     
     item.labelText = [dataSource fooBar:self objectAtIndex:i];
+    [item setNeedsDisplay:YES];
     
     return item;
-    
 }
 
 
