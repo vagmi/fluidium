@@ -25,10 +25,6 @@
 - (NSRect)textFieldRectForBounds:(NSRect)bounds;
 - (NSRect)listViewRectForBounds:(NSRect)bounds;
 
-//- (void)textDidBeginEditing:(NSNotification *)n;
-//- (void)textDidEndEditing:(NSNotification *)n;
-//- (void)textDidChange:(NSNotification *)n;
-
 @property (nonatomic, assign) id <TDFooBarDataSource>dataSource;
 @property (nonatomic, retain) NSTextField *textField;
 @property (nonatomic, retain) TDListView *listView;

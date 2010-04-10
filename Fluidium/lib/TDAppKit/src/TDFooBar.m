@@ -32,6 +32,11 @@
 #pragma mark -
 #pragma mark Bounds
 
+- (void)viewWillMoveToSuperview:(NSView *)newSuperview {
+    [self resizeSubviewsWithOldSize:NSZeroSize];
+}
+
+
 - (void)resizeSubviewsWithOldSize:(NSSize)oldSize {
     NSRect bounds = [self bounds];
     

@@ -135,7 +135,7 @@
 		D36E1F2411703D9D00110DBA /* FooBarDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FooBarDemoAppDelegate.m; path = demo/foobar/FooBarDemoAppDelegate.m; sourceTree = "<group>"; };
 		D36E1F2611703DB700110DBA /* FooBarDemoMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FooBarDemoMainMenu.xib; path = demo/foobar/FooBarDemoMainMenu.xib; sourceTree = "<group>"; };
 		D36E1F2911703DCB00110DBA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = demo/foobar/main.m; sourceTree = "<group>"; };
-		D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = FooBarDemoApp.app; path = build/Debug/FooBarDemoApp.app; sourceTree = "<group>"; };
+		D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FooBarDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36E1F5D11703E8300110DBA /* FooBarDemoApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FooBarDemoApp-Info.plist"; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
 		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
