@@ -10,6 +10,7 @@
 
 @interface TDFooBarListItem : TDListItem {
     NSString *labelText;
+    BOOL selected;
 }
 
 + (NSString *)reuseIdentifier;
@@ -18,4 +19,5 @@
 - (NSRect)labelRectForBounds:(NSRect)bounds;
 
 @property (nonatomic, copy) NSString *labelText;
+@property (nonatomic, getter=isSelected) BOOL selected;
 @end

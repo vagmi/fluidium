@@ -7,7 +7,19 @@
 //
 
 #import "TDFooBarTextField.h"
+#import "TDFooBarTextFieldCell.h"
 
 @implementation TDFooBarTextField
 
++ (Class)cellClass {
+    return [TDFooBarTextFieldCell class];
+}
+
+
+- (void)dealloc {
+    self.bar = nil;
+    [super dealloc];
+}
+
+@synthesize bar;
 @end

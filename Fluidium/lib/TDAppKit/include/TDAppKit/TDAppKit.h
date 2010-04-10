@@ -29,3 +29,4 @@
 #import <TDAppKit/TDFooBar.h>
 #import <TDAppKit/TDLine.h>
 #import <TDAppKit/TDColorView.h>
+#import <TDAppKit/TDFlippedView.h>

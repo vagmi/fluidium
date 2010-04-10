@@ -7,11 +7,15 @@
 //
 
 #import <TDAppKit/TDFooBar.h>
+#import <TDAppKit/TDListItem.h>
+#import "TDFooBarTextField.h"
+#import "TDFooBarListView.h"
 #import "TDFooBarListItem.h"
 
-#define TEXT_MARGIN_X 5.0
+#define TEXT_MARGIN_X 20.0
 #define TEXT_MARGIN_Y 5.0
-#define LIST_MARGIN_Y 25.0
+#define LIST_MARGIN_X 20.0
+#define LIST_MARGIN_Y -5.0
 
 @implementation TDFooBar
 
@@ -60,7 +64,34 @@
 
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
-    return NSMakeRect(0, LIST_MARGIN_Y, bounds.size.width, [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView]);
+    CGFloat listHeight = 30; //[TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
+    return NSMakeRect(LIST_MARGIN_X, NSMaxY([self frame]) + LIST_MARGIN_Y, bounds.size.width - (LIST_MARGIN_X * 2), listHeight);
+}
+
+
+#pragma mark -
+#pragma mark NSResponder
+
+- (void)moveUp:(id)sender {
+    NSUInteger i = listView.selectedItemIndex;
+    if (i <= 0 || NSNotFound == i) {
+        i = 0;
+    } else {
+        i--;
+    }
+    listView.selectedItemIndex = i;
+    [listView reloadData];
+}
+
+
+- (void)moveDown:(id)sender {
+    NSUInteger i = listView.selectedItemIndex;
+    NSUInteger last = [self numberOfItemsInListView:listView] - 1;
+    if (i < last) {
+        i++;
+    }
+    listView.selectedItemIndex = i;
+    [listView reloadData];
 }
 
 
@@ -68,6 +99,7 @@
 #pragma mark NSTextFieldNotifictions
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n {
+    [self.listView setFrame:[self listViewRectForBounds:[self bounds]]];
     [[[self window] contentView] addSubview:self.listView];
     [self.listView setHidden:NO];
 }
@@ -79,6 +111,7 @@
 
 
 - (void)controlTextDidChange:(NSNotification *)n {
+    [self.listView setHidden:![[textField stringValue] length]];
     [self.listView reloadData];
 }
 
@@ -100,6 +133,7 @@
         item = [[[TDFooBarListItem alloc] init] autorelease];
     }
     
+    item.selected = (i == listView.selectedItemIndex);
     item.labelText = [dataSource fooBar:self objectAtIndex:i];
     [item setNeedsDisplay:YES];
     
@@ -141,8 +175,9 @@
 - (NSTextField *)textField {
     if (!textField) {
         NSRect r = [self textFieldRectForBounds:[self bounds]];
-        self.textField = [[[NSTextField alloc] initWithFrame:r] autorelease];
+        self.textField = [[[TDFooBarTextField alloc] initWithFrame:r] autorelease];
         [textField setDelegate:self];
+        [(TDFooBarTextField *)textField setBar:self];
 //        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 //        [nc addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:textField];
 //        [nc addObserver:self selector:@selector(textDidBeginEditing:) name:NSTextDidBeginEditingNotification object:textField];
@@ -156,7 +191,8 @@
 - (TDListView *)listView {
     if (!listView) {
         NSRect r = [self listViewRectForBounds:[self bounds]];
-        self.listView = [[[TDListView alloc] initWithFrame:r] autorelease];
+        self.listView = [[[TDFooBarListView alloc] initWithFrame:r] autorelease];
+        [listView setAutoresizingMask:0];
         listView.dataSource = self;
         listView.delegate = self;
     }

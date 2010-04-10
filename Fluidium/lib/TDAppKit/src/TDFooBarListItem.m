@@ -76,10 +76,15 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    [[NSColor redColor] set];
-    NSRectFill([self bounds]);
-    
     NSRect bounds = [self bounds];
+
+    if (selected) {
+        [[NSColor redColor] set];
+    } else {
+        [[NSColor blueColor] set];
+    }
+    NSRectFill(bounds);
+    
     [labelText drawInRect:[self labelRectForBounds:bounds] withAttributes:sLabelAttributes];
 }
 
@@ -89,4 +94,5 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
 }
 
 @synthesize labelText;
+@synthesize selected;
 @end
