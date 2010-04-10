@@ -9,7 +9,7 @@
 #import "TDFooBarListItem.h"
 
 #define LABEL_MARGIN_X 5.0
-#define LABEL_MARGIN_Y 5.0
+#define LABEL_MARGIN_Y 2.0
 
 static NSDictionary *sLabelAttributes = nil;
 static NSDictionary *sHighlightedLabelAttributes = nil;

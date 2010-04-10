@@ -64,7 +64,7 @@
 
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
-    CGFloat listHeight = 30; //[TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
+    CGFloat listHeight = [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
     return NSMakeRect(LIST_MARGIN_X, NSMaxY([self frame]) + LIST_MARGIN_Y, bounds.size.width - (LIST_MARGIN_X * 2), listHeight);
 }
 
@@ -178,10 +178,6 @@
         self.textField = [[[TDFooBarTextField alloc] initWithFrame:r] autorelease];
         [textField setDelegate:self];
         [(TDFooBarTextField *)textField setBar:self];
-//        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-//        [nc addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:textField];
-//        [nc addObserver:self selector:@selector(textDidBeginEditing:) name:NSTextDidBeginEditingNotification object:textField];
-//        [nc addObserver:self selector:@selector(textDidEndEditing:) name:NSTextDidEndEditingNotification object:textField];
         [self addSubview:textField];
     }
     return textField;

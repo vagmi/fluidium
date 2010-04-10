@@ -20,7 +20,7 @@
         [self setWantsLayer:YES];
 
         NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
-        [shadow setShadowOffset:NSMakeSize(10, -10)];
+        [shadow setShadowOffset:NSMakeSize(0, 10)];
         [shadow setShadowBlurRadius:10];
         [shadow setShadowColor:[NSColor blackColor]];
         
@@ -32,10 +32,10 @@
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    NSRect bounds = [self bounds];
+    //NSRect bounds = [self bounds];
 
-    [[NSColor greenColor] set];
-    NSRectFill(bounds);
+    [[NSColor clearColor] set];
+    NSRectFill(dirtyRect);
 }
 
 @end
