@@ -407,7 +407,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */;
+			remoteGlobalIDString = D36E1F5B11703E8300110DBA;
 			remoteInfo = FooBarDemoApp;
 		};
 		D38422EF1102D39200605809 /* PBXContainerItemProxy */ = {
@@ -1785,10 +1785,9 @@
 		D36E1F6A11703EA200110DBA /* FooBarDemoApp.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
-			name = FooBarDemoApp.app;
-			path = build/Debug/FooBarDemoApp.app;
+			path = FooBarDemoApp.app;
 			remoteRef = D36E1F6911703EA200110DBA /* PBXContainerItemProxy */;
-			sourceTree = "<group>";
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D3D3766510E4091800203EB2 /* Browsa.fluidplugin */ = {
 			isa = PBXReferenceProxy;
