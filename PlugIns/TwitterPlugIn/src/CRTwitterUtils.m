@@ -270,10 +270,9 @@ static NSAttributedString *CRAttributedUsername(PKTokenizer *t, PKToken *inTok, 
 
 
 static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok) {
-    NSString *s = inTok.stringValue;
-    NSMutableString *ms = [NSMutableString stringWithString:s];
+    NSString *s = inTok.stringValue;    
     
-    NSString *display = [[ms copy] autorelease];
+    NSString *display = [[s copy] autorelease];
     NSInteger maxLen = 32;
     if ([display length] > maxLen) {
         display = [NSString stringWithFormat:@"%@%C", [display substringToIndex:maxLen], 0x2026];
@@ -283,6 +282,11 @@ static NSAttributedString *CRAttributedURL(PKTokenizer *t, PKToken *inTok) {
         display = [display substringToIndex:[display length] - 1];
     }
     
+    static NSString *dfstr = @"http://✪df.ws/";
+    if ([s hasPrefix:dfstr]) {
+        s = [s stringByReplacingOccurrencesOfString:dfstr withString:@"http://xn--df-oiy.ws/"];
+    }
+
     NSMutableAttributedString *mas = CRAttrStr(display, CRUsernameAttrsWithLink(s));
     return mas;
 }
