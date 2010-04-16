@@ -10,6 +10,7 @@
 #import <TDAppKit/TDListView.h>
 
 @class TDFooBar;
+@class TDFooBarTextView;
 
 @protocol TDFooBarDataSource
 - (NSUInteger)numberOfItemsInFooBar:(TDFooBar *)fb;
@@ -20,6 +21,7 @@
     id <TDFooBarDataSource>dataSource;
     NSTextField *textField;
     TDListView *listView;
+    TDFooBarTextView *fieldEditor;
 }
 
 - (NSRect)textFieldRectForBounds:(NSRect)bounds;
@@ -28,4 +30,5 @@
 @property (nonatomic, assign) id <TDFooBarDataSource>dataSource;
 @property (nonatomic, retain) NSTextField *textField;
 @property (nonatomic, retain) TDListView *listView;
+@property (nonatomic, retain) TDFooBarTextView *fieldEditor;
 @end

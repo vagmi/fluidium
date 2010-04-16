@@ -11,6 +11,7 @@
 #import "TDFooBarTextField.h"
 #import "TDFooBarListView.h"
 #import "TDFooBarListItem.h"
+#import "TDFooBarTextView.h"
 
 #define TEXT_MARGIN_X 20.0
 #define TEXT_MARGIN_Y 5.0
@@ -33,12 +34,18 @@
     self.dataSource = nil;
     self.textField = nil;
     self.listView = nil;
+    self.fieldEditor = nil;
     [super dealloc];
 }
 
 
 - (BOOL)isFlipped {
     return YES;
+}
+
+
+- (void)awakeFromNib {
+    [[self window] setDelegate:self];
 }
 
 
@@ -92,6 +99,18 @@
     }
     listView.selectedItemIndex = i;
     [listView reloadData];
+}
+
+
+#pragma mark -
+#pragma mark NSWindowDelegate
+
+- (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
+    if (!fieldEditor) {
+        self.fieldEditor = [[[TDFooBarTextView alloc] initWithFrame:NSZeroRect] autorelease];
+        fieldEditor.bar = self;
+    }
+    return fieldEditor; 
 }
 
 
@@ -199,4 +218,5 @@
 @synthesize dataSource;
 @synthesize textField;
 @synthesize listView;
+@synthesize fieldEditor;
 @end

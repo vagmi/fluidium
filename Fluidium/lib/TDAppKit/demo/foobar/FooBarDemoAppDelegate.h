@@ -11,6 +11,10 @@
 
 @interface FooBarDemoAppDelegate : NSObject <TDFooBarDataSource> {
     IBOutlet NSWindow *window;
+    IBOutlet TDFooBar *fooBar;
+    NSArray *data;
 }
 
+@property (nonatomic, retain) TDFooBar *fooBar;
+@property (nonatomic, retain) NSArray *data;
 @end

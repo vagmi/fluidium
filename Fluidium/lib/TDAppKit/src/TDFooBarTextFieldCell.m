@@ -18,13 +18,13 @@
 }
 
 
-- (NSTextView *)fieldEditorForView:(NSView *)v {
-    if (!fieldEditor) {
-        self.fieldEditor = [[[TDFooBarTextView alloc] initWithFrame:NSZeroRect] autorelease];
-        fieldEditor.bar = [(TDFooBarTextField *)v bar];
-    }
-    return fieldEditor; 
-}
+//- (NSTextView *)fieldEditorForView:(NSView *)v {
+//    if (!fieldEditor) {
+//        self.fieldEditor = [[[TDFooBarTextView alloc] initWithFrame:NSZeroRect] autorelease];
+//        fieldEditor.bar = [(TDFooBarTextField *)v bar];
+//    }
+//    return fieldEditor; 
+//}
 
 @synthesize fieldEditor;
 @end

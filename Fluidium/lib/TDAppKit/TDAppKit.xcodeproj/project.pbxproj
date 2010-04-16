@@ -799,6 +799,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = FooBarDemoApp;
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -822,6 +823,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = FooBarDemoApp;
+				SDKROOT = macosx10.5;
 				ZERO_LINK = NO;
 			};
 			name = Release;
