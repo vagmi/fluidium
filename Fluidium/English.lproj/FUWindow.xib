@@ -2,16 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10D573</string>
-		<string key="IBDocument.InterfaceBuilderVersion">783</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">460.00</string>
+		<string key="IBDocument.SystemVersion">10C540</string>
+		<string key="IBDocument.InterfaceBuilderVersion">760</string>
+		<string key="IBDocument.AppKitVersion">1038.25</string>
+		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">783</string>
+			<string key="NS.object.0">760</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="100035"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -154,7 +155,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSSplitView" id="612320548">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">4394</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -273,7 +274,7 @@
 						</object>
 						<string key="NSFrameSize">{329, 30}</string>
 						<reference key="NSSuperview" ref="612320548"/>
-						<string key="NSClassName">TDFooBar</string>
+						<string key="NSClassName">NSView</string>
 					</object>
 					<object class="NSCustomView" id="1051110115">
 						<reference key="NSNextResponder" ref="612320548"/>
@@ -349,6 +350,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{500, 30}</string>
+				<reference key="NSSuperview"/>
 				<bool key="NSIsVertical">YES</bool>
 			</object>
 			<object class="NSCustomView" id="870163162">
@@ -651,6 +653,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">locationComboBox</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="825151495"/>
+					</object>
+					<int key="connectionID">100044</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">searchField</string>
 						<reference key="source" ref="512844837"/>
 						<reference key="destination" ref="906949325"/>
@@ -672,6 +682,14 @@
 						<reference key="destination" ref="906949325"/>
 					</object>
 					<int key="connectionID">100048</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="825151495"/>
+						<reference key="destination" ref="512844837"/>
+					</object>
+					<int key="connectionID">100049</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -988,46 +1006,6 @@
 						<reference key="destination" ref="825151495"/>
 					</object>
 					<int key="connectionID">100139</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">dataSource</string>
-						<reference key="source" ref="27386928"/>
-						<reference key="destination" ref="512844837"/>
-					</object>
-					<int key="connectionID">100141</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">fooBar</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="27386928"/>
-					</object>
-					<int key="connectionID">100142</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">textField</string>
-						<reference key="source" ref="27386928"/>
-						<reference key="destination" ref="825151495"/>
-					</object>
-					<int key="connectionID">100143</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="825151495"/>
-						<reference key="destination" ref="27386928"/>
-					</object>
-					<int key="connectionID">100144</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">locationTextField</string>
-						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="825151495"/>
-					</object>
-					<int key="connectionID">100145</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1437,7 +1415,7 @@
 					<string>{{118, 618}, {500, 30}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>FUProgressTextField</string>
+					<string>FUProgressComboBox</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>HMImageComboBoxCell</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1513,7 +1491,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100145</int>
+			<int key="maxID">100139</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1543,19 +1521,11 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">FUProgressTextField</string>
+					<string key="className">FUProgressComboBox</string>
 					<string key="superclassName">HMImageComboBox</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">src/FUProgressTextField.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FUProgressTextField</string>
-					<string key="superclassName">HMImageComboBox</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBUserSource</string>
-						<string key="minorKey"/>
+						<string key="minorKey">src/FUProgressComboBox.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1572,13 +1542,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">forcePerformClose:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">forcePerformClose:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">forcePerformClose:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -1667,190 +1630,6 @@
 							<string>id</string>
 						</object>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>actualSize:</string>
-							<string>addBookmark:</string>
-							<string>bookmarkClicked:</string>
-							<string>closeTab:</string>
-							<string>closeWindow:</string>
-							<string>emptyCache:</string>
-							<string>endEditBookmark:</string>
-							<string>find:</string>
-							<string>goToLocation:</string>
-							<string>hideFindPanel:</string>
-							<string>jumpToSelection:</string>
-							<string>newBackgroundTab:</string>
-							<string>newTab:</string>
-							<string>openLocation:</string>
-							<string>openSearch:</string>
-							<string>performClose:</string>
-							<string>search:</string>
-							<string>selectNextTab:</string>
-							<string>selectPreviousTab:</string>
-							<string>showErrorConsole:</string>
-							<string>showFindPanel:</string>
-							<string>showWebInspector:</string>
-							<string>takeTabIndexToCloseFrom:</string>
-							<string>takeTabIndexToMoveToNewWindowFrom:</string>
-							<string>takeTabIndexToReloadFrom:</string>
-							<string>toggleToolbarShown:</string>
-							<string>useSelectionForFind:</string>
-							<string>viewSource:</string>
-							<string>webGoBack:</string>
-							<string>webGoForward:</string>
-							<string>webGoHome:</string>
-							<string>webReload:</string>
-							<string>webStopLoading:</string>
-							<string>zoomIn:</string>
-							<string>zoomOut:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">actualSize:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">addBookmark:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">bookmarkClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">closeTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">closeWindow:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">emptyCache:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">endEditBookmark:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">find:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">goToLocation:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">hideFindPanel:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">jumpToSelection:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">newBackgroundTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">newTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">openLocation:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">openSearch:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">performClose:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">search:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectNextTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">selectPreviousTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showErrorConsole:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showFindPanel:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showWebInspector:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">takeTabIndexToCloseFrom:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">takeTabIndexToMoveToNewWindowFrom:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">takeTabIndexToReloadFrom:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleToolbarShown:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">useSelectionForFind:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">viewSource:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">webGoBack:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">webGoForward:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">webGoHome:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">webReload:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">webStopLoading:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">zoomIn:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">zoomOut:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -1860,9 +1639,8 @@
 							<string>emptyTabBarLine</string>
 							<string>findPanelSearchField</string>
 							<string>findPanelView</string>
-							<string>fooBar</string>
+							<string>locationComboBox</string>
 							<string>locationSplitView</string>
-							<string>locationTextField</string>
 							<string>searchField</string>
 							<string>statusBar</string>
 							<string>statusProgressIndicator</string>
@@ -1878,9 +1656,8 @@
 							<string>TDLine</string>
 							<string>NSSearchField</string>
 							<string>NSView</string>
-							<string>TDFooBar</string>
+							<string>FUProgressComboBox</string>
 							<string>NSSplitView</string>
-							<string>FUProgressTextField</string>
 							<string>NSSearchField</string>
 							<string>NSView</string>
 							<string>NSProgressIndicator</string>
@@ -1888,90 +1665,6 @@
 							<string>PSMTabBarControl</string>
 							<string>NSView</string>
 							<string>TDUberView</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>bookmarkBar</string>
-							<string>editBookmarkSheet</string>
-							<string>emptyTabBarLine</string>
-							<string>findPanelSearchField</string>
-							<string>findPanelView</string>
-							<string>fooBar</string>
-							<string>locationSplitView</string>
-							<string>locationTextField</string>
-							<string>searchField</string>
-							<string>statusBar</string>
-							<string>statusProgressIndicator</string>
-							<string>statusTextField</string>
-							<string>tabBar</string>
-							<string>tabContainerView</string>
-							<string>uberView</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">bookmarkBar</string>
-								<string key="candidateClassName">NSView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">editBookmarkSheet</string>
-								<string key="candidateClassName">NSWindow</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">emptyTabBarLine</string>
-								<string key="candidateClassName">TDLine</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">findPanelSearchField</string>
-								<string key="candidateClassName">NSSearchField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">findPanelView</string>
-								<string key="candidateClassName">NSView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">fooBar</string>
-								<string key="candidateClassName">TDFooBar</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">locationSplitView</string>
-								<string key="candidateClassName">NSSplitView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">locationTextField</string>
-								<string key="candidateClassName">FUProgressTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">searchField</string>
-								<string key="candidateClassName">NSSearchField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">statusBar</string>
-								<string key="candidateClassName">NSView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">statusProgressIndicator</string>
-								<string key="candidateClassName">NSProgressIndicator</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">statusTextField</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabBar</string>
-								<string key="candidateClassName">PSMTabBarControl</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabContainerView</string>
-								<string key="candidateClassName">NSView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">uberView</string>
-								<string key="candidateClassName">TDUberView</string>
-							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1998,6 +1691,8 @@
 							<string>script_closeWindow:</string>
 							<string>script_newBackgroundTab:</string>
 							<string>script_newTab:</string>
+							<string>script_selectNextTab:</string>
+							<string>script_selectPreviousTab:</string>
 							<string>script_takeTabIndexToCloseFrom:</string>
 							<string>script_webGoBack:</string>
 							<string>script_webGoForward:</string>
@@ -2023,85 +1718,8 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>noscript_goToLocation:</string>
-							<string>script_actualSize:</string>
-							<string>script_closeTab:</string>
-							<string>script_closeWindow:</string>
-							<string>script_newBackgroundTab:</string>
-							<string>script_newTab:</string>
-							<string>script_takeTabIndexToCloseFrom:</string>
-							<string>script_webGoBack:</string>
-							<string>script_webGoForward:</string>
-							<string>script_webGoHome:</string>
-							<string>script_webReload:</string>
-							<string>script_webStopLoading:</string>
-							<string>script_zoomIn:</string>
-							<string>script_zoomOut:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">noscript_goToLocation:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_actualSize:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_closeTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_closeWindow:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_newBackgroundTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_newTab:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_takeTabIndexToCloseFrom:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_webGoBack:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_webGoForward:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_webGoHome:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_webReload:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_webStopLoading:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_zoomIn:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">script_zoomOut:</string>
-								<string key="candidateClassName">id</string>
-							</object>
+							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -2115,13 +1733,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">goToLocationScriptAction:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">goToLocationScriptAction:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">goToLocationScriptAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
@@ -2241,35 +1852,6 @@
 							<string>NSTabView</string>
 						</object>
 					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>delegate</string>
-							<string>partnerView</string>
-							<string>style</string>
-							<string>tabView</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">delegate</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">partnerView</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">style</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tabView</string>
-								<string key="candidateClassName">NSTabView</string>
-							</object>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -2308,46 +1890,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBDocumentRelativeSource</string>
 						<string key="minorKey">../lib/TDAppKit/include/TDAppKit/TDBar.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TDFooBar</string>
-					<string key="superclassName">TDBar</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>dataSource</string>
-							<string>textField</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>NSTextField</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>dataSource</string>
-							<string>textField</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">dataSource</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">textField</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBDocumentRelativeSource</string>
-						<string key="minorKey">../lib/TDAppKit/include/TDAppKit/TDFooBar.h</string>
 					</object>
 				</object>
 			</object>
@@ -2949,13 +2491,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">showWindow:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showWindow:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showWindow:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
