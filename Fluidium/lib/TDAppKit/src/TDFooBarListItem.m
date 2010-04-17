@@ -12,6 +12,8 @@
 #define LABEL_MARGIN_X 5.0
 #define LABEL_MARGIN_Y 2.0
 
+#define RADIUS 3.0
+
 static NSDictionary *sLabelAttributes = nil;
 static NSDictionary *sHighlightedLabelAttributes = nil;
 
@@ -92,11 +94,11 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
 
     NSBezierPath *path = nil;
     if (first && last) {
-        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:5.0];
+        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:RADIUS];
     } else if (first) {
-        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:5.0 corners:TDCornersTop];
+        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:RADIUS corners:TDCornersTop];
     } else if (last) {
-        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:5.0 corners:TDCornersBottom];
+        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:RADIUS corners:TDCornersBottom];
     } else {
         path = [NSBezierPath bezierPathWithRect:bounds];
     }
