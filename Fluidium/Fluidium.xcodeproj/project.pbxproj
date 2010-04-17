@@ -242,7 +242,7 @@
 		D3F4C55410C8D1D300E0B474 /* FUApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C55310C8D1D300E0B474 /* FUApplication.m */; };
 		D3F4C56E10C8D3EF00E0B474 /* FUBackForwardPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C56D10C8D3EF00E0B474 /* FUBackForwardPopUpButton.m */; };
 		D3F4C5A910C8D6A400E0B474 /* NSArray+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5A410C8D6A400E0B474 /* NSArray+FUAdditions.m */; };
-		D3F4C5F810C8D8BE00E0B474 /* FUProgressComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5F710C8D8BE00E0B474 /* FUProgressComboBox.m */; };
+		D3F4C5F810C8D8BE00E0B474 /* FUProgressTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5F710C8D8BE00E0B474 /* FUProgressTextField.m */; };
 		D3F4C60E10C8D93E00E0B474 /* FURecentURLController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60D10C8D93E00E0B474 /* FURecentURLController.m */; };
 		D3F4C69E10C8DDD500E0B474 /* FUWebPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C69D10C8DDD500E0B474 /* FUWebPreferences.m */; };
 		D3F4C6AF10C8E28E00E0B474 /* FUUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C6AE10C8E28E00E0B474 /* FUUserDefaults.m */; };
@@ -803,8 +803,8 @@
 		D3F4C59710C8D63400E0B474 /* WebViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewPrivate.h; path = src/WebViewPrivate.h; sourceTree = "<group>"; };
 		D3F4C5A310C8D6A400E0B474 /* NSArray+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+FUAdditions.h"; path = "src/NSArray+FUAdditions.h"; sourceTree = "<group>"; };
 		D3F4C5A410C8D6A400E0B474 /* NSArray+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+FUAdditions.m"; path = "src/NSArray+FUAdditions.m"; sourceTree = "<group>"; };
-		D3F4C5F610C8D8BE00E0B474 /* FUProgressComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUProgressComboBox.h; path = src/FUProgressComboBox.h; sourceTree = "<group>"; };
-		D3F4C5F710C8D8BE00E0B474 /* FUProgressComboBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUProgressComboBox.m; path = src/FUProgressComboBox.m; sourceTree = "<group>"; };
+		D3F4C5F610C8D8BE00E0B474 /* FUProgressTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUProgressTextField.h; path = src/FUProgressTextField.h; sourceTree = "<group>"; };
+		D3F4C5F710C8D8BE00E0B474 /* FUProgressTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUProgressTextField.m; path = src/FUProgressTextField.m; sourceTree = "<group>"; };
 		D3F4C5FA10C8D90C00E0B474 /* HMAppKitEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMAppKitEx.h; path = src/Shiira/HMAppKitEx.h; sourceTree = "<group>"; };
 		D3F4C5FB10C8D90C00E0B474 /* HMAppKitEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HMAppKitEx.m; path = src/Shiira/HMAppKitEx.m; sourceTree = "<group>"; };
 		D3F4C5FC10C8D90C00E0B474 /* HMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HMButton.h; path = src/Shiira/HMButton.h; sourceTree = "<group>"; };
@@ -1145,7 +1145,7 @@
 			children = (
 				D346E48F10CE434A00BA0B15 /* ParseKit.framework */,
 				D346E49110CE434A00BA0B15 /* JSParseKit.framework */,
-				D346E49310CE434A00BA0B15 /* libparsekit.a */,
+				D346E49310CE434A00BA0B15 /* parsekit.a */,
 				D346E49510CE434A00BA0B15 /* Tests.octest */,
 				D346E49710CE434A00BA0B15 /* DemoApp.app */,
 				D346E49910CE434A00BA0B15 /* DebugApp.app */,
@@ -1517,8 +1517,8 @@
 				D3F4C53510C8CF4600E0B474 /* FUWindowToolbar.m */,
 				D3F4C56C10C8D3EF00E0B474 /* FUBackForwardPopUpButton.h */,
 				D3F4C56D10C8D3EF00E0B474 /* FUBackForwardPopUpButton.m */,
-				D3F4C5F610C8D8BE00E0B474 /* FUProgressComboBox.h */,
-				D3F4C5F710C8D8BE00E0B474 /* FUProgressComboBox.m */,
+				D3F4C5F610C8D8BE00E0B474 /* FUProgressTextField.h */,
+				D3F4C5F710C8D8BE00E0B474 /* FUProgressTextField.m */,
 				D3F4C60C10C8D93E00E0B474 /* FURecentURLController.h */,
 				D3F4C60D10C8D93E00E0B474 /* FURecentURLController.m */,
 			);
@@ -1726,10 +1726,10 @@
 			remoteRef = D346E49010CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D346E49310CE434A00BA0B15 /* libparsekit.a */ = {
+		D346E49310CE434A00BA0B15 /* parsekit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libparsekit.a;
+			path = parsekit.a;
 			remoteRef = D346E49210CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1941,7 +1941,7 @@
 				D3F4C55410C8D1D300E0B474 /* FUApplication.m in Sources */,
 				D3F4C56E10C8D3EF00E0B474 /* FUBackForwardPopUpButton.m in Sources */,
 				D3F4C5A910C8D6A400E0B474 /* NSArray+FUAdditions.m in Sources */,
-				D3F4C5F810C8D8BE00E0B474 /* FUProgressComboBox.m in Sources */,
+				D3F4C5F810C8D8BE00E0B474 /* FUProgressTextField.m in Sources */,
 				D3F4C60E10C8D93E00E0B474 /* FURecentURLController.m in Sources */,
 				D3F4C69E10C8DDD500E0B474 /* FUWebPreferences.m in Sources */,
 				D3F4C6AF10C8E28E00E0B474 /* FUUserDefaults.m in Sources */,

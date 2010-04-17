@@ -418,7 +418,7 @@
 			children = (
 				D33930D510D4929F000FC7C1 /* ParseKit.framework */,
 				D33930D710D4929F000FC7C1 /* JSParseKit.framework */,
-				D33930D910D4929F000FC7C1 /* parsekit.a */,
+				D33930D910D4929F000FC7C1 /* libparsekit.a */,
 				D33930DB10D4929F000FC7C1 /* Tests.octest */,
 				D33930DD10D4929F000FC7C1 /* DemoApp.app */,
 				D33930DF10D4929F000FC7C1 /* DebugApp.app */,
@@ -616,10 +616,10 @@
 			remoteRef = D33930D610D4929F000FC7C1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D33930D910D4929F000FC7C1 /* parsekit.a */ = {
+		D33930D910D4929F000FC7C1 /* libparsekit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = parsekit.a;
+			path = libparsekit.a;
 			remoteRef = D33930D810D4929F000FC7C1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

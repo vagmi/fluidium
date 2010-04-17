@@ -27,7 +27,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
 
-@interface HMImageComboBox : NSComboBox
+@interface HMImageComboBox : NSTextField
 {
     NSMutableArray* _buttons;
     BOOL            _shouldDrag;

@@ -8,7 +8,6 @@
 
 #import <TDAppKit/TDFooBar.h>
 #import <TDAppKit/TDListItem.h>
-#import "TDFooBarTextField.h"
 #import "TDFooBarListView.h"
 #import "TDFooBarListShadowView.h"
 #import "TDFooBarListItem.h"
@@ -54,6 +53,7 @@
 
 - (void)awakeFromNib {
     [[self window] setDelegate:self];
+    [self resizeSubviewsWithOldSize:NSZeroSize];
 }
 
 
@@ -233,18 +233,6 @@
 
 #pragma mark -
 #pragma mark Properties
-
-- (NSTextField *)textField {
-    if (!textField) {
-        NSRect r = [self textFieldRectForBounds:[self bounds]];
-        self.textField = [[[TDFooBarTextField alloc] initWithFrame:r] autorelease];
-        [textField setDelegate:self];
-        [(TDFooBarTextField *)textField setBar:self];
-        [self addSubview:textField];
-    }
-    return textField;
-}
-
 
 - (TDListView *)listView {
     if (!listView) {

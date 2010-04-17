@@ -19,9 +19,10 @@
 @class PSMTabBarControl;
 @class FUViewSourceWindowController;
 @class FUTabController;
-@class FUProgressComboBox;
+@class FUProgressTextField;
 @class FUShortcutController;
 @class FUBookmark;
+@class TDFooBar;
 @class TDLine;
 
 @interface FUWindowController : NSWindowController 
@@ -30,7 +31,8 @@
 #endif
 {
     NSSplitView *locationSplitView;
-    FUProgressComboBox *locationComboBox;
+    TDFooBar *fooBar;
+    FUProgressTextField *locationComboBox;
     NSSearchField *searchField;
     
     NSView *tabContainerView;
@@ -151,7 +153,8 @@
 @property (nonatomic) NSInteger selectedTabIndex;
 
 @property (nonatomic, retain) IBOutlet NSSplitView *locationSplitView;
-@property (nonatomic, retain) IBOutlet FUProgressComboBox *locationComboBox;
+@property (nonatomic, retain) IBOutlet TDFooBar *fooBar;
+@property (nonatomic, retain) IBOutlet FUProgressTextField *locationComboBox;
 @property (nonatomic, retain) IBOutlet NSSearchField *searchField;
 @property (nonatomic, retain) IBOutlet NSView *tabContainerView;
 @property (nonatomic, retain) IBOutlet PSMTabBarControl *tabBar;

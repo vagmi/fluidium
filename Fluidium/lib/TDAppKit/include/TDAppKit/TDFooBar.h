@@ -31,7 +31,7 @@
 - (NSRect)listViewRectForBounds:(NSRect)bounds;
 
 @property (nonatomic, assign) id <TDFooBarDataSource>dataSource;
-@property (nonatomic, retain) NSTextField *textField;
+@property (nonatomic, retain) IBOutlet NSTextField *textField;
 @property (nonatomic, retain) TDListView *listView;
 @property (nonatomic, retain) TDFooBarListShadowView *shadowView;
 @property (nonatomic, retain) TDFooBarTextView *fieldEditor;

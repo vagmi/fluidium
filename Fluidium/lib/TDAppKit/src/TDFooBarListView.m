@@ -28,7 +28,7 @@
 //        [shadow setShadowColor:[NSColor colorWithDeviceWhite:0 alpha:.7]];
 //        
 //        [self setShadow:shadow];
-        [self setAlphaValue:.8];
+        [self setAlphaValue:.99];
     }
     return self;
 }
@@ -47,7 +47,7 @@
     NSRectFill(bounds);
     
     NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:bounds radius:RADIUS];
-    [[NSColor colorWithDeviceWhite:1 alpha:.6] setFill];
+    [[NSColor colorWithDeviceWhite:1 alpha:.8] setFill];
     [path fill];
 }
 

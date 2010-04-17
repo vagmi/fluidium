@@ -14,7 +14,7 @@
 
 #import "HMImageComboBox.h"
 
-@interface FUProgressComboBox : HMImageComboBox {
+@interface FUProgressTextField : HMImageComboBox {
     NSImage *progressImage;
     CGFloat progress;
     BOOL showingPopUp;
@@ -22,8 +22,8 @@
 }
 
 - (void)showDefaultIcon;
-- (void)showPopUpWithItemCount:(NSInteger)count;
-- (void)hidePopUp;
+//- (void)showPopUpWithItemCount:(NSInteger)count;
+//- (void)hidePopUp;
 
 @property (nonatomic) CGFloat progress;
 @property (nonatomic, retain) NSImage *progressImage;

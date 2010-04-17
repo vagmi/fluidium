@@ -38,8 +38,6 @@
 		D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */; };
 		D36E1EA111702E5500110DBA /* TDFooBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1E9F11702E5500110DBA /* TDFooBar.m */; };
 		D36E1EAC11702E6A00110DBA /* TDFooBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EAB11702E6A00110DBA /* TDFooBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D36E1EB511702F4E00110DBA /* TDFooBarTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */; };
-		D36E1EB611702F4E00110DBA /* TDFooBarTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */; };
 		D36E1ED911703A1000110DBA /* TDFooBarListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1ED711703A1000110DBA /* TDFooBarListItem.h */; };
 		D36E1EDA11703A1000110DBA /* TDFooBarListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1ED811703A1000110DBA /* TDFooBarListItem.m */; };
 		D36E1F6311703E9300110DBA /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */; };
@@ -50,8 +48,6 @@
 		D36E20951170D0D400110DBA /* TDFlippedView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E20941170D0D400110DBA /* TDFlippedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36E20C01170D26E00110DBA /* TDFooBarListView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E20BE1170D26E00110DBA /* TDFooBarListView.h */; };
 		D36E20C11170D26E00110DBA /* TDFooBarListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E20BF1170D26E00110DBA /* TDFooBarListView.m */; };
-		D36E217A1170D91700110DBA /* TDFooBarTextFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E21781170D91700110DBA /* TDFooBarTextFieldCell.h */; };
-		D36E217B1170D91700110DBA /* TDFooBarTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E21791170D91700110DBA /* TDFooBarTextFieldCell.m */; };
 		D36E21C71170DA0700110DBA /* TDFooBarTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E21C51170DA0700110DBA /* TDFooBarTextView.h */; };
 		D36E21C81170DA0700110DBA /* TDFooBarTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E21C61170DA0700110DBA /* TDFooBarTextView.m */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
@@ -137,8 +133,6 @@
 		D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		D36E1E9F11702E5500110DBA /* TDFooBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBar.m; path = src/TDFooBar.m; sourceTree = "<group>"; };
 		D36E1EAB11702E6A00110DBA /* TDFooBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBar.h; path = include/TDAppKit/TDFooBar.h; sourceTree = "<group>"; };
-		D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarTextField.h; path = src/TDFooBarTextField.h; sourceTree = "<group>"; };
-		D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarTextField.m; path = src/TDFooBarTextField.m; sourceTree = "<group>"; };
 		D36E1ED711703A1000110DBA /* TDFooBarListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarListItem.h; path = src/TDFooBarListItem.h; sourceTree = "<group>"; };
 		D36E1ED811703A1000110DBA /* TDFooBarListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarListItem.m; path = src/TDFooBarListItem.m; sourceTree = "<group>"; };
 		D36E1F2311703D9D00110DBA /* FooBarDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FooBarDemoAppDelegate.h; path = demo/foobar/FooBarDemoAppDelegate.h; sourceTree = "<group>"; };
@@ -151,8 +145,6 @@
 		D36E20941170D0D400110DBA /* TDFlippedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFlippedView.h; path = include/TDAppKit/TDFlippedView.h; sourceTree = "<group>"; };
 		D36E20BE1170D26E00110DBA /* TDFooBarListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarListView.h; path = src/TDFooBarListView.h; sourceTree = "<group>"; };
 		D36E20BF1170D26E00110DBA /* TDFooBarListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarListView.m; path = src/TDFooBarListView.m; sourceTree = "<group>"; };
-		D36E21781170D91700110DBA /* TDFooBarTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarTextFieldCell.h; path = src/TDFooBarTextFieldCell.h; sourceTree = "<group>"; };
-		D36E21791170D91700110DBA /* TDFooBarTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarTextFieldCell.m; path = src/TDFooBarTextFieldCell.m; sourceTree = "<group>"; };
 		D36E21C51170DA0700110DBA /* TDFooBarTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarTextView.h; path = src/TDFooBarTextView.h; sourceTree = "<group>"; };
 		D36E21C61170DA0700110DBA /* TDFooBarTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarTextView.m; path = src/TDFooBarTextView.m; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
@@ -371,10 +363,6 @@
 			children = (
 				D36E1EAB11702E6A00110DBA /* TDFooBar.h */,
 				D36E1E9F11702E5500110DBA /* TDFooBar.m */,
-				D36E1EB311702F4E00110DBA /* TDFooBarTextField.h */,
-				D36E1EB411702F4E00110DBA /* TDFooBarTextField.m */,
-				D36E21781170D91700110DBA /* TDFooBarTextFieldCell.h */,
-				D36E21791170D91700110DBA /* TDFooBarTextFieldCell.m */,
 				D36E21C51170DA0700110DBA /* TDFooBarTextView.h */,
 				D36E21C61170DA0700110DBA /* TDFooBarTextView.m */,
 				D36E20BE1170D26E00110DBA /* TDFooBarListView.h */,
@@ -457,11 +445,9 @@
 				D366C1B81128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h in Headers */,
 				D366C1EF112902E500547FD6 /* NSURL+NDCarbonUtilities.h in Headers */,
 				D36E1EAC11702E6A00110DBA /* TDFooBar.h in Headers */,
-				D36E1EB511702F4E00110DBA /* TDFooBarTextField.h in Headers */,
 				D36E1ED911703A1000110DBA /* TDFooBarListItem.h in Headers */,
 				D36E20951170D0D400110DBA /* TDFlippedView.h in Headers */,
 				D36E20C01170D26E00110DBA /* TDFooBarListView.h in Headers */,
-				D36E217A1170D91700110DBA /* TDFooBarTextFieldCell.h in Headers */,
 				D36E21C71170DA0700110DBA /* TDFooBarTextView.h in Headers */,
 				D392B08C1179594400823791 /* TDFooBarListShadowView.h in Headers */,
 			);
@@ -598,11 +584,9 @@
 				D366C1EC112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
 				D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */,
 				D36E1EA111702E5500110DBA /* TDFooBar.m in Sources */,
-				D36E1EB611702F4E00110DBA /* TDFooBarTextField.m in Sources */,
 				D36E1EDA11703A1000110DBA /* TDFooBarListItem.m in Sources */,
 				D36E20931170D0BF00110DBA /* TDFlippedView.m in Sources */,
 				D36E20C11170D26E00110DBA /* TDFooBarListView.m in Sources */,
-				D36E217B1170D91700110DBA /* TDFooBarTextFieldCell.m in Sources */,
 				D36E21C81170DA0700110DBA /* TDFooBarTextView.m in Sources */,
 				D392B08D1179594400823791 /* TDFooBarListShadowView.m in Sources */,
 			);
