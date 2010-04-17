@@ -22,7 +22,9 @@
 
 @interface TDFooBar ()
 - (void)resizeListView;
-- (BOOL)insertText:(id)insertString;
+- (void)textWasInserted:(id)insertString;
+- (void)removeTextFieldSelection;
+- (void)addTextFieldSelectionFromListSelection;
 @end
 
 @implementation TDFooBar
@@ -102,7 +104,6 @@
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
     CGFloat listHeight = [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
-    NSLog(@"listHeight: %f", listHeight);
     return NSMakeRect(LIST_MARGIN_X, NSMaxY([self frame]) + LIST_MARGIN_Y, bounds.size.width - (LIST_MARGIN_X * 2), listHeight);
 }
 
@@ -111,6 +112,8 @@
 #pragma mark NSResponder
 
 - (void)moveUp:(id)sender {
+    [self removeTextFieldSelection];
+
     NSUInteger i = listView.selectedItemIndex;
     if (i <= 0 || NSNotFound == i) {
         i = 0;
@@ -119,10 +122,14 @@
     }
     listView.selectedItemIndex = i;
     [listView reloadData];
+    
+    [self addTextFieldSelectionFromListSelection];
 }
 
 
 - (void)moveDown:(id)sender {
+    [self removeTextFieldSelection];
+    
     NSUInteger i = listView.selectedItemIndex;
     NSUInteger last = [self numberOfItemsInListView:listView] - 1;
     if (i < last) {
@@ -132,6 +139,8 @@
     }
     listView.selectedItemIndex = i;
     [listView reloadData];
+
+    [self addTextFieldSelectionFromListSelection];
 }
 
 
@@ -183,7 +192,10 @@
 }
 
 
-- (BOOL)insertText:(id)insertString {
+#pragma mark -
+#pragma mark Private
+
+- (void)textWasInserted:(id)insertString; {
     if (dataSource && [dataSource respondsToSelector:@selector(fooBar:completedString:)]) {
         NSString *s = [textField stringValue];
         NSUInteger loc = [s length];
@@ -192,10 +204,24 @@
         NSRange range = NSMakeRange(loc, [s length] - loc);
         [textField setStringValue:s];
         [[textField currentEditor] setSelectedRange:range];
-        return YES;
-    } else {
-        return NO;
     }
+}
+
+
+- (void)removeTextFieldSelection {
+    NSRange range = [[textField currentEditor] selectedRange];
+    NSString *s = [[textField stringValue] substringToIndex:range.location];
+    [textField setStringValue:s];
+}
+
+
+- (void)addTextFieldSelectionFromListSelection {
+    NSString *s = [dataSource fooBar:self objectAtIndex:listView.selectedItemIndex];
+    
+    NSUInteger loc = [[textField stringValue] length];
+    NSRange range = NSMakeRange(loc, [s length] - loc);
+    [textField setStringValue:s];
+    [[textField currentEditor] setSelectedRange:range];
 }
 
                             

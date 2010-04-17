@@ -9,7 +9,7 @@
 #import "TDFooBarTextView.h"
 
 @interface TDFooBar ()
-- (BOOL)insertText:(id)insertString;
+- (void)textWasInserted:(id)insertString;
 @end
 
 @implementation TDFooBarTextView
@@ -37,11 +37,8 @@
 
 - (void)insertText:(id)insertString {
     [super insertText:insertString];
-
-    if (![bar insertText:insertString]) {
-    }
+    [bar textWasInserted:insertString];
 }
-
 
 
 //- (void)pageDown:(id)sender {
