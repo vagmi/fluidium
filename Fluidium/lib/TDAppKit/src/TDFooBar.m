@@ -18,6 +18,10 @@
 #define LIST_MARGIN_X 20.0
 #define LIST_MARGIN_Y -5.0
 
+@interface TDFooBar ()
+- (void)resizeListView;
+@end
+
 @implementation TDFooBar
 
 - (id)initWithFrame:(NSRect)frame {
@@ -61,7 +65,18 @@
     NSRect bounds = [self bounds];
     
     [self.textField setFrame:[self textFieldRectForBounds:bounds]];
-    [self.listView setFrame:[self listViewRectForBounds:bounds]];
+    [self resizeListView];
+}
+
+
+- (void)resizeListView {
+    BOOL hidden = ![[textField stringValue] length];
+    [self.listView setHidden:hidden];
+    if (!hidden) {
+        NSRect bounds = [self bounds];
+        NSRect r = [self listViewRectForBounds:bounds];
+        [self.listView setFrame:r];
+    }
 }
 
 
@@ -72,6 +87,7 @@
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
     CGFloat listHeight = [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
+    NSLog(@"listHeight: %f", listHeight);
     return NSMakeRect(LIST_MARGIN_X, NSMaxY([self frame]) + LIST_MARGIN_Y, bounds.size.width - (LIST_MARGIN_X * 2), listHeight);
 }
 
@@ -96,6 +112,8 @@
     NSUInteger last = [self numberOfItemsInListView:listView] - 1;
     if (i < last) {
         i++;
+    } else if (NSNotFound == i) {
+        i = 0;
     }
     listView.selectedItemIndex = i;
     [listView reloadData];
@@ -106,11 +124,15 @@
 #pragma mark NSWindowDelegate
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
-    if (!fieldEditor) {
-        self.fieldEditor = [[[TDFooBarTextView alloc] initWithFrame:NSZeroRect] autorelease];
-        fieldEditor.bar = self;
+    if (obj == textField) {
+        if (!fieldEditor) {
+            self.fieldEditor = [[[TDFooBarTextView alloc] initWithFrame:NSZeroRect] autorelease];
+            fieldEditor.bar = self;
+        }
+        return fieldEditor; 
+    } else {
+        return nil;
     }
-    return fieldEditor; 
 }
 
 
@@ -118,9 +140,9 @@
 #pragma mark NSTextFieldNotifictions
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n {
-    [self.listView setFrame:[self listViewRectForBounds:[self bounds]]];
+    self.listView.selectedItemIndex = NSNotFound;
     [[[self window] contentView] addSubview:self.listView];
-    [self.listView setHidden:NO];
+    [self resizeListView];
 }
 
 
@@ -130,8 +152,8 @@
 
 
 - (void)controlTextDidChange:(NSNotification *)n {
-    [self.listView setHidden:![[textField stringValue] length]];
     [self.listView reloadData];
+    [self resizeListView];
 }
 
                             
@@ -152,6 +174,8 @@
         item = [[[TDFooBarListItem alloc] init] autorelease];
     }
     
+    item.first = (0 == i);
+    item.last = (i == [self numberOfItemsInListView:lv] - 1);
     item.selected = (i == listView.selectedItemIndex);
     item.labelText = [dataSource fooBar:self objectAtIndex:i];
     [item setNeedsDisplay:YES];
@@ -207,13 +231,12 @@
     if (!listView) {
         NSRect r = [self listViewRectForBounds:[self bounds]];
         self.listView = [[[TDFooBarListView alloc] initWithFrame:r] autorelease];
-        [listView setAutoresizingMask:0];
+        [listView setAutoresizingMask:NSViewWidthSizable];
         listView.dataSource = self;
         listView.delegate = self;
     }
     return listView;
 }
-
 
 @synthesize dataSource;
 @synthesize textField;

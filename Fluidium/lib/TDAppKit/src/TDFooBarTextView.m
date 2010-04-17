@@ -16,6 +16,11 @@
 }
 
 
+- (BOOL)isFlipped {
+    return YES;
+}
+
+
 - (void)moveUp:(id)sender {
     [bar moveUp:sender];
 }

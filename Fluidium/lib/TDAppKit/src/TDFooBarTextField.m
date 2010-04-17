@@ -21,5 +21,10 @@
     [super dealloc];
 }
 
+
+- (BOOL)isFlipped {
+    return YES;
+}
+
 @synthesize bar;
 @end

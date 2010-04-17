@@ -11,6 +11,8 @@
 @interface TDFooBarListItem : TDListItem {
     NSString *labelText;
     BOOL selected;
+    BOOL first;
+    BOOL last;
 }
 
 + (NSString *)reuseIdentifier;
@@ -20,4 +22,6 @@
 
 @property (nonatomic, copy) NSString *labelText;
 @property (nonatomic, getter=isSelected) BOOL selected;
+@property (nonatomic, getter=isFirst) BOOL first;
+@property (nonatomic, getter=isLast) BOOL last;
 @end

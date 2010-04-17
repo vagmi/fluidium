@@ -7,6 +7,7 @@
 //
 
 #import "TDFooBarListItem.h"
+#import <NSBezierPath+TDAdditions.h>
 
 #define LABEL_MARGIN_X 5.0
 #define LABEL_MARGIN_Y 2.0
@@ -19,10 +20,10 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
 + (void)initialize {
     if (self == [TDFooBarListItem class]) {
         
-        NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
-        [shadow setShadowColor:[NSColor colorWithCalibratedWhite:1 alpha:.51]];
-        [shadow setShadowOffset:NSMakeSize(0, -1)];
-        [shadow setShadowBlurRadius:0];
+//        NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
+//        [shadow setShadowColor:[NSColor colorWithCalibratedWhite:1 alpha:.51]];
+//        [shadow setShadowOffset:NSMakeSize(0, -1)];
+//        [shadow setShadowBlurRadius:0];
         
         NSMutableParagraphStyle *paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
         [paraStyle setAlignment:NSLeftTextAlignment];
@@ -30,14 +31,14 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
         
         sLabelAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                             [NSColor blackColor], NSForegroundColorAttributeName,
-                            shadow, NSShadowAttributeName,
+                            //shadow, NSShadowAttributeName,
                             [NSFont boldSystemFontOfSize:12], NSFontAttributeName,
                             paraStyle, NSParagraphStyleAttributeName,
                             nil];
         
         sHighlightedLabelAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                       [NSColor colorWithDeviceRed:0 green:99.0/255.0 blue:248.0/255.0 alpha:1], NSForegroundColorAttributeName,
-                                       shadow, NSShadowAttributeName,
+                                       [NSColor whiteColor], NSForegroundColorAttributeName,
+                                       //shadow, NSShadowAttributeName,
                                        [NSFont boldSystemFontOfSize:12], NSFontAttributeName,
                                        paraStyle, NSParagraphStyleAttributeName,
                                        nil];
@@ -78,14 +79,30 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect bounds = [self bounds];
 
+    NSColor *bgColor = nil;
+    NSDictionary *attrs = nil;
     if (selected) {
-        [[NSColor redColor] set];
+        attrs = sHighlightedLabelAttributes;
+        bgColor = [NSColor selectedMenuItemColor];
     } else {
-        [[NSColor blueColor] set];
+        attrs = sLabelAttributes;
+        bgColor = [NSColor clearColor];
     }
-    NSRectFill(bounds);
+    [bgColor setFill];
+
+    NSBezierPath *path = nil;
+    if (first && last) {
+        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:5.0];
+    } else if (first) {
+        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:5.0 corners:TDCornersTop];
+    } else if (last) {
+        path = [NSBezierPath bezierPathWithRoundRect:bounds radius:5.0 corners:TDCornersBottom];
+    } else {
+        path = [NSBezierPath bezierPathWithRect:bounds];
+    }
+    [path fill];
     
-    [labelText drawInRect:[self labelRectForBounds:bounds] withAttributes:sLabelAttributes];
+    [labelText drawInRect:[self labelRectForBounds:bounds] withAttributes:attrs];
 }
 
 
@@ -95,4 +112,6 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
 
 @synthesize labelText;
 @synthesize selected;
+@synthesize first;
+@synthesize last;
 @end

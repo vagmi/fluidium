@@ -71,6 +71,44 @@
                     @"West Virginia", 
                     @"Wisconsin", 
                     @"Wyoming", 
+                    @"Springfield",
+                    @"Indianapolis",
+                     @"Des Moines",
+                     @"Topeka",
+                     @"Frankfort",
+                     @"Baton Rouge",
+                     @"Augusta",
+                     @"Annapolis",
+                     @"Boston",
+                     @"Lansing",
+                     @"St. Paul",
+                     @"Jackson",
+                     @"Jefferson City",
+                     @"Helena",
+                     @"Lincoln",
+                     @"Carson City",
+                     @"New Concord",
+                     @"New Trenton",
+                     @"New Santa Fe",
+                     @"New Albany",
+                     @"North Raleigh",
+                     @"North Bismarck",
+                     @"Columbus",
+                     @"Oklahoma City",
+                     @"Salem",
+                     @"Harrisburg",
+                     @"Rhode Providence",
+                     @"South Columbia",
+                     @"South Pierre",
+                     @"Nashville",
+                     @"Austin",
+                     @"Salt Lake City",
+                     @"Montpelier",
+                     @"Richmond",
+                     @"Olympia",
+                     @"West Charleston",
+                     @"Madison",
+                     @"Cheyenne",
                     nil];
     
 }
@@ -78,6 +116,7 @@
 
 - (NSArray *)currentData {
     NSString *txt = [[fooBar.textField stringValue] lowercaseString];
+    if (![txt length]) return nil;
 
     NSMutableArray *res = [NSMutableArray array];
     

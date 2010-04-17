@@ -27,6 +27,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 @end
 
 @interface TDListView ()
+- (void)setUp;
 - (void)layoutItems;
 - (void)layoutItemsWhileDragging;
 - (NSUInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
@@ -46,9 +47,22 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {        
-        
+        [self setUp];
+    } 
+    return self;
+}
+
+
+- (id)initWithCoder:(NSCoder *)coder {
+    if (self = [super initWithCoder:coder]) {
+        [self setUp];
     }
     return self;
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
 }
 
 
@@ -69,12 +83,14 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)awakeFromNib {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:[self superview]];
-    
+
+}
+
+
+- (void)setUp {
     self.items = [NSMutableArray array];
     self.unusedItems = [NSMutableArray array];
-
+    
     self.selectedItemIndex = NSNotFound;
     self.backgroundColor = [NSColor whiteColor];
     self.itemExtent = DEFAULT_ITEM_EXTENT;
@@ -85,19 +101,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     draggingIndex = NSNotFound;
     [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
-    [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];
-}
-
-
-#pragma mark -
-#pragma mark Notifications
-
-- (void)viewBoundsChanged:(NSNotification *)n {
-    // if this returns false, the view hierarchy is being torn down. 
-    // don't try to layout in that case cuz it crashes on Leopard
-    if ([[n object] superview]) {
-        [self layoutItems];
-    }
+    [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];    
 }
 
 
@@ -186,7 +190,32 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 #pragma mark -
+#pragma mark Notifications
+
+- (void)viewBoundsChanged:(NSNotification *)n {
+    // if this returns false, the view hierarchy is being torn down. 
+    // don't try to layout in that case cuz it crashes on Leopard
+    if ([[n object] superview]) {
+        [self layoutItems];
+    }
+}
+
+
+#pragma mark -
 #pragma mark NSView
+
+- (void)viewWillMoveToSuperview:(NSView *)newSuperview {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    NSView *oldSuperview = [self superview];
+    if (oldSuperview) {
+        [nc removeObserver:self name:NSViewBoundsDidChangeNotification object:oldSuperview];
+    }
+
+    [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:newSuperview];
+    
+}
+
 
 - (void)resizeSubviewsWithOldSize:(NSSize)oldBoundsSize {
     [self layoutItems];
@@ -495,7 +524,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     if (suppressLayout) return;
     
     if (!dataSource) {
-        [NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
+        return;
+        //[NSException raise:EXCEPTION_NAME format:@"TDListView must have a dataSource before doing layout"];
     }
 
     for (TDListItem *item in items) {
@@ -568,16 +598,20 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     NSRect frame = [self frame];
     if (isPortrait) {
-        y = y < viewportRect.size.height ? viewportRect.size.height : y;
+        if ([self autoresizingMask] & NSViewHeightSizable) {
+            y = y < viewportRect.size.height ? viewportRect.size.height : y;
+        }
         frame.size.height = y;
     } else {
-        x = x < viewportRect.size.width ? viewportRect.size.width : x;
+        if ([self autoresizingMask] & NSViewWidthSizable) {
+            x = x < viewportRect.size.width ? viewportRect.size.width : x;
+        }
         frame.size.width = x;
     }
     
     [self setFrame:frame];
     
-    //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([superview bounds]));
+    //NSLog(@"%s my bounds: %@, viewport bounds: %@", _cmd, NSStringFromRect([self bounds]), NSStringFromRect([[self superview] bounds]));
     //NSLog(@"view count: %d, queue count: %d", [items count], [queue count]);
 }
 

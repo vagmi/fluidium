@@ -7,6 +7,7 @@
 //
 
 #import "TDFooBarListView.h"
+#import <NSBezierPath+TDAdditions.h>
 
 @implementation TDFooBarListView
 
@@ -24,18 +25,28 @@
         [shadow setShadowBlurRadius:10];
         [shadow setShadowColor:[NSColor blackColor]];
         
-        [self setShadow:shadow];
+        //[self setShadow:shadow];
         [self setAlphaValue:.8];
     }
     return self;
 }
 
 
-- (void)drawRect:(NSRect)dirtyRect {
-    //NSRect bounds = [self bounds];
+- (void)dealloc {
 
-    [[NSColor clearColor] set];
-    NSRectFill(dirtyRect);
+    [super dealloc];
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+    NSRect bounds = [self bounds];
+
+    [[NSColor clearColor] setFill];
+    NSRectFill(bounds);
+    
+    NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:bounds radius:5.0];
+    [[NSColor whiteColor] setFill];
+    [path fill];
 }
 
 @end
