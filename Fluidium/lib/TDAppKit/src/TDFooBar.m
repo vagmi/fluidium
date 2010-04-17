@@ -10,6 +10,7 @@
 #import <TDAppKit/TDListItem.h>
 #import "TDFooBarTextField.h"
 #import "TDFooBarListView.h"
+#import "TDFooBarListShadowView.h"
 #import "TDFooBarListItem.h"
 #import "TDFooBarTextView.h"
 
@@ -17,6 +18,8 @@
 #define TEXT_MARGIN_Y 5.0
 #define LIST_MARGIN_X 20.0
 #define LIST_MARGIN_Y -5.0
+
+#define SHADOW_RADIUS 10.0
 
 @interface TDFooBar ()
 - (void)resizeListView;
@@ -38,6 +41,7 @@
     self.dataSource = nil;
     self.textField = nil;
     self.listView = nil;
+    self.shadowView = nil;
     self.fieldEditor = nil;
     [super dealloc];
 }
@@ -72,16 +76,26 @@
 - (void)resizeListView {
     BOOL hidden = ![[textField stringValue] length];
     [self.listView setHidden:hidden];
+    [self.shadowView setHidden:hidden];
     if (!hidden) {
         NSRect bounds = [self bounds];
-        NSRect r = [self listViewRectForBounds:bounds];
-        [self.listView setFrame:r];
+        [self.listView setFrame:[self listViewRectForBounds:bounds]];
+        [self.shadowView setFrame:[self listShadowViewRectForBounds:bounds]];
     }
 }
 
 
 - (NSRect)textFieldRectForBounds:(NSRect)bounds {
     return NSMakeRect(TEXT_MARGIN_X, TEXT_MARGIN_Y, bounds.size.width - (TEXT_MARGIN_X * 2), 20);
+}
+
+
+- (NSRect)listShadowViewRectForBounds:(NSRect)bounds {
+    NSRect r = [self listViewRectForBounds:bounds];
+    r.origin.x -= SHADOW_RADIUS;
+    r.size.width += SHADOW_RADIUS * 2;
+    r.size.height += SHADOW_RADIUS * 2;
+    return r;
 }
 
 
@@ -141,13 +155,17 @@
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n {
     self.listView.selectedItemIndex = 0;
-    [[[self window] contentView] addSubview:self.listView];
+    
+    NSView *cv = [[self window] contentView];
+    [cv addSubview:self.shadowView];
+    [cv addSubview:self.listView];
     [self resizeListView];
 }
 
 
 - (void)controlTextDidEndEditing:(NSNotification *)n {
     [self.listView removeFromSuperview];
+    [self.shadowView removeFromSuperview];
 }
 
 
@@ -239,8 +257,19 @@
     return listView;
 }
 
+
+- (TDFooBarListShadowView *)shadowView {
+    if (!shadowView) {
+        NSRect r = [self listShadowViewRectForBounds:[self bounds]];
+        self.shadowView = [[[TDFooBarListShadowView alloc] initWithFrame:r] autorelease];
+        [shadowView setAutoresizingMask:NSViewWidthSizable];
+    }
+    return shadowView;
+}
+
 @synthesize dataSource;
 @synthesize textField;
 @synthesize listView;
+@synthesize shadowView;
 @synthesize fieldEditor;
 @end

@@ -18,7 +18,7 @@
 
 
 - (void)awakeFromNib {
-    [[window contentView] setWantsLayer:YES];
+    //[[window contentView] setWantsLayer:YES];
     
     self.data = [NSArray arrayWithObjects:
                     @"Alabama", 

@@ -20,14 +20,14 @@
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self setWantsLayer:YES];
+        //[self setWantsLayer:YES];
 
-        NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
-        [shadow setShadowOffset:NSMakeSize(0, -10)];
-        [shadow setShadowBlurRadius:10];
-        [shadow setShadowColor:[NSColor colorWithDeviceWhite:0 alpha:.7]];
-        
-        [self setShadow:shadow];
+//        NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
+//        [shadow setShadowOffset:NSMakeSize(0, -10)];
+//        [shadow setShadowBlurRadius:10];
+//        [shadow setShadowColor:[NSColor colorWithDeviceWhite:0 alpha:.7]];
+//        
+//        [self setShadow:shadow];
         [self setAlphaValue:.8];
     }
     return self;
@@ -47,7 +47,7 @@
     NSRectFill(bounds);
     
     NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:bounds radius:RADIUS];
-    [[NSColor whiteColor] setFill];
+    [[NSColor colorWithDeviceWhite:1 alpha:.6] setFill];
     [path fill];
 }
 

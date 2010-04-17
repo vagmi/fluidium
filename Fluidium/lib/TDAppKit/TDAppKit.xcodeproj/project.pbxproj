@@ -60,6 +60,8 @@
 		D371245410F0522700D7107B /* TDBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D371245210F0522700D7107B /* TDBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D371245510F0522700D7107B /* TDLine.h in Headers */ = {isa = PBXBuildFile; fileRef = D371245310F0522700D7107B /* TDLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D371246110F0526B00D7107B /* TDUberViewSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CBFC910EFB8180013347D /* TDUberViewSplitView.m */; };
+		D392B08C1179594400823791 /* TDFooBarListShadowView.h in Headers */ = {isa = PBXBuildFile; fileRef = D392B08A1179594400823791 /* TDFooBarListShadowView.h */; };
+		D392B08D1179594400823791 /* TDFooBarListShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D392B08B1179594400823791 /* TDFooBarListShadowView.m */; };
 		D3D8023E111E2D810025650C /* NSURLRequest+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8023C111E2D810025650C /* NSURLRequest+TDAdditions.m */; };
 		D3D80241111E2E890025650C /* NSURLRequest+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D80240111E2E890025650C /* NSURLRequest+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3D804FD111F484D0025650C /* TDDraggableBar.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D804FC111F484D0025650C /* TDDraggableBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -158,6 +160,8 @@
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
 		D371245210F0522700D7107B /* TDBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBar.h; path = include/TDAppKit/TDBar.h; sourceTree = "<group>"; };
 		D371245310F0522700D7107B /* TDLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLine.h; path = include/TDAppKit/TDLine.h; sourceTree = "<group>"; };
+		D392B08A1179594400823791 /* TDFooBarListShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarListShadowView.h; path = src/TDFooBarListShadowView.h; sourceTree = "<group>"; };
+		D392B08B1179594400823791 /* TDFooBarListShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarListShadowView.m; path = src/TDFooBarListShadowView.m; sourceTree = "<group>"; };
 		D3D8023C111E2D810025650C /* NSURLRequest+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+TDAdditions.m"; path = "src/NSURLRequest+TDAdditions.m"; sourceTree = "<group>"; };
 		D3D80240111E2E890025650C /* NSURLRequest+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+TDAdditions.h"; path = "include/TDAppKit/NSURLRequest+TDAdditions.h"; sourceTree = "<group>"; };
 		D3D804FC111F484D0025650C /* TDDraggableBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDraggableBar.h; path = include/TDAppKit/TDDraggableBar.h; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 				D36E20BF1170D26E00110DBA /* TDFooBarListView.m */,
 				D36E1ED711703A1000110DBA /* TDFooBarListItem.h */,
 				D36E1ED811703A1000110DBA /* TDFooBarListItem.m */,
+				D392B08A1179594400823791 /* TDFooBarListShadowView.h */,
+				D392B08B1179594400823791 /* TDFooBarListShadowView.m */,
 			);
 			name = FooBar;
 			sourceTree = "<group>";
@@ -457,6 +463,7 @@
 				D36E20C01170D26E00110DBA /* TDFooBarListView.h in Headers */,
 				D36E217A1170D91700110DBA /* TDFooBarTextFieldCell.h in Headers */,
 				D36E21C71170DA0700110DBA /* TDFooBarTextView.h in Headers */,
+				D392B08C1179594400823791 /* TDFooBarListShadowView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +604,7 @@
 				D36E20C11170D26E00110DBA /* TDFooBarListView.m in Sources */,
 				D36E217B1170D91700110DBA /* TDFooBarTextFieldCell.m in Sources */,
 				D36E21C81170DA0700110DBA /* TDFooBarTextView.m in Sources */,
+				D392B08D1179594400823791 /* TDFooBarListShadowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
