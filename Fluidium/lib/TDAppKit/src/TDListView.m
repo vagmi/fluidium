@@ -537,12 +537,13 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [items removeAllObjects];
     
     NSRect viewportRect = [self visibleRect];
+    NSRect bounds = [self bounds];
     BOOL isPortrait = self.isPortrait;
     
     CGFloat x = itemMargin;
     CGFloat y = 0;
-    CGFloat w = isPortrait ? viewportRect.size.width : 0;
-    CGFloat h = isPortrait ? 0 : viewportRect.size.height;
+    CGFloat w = isPortrait ? bounds.size.width : 0;
+    CGFloat h = isPortrait ? 0 : bounds.size.height;
     
     NSInteger c = [dataSource numberOfItemsInListView:self];
     BOOL respondsToExtentForItem = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);

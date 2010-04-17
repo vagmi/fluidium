@@ -140,7 +140,7 @@
 #pragma mark NSTextFieldNotifictions
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n {
-    self.listView.selectedItemIndex = NSNotFound;
+    self.listView.selectedItemIndex = 0;
     [[[self window] contentView] addSubview:self.listView];
     [self resizeListView];
 }
@@ -152,6 +152,7 @@
 
 
 - (void)controlTextDidChange:(NSNotification *)n {
+    self.listView.selectedItemIndex = 0;
     [self.listView reloadData];
     [self resizeListView];
 }
