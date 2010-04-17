@@ -22,6 +22,7 @@
 
 @interface TDFooBar ()
 - (void)resizeListView;
+- (BOOL)insertText:(id)insertString;
 @end
 
 @implementation TDFooBar
@@ -154,6 +155,8 @@
 #pragma mark NSTextFieldNotifictions
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n {
+    NSParameterAssert([n object] == textField);
+
     self.listView.selectedItemIndex = 0;
     
     NSView *cv = [[self window] contentView];
@@ -164,15 +167,35 @@
 
 
 - (void)controlTextDidEndEditing:(NSNotification *)n {
+    NSParameterAssert([n object] == textField);
+
     [self.listView removeFromSuperview];
     [self.shadowView removeFromSuperview];
 }
 
 
 - (void)controlTextDidChange:(NSNotification *)n {
+    NSParameterAssert([n object] == textField);
+    
     self.listView.selectedItemIndex = 0;
     [self.listView reloadData];
     [self resizeListView];
+}
+
+
+- (BOOL)insertText:(id)insertString {
+    if (dataSource && [dataSource respondsToSelector:@selector(fooBar:completedString:)]) {
+        NSString *s = [textField stringValue];
+        NSUInteger loc = [s length];
+        s = [dataSource fooBar:self completedString:s];
+        
+        NSRange range = NSMakeRange(loc, [s length] - loc);
+        [textField setStringValue:s];
+        [[textField currentEditor] setSelectedRange:range];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
                             

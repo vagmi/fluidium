@@ -21,107 +21,106 @@
     //[[window contentView] setWantsLayer:YES];
     
     self.data = [NSArray arrayWithObjects:
-                    @"Alabama", 
-                    @"Alaska", 
-                    @"Arizona", 
-                    @"Arkansas", 
-                    @"California", 
-                    @"Colorado", 
-                    @"Connecticut", 
-                    @"Delaware", 
-                    @"Florida", 
-                    @"Georgia", 
-                    @"Hawaii", 
-                    @"Idaho", 
-                    @"Illinois", 
-                    @"Indiana", 
-                    @"Iowa", 
-                    @"Kansas", 
-                    @"Kentucky", 
-                    @"Louisiana", 
-                    @"Maine", 
-                    @"Maryland", 
-                    @"Massachusetts", 
-                    @"Michigan", 
-                    @"Minnesota", 
-                    @"Mississippi", 
-                    @"Missouri", 
-                    @"Montana", 
-                    @"Nebraska", 
-                    @"Nevada", 
-                    @"New Hampshire", 
-                    @"New Jersey", 
-                    @"New Mexico", 
-                    @"New York", 
-                    @"North Carolina", 
-                    @"North Dakota", 
-                    @"Ohio", 
-                    @"Oklahoma", 
-                    @"Oregon", 
-                    @"Pennsylvania", 
-                    @"Rhode Island", 
-                    @"South Carolina", 
-                    @"South Dakota", 
-                    @"Tennessee", 
-                    @"Texas", 
-                    @"Utah", 
-                    @"Vermont", 
-                    @"Virginia", 
-                    @"Washington", 
-                    @"West Virginia", 
-                    @"Wisconsin", 
-                    @"Wyoming", 
-                    @"Springfield",
-                    @"Indianapolis",
-                     @"Des Moines",
-                     @"Topeka",
-                     @"Frankfort",
-                     @"Baton Rouge",
-                     @"Augusta",
-                     @"Annapolis",
-                     @"Boston",
-                     @"Lansing",
-                     @"St. Paul",
-                     @"Jackson",
-                     @"Jefferson City",
-                     @"Helena",
-                     @"Lincoln",
-                     @"Carson City",
-                     @"New Concord",
-                     @"New Trenton",
-                     @"New Santa Fe",
-                     @"New Albany",
-                     @"North Raleigh",
-                     @"North Bismarck",
-                     @"Columbus",
-                     @"Oklahoma City",
-                     @"Salem",
-                     @"Harrisburg",
-                     @"Rhode Providence",
-                     @"South Columbia",
-                     @"South Pierre",
-                     @"Nashville",
-                     @"Austin",
-                     @"Salt Lake City",
-                     @"Montpelier",
-                     @"Richmond",
-                     @"Olympia",
-                     @"West Charleston",
-                     @"Madison",
-                     @"Cheyenne",
-                    nil];
-    
+                 [@"Alabama" lowercaseString], 
+                 [@"Alaska" lowercaseString], 
+                 [@"Arizona" lowercaseString], 
+                 [@"Arkansas" lowercaseString], 
+                 [@"California" lowercaseString], 
+                 [@"Colorado" lowercaseString], 
+                 [@"Connecticut" lowercaseString], 
+                 [@"Delaware" lowercaseString], 
+                 [@"Florida" lowercaseString], 
+                 [@"Georgia" lowercaseString], 
+                 [@"Hawaii" lowercaseString], 
+                 [@"Idaho" lowercaseString], 
+                 [@"Illinois" lowercaseString], 
+                 [@"Indiana" lowercaseString], 
+                 [@"Iowa" lowercaseString], 
+                 [@"Kansas" lowercaseString], 
+                 [@"Kentucky" lowercaseString], 
+                 [@"Louisiana" lowercaseString], 
+                 [@"Maine" lowercaseString], 
+                 [@"Maryland" lowercaseString], 
+                 [@"Massachusetts" lowercaseString], 
+                 [@"Michigan" lowercaseString], 
+                 [@"Minnesota" lowercaseString], 
+                 [@"Mississippi" lowercaseString], 
+                 [@"Missouri" lowercaseString], 
+                 [@"Montana" lowercaseString], 
+                 [@"Nebraska" lowercaseString], 
+                 [@"Nevada" lowercaseString], 
+                 [@"New Hampshire" lowercaseString], 
+                 [@"New Jersey" lowercaseString], 
+                 [@"New Mexico" lowercaseString], 
+                 [@"New York" lowercaseString], 
+                 [@"North Carolina" lowercaseString], 
+                 [@"North Dakota" lowercaseString], 
+                 [@"Ohio" lowercaseString], 
+                 [@"Oklahoma" lowercaseString], 
+                 [@"Oregon" lowercaseString], 
+                 [@"Pennsylvania" lowercaseString], 
+                 [@"Rhode Island" lowercaseString], 
+                 [@"South Carolina" lowercaseString], 
+                 [@"South Dakota" lowercaseString], 
+                 [@"Tennessee" lowercaseString], 
+                 [@"Texas" lowercaseString], 
+                 [@"Utah" lowercaseString], 
+                 [@"Vermont" lowercaseString], 
+                 [@"Virginia" lowercaseString], 
+                 [@"Washington" lowercaseString], 
+                 [@"West Virginia" lowercaseString], 
+                 [@"Wisconsin" lowercaseString], 
+                 [@"Wyoming" lowercaseString], 
+                 [@"Springfield" lowercaseString],
+                 [@"Indianapolis" lowercaseString],
+                 [@"Des Moines" lowercaseString],
+                 [@"Topeka" lowercaseString],
+                 [@"Frankfort" lowercaseString],
+                 [@"Baton Rouge" lowercaseString],
+                 [@"Augusta" lowercaseString],
+                 [@"Annapolis" lowercaseString],
+                 [@"Boston" lowercaseString],
+                 [@"Lansing" lowercaseString],
+                 [@"St. Paul" lowercaseString],
+                 [@"Jackson" lowercaseString],
+                 [@"Jefferson City" lowercaseString],
+                 [@"Helena" lowercaseString],
+                 [@"Lincoln" lowercaseString],
+                 [@"Carson City" lowercaseString],
+                 [@"New Concord" lowercaseString],
+                 [@"New Trenton" lowercaseString],
+                 [@"New Santa Fe" lowercaseString],
+                 [@"New Albany" lowercaseString],
+                 [@"North Raleigh" lowercaseString],
+                 [@"North Bismarck" lowercaseString],
+                 [@"Columbus" lowercaseString],
+                 [@"Oklahoma City" lowercaseString],
+                 [@"Salem" lowercaseString],
+                 [@"Harrisburg" lowercaseString],
+                 [@"Rhode Providence" lowercaseString],
+                 [@"South Columbia" lowercaseString],
+                 [@"South Pierre" lowercaseString],
+                 [@"Nashville" lowercaseString],
+                 [@"Austin" lowercaseString],
+                 [@"Salt Lake City" lowercaseString],
+                 [@"Montpelier" lowercaseString],
+                 [@"Richmond" lowercaseString],
+                 [@"Olympia" lowercaseString],
+                 [@"West Charleston" lowercaseString],
+                 [@"Madison" lowercaseString],
+                 [@"Cheyenne" lowercaseString],
+                 nil];    
 }
 
 
 - (NSArray *)currentData {
-    NSString *txt = [[fooBar.textField stringValue] lowercaseString];
+    NSString *txt = [fooBar.textField stringValue];
     if (![txt length]) return nil;
 
     NSMutableArray *res = [NSMutableArray array];
     
     for (NSString *state in data) {
-        if ([[state lowercaseString] hasPrefix:txt]) {
+        if ([state hasPrefix:txt]) {
             [res addObject:state];
         }
     }
@@ -140,6 +139,33 @@
 
 - (id)fooBar:(TDFooBar *)fb objectAtIndex:(NSUInteger)i {
     return [[self currentData] objectAtIndex:i];
+}
+
+
+- (NSUInteger)fooBar:(TDFooBar *)fb indexOfItemWithStringValue:(NSString *)string {
+    NSUInteger i = 0;
+    
+    for (NSString *s in [self currentData]) {
+        if ([s isEqualToString:string]) {
+            return i;
+        } else {
+            i++;
+        }
+    }
+    
+    return NSNotFound;
+}
+
+
+- (NSString *)fooBar:(TDFooBar *)fb completedString:(NSString *)uncompletedString {
+    
+    for (NSString *s in [self currentData]) {
+        if ([s hasPrefix:uncompletedString]) {
+            return s;
+        }
+    }
+
+    return nil;
 }
 
 @synthesize fooBar;

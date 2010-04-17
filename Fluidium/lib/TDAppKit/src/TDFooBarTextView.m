@@ -8,6 +8,10 @@
 
 #import "TDFooBarTextView.h"
 
+@interface TDFooBar ()
+- (BOOL)insertText:(id)insertString;
+@end
+
 @implementation TDFooBarTextView
 
 - (void)dealloc {
@@ -29,6 +33,15 @@
 - (void)moveDown:(id)sender {
     [bar moveDown:sender];
 }
+
+
+- (void)insertText:(id)insertString {
+    [super insertText:insertString];
+
+    if (![bar insertText:insertString]) {
+    }
+}
+
 
 
 //- (void)pageDown:(id)sender {

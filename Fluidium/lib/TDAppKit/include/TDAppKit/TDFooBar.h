@@ -13,9 +13,13 @@
 @class TDFooBarTextView;
 @class TDFooBarListShadowView;
 
-@protocol TDFooBarDataSource
+@protocol TDFooBarDataSource <NSObject>
+@required
 - (NSUInteger)numberOfItemsInFooBar:(TDFooBar *)fb;
 - (id)fooBar:(TDFooBar *)fb objectAtIndex:(NSUInteger)i;
+@optional
+- (NSUInteger)fooBar:(TDFooBar *)fb indexOfItemWithStringValue:(NSString *)string;
+- (NSString *)fooBar:(TDFooBar *)fb completedString:(NSString *)uncompletedString;
 @end
 
 @interface TDFooBar : TDBar <TDListViewDataSource, TDListViewDelegate> {
