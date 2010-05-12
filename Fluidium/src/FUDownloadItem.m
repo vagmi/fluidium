@@ -14,9 +14,19 @@
 
 #import "FUDownloadItem.h"
 
+#define TAG_STRING_KEY @"tagString"
+#define URL_KEY @"URL"
+#define FILENAME_KEY @"filename"
+#define PATH_KEY @"path"
+#define ICON_KEY @"icon"
+#define RECEIVED_LENGTH_KEY @"receivedLength"
+#define EXPECTED_LENGTH_KEY @"expectedLength"
+#define DONE_KEY @"done"
+
 static NSUInteger sTagCount;
 
 @interface FUDownloadItem ()
+- (void)startObserving;
 - (void)lengthDidChange;
 - (void)determineRemainingTimeString;
 @end
@@ -48,18 +58,16 @@ static NSUInteger sTagCount;
         self.busy = NO;
         self.canResume = YES;
 
-        [self addObserver:self forKeyPath:@"receivedLength" options:NSKeyValueObservingOptionNew context:NULL];
-        [self addObserver:self forKeyPath:@"expectedLength" options:NSKeyValueObservingOptionNew context:NULL];
-        [self addObserver:self forKeyPath:@"done" options:NSKeyValueObservingOptionNew context:NULL];
+        [self startObserving];
     }
     return self;
 }
 
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"receivedLength"];
-    [self removeObserver:self forKeyPath:@"expectedLength"];
-    [self removeObserver:self forKeyPath:@"done"];
+    [self removeObserver:self forKeyPath:RECEIVED_LENGTH_KEY];
+    [self removeObserver:self forKeyPath:EXPECTED_LENGTH_KEY];
+    [self removeObserver:self forKeyPath:DONE_KEY];
     
     self.startDate = nil;
     self.lastDisplayDate = nil;
@@ -76,7 +84,7 @@ static NSUInteger sTagCount;
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"receivedLength"] || [keyPath isEqualToString:@"expectedLength"] || [keyPath isEqualToString:@"done"]) {
+    if ([keyPath isEqualToString:RECEIVED_LENGTH_KEY] || [keyPath isEqualToString:EXPECTED_LENGTH_KEY] || [keyPath isEqualToString:DONE_KEY]) {
         [self lengthDidChange];
     }
 }
@@ -92,34 +100,43 @@ static NSUInteger sTagCount;
 
 - (id)initWithCoder:(NSCoder *)coder {
     [super init];
-    self.tagString = [coder decodeObjectForKey:@"tagString"]; ++sTagCount;
-    self.URL = [coder decodeObjectForKey:@"URL"];
-    self.filename = [coder decodeObjectForKey:@"filename"];
-    self.path = [coder decodeObjectForKey:@"path"];
-    self.icon = [coder decodeObjectForKey:@"icon"];
-    self.expectedLength = [coder decodeIntegerForKey:@"expectedLength"];
-    self.receivedLength = [coder decodeIntegerForKey:@"receivedLength"];
-    self.done = [coder decodeBoolForKey:@"done"];
+    self.tagString = [coder decodeObjectForKey:TAG_STRING_KEY]; ++sTagCount;
+    self.URL = [coder decodeObjectForKey:URL_KEY];
+    self.filename = [coder decodeObjectForKey:FILENAME_KEY];
+    self.path = [coder decodeObjectForKey:PATH_KEY];
+    self.icon = [coder decodeObjectForKey:ICON_KEY];
+    self.expectedLength = [coder decodeIntegerForKey:EXPECTED_LENGTH_KEY];
+    self.receivedLength = [coder decodeIntegerForKey:RECEIVED_LENGTH_KEY];
+    self.done = [coder decodeBoolForKey:DONE_KEY];
     self.busy = NO;
     self.canResume = NO;
+    
+    [self startObserving];
     return self;
 }
 
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeObject:tagString forKey:@"tagString"];
-    [coder encodeObject:URL forKey:@"URL"];
-    [coder encodeObject:filename forKey:@"filename"];
-    [coder encodeObject:path forKey:@"path"];
-    [coder encodeObject:icon forKey:@"icon"];
-    [coder encodeInteger:expectedLength forKey:@"expectedLength"];
-    [coder encodeInteger:receivedLength forKey:@"receivedLength"];
-    [coder encodeBool:done forKey:@"done"];
+    [coder encodeObject:tagString forKey:TAG_STRING_KEY];
+    [coder encodeObject:URL forKey:URL_KEY];
+    [coder encodeObject:filename forKey:FILENAME_KEY];
+    [coder encodeObject:path forKey:PATH_KEY];
+    [coder encodeObject:icon forKey:ICON_KEY];
+    [coder encodeInteger:expectedLength forKey:EXPECTED_LENGTH_KEY];
+    [coder encodeInteger:receivedLength forKey:RECEIVED_LENGTH_KEY];
+    [coder encodeBool:done forKey:DONE_KEY];
 }
 
 
 #pragma mark -
 #pragma mark Private
+
+- (void)startObserving {
+    [self addObserver:self forKeyPath:RECEIVED_LENGTH_KEY options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:self forKeyPath:EXPECTED_LENGTH_KEY options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:self forKeyPath:DONE_KEY options:NSKeyValueObservingOptionNew context:NULL];
+}
+
 
 - (void)determineRemainingTimeString {
 
