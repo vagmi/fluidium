@@ -6,7 +6,7 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDFooBarListShadowView.h"
+#import "TDShadowView.h"
 #import <NSBezierPath+TDAdditions.h>
 
 #define SHADOW_RADIUS 10
@@ -14,10 +14,10 @@
 
 static NSShadow *sShadow = nil;
 
-@implementation TDFooBarListShadowView
+@implementation TDShadowView
 
 + (void)initialize {
-    if ([TDFooBarListShadowView class] == self) {
+    if ([TDShadowView class] == self) {
         sShadow = [[NSShadow alloc] init];
         [sShadow setShadowOffset:NSMakeSize(0, -10)];
         [sShadow setShadowBlurRadius:SHADOW_RADIUS];
@@ -47,8 +47,8 @@ static NSShadow *sShadow = nil;
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect bounds = [self bounds];
 
-    [[NSColor clearColor] set];
-    NSRectFill(bounds);
+    //[[NSColor clearColor] set];
+    //NSRectFill(bounds);
     
     [sShadow set];
     [[NSColor colorWithDeviceWhite:1 alpha:.8] setFill];

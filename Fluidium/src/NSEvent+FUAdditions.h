@@ -16,6 +16,7 @@
 
 @interface NSEvent (FUAdditions)
 - (BOOL)isMouseDown;
+- (BOOL)isMouseMoved;
 - (BOOL)isKeyUpOrDown;
 - (BOOL)is3rdButtonClick;
 - (BOOL)isCommandKeyPressed;

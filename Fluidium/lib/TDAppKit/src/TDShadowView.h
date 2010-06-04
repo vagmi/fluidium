@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TDFooBarListShadowView : NSView {
+@interface TDShadowView : NSView {
 
 }
 

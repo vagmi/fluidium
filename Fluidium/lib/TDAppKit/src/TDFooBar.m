@@ -9,19 +9,16 @@
 #import <TDAppKit/TDFooBar.h>
 #import <TDAppKit/TDListItem.h>
 #import "TDFooBarListView.h"
-#import "TDFooBarListShadowView.h"
 #import "TDFooBarListItem.h"
 #import "TDFooBarTextView.h"
 
 #define TEXT_MARGIN_X 20.0
 #define TEXT_MARGIN_Y 5.0
-#define LIST_MARGIN_X 20.0
-#define LIST_MARGIN_Y -5.0
-
-#define SHADOW_RADIUS 10.0
+#define LIST_MARGIN_Y 5.0
 
 @interface TDFooBar ()
-- (void)resizeListView;
+- (void)removeListWindow;
+- (void)resizeListWindow;
 - (void)textWasInserted:(id)insertString;
 - (void)removeTextFieldSelection;
 - (void)addTextFieldSelectionFromListSelection;
@@ -39,18 +36,14 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeListWindow];
 
     self.dataSource = nil;
     self.textField = nil;
     self.listView = nil;
-    self.shadowView = nil;
+    self.listWindow = nil;
     self.fieldEditor = nil;
     [super dealloc];
-}
-
-
-- (BOOL)isFlipped {
-    return YES;
 }
 
 
@@ -72,18 +65,39 @@
     NSRect bounds = [self bounds];
     
     [self.textField setFrame:[self textFieldRectForBounds:bounds]];
-    [self resizeListView];
+    [self removeListWindow];
 }
 
 
-- (void)resizeListView {
+- (void)addListWindow {
+    if (![self.listWindow parentWindow]) {
+        [[self window] addChildWindow:self.listWindow ordered:NSWindowAbove];
+    }
+}
+
+
+- (void)removeListWindow {
+    if ([self.listWindow parentWindow]) {
+        [[self window] removeChildWindow:self.listWindow];
+        [self.listWindow orderOut:nil];
+    }
+}
+
+
+- (void)resizeListWindow {
     BOOL hidden = ![[textField stringValue] length];
-    [self.listView setHidden:hidden];
-    [self.shadowView setHidden:hidden];
+    
+    if (hidden) {
+        [self removeListWindow];
+    } else {
+        [self addListWindow];
+    }
+
     if (!hidden) {
         NSRect bounds = [self bounds];
         [self.listView setFrame:[self listViewRectForBounds:bounds]];
-        [self.shadowView setFrame:[self listShadowViewRectForBounds:bounds]];
+        [self.listWindow setFrame:[self listWindowRectForBounds:bounds] display:YES];
+        [self.listView reloadData];
     }
 }
 
@@ -93,18 +107,22 @@
 }
 
 
-- (NSRect)listShadowViewRectForBounds:(NSRect)bounds {
-    NSRect r = [self listViewRectForBounds:bounds];
-    r.origin.x -= SHADOW_RADIUS;
-    r.size.width += SHADOW_RADIUS * 2;
-    r.size.height += SHADOW_RADIUS * 2;
-    return r;
+- (NSRect)listWindowRectForBounds:(NSRect)bounds {
+    NSRect windowFrame = [[self window] frame];
+    NSRect textFrame = [self.textField frame];
+    NSRect barFrame = [self frame];
+    NSRect listRect = [self listViewRectForBounds:bounds];
+
+    CGFloat x = windowFrame.origin.x + textFrame.origin.x;
+    CGFloat y = windowFrame.origin.y + barFrame.origin.y + textFrame.origin.y - listRect.size.height - LIST_MARGIN_Y;
+    
+    return NSMakeRect(x, y, listRect.size.width, listRect.size.height);
 }
 
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
     CGFloat listHeight = [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
-    return NSMakeRect(LIST_MARGIN_X, NSMaxY([self frame]) + LIST_MARGIN_Y, bounds.size.width - (LIST_MARGIN_X * 2), listHeight);
+    return NSMakeRect(0, 0, bounds.size.width - (TEXT_MARGIN_X * 2), listHeight);
 }
 
 
@@ -147,6 +165,12 @@
 #pragma mark -
 #pragma mark NSWindowDelegate
 
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize {
+    [self removeListWindow];
+    return frameSize;
+}
+
+
 - (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
     if (obj == textField) {
         if (!fieldEditor) {
@@ -167,19 +191,14 @@
     NSParameterAssert([n object] == textField);
 
     self.listView.selectedItemIndex = 0;
-    
-    NSView *cv = [[self window] contentView];
-    [cv addSubview:self.shadowView];
-    [cv addSubview:self.listView];
-    [self resizeListView];
+    [self resizeListWindow];
 }
 
 
 - (void)controlTextDidEndEditing:(NSNotification *)n {
     NSParameterAssert([n object] == textField);
 
-    [self.listView removeFromSuperview];
-    [self.shadowView removeFromSuperview];
+    [self removeListWindow];
 }
 
 
@@ -188,7 +207,7 @@
     
     self.listView.selectedItemIndex = 0;
     [self.listView reloadData];
-    [self resizeListView];
+    [self resizeListWindow];
 }
 
 
@@ -295,18 +314,21 @@
 }
 
 
-- (TDFooBarListShadowView *)shadowView {
-    if (!shadowView) {
-        NSRect r = [self listShadowViewRectForBounds:[self bounds]];
-        self.shadowView = [[[TDFooBarListShadowView alloc] initWithFrame:r] autorelease];
-        [shadowView setAutoresizingMask:NSViewWidthSizable];
+- (NSWindow *)listWindow {
+    if (!listWindow) {
+        NSRect r = [self listWindowRectForBounds:[self bounds]];
+        self.listWindow = [[[NSWindow alloc] initWithContentRect:r styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES] autorelease];
+        [listWindow setOpaque:NO];
+        [listWindow setHasShadow:YES];
+        [listWindow setBackgroundColor:[NSColor clearColor]];
+        [[listWindow contentView] addSubview:self.listView];
     }
-    return shadowView;
+    return listWindow;
 }
 
 @synthesize dataSource;
 @synthesize textField;
 @synthesize listView;
-@synthesize shadowView;
+@synthesize listWindow;
 @synthesize fieldEditor;
 @end

@@ -26,6 +26,11 @@
 }
 
 
+- (BOOL)isMouseMoved {
+    return (NSMouseMoved == [self type]);
+}
+
+
 - (BOOL)isKeyUpOrDown {
     return (NSKeyUp == [self type] || NSKeyDown == [self type]);
 }

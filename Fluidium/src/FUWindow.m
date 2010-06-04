@@ -97,7 +97,7 @@
 
 - (void)sendEvent:(NSEvent *)evt {
     
-    if ([evt isMouseDown]) {
+    if ([evt isMouseDown] || [evt isMouseMoved]) {
         [self hideFindPanel];
     }
 
@@ -257,10 +257,11 @@
 
 - (void)allowBrowsaPlugInsToHandleMouseMoved:(NSEvent *)evt {
     NSInteger i = 0;
-    for ( ; i < [[FUUserDefaults instance] numberOfBrowsaPlugIns]; i++) {
+    NSInteger c = [[FUUserDefaults instance] numberOfBrowsaPlugIns];
+    for ( ; i < c; i++) {
         NSString *identifier = [NSString stringWithFormat:@"com.fluidapp.BrowsaPlugIn%d", i];
         [self sendMouseMovedEvent:evt toPlugInWithIdentifier:identifier];
-    }    
+    }
 }
 
 
