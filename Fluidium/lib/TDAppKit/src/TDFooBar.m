@@ -28,7 +28,7 @@
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
     }
     return self;
 }
@@ -181,6 +181,14 @@
     } else {
         return nil;
     }
+}
+
+
+#pragma mark -
+#pragma mark NSApplicationNotifications
+
+- (void)applicationDidResignActive:(NSNotification *)n {
+    [self removeListWindow];
 }
 
 

@@ -115,12 +115,13 @@
 
 - (NSArray *)currentData {
     NSString *txt = [fooBar.textField stringValue];
-    if (![txt length]) return nil;
+    NSUInteger txtLen = [txt length];
+    if (!txtLen) return nil;
 
     NSMutableArray *res = [NSMutableArray array];
     
     for (NSString *state in data) {
-        if ([state hasPrefix:txt]) {
+        if ([state hasPrefix:txt] && txtLen < [state length]) {
             [res addObject:state];
         }
     }
