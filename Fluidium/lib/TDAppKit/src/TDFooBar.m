@@ -95,14 +95,12 @@
     if (hidden) {
         [self removeListWindow];
     } else {
-        [self addListWindow];
-    }
-
-    if (!hidden) {
         NSRect bounds = [self bounds];
         [self.listView setFrame:[self listViewRectForBounds:bounds]];
         [self.listWindow setFrame:[self listWindowRectForBounds:bounds] display:YES];
         [self.listView reloadData];
+
+        [self addListWindow];
     }
 }
 
