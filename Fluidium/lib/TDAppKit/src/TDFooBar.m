@@ -53,6 +53,11 @@
 }
 
 
+- (BOOL)isListVisible {
+    return nil != [self.listWindow parentWindow];
+}
+
+
 #pragma mark -
 #pragma mark Bounds
 
@@ -70,14 +75,14 @@
 
 
 - (void)addListWindow {
-    if (![self.listWindow parentWindow]) {
+    if (![self isListVisible]) {
         [[self window] addChildWindow:self.listWindow ordered:NSWindowAbove];
     }
 }
 
 
 - (void)removeListWindow {
-    if ([self.listWindow parentWindow]) {
+    if ([self isListVisible]) {
         [[self window] removeChildWindow:self.listWindow];
         [self.listWindow orderOut:nil];
     }
@@ -103,7 +108,7 @@
 
 
 - (NSRect)textFieldRectForBounds:(NSRect)bounds {
-    return NSMakeRect(TEXT_MARGIN_X, TEXT_MARGIN_Y, bounds.size.width - (TEXT_MARGIN_X * 2), 20);
+    return NSMakeRect(TEXT_MARGIN_X, TEXT_MARGIN_Y, bounds.size.width - (TEXT_MARGIN_X * 2), 22);
 }
 
 
@@ -189,6 +194,26 @@
 
 - (void)applicationDidResignActive:(NSNotification *)n {
     [self removeListWindow];
+}
+
+
+#pragma mark -
+#pragma mark NSTextFieldDelegate
+
+// <esc> was pressed
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
+    if ([self isListVisible]) {
+        [self removeListWindow];
+
+        // clear auto-completed text
+        NSRange r = [[textField currentEditor] selectedRange];
+        NSString *s = [[textField stringValue] substringToIndex:r.location];
+        [textField setStringValue:s];
+    } else {
+        [self addListWindow];
+        [self addTextFieldSelectionFromListSelection];
+    }
+    return nil;
 }
 
 

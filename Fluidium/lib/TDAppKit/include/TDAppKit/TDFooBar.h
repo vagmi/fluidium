@@ -29,6 +29,8 @@
     TDFooBarTextView *fieldEditor;
 }
 
+- (BOOL)isListVisible;
+
 - (NSRect)textFieldRectForBounds:(NSRect)bounds;
 - (NSRect)listWindowRectForBounds:(NSRect)bounds;
 - (NSRect)listViewRectForBounds:(NSRect)bounds;
