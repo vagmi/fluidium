@@ -10,7 +10,7 @@
 #import <TDAppKit/TDListView.h>
 
 @class TDComboField;
-@class TDFooBarTextView;
+@class TDComboFieldTextView;
 
 @protocol TDComboFieldDataSource <NSObject>
 @required
@@ -25,7 +25,7 @@
     id <TDComboFieldDataSource>dataSource;
     TDListView *listView;
     NSWindow *listWindow;
-    TDFooBarTextView *fieldEditor;
+    TDComboFieldTextView *fieldEditor;
 }
 
 - (BOOL)isListVisible;
@@ -36,5 +36,5 @@
 @property (nonatomic, assign) id <TDComboFieldDataSource>dataSource;
 @property (nonatomic, retain) TDListView *listView;
 @property (nonatomic, retain) NSWindow *listWindow;
-@property (nonatomic, retain) TDFooBarTextView *fieldEditor;
+@property (nonatomic, retain) TDComboFieldTextView *fieldEditor;
 @end

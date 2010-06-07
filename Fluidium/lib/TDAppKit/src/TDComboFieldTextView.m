@@ -6,13 +6,13 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDFooBarTextView.h"
+#import "TDComboFieldTextView.h"
 
 @interface TDComboField ()
 - (void)textWasInserted:(id)insertString;
 @end
 
-@implementation TDFooBarTextView
+@implementation TDComboFieldTextView
 
 - (id)initWithFrame:(NSRect)r {
     if (self = [super initWithFrame:r]) {
@@ -23,7 +23,7 @@
 
 
 - (void)dealloc {
-    self.bar = nil;
+    self.comboField = nil;
     [super dealloc];
 }
 
@@ -34,18 +34,18 @@
 
 
 - (void)moveUp:(id)sender {
-    [bar moveUp:sender];
+    [comboField moveUp:sender];
 }
 
 
 - (void)moveDown:(id)sender {
-    [bar moveDown:sender];
+    [comboField moveDown:sender];
 }
 
 
 - (void)insertText:(id)insertString {
     [super insertText:insertString];
-    [bar textWasInserted:insertString];
+    [comboField textWasInserted:insertString];
 }
 
 
@@ -88,5 +88,5 @@
 //    
 //}
 
-@synthesize bar;
+@synthesize comboField;
 @end

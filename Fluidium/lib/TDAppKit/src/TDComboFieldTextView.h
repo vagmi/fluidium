@@ -8,9 +8,9 @@
 
 #import <TDAppKit/TDComboField.h>
 
-@interface TDFooBarTextView : NSTextView {
-    TDComboField *bar;
+@interface TDComboFieldTextView : NSTextView {
+    TDComboField *comboField;
 }
 
-@property (nonatomic, assign) TDComboField *bar;
+@property (nonatomic, assign) TDComboField *comboField;
 @end

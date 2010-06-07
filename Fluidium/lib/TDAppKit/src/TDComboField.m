@@ -10,7 +10,7 @@
 #import <TDAppKit/TDListItem.h>
 #import "TDFooBarListView.h"
 #import "TDFooBarListItem.h"
-#import "TDFooBarTextView.h"
+#import "TDComboFieldTextView.h"
 
 #define LIST_MARGIN_Y 5.0
 
@@ -170,8 +170,8 @@
 - (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
     if (obj == self) {
         if (!fieldEditor) {
-            self.fieldEditor = [[[TDFooBarTextView alloc] initWithFrame:NSZeroRect] autorelease];
-            fieldEditor.bar = self;
+            self.fieldEditor = [[[TDComboFieldTextView alloc] initWithFrame:NSZeroRect] autorelease];
+            fieldEditor.comboField = self;
         }
         return fieldEditor; 
     } else {
