@@ -28,7 +28,7 @@
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
+
     }
     return self;
 }
@@ -48,6 +48,8 @@
 
 
 - (void)awakeFromNib {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
+
     [[self window] setDelegate:self];
     [self resizeSubviewsWithOldSize:NSZeroSize];
 }

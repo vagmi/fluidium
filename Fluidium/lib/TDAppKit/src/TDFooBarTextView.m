@@ -14,9 +14,22 @@
 
 @implementation TDFooBarTextView
 
+- (id)initWithFrame:(NSRect)r {
+    if (self = [super initWithFrame:r]) {
+
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.bar = nil;
     [super dealloc];
+}
+
+
+- (BOOL)isFieldEditor {
+    return YES;
 }
 
 
