@@ -237,15 +237,17 @@
 #pragma mark -
 #pragma mark Private
 
-- (void)textWasInserted:(id)insertString; {
+- (void)textWasInserted:(id)insertString {
     if (dataSource && [dataSource respondsToSelector:@selector(comboField:completedString:)]) {
         NSString *s = [self stringValue];
         NSUInteger loc = [s length];
         s = [dataSource comboField:self completedString:s];
         
-        NSRange range = NSMakeRange(loc, [s length] - loc);
-        [self setStringValue:s];
-        [[self currentEditor] setSelectedRange:range];
+        if (s) {
+            NSRange range = NSMakeRange(loc, [s length] - loc);
+            [self setStringValue:s];
+            [[self currentEditor] setSelectedRange:range];
+        }
     }
 }
 

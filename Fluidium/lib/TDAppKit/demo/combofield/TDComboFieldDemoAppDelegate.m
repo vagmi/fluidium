@@ -10,14 +10,14 @@
 
 @implementation TDComboFieldDemoAppDelegate
 
-//- (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
-//    NSLog(@"obj: %@", obj);
-//    if (obj == comboField) {
-//        return comboField.fieldEditor; 
-//    } else {
-//        return nil;
-//    }
-//}
+- (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
+    NSLog(@"obj: %@", obj);
+    if (obj == comboField) {
+        return comboField.fieldEditor; 
+    } else {
+        return nil;
+    }
+}
 
 
 - (void)dealloc {
