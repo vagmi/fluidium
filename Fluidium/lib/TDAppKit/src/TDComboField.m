@@ -8,6 +8,7 @@
 
 #import <TDAppKit/TDComboField.h>
 #import <TDAppKit/TDListItem.h>
+#import "TDComboFieldCell.h"
 #import "TDComboFieldListView.h"
 #import "TDComboFieldListItem.h"
 #import "TDComboFieldTextView.h"
@@ -23,6 +24,11 @@
 @end
 
 @implementation TDComboField
+
++ (Class)cellClass {
+    return [TDComboFieldCell class];
+}
+
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -47,7 +53,7 @@
 - (void)awakeFromNib {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
 
-    [self setDelegate:self];
+    //[self setDelegate:self];
 
     [[self window] setDelegate:self];
     [self resizeSubviewsWithOldSize:NSZeroSize];
@@ -167,19 +173,6 @@
 }
 
 
-- (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
-    if (obj == self) {
-        if (!fieldEditor) {
-            self.fieldEditor = [[[TDComboFieldTextView alloc] initWithFrame:NSZeroRect] autorelease];
-            fieldEditor.comboField = self;
-        }
-        return fieldEditor; 
-    } else {
-        return nil;
-    }
-}
-
-
 #pragma mark -
 #pragma mark NSApplicationNotifications
 
@@ -191,11 +184,10 @@
 #pragma mark -
 #pragma mark NSTextFieldDelegate
 
-// <esc> was pressed
-- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
+- (void)escape:(id)sender {
     if ([self isListVisible]) {
         [self removeListWindow];
-
+        
         // clear auto-completed text
         NSRange r = [[self currentEditor] selectedRange];
         NSString *s = [[self stringValue] substringToIndex:r.location];
@@ -204,6 +196,12 @@
         [self addListWindow];
         [self addTextFieldSelectionFromListSelection];
     }
+}
+
+
+// <esc> was pressed
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
+    [self escape:nil];
     return nil;
 }
 
@@ -211,23 +209,24 @@
 #pragma mark -
 #pragma mark NSTextFieldNotifictions
 
-- (void)controlTextDidBeginEditing:(NSNotification *)n {
-    NSParameterAssert([n object] == self);
+
+- (void)textDidBeginEditing:(NSNotification *)n {
+    //NSParameterAssert([n object] == self);
 
     self.listView.selectedItemIndex = 0;
     [self resizeListWindow];
 }
 
 
-- (void)controlTextDidEndEditing:(NSNotification *)n {
-    NSParameterAssert([n object] == self);
+- (void)textDidEndEditing:(NSNotification *)n {
+    //NSParameterAssert([n object] == self);
 
     [self removeListWindow];
 }
 
 
-- (void)controlTextDidChange:(NSNotification *)n {
-    NSParameterAssert([n object] == self);
+- (void)textDidChange:(NSNotification *)n {
+    //NSParameterAssert([n object] == self);
     
     self.listView.selectedItemIndex = 0;
     [self.listView reloadData];
@@ -350,8 +349,16 @@
     return listWindow;
 }
 
+
+- (NSTextView *)fieldEditor {
+    if (!fieldEditor) {
+        self.fieldEditor = [[[TDComboFieldTextView alloc] initWithFrame:[self bounds]] autorelease];
+        fieldEditor.comboField = self;
+    }
+    return fieldEditor;    
+}
+
 @synthesize dataSource;
-//@synthesize textField;
 @synthesize listView;
 @synthesize listWindow;
 @synthesize fieldEditor;

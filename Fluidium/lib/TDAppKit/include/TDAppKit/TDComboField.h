@@ -21,7 +21,11 @@
 - (NSString *)comboField:(TDComboField *)cf completedString:(NSString *)uncompletedString;
 @end
 
-@interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate> {
+@interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate
+#if FU_BUILD_TARGET_SNOW_LEOPARD
+, NSWindowDelegate
+#endif
+> {
     id <TDComboFieldDataSource>dataSource;
     TDListView *listView;
     NSWindow *listWindow;
@@ -29,6 +33,7 @@
 }
 
 - (BOOL)isListVisible;
+- (void)escape:(id)sender;
 
 - (NSRect)listWindowRectForBounds:(NSRect)bounds;
 - (NSRect)listViewRectForBounds:(NSRect)bounds;

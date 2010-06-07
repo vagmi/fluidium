@@ -33,6 +33,13 @@
 }
 
 
+// <esc> was pressed. suppresses system-provided completions UI
+- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
+    [comboField escape:self];
+    return nil;
+}
+
+
 - (void)moveUp:(id)sender {
     [comboField moveUp:sender];
 }
