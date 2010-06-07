@@ -387,11 +387,11 @@
 			children = (
 				D36E1F2311703D9D00110DBA /* TDComboFieldDemoAppDelegate.h */,
 				D36E1F2411703D9D00110DBA /* TDComboFieldDemoAppDelegate.m */,
+				D36E2FB311BDB247001CCE30 /* ComboFieldDemoWindow.h */,
+				D36E2FB411BDB247001CCE30 /* ComboFieldDemoWindow.m */,
 				D36E1F2911703DCB00110DBA /* main.m */,
 				D36E1F5D11703E8300110DBA /* ComboFieldDemoApp-Info.plist */,
 				D36E1F2611703DB700110DBA /* ComboFieldDemoMainMenu.xib */,
-				D36E2FB311BDB247001CCE30 /* ComboFieldDemoWindow.h */,
-				D36E2FB411BDB247001CCE30 /* ComboFieldDemoWindow.m */,
 			);
 			name = "ComboField Demo App";
 			sourceTree = "<group>";

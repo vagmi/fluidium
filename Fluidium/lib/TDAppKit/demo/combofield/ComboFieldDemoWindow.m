@@ -18,7 +18,7 @@
 
 - (NSText *)fieldEditor:(BOOL)createWhenNeeded forObject:(id)obj {
     if (obj == comboField) {
-        return comboField.fieldEditor;
+        return (NSTextView *)comboField.fieldEditor;
     } else {
         return [super fieldEditor:createWhenNeeded forObject:obj];
     }
