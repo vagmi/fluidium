@@ -6,17 +6,15 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import <TDAppKit/TDFooBar.h>
+#import <TDAppKit/TDComboField.h>
 #import <TDAppKit/TDListItem.h>
 #import "TDFooBarListView.h"
 #import "TDFooBarListItem.h"
 #import "TDFooBarTextView.h"
 
-#define TEXT_MARGIN_X 20.0
-#define TEXT_MARGIN_Y 5.0
 #define LIST_MARGIN_Y 5.0
 
-@interface TDFooBar ()
+@interface TDComboField ()
 - (void)removeListWindow;
 - (void)resizeListWindow;
 - (void)textWasInserted:(id)insertString;
@@ -24,7 +22,7 @@
 - (void)addTextFieldSelectionFromListSelection;
 @end
 
-@implementation TDFooBar
+@implementation TDComboField
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -39,7 +37,6 @@
     [self removeListWindow];
 
     self.dataSource = nil;
-    self.textField = nil;
     self.listView = nil;
     self.listWindow = nil;
     self.fieldEditor = nil;
@@ -49,6 +46,8 @@
 
 - (void)awakeFromNib {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
+
+    [self setDelegate:self];
 
     [[self window] setDelegate:self];
     [self resizeSubviewsWithOldSize:NSZeroSize];
@@ -69,10 +68,8 @@
 
 
 - (void)resizeSubviewsWithOldSize:(NSSize)oldSize {
-    NSRect bounds = [self bounds];
-    
-    [self.textField setFrame:[self textFieldRectForBounds:bounds]];
     [self removeListWindow];
+    [super resizeSubviewsWithOldSize:oldSize];
 }
 
 
@@ -92,7 +89,7 @@
 
 
 - (void)resizeListWindow {
-    BOOL hidden = ![[textField stringValue] length];
+    BOOL hidden = ![[self stringValue] length];
     
     if (hidden) {
         [self removeListWindow];
@@ -107,19 +104,18 @@
 }
 
 
-- (NSRect)textFieldRectForBounds:(NSRect)bounds {
-    return NSMakeRect(TEXT_MARGIN_X, TEXT_MARGIN_Y, bounds.size.width - (TEXT_MARGIN_X * 2), 22);
-}
+//- (NSRect)textFieldRectForBounds:(NSRect)bounds {
+//    return NSMakeRect(TEXT_MARGIN_X, TEXT_MARGIN_Y, bounds.size.width - (TEXT_MARGIN_X * 2), 22);
+//}
 
 
 - (NSRect)listWindowRectForBounds:(NSRect)bounds {
     NSRect windowFrame = [[self window] frame];
-    NSRect textFrame = [self.textField frame];
-    NSRect barFrame = [self frame];
+    NSRect textFrame = [self frame];
     NSRect listRect = [self listViewRectForBounds:bounds];
 
     CGFloat x = windowFrame.origin.x + textFrame.origin.x;
-    CGFloat y = windowFrame.origin.y + barFrame.origin.y + textFrame.origin.y - listRect.size.height - LIST_MARGIN_Y;
+    CGFloat y = windowFrame.origin.y + textFrame.origin.y - listRect.size.height - LIST_MARGIN_Y;
     
     return NSMakeRect(x, y, listRect.size.width, listRect.size.height);
 }
@@ -127,7 +123,7 @@
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
     CGFloat listHeight = [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
-    return NSMakeRect(0, 0, bounds.size.width - (TEXT_MARGIN_X * 2), listHeight);
+    return NSMakeRect(0, 0, bounds.size.width, listHeight);
 }
 
 
@@ -177,7 +173,7 @@
 
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)win toObject:(id)obj {
-    if (obj == textField) {
+    if (obj == self) {
         if (!fieldEditor) {
             self.fieldEditor = [[[TDFooBarTextView alloc] initWithFrame:NSZeroRect] autorelease];
             fieldEditor.bar = self;
@@ -206,9 +202,9 @@
         [self removeListWindow];
 
         // clear auto-completed text
-        NSRange r = [[textField currentEditor] selectedRange];
-        NSString *s = [[textField stringValue] substringToIndex:r.location];
-        [textField setStringValue:s];
+        NSRange r = [[self currentEditor] selectedRange];
+        NSString *s = [[self stringValue] substringToIndex:r.location];
+        [self setStringValue:s];
     } else {
         [self addListWindow];
         [self addTextFieldSelectionFromListSelection];
@@ -221,7 +217,7 @@
 #pragma mark NSTextFieldNotifictions
 
 - (void)controlTextDidBeginEditing:(NSNotification *)n {
-    NSParameterAssert([n object] == textField);
+    NSParameterAssert([n object] == self);
 
     self.listView.selectedItemIndex = 0;
     [self resizeListWindow];
@@ -229,14 +225,14 @@
 
 
 - (void)controlTextDidEndEditing:(NSNotification *)n {
-    NSParameterAssert([n object] == textField);
+    NSParameterAssert([n object] == self);
 
     [self removeListWindow];
 }
 
 
 - (void)controlTextDidChange:(NSNotification *)n {
-    NSParameterAssert([n object] == textField);
+    NSParameterAssert([n object] == self);
     
     self.listView.selectedItemIndex = 0;
     [self.listView reloadData];
@@ -248,32 +244,32 @@
 #pragma mark Private
 
 - (void)textWasInserted:(id)insertString; {
-    if (dataSource && [dataSource respondsToSelector:@selector(fooBar:completedString:)]) {
-        NSString *s = [textField stringValue];
+    if (dataSource && [dataSource respondsToSelector:@selector(comboField:completedString:)]) {
+        NSString *s = [self stringValue];
         NSUInteger loc = [s length];
-        s = [dataSource fooBar:self completedString:s];
+        s = [dataSource comboField:self completedString:s];
         
         NSRange range = NSMakeRange(loc, [s length] - loc);
-        [textField setStringValue:s];
-        [[textField currentEditor] setSelectedRange:range];
+        [self setStringValue:s];
+        [[self currentEditor] setSelectedRange:range];
     }
 }
 
 
 - (void)removeTextFieldSelection {
-    NSRange range = [[textField currentEditor] selectedRange];
-    NSString *s = [[textField stringValue] substringToIndex:range.location];
-    [textField setStringValue:s];
+    NSRange range = [[self currentEditor] selectedRange];
+    NSString *s = [[self stringValue] substringToIndex:range.location];
+    [self setStringValue:s];
 }
 
 
 - (void)addTextFieldSelectionFromListSelection {
-    NSString *s = [dataSource fooBar:self objectAtIndex:listView.selectedItemIndex];
+    NSString *s = [dataSource comboField:self objectAtIndex:listView.selectedItemIndex];
     
-    NSUInteger loc = [[textField stringValue] length];
+    NSUInteger loc = [[self stringValue] length];
     NSRange range = NSMakeRange(loc, [s length] - loc);
-    [textField setStringValue:s];
-    [[textField currentEditor] setSelectedRange:range];
+    [self setStringValue:s];
+    [[self currentEditor] setSelectedRange:range];
 }
 
                             
@@ -282,7 +278,7 @@
 
 - (NSUInteger)numberOfItemsInListView:(TDListView *)lv {
     //NSAssert(dataSource, @"must provide a FooBarDataSource");
-    return [dataSource numberOfItemsInFooBar:self];
+    return [dataSource numberOfItemsInComboField:self];
 }
 
 
@@ -297,7 +293,7 @@
     item.first = (0 == i);
     item.last = (i == [self numberOfItemsInListView:lv] - 1);
     item.selected = (i == listView.selectedItemIndex);
-    item.labelText = [dataSource fooBar:self objectAtIndex:i];
+    item.labelText = [dataSource comboField:self objectAtIndex:i];
     [item setNeedsDisplay:YES];
     
     return item;
@@ -360,7 +356,7 @@
 }
 
 @synthesize dataSource;
-@synthesize textField;
+//@synthesize textField;
 @synthesize listView;
 @synthesize listWindow;
 @synthesize fieldEditor;

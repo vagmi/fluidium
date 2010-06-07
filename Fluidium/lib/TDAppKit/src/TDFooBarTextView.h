@@ -6,11 +6,11 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import <TDAppKit/TDFooBar.h>
+#import <TDAppKit/TDComboField.h>
 
 @interface TDFooBarTextView : NSTextView {
-    TDFooBar *bar;
+    TDComboField *bar;
 }
 
-@property (nonatomic, assign) TDFooBar *bar;
+@property (nonatomic, assign) TDComboField *bar;
 @end

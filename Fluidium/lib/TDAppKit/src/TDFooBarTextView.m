@@ -8,7 +8,7 @@
 
 #import "TDFooBarTextView.h"
 
-@interface TDFooBar ()
+@interface TDComboField ()
 - (void)textWasInserted:(id)insertString;
 @end
 

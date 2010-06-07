@@ -9,12 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import <TDAppKit/TDAppKit.h>
 
-@interface FooBarDemoAppDelegate : NSObject <TDFooBarDataSource> {
+@interface TDComboFieldDemoAppDelegate : NSObject <TDComboFieldDataSource> {
     IBOutlet NSWindow *window;
-    IBOutlet TDFooBar *fooBar;
+    IBOutlet TDComboField *comboField;
     NSArray *data;
 }
 
-@property (nonatomic, retain) TDFooBar *fooBar;
+@property (nonatomic, retain) TDComboField *comboField;
 @property (nonatomic, retain) NSArray *data;
 @end

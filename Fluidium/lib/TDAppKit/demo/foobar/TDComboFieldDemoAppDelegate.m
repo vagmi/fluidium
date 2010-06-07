@@ -6,13 +6,13 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FooBarDemoAppDelegate.h"
+#import "TDComboFieldDemoAppDelegate.h"
 
-@implementation FooBarDemoAppDelegate
+@implementation TDComboFieldDemoAppDelegate
 
 - (void)dealloc {
     self.data = nil;
-    self.fooBar = nil;
+    self.comboField = nil;
     [super dealloc];
 }
 
@@ -114,7 +114,7 @@
 
 
 - (NSArray *)currentData {
-    NSString *txt = [fooBar.textField stringValue];
+    NSString *txt = [comboField stringValue];
     NSUInteger txtLen = [txt length];
     if (!txtLen) return nil;
 
@@ -131,19 +131,19 @@
 
 
 #pragma mark -
-#pragma mark TDFooBarDataSource
+#pragma mark TDComboFieldDataSource
 
-- (NSUInteger)numberOfItemsInFooBar:(TDFooBar *)fb {
+- (NSUInteger)numberOfItemsInComboField:(TDComboField *)cf {
     return [[self currentData] count];
 }
 
 
-- (id)fooBar:(TDFooBar *)fb objectAtIndex:(NSUInteger)i {
+- (id)comboField:(TDComboField *)cf objectAtIndex:(NSUInteger)i {
     return [[self currentData] objectAtIndex:i];
 }
 
 
-- (NSUInteger)fooBar:(TDFooBar *)fb indexOfItemWithStringValue:(NSString *)string {
+- (NSUInteger)comboField:(TDComboField *)cf indexOfItemWithStringValue:(NSString *)string {
     NSUInteger i = 0;
     
     for (NSString *s in [self currentData]) {
@@ -158,7 +158,7 @@
 }
 
 
-- (NSString *)fooBar:(TDFooBar *)fb completedString:(NSString *)uncompletedString {
+- (NSString *)comboField:(TDComboField *)cf completedString:(NSString *)uncompletedString {
     
     for (NSString *s in [self currentData]) {
         if ([s hasPrefix:uncompletedString]) {
@@ -169,6 +169,6 @@
     return nil;
 }
 
-@synthesize fooBar;
+@synthesize comboField;
 @synthesize data;
 @end
