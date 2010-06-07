@@ -104,11 +104,6 @@
 }
 
 
-//- (NSRect)textFieldRectForBounds:(NSRect)bounds {
-//    return NSMakeRect(TEXT_MARGIN_X, TEXT_MARGIN_Y, bounds.size.width - (TEXT_MARGIN_X * 2), 22);
-//}
-
-
 - (NSRect)listWindowRectForBounds:(NSRect)bounds {
     NSRect windowFrame = [[self window] frame];
     NSRect textFrame = [self frame];
