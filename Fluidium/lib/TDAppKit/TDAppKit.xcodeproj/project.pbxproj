@@ -50,6 +50,7 @@
 		D36E20C11170D26E00110DBA /* TDComboFieldListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E20BF1170D26E00110DBA /* TDComboFieldListView.m */; };
 		D36E21C71170DA0700110DBA /* TDComboFieldTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E21C51170DA0700110DBA /* TDComboFieldTextView.h */; };
 		D36E21C81170DA0700110DBA /* TDComboFieldTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E21C61170DA0700110DBA /* TDComboFieldTextView.m */; };
+		D36E2FB511BDB247001CCE30 /* ComboFieldDemoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E2FB411BDB247001CCE30 /* ComboFieldDemoWindow.m */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
 		D371244810F0520800D7107B /* TDBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244210F051E800D7107B /* TDBar.m */; };
 		D371244910F0520D00D7107B /* TDLine.m in Sources */ = {isa = PBXBuildFile; fileRef = D371244310F051E800D7107B /* TDLine.m */; };
@@ -149,6 +150,8 @@
 		D36E20BF1170D26E00110DBA /* TDComboFieldListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldListView.m; path = src/TDComboFieldListView.m; sourceTree = "<group>"; };
 		D36E21C51170DA0700110DBA /* TDComboFieldTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldTextView.h; path = src/TDComboFieldTextView.h; sourceTree = "<group>"; };
 		D36E21C61170DA0700110DBA /* TDComboFieldTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldTextView.m; path = src/TDComboFieldTextView.m; sourceTree = "<group>"; };
+		D36E2FB311BDB247001CCE30 /* ComboFieldDemoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComboFieldDemoWindow.h; path = demo/combofield/ComboFieldDemoWindow.h; sourceTree = "<group>"; };
+		D36E2FB411BDB247001CCE30 /* ComboFieldDemoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComboFieldDemoWindow.m; path = demo/combofield/ComboFieldDemoWindow.m; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
 		D371244310F051E800D7107B /* TDLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLine.m; path = src/TDLine.m; sourceTree = "<group>"; };
 		D371244610F0520300D7107B /* TDUberViewSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUberViewSplitView.h; path = src/TDUberViewSplitView.h; sourceTree = "<group>"; };
@@ -387,6 +390,8 @@
 				D36E1F2911703DCB00110DBA /* main.m */,
 				D36E1F5D11703E8300110DBA /* ComboFieldDemoApp-Info.plist */,
 				D36E1F2611703DB700110DBA /* ComboFieldDemoMainMenu.xib */,
+				D36E2FB311BDB247001CCE30 /* ComboFieldDemoWindow.h */,
+				D36E2FB411BDB247001CCE30 /* ComboFieldDemoWindow.m */,
 			);
 			name = "ComboField Demo App";
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 			files = (
 				D36E1F6E11703EAD00110DBA /* TDComboFieldDemoAppDelegate.m in Sources */,
 				D36E1F6F11703EB500110DBA /* main.m in Sources */,
+				D36E2FB511BDB247001CCE30 /* ComboFieldDemoWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
