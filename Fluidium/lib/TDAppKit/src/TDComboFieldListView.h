@@ -8,7 +8,7 @@
 
 #import <TDAppKit/TDListView.h>
 
-@interface TDFooBarListView : TDListView {
+@interface TDComboFieldListView : TDListView {
 
 }
 

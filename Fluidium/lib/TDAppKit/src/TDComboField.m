@@ -8,8 +8,8 @@
 
 #import <TDAppKit/TDComboField.h>
 #import <TDAppKit/TDListItem.h>
-#import "TDFooBarListView.h"
-#import "TDFooBarListItem.h"
+#import "TDComboFieldListView.h"
+#import "TDComboFieldListItem.h"
 #import "TDComboFieldTextView.h"
 
 #define LIST_MARGIN_Y 5.0
@@ -117,7 +117,7 @@
 
 
 - (NSRect)listViewRectForBounds:(NSRect)bounds {
-    CGFloat listHeight = [TDFooBarListItem defaultHeight] * [self numberOfItemsInListView:listView];
+    CGFloat listHeight = [TDComboFieldListItem defaultHeight] * [self numberOfItemsInListView:listView];
     return NSMakeRect(0, 0, bounds.size.width, listHeight);
 }
 
@@ -280,9 +280,9 @@
 - (TDListItem *)listView:(TDListView *)lv itemAtIndex:(NSUInteger)i {
     //NSAssert(dataSource, @"must provide a FooBarDataSource");
     
-    TDFooBarListItem *item = (TDFooBarListItem *)[listView dequeueReusableItemWithIdentifier:[TDFooBarListItem reuseIdentifier]];
+    TDComboFieldListItem *item = (TDComboFieldListItem *)[listView dequeueReusableItemWithIdentifier:[TDComboFieldListItem reuseIdentifier]];
     if (!item) {
-        item = [[[TDFooBarListItem alloc] init] autorelease];
+        item = [[[TDComboFieldListItem alloc] init] autorelease];
     }
     
     item.first = (0 == i);
@@ -299,7 +299,7 @@
 #pragma mark TDListViewDelegate
 
 - (CGFloat)listView:(TDListView *)lv extentForItemAtIndex:(NSUInteger)i {
-    return [TDFooBarListItem defaultHeight];
+    return [TDComboFieldListItem defaultHeight];
 }
 
 
@@ -329,7 +329,7 @@
 - (TDListView *)listView {
     if (!listView) {
         NSRect r = [self listViewRectForBounds:[self bounds]];
-        self.listView = [[[TDFooBarListView alloc] initWithFrame:r] autorelease];
+        self.listView = [[[TDComboFieldListView alloc] initWithFrame:r] autorelease];
         [listView setAutoresizingMask:NSViewWidthSizable];
         listView.dataSource = self;
         listView.delegate = self;

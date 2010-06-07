@@ -6,7 +6,7 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDFooBarListItem.h"
+#import "TDComboFieldListItem.h"
 #import <NSBezierPath+TDAdditions.h>
 
 #define LABEL_MARGIN_X 5.0
@@ -17,10 +17,10 @@
 static NSDictionary *sLabelAttributes = nil;
 static NSDictionary *sHighlightedLabelAttributes = nil;
 
-@implementation TDFooBarListItem
+@implementation TDComboFieldListItem
 
 + (void)initialize {
-    if (self == [TDFooBarListItem class]) {
+    if (self == [TDComboFieldListItem class]) {
         
 //        NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
 //        [shadow setShadowColor:[NSColor colorWithCalibratedWhite:1 alpha:.51]];

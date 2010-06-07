@@ -8,7 +8,7 @@
 
 #import <TDAppKit/TDListItem.h>
 
-@interface TDFooBarListItem : TDListItem {
+@interface TDComboFieldListItem : TDListItem {
     NSString *labelText;
     BOOL selected;
     BOOL first;

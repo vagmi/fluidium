@@ -6,12 +6,12 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDFooBarListView.h"
+#import "TDComboFieldListView.h"
 #import <NSBezierPath+TDAdditions.h>
 
 #define RADIUS 3.0
 
-@implementation TDFooBarListView
+@implementation TDComboFieldListView
 
 - (id)init {
     return [self initWithFrame:NSZeroRect];

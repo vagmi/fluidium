@@ -38,16 +38,16 @@
 		D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */; };
 		D36E1EA111702E5500110DBA /* TDComboField.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1E9F11702E5500110DBA /* TDComboField.m */; };
 		D36E1EAC11702E6A00110DBA /* TDComboField.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1EAB11702E6A00110DBA /* TDComboField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D36E1ED911703A1000110DBA /* TDFooBarListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1ED711703A1000110DBA /* TDFooBarListItem.h */; };
-		D36E1EDA11703A1000110DBA /* TDFooBarListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1ED811703A1000110DBA /* TDFooBarListItem.m */; };
+		D36E1ED911703A1000110DBA /* TDComboFieldListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1ED711703A1000110DBA /* TDComboFieldListItem.h */; };
+		D36E1EDA11703A1000110DBA /* TDComboFieldListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1ED811703A1000110DBA /* TDComboFieldListItem.m */; };
 		D36E1F6311703E9300110DBA /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */; };
 		D36E1F6E11703EAD00110DBA /* TDComboFieldDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1F2411703D9D00110DBA /* TDComboFieldDemoAppDelegate.m */; };
 		D36E1F6F11703EB500110DBA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1F2911703DCB00110DBA /* main.m */; };
 		D36E1F7111703EBD00110DBA /* ComboFieldDemoMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E1F2611703DB700110DBA /* ComboFieldDemoMainMenu.xib */; };
 		D36E20931170D0BF00110DBA /* TDFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E20911170D0BF00110DBA /* TDFlippedView.m */; };
 		D36E20951170D0D400110DBA /* TDFlippedView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E20941170D0D400110DBA /* TDFlippedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D36E20C01170D26E00110DBA /* TDFooBarListView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E20BE1170D26E00110DBA /* TDFooBarListView.h */; };
-		D36E20C11170D26E00110DBA /* TDFooBarListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E20BF1170D26E00110DBA /* TDFooBarListView.m */; };
+		D36E20C01170D26E00110DBA /* TDComboFieldListView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E20BE1170D26E00110DBA /* TDComboFieldListView.h */; };
+		D36E20C11170D26E00110DBA /* TDComboFieldListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E20BF1170D26E00110DBA /* TDComboFieldListView.m */; };
 		D36E21C71170DA0700110DBA /* TDComboFieldTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E21C51170DA0700110DBA /* TDComboFieldTextView.h */; };
 		D36E21C81170DA0700110DBA /* TDComboFieldTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E21C61170DA0700110DBA /* TDComboFieldTextView.m */; };
 		D371244710F0520300D7107B /* TDUberViewSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = D371244610F0520300D7107B /* TDUberViewSplitView.h */; };
@@ -133,8 +133,8 @@
 		D366C1EE112902E500547FD6 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+NDCarbonUtilities.m"; path = "src/NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		D36E1E9F11702E5500110DBA /* TDComboField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboField.m; path = src/TDComboField.m; sourceTree = "<group>"; };
 		D36E1EAB11702E6A00110DBA /* TDComboField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboField.h; path = include/TDAppKit/TDComboField.h; sourceTree = "<group>"; };
-		D36E1ED711703A1000110DBA /* TDFooBarListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarListItem.h; path = src/TDFooBarListItem.h; sourceTree = "<group>"; };
-		D36E1ED811703A1000110DBA /* TDFooBarListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarListItem.m; path = src/TDFooBarListItem.m; sourceTree = "<group>"; };
+		D36E1ED711703A1000110DBA /* TDComboFieldListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldListItem.h; path = src/TDComboFieldListItem.h; sourceTree = "<group>"; };
+		D36E1ED811703A1000110DBA /* TDComboFieldListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldListItem.m; path = src/TDComboFieldListItem.m; sourceTree = "<group>"; };
 		D36E1F2311703D9D00110DBA /* TDComboFieldDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldDemoAppDelegate.h; path = demo/foobar/TDComboFieldDemoAppDelegate.h; sourceTree = "<group>"; };
 		D36E1F2411703D9D00110DBA /* TDComboFieldDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldDemoAppDelegate.m; path = demo/foobar/TDComboFieldDemoAppDelegate.m; sourceTree = "<group>"; };
 		D36E1F2611703DB700110DBA /* ComboFieldDemoMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ComboFieldDemoMainMenu.xib; path = demo/foobar/ComboFieldDemoMainMenu.xib; sourceTree = "<group>"; };
@@ -143,8 +143,8 @@
 		D36E1F5D11703E8300110DBA /* ComboFieldDemoApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ComboFieldDemoApp-Info.plist"; sourceTree = "<group>"; };
 		D36E20911170D0BF00110DBA /* TDFlippedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFlippedView.m; path = src/TDFlippedView.m; sourceTree = "<group>"; };
 		D36E20941170D0D400110DBA /* TDFlippedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFlippedView.h; path = include/TDAppKit/TDFlippedView.h; sourceTree = "<group>"; };
-		D36E20BE1170D26E00110DBA /* TDFooBarListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFooBarListView.h; path = src/TDFooBarListView.h; sourceTree = "<group>"; };
-		D36E20BF1170D26E00110DBA /* TDFooBarListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFooBarListView.m; path = src/TDFooBarListView.m; sourceTree = "<group>"; };
+		D36E20BE1170D26E00110DBA /* TDComboFieldListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldListView.h; path = src/TDComboFieldListView.h; sourceTree = "<group>"; };
+		D36E20BF1170D26E00110DBA /* TDComboFieldListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldListView.m; path = src/TDComboFieldListView.m; sourceTree = "<group>"; };
 		D36E21C51170DA0700110DBA /* TDComboFieldTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldTextView.h; path = src/TDComboFieldTextView.h; sourceTree = "<group>"; };
 		D36E21C61170DA0700110DBA /* TDComboFieldTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldTextView.m; path = src/TDComboFieldTextView.m; sourceTree = "<group>"; };
 		D371244210F051E800D7107B /* TDBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBar.m; path = src/TDBar.m; sourceTree = "<group>"; };
@@ -365,10 +365,10 @@
 				D36E1E9F11702E5500110DBA /* TDComboField.m */,
 				D36E21C51170DA0700110DBA /* TDComboFieldTextView.h */,
 				D36E21C61170DA0700110DBA /* TDComboFieldTextView.m */,
-				D36E20BE1170D26E00110DBA /* TDFooBarListView.h */,
-				D36E20BF1170D26E00110DBA /* TDFooBarListView.m */,
-				D36E1ED711703A1000110DBA /* TDFooBarListItem.h */,
-				D36E1ED811703A1000110DBA /* TDFooBarListItem.m */,
+				D36E20BE1170D26E00110DBA /* TDComboFieldListView.h */,
+				D36E20BF1170D26E00110DBA /* TDComboFieldListView.m */,
+				D36E1ED711703A1000110DBA /* TDComboFieldListItem.h */,
+				D36E1ED811703A1000110DBA /* TDComboFieldListItem.m */,
 			);
 			name = ComboField;
 			sourceTree = "<group>";
@@ -445,9 +445,9 @@
 				D366C1B81128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h in Headers */,
 				D366C1EF112902E500547FD6 /* NSURL+NDCarbonUtilities.h in Headers */,
 				D36E1EAC11702E6A00110DBA /* TDComboField.h in Headers */,
-				D36E1ED911703A1000110DBA /* TDFooBarListItem.h in Headers */,
+				D36E1ED911703A1000110DBA /* TDComboFieldListItem.h in Headers */,
 				D36E20951170D0D400110DBA /* TDFlippedView.h in Headers */,
-				D36E20C01170D26E00110DBA /* TDFooBarListView.h in Headers */,
+				D36E20C01170D26E00110DBA /* TDComboFieldListView.h in Headers */,
 				D36E21C71170DA0700110DBA /* TDComboFieldTextView.h in Headers */,
 				D392B08C1179594400823791 /* TDShadowView.h in Headers */,
 			);
@@ -584,9 +584,9 @@
 				D366C1EC112902DC00547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
 				D366C1F0112902E500547FD6 /* NSURL+NDCarbonUtilities.m in Sources */,
 				D36E1EA111702E5500110DBA /* TDComboField.m in Sources */,
-				D36E1EDA11703A1000110DBA /* TDFooBarListItem.m in Sources */,
+				D36E1EDA11703A1000110DBA /* TDComboFieldListItem.m in Sources */,
 				D36E20931170D0BF00110DBA /* TDFlippedView.m in Sources */,
-				D36E20C11170D26E00110DBA /* TDFooBarListView.m in Sources */,
+				D36E20C11170D26E00110DBA /* TDComboFieldListView.m in Sources */,
 				D36E21C81170DA0700110DBA /* TDComboFieldTextView.m in Sources */,
 				D392B08D1179594400823791 /* TDShadowView.m in Sources */,
 			);
