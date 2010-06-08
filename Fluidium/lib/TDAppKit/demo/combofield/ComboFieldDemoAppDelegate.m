@@ -6,9 +6,9 @@
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDComboFieldDemoAppDelegate.h"
+#import "ComboFieldDemoAppDelegate.h"
 
-@implementation TDComboFieldDemoAppDelegate
+@implementation ComboFieldDemoAppDelegate
 
 - (void)dealloc {
     self.data = nil;

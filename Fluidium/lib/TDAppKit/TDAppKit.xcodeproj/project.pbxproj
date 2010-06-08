@@ -41,7 +41,7 @@
 		D36E1ED911703A1000110DBA /* TDComboFieldListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D36E1ED711703A1000110DBA /* TDComboFieldListItem.h */; };
 		D36E1EDA11703A1000110DBA /* TDComboFieldListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1ED811703A1000110DBA /* TDComboFieldListItem.m */; };
 		D36E1F6311703E9300110DBA /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */; };
-		D36E1F6E11703EAD00110DBA /* TDComboFieldDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1F2411703D9D00110DBA /* TDComboFieldDemoAppDelegate.m */; };
+		D36E1F6E11703EAD00110DBA /* ComboFieldDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1F2411703D9D00110DBA /* ComboFieldDemoAppDelegate.m */; };
 		D36E1F6F11703EB500110DBA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E1F2911703DCB00110DBA /* main.m */; };
 		D36E1F7111703EBD00110DBA /* ComboFieldDemoMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36E1F2611703DB700110DBA /* ComboFieldDemoMainMenu.xib */; };
 		D36E20931170D0BF00110DBA /* TDFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = D36E20911170D0BF00110DBA /* TDFlippedView.m */; };
@@ -138,8 +138,8 @@
 		D36E1EAB11702E6A00110DBA /* TDComboField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboField.h; path = include/TDAppKit/TDComboField.h; sourceTree = "<group>"; };
 		D36E1ED711703A1000110DBA /* TDComboFieldListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldListItem.h; path = src/TDComboFieldListItem.h; sourceTree = "<group>"; };
 		D36E1ED811703A1000110DBA /* TDComboFieldListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldListItem.m; path = src/TDComboFieldListItem.m; sourceTree = "<group>"; };
-		D36E1F2311703D9D00110DBA /* TDComboFieldDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldDemoAppDelegate.h; path = demo/combofield/TDComboFieldDemoAppDelegate.h; sourceTree = "<group>"; };
-		D36E1F2411703D9D00110DBA /* TDComboFieldDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldDemoAppDelegate.m; path = demo/combofield/TDComboFieldDemoAppDelegate.m; sourceTree = "<group>"; };
+		D36E1F2311703D9D00110DBA /* ComboFieldDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComboFieldDemoAppDelegate.h; path = demo/combofield/ComboFieldDemoAppDelegate.h; sourceTree = "<group>"; };
+		D36E1F2411703D9D00110DBA /* ComboFieldDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComboFieldDemoAppDelegate.m; path = demo/combofield/ComboFieldDemoAppDelegate.m; sourceTree = "<group>"; };
 		D36E1F2611703DB700110DBA /* ComboFieldDemoMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ComboFieldDemoMainMenu.xib; path = demo/combofield/ComboFieldDemoMainMenu.xib; sourceTree = "<group>"; };
 		D36E1F2911703DCB00110DBA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = demo/combofield/main.m; sourceTree = "<group>"; };
 		D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FooBarDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,8 +385,8 @@
 		D36E1F1E11703D5500110DBA /* ComboField Demo App */ = {
 			isa = PBXGroup;
 			children = (
-				D36E1F2311703D9D00110DBA /* TDComboFieldDemoAppDelegate.h */,
-				D36E1F2411703D9D00110DBA /* TDComboFieldDemoAppDelegate.m */,
+				D36E1F2311703D9D00110DBA /* ComboFieldDemoAppDelegate.h */,
+				D36E1F2411703D9D00110DBA /* ComboFieldDemoAppDelegate.m */,
 				D36E2FB311BDB247001CCE30 /* ComboFieldDemoWindow.h */,
 				D36E2FB411BDB247001CCE30 /* ComboFieldDemoWindow.m */,
 				D36E1F2911703DCB00110DBA /* main.m */,
@@ -619,7 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D36E1F6E11703EAD00110DBA /* TDComboFieldDemoAppDelegate.m in Sources */,
+				D36E1F6E11703EAD00110DBA /* ComboFieldDemoAppDelegate.m in Sources */,
 				D36E1F6F11703EB500110DBA /* main.m in Sources */,
 				D36E2FB511BDB247001CCE30 /* ComboFieldDemoWindow.m in Sources */,
 			);
