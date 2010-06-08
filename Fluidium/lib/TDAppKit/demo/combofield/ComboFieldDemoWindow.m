@@ -16,7 +16,6 @@
 }
 
 
-#if FU_BUILD_TARGET_LEOPARD
 - (NSText *)fieldEditor:(BOOL)createWhenNeeded forObject:(id)obj {
     if (obj == comboField) {
         return (NSTextView *)comboField.fieldEditor;
@@ -24,7 +23,6 @@
         return [super fieldEditor:createWhenNeeded forObject:obj];
     }
 }
-#endif
 
 @synthesize comboField;
 @end

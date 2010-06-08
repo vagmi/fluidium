@@ -21,11 +21,7 @@
 - (NSString *)comboField:(TDComboField *)cf completedString:(NSString *)uncompletedString;
 @end
 
-@interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate
-#if FU_BUILD_TARGET_SNOW_LEOPARD
-, NSWindowDelegate
-#endif
-> {
+@interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate> {
     id <TDComboFieldDataSource>dataSource;
     TDListView *listView;
     NSWindow *listWindow;

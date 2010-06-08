@@ -51,7 +51,10 @@
 
 
 - (void)awakeFromNib {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
+    [nc addObserver:self selector:@selector(windowDidResize:) name:NSWindowDidResizeNotification object:[self window]];
+    
 
     //[self setDelegate:self];
 
@@ -165,18 +168,17 @@
 
 
 #pragma mark -
-#pragma mark NSWindowDelegate
+#pragma mark NSApplicationNotifications
 
-- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize {
+- (void)applicationDidResignActive:(NSNotification *)n {
     [self removeListWindow];
-    return frameSize;
 }
 
 
 #pragma mark -
-#pragma mark NSApplicationNotifications
+#pragma mark NSWindowNotifications
 
-- (void)applicationDidResignActive:(NSNotification *)n {
+- (void)windowDidResize:(NSNotification *)n {
     [self removeListWindow];
 }
 
