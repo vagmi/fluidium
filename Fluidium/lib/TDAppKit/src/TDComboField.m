@@ -136,6 +136,9 @@
 
 - (void)moveUp:(id)sender {
     [self removeTextFieldSelection];
+    if (![self isListVisible]) {
+        listView.selectedItemIndex = NSNotFound;
+    }
 
     NSUInteger i = listView.selectedItemIndex;
     if (i <= 0 || NSNotFound == i) {
@@ -147,11 +150,15 @@
     [listView reloadData];
     
     [self addTextFieldSelectionFromListSelection];
+    [self addListWindow];
 }
 
 
 - (void)moveDown:(id)sender {
     [self removeTextFieldSelection];
+    if (![self isListVisible]) {
+        listView.selectedItemIndex = NSNotFound;
+    }
     
     NSUInteger i = listView.selectedItemIndex;
     NSUInteger last = [self numberOfItemsInListView:listView] - 1;
@@ -164,6 +171,7 @@
     [listView reloadData];
 
     [self addTextFieldSelectionFromListSelection];
+    [self addListWindow];
 }
 
 
