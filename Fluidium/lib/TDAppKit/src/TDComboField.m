@@ -135,6 +135,16 @@
 #pragma mark -
 #pragma mark NSResponder
 
+- (void)moveRight:(id)sender {
+    [self removeListWindow];
+}
+
+
+- (void)moveLeft:(id)sender {
+    [self removeListWindow];
+}
+
+
 - (void)moveUp:(id)sender {
     [self removeTextFieldSelection];
     if (![self isListVisible]) {

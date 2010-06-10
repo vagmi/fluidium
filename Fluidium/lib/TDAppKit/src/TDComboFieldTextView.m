@@ -40,6 +40,18 @@
 }
 
 
+- (void)moveRight:(id)sender {
+    [comboField moveRight:sender];
+    [super moveRight:sender];
+}
+
+
+- (void)moveLeft:(id)sender {
+    [comboField moveLeft:sender];
+    [super moveLeft:sender];
+}
+
+
 - (void)moveUp:(id)sender {
     [comboField moveUp:sender];
 }
