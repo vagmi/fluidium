@@ -16,6 +16,11 @@
 }
 
 
+- (void)awakeFromNib {
+    [comboField setImage:[NSImage imageNamed:@"favicon"]];
+}
+
+
 - (NSText *)fieldEditor:(BOOL)createWhenNeeded forObject:(id)obj {
     if (obj == comboField) {
         return (NSTextView *)comboField.fieldEditor;

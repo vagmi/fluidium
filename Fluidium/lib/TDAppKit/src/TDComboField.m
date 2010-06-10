@@ -21,6 +21,8 @@
 - (void)textWasInserted:(id)insertString;
 - (void)removeTextFieldSelection;
 - (void)addTextFieldSelectionFromListSelection;
+
+@property (nonatomic, readwrite, retain) NSArray *buttons;
 @end
 
 @implementation TDComboField
@@ -32,7 +34,7 @@
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-
+        self.buttons = [NSMutableArray array];
     }
     return self;
 }
@@ -46,6 +48,8 @@
     self.listView = nil;
     self.listWindow = nil;
     self.fieldEditor = nil;
+    self.image = nil;
+    self.buttons = nil;
     [super dealloc];
 }
 
@@ -279,6 +283,7 @@
 
 - (void)addTextFieldSelectionFromListSelection {
     NSString *s = [dataSource comboField:self objectAtIndex:listView.selectedItemIndex];
+    if (![s length]) return;
     
     NSUInteger loc = [[self stringValue] length];
     NSRange range = NSMakeRange(loc, [s length] - loc);
@@ -302,6 +307,7 @@
     TDComboFieldListItem *item = (TDComboFieldListItem *)[listView dequeueReusableItemWithIdentifier:[TDComboFieldListItem reuseIdentifier]];
     if (!item) {
         item = [[[TDComboFieldListItem alloc] init] autorelease];
+        item.labelMarginLeft = NSWidth([[self cell] imageRectForBounds:[self bounds]]);
     }
     
     item.first = (0 == i);
@@ -343,6 +349,113 @@
 
 
 #pragma mark -
+#pragma mark Buttons
+
+- (NSButton *)addButtonWithSize:(NSSize)size {
+    // Get button frame;
+    NSRect  buttonFrame = [self buttonFrame];
+    if (NSIsEmptyRect(buttonFrame)) {
+        buttonFrame.origin.x = NSMinX([self frame]) + NSWidth([self frame]) - 24;
+    }
+    
+    // Create button
+    NSRect frame = NSZeroRect;
+    frame.origin.x = buttonFrame.origin.x - size.width - 1;
+    frame.origin.y = ([self frame].size.height - size.height) / 2;
+    frame.size = size;
+
+    NSButton *b = [[[NSButton alloc] initWithFrame:frame] autorelease];
+    [b setAutoresizingMask:NSViewMinXMargin|NSViewMinYMargin];
+    
+    // Add button
+    [self addSubview:b];
+    [buttons addObject:b];
+    
+    return b;
+}
+
+
+- (NSButton *)buttonWithTag:(int)tag {
+    for (NSButton *b in buttons) {
+        if ([b tag] == tag) {
+            return b;
+        }
+    }
+    return nil;
+}
+
+
+- (void)removeButton:(NSButton *)b {
+    [b removeFromSuperview];
+    [buttons removeObject:b];
+}
+
+
+- (NSRect)buttonFrame {
+    // Get union rect of existed buttons
+    NSRect unionRect = NSZeroRect;
+    for (NSButton *b in buttons) {
+        unionRect = NSUnionRect(unionRect, [b frame]);
+    }
+    
+    return unionRect;
+}
+
+
+#pragma mark -
+#pragma mark Dragging
+
+- (void)mouseDown:(NSEvent *)evt {
+    NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
+    NSRect frame = [[self cell] imageFrameForCellFrame:[self bounds]];
+    
+    // Decide to start dragging
+    shouldDrag = NSPointInRect(p, frame);
+    if (!shouldDrag) {
+        [super mouseDown:evt];
+        return;
+    }
+    
+    // Select all text
+    [self selectText:self];
+}
+
+
+- (void)mouseDragged:(NSEvent*)evt {
+    if (!shouldDrag) {
+        [super mouseDragged:evt];
+        return;
+    }
+    
+    // Write data to pasteboard
+    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    id delegate = [self delegate];
+    
+    if (![delegate respondsToSelector:@selector(comboField:writeDataToPasteboard:)]) {
+        return;
+    }
+
+    if (![delegate comboField:self writeDataToPasteboard:pboard]) {
+        return;
+    }
+    
+    // Get drag image
+    NSImage *img = [[self cell] imageForDraggingWithFrame:[self bounds] inView:self]; 
+    if (!img) {
+        return;
+    }
+    
+    // Start dragging
+    NSPoint p = NSZeroPoint;
+    if ([self isFlipped]) {
+        p.y = [self bounds].size.height;
+    }
+
+    [self dragImage:img at:p offset:NSZeroSize event:evt pasteboard:pboard source:self slideBack:YES];
+}
+
+
+#pragma mark -
 #pragma mark Properties
 
 - (TDListView *)listView {
@@ -378,8 +491,19 @@
     return fieldEditor;    
 }
 
+
+- (NSImage *)image {
+    return [[self cell] image];
+}
+
+
+- (void)setImage:(NSImage *)img {
+    [[self cell] setImage:img];
+}
+
 @synthesize dataSource;
 @synthesize listView;
 @synthesize listWindow;
 @synthesize fieldEditor;
+@synthesize buttons;
 @end

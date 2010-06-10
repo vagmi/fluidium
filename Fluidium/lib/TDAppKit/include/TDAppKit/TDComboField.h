@@ -21,11 +21,18 @@
 - (NSString *)comboField:(TDComboField *)cf completedString:(NSString *)uncompletedString;
 @end
 
+@protocol TDComboFieldDelegate <NSObject>
+@required
+- (BOOL)comboField:(TDComboField *)cf writeDataToPasteboard:(NSPasteboard*)pboard;
+@end
+
 @interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate> {
     id <TDComboFieldDataSource>dataSource;
     TDListView *listView;
     NSWindow *listWindow;
     TDComboFieldTextView *fieldEditor;
+    NSMutableArray *buttons;
+    BOOL shouldDrag;
 }
 
 - (BOOL)isListVisible;
@@ -38,4 +45,14 @@
 @property (nonatomic, retain) TDListView *listView;
 @property (nonatomic, retain) NSWindow *listWindow;
 @property (nonatomic, retain) TDComboFieldTextView *fieldEditor;
+@property (nonatomic, retain) NSImage *image;
+
+
+// buttons
+- (NSButton *)addButtonWithSize:(NSSize)size;
+- (NSButton *)buttonWithTag:(int)tag;
+- (void)removeButton:(NSButton *)b;
+- (NSRect)buttonFrame;
+
+@property (nonatomic, readonly, retain) NSArray *buttons;
 @end

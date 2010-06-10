@@ -109,11 +109,12 @@ static NSDictionary *sHighlightedLabelAttributes = nil;
 
 
 - (NSRect)labelRectForBounds:(NSRect)bounds {
-    return NSMakeRect(LABEL_MARGIN_X, LABEL_MARGIN_Y, bounds.size.width - (LABEL_MARGIN_X * 2), 16.0);
+    return NSMakeRect(LABEL_MARGIN_X + labelMarginLeft, LABEL_MARGIN_Y, bounds.size.width - (LABEL_MARGIN_X * 2) - labelMarginLeft, 16.0);
 }
 
 @synthesize labelText;
 @synthesize selected;
 @synthesize first;
 @synthesize last;
+@synthesize labelMarginLeft;
 @end

@@ -13,6 +13,7 @@
     BOOL selected;
     BOOL first;
     BOOL last;
+    CGFloat labelMarginLeft;
 }
 
 + (NSString *)reuseIdentifier;
@@ -24,4 +25,5 @@
 @property (nonatomic, getter=isSelected) BOOL selected;
 @property (nonatomic, getter=isFirst) BOOL first;
 @property (nonatomic, getter=isLast) BOOL last;
+@property (nonatomic) CGFloat labelMarginLeft;
 @end
