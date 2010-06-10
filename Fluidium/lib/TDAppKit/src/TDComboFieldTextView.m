@@ -71,45 +71,5 @@
     [comboField textWasInserted:insertString];
 }
 
-
-//- (void)pageDown:(id)sender {
-//    
-//}
-//
-//
-//- (void)moveToEndOfDocument:(id)sender {
-//    
-//}
-//
-//
-//- (void)moveToEndOfLine:(id)sender {
-//    
-//}
-//
-//
-//- (void)moveWordForward:(id)sender {
-//    
-//}
-//
-//
-//- (void)moveWordRight:(id)sender {
-//    
-//}
-//
-//
-//- (void)scrollPageDown:(id)sender {
-//    
-//}
-//
-//
-//- (void)scrollLineUp:(id)sender {
-//    
-//}
-//
-//
-//- (void)scrollLineDown:(id)sender {
-//    
-//}
-
 @synthesize comboField;
 @end
