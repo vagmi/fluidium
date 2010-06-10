@@ -9,6 +9,7 @@
 #import "TDComboFieldTextView.h"
 
 @interface TDComboField ()
+- (void)removeListWindow;
 - (void)textWasInserted:(id)insertString;
 @end
 
@@ -40,16 +41,19 @@
 }
 
 
-- (void)moveRight:(id)sender {
-    [comboField moveRight:sender];
-    [super moveRight:sender];
-}
-
-
-- (void)moveLeft:(id)sender {
-    [comboField moveLeft:sender];
-    [super moveLeft:sender];
-}
+- (void)moveRight:(id)sender { [comboField removeListWindow]; [super moveRight:sender]; }
+- (void)moveLeft:(id)sender { [comboField removeListWindow]; [super moveLeft:sender]; }
+- (void)moveWordForward:(id)sender { [comboField removeListWindow]; [super moveWordForward:sender]; }
+- (void)moveWordBackward:(id)sender { [comboField removeListWindow]; [super moveWordBackward:sender]; }
+- (void)moveToBeginningOfLine:(id)sender { [comboField removeListWindow]; [super moveToBeginningOfLine:sender]; }
+- (void)moveToEndOfLine:(id)sender { [comboField removeListWindow]; [super moveToEndOfLine:sender]; }
+- (void)moveToBeginningOfParagraph:(id)sender { [comboField removeListWindow]; [super moveToBeginningOfParagraph:sender]; }
+- (void)moveToEndOfParagraph:(id)sender { [comboField removeListWindow]; [super moveToEndOfParagraph:sender]; }
+- (void)moveToEndOfDocument:(id)sender { [comboField removeListWindow]; [super moveToEndOfDocument:sender]; }
+- (void)moveToBeginningOfDocument:(id)sender { [comboField removeListWindow]; [super moveToBeginningOfDocument:sender]; }
+- (void)pageDown:(id)sender { [comboField removeListWindow]; [super pageDown:sender]; }
+- (void)pageUp:(id)sender { [comboField removeListWindow]; [super pageUp:sender]; }
+- (void)centerSelectionInVisibleArea:(id)sender { [comboField removeListWindow]; [super centerSelectionInVisibleArea:sender]; }
 
 
 - (void)moveUp:(id)sender {
