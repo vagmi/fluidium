@@ -93,6 +93,7 @@
     if ([self isListVisible]) {
         [[self window] removeChildWindow:self.listWindow];
         [self.listWindow orderOut:nil];
+        self.listWindow = nil;
     }
 }
 
