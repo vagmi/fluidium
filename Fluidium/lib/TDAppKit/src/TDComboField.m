@@ -203,9 +203,6 @@
         NSRange r = [[self currentEditor] selectedRange];
         NSString *s = [[self stringValue] substringToIndex:r.location];
         [self setStringValue:s];
-    } else {
-        [self addListWindow];
-        [self addTextFieldSelectionFromListSelection];
     }
 }
 
