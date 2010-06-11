@@ -31,7 +31,7 @@
 #endif
 > {
     NSSplitView *locationSplitView;
-    TDComboField *locationComboField;
+    TDComboField *locationComboBox;
     NSSearchField *searchField;
     
     NSView *tabContainerView;
@@ -152,7 +152,7 @@
 @property (nonatomic) NSInteger selectedTabIndex;
 
 @property (nonatomic, retain) IBOutlet NSSplitView *locationSplitView;
-@property (nonatomic, retain) IBOutlet TDComboField *locationComboField;
+@property (nonatomic, retain) IBOutlet TDComboField *locationComboBox;
 @property (nonatomic, retain) IBOutlet NSSearchField *searchField;
 @property (nonatomic, retain) IBOutlet NSView *tabContainerView;
 @property (nonatomic, retain) IBOutlet PSMTabBarControl *tabBar;

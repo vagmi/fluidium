@@ -3768,7 +3768,7 @@
 							<string>emptyTabBarLine</string>
 							<string>findPanelSearchField</string>
 							<string>findPanelView</string>
-							<string>locationComboField</string>
+							<string>locationComboBox</string>
 							<string>locationSplitView</string>
 							<string>searchField</string>
 							<string>statusBar</string>

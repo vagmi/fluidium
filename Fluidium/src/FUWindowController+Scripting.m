@@ -104,7 +104,7 @@
 #pragma mark NoScript Actions
 
 - (IBAction)noscript_goToLocation:(id)sender {
-    NSMutableString *ms = [[[locationComboField stringValue] mutableCopy] autorelease];
+    NSMutableString *ms = [[[locationComboBox stringValue] mutableCopy] autorelease];
     CFStringTrimWhitespace((CFMutableStringRef)ms);
     
     if (![ms length]) {

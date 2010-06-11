@@ -85,7 +85,7 @@
     NSRect pRect = NSMakeRect(bounds.origin.x + 1,
                               bounds.origin.y + 2,
                               pSize.width - 2,
-                              pSize.height - 4);
+                              pSize.height - 2);
     
     NSRect imageRect = NSZeroRect;
     imageRect.size = [progressImage size];
@@ -292,7 +292,7 @@
 
 
 - (void)textDidBeginEditing:(NSNotification *)n {
-    //NSParameterAssert([n object] == self);
+    [super textDidBeginEditing:n];
 
     self.listView.selectedItemIndex = 0;
     [self resizeListWindow];
@@ -300,14 +300,14 @@
 
 
 - (void)textDidEndEditing:(NSNotification *)n {
-    //NSParameterAssert([n object] == self);
+    [super textDidEndEditing:n];
 
     [self removeListWindow];
 }
 
 
 - (void)textDidChange:(NSNotification *)n {
-    //NSParameterAssert([n object] == self);
+    //[super textDidChange:n];
     
     self.listView.selectedItemIndex = 0;
     [self.listView reloadData];
@@ -467,7 +467,6 @@
 #pragma mark Progress
 
 - (void)showDefaultIcon {
-    //[self setImage:[[WebIconDatabase sharedIconDatabase] defaultFavicon]];
     [self setImage:[NSImage imageNamed:@"favicon"]];
 }
 
