@@ -169,6 +169,17 @@
     return nil;
 }
 
+
+#pragma mark -
+#pragma mark TDComboFieldDelegate
+
+- (BOOL)comboField:(TDComboField *)cf writeDataToPasteboard:(NSPasteboard *)pboard {
+    NSURL *URL = [NSURL URLWithString:@"http://apple.com"];
+    [URL writeToPasteboard:pboard];
+    return YES;
+}
+
+
 @synthesize comboField;
 @synthesize data;
 @end

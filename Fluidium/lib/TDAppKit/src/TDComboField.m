@@ -8,6 +8,7 @@
 
 #import <TDAppKit/TDComboField.h>
 #import <TDAppKit/TDListItem.h>
+#import <TDAppKit/NSImage+TDAdditions.h>
 #import "TDComboFieldCell.h"
 #import "TDComboFieldListView.h"
 #import "TDComboFieldListItem.h"
@@ -50,6 +51,7 @@
     self.fieldEditor = nil;
     self.image = nil;
     self.buttons = nil;
+    self.progressImage = nil;
     [super dealloc];
 }
 
@@ -64,6 +66,40 @@
 
     [[self window] setDelegate:self];
     [self resizeSubviewsWithOldSize:NSZeroSize];
+    
+    NSLog(@"%@", @"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    self.progressImage = [NSImage imageNamed:@"combo_field_progress_indicator"]; //[NSImage imageNamed:@"combo_field_progress_indicator" inBundleForClass:[TDComboField class]];
+    NSAssert(progressImage, @"did not find combofield progress image");
+    self.font = [NSFont controlContentFontOfSize:12];
+    [self showDefaultIcon];    
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+    
+    NSRect bounds = [self bounds];
+    NSSize size = bounds.size;
+    
+    NSSize pSize = NSMakeSize((size.width - 19) * progress, size.height);
+    NSRect pRect = NSMakeRect(bounds.origin.x + 1,
+                              bounds.origin.y + 3,
+                              pSize.width - 2,
+                              pSize.height - 7);
+    
+    NSRect imageRect = NSZeroRect;
+    imageRect.size = [progressImage size];
+    imageRect.origin = NSZeroPoint;
+    
+    [progressImage drawInRect:pRect
+                     fromRect:imageRect 
+                    operation:NSCompositePlusDarker
+                     fraction:1];
+    
+    NSRect cellRect = [[self cell] drawingRectForBounds:self.bounds];
+    cellRect.origin.x -= 2;
+    cellRect.origin.y -= 1;
+    [[self cell] drawInteriorImageOnlyWithFrame:cellRect inView:self];
 }
 
 
@@ -164,8 +200,11 @@
     listView.selectedItemIndex = i;
     [listView reloadData];
     
-    [self addTextFieldSelectionFromListSelection];
-    [self addListWindow];
+    NSUInteger c = [self numberOfItemsInListView:listView];
+    if (c > 0) {
+        [self addTextFieldSelectionFromListSelection];
+        [self addListWindow];
+    }
 }
 
 
@@ -184,9 +223,12 @@
     }
     listView.selectedItemIndex = i;
     [listView reloadData];
-
-    [self addTextFieldSelectionFromListSelection];
-    [self addListWindow];
+    
+    NSUInteger c = [self numberOfItemsInListView:listView];
+    if (c > 0) {
+        [self addTextFieldSelectionFromListSelection];
+        [self addListWindow];
+    }
 }
 
 
@@ -403,7 +445,34 @@
 
 
 #pragma mark -
+#pragma mark Progress
+
+- (void)showDefaultIcon {
+    //[self setImage:[[WebIconDatabase sharedIconDatabase] defaultFavicon]];
+    [self setImage:[NSImage imageNamed:@"favicon"]];
+}
+
+
+- (void)setProgress:(CGFloat)p {
+    progress = p;
+    [self setNeedsDisplay:YES];
+}
+
+
+#pragma mark -
 #pragma mark Dragging
+
+// click thru support
+- (BOOL)acceptsFirstMouse:(NSEvent *)evt {
+    return YES;
+}
+
+
+// click thru support
+- (BOOL)shouldDelayWindowOrderingForEvent:(NSEvent *)evt {
+    return YES;
+}
+
 
 - (void)mouseDown:(NSEvent *)evt {
     NSPoint p = [self convertPoint:[evt locationInWindow] fromView:nil];
@@ -506,4 +575,6 @@
 @synthesize listWindow;
 @synthesize fieldEditor;
 @synthesize buttons;
+@synthesize progress;
+@synthesize progressImage;
 @end

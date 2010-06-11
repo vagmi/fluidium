@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <TDAppKit/TDAppKit.h>
 
-@interface ComboFieldDemoAppDelegate : NSObject <TDComboFieldDataSource> {
+@interface ComboFieldDemoAppDelegate : NSObject <TDComboFieldDataSource, TDComboFieldDelegate> {
     IBOutlet NSWindow *window;
     IBOutlet TDComboField *comboField;
     NSArray *data;

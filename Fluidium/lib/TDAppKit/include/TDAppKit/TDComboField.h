@@ -23,7 +23,7 @@
 
 @protocol TDComboFieldDelegate <NSObject>
 @required
-- (BOOL)comboField:(TDComboField *)cf writeDataToPasteboard:(NSPasteboard*)pboard;
+- (BOOL)comboField:(TDComboField *)cf writeDataToPasteboard:(NSPasteboard *)pboard;
 @end
 
 @interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate> {
@@ -33,10 +33,14 @@
     TDComboFieldTextView *fieldEditor;
     NSMutableArray *buttons;
     BOOL shouldDrag;
+    NSImage *progressImage;
+    CGFloat progress;
 }
 
 - (BOOL)isListVisible;
 - (void)escape:(id)sender;
+
+- (void)showDefaultIcon;
 
 - (NSRect)listWindowRectForBounds:(NSRect)bounds;
 - (NSRect)listViewRectForBounds:(NSRect)bounds;
@@ -55,4 +59,9 @@
 - (NSRect)buttonFrame;
 
 @property (nonatomic, readonly, retain) NSArray *buttons;
+
+// progress
+@property (nonatomic) CGFloat progress;
+@property (nonatomic, retain) NSImage *progressImage;
+
 @end

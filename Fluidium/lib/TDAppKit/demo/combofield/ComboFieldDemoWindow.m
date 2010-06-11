@@ -17,7 +17,7 @@
 
 
 - (void)awakeFromNib {
-    [comboField setImage:[NSImage imageNamed:@"favicon"]];
+    [comboField setProgress:.5];
 }
 
 
