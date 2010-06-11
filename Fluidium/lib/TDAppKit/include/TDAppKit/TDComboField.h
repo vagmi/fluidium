@@ -37,9 +37,9 @@
     CGFloat progress;
 }
 
-- (BOOL)isListVisible;
 - (void)escape:(id)sender;
 
+- (BOOL)isListVisible;
 - (void)showDefaultIcon;
 
 - (NSRect)listWindowRectForBounds:(NSRect)bounds;
@@ -49,8 +49,9 @@
 @property (nonatomic, retain) TDListView *listView;
 @property (nonatomic, retain) NSWindow *listWindow;
 @property (nonatomic, retain) TDComboFieldTextView *fieldEditor;
-@property (nonatomic, retain) NSImage *image;
 
+// favicon image
+@property (nonatomic, retain) NSImage *image;
 
 // buttons
 - (NSButton *)addButtonWithSize:(NSSize)size;
@@ -63,5 +64,4 @@
 // progress
 @property (nonatomic) CGFloat progress;
 @property (nonatomic, retain) NSImage *progressImage;
-
 @end

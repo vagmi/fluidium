@@ -22,6 +22,7 @@
 - (void)textWasInserted:(id)insertString;
 - (void)removeTextFieldSelection;
 - (void)addTextFieldSelectionFromListSelection;
+- (void)movedToIndex:(NSUInteger)i;
 
 @property (nonatomic, readwrite, retain) NSArray *buttons;
 @end
@@ -35,7 +36,7 @@
 
 - (id)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.buttons = [NSMutableArray array];
+
     }
     return self;
 }
@@ -61,15 +62,14 @@
     [nc addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
     [nc addObserver:self selector:@selector(windowDidResize:) name:NSWindowDidResizeNotification object:[self window]];
     
-
-    //[self setDelegate:self];
-
     [[self window] setDelegate:self];
     [self resizeSubviewsWithOldSize:NSZeroSize];
     
-    NSLog(@"%@", @"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    self.buttons = [NSMutableArray array];
+    
     self.progressImage = [NSImage imageNamed:@"combo_field_progress_indicator"]; //[NSImage imageNamed:@"combo_field_progress_indicator" inBundleForClass:[TDComboField class]];
     NSAssert(progressImage, @"did not find combofield progress image");
+
     self.font = [NSFont controlContentFontOfSize:12];
     [self showDefaultIcon];    
 }
@@ -81,11 +81,11 @@
     NSRect bounds = [self bounds];
     NSSize size = bounds.size;
     
-    NSSize pSize = NSMakeSize((size.width - 19) * progress, size.height);
+    NSSize pSize = NSMakeSize(size.width * progress, size.height);
     NSRect pRect = NSMakeRect(bounds.origin.x + 1,
-                              bounds.origin.y + 3,
+                              bounds.origin.y + 2,
                               pSize.width - 2,
-                              pSize.height - 7);
+                              pSize.height - 4);
     
     NSRect imageRect = NSZeroRect;
     imageRect.size = [progressImage size];
@@ -96,7 +96,7 @@
                     operation:NSCompositePlusDarker
                      fraction:1];
     
-    NSRect cellRect = [[self cell] drawingRectForBounds:self.bounds];
+    NSRect cellRect = [[self cell] drawingRectForBounds:bounds];
     cellRect.origin.x -= 2;
     cellRect.origin.y -= 1;
     [[self cell] drawInteriorImageOnlyWithFrame:cellRect inView:self];
@@ -197,14 +197,7 @@
     } else {
         i--;
     }
-    listView.selectedItemIndex = i;
-    [listView reloadData];
-    
-    NSUInteger c = [self numberOfItemsInListView:listView];
-    if (c > 0) {
-        [self addTextFieldSelectionFromListSelection];
-        [self addListWindow];
-    }
+    [self movedToIndex:i];
 }
 
 
@@ -221,6 +214,11 @@
     } else if (NSNotFound == i) {
         i = 0;
     }
+    [self movedToIndex:i];
+}
+
+
+- (void)movedToIndex:(NSUInteger)i {
     listView.selectedItemIndex = i;
     [listView reloadData];
     
@@ -349,7 +347,9 @@
     TDComboFieldListItem *item = (TDComboFieldListItem *)[listView dequeueReusableItemWithIdentifier:[TDComboFieldListItem reuseIdentifier]];
     if (!item) {
         item = [[[TDComboFieldListItem alloc] init] autorelease];
-        item.labelMarginLeft = NSWidth([[self cell] imageRectForBounds:[self bounds]]);
+        if ([self image]) {
+            item.labelMarginLeft = NSWidth([[self cell] imageRectForBounds:[self bounds]]);
+        }
     }
     
     item.first = (0 == i);
