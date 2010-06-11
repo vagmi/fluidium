@@ -1,5 +1,5 @@
 //
-//  TDFooBarListShadowView.m
+//  TDComboFieldListShadowView.m
 //  TDAppKit
 //
 //  Created by Todd Ditchendorf on 4/16/10.

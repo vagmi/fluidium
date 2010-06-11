@@ -128,6 +128,7 @@
 		A2D98B130A2B43FA0064C6F8 /* NSBezierPath_AMShading.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D98B100A2B43FA0064C6F8 /* NSBezierPath_AMShading.m */; };
 		A2D98B140A2B43FA0064C6F8 /* NSBezierPath_AMShading.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D98B100A2B43FA0064C6F8 /* NSBezierPath_AMShading.m */; };
 		D3280A2E10CCCCE400BB363B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3280A2D10CCCCE400BB363B /* WebKit.framework */; };
+		D34ACBE211C1C4AC00D8A417 /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34ACBDB11C1C48E00D8A417 /* TDAppKit.framework */; };
 		D38422091102D1CE00605809 /* FUUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D38422071102D1CE00605809 /* FUUtils.h */; };
 		D384220A1102D1CE00605809 /* FUUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D38422081102D1CE00605809 /* FUUtils.m */; };
 /* End PBXBuildFile section */
@@ -160,6 +161,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 53DF68FC067E5B5A0090B5B0;
 			remoteInfo = PSMTabBarControlFramework;
+		};
+		D34ACBDA11C1C48E00D8A417 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */;
+			remoteInfo = TDAppKit;
+		};
+		D34ACBDC11C1C48E00D8A417 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D31CBFE910EFB9630013347D /* ListViewDemoApp.app */;
+			remoteInfo = ListViewDemoApp;
+		};
+		D34ACBDE11C1C48E00D8A417 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */;
+			remoteInfo = ComboFieldDemoApp;
+		};
+		D34ACBE011C1C49400D8A417 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* TDAppKit */;
+			remoteInfo = TDAppKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -282,6 +311,7 @@
 		A2D98B0F0A2B43FA0064C6F8 /* NSBezierPath_AMShading.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NSBezierPath_AMShading.h; path = source/NSBezierPath_AMShading.h; sourceTree = "<group>"; };
 		A2D98B100A2B43FA0064C6F8 /* NSBezierPath_AMShading.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = NSBezierPath_AMShading.m; path = source/NSBezierPath_AMShading.m; sourceTree = "<group>"; };
 		D3280A2D10CCCCE400BB363B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = ../TDAppKit/TDAppKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D38422071102D1CE00605809 /* FUUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUtils.h; path = ../../include/Fluidium/FUUtils.h; sourceTree = SOURCE_ROOT; };
 		D38422081102D1CE00605809 /* FUUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUtils.m; path = ../../src/FUUtils.m; sourceTree = SOURCE_ROOT; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -292,6 +322,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D34ACBE211C1C4AC00D8A417 /* TDAppKit.framework in Frameworks */,
 				13F8B89007B43554008AE28D /* Cocoa.framework in Frameworks */,
 				318F2E330C7D17E300DE79A7 /* Carbon.framework in Frameworks */,
 				D3280A2E10CCCCE400BB363B /* WebKit.framework in Frameworks */,
@@ -322,6 +353,7 @@
 		0259C574FE90428111CA0C5A /* PSMTabBarControl */ = {
 			isa = PBXGroup;
 			children = (
+				D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */,
 				A251BE9B0959A2530058BC7F /* ReadMe.rtfd */,
 				A246FADE0A2BD446005BDF7B /* Documentation */,
 				32DBCF9E0370C38000C91783 /* Palette */,
@@ -554,6 +586,16 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		D34ACBD511C1C48E00D8A417 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D34ACBDB11C1C48E00D8A417 /* TDAppKit.framework */,
+				D34ACBDD11C1C48E00D8A417 /* ListViewDemoApp.app */,
+				D34ACBDF11C1C48E00D8A417 /* FooBarDemoApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -611,6 +653,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D34ACBE111C1C49400D8A417 /* PBXTargetDependency */,
 			);
 			name = PSMTabBarControl;
 			productInstallPath = "$(HOME)/Developer/Palettes";
@@ -647,6 +690,12 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 0259C574FE90428111CA0C5A /* PSMTabBarControl */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D34ACBD511C1C48E00D8A417 /* Products */;
+					ProjectRef = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1AC9600486D14A00FE50C9 /* PSMTabBarControl */,
@@ -656,6 +705,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D34ACBDB11C1C48E00D8A417 /* TDAppKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TDAppKit.framework;
+			remoteRef = D34ACBDA11C1C48E00D8A417 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D34ACBDD11C1C48E00D8A417 /* ListViewDemoApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = ListViewDemoApp.app;
+			remoteRef = D34ACBDC11C1C48E00D8A417 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D34ACBDF11C1C48E00D8A417 /* FooBarDemoApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = FooBarDemoApp.app;
+			remoteRef = D34ACBDE11C1C48E00D8A417 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		53DF68F9067E5B5A0090B5B0 /* Resources */ = {
@@ -810,6 +883,11 @@
 			target = 53DF68FC067E5B5A0090B5B0 /* PSMTabBarControlFramework */;
 			targetProxy = 53DF6904067E5B930090B5B0 /* PBXContainerItemProxy */;
 		};
+		D34ACBE111C1C49400D8A417 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TDAppKit;
+			targetProxy = D34ACBE011C1C49400D8A417 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -924,6 +1002,7 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../TDAppKit/build/$(CONFIGURATION)\"";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -961,6 +1040,7 @@
 				BUNDLE_LOADER = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../TDAppKit/build/$(CONFIGURATION)\"";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;

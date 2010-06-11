@@ -1,5 +1,5 @@
 //
-//  TDFooBarTextView.m
+//  TDComboFieldTextView.m
 //  TDAppKit
 //
 //  Created by Todd Ditchendorf on 4/10/10.

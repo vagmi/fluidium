@@ -40,6 +40,7 @@
 #import <PSMTabBarControl/PSMTabBarControl.h>
 #import <TDAppKit/TDUberView.h>
 #import <TDAppKit/TDLine.h>
+#import <TDAppKit/TDComboField.h>
 
 #define MIN_COMBOBOX_WIDTH 60
 #define TOOLBAR_HEIGHT 36
@@ -119,7 +120,7 @@
     }
 
     self.locationSplitView = nil;
-    self.locationComboBox = nil;
+    self.locationComboField = nil;
     self.searchField = nil;
     self.tabContainerView = nil;
     self.tabBar = nil;
@@ -156,12 +157,12 @@
     [nc addObserver:self
            selector:@selector(comboBoxWillDismiss:)
                name:NSComboBoxWillDismissNotification
-             object:locationComboBox];
+             object:locationComboField];
     
     [nc addObserver:self
            selector:@selector(controlTextDidBeginEditing:)
                name:NSControlTextDidBeginEditingNotification
-             object:locationComboBox];
+             object:locationComboField];
     
     [nc addObserver:self
            selector:@selector(toolbarShownDidChange:)
@@ -254,7 +255,7 @@
 
 
 - (IBAction)goToLocation:(id)sender {
-    NSMutableString *ms = [[[locationComboBox stringValue] mutableCopy] autorelease];
+    NSMutableString *ms = [[[locationComboField stringValue] mutableCopy] autorelease];
     CFStringTrimWhitespace((CFMutableStringRef)ms);
     
     if (![ms length]) {
@@ -307,7 +308,7 @@
 
 - (IBAction)openLocation:(id)sender {
     [self showToolbarTemporarilyIfHidden];
-    [[self window] performSelector:@selector(makeFirstResponder:) withObject:locationComboBox afterDelay:0.1];
+    [[self window] performSelector:@selector(makeFirstResponder:) withObject:locationComboField afterDelay:0.1];
 }
 
 
@@ -605,7 +606,7 @@
     [self insertTabController:tc atIndex:i];
     if (select) {
         [self selectTabController:tc]; // !! this is doing nothing currently, cuz NSTabView auto selects added tabs (line above)
-		[[self window] makeFirstResponder:locationComboBox];
+		[[self window] makeFirstResponder:locationComboField];
     }
     return tc;
 }
@@ -868,9 +869,9 @@
 	[rightView setFrame:rightRect];
 
     if (collapsed) {
-        NSRect locFrame = [locationComboBox frame];
+        NSRect locFrame = [locationComboField frame];
         locFrame.size.width = NSInsetRect([leftView bounds], 4, 0).size.width;
-        [locationComboBox setFrame:locFrame];
+        [locationComboField setFrame:locFrame];
         
         [searchField setFrame:NSInsetRect([rightView bounds], 4, 0)];
     }
@@ -894,9 +895,9 @@
 - (void)controlTextDidBeginEditing:(NSNotification *)n {
     NSControl *control = [n object];
     
-    if (control == locationComboBox) {
+    if (control == locationComboField) {
         // TODO ? use binding instead?
-        [locationComboBox showDefaultIcon];
+        [locationComboField showDefaultIcon];
     } else if (control == findPanelSearchField) {
         typingInFindPanel = YES;
     }
@@ -904,7 +905,7 @@
 
 
 - (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
-    if (control == locationComboBox) {
+    if (control == locationComboField) {
         [[FURecentURLController instance] resetMatchingRecentURLs];
         displayingMatchingRecentURLs = YES;
         return YES;
@@ -915,8 +916,8 @@
 
 
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
-    if (control == locationComboBox) {
-        [locationComboBox hidePopUp];
+    if (control == locationComboField) {
+//        [locationComboField hidePopUp];
         displayingMatchingRecentURLs = NO;
         return YES;
     } else if (control == findPanelSearchField) {
@@ -988,35 +989,51 @@
 #pragma mark -
 #pragma mark NSComboBoxDataSource
 
+//@protocol TDComboFieldDataSource <NSObject>
+//@required
+//- (NSUInteger)numberOfItemsInComboField:(TDComboField *)cf;
+//- (id)comboField:(TDComboField *)cf objectAtIndex:(NSUInteger)i;
+//@optional
+//- (NSUInteger)comboField:(TDComboField *)cf indexOfItemWithStringValue:(NSString *)string;
+//- (NSString *)comboField:(TDComboField *)cf completedString:(NSString *)uncompletedString;
+//@end
+//
+//@protocol TDComboFieldDelegate <NSObject>
+//@required
+//- (BOOL)comboField:(TDComboField *)cf writeDataToPasteboard:(NSPasteboard *)pboard;
+//@end
+
+
 - (void)comboBoxWillDismiss:(NSNotification *)n {
-    if (locationComboBox == [n object]) {
-        NSInteger i = [locationComboBox indexOfSelectedItem];
-        NSInteger c = [locationComboBox numberOfItems];
+    if (locationComboField == [n object]) {
+        NSInteger i = [locationComboField indexOfSelectedItem];
+        NSInteger c = [locationComboField numberOfItems];
         
         // last item (clear url menu) was clicked. clear recentURLs
         if (c && i == c - 1) {
             if (![[NSApp currentEvent] isEscKeyPressed]) {
-                NSString *s = [locationComboBox stringValue];
-                [locationComboBox deselectItemAtIndex:i];
+                NSString *s = [locationComboField stringValue];
+                [locationComboField deselectItemAtIndex:i];
                 
                 [[FURecentURLController instance] resetRecentURLs];
                 [[FURecentURLController instance] resetMatchingRecentURLs];
                 
-                [locationComboBox reloadData];
-                [locationComboBox setStringValue:s];
+                [locationComboField reloadData];
+                [locationComboField setStringValue:s];
             }
         }
     }
 }
 
 
-- (id)comboBox:(NSComboBox *)cb objectValueForItemAtIndex:(NSInteger)i {
-    if (locationComboBox == cb) {
+- (id)comboField:(TDComboField *)cb objectAtIndex:(NSUInteger)i {
+//- (id)comboBox:(NSComboBox *)cb objectValueForItemAtIndex:(NSInteger)i {
+    if (locationComboField == cb) {
         NSArray *URLs = displayingMatchingRecentURLs ? [self matchingRecentURLs] : [self recentURLs];
         
         NSInteger c = [URLs count];
         if (!c) {
-            [locationComboBox hidePopUp];
+            //[locationComboField hidePopUp];
         }
         if (c && i == c) {
             NSDictionary *attrs = [NSDictionary dictionaryWithObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
@@ -1034,14 +1051,15 @@
 }
 
 
-- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)cb {
-    if (locationComboBox == cb) {
+- (NSUInteger)numberOfItemsInComboField:(TDComboField *)cb {
+//- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)cb {
+    if (locationComboField == cb) {
         NSArray *URLs = displayingMatchingRecentURLs ? [self matchingRecentURLs] : [self recentURLs];
         NSInteger c = [URLs count];
         if (c) {
             return c + 1;
         } else {
-            [locationComboBox hidePopUp];
+            //[locationComboField hidePopUp];
         }
         return c;
     } else {
@@ -1050,8 +1068,9 @@
 }
 
 
-- (NSUInteger)comboBox:(NSComboBox *)cb indexOfItemWithStringValue:(NSString *)s {
-    if (locationComboBox == cb) {
+- (NSUInteger)comboField:(TDComboField *)cb indexOfItemWithStringValue:(NSString *)s {
+//- (NSUInteger)comboBox:(NSComboBox *)cb indexOfItemWithStringValue:(NSString *)s {
+    if (locationComboField == cb) {
         if (displayingMatchingRecentURLs) {
             return [[self matchingRecentURLs] indexOfObject:s];
         }
@@ -1062,8 +1081,9 @@
 }
 
 
-- (NSString *)comboBox:(NSComboBox *)cb completedString:(NSString *)uncompletedString {
-    if ([[self window] isKeyWindow] && [self isToolbarVisible] && locationComboBox == cb) {
+- (NSString *)comboField:(TDComboField *)cb completedString:(NSString *)uncompletedString {
+//- (NSString *)comboBox:(NSComboBox *)cb completedString:(NSString *)uncompletedString {
+    if ([[self window] isKeyWindow] && [self isToolbarVisible] && locationComboField == cb) {
         [[FURecentURLController instance] resetMatchingRecentURLs];
         
         for (NSString *URLString in [self recentURLs]) {
@@ -1074,8 +1094,8 @@
         }
         
         if ([[self matchingRecentURLs] count]) {
-            [[locationComboBox cell] scrollItemAtIndexToVisible:0];
-            [locationComboBox showPopUpWithItemCount:[[self matchingRecentURLs] count]];
+            //[[locationComboField cell] scrollItemAtIndexToVisible:0];
+            //[locationComboField showPopUpWithItemCount:[[self matchingRecentURLs] count]];
             return [[self matchingRecentURLs] objectAtIndex:0];
         }
         return nil;
@@ -1094,8 +1114,9 @@
 #pragma mark -
 #pragma mark HMImageComboBoxDelegate
 
-- (BOOL)hmComboBox:(HMImageComboBox *)cb writeDataToPasteboard:(NSPasteboard *)pboard {
-    if (locationComboBox == cb) {
+- (BOOL)comboField:(TDComboField *)cb writeDataToPasteboard:(NSPasteboard *)pboard {
+//- (BOOL)hmComboBox:(HMImageComboBox *)cb writeDataToPasteboard:(NSPasteboard *)pboard {
+    if (locationComboField == cb) {
         WebView *wv = [[self selectedTabController] webView];
         
         NSString *URLString = [wv mainFrameURL];
@@ -1142,7 +1163,7 @@
         if ([selectedTabController canReload]) {
 			[[self window] makeFirstResponder:[selectedTabController webView]];
 		} else {
-			[[self window] makeFirstResponder:locationComboBox];
+			[[self window] makeFirstResponder:locationComboField];
 		}
 			
     }
@@ -1284,7 +1305,7 @@
 // dont need to register for these explicity
 
 - (void)windowDidResignKey:(NSNotification *)n {
-    [locationComboBox hidePopUp];
+    //[locationComboField hidePopUp];
 }
 
 
@@ -1331,7 +1352,7 @@
     if (tc == [self selectedTabController]) {
         WebView *wv = [tc webView];
         if ([[wv mainFrameURL] hasPrefix:kFUAboutBlank]) {
-            [locationComboBox setStringValue:[[[wv backForwardList] currentItem] URLString]];
+            [locationComboField setStringValue:[[[wv backForwardList] currentItem] URLString]];
         } else {
             tc.lastLoadFailed = NO;
         }
@@ -1469,10 +1490,10 @@
     [[self window] bind:@"title" toObject:tc withKeyPath:@"title" options:nil];
     
     // bind URLString
-    [locationComboBox bind:@"stringValue" toObject:tc withKeyPath:@"URLString" options:nil];
+    [locationComboField bind:@"stringValue" toObject:tc withKeyPath:@"URLString" options:nil];
         
     // bind icon
-    [locationComboBox bind:@"image" toObject:tc withKeyPath:@"favicon" options:nil];
+    [locationComboField bind:@"image" toObject:tc withKeyPath:@"favicon" options:nil];
 
     // bind status text
     [statusTextField bind:@"stringValue" toObject:tc withKeyPath:@"statusText" options:nil];
@@ -1491,10 +1512,10 @@
     [[self window] unbind:@"title"];
     
     // unbind URLString
-    [locationComboBox unbind:@"stringValue"];
+    [locationComboField unbind:@"stringValue"];
     
     // unbind icon
-    [locationComboBox unbind:@"image"];    
+    [locationComboField unbind:@"image"];    
 
     // unbind status text
     [statusTextField unbind:@"stringValue"];
@@ -1557,7 +1578,7 @@
 
 - (void)displayEstimatedProgress {
     CGFloat progress = [[self selectedTabController] estimatedProgress];
-    locationComboBox.progress = progress;
+    locationComboField.progress = progress;
     
     if (![self isToolbarVisible]) {
         [statusProgressIndicator setHidden:NO];
@@ -1572,7 +1593,7 @@
 
 
 - (void)clearProgress {
-    locationComboBox.progress = 0;
+    locationComboField.progress = 0;
     [statusProgressIndicator setHidden:YES];
 }
 
@@ -1611,15 +1632,15 @@
 
 - (void)addRecentURL:(NSString *)s {
     [[FURecentURLController instance] addRecentURL:s];
-    [locationComboBox noteNumberOfItemsChanged];
-    [locationComboBox reloadData];
+    //[locationComboField noteNumberOfItemsChanged];
+    [locationComboField reloadData];
 }
 
 
 - (void)addMatchingRecentURL:(NSString *)s {
     [[FURecentURLController instance] addMatchingRecentURL:s];
-    [locationComboBox noteNumberOfItemsChanged];
-    [locationComboBox reloadData];
+    //[locationComboField noteNumberOfItemsChanged];
+    [locationComboField reloadData];
 }
 
 
@@ -1838,7 +1859,7 @@
 }
 
 @synthesize locationSplitView;
-@synthesize locationComboBox;
+@synthesize locationComboField;
 @synthesize searchField;
 @synthesize tabContainerView;
 @synthesize tabBar;

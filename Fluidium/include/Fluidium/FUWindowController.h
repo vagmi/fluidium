@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
+#import <TDAppKit/TDComboField.h>
 
 @class WebView;
 @class TDUberView;
@@ -24,13 +25,13 @@
 @class FUBookmark;
 @class TDLine;
 
-@interface FUWindowController : NSWindowController 
+@interface FUWindowController : NSWindowController <TDComboFieldDataSource
 #if FU_BUILD_TARGET_SNOW_LEOPARD
-<NSToolbarDelegate>
+, NSToolbarDelegate
 #endif
-{
+> {
     NSSplitView *locationSplitView;
-    FUProgressComboBox *locationComboBox;
+    TDComboField *locationComboField;
     NSSearchField *searchField;
     
     NSView *tabContainerView;
@@ -151,7 +152,7 @@
 @property (nonatomic) NSInteger selectedTabIndex;
 
 @property (nonatomic, retain) IBOutlet NSSplitView *locationSplitView;
-@property (nonatomic, retain) IBOutlet FUProgressComboBox *locationComboBox;
+@property (nonatomic, retain) IBOutlet TDComboField *locationComboField;
 @property (nonatomic, retain) IBOutlet NSSearchField *searchField;
 @property (nonatomic, retain) IBOutlet NSView *tabContainerView;
 @property (nonatomic, retain) IBOutlet PSMTabBarControl *tabBar;

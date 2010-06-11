@@ -1,5 +1,5 @@
 //
-//  TDFooBar.h
+//  TDComboField.h
 //  TDAppKit
 //
 //  Created by Todd Ditchendorf on 4/9/10.
@@ -41,6 +41,11 @@
 
 - (BOOL)isListVisible;
 - (void)showDefaultIcon;
+
+- (NSUInteger)numberOfItems;
+- (NSUInteger)indexOfSelectedItem;
+- (void)deselectItemAtIndex:(NSUInteger)i;
+- (void)reloadData;
 
 - (NSRect)listWindowRectForBounds:(NSRect)bounds;
 - (NSRect)listViewRectForBounds:(NSRect)bounds;

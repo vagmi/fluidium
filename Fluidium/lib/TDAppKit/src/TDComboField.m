@@ -1,5 +1,5 @@
 //
-//  TDFooBar.m
+//  TDComboField.m
 //  TDAppKit
 //
 //  Created by Todd Ditchendorf on 4/9/10.
@@ -108,6 +108,25 @@
 }
 
 
+- (NSUInteger)numberOfItems {
+    return [self numberOfItemsInListView:self.listView];
+}
+
+
+- (NSUInteger)indexOfSelectedItem {
+    return self.listView.selectedItemIndex;
+}
+
+
+- (void)deselectItemAtIndex:(NSUInteger)i {
+    self.listView.selectedItemIndex = NSNotFound;
+}
+
+
+- (void)reloadData {
+    [self.listView reloadData];
+}
+
 #pragma mark -
 #pragma mark Bounds
 
@@ -208,7 +227,7 @@
     }
     
     NSUInteger i = listView.selectedItemIndex;
-    NSUInteger last = [self numberOfItemsInListView:listView] - 1;
+    NSUInteger last = [self numberOfItems] - 1;
     if (i < last) {
         i++;
     } else if (NSNotFound == i) {
@@ -222,7 +241,7 @@
     listView.selectedItemIndex = i;
     [listView reloadData];
     
-    NSUInteger c = [self numberOfItemsInListView:listView];
+    NSUInteger c = [self numberOfItems];
     if (c > 0) {
         [self addTextFieldSelectionFromListSelection];
         [self addListWindow];
@@ -353,7 +372,7 @@
     }
     
     item.first = (0 == i);
-    item.last = (i == [self numberOfItemsInListView:lv] - 1);
+    item.last = (i == [self numberOfItems] - 1);
     item.selected = (i == listView.selectedItemIndex);
     item.labelText = [dataSource comboField:self objectAtIndex:i];
     [item setNeedsDisplay:YES];

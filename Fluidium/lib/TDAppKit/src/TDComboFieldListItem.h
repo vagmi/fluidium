@@ -1,5 +1,5 @@
 //
-//  TDFooBarListItem.h
+//  TDComboFieldListItem.h
 //  TDAppKit
 //
 //  Created by Todd Ditchendorf on 4/9/10.

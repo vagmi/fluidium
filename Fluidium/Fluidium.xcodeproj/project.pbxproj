@@ -137,6 +137,7 @@
 		D346E8A410CEBE4100BA0B15 /* FUTabsPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E8A310CEBE4100BA0B15 /* FUTabsPreferences.m */; };
 		D346E8C010CEC02100BA0B15 /* prefpane_icon_showall.png in Resources */ = {isa = PBXBuildFile; fileRef = D346E8BF10CEC02100BA0B15 /* prefpane_icon_showall.png */; };
 		D346E8C310CEC05300BA0B15 /* FUTabsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D346E8C110CEC05300BA0B15 /* FUTabsPreferences.xib */; };
+		D34ACB8C11C1C2D300D8A417 /* combo_field_progress_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D34ACB8B11C1C2D300D8A417 /* combo_field_progress_indicator.png */; };
 		D34B5E1C10CF6EF3006E17C4 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34B5E1B10CF6EF3006E17C4 /* Carbon.framework */; };
 		D34B602910CF7477006E17C4 /* IconFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = D34B602810CF7477006E17C4 /* IconFamily.m */; };
 		D34B603010CF74A3006E17C4 /* NSString+CarbonFSRefCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = D34B602F10CF74A3006E17C4 /* NSString+CarbonFSRefCreation.m */; };
@@ -633,6 +634,7 @@
 		D346E8C210CEC05300BA0B15 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUTabsPreferences.xib; sourceTree = "<group>"; };
 		D346E8C810CEC1BC00BA0B15 /* PlugInClientRecord.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PlugInClientRecord.plist; path = res/conf/PlugInClientRecord.plist; sourceTree = "<group>"; };
 		D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		D34ACB8B11C1C2D300D8A417 /* combo_field_progress_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combo_field_progress_indicator.png; path = lib/TDAppKit/res/img/combo_field_progress_indicator.png; sourceTree = "<group>"; };
 		D34B5DDC10CF6E8A006E17C4 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ShortcutRecorder.framework; path = build/Debug/ShortcutRecorder.framework; sourceTree = "<group>"; };
 		D34B5E1B10CF6EF3006E17C4 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		D34B602710CF7477006E17C4 /* IconFamily.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconFamily.h; sourceTree = "<group>"; };
@@ -1573,6 +1575,7 @@
 			isa = PBXGroup;
 			children = (
 				D3393B3E10D5B2C9000FC7C1 /* appl.icns */,
+				D34ACB8B11C1C2D300D8A417 /* combo_field_progress_indicator.png */,
 				D33E6E3910D0A9BA00D76BBB /* location_field_progress_indicator.png */,
 				D33E6E3210D0A99C00D76BBB /* Toolbar */,
 				D346E8A910CEBF3200BA0B15 /* Preference Panes */,
@@ -1854,6 +1857,7 @@
 				D3A3283210FF101500032B66 /* OAHelpIcon.png in Resources */,
 				D31C7B2811129C0E00563A4D /* FUHandlerPreferences.xib in Resources */,
 				D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */,
+				D34ACB8C11C1C2D300D8A417 /* combo_field_progress_indicator.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
