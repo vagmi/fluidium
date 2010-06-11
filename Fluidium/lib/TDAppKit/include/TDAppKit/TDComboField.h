@@ -24,6 +24,8 @@
 @protocol TDComboFieldDelegate <NSObject>
 @required
 - (BOOL)comboField:(TDComboField *)cf writeDataToPasteboard:(NSPasteboard *)pboard;
+@optional
+- (void)comboFieldWillDismiss:(TDComboField *)cf;
 @end
 
 @interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate> {

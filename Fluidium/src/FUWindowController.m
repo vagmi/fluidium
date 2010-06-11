@@ -160,6 +160,11 @@
              object:locationComboBox];
     
     [nc addObserver:self
+           selector:@selector(controlTextDidChange:)
+               name:NSControlTextDidChangeNotification
+             object:locationComboBox];    
+    
+    [nc addObserver:self
            selector:@selector(controlTextDidBeginEditing:)
                name:NSControlTextDidBeginEditingNotification
              object:locationComboBox];
@@ -973,6 +978,15 @@
         [r collapse:YES];
         [wv setSelectedDOMRange:r affinity:NSSelectionAffinityUpstream];
         [self find:findPanelSearchField];
+    } else if (control == locationComboBox) {
+        [[FURecentURLController instance] resetMatchingRecentURLs];
+        
+        for (NSString *URLString in [self recentURLs]) {
+            URLString = [URLString stringByTrimmingURLSchemePrefix];
+            if ([URLString hasPrefix:[locationComboBox stringValue]]) {
+                [self addMatchingRecentURL:URLString];
+            }
+        }
     }
 }
 
@@ -989,62 +1003,43 @@
 #pragma mark -
 #pragma mark NSComboBoxDataSource
 
-//@protocol TDComboFieldDataSource <NSObject>
-//@required
-//- (NSUInteger)numberOfItemsInComboField:(TDComboField *)cf;
-//- (id)comboField:(TDComboField *)cf objectAtIndex:(NSUInteger)i;
-//@optional
-//- (NSUInteger)comboField:(TDComboField *)cf indexOfItemWithStringValue:(NSString *)string;
-//- (NSString *)comboField:(TDComboField *)cf completedString:(NSString *)uncompletedString;
-//@end
-//
-//@protocol TDComboFieldDelegate <NSObject>
-//@required
-//- (BOOL)comboField:(TDComboField *)cf writeDataToPasteboard:(NSPasteboard *)pboard;
-//@end
-
-
-- (void)comboBoxWillDismiss:(NSNotification *)n {
-    if (locationComboBox == [n object]) {
-        NSInteger i = [locationComboBox indexOfSelectedItem];
-        NSInteger c = [locationComboBox numberOfItems];
+- (void)comboFieldWillDismiss:(TDComboField *)cf {
+    if (cf == locationComboBox) {
+//        NSInteger i = [locationComboBox indexOfSelectedItem];
+//        NSInteger c = [locationComboBox numberOfItems];
         
-        // last item (clear url menu) was clicked. clear recentURLs
-        if (c && i == c - 1) {
-            if (![[NSApp currentEvent] isEscKeyPressed]) {
-                NSString *s = [locationComboBox stringValue];
-                [locationComboBox deselectItemAtIndex:i];
-                
-                [[FURecentURLController instance] resetRecentURLs];
-                [[FURecentURLController instance] resetMatchingRecentURLs];
-                
-                [locationComboBox reloadData];
-                [locationComboBox setStringValue:s];
-            }
-        }
+//        // last item (clear url menu) was clicked. clear recentURLs
+//        if (c && i == c - 1) {
+//            if (![[NSApp currentEvent] isEscKeyPressed]) {
+//                NSString *s = [locationComboBox stringValue];
+//                [locationComboBox deselectItemAtIndex:i];
+//                
+//                [[FURecentURLController instance] resetRecentURLs];
+//                [[FURecentURLController instance] resetMatchingRecentURLs];
+//                
+//                [locationComboBox reloadData];
+//                [locationComboBox setStringValue:s];
+//            }
+//        }
     }
 }
 
 
 - (id)comboField:(TDComboField *)cb objectAtIndex:(NSUInteger)i {
-//- (id)comboBox:(NSComboBox *)cb objectValueForItemAtIndex:(NSInteger)i {
     if (locationComboBox == cb) {
         NSArray *URLs = displayingMatchingRecentURLs ? [self matchingRecentURLs] : [self recentURLs];
         
         NSInteger c = [URLs count];
-        if (!c) {
-            //[locationComboField hidePopUp];
-        }
-        if (c && i == c) {
-            NSDictionary *attrs = [NSDictionary dictionaryWithObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
-            return [[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Clear Recent URL Menu", @"") attributes:attrs] autorelease];
-        } else {
+//        if (c && i == c) {
+//            NSDictionary *attrs = [NSDictionary dictionaryWithObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
+//            return [[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Clear Recent URL Menu", @"") attributes:attrs] autorelease];
+//        } else {
             if (i < c) {
                 return [URLs objectAtIndex:i];
             } else {
                 return nil;
             }
-        }
+//        }
     } else {
         return nil;
     }
@@ -1052,16 +1047,10 @@
 
 
 - (NSUInteger)numberOfItemsInComboField:(TDComboField *)cb {
-//- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)cb {
     if (locationComboBox == cb) {
         NSArray *URLs = displayingMatchingRecentURLs ? [self matchingRecentURLs] : [self recentURLs];
         NSInteger c = [URLs count];
-        if (c) {
-            return c + 1;
-        } else {
-            //[locationComboField hidePopUp];
-        }
-        return c;
+        return c; // + 1;
     } else {
         return 0;
     }
@@ -1069,7 +1058,6 @@
 
 
 - (NSUInteger)comboField:(TDComboField *)cb indexOfItemWithStringValue:(NSString *)s {
-//- (NSUInteger)comboBox:(NSComboBox *)cb indexOfItemWithStringValue:(NSString *)s {
     if (locationComboBox == cb) {
         if (displayingMatchingRecentURLs) {
             return [[self matchingRecentURLs] indexOfObject:s];
@@ -1082,17 +1070,7 @@
 
 
 - (NSString *)comboField:(TDComboField *)cb completedString:(NSString *)uncompletedString {
-//- (NSString *)comboBox:(NSComboBox *)cb completedString:(NSString *)uncompletedString {
     if ([[self window] isKeyWindow] && [self isToolbarVisible] && locationComboBox == cb) {
-        [[FURecentURLController instance] resetMatchingRecentURLs];
-        
-        for (NSString *URLString in [self recentURLs]) {
-            URLString = [URLString stringByTrimmingURLSchemePrefix];
-            if ([URLString hasPrefix:uncompletedString]) {
-                [self addMatchingRecentURL:URLString];
-            }
-        }
-        
         if ([[self matchingRecentURLs] count]) {
             //[[locationComboField cell] scrollItemAtIndexToVisible:0];
             //[locationComboField showPopUpWithItemCount:[[self matchingRecentURLs] count]];
@@ -1102,12 +1080,6 @@
     } else {
         return nil;
     }
-}
-
-
-// prevent suggestions in locationcombobox on <esc> key
-- (NSArray *)control:(NSControl *)control textView:(NSTextView *)tv completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)i {
-    return nil;
 }
 
 
@@ -1632,15 +1604,11 @@
 
 - (void)addRecentURL:(NSString *)s {
     [[FURecentURLController instance] addRecentURL:s];
-    //[locationComboField noteNumberOfItemsChanged];
-    [locationComboBox reloadData];
 }
 
 
 - (void)addMatchingRecentURL:(NSString *)s {
     [[FURecentURLController instance] addMatchingRecentURL:s];
-    //[locationComboField noteNumberOfItemsChanged];
-    [locationComboBox reloadData];
 }
 
 

@@ -56,6 +56,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.comboField = nil;
     [super dealloc];
 }
 
@@ -274,4 +275,14 @@
     }
 }
 
+
+- (NSText *)fieldEditor:(BOOL)createWhenNeeded forObject:(id)obj {
+    if (obj == comboField) {
+        return (NSTextView *)comboField.fieldEditor;
+    } else {
+        return [super fieldEditor:createWhenNeeded forObject:obj];
+    }
+}
+
+@synthesize comboField;
 @end

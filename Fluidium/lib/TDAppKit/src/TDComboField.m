@@ -58,19 +58,21 @@
 
 
 - (void)awakeFromNib {
+    self.buttons = [NSMutableArray array];
+    
+    self.progressImage = [NSImage imageNamed:@"combo_field_progress_indicator"]; //[NSImage imageNamed:@"combo_field_progress_indicator" inBundleForClass:[TDComboField class]];
+
+    self.font = [NSFont controlContentFontOfSize:12];
+}
+
+
+- (void)viewDidMoveToWindow {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(applicationDidResignActive:) name:NSApplicationDidResignActiveNotification object:NSApp];
     [nc addObserver:self selector:@selector(windowDidResize:) name:NSWindowDidResizeNotification object:[self window]];
     
-    [[self window] setDelegate:self];
     [self resizeSubviewsWithOldSize:NSZeroSize];
     
-    self.buttons = [NSMutableArray array];
-    
-    self.progressImage = [NSImage imageNamed:@"combo_field_progress_indicator"]; //[NSImage imageNamed:@"combo_field_progress_indicator" inBundleForClass:[TDComboField class]];
-    NSAssert(progressImage, @"did not find combofield progress image");
-
-    self.font = [NSFont controlContentFontOfSize:12];
     [self showDefaultIcon];    
 }
 
@@ -150,9 +152,13 @@
 
 - (void)removeListWindow {
     if ([self isListVisible]) {
+        id delegate = [self delegate];
+        if (delegate && [delegate respondsToSelector:@selector(comboFieldWillDismiss:)]) {
+            [delegate comboFieldWillDismiss:self];
+        }
         [[self window] removeChildWindow:self.listWindow];
         [self.listWindow orderOut:nil];
-        self.listWindow = nil;
+        //self.listWindow = nil;
     }
 }
 
@@ -163,25 +169,28 @@
     if (hidden) {
         [self removeListWindow];
     } else {
+        [self addListWindow];
         NSRect bounds = [self bounds];
         [self.listView setFrame:[self listViewRectForBounds:bounds]];
         [self.listWindow setFrame:[self listWindowRectForBounds:bounds] display:YES];
         [self.listView reloadData];
-
-        [self addListWindow];
     }
 }
 
 
 - (NSRect)listWindowRectForBounds:(NSRect)bounds {
-    NSRect windowFrame = [[self window] frame];
-    NSRect textFrame = [self frame];
     NSRect listRect = [self listViewRectForBounds:bounds];
 
-    CGFloat x = windowFrame.origin.x + textFrame.origin.x;
-    CGFloat y = windowFrame.origin.y + textFrame.origin.y - listRect.size.height - LIST_MARGIN_Y;
+//    NSRect windowFrame = [[self window] frame];
+    NSRect textFrame = [self frame];
+//    CGFloat x = windowFrame.origin.x + textFrame.origin.x;
+//    CGFloat y = windowFrame.origin.y + windowFrame.size.height + textFrame.origin.y - listRect.size.height - LIST_MARGIN_Y;
     
-    return NSMakeRect(x, y, listRect.size.width, listRect.size.height);
+    NSPoint p = [[self window] convertBaseToScreen:[self convertPoint:[self frame].origin fromView:nil]];
+    p.x += 380;
+    p.y -= listRect.size.height + textFrame.size.height;
+    
+    return NSMakeRect(p.x, p.y, listRect.size.width, listRect.size.height);
 }
 
 
@@ -307,7 +316,7 @@
 
 
 - (void)textDidChange:(NSNotification *)n {
-    //[super textDidChange:n];
+    [super textDidChange:n];
     
     self.listView.selectedItemIndex = 0;
     [self.listView reloadData];
