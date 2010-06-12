@@ -15,6 +15,7 @@
 #import "TDComboFieldTextView.h"
 
 #define LIST_MARGIN_Y 5.0
+#define MAX_SCROLL_HEIGHT 40
 
 @interface TDComboField ()
 - (void)removeListWindow;
@@ -47,6 +48,7 @@
     [self removeListWindow];
 
     self.dataSource = nil;
+    self.scrollView = nil;
     self.listView = nil;
     self.listWindow = nil;
     self.fieldEditor = nil;
@@ -172,9 +174,19 @@
         [self addListWindow];
         NSRect bounds = [self bounds];
         [self.listView setFrame:[self listViewRectForBounds:bounds]];
+//        [self.scrollView setFrame:[self scrollViewRectForBounds:bounds]];
         [self.listWindow setFrame:[self listWindowRectForBounds:bounds] display:YES];
         [self.listView reloadData];
     }
+}
+
+
+- (NSRect)scrollViewRectForBounds:(NSRect)bounds {
+    NSRect scrollRect = [self listViewRectForBounds:bounds];
+    if (scrollRect.size.height > MAX_SCROLL_HEIGHT) {
+        scrollRect.size.height = MAX_SCROLL_HEIGHT;
+    }
+    return scrollRect;
 }
 
 
@@ -554,6 +566,31 @@
 #pragma mark -
 #pragma mark Properties
 
+- (NSScrollView *)scrollView {
+    if (!scrollView) {
+        NSRect r = [self listViewRectForBounds:[self bounds]];
+        self.scrollView = [[[NSScrollView alloc] initWithFrame:r] autorelease];
+//        [[scrollView contentView] setFrameSize:r.size];
+        [scrollView setAutoresizingMask:NSViewWidthSizable];
+
+        
+        [[scrollView contentView] setAutoresizingMask:NSViewWidthSizable];
+        [[scrollView contentView] setAutoresizesSubviews:YES];
+
+        [scrollView setHasHorizontalScroller:NO];
+        [scrollView setHasVerticalScroller:NO];
+        [scrollView setBorderType:NSNoBorder];
+        [scrollView setAutohidesScrollers:NO];
+        
+        [scrollView setDocumentView:self.listView];
+        NSSize s = [NSScrollView contentSizeForFrameSize:[scrollView frame].size hasHorizontalScroller:NO hasVerticalScroller:YES borderType:NSNoBorder];
+        [self.listView setFrame:NSMakeRect(0, 0, s.width, s.height)]; //[[scrollView contentView] frame]];
+    
+    }
+    return scrollView;
+}
+
+
 - (TDListView *)listView {
     if (!listView) {
         NSRect r = [self listViewRectForBounds:[self bounds]];
@@ -598,6 +635,7 @@
 }
 
 @synthesize dataSource;
+@synthesize scrollView;
 @synthesize listView;
 @synthesize listWindow;
 @synthesize fieldEditor;

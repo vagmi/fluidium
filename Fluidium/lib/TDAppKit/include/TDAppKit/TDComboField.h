@@ -30,6 +30,7 @@
 
 @interface TDComboField : NSTextField <TDListViewDataSource, TDListViewDelegate> {
     id <TDComboFieldDataSource>dataSource;
+    NSScrollView *scrollView;
     TDListView *listView;
     NSWindow *listWindow;
     TDComboFieldTextView *fieldEditor;
@@ -50,9 +51,11 @@
 - (void)reloadData;
 
 - (NSRect)listWindowRectForBounds:(NSRect)bounds;
+- (NSRect)scrollViewRectForBounds:(NSRect)bounds;
 - (NSRect)listViewRectForBounds:(NSRect)bounds;
 
 @property (nonatomic, assign) id <TDComboFieldDataSource>dataSource;
+@property (nonatomic, retain) NSScrollView *scrollView;
 @property (nonatomic, retain) TDListView *listView;
 @property (nonatomic, retain) NSWindow *listWindow;
 @property (nonatomic, retain) TDComboFieldTextView *fieldEditor;

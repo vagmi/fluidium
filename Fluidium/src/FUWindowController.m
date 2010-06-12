@@ -981,10 +981,14 @@
     } else if (control == locationComboBox) {
         [[FURecentURLController instance] resetMatchingRecentURLs];
         
+        NSUInteger i = 0;
         for (NSString *URLString in [self recentURLs]) {
             URLString = [URLString stringByTrimmingURLSchemePrefix];
             if ([URLString hasPrefix:[locationComboBox stringValue]]) {
                 [self addMatchingRecentURL:URLString];
+                if (i++ > 20) { // TODO
+                    break;
+                }
             }
         }
     }
