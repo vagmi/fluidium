@@ -166,24 +166,31 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* TDAppKit.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = TDAppKit;
 		};
 		D34ACBDC11C1C48E00D8A417 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D31CBFE910EFB9630013347D /* ListViewDemoApp.app */;
+			remoteGlobalIDString = D31CBFE910EFB9630013347D;
 			remoteInfo = ListViewDemoApp;
 		};
 		D34ACBDE11C1C48E00D8A417 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */;
+			remoteGlobalIDString = D36E1F5B11703E8300110DBA;
 			remoteInfo = ComboFieldDemoApp;
 		};
 		D34ACBE011C1C49400D8A417 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = TDAppKit;
+		};
+		D399C77A11C3354000E7DBE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
 			proxyType = 1;
@@ -636,6 +643,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D399C77B11C3354000E7DBE7 /* PBXTargetDependency */,
 			);
 			name = PSMTabBarControlFramework;
 			productName = PSMTabBarControlFramework;
@@ -887,6 +895,11 @@
 			isa = PBXTargetDependency;
 			name = TDAppKit;
 			targetProxy = D34ACBE011C1C49400D8A417 /* PBXContainerItemProxy */;
+		};
+		D399C77B11C3354000E7DBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TDAppKit;
+			targetProxy = D399C77A11C3354000E7DBE7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
