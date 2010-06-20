@@ -431,39 +431,33 @@
     NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
     NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
     
+    id result = nil;
+    
     if (titleEquals) {
-        [self handleAssertTitleEqualsCommand:cmd];
-    }
-    if (hasElementWithId) {
-        [self handleAssertHasElementWithIdCommand:cmd];
-    }
-    if (doesntHaveElementWithId) {
-        [self handleAssertDoesntHaveElementWithIdCommand:cmd];
-    }
-    if (containsText) {
-        [self handleAssertContainsTextCommand:cmd];
-    }
-    if (doesntContainText) {
-        [self handleAssertDoesntContainTextCommand:cmd];
-    }
-    if (containsHTML) {
-        [self handleAssertContainsHTMLCommand:cmd];
-    }
-    if (doesntContainHTML) {
-        [self handleAssertDoesntContainHTMLCommand:cmd];
-    }
-    if (javaScriptEvalsTrue) {
-        [self handleAssertJavaScriptEvalsTrueCommand:cmd];
-    }
-    if (javaScriptEvalsFalse) {
-        [self handleAssertJavaScriptEvalsFalseCommand:cmd];
+        result = [self handleAssertTitleEqualsCommand:cmd];
+    } else if (hasElementWithId) {
+        result = [self handleAssertHasElementWithIdCommand:cmd];
+    } else if (doesntHaveElementWithId) {
+        result = [self handleAssertDoesntHaveElementWithIdCommand:cmd];
+    } else if (containsText) {
+        result = [self handleAssertContainsTextCommand:cmd];
+    } else if (doesntContainText) {
+        result = [self handleAssertDoesntContainTextCommand:cmd];
+    } else if (containsHTML) {
+        result = [self handleAssertContainsHTMLCommand:cmd];
+    } else if (doesntContainHTML) {
+        result = [self handleAssertDoesntContainHTMLCommand:cmd];
+    } else if (javaScriptEvalsTrue) {
+        result = [self handleAssertJavaScriptEvalsTrueCommand:cmd];
+    } else if (javaScriptEvalsFalse) {
+        result = [self handleAssertJavaScriptEvalsFalseCommand:cmd];
     }
 
-    // just put in a little delay for good measure
-    [self suspendCommand:cmd];
-    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY/4];
+//    // just put in a little delay for good measure
+//    [self suspendCommand:cmd];
+//    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY/4];
     
-    return nil;
+    return result;
 }
 
 

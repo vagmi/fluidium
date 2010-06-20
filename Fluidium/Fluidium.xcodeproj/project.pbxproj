@@ -206,6 +206,7 @@
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
 		D3AF878510CFA34300C601A3 /* FUBehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */; };
+		D3B4B8C311CEC752000D7AD1 /* FUAssertCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B4B8C211CEC752000D7AD1 /* FUAssertCommand.m */; };
 		D3B538C5111F7ABE0056D586 /* FUTabController+Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */; };
 		D3B8BC0310E837E400271454 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FB10C8D90C00E0B474 /* HMAppKitEx.m */; };
 		D3B8BC0410E837E400271454 /* HMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FD10C8D90C00E0B474 /* HMButton.m */; };
@@ -743,6 +744,8 @@
 		D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBehaviorPreferences.m; path = src/FUBehaviorPreferences.m; sourceTree = "<group>"; };
 		D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_behavior.png; path = res/img/prefpanes/prefpane_icon_behavior.png; sourceTree = "<group>"; };
 		D3AF878410CFA34300C601A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBehaviorPreferences.xib; sourceTree = "<group>"; };
+		D3B4B8C111CEC752000D7AD1 /* FUAssertCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAssertCommand.h; path = src/FUAssertCommand.h; sourceTree = "<group>"; };
+		D3B4B8C211CEC752000D7AD1 /* FUAssertCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAssertCommand.m; path = src/FUAssertCommand.m; sourceTree = "<group>"; };
 		D3B538C3111F7ABE0056D586 /* FUTabController+Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUTabController+Recording.h"; path = "src/FUTabController+Recording.h"; sourceTree = "<group>"; };
 		D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUTabController+Recording.m"; path = "src/FUTabController+Recording.m"; sourceTree = "<group>"; };
 		D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = prefpane_icon_tabs.tiff; path = res/img/prefpanes/prefpane_icon_tabs.tiff; sourceTree = "<group>"; };
@@ -1362,6 +1365,8 @@
 				D3E616761130DD41006729E9 /* FUSetElementValueCommand.m */,
 				D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */,
 				D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */,
+				D3B4B8C111CEC752000D7AD1 /* FUAssertCommand.h */,
+				D3B4B8C211CEC752000D7AD1 /* FUAssertCommand.m */,
 			);
 			name = "Script Only Script Commands";
 			sourceTree = "<group>";
@@ -2074,6 +2079,7 @@
 				D3E616BD1130DEFB006729E9 /* FUClickButtonCommand.m in Sources */,
 				D3EB8C1F117A58D4003C4A2E /* FUProgressComboBox.m in Sources */,
 				D34ACCD611C2AC0E00D8A417 /* TDComboField+FUAdditions.m in Sources */,
+				D3B4B8C311CEC752000D7AD1 /* FUAssertCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

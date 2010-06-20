@@ -367,6 +367,7 @@
     </command>
 
     <command name="assert" code="FuSSAsrt" description="Asserts a condition in this tab's web page is true. Throws an AppleScript error if false.">
+        <cocoa class="FUAssertCommand"/>
         <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Asserts the value of the title of the web page loaded in this tab.">
             <cocoa key="titleEquals"/>
         </parameter>
