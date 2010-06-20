@@ -118,7 +118,10 @@
     
     BOOL isSelected = YES;
     if (props) {
-        isSelected = [[props objectForKey:@"isSelected"] boolValue];
+        id obj = [props objectForKey:@"isSelected"];
+        if (obj) {
+            isSelected = [obj boolValue];
+        }
     }
     
     FUTabController *tc = nil;
