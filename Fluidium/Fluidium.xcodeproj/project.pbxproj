@@ -1416,6 +1416,7 @@
 			isa = PBXGroup;
 			children = (
 				D332221810C8C1FB00151693 /* Info.plist */,
+				D3C2E35711D7E32E00106E86 /* Fake-Info.plist */,
 				D3F4C6B610C8E51200E0B474 /* DefaultValues.plist */,
 				D3C2E56311D7F27600106E86 /* Fake-DefaultValues.plist */,
 				D346E8C810CEC1BC00BA0B15 /* PlugInClientRecord.plist */,
@@ -1424,7 +1425,6 @@
 				D339359E10D4DC4D000FC7C1 /* SpecialCases.plist */,
 				D30BC46F10E188260019816B /* Growl Registration Ticket.growlRegDict */,
 				D3E13270110420EA007FE89E /* Fluidium.sdef */,
-				D3C2E35711D7E32E00106E86 /* Fake-Info.plist */,
 			);
 			name = Conf;
 			sourceTree = "<group>";
