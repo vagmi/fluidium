@@ -149,6 +149,8 @@
 
 - (NSArray *)webViews;
 
+- (NSViewController *)plugInViewControllerForPlugInIdentifier:(NSString *)s;
+
 @property (nonatomic) NSInteger selectedTabIndex;
 
 @property (nonatomic, retain) IBOutlet NSSplitView *locationSplitView;

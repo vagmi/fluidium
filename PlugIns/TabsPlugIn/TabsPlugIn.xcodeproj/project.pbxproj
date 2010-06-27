@@ -51,7 +51,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D3442EA610EFCD4D00855FD9 /* TDAppKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D36E1F5B11703E8300110DBA /* FooBarDemoApp.app */;
+			remoteGlobalIDString = D36E1F5B11703E8300110DBA;
 			remoteInfo = FooBarDemoApp;
 		};
 /* End PBXContainerItemProxy section */

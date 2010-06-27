@@ -59,7 +59,7 @@
 
 
 - (NSString *)defaultType {
-    return @"HTML document";
+    return @"Web archive";
 }
 
 

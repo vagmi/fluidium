@@ -20,5 +20,7 @@
     FUWindowController *windowController;
 }
 
+- (void)windowControllerDidShowVisiblePlugIns:(FUWindowController *)wc;
+
 @property (nonatomic, retain) FUWindowController *windowController;
 @end

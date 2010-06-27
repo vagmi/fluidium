@@ -283,7 +283,7 @@ typedef enum {
     
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setCanCreateDirectories:YES];
-    [savePanel setMessage:NSLocalizedString(@"Download Linked File As...", @"")];
+    [savePanel setMessage:NSLocalizedString(@"Download Linked File As…", @"")];
     NSString *filename = [[URL absoluteString] lastPathComponent];
     
     [savePanel beginSheetForDirectory:nil 

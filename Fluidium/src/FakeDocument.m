@@ -1,25 +1,41 @@
-//  Copyright 2009 Todd Ditchendorf
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+//  FakeDocument.m
+//  Fluidium
 //
-//  http://www.apache.org/licenses/LICENSE-2.0
+//  Created by Todd Ditchendorf on 6/27/10.
+//  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
 
-#import "FUDocument.h"
+#import "FakeDocument.h"
+#import "FUDocumentController.h"
 #import "FUWindowController.h"
 #import "FUTabController.h"
 #import "FUWebView.h"
+//#import "FakeWorkflow.h"
+//#import "FakeViewController.h"
 #import <WebKit/WebKit.h>
 
-#define WEB_ARCHIVE_TYPENAME @"Web archive"
-#define HTML_DOC_TYPENAME @"HTML document"
+#define FAKE_WORKFLOW_TYPENAME @"Fake Workflow"
+
+@interface NSObject (FakeCompilerWarnings)
+- (id)workflowController;
+- (id)workflow;
+- (NSData *)archivedData;
+- (void)setWorkflow:(id)workflow;
+- (id)initWithData:(NSData *)data error:(NSError **)outErr;
+@end
+
+@interface FUDocumentController (FakeAdditions)
+
+@end
+
+@implementation FUDocumentController (FakeAdditions)
+
+- (NSString *)defaultType {
+    return FAKE_WORKFLOW_TYPENAME;
+}
+
+@end
 
 @interface FUDocument ()
 - (void)webPrintOperationDidRun:(NSPrintOperation *)op success:(BOOL)success contextInfo:(id)dv;
@@ -29,6 +45,7 @@
 
 - (void)dealloc {
     self.windowController = nil;
+    self.workflow = nil;
     [super dealloc];
 }
 
@@ -39,16 +56,19 @@
 
 
 - (void)windowControllerDidShowVisiblePlugIns:(FUWindowController *)wc {
-    
+    if (wc == [self windowController]) {
+        id /*FakeViewController **/vc = /*(FakeViewController *)*/[wc plugInViewControllerForPlugInIdentifier:@"com.fakeapp.FakePlugIn"];
+        [[vc workflowController] setWorkflow:workflow];
+    }
 }
 
 
 #pragma mark -
 #pragma mark NSDocument
 
-- (NSString *)displayName {
-    return [[windowController selectedTabController] title];
-}
+//- (NSString *)displayName {
+//    return [[windowController selectedTabController] title];
+//}
 
 
 - (void)makeWindowControllers {
@@ -57,9 +77,9 @@
 }
 
 
-- (BOOL)isDocumentEdited {
-    return NO;
-}
+//- (BOOL)isDocumentEdited {
+//    return NO;
+//}
 
 
 //- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErr {
@@ -86,13 +106,15 @@
 
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outErr {
-    if ([typeName isEqualToString:WEB_ARCHIVE_TYPENAME]) {
-        WebArchive *archive = [[[WebArchive alloc] initWithData:data] autorelease];
-        [[[[[self windowController] selectedTabController] webView] mainFrame] loadArchive:archive];
-        return YES;
-    } else if ([typeName isEqualToString:HTML_DOC_TYPENAME]) {
-        [[[[[self windowController] selectedTabController] webView] mainFrame] loadData:data MIMEType:@"text/html" textEncodingName:nil baseURL:nil];
-        return YES;
+    if ([typeName isEqualToString:FAKE_WORKFLOW_TYPENAME]) {
+        
+        self.workflow = [[[NSClassFromString(@"FakeWorkflow") alloc] initWithData:data error:outErr] autorelease];
+        
+        if (workflow) {
+            return YES;
+        } else {
+            return NO;
+        }
     } else {
         return [super readFromData:data ofType:typeName error:outErr];
     }
@@ -100,12 +122,13 @@
 
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outErr {
-    if ([typeName isEqualToString:WEB_ARCHIVE_TYPENAME]) {
-        NSData *archiveData = [[[[[[windowController selectedTabController] webView] mainFrame] dataSource] webArchive] data];
-        return archiveData;
-    } else if ([typeName isEqualToString:HTML_DOC_TYPENAME]) {
-        NSData *HTMLData = [[[[[[[windowController selectedTabController] webView] mainFrame] dataSource] representation] documentSource] dataUsingEncoding:NSUTF8StringEncoding];
-        return HTMLData;
+    if ([typeName isEqualToString:FAKE_WORKFLOW_TYPENAME]) {
+        
+        FUWindowController *wc = [self windowController];
+        id /*FakeViewController **/vc = /*(FakeViewController *)*/[wc plugInViewControllerForPlugInIdentifier:@"com.fakeapp.FakePlugIn"];
+        id wf = [[vc workflowController] workflow];
+        
+        return [wf archivedData];
     } else {
         return [super dataOfType:typeName error:outErr];
     }
@@ -118,7 +141,7 @@
 - (void)printDocumentWithSettings:(NSDictionary *)settings showPrintPanel:(BOOL)show delegate:(id)delegate didPrintSelector:(SEL)sel contextInfo:(void *)ctx {
     WebView *wv = [[[self windowController] selectedTabController] webView];
     if (!wv) return;
-
+    
     id dv = [[[wv mainFrame] frameView] documentView];
     [dv retain]; // retained
     
@@ -148,4 +171,5 @@
 }
 
 @synthesize windowController;
+@synthesize workflow;
 @end

@@ -74,6 +74,12 @@
 }
 
 
+- (NSViewController *)plugInViewControllerForPlugInIdentifier:(NSString *)s inWindow:(NSWindow *)win {
+    FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:s];
+    return [wrap plugInViewControllerForWindowNumber:[win windowNumber]];
+}
+
+
 - (BOOL)isFullScreen {
     return [[FUApplication instance] isFullScreen];
 }

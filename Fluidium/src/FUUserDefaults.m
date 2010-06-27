@@ -112,7 +112,7 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 
 
 + (void)setUpUserDefaults {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultValues" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:DEFAULT_VALUES_FILENAME ofType:@"plist"];
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionaryWithContentsOfFile:path];
 
 #if FU_LOCAL_STORAGE_ENABLED

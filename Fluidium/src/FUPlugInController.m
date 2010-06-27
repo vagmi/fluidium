@@ -18,6 +18,7 @@
 #import "FUPlugInController.h"
 #import "FUPlugInAPIImpl.h"
 #import "FUWindowController.h"
+#import "FUDocument.h"
 #import "FUDocumentController.h"
 #import "FUApplication.h"
 #import "FUUserDefaults.h"
@@ -135,6 +136,9 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
             [self showPlugInWrapper:wrap inWindow:win];
         }
     }
+    
+    FUWindowController *wc = [win windowController];
+    [[wc document] windowControllerDidShowVisiblePlugIns:wc];
 }
 
 

@@ -43,6 +43,7 @@ typedef enum {
 - (NSString *)plugInSupportDirPath;
 
 - (NSUInteger)viewPlacementForPlugInIdentifier:(NSString *)s;
+- (NSViewController *)plugInViewControllerForPlugInIdentifier:(NSString *)s inWindow:(NSWindow *)win;
 
 - (void)loadURL:(NSString *)URLString; // prefers tabs
 - (void)loadURL:(NSString *)URLString destinationType:(FUPlugInDestinationType)type; // respects FUSelectTabsAndWindowsAsCreated

@@ -31,6 +31,7 @@
 #import "FUTabBarControl.h"
 #import "FUWindowToolbar.h"
 #import "FUPlugInController.h"
+#import "FUPlugInWrapper.h"
 #import "FUNotifications.h"
 #import "NSString+FUAdditions.h"
 #import "NSEvent+FUAdditions.h"
@@ -763,6 +764,12 @@
         [wvs addObject:[[tabItem identifier] webView]];
     }
     return [[wvs copy] autorelease];
+}
+
+
+- (NSViewController *)plugInViewControllerForPlugInIdentifier:(NSString *)s {
+    FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:s];
+    return [wrap plugInViewControllerForWindowNumber:[[self window] windowNumber]];
 }
 
 
