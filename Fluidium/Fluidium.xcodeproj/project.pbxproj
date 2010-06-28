@@ -447,6 +447,7 @@
 		D3C2E47F11D7EA2700106E86 /* FakeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C2E36511D7E43200106E86 /* FakeDocument.m */; };
 		D3C2E56411D7F27600106E86 /* Fake-DefaultValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3C2E56311D7F27600106E86 /* Fake-DefaultValues.plist */; };
 		D3C2E59F11D7F6CD00106E86 /* fake.icns in Resources */ = {isa = PBXBuildFile; fileRef = D3C2E59E11D7F6CD00106E86 /* fake.icns */; };
+		D3C2E5B611D8172E00106E86 /* FakeMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C2E5B411D8172E00106E86 /* FakeMainMenu.xib */; };
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */; };
 		D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */; };
@@ -1084,6 +1085,7 @@
 		D3C2E56311D7F27600106E86 /* Fake-DefaultValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Fake-DefaultValues.plist"; path = "res/conf/Fake-DefaultValues.plist"; sourceTree = "<group>"; };
 		D3C2E56511D7F2D300106E86 /* Fake_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fake_Prefix.pch; path = src/Fake_Prefix.pch; sourceTree = "<group>"; };
 		D3C2E59E11D7F6CD00106E86 /* fake.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = fake.icns; path = res/img/fake.icns; sourceTree = "<group>"; };
+		D3C2E5B511D8172E00106E86 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FakeMainMenu.xib; sourceTree = "<group>"; };
 		D3D3731F10E3D32300203EB2 /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = include/Fluidium/FUNotifications.h; sourceTree = "<group>"; };
 		D3D3732010E3D32300203EB2 /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = src/FUNotifications.m; sourceTree = "<group>"; };
 		D3D3758010E3F44F00203EB2 /* WebIconDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebIconDatabase.h; path = src/WebIconDatabase.h; sourceTree = "<group>"; };
@@ -1432,6 +1434,7 @@
 		D332223610C8C30C00151693 /* Nib */ = {
 			isa = PBXGroup;
 			children = (
+				D3C2E5B411D8172E00106E86 /* FakeMainMenu.xib */,
 				1DDD582A0DA1D0D100B32029 /* FUMainMenu.xib */,
 				1DDD58280DA1D0D100B32029 /* FUWindow.xib */,
 				D3E42FDB10CB1E1600A5BDEF /* FUDownloadWindow.xib */,
@@ -2339,6 +2342,7 @@
 				D3C2E44B11D7E9C600106E86 /* combo_field_progress_indicator.png in Resources */,
 				D3C2E56411D7F27600106E86 /* Fake-DefaultValues.plist in Resources */,
 				D3C2E59F11D7F6CD00106E86 /* fake.icns in Resources */,
+				D3C2E5B611D8172E00106E86 /* FakeMainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2953,6 +2957,14 @@
 				D3AF878410CFA34300C601A3 /* English */,
 			);
 			name = FUBehaviorPreferences.xib;
+			sourceTree = "<group>";
+		};
+		D3C2E5B411D8172E00106E86 /* FakeMainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3C2E5B511D8172E00106E86 /* English */,
+			);
+			name = FakeMainMenu.xib;
 			sourceTree = "<group>";
 		};
 		D3E42FDB10CB1E1600A5BDEF /* FUDownloadWindow.xib */ = {

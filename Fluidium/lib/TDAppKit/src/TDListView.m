@@ -195,7 +195,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)viewBoundsChanged:(NSNotification *)n {
     // if this returns false, the view hierarchy is being torn down. 
     // don't try to layout in that case cuz it crashes on Leopard
-    if ([[n object] superview]) {
+    if ([[n object] superview] && dataSource) {
         [self layoutItems];
     }
 }
@@ -212,8 +212,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         [nc removeObserver:self name:NSViewBoundsDidChangeNotification object:oldSuperview];
     }
 
-    [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:newSuperview];
-    
+    if (newSuperview) {
+        [nc addObserver:self selector:@selector(viewBoundsChanged:) name:NSViewBoundsDidChangeNotification object:newSuperview];
+    }
 }
 
 

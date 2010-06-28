@@ -67,7 +67,7 @@
 #pragma mark NSDocument
 
 //- (NSString *)displayName {
-//    return [[windowController selectedTabController] title];
+//    return [NSString stringWithFormat:@"%@ – %@", [super displayName], [[windowController selectedTabController] title]];
 //}
 
 

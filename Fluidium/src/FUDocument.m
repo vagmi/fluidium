@@ -28,6 +28,7 @@
 @implementation FUDocument
 
 - (void)dealloc {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     self.windowController = nil;
     [super dealloc];
 }

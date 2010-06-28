@@ -77,7 +77,7 @@
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSMainNibFile</key>
-	<string>FUMainMenu</string>
+	<string>FakeMainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>FUApplication</string>
 	<key>OFRegistrations</key>
