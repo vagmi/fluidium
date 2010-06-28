@@ -91,7 +91,7 @@
 - (void)loadView {
     self.view = [[[UMEFlippedView alloc] initWithFrame:NSZeroRect] autorelease];
     [self.view setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    [self.view setWantsLayer:NO];
+    [self.view setWantsLayer:YES];
 
     self.navigationBar = [[[UMENavigationBar alloc] initWithFrame:NSMakeRect(0, 0, 0, NAVBAR_HEIGHT)] autorelease];
     [navigationBar setAutoresizingMask:NSViewWidthSizable];

@@ -78,6 +78,36 @@
                                                                                                  action:@selector(stop:)] autorelease];
     }
     
+    
+    NSMutableArray *items = [NSMutableArray array];
+    UMEBarButtonItem *item = nil;
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemCamera target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemCompose target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemReply target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemRedo target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemRewind target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemRefresh target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemEdit target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    item = [[[UMEBarButtonItem alloc] initWithBarButtonSystemItem:UMEBarButtonSystemItemDone target:nil action:nil] autorelease];
+    [items addObject:item];
+    
+    toolbar.barStyle = UMEBarStyleNavy;
+    toolbar.items = items;
 }
 
 

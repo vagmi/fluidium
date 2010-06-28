@@ -14,6 +14,7 @@
 
 #import "UMEBarButtonItemButtonCell.h"
 #import "UMEBarButtonItemButton.h"
+#import "UMEImageCache.h"
 #import <UMEKit/UMEBarButtonItem.h>
 
 #define MIN_WIDTH 36
@@ -29,25 +30,9 @@
 
 static NSShadow *sTitleShadow = nil;
 
-static NSImage *sLeftImagePlain = nil;
-static NSImage *sLeftImageDone = nil;
-static NSImage *sLeftImageBack = nil;
-static NSImage *sCenterImagePlain = nil;
-static NSImage *sCenterImageDone = nil;
-static NSImage *sCenterImageBack = nil;
-static NSImage *sRightImagePlain = nil;
-static NSImage *sRightImageDone = nil;
-static NSImage *sRightImageBack = nil;
-
-static NSImage *sLeftImagePlainHi = nil;
-static NSImage *sLeftImageDoneHi = nil;
-static NSImage *sLeftImageBackHi = nil;
-static NSImage *sCenterImagePlainHi = nil;
-static NSImage *sCenterImageDoneHi = nil;
-static NSImage *sCenterImageBackHi = nil;
-static NSImage *sRightImagePlainHi = nil;
-static NSImage *sRightImageDoneHi = nil;
-static NSImage *sRightImageBackHi = nil;
+@interface UMEBarButtonItem ()
+@property (nonatomic) UMEBarStyle barStyle;            // default is UMEBarStyleDefault
+@end
 
 @interface UMEBarButtonItemButtonCell ()
 - (void)commonInit;
@@ -64,28 +49,6 @@ static NSImage *sRightImageBackHi = nil;
         [sTitleShadow setShadowOffset:NSMakeSize(0, 1)];
         [sTitleShadow setShadowBlurRadius:0];
 
-        NSBundle *b = [NSBundle bundleForClass:[UMEBarButtonItemButtonCell class]];
-        
-        sLeftImagePlain     = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_plain_bg_01"]];
-        sLeftImageDone      = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_done_bg_01"]];
-        sLeftImageBack      = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"back_button_bg_01"]];
-        sCenterImagePlain   = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_plain_bg_02"]];
-        sCenterImageDone    = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_done_bg_02"]];
-        sCenterImageBack    = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"back_button_bg_02"]];
-        sRightImagePlain    = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_plain_bg_03"]];
-        sRightImageDone     = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_done_bg_03"]];
-        sRightImageBack     = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"back_button_bg_03"]];
-
-        sLeftImagePlainHi   = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_plain_bg_hi_01"]];
-        sLeftImageDoneHi    = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_done_bg_hi_01"]];
-        sLeftImageBackHi    = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"back_button_bg_hi_01"]];
-        sCenterImagePlainHi = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_plain_bg_hi_02"]];
-        sCenterImageDoneHi  = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_done_bg_hi_02"]];
-        sCenterImageBackHi  = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"back_button_bg_hi_02"]];
-        sRightImagePlainHi  = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_plain_bg_hi_03"]];
-        sRightImageDoneHi   = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"barbuttonitem_done_bg_hi_03"]];
-        sRightImageBackHi   = [[NSImage alloc] initWithContentsOfFile:[b pathForImageResource:@"back_button_bg_hi_03"]];
-        
         [pool release];
     }
 }
@@ -140,36 +103,153 @@ static NSImage *sRightImageBackHi = nil;
     
     switch (item.style) {
         case UMEBarButtonItemStylePlain:
-            if ([self isHighlighted]) {
-                leftImage = sLeftImagePlainHi;
-                centerImage = sCenterImagePlainHi;
-                rightImage = sRightImagePlainHi;
-            } else {
-                leftImage = sLeftImagePlain;
-                centerImage = sCenterImagePlain;
-                rightImage = sRightImagePlain;
+            switch (item.barStyle) {
+                case UMEBarStyleDefault:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_default_plain_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_default_plain_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_default_plain_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_default_plain_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_default_plain_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_default_plain_bg_03");
+                    }
+                    break;
+                case UMEBarStyleBlack:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_black_plain_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_black_plain_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_black_plain_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_black_plain_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_black_plain_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_black_plain_bg_03");
+                    }
+                    break;
+                case UMEBarStyleGray:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_gray_plain_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_gray_plain_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_gray_plain_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_gray_plain_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_gray_plain_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_gray_plain_bg_03");
+                    }
+                    break;
+                case UMEBarStyleNavy:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_navy_plain_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_navy_plain_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_navy_plain_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_navy_plain_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_navy_plain_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_navy_plain_bg_03");
+                    }
+                    break;
+                default:
+                    break;
             }
             break;
         case UMEBarButtonItemStyleDone:
-            if ([self isHighlighted]) {
-                leftImage = sLeftImageDoneHi;
-                centerImage = sCenterImageDoneHi;
-                rightImage = sRightImageDoneHi;
-            } else {
-                leftImage = sLeftImageDone;
-                centerImage = sCenterImageDone;
-                rightImage = sRightImageDone;
+            switch (item.barStyle) {
+                case UMEBarStyleDefault:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_default_done_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_default_done_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_default_done_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_default_done_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_default_done_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_default_done_bg_03");
+                    }
+                    break;
+                case UMEBarStyleBlack:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_black_plain_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_black_plain_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_black_plain_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_black_plain_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_black_plain_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_black_plain_bg_03");
+                    }
+                    break;
+                case UMEBarStyleGray:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_gray_plain_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_gray_plain_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_gray_plain_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_gray_plain_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_gray_plain_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_gray_plain_bg_03");
+                    }
+                    break;
+                case UMEBarStyleNavy:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_navy_plain_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_navy_plain_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_navy_plain_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_navy_plain_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_navy_plain_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_navy_plain_bg_03");
+                    }
+                    break;
+                default:
+                    break;
             }
             break;
         case UMEBarButtonItemStyleBack:
-            if ([self isHighlighted]) {
-                leftImage = sLeftImageBackHi;
-                centerImage = sCenterImageBackHi;
-                rightImage = sRightImageBackHi;
-            } else {
-                leftImage = sLeftImageBack;
-                centerImage = sCenterImageBack;
-                rightImage = sRightImageBack;
+            switch (item.barStyle) {
+                case UMEBarStyleDefault:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_default_back_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_default_back_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_default_back_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_default_back_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_default_back_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_default_back_bg_03");
+                    }
+                    break;
+                case UMEBarStyleBlack:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_black_back_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_black_back_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_black_back_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_black_back_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_black_back_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_black_back_bg_03");
+                    }
+                    break;
+                case UMEBarStyleGray:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_gray_back_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_gray_back_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_gray_back_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_gray_back_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_gray_back_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_gray_back_bg_03");
+                    }
+                    break;
+                case UMEBarStyleNavy:
+                    if ([self isHighlighted]) {
+                        leftImage = UMEIMG(@"barbuttonitem_navy_back_bg_hi_01");
+                        centerImage = UMEIMG(@"barbuttonitem_navy_back_bg_hi_02");
+                        rightImage = UMEIMG(@"barbuttonitem_navy_back_bg_hi_03");
+                    } else {
+                        leftImage = UMEIMG(@"barbuttonitem_navy_back_bg_01");
+                        centerImage = UMEIMG(@"barbuttonitem_navy_back_bg_02");
+                        rightImage = UMEIMG(@"barbuttonitem_navy_back_bg_03");
+                    }
+                    break;
+                default:
+                    break;
             }
             break;
         default:
@@ -210,13 +290,7 @@ static NSImage *sRightImageBackHi = nil;
     
     // draw image 
     if (NSImageOnly == [self imagePosition]) {
-        NSImage *img = nil;
-        if ([self isHighlighted]) {
-            img = [self alternateImage];
-        } else {
-            img = [self image];
-        }
-        
+        NSImage *img = [self image];        
         [img setFlipped:[cv isFlipped]];
         
         NSSize size = [img size];

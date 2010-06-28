@@ -24,6 +24,7 @@
 - (void)sizeToFit;
 - (void)layout;
 @property (nonatomic, retain) NSButton *button;
+@property (nonatomic) UMEBarStyle barStyle;            // default is UMEBarStyleDefault
 @end
 
 @implementation UMEBarButtonItem
@@ -31,7 +32,6 @@
 - (id)initWithBarButtonSystemItem:(UMEBarButtonSystemItem)systemItem target:(id)t action:(SEL)sel {
     NSString *aTitle = nil;
     NSString *imgPath = nil;
-    NSString *imgHiPath = nil;
     NSBundle *b = [NSBundle bundleForClass:[UMEBarButtonItem class]];
     UMEBarButtonItemStyle aStyle = UMEBarButtonItemStylePlain;
     NSCellImagePosition imgPos = NSNoImage;
@@ -56,80 +56,64 @@
             break;
         case UMEBarButtonSystemItemFlexibleSpace:
             imgPath = [b pathForImageResource:@""];
-            imgHiPath = [b pathForImageResource:@""];
             break;
         case UMEBarButtonSystemItemFixedSpace:
             imgPath = [b pathForImageResource:@""];
-            imgHiPath = [b pathForImageResource:@""];
             break;
         case UMEBarButtonSystemItemCompose:
             imgPath = [b pathForImageResource:@"barbutton_system_item_compose"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_compose_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemReply:
             imgPath = [b pathForImageResource:@"barbutton_system_item_reply"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_reply_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemAction:
             imgPath = [b pathForImageResource:@"barbutton_system_item_action"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_action_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemOrganize:
             imgPath = [b pathForImageResource:@"barbutton_system_item_organize"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_organize_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemBookmarks:
             imgPath = [b pathForImageResource:@"barbutton_system_item_bookmarks"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_bookmarks_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemSearch:
             imgPath = [b pathForImageResource:@"barbutton_system_item_search"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_search_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemRefresh:
             imgPath = [b pathForImageResource:@"barbutton_system_item_refresh"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_refresh_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemStop:
             imgPath = [b pathForImageResource:@"barbutton_system_item_stop"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_stop_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemCamera:
             imgPath = [b pathForImageResource:@"barbutton_system_item_camera"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_camera_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemTrash:
             imgPath = [b pathForImageResource:@"barbutton_system_item_trash"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_trash_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemPlay:
             imgPath = [b pathForImageResource:@"barbutton_system_item_play"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_play_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemPause:
             imgPath = [b pathForImageResource:@"barbutton_system_item_pause"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_pause_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemRewind:
             imgPath = [b pathForImageResource:@"barbutton_system_item_rewind"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_rewind_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemFastForward:
             imgPath = [b pathForImageResource:@"barbutton_system_item_fastforward"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_fastforward_hi"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemUndo:
@@ -139,12 +123,10 @@
             aTitle = NSLocalizedString(@"Redo", @"");
         case UMEBarButtonSystemItemUser:
             imgPath = [b pathForImageResource:@"barbutton_system_item_user"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_user"];
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemEveryone:
             imgPath = [b pathForImageResource:@"barbutton_system_item_everyone"];
-            imgHiPath = [b pathForImageResource:@"barbutton_system_item_everyone"];
             imgPos = NSImageOnly;
             break;
         default:
@@ -157,9 +139,6 @@
         self.image = [[[NSImage alloc] initWithContentsOfFile:imgPath] autorelease];
     }
     [button setImagePosition:imgPos];
-    if ([imgHiPath length]) {
-        [button setAlternateImage:[[[NSImage alloc] initWithContentsOfFile:imgHiPath] autorelease]];
-    }
     return self;
 }
 
@@ -194,6 +173,7 @@
         self.title = aTitle;
         self.target = aTarget;
         self.action = sel;
+        self.barStyle = UMEBarStyleDefault;
         
         if (CUSTOM_VIEW_FLAG != aStyle) {
             self.customView = [[[UMEFlippedView alloc] initWithFrame:NSZeroRect] autorelease];
@@ -250,6 +230,12 @@
 }
 
 
+- (CGFloat)width {
+    [self sizeToFit];
+    return NSWidth([customView frame]);
+}
+
+
 - (id)target {
     return [button target];
 }
@@ -295,4 +281,5 @@
 @synthesize button;
 @synthesize style;
 @synthesize width;
+@synthesize barStyle;
 @end
