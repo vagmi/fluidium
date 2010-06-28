@@ -66,20 +66,10 @@
 #pragma mark -
 #pragma mark NSDocument
 
-//- (NSString *)displayName {
-//    return [NSString stringWithFormat:@"%@ – %@", [super displayName], [[windowController selectedTabController] title]];
-//}
-
-
 - (void)makeWindowControllers {
     self.windowController = [[[FUWindowController alloc] init] autorelease];
     [self addWindowController:windowController];
 }
-
-
-//- (BOOL)isDocumentEdited {
-//    return NO;
-//}
 
 
 //- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErr {

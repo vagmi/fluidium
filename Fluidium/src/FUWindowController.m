@@ -217,6 +217,11 @@
 }
 
 
+- (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
+    return [[self selectedTabController] title];    
+}
+
+
 #pragma mark -
 #pragma mark Actions
 

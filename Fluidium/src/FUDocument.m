@@ -47,11 +47,6 @@
 #pragma mark -
 #pragma mark NSDocument
 
-- (NSString *)displayName {
-    return [[windowController selectedTabController] title];
-}
-
-
 - (void)makeWindowControllers {
     self.windowController = [[[FUWindowController alloc] init] autorelease];
     [self addWindowController:windowController];
