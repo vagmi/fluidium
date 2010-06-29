@@ -28,7 +28,7 @@
     <key>FUStatusBarShown</key>
     <true/>
     <key>FUTabBarHiddenAlways</key>
-    <false/>
+    <true/>
     <key>FUWindowFrameString</key>
 	<string>{{130, 50}, {1020, 700}}</string>
     <key>FUWindowScreenIndex</key>
