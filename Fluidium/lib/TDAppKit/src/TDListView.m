@@ -155,7 +155,31 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (NSRect)frameForItemAtIndex:(NSUInteger)i {
-    return [[self itemAtIndex:i] frame];
+//    TDListItem *item = [self itemAtIndex:i];
+//    NSRect r = [item frame];
+//    return r;
+    
+    CGFloat extent = 0;
+
+    NSUInteger j = 0;
+    for ( ; j < i; j++) {
+        extent += [delegate listView:self extentForItemAtIndex:j];
+    }
+    
+    CGFloat x, y, w, h;
+    NSRect bounds = [self bounds];
+    
+    if (self.isPortrait) {
+        x = 0; y = extent;
+        w = bounds.size.width;
+        h = [delegate listView:self extentForItemAtIndex:i];
+    } else {
+        x = extent; y = 0;
+        x = [delegate listView:self extentForItemAtIndex:i];
+        h = bounds.size.width;
+    }
+    NSRect r = NSMakeRect(x, y, w, h);
+    return r;
 }
 
 
