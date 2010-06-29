@@ -397,7 +397,6 @@
 		D3C2E43811D7E9C600106E86 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = D33E70B710D0F1E800D76BBB /* default.css */; };
 		D3C2E43911D7E9C600106E86 /* LoadFailed.html in Resources */ = {isa = PBXBuildFile; fileRef = D33E70B810D0F1E800D76BBB /* LoadFailed.html */; };
 		D3C2E43A11D7E9C600106E86 /* appl.icns in Resources */ = {isa = PBXBuildFile; fileRef = D3393B3E10D5B2C9000FC7C1 /* appl.icns */; };
-		D3C2E43B11D7E9C600106E86 /* prefpane_icon_showall.png in Resources */ = {isa = PBXBuildFile; fileRef = D346E8BF10CEC02100BA0B15 /* prefpane_icon_showall.png */; };
 		D3C2E43C11D7E9C600106E86 /* prefpane_icon_appearance.png in Resources */ = {isa = PBXBuildFile; fileRef = D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */; };
 		D3C2E43D11D7E9C600106E86 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
 		D3C2E43E11D7E9C600106E86 /* prefpane_icon_security.png in Resources */ = {isa = PBXBuildFile; fileRef = D33E6DEC10D0A29E00D76BBB /* prefpane_icon_security.png */; };
@@ -474,6 +473,7 @@
 		D3E616BA1130DEF2006729E9 /* FUClickLinkCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E616B91130DEF2006729E9 /* FUClickLinkCommand.m */; };
 		D3E616BD1130DEFB006729E9 /* FUClickButtonCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E616BC1130DEFB006729E9 /* FUClickButtonCommand.m */; };
 		D3EB8C1F117A58D4003C4A2E /* FUProgressComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EB8C1E117A58D4003C4A2E /* FUProgressComboBox.m */; };
+		D3F48EC911D9A3A30083E8EA /* prefpane_icon_showall.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F48EC811D9A3A30083E8EA /* prefpane_icon_showall.png */; };
 		D3F4C3D410C8C7A300E0B474 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F4C3D310C8C7A300E0B474 /* WebKit.framework */; };
 		D3F4C53610C8CF4600E0B474 /* FUWindowToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C53510C8CF4600E0B474 /* FUWindowToolbar.m */; };
 		D3F4C55410C8D1D300E0B474 /* FUApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C55310C8D1D300E0B474 /* FUApplication.m */; };
@@ -1084,7 +1084,7 @@
 		D3C2E4DE11D7EF0B00106E86 /* Fake.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Fake.xcodeproj; path = ../../fake/Fake.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D3C2E56311D7F27600106E86 /* Fake-DefaultValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Fake-DefaultValues.plist"; path = "res/conf/Fake-DefaultValues.plist"; sourceTree = "<group>"; };
 		D3C2E56511D7F2D300106E86 /* Fake_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fake_Prefix.pch; path = src/Fake_Prefix.pch; sourceTree = "<group>"; };
-		D3C2E59E11D7F6CD00106E86 /* fake.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = fake.icns; path = res/img/fake.icns; sourceTree = "<group>"; };
+		D3C2E59E11D7F6CD00106E86 /* fake.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = fake.icns; path = res/img/fake/fake.icns; sourceTree = "<group>"; };
 		D3C2E5B511D8172E00106E86 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FakeMainMenu.xib; sourceTree = "<group>"; };
 		D3D3731F10E3D32300203EB2 /* FUNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUNotifications.h; path = include/Fluidium/FUNotifications.h; sourceTree = "<group>"; };
 		D3D3732010E3D32300203EB2 /* FUNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUNotifications.m; path = src/FUNotifications.m; sourceTree = "<group>"; };
@@ -1138,6 +1138,7 @@
 		D3EB8C1D117A58D4003C4A2E /* FUProgressComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUProgressComboBox.h; path = src/FUProgressComboBox.h; sourceTree = "<group>"; };
 		D3EB8C1E117A58D4003C4A2E /* FUProgressComboBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUProgressComboBox.m; path = src/FUProgressComboBox.m; sourceTree = "<group>"; };
 		D3F292ED10E7B32500CCB392 /* WebFrameViewPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebFrameViewPrivate.h; path = src/WebFrameViewPrivate.h; sourceTree = "<group>"; };
+		D3F48EC811D9A3A30083E8EA /* prefpane_icon_showall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_showall.png; path = res/img/fake/prefpane_icon_showall.png; sourceTree = "<group>"; };
 		D3F4C3D310C8C7A300E0B474 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		D3F4C53410C8CF4600E0B474 /* FUWindowToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWindowToolbar.h; path = src/FUWindowToolbar.h; sourceTree = "<group>"; };
 		D3F4C53510C8CF4600E0B474 /* FUWindowToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUWindowToolbar.m; path = src/FUWindowToolbar.m; sourceTree = "<group>"; };
@@ -1598,6 +1599,7 @@
 		D346E8A910CEBF3200BA0B15 /* Preference Panes */ = {
 			isa = PBXGroup;
 			children = (
+				D3F48EC811D9A3A30083E8EA /* prefpane_icon_showall.png */,
 				D346E8BF10CEC02100BA0B15 /* prefpane_icon_showall.png */,
 				D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */,
 				D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */,
@@ -2324,7 +2326,6 @@
 				D3C2E43811D7E9C600106E86 /* default.css in Resources */,
 				D3C2E43911D7E9C600106E86 /* LoadFailed.html in Resources */,
 				D3C2E43A11D7E9C600106E86 /* appl.icns in Resources */,
-				D3C2E43B11D7E9C600106E86 /* prefpane_icon_showall.png in Resources */,
 				D3C2E43C11D7E9C600106E86 /* prefpane_icon_appearance.png in Resources */,
 				D3C2E43D11D7E9C600106E86 /* prefpane_icon_behavior.png in Resources */,
 				D3C2E43E11D7E9C600106E86 /* prefpane_icon_security.png in Resources */,
@@ -2343,6 +2344,7 @@
 				D3C2E56411D7F27600106E86 /* Fake-DefaultValues.plist in Resources */,
 				D3C2E59F11D7F6CD00106E86 /* fake.icns in Resources */,
 				D3C2E5B611D8172E00106E86 /* FakeMainMenu.xib in Resources */,
+				D3F48EC911D9A3A30083E8EA /* prefpane_icon_showall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
