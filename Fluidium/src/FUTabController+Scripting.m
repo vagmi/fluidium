@@ -187,7 +187,23 @@
 
 - (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
     NSString *script = [cmd directParameter];
+    NSString *prefix = @"__FU__";
+    script = [NSString stringWithFormat:@"try{\n%@\n}catch(__e){return '%@'+__e;}", script, prefix];
     NSString *result = [webView stringByEvaluatingJavaScriptFromString:script];
+    
+    BOOL hasPrefix = [result hasPrefix:prefix];
+    if (!result || hasPrefix) {
+        if (hasPrefix) {
+            result = [result substringFromIndex:[prefix length]];
+        }
+        [cmd setScriptErrorNumber:47];
+        NSString *msg = @"JavaScript encountered a fatal error";
+        if (result) {
+            msg = [msg stringByAppendingFormat:@":\n\n'%@'", result];
+        }
+        [cmd setScriptErrorString:msg];
+        return nil;
+    }
 
     // just put in a little delay for good measure
     [self suspendCommand:cmd];
