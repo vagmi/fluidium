@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="29"/>
+			<integer value="24"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1187,6 +1187,15 @@
 								</object>
 								<object class="NSMenuItem" id="180644">
 									<reference key="NSMenu" ref="835318025"/>
+									<string key="NSTitle">Workflow</string>
+									<string key="NSKeyEquiv">w</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
+								<object class="NSMenuItem" id="949056755">
+									<reference key="NSMenu" ref="835318025"/>
 									<string key="NSTitle">Action Library</string>
 									<string key="NSKeyEquiv">l</string>
 									<int key="NSKeyEquivModMask">1572864</int>
@@ -1245,7 +1254,7 @@
 								</object>
 								<object class="NSMenuItem" id="670299045">
 									<reference key="NSMenu" ref="835318025"/>
-									<string key="NSTitle">Show Error Console</string>
+									<string key="NSTitle">Error Console</string>
 									<string key="NSKeyEquiv">c</string>
 									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -2001,9 +2010,17 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">showActionLibrary:</string>
 						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="949056755"/>
+					</object>
+					<int key="connectionID">802</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showWorkflow:</string>
+						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="180644"/>
 					</object>
-					<int key="connectionID">800</int>
+					<int key="connectionID">803</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2426,6 +2443,7 @@
 							<reference ref="231369512"/>
 							<reference ref="552949743"/>
 							<reference ref="180644"/>
+							<reference ref="949056755"/>
 						</object>
 						<reference key="parent" ref="713487014"/>
 					</object>
@@ -2997,6 +3015,11 @@
 						<reference key="object" ref="602963066"/>
 						<reference key="parent" ref="1012128910"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">801</int>
+						<reference key="object" ref="949056755"/>
+						<reference key="parent" ref="835318025"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3258,6 +3281,8 @@
 					<string>794.IBPluginDependency</string>
 					<string>80.IBPluginDependency</string>
 					<string>80.ImportedFromIB2</string>
+					<string>801.IBPluginDependency</string>
+					<string>801.ImportedFromIB2</string>
 					<string>81.IBEditorWindowLastContentRect</string>
 					<string>81.IBPluginDependency</string>
 					<string>81.ImportedFromIB2</string>
@@ -3372,7 +3397,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{810, 594}, {241, 283}}</string>
+					<string>{{734, 574}, {239, 303}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
@@ -3416,7 +3441,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{945, 752}, {138, 23}}</string>
+					<string>{{805, 854}, {138, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3526,7 +3551,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{501, 531}, {204, 243}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="1"/>
+					<string>{{356, 634}, {204, 243}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{155, 774}, {199, 203}}</string>
@@ -3554,7 +3581,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">800</int>
+			<int key="maxID">803</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3658,10 +3685,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>runWorkflow:</string>
 							<string>showActionLibrary:</string>
+							<string>showWorkflow:</string>
 							<string>stopWorkflow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3673,6 +3702,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>runWorkflow:</string>
 							<string>showActionLibrary:</string>
+							<string>showWorkflow:</string>
 							<string>stopWorkflow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -3683,6 +3713,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showActionLibrary:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showWorkflow:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

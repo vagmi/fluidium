@@ -16,6 +16,7 @@
 }
 
 - (IBAction)showActionLibrary:(id)sender;
+- (IBAction)showWorkflow:(id)sender;
 - (IBAction)runWorkflow:(id)sender;
 - (IBAction)stopWorkflow:(id)sender;
 

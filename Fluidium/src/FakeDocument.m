@@ -11,11 +11,12 @@
 #import "FUWindowController.h"
 #import "FUTabController.h"
 #import "FUWebView.h"
-//#import "FakeWorkflow.h"
-//#import "FakeViewController.h"
+#import "FUPlugInWrapper.h"
+#import "FUPlugInController.h"
 #import <WebKit/WebKit.h>
 
 #define FAKE_WORKFLOW_TYPENAME @"Fake Workflow"
+#define FAKE_PLUGIN_ID @"com.fakeapp.FakePlugIn"
 
 @interface NSObject (FakeCompilerWarnings)
 - (id)workflowController;
@@ -63,6 +64,12 @@
 }
 
 
+- (IBAction)showWorkflow:(id)sender {
+    FUPlugInWrapper *wrap = [[FUPlugInController instance] plugInWrapperForIdentifier:FAKE_PLUGIN_ID];
+    [[FUPlugInController instance] toggleVisibilityOfPlugInWrapper:wrap inWindow:[[self windowController] window]];
+}
+
+
 - (IBAction)runWorkflow:(id)sender {
     [[self fakePlugInViewController] runWorkflow:sender];
 }
@@ -74,7 +81,7 @@
 
 
 - (id)fakePlugInViewController {
-    id /*FakeViewController **/vc = /*(FakeViewController *)*/[[self windowController] plugInViewControllerForPlugInIdentifier:@"com.fakeapp.FakePlugIn"];
+    id /*FakeViewController **/vc = /*(FakeViewController *)*/[[self windowController] plugInViewControllerForPlugInIdentifier:FAKE_PLUGIN_ID];
     return vc;
 }
 
