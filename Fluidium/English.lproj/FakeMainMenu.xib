@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="788"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1114,14 +1114,6 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSMenuItem" id="242556942">
-						<reference key="NSMenu" ref="649796088"/>
-						<string key="NSTitle">Plug-ins</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="1033313550"/>
-						<reference key="NSMixedImage" ref="310636482"/>
-					</object>
 					<object class="NSMenuItem" id="713487014">
 						<reference key="NSMenu" ref="649796088"/>
 						<string key="NSTitle">Window</string>
@@ -2055,7 +2047,6 @@
 							<reference ref="470804886"/>
 							<reference ref="51665411"/>
 							<reference ref="323417870"/>
-							<reference ref="242556942"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -3006,11 +2997,6 @@
 						<reference key="object" ref="602963066"/>
 						<reference key="parent" ref="1012128910"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">669</int>
-						<reference key="object" ref="242556942"/>
-						<reference key="parent" ref="649796088"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3217,7 +3203,6 @@
 					<string>664.IBPluginDependency</string>
 					<string>665.IBPluginDependency</string>
 					<string>666.IBPluginDependency</string>
-					<string>669.IBPluginDependency</string>
 					<string>687.IBPluginDependency</string>
 					<string>687.ImportedFromIB2</string>
 					<string>689.IBPluginDependency</string>
@@ -3387,11 +3372,11 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{825, 638}, {241, 283}}</string>
+					<string>{{810, 594}, {241, 283}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{307, 921}, {650, 20}}</string>
+					<string>{{292, 877}, {574, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -3481,8 +3466,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{704, 721}, {228, 53}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{640, 824}, {228, 53}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3534,7 +3518,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{507, 878}, {119, 43}}</string>
+					<string>{{492, 834}, {119, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
