@@ -321,7 +321,11 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     NSString *title = wrap.localizedTitle;
     
     NSMutableDictionary *desc = [NSMutableDictionary dictionary];
+#ifdef FAKE
+    [desc setObject:@"Panels" forKey:@"category"];
+#else
     [desc setObject:@"Plug-ins" forKey:@"category"];
+#endif
     [desc setObject:@"nib" forKey:@"FUPlugInPreferences"];
     [desc setObject:[NSNumber numberWithInteger:1000] forKey:@"ordering"];
     
