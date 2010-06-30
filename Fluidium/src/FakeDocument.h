@@ -15,7 +15,13 @@
     id workflow;
 }
 
+- (IBAction)showActionLibrary:(id)sender;
+- (IBAction)runWorkflow:(id)sender;
+- (IBAction)stopWorkflow:(id)sender;
+
 - (void)windowControllerDidShowVisiblePlugIns:(FUWindowController *)wc;
+
+- (id)fakePlugInViewController;
 
 @property (nonatomic, retain) FUWindowController *windowController;
 @property (nonatomic, retain) id workflow;

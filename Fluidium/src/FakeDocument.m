@@ -55,6 +55,30 @@
 }
 
 
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)showActionLibrary:(id)sender {
+    [[self fakePlugInViewController] showActionLibrary:sender];
+}
+
+
+- (IBAction)runWorkflow:(id)sender {
+    [[self fakePlugInViewController] runWorkflow:sender];
+}
+
+
+- (IBAction)stopWorkflow:(id)sender {
+    [[self fakePlugInViewController] stopWorkflow:sender];
+}
+
+
+- (id)fakePlugInViewController {
+    id /*FakeViewController **/vc = /*(FakeViewController *)*/[[self windowController] plugInViewControllerForPlugInIdentifier:@"com.fakeapp.FakePlugIn"];
+    return vc;
+}
+
+
 - (void)windowControllerDidShowVisiblePlugIns:(FUWindowController *)wc {
     if (wc == [self windowController]) {
         id /*FakeViewController **/vc = /*(FakeViewController *)*/[wc plugInViewControllerForPlugInIdentifier:@"com.fakeapp.FakePlugIn"];
