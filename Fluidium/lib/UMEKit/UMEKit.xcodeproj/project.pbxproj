@@ -441,18 +441,14 @@
 				D3DEC10E1070062E006B582A /* UMEViewController.m */,
 				D3DEC19810700DE7006B582A /* UMENavigationController.h */,
 				D3DEC19510700DBD006B582A /* UMENavigationController.m */,
-				D3DEC1BA1070114D006B582A /* UMENavigationItem.h */,
-				D3DEC1AB10701106006B582A /* UMENavigationItem.m */,
-				D3DEC241107013DF006B582A /* UMENavigationBar.h */,
-				D3DEC237107013A7006B582A /* UMENavigationBar.m */,
-				D3AB4B41112B97CF0091CE4B /* UMEToolbar.h */,
-				D3AB4B38112B97B70091CE4B /* UMEToolbar.m */,
 				D3DEC1BC1070114D006B582A /* UMETabBarController.h */,
 				D3DEC1B310701123006B582A /* UMETabBarController.m */,
 				D3DEC1BB1070114D006B582A /* UMETabBar.h */,
 				D3DEC1B71070112F006B582A /* UMETabBar.m */,
 				D3CF41D61090076C0035F42A /* UMEBarItem.h */,
 				D3CF41D3109002EB0035F42A /* UMEBarItem.m */,
+				D348839011DBC7FB00DEB603 /* NavigationBar */,
+				D348838F11DBC7EA00DEB603 /* Toolbar */,
 				D328707611D8F3FC0073DE37 /* Popover */,
 				D306BB66109169C00011DE1B /* BarButtonItem */,
 				D3E57214109126F800810BCD /* ActivityItem */,
@@ -665,6 +661,26 @@
 				D32870E811D8F4310073DE37 /* toolbar_bg_navy.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		D348838F11DBC7EA00DEB603 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				D3AB4B41112B97CF0091CE4B /* UMEToolbar.h */,
+				D3AB4B38112B97B70091CE4B /* UMEToolbar.m */,
+			);
+			name = Toolbar;
+			sourceTree = "<group>";
+		};
+		D348839011DBC7FB00DEB603 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				D3DEC1BA1070114D006B582A /* UMENavigationItem.h */,
+				D3DEC1AB10701106006B582A /* UMENavigationItem.m */,
+				D3DEC241107013DF006B582A /* UMENavigationBar.h */,
+				D3DEC237107013A7006B582A /* UMENavigationBar.m */,
+			);
+			name = NavigationBar;
 			sourceTree = "<group>";
 		};
 		D3C3B251108562DA00ED4547 /* Internal */ = {

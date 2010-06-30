@@ -16,6 +16,7 @@
     NSColor *tintColor;
     BOOL translucent;
     BOOL layoutDone;
+    BOOL hasFlexibleItem;
 }
 
 @property (nonatomic, assign) UMEBarStyle barStyle;    // default is UMEBarStyleDefault (blue)

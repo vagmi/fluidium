@@ -15,6 +15,7 @@
 @interface UMEBarButtonItem ()
 - (void)sizeToFit;
 @property (nonatomic) UMEBarStyle barStyle;            // default is UMEBarStyleDefault
+@property (nonatomic, getter=isFlexible) BOOL flexible;
 @end
 
 @interface UMEToolbar ()
@@ -35,6 +36,11 @@
     self.items = nil;
     self.tintColor = nil;
     [super dealloc];
+}
+
+
+- (void)awakeFromNib {
+
 }
 
 
@@ -83,6 +89,10 @@
     
     NSRect bounds = [self bounds];
     NSDrawThreePartImage(bounds, bgImg, bgImg, bgImg, NO, NSCompositeSourceOver, 1, YES);
+    
+    [[NSColor darkGrayColor] setStroke];
+    CGFloat y = bounds.size.height - 1;
+    [NSBezierPath strokeLineFromPoint:NSMakePoint(0, y) toPoint:NSMakePoint(bounds.size.width, y)];    
 }
 
 
@@ -96,11 +106,19 @@
 
 - (void)setItems:(NSArray *)a {
     if (a != items) {
+        for (UMEBarButtonItem *item in items) {
+            [item.customView removeFromSuperview];
+        }
+        
         [items autorelease];
         items = [a retain];
         
+        hasFlexibleItem = NO;
         for (UMEBarButtonItem *item in items) {
             item.barStyle = barStyle;
+            if (item.isFlexible) {
+                hasFlexibleItem = YES;
+            }
         }
         
         [self layoutItems];
@@ -112,16 +130,39 @@
 #pragma mark Private
 
 - (void)layoutItems {
+    NSRect bounds = [self bounds];
+    
     CGFloat x = ITEM_X;
     CGFloat y = 0;
     CGFloat w = 0;
-    CGFloat h = 0;
+    CGFloat h = bounds.size.height - 2.0;
+    
+    if (hasFlexibleItem) {
+        CGFloat availWidth = bounds.size.width;
+        
+        NSMutableArray *flexibleItems = [NSMutableArray array];
+        CGFloat nonFlexibleItemsTotalWidth = ITEM_X * 2; // left and right margin
+        for (UMEBarButtonItem *item in items) {
+            if (item.isFlexible) {
+                [flexibleItems addObject:item];
+            } else {
+                nonFlexibleItemsTotalWidth += NSWidth([item.customView frame]) + ITEM_MARGIN;
+            }
+        }
+        
+        NSUInteger flexibleItemCount = [flexibleItems count];
+        CGFloat flexibleItemWidth = (availWidth - nonFlexibleItemsTotalWidth) / flexibleItemCount;
+        for (UMEBarButtonItem *flexibleItem in flexibleItems) {
+            NSRect frame = [flexibleItem.customView frame];
+            frame.size.width = flexibleItemWidth;
+            [flexibleItem.customView setFrame:frame];
+        }
+    }
     
     for (UMEBarButtonItem *item in items) {
         //[item sizeToFit];
         [self addSubview:item.customView];
         w = [item width];
-        h = NSHeight([item.customView frame]);
         [item.customView setFrame:NSMakeRect(x, y, w, h)];
         x += w + ITEM_MARGIN;
     }
