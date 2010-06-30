@@ -26,5 +26,7 @@
 - (NSImage *)documentViewImageWithCurrentAspectRatio;
 - (NSImage *)documentViewImageWithAspectRatio:(NSSize)size;
 
+- (NSImage *)entireDocumentImage;
+
 @property (nonatomic, readonly, retain) NSImage *documentViewImage;
 @end

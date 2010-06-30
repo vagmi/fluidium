@@ -309,6 +309,48 @@
 }
 
 
+- (NSImage *)entireDocumentImage {
+    NSView *docView = [[[self mainFrame] frameView] documentView];
+    
+    NSRect docFrame = [docView frame];
+    if (NSIsEmptyRect(docFrame)) {
+        return nil;
+    }
+    
+    NSRect imageFrame = docFrame;
+//    if (aspectRatio.width > aspectRatio.height) {
+//        ratio = aspectRatio.height / aspectRatio.width;
+//        imageFrame = NSMakeRect(0, 0, docFrame.size.width, floor(docFrame.size.width * ratio));
+//    } else {
+//        ratio = aspectRatio.width / aspectRatio.height;
+//        imageFrame = NSMakeRect(0, 0, floor(docFrame.size.height * ratio), docFrame.size.width);
+//    }
+    
+    NSBitmapImageRep *bitmap = [docView bitmapImageRepForCachingDisplayInRect:docFrame];
+    [docView cacheDisplayInRect:imageFrame toBitmapImageRep:bitmap];
+    
+    
+    ///////
+    CGImageRef cgImg = CGImageCreateWithImageInRect([bitmap CGImage], NSRectToCGRect(imageFrame));
+    bitmap = [[[NSBitmapImageRep alloc] initWithCGImage:cgImg] autorelease];
+    CGImageRelease(cgImg);
+    NSImage *result = [[[NSImage alloc] initWithSize:imageFrame.size] autorelease];
+    [result addRepresentation:bitmap];
+    //////
+    
+    return result;
+    
+    
+    //    NSLog(@"docFrame: %@", NSStringFromRect(docFrame));
+    //    NSLog(@"imageFrame: %@", NSStringFromRect(imageFrame));
+    //    
+    //    NSLog(@"bitmapSize: %@", NSStringFromSize([documentViewBitmap size]));
+    //    NSLog(@"imageSize: %@", NSStringFromSize([documentViewImage size]));
+    
+    //    [docView setNeedsDisplay:YES];
+}
+
+
 - (void)allowDocumentViewImageUpdate {
     documentViewImageNeedsUpdate = YES;
 }

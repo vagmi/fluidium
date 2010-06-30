@@ -132,12 +132,26 @@ static float minKnobWidth;
     [sBackgroundGradient drawInRect:bounds angle:isVertical ? 0 : 90];
     
     [sBorderColor setStroke];
+
+    CGPoint p1, p2;
     if (isVertical) {
-        [NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(0, bounds.size.height)];
+        p1 = CGPointZero;
+        p2 = CGPointMake(0, bounds.size.height);
+        //[NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(0, bounds.size.height)];
     } else {
-        [NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(bounds.size.width, 0)];
+        p1 = CGPointZero;
+        p2 = CGPointMake(bounds.size.width, 0);
+        //[NSBezierPath strokeLineFromPoint:NSMakePoint(0, 0) toPoint:NSMakePoint(bounds.size.width, 0)];
     }
 
+    CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+    
+    CGContextSetLineWidth(ctx, 1.0);
+    CGContextMoveToPoint(ctx, p1.x, p1.y);
+    CGContextAddLineToPoint(ctx, p2.x, p2.y);
+    CGContextClosePath(ctx);
+    CGContextStrokePath(ctx);
+    
     //[backgroundColor set];
 	//NSRectFill([self bounds]);
 	

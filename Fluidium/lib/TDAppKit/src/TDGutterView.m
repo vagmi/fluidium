@@ -54,13 +54,24 @@
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect rect = [self bounds];
     NSDrawWindowBackground(rect);
-    
-    CGFloat rectWidth = rect.size.width;
-    NSPoint p1 = NSMakePoint(rectWidth, 0);
-    NSPoint p2 = NSMakePoint(rectWidth, rect.size.height);
-    
+
+    // stroke vert line
     [borderColor set];
-    [NSBezierPath strokeLineFromPoint:p1 toPoint:p2];
+    CGFloat rectWidth = rect.size.width;
+    
+    CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+    CGPoint p1 = CGPointMake(rectWidth, 0);
+    CGPoint p2 = CGPointMake(rectWidth, rect.size.height);
+    
+    CGContextSetLineWidth(ctx, 1.0);
+    CGContextMoveToPoint(ctx, p1.x, p1.y);
+    CGContextAddLineToPoint(ctx, p2.x, p2.y);
+    CGContextClosePath(ctx);
+    CGContextStrokePath(ctx);
+    
+//    NSPoint p1 = NSMakePoint(rectWidth, 0);
+//    NSPoint p2 = NSMakePoint(rectWidth, rect.size.height);
+//    [NSBezierPath strokeLineFromPoint:p1 toPoint:p2];
     
     if (![lineNumberRects count]) {
         return;
