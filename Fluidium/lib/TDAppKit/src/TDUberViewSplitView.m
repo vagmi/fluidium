@@ -89,15 +89,20 @@
             
             NSRect borderRect = NSOffsetRect(divRect, -1, 0);
             borderRect.size.width += 2;
-            
-            [NSBezierPath strokeRect:borderRect];
+
+//            [NSBezierPath strokeRect:borderRect];
+            CGRect cgrect = NSRectToCGRect(borderRect);
+            CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+            CGContextStrokeRectWithWidth(ctx, cgrect, 1.0);
             
             // cover up rendering glitch
             borderRect = NSOffsetRect(divRect, -1, -.5);
             borderRect.size.width += 2;
             borderRect.size.height += 1;
             [[NSColor whiteColor] set];
-            [NSBezierPath strokeRect:borderRect];
+//            [NSBezierPath strokeRect:borderRect];
+            cgrect = NSRectToCGRect(borderRect);
+            CGContextStrokeRectWithWidth(ctx, cgrect, 1.0);
         }
     }
 }
@@ -130,29 +135,44 @@
     NSRect borderRect = NSOffsetRect(divRect, 0, -1);
     borderRect.size.height += 2;
     
-    NSBezierPath *path = [NSBezierPath bezierPath];
-    [path moveToPoint:NSMakePoint(NSMaxX(borderRect), NSMinY(borderRect))];
+//    NSBezierPath *path = [NSBezierPath bezierPath];
+    CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+    CGContextSetLineWidth(ctx, 1.0);
+
+//    [path moveToPoint:NSMakePoint(NSMaxX(borderRect), NSMinY(borderRect))];
+    CGContextMoveToPoint(ctx, NSMaxX(borderRect), NSMinY(borderRect));
     
     CGFloat topHeight = 0;
     BOOL isTopViewOpen = uberView.isTopViewOpen;
     if (isTopViewOpen) {
         topHeight = NSHeight([uberView.topView frame]);
-        [path lineToPoint:NSMakePoint(NSMaxX(borderRect), topHeight)];
-        [path moveToPoint:NSMakePoint(NSMaxX(borderRect), topHeight + divThickness)];
+//        [path lineToPoint:NSMakePoint(NSMaxX(borderRect), topHeight)];
+        CGContextAddLineToPoint(ctx, NSMaxX(borderRect), topHeight);
+
+//        [path moveToPoint:NSMakePoint(NSMaxX(borderRect), topHeight + divThickness)];
+        CGContextMoveToPoint(ctx, NSMaxX(borderRect), topHeight + divThickness);
     }
     
     if (uberView.isBottomViewOpen) {
         CGFloat y = topHeight + NSMaxY([uberView.midView frame]) + (isTopViewOpen ? divThickness : 0);
-        [path lineToPoint:NSMakePoint(NSMaxX(borderRect), y)];
-        [path moveToPoint:NSMakePoint(NSMaxX(borderRect), y + divThickness)];
+//        [path lineToPoint:NSMakePoint(NSMaxX(borderRect), y)];
+        CGContextAddLineToPoint(ctx, NSMaxX(borderRect), y);
+//        [path moveToPoint:NSMakePoint(NSMaxX(borderRect), y + divThickness)];
+        CGContextMoveToPoint(ctx, NSMaxX(borderRect), y + divThickness);
     }
     
-    [path lineToPoint:NSMakePoint(NSMaxX(borderRect), NSMaxY(borderRect))];
-    [path moveToPoint:NSMakePoint(NSMinX(borderRect), NSMaxY(borderRect))];
-    [path lineToPoint:NSMakePoint(NSMinX(borderRect), NSMinY(borderRect))];
+//    [path lineToPoint:NSMakePoint(NSMaxX(borderRect), NSMaxY(borderRect))];
+    CGContextAddLineToPoint(ctx, NSMaxX(borderRect), NSMaxY(borderRect));
+//    [path moveToPoint:NSMakePoint(NSMinX(borderRect), NSMaxY(borderRect))];
+    CGContextMoveToPoint(ctx, NSMinX(borderRect), NSMaxY(borderRect));
+//    [path lineToPoint:NSMakePoint(NSMinX(borderRect), NSMinY(borderRect))];
+    CGContextAddLineToPoint(ctx, NSMinX(borderRect), NSMinY(borderRect));
     
     [borderColor setStroke];
-    [path stroke];
+//    [path stroke];
+    
+    CGContextClosePath(ctx);
+    CGContextStrokePath(ctx);
 }
 
 
@@ -162,29 +182,42 @@
     NSRect borderRect = NSOffsetRect(divRect, 0, -1);
     borderRect.size.height += 2;
     
-    NSBezierPath *path = [NSBezierPath bezierPath];
-    [path moveToPoint:NSMakePoint(NSMinX(borderRect), NSMinY(borderRect))];
+//    NSBezierPath *path = [NSBezierPath bezierPath];
+    CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+    CGContextSetLineWidth(ctx, 1.0);
+
+//    [path moveToPoint:NSMakePoint(NSMinX(borderRect), NSMinY(borderRect))];
+    CGContextMoveToPoint(ctx, NSMinX(borderRect), NSMinY(borderRect));
     
     CGFloat topHeight = 0;
     BOOL isTopViewOpen = uberView.isTopViewOpen;
     if (isTopViewOpen) {
         topHeight = NSHeight([uberView.topView frame]);
-        [path lineToPoint:NSMakePoint(NSMinX(borderRect), topHeight)];
-        [path moveToPoint:NSMakePoint(NSMinX(borderRect), topHeight + divThickness)];
+//        [path lineToPoint:NSMakePoint(NSMinX(borderRect), topHeight)];
+        CGContextAddLineToPoint(ctx, NSMinX(borderRect), topHeight);
+//        [path moveToPoint:NSMakePoint(NSMinX(borderRect), topHeight + divThickness)];
+        CGContextMoveToPoint(ctx, NSMinX(borderRect), topHeight + divThickness);
     }
     
     if (uberView.isBottomViewOpen) {
         CGFloat y = topHeight + NSMaxY([uberView.midView frame]) + (isTopViewOpen ? divThickness : 0);
-        [path lineToPoint:NSMakePoint(NSMinX(borderRect), y)];
-        [path moveToPoint:NSMakePoint(NSMinX(borderRect), y + divThickness)];
+//        [path lineToPoint:NSMakePoint(NSMinX(borderRect), y)];
+        CGContextAddLineToPoint(ctx, NSMinX(borderRect), y);
+//        [path moveToPoint:NSMakePoint(NSMinX(borderRect), y + divThickness)];
+        CGContextMoveToPoint(ctx, NSMinX(borderRect), y + divThickness);
     }
     
-    [path lineToPoint:NSMakePoint(NSMinX(borderRect), NSMaxY(borderRect))];
-    [path moveToPoint:NSMakePoint(NSMaxX(borderRect), NSMaxY(borderRect))];
-    [path lineToPoint:NSMakePoint(NSMaxX(borderRect), NSMinY(borderRect))];
+//    [path lineToPoint:NSMakePoint(NSMinX(borderRect), NSMaxY(borderRect))];
+    CGContextAddLineToPoint(ctx, NSMinX(borderRect), NSMaxY(borderRect));
+//    [path moveToPoint:NSMakePoint(NSMaxX(borderRect), NSMaxY(borderRect))];
+    CGContextMoveToPoint(ctx, NSMaxX(borderRect), NSMaxY(borderRect));
+//    [path lineToPoint:NSMakePoint(NSMaxX(borderRect), NSMinY(borderRect))];
+    CGContextAddLineToPoint(ctx, NSMaxX(borderRect), NSMinY(borderRect));
     
     [borderColor setStroke];
-    [path stroke];
+//    [path stroke];
+    CGContextClosePath(ctx);
+    CGContextStrokePath(ctx);
 }
 
 @synthesize uberView;
