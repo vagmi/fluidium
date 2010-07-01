@@ -108,7 +108,7 @@
         [self webGoBack:nil];
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberCantGoBack];
-        [cmd setScriptErrorString:@"The selected tab cannot currently go back."];
+        [cmd setScriptErrorString:NSLocalizedString(@"The selected tab cannot currently go back.", @"")];
     }
 
     return nil;
@@ -121,7 +121,7 @@
         [self webGoForward:nil];
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberCantGoForward];
-        [cmd setScriptErrorString:@"The selected tab cannot currently go forward."];
+        [cmd setScriptErrorString:NSLocalizedString(@"The selected tab cannot currently go forward.", @"")];
     }
     
     return nil;
@@ -134,7 +134,7 @@
         [self webReload:nil];
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberCantReload];
-        [cmd setScriptErrorString:@"The selected tab cannot currently reload."];
+        [cmd setScriptErrorString:NSLocalizedString(@"The selected tab cannot currently reload.", @"")];
     }
     
     return nil;
@@ -198,7 +198,7 @@
             result = [result substringFromIndex:[prefix length]];
         }
         [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
-        NSString *msg = @"JavaScript encountered a fatal error";
+        NSString *msg = NSLocalizedString(@"JavaScript encountered a fatal error", @"");
         if (result) {
             msg = [msg stringByAppendingFormat:@":\n\n'%@'", result];
         }
@@ -231,7 +231,7 @@
     
     if (![anchorEls count]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find link element with args: %@", args]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find link element with args: %@", @""), args]];
         return nil;
     }
     
@@ -260,7 +260,7 @@
     NSDictionary *args = [cmd arguments];
     if (![args count]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
-        [cmd setScriptErrorString:@"The Click HTML Button Command requires an element specifier."];
+        [cmd setScriptErrorString:NSLocalizedString(@"The Click HTML Button Command requires an element specifier.", @"")];
         return nil;        
     }
     
@@ -306,7 +306,7 @@
     }
     
     [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-    [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find button element with args: %@", args]];
+    [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find button element with args: %@", @""), args]];
     return nil;
 }
 
@@ -372,7 +372,7 @@
         if ([els count]) foundEl = [els objectAtIndex:0];
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
-        [cmd setScriptErrorString:@"The Set HTML Element Value Command requires an element specifier."];
+        [cmd setScriptErrorString:NSLocalizedString(@"The Set HTML Element Value Command requires an element specifier.", @"")];
         return nil;
     }
     
@@ -380,7 +380,7 @@
         [self setValue:value forElement:foundEl];
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find element with args: %@", args]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find element with args: %@", @""), args]];
         return nil;
     }
 
@@ -420,7 +420,7 @@
     
     if (!formEl) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find form element with specifier: %@", name]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find form element with specifier: %@", @""), name]];
         return nil;
     }
     
@@ -432,7 +432,7 @@
         DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
         if (!el) {
             [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-            [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find input element with name: %@ in form named : %@", name, elName]];
+            [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find input element with name: %@ in form named : %@", @""), name, elName]];
             return nil;
         }
         [self setValue:value forElement:el];
@@ -512,7 +512,7 @@
     NSString *aTitle = [[cmd arguments] objectForKey:@"titleEquals"];
     if (![self titleEquals:aTitle]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage title does not equal «%@»", [webView mainFrameURL], aTitle]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage title does not equal «%@»", @""), [webView mainFrameURL], aTitle]];
         return nil;
     }
     
@@ -524,7 +524,7 @@
     NSString *identifier = [[cmd arguments] objectForKey:@"hasElementWithId"];
     if (![self hasElementWithId:identifier]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage does not have element with id «%@»", [webView mainFrameURL], identifier]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage does not have element with id «%@»", @""), [webView mainFrameURL], identifier]];
         return nil;
     }
 
@@ -536,7 +536,7 @@
     NSString *identifier = [[cmd arguments] objectForKey:@"doesntHaveElementWithId"];
     if ([self hasElementWithId:identifier]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage has element with id «%@»", [webView mainFrameURL], identifier]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage has element with id «%@»", @""), [webView mainFrameURL], identifier]];
         return nil;
     }
 
@@ -548,7 +548,7 @@
     NSString *text = [[cmd arguments] objectForKey:@"containsText"];
     if (![self containsText:text]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain text «%@»", [webView mainFrameURL], text]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage doesn't contain text «%@»", @""), [webView mainFrameURL], text]];
         return nil;
     }
 
@@ -560,7 +560,7 @@
     NSString *text = [[cmd arguments] objectForKey:@"doesntContainText"];
     if ([self containsText:text]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains text «%@»", [webView mainFrameURL], text]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage contains text «%@»", @""), [webView mainFrameURL], text]];
         return nil;
     }
 
@@ -572,7 +572,7 @@
     NSString *HTML = [[cmd arguments] objectForKey:@"containsHTML"];
     if (![self containsHTML:HTML]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain HTML «%@»", [webView mainFrameURL], HTML]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage doesn't contain HTML «%@»", @""), [webView mainFrameURL], HTML]];
         return nil;
     }
 
@@ -584,7 +584,7 @@
     NSString *HTML = [[cmd arguments] objectForKey:@"doesntContainHTML"];
     if ([self containsHTML:HTML]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains HTML «%@»", [webView mainFrameURL], HTML]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage contains HTML «%@»", @""), [webView mainFrameURL], HTML]];
         return nil;
     }
     
@@ -596,7 +596,7 @@
     NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsTrue"];
     if (![self javaScriptEvalsTrue:script]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate true «%@»", [webView mainFrameURL], script]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nJavaScript doesn't evaluate true \n\n«%@»", @""), [webView mainFrameURL], script]];
         return nil;
     }
     
@@ -608,7 +608,7 @@
     NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsFalse"];
     if ([self javaScriptEvalsTrue:script]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate false «%@»", [webView mainFrameURL], script]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nJavaScript doesn't evaluate false \n\n«%@»", @""), [webView mainFrameURL], script]];
         return nil;
     }
     
@@ -636,7 +636,7 @@
     NSString *msg = [[n userInfo] objectForKey:FUErrorDescriptionKey];
 
     [suspendedCommand setScriptErrorNumber:kFUScriptErrorNumberLoadFailed];    
-    [suspendedCommand setScriptErrorString:[NSString stringWithFormat:@"Failed to load URL. Reason: %@", msg]];
+    [suspendedCommand setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Failed to load URL. Reason: %@", @""), msg]];
     
     [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
 }
@@ -677,7 +677,8 @@
     DOMDocument *d = [webView mainFrameDocument];
     if (![d isKindOfClass:[DOMHTMLDocument class]]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberNotHTMLDocument];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"Can only run script on HTML documents. this document is %@", d]];
+        NSString *s = [NSString stringWithFormat:NSLocalizedString(@"Can only run script on HTML documents. This document is %@.", @""), d ? [d description] : NSLocalizedString(@"empty", @"")];
+        [cmd setScriptErrorString:s];
         return NO;
     } else {
         return YES;
