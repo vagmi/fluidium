@@ -23,6 +23,17 @@ extern NSString *const kFUJavaScriptSchemePrefix;
 
 extern NSString *const kFUAboutBlank;
 
+//extern NSInteger kFUScriptErrorNumberTimeout;
+extern NSInteger const kFUScriptErrorNumberInvalidArgument;
+extern NSInteger const kFUScriptErrorNumberCantGoBack;
+extern NSInteger const kFUScriptErrorNumberCantGoForward;
+extern NSInteger const kFUScriptErrorNumberCantReload;
+extern NSInteger const kFUScriptErrorNumberJavaScriptError;
+extern NSInteger const kFUScriptErrorNumberAssertionFailed;
+extern NSInteger const kFUScriptErrorNumberElementNotFound;
+extern NSInteger const kFUScriptErrorNumberLoadFailed;
+extern NSInteger const kFUScriptErrorNumberNotHTMLDocument;
+
 BOOL FUIsCommandKeyPressed(NSInteger modifierFlags);
 BOOL FUIsShiftKeyPressed(NSInteger modifierFlags);
 BOOL FUIsOptionKeyPressed(NSInteger modifierFlags);

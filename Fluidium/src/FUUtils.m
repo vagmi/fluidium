@@ -24,6 +24,17 @@ NSString *const kFUJavaScriptSchemePrefix = @"javascript:";
 
 NSString *const kFUAboutBlank = @"about:blank";
 
+//NSInteger kFUScriptErrorNumberTimeout = 1000;
+NSInteger const kFUScriptErrorNumberInvalidArgument = 1001;
+NSInteger const kFUScriptErrorNumberCantGoBack = 1002;
+NSInteger const kFUScriptErrorNumberCantGoForward = 1003;
+NSInteger const kFUScriptErrorNumberCantReload = 1004;
+NSInteger const kFUScriptErrorNumberJavaScriptError = 1005;
+NSInteger const kFUScriptErrorNumberAssertionFailed = 1006;
+NSInteger const kFUScriptErrorNumberElementNotFound = 1007;
+NSInteger const kFUScriptErrorNumberLoadFailed = 1008;
+NSInteger const kFUScriptErrorNumberNotHTMLDocument = 1009;
+
 BOOL FUIsCommandKeyPressed(NSInteger modifierFlags) {
     NSInteger commandKeyWasPressed = (NSCommandKeyMask & modifierFlags);
     return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
