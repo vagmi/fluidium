@@ -14,6 +14,16 @@
 
 #import "FUTabController.h"
 
+//extern NSInteger FUScriptErrorNumberTimeout;
+extern NSInteger FUScriptErrorNumberCantGoBack;
+extern NSInteger FUScriptErrorNumberCantGoForward;
+extern NSInteger FUScriptErrorNumberCantReload;
+extern NSInteger FUScriptErrorNumberJavaScriptError;
+extern NSInteger FUScriptErrorNumberAssertionFailed;
+extern NSInteger FUScriptErrorNumberElementNotFound;
+extern NSInteger FUScriptErrorNumberLoadFailed;
+extern NSInteger FUScriptErrorNumberNotHTMLDocument;
+
 @interface FUTabController (Scripting)
 
 // Properties

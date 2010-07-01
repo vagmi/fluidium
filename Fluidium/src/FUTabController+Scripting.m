@@ -18,6 +18,16 @@
 #import "FUNotifications.h"
 #import <WebKit/WebKit.h>
 
+//NSInteger FUScriptErrorNumberTimeout = 1001;
+NSInteger FUScriptErrorNumberCantGoBack = 1002;
+NSInteger FUScriptErrorNumberCantGoForward = 1003;
+NSInteger FUScriptErrorNumberCantReload = 1004;
+NSInteger FUScriptErrorNumberJavaScriptError = 1005;
+NSInteger FUScriptErrorNumberAssertionFailed = 1006;
+NSInteger FUScriptErrorNumberElementNotFound = 1007;
+NSInteger FUScriptErrorNumberLoadFailed = 1008;
+NSInteger FUScriptErrorNumberNotHTMLDocument = 1009;
+
 #define DEFAULT_DELAY 1.0
 
 // wait for condition
@@ -106,7 +116,7 @@
         [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
         [self webGoBack:nil];
     } else {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberCantGoBack];
         [cmd setScriptErrorString:@"The selected tab cannot currently go back."];
     }
 
@@ -119,7 +129,7 @@
         [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
         [self webGoForward:nil];
     } else {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberCantGoForward];
         [cmd setScriptErrorString:@"The selected tab cannot currently go forward."];
     }
     
@@ -132,7 +142,7 @@
         [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
         [self webReload:nil];
     } else {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberCantReload];
         [cmd setScriptErrorString:@"The selected tab cannot currently reload."];
     }
     
@@ -196,7 +206,7 @@
         if (hasPrefix) {
             result = [result substringFromIndex:[prefix length]];
         }
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberJavaScriptError];
         NSString *msg = @"JavaScript encountered a fatal error";
         if (result) {
             msg = [msg stringByAppendingFormat:@":\n\n'%@'", result];
@@ -230,8 +240,8 @@
     }
     
     if (![anchorEls count]) {
-        [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find link element with args: %@", args]];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find link element with args: %@", args]];
         return nil;
     }
     
@@ -266,8 +276,10 @@
             NSString *type = [[el getAttribute:@"type"] lowercaseString];
             if ([type isEqualToString:@"button"] || [type isEqualToString:@"submit"]) {
                 
+                [self suspendCommand:cmd];
+                [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
                 // register for next page load
-                [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+                //[self suspendExecutionUntilProgressFinishedWithCommand:cmd];
                 
                 // click
                 [inputEl click]; 
@@ -298,8 +310,8 @@
         }
     }
     
-    [cmd setScriptErrorNumber:47];
-    [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find button element with args: %@", args]];
+    [cmd setScriptErrorNumber:FUScriptErrorNumberElementNotFound];
+    [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find button element with args: %@", args]];
     return nil;
 }
 
@@ -404,8 +416,8 @@
     }
     
     if (!formEl) {
-        [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find form with specifier: %@", name]];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find form element with specifier: %@", name]];
         return nil;
     }
     
@@ -416,8 +428,8 @@
         
         DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
         if (!el) {
-            [cmd setScriptErrorNumber:47];
-            [cmd setScriptErrorString:[NSString stringWithFormat:@"could not find input element with name: %@ in form named : %@", name, elName]];
+            [cmd setScriptErrorNumber:FUScriptErrorNumberElementNotFound];
+            [cmd setScriptErrorString:[NSString stringWithFormat:@"Could not find input element with name: %@ in form named : %@", name, elName]];
             return nil;
         }
         [self setValue:value forElement:el];
@@ -496,7 +508,7 @@
 - (id)handleAssertTitleEqualsCommand:(NSScriptCommand *)cmd {
     NSString *aTitle = [[cmd arguments] objectForKey:@"titleEquals"];
     if (![self titleEquals:aTitle]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage title does not equal «%@»", [webView mainFrameURL], aTitle]];
         return nil;
     }
@@ -508,7 +520,7 @@
 - (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd {
     NSString *identifier = [[cmd arguments] objectForKey:@"hasElementWithId"];
     if (![self hasElementWithId:identifier]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage does not have element with id «%@»", [webView mainFrameURL], identifier]];
         return nil;
     }
@@ -520,7 +532,7 @@
 - (id)handleAssertDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd {
     NSString *identifier = [[cmd arguments] objectForKey:@"doesntHaveElementWithId"];
     if ([self hasElementWithId:identifier]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage has element with id «%@»", [webView mainFrameURL], identifier]];
         return nil;
     }
@@ -532,7 +544,7 @@
 - (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd {
     NSString *text = [[cmd arguments] objectForKey:@"containsText"];
     if (![self containsText:text]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain text «%@»", [webView mainFrameURL], text]];
         return nil;
     }
@@ -544,7 +556,7 @@
 - (id)handleAssertDoesntContainTextCommand:(NSScriptCommand *)cmd {
     NSString *text = [[cmd arguments] objectForKey:@"doesntContainText"];
     if ([self containsText:text]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains text «%@»", [webView mainFrameURL], text]];
         return nil;
     }
@@ -556,7 +568,7 @@
 - (id)handleAssertContainsHTMLCommand:(NSScriptCommand *)cmd {
     NSString *HTML = [[cmd arguments] objectForKey:@"containsHTML"];
     if (![self containsHTML:HTML]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage doesn't contain HTML «%@»", [webView mainFrameURL], HTML]];
         return nil;
     }
@@ -568,7 +580,7 @@
 - (id)handleAssertDoesntContainHTMLCommand:(NSScriptCommand *)cmd {    
     NSString *HTML = [[cmd arguments] objectForKey:@"doesntContainHTML"];
     if ([self containsHTML:HTML]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \npage contains HTML «%@»", [webView mainFrameURL], HTML]];
         return nil;
     }
@@ -580,7 +592,7 @@
 - (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd {
     NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsTrue"];
     if (![self javaScriptEvalsTrue:script]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate true «%@»", [webView mainFrameURL], script]];
         return nil;
     }
@@ -592,7 +604,7 @@
 - (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd {
     NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsFalse"];
     if ([self javaScriptEvalsTrue:script]) {
-        [cmd setScriptErrorNumber:47];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:@"assertion failed in page «%@»: \nJavaScript doesn't evaluate false «%@»", [webView mainFrameURL], script]];
         return nil;
     }
@@ -620,7 +632,7 @@
     
     NSString *msg = [[n userInfo] objectForKey:FUErrorDescriptionKey];
 
-    [suspendedCommand setScriptErrorNumber:47];    
+    [suspendedCommand setScriptErrorNumber:FUScriptErrorNumberLoadFailed];    
     [suspendedCommand setScriptErrorString:[NSString stringWithFormat:@"Failed to load URL. Reason: %@", msg]];
     
     [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
@@ -661,8 +673,8 @@
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd {
     DOMDocument *d = [webView mainFrameDocument];
     if (![d isKindOfClass:[DOMHTMLDocument class]]) {
-        [cmd setScriptErrorNumber:47];
-        [cmd setScriptErrorString:[NSString stringWithFormat:@"can only run script on HTML documents. this document is %@", d]];
+        [cmd setScriptErrorNumber:FUScriptErrorNumberNotHTMLDocument];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"Can only run script on HTML documents. this document is %@", d]];
         return NO;
     } else {
         return YES;
@@ -722,14 +734,34 @@
                     }
                 }
             } else {
-                // this is a hack cuz sometimes the xpath `(//form)[0]` doesnt work. dunno why
-                NSString *prefix = @"(//form)[";
-                if ([xpath hasPrefix:prefix] && [xpath hasSuffix:@"]"]) {
+                // this is a hack cuz sometimes the xpath `(//form)[1]` doesnt work. dunno why
+                SEL sel = NULL;
+                NSString *formsPrefix = @"(//form)[";
+                NSString *linksPrefix = @"(//*[href])[";
+                //NSString *anchorsPrefix = @"(//a)[";
+                //NSString *imagesPrefix = @"(//img)[";
+                
+                NSString *prefix = nil;
+                if ([xpath hasPrefix:formsPrefix]) {
+                    prefix = formsPrefix;
+                    sel = @selector(forms);
+                } else if ([xpath hasPrefix:linksPrefix]) {
+                    prefix = linksPrefix;
+                    sel = @selector(links);
+//                } else if ([xpath hasPrefix:anchorsPrefix]) {
+//                    prefix = anchorsPrefix;
+//                    sel = @selector(anchors);
+//                } else if ([xpath hasPrefix:imagesPrefix]) {
+//                    prefix = imagesPrefix;
+//                    sel = @selector(images);
+                }
+
+                if (prefix && [xpath hasSuffix:@"]"]) {
                     NSScanner *scanner = [NSScanner scannerWithString:xpath];
                     if ([scanner scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:nil]) {
                         NSInteger idx;
                         if ([scanner scanInteger:&idx]) {
-                            [result addObject:[[(DOMHTMLDocument *)doc forms] item:idx]];
+                            [result addObject:[[(DOMHTMLDocument *)doc performSelector:sel] item:idx]];
                         }
                     }
                 }
@@ -909,7 +941,7 @@
     NSDate *startDate = [info objectForKey:KEY_START_DATE];
     NSAssert(startDate, @"should be a date");
     if (fabs([startDate timeIntervalSinceNow]) > timeout) {
-//        [cmd setScriptErrorNumber:47];
+//        [cmd setScriptErrorNumber:FUScriptErrorNumberTimeout];
 //        [cmd setScriptErrorString:[NSString stringWithFormat:@"conditions were not met before tiemout: «%@» in page : «%@»", args, [webView mainFrameURL]]];
         done = YES;
     } else {
