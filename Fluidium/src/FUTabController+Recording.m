@@ -118,7 +118,7 @@ typedef enum {
 
 
 - (void)script_loadURL:(NSString *)s {
-    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Load'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithFluidiumEventID:'Load'];
     NSAppleEventDescriptor *tcDesc = [[self objectSpecifier] descriptor];
     [aevt setDescriptor:[NSAppleEventDescriptor descriptorWithString:s] forKeyword:keyDirectObject];
     [aevt setParamDescriptor:tcDesc forKeyword:'tPrm'];
@@ -127,7 +127,7 @@ typedef enum {
 
 
 - (void)script_submitForm:(NSURLRequest *)req withWebActionInfo:(NSDictionary *)info {
-    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventForFluidiumEventID:'Sbmt'];
+    NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithFluidiumEventID:'Sbmt'];
     
     NSString *xpath = [self XPathForFormInWebActionInfo:info];
     if ([xpath length]) {

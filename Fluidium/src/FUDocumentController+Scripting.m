@@ -59,7 +59,7 @@
 // TODO do these two methods need to exist?
 - (IBAction)script_newTab:(id)sender {
     NSAppleEventDescriptor *aevt = [NSAppleEventDescriptor appleEventWithClass:'core' eventID:'crel'];
-    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fTab'];
+    NSAppleEventDescriptor *cls = [NSAppleEventDescriptor descriptorWithTypeCode:'fDoc'];
     [aevt setParamDescriptor:cls forKeyword:'kocl'];
     [aevt sendToOwnProcessNoReply]; 
 }

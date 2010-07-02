@@ -616,7 +616,9 @@
     FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
     [self insertTabController:tc atIndex:i];
     if (select) {
-        [self selectTabController:tc]; // !! this is doing nothing currently, cuz NSTabView auto selects added tabs (line above)
+        if ([self selectedTabController] != tc) {
+            [self selectTabController:tc]; // !! this is doing nothing currently, cuz NSTabView auto selects added tabs (line above)
+        }
 		[[self window] makeFirstResponder:locationComboBox];
     }
     return tc;
@@ -1141,9 +1143,12 @@
     FUTabController *tc = [tabItem identifier];
     
     if ([tabControllers containsObject:tc]) { // if the tab was just dragged to this tabBar from another window, we will not have created a tabController yet
-
+        
+        FUTabController *oldtc = [self selectedTabController];
         self.selectedTabController = tc;
-        [self selectTabController:tc]; // this fires apple event
+        if (oldtc && oldtc != tc) { // this check prevents double apple event firing
+            [self selectTabController:tc]; // this fires apple event
+        }
         [self startObservingTabController:tc];
         [self clearProgress];
 
