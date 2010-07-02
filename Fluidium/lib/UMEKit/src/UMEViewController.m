@@ -71,7 +71,7 @@
 
     } else {
         self.view = [[[UMEFlippedView alloc] initWithFrame:NSMakeRect(0, 0, MAXFLOAT, MAXFLOAT)] autorelease];
-        [self.view setWantsLayer:YES];
+        [self.view setWantsLayer:NO];
     }
     
     [self viewDidLoad];

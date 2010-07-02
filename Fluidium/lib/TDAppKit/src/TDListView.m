@@ -272,7 +272,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSInteger i = [self indexForItemAtPoint:p];
 
     // handle double click
-    if ([evt clickCount] > 1) {
+    if ([evt clickCount] % 2 == 0) {
         if (NSNotFound == i) {
             if (delegate && [delegate respondsToSelector:@selector(listViewEmptyAreaWasDoubleClicked:)]) {
                 [delegate listViewEmptyAreaWasDoubleClicked:self];
