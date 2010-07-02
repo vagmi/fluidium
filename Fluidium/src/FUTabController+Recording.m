@@ -97,7 +97,7 @@ typedef enum {
                     submittingFromScript = NO;
                     [listener use];
                 } else {
-                    [listener use   ];
+                    [listener use];
                     [self script_submitForm:req withWebActionInfo:info];
                 }
                 break;
@@ -135,7 +135,7 @@ typedef enum {
     }
     
     NSDictionary *formValues = [req formValues];
-    if (formValues) {
+    if ([formValues count]) {
         NSAppleEventDescriptor *formValuesDesc = [NSAppleEventDescriptor descriptorWithDictionary:formValues];
         [aevt setParamDescriptor:formValuesDesc forKeyword:'Vals'];
     }
