@@ -344,7 +344,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [pboard declareTypes:[NSArray arrayWithObject:TDListItemPboardType] owner:self];
     
     canDrag = NO;
-    if (delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
+    if (NSNotFound != draggingIndex && delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
         canDrag = [delegate listView:self writeItemAtIndex:draggingIndex toPasteboard:pboard];
     }
     if (!canDrag) return;
