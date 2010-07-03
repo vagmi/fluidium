@@ -13,8 +13,10 @@
 
 //@interface TDScrollView : WebDynamicScrollBarsView {
 @interface TDScrollView : NSScrollView {
+    BOOL suppressScrolling;
 //    TDClipView *contentView;
 }
 
 //@property (nonatomic, retain) TDClipView *contentView;
+@property (assign) BOOL suppressScrolling;
 @end

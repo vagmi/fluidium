@@ -33,6 +33,13 @@
 }
 
 
+- (void)scrollClipView:(NSClipView *)cv toPoint:(NSPoint)newOrigin {
+	if (self.suppressScrolling) {
+		newOrigin.y = NSMinY([cv bounds]);
+    }
+	[super scrollClipView:cv toPoint:newOrigin];
+}
+
 //- (NSClipView *)contentView {
 //    if (!contentView) {
 //        self.contentView = [[[TDClipView alloc] initWithFrame:NSZeroRect] autorelease];
@@ -41,4 +48,5 @@
 //}
 
 //@synthesize contentView;
+@synthesize suppressScrolling;
 @end

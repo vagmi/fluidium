@@ -14,6 +14,7 @@
 
 #import <TDAppKit/TDListView.h>
 #import <TDAppKit/TDListItem.h>
+#import <TDAppKit/TDScrollView.h>
 #import "TDListItemQueue.h"
 
 #define EXCEPTION_NAME @"TDListViewDataSourceException"
@@ -463,6 +464,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {
+    [(id)scrollView setSuppressScrolling:YES];
+    
     delegateRespondsToValidateDrop = delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)];
     
     if (!itemFrames) {
@@ -491,6 +494,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         return NSDragOperationNone;
     }
     
+    [(id)scrollView setSuppressScrolling:YES];
+
     NSDragOperation dragOp = NSDragOperationNone;
     BOOL isDraggingListItem = (draggingVisibleIndex != NSNotFound || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
     
@@ -560,6 +565,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     //}
     
     return dragOp;
+}
+
+
+- (void)draggingExited:(id <NSDraggingInfo>)dragInfo {
+    [super draggingExited:dragInfo];
+    [(id)scrollView setSuppressScrolling:NO];
 }
 
 
@@ -782,6 +793,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)draggingSourceDragDidEnd {
+    [(id)scrollView setSuppressScrolling:NO];
+
     draggingVisibleIndex = NSNotFound;
     draggingIndex = NSNotFound;
     self.lastMouseDownEvent = nil;
