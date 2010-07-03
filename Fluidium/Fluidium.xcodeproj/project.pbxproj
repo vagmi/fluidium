@@ -57,6 +57,7 @@
 			dependencies = (
 				D3C2E4FE11D7EF9C00106E86 /* PBXTargetDependency */,
 				D3C2E4F011D7EF1900106E86 /* PBXTargetDependency */,
+				D309FCD911DFE32000C30AA8 /* PBXTargetDependency */,
 			);
 			name = "Fake PlugIns";
 			productName = PlugIns;
@@ -493,6 +494,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D309FCD811DFE32000C30AA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* TabsPlugIn */;
+			remoteInfo = TabsPlugIn;
+		};
 		D31CC0C910EFCB590013347D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
@@ -2713,6 +2721,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D309FCD911DFE32000C30AA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TabsPlugIn;
+			targetProxy = D309FCD811DFE32000C30AA8 /* PBXContainerItemProxy */;
+		};
 		D31CC0CE10EFCB770013347D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TDAppKit;
