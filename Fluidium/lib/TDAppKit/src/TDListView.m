@@ -484,7 +484,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             return NSDragOperationMove;
         }
     }
-
+    
     return NSDragOperationNone;
 }
 
@@ -715,9 +715,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [[NSAnimationContext currentContext] setDuration:.05];
     
     NSRect startFrame = [[self itemAtVisibleIndex:0] frame];
-    CGFloat extent = self.isLandscape ? NSMinX(startFrame) : NSMinY(startFrame);
+    CGFloat extent = self.isPortrait ? NSMinY(startFrame) : NSMinX(startFrame);
     
-    CGFloat offset = self.isLandscape ? NSMinX([self visibleRect]) : NSMinY([self visibleRect]);
+    CGFloat offset = self.isPortrait ? NSMinY([self visibleRect]) : NSMinX([self visibleRect]);
     BOOL scrolled = (offset > 0);
     if (!scrolled) {
         extent = extent > 0 ? 0 : extent;
@@ -726,10 +726,10 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     for ( ; i <= itemCount; i++) {
         item = [self itemAtVisibleIndex:i];
         NSRect frame = [item frame];
-        if (self.isLandscape) {
-            frame.origin.x = extent;
-        } else {
+        if (self.isPortrait) {
             frame.origin.y = extent;
+        } else {
+            frame.origin.x = extent;
         }
         
         [item setHidden:i == draggingVisibleIndex];
