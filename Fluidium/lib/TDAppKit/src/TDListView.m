@@ -471,11 +471,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     if (!itemFrames) {
         self.itemFrames = [NSMutableArray arrayWithCapacity:[items count]];
-        //CGFloat delta = self.isPortrait ? NSMinY([self visibleRect]) : NSMinX([self visibleRect]);
         for (TDListItem *item in items) {
-            NSRect r = [item frame];
-            //r.origin.y -= delta;
-            [itemFrames addObject:[NSValue valueWithRect:r]];
+            [itemFrames addObject:[NSValue valueWithRect:[item frame]]];
         }
     }
     
@@ -498,7 +495,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         return NSDragOperationNone;
     }
     
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSDragOperation dragOp = NSDragOperationNone;
     BOOL isDraggingListItem = (draggingVisibleIndex != NSNotFound || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
     
@@ -573,7 +569,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
     if (dropIndex > draggingIndex) {
         dropIndex--;
-        //dropVisibleIndex--;
+        dropVisibleIndex--;
     }
     self.itemFrames = nil;
     
@@ -741,7 +737,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         
         [item setHidden:i == draggingVisibleIndex];
         
-        NSLog(@"dropVisibleIndex: %d", dropVisibleIndex);
         if (i >= dropVisibleIndex) {
 //        if (i >= dropIndex) {
             if (self.isPortrait) {
