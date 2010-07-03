@@ -334,6 +334,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
                 }
                 draggingIndex = i;
                 draggingVisibleIndex = visibleIndex;
+                //draggingVisibleIndex -= [[items objectAtIndex:0] index];
                 [self mouseDragged:evt];
                 withinDragRadius = NO;
                 break;
@@ -499,6 +500,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
+    //locInList.y -= NSMinY([self visibleRect]);
     
     if (isDraggingListItem) {
         dropIndex = [self indexForItemWhileDraggingAtPoint:locInList];
@@ -514,6 +516,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     TDListItem *item = [self itemAtIndex:dropIndex];
     if (item) {
         dropVisibleIndex = [items indexOfObject:item];
+        dropVisibleIndex += [[items objectAtIndex:0] index];
     } else {
         dropVisibleIndex = NSNotFound;
     }
@@ -590,9 +593,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark Private
 
 // TODO remove
-- (NSRect)visibleRect {
-    return [[self superview] bounds];
-}
+//- (NSRect)visibleRect {
+//    return [[self superview] bounds];
+//}
 
 
 - (void)layoutItems {
@@ -699,6 +702,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
+    //draggingVisibleIndex - [[items objectAtIndex:0] index];
     TDListItem *draggingItem = [self itemAtVisibleIndex:draggingVisibleIndex];
     CGFloat draggingExtent = 0;
     if (draggingItem) {
@@ -710,7 +714,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:.05];
     
-    CGFloat extent = 0;
+    NSRect startFrame = [[self itemAtVisibleIndex:0] frame];
+    CGFloat extent = self.isLandscape ? NSMinX(startFrame) : NSMinY(startFrame);
+    extent = extent > 0 ? 0 : extent;
     NSUInteger i = 0;
     for ( ; i <= itemCount; i++) {
         item = [self itemAtVisibleIndex:i];
@@ -743,18 +749,21 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (NSUInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
-    NSInteger i = 0;
-    for (NSValue *v in itemFrames) {
-        if (NSPointInRect(p, [v rectValue])) {
-            if (i >= draggingVisibleIndex) {
-                //return i + 1;
-                return [[items objectAtIndex:i] index] + 1;
-            } else {
-                //return i;
-                return [[items objectAtIndex:i] index];
+    if ([itemFrames count]) {
+        p.y += NSMinY([self visibleRect]) - NSMinY([[itemFrames objectAtIndex:0] rectValue]);
+        NSInteger i = 0;
+        for (NSValue *v in itemFrames) {
+            if (NSPointInRect(p, [v rectValue])) {
+                if (i >= draggingVisibleIndex) {
+                    //return i + 1;
+                    return [[items objectAtIndex:i] index] + 1;
+                } else {
+                    //return i;
+                    return [[items objectAtIndex:i] index];
+                }
             }
+            i++;
         }
-        i++;
     }
     return NSNotFound;
 }
