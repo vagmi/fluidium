@@ -26,6 +26,10 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 + (void)runPoofAtPoint:(NSPoint)p;
 @end
 
+@interface TDListItem ()
+@property (nonatomic, assign) NSUInteger index;
+@end
+
 @interface TDListView ()
 - (void)setUp;
 - (void)layoutItems;
@@ -438,7 +442,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
     // get frame of visible portion of list view in window coords
     NSRect dropZone = [self convertRect:[self visibleRect] toView:nil];
-    
+
     if (!NSPointInRect(endPointInWin, dropZone)) {
         if (delegate && [delegate respondsToSelector:@selector(listView:shouldRunPoofAt:forRemovedItemAtIndex:)]) {
             if ([delegate listView:self shouldRunPoofAt:endPointInScreen forRemovedItemAtIndex:draggingVisibleIndex]) {
@@ -631,6 +635,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             if (!item) {
                 [NSException raise:EXCEPTION_NAME format:@"nil list item view returned for index: %d by: %@", i, dataSource];
             }
+            item.index = i;
             [item setFrame:NSMakeRect(x, y, w, h)];
             [item setHidden:NO];
             [self addSubview:item];
