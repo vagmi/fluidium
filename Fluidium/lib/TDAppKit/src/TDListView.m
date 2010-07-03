@@ -713,7 +713,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     if (!scrolled) {
         extent = extent > 0 ? 0 : extent;
     } else {
-//        CGFloat firstExtent = self.isPortrait ? NSHeight(startFrame) : NSWidth(startFrame);
+//        CGFloat firstExtent = self.isPortrait ? NSMinY(startFrame) + NSHeight(startFrame) : NSMinX(startFrame) + NSWidth(startFrame);
 //        extent = extent > firstExtent ? firstExtent : extent;
     }
     NSInteger i = 0;
