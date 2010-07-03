@@ -31,9 +31,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)layoutItems;
 - (void)layoutItemsWhileDragging;
 - (NSUInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p;
+- (TDListItem *)itemAtVisibleIndex:(NSUInteger)i;
+- (NSUInteger)visibleIndexForItemAtPoint:(NSPoint)p;
 - (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i;
 - (void)draggingSourceDragDidEnd;
 - (void)unsuppressLayout;
+- (void)handleDoubleClickAtIndex:(NSUInteger)i;
 
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, retain) NSMutableArray *unusedItems;
@@ -99,7 +102,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     self.displaysClippedItems = YES;
     
-    draggingIndex = NSNotFound;
+    draggingVisibleIndex = NSNotFound;
     [self setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
     [self setDraggingSourceOperationMask:NSDragOperationNone forLocal:NO];    
 }
@@ -118,6 +121,20 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     TDListItem *item = [queue dequeueWithIdentifier:s];
     [item prepareForReuse];
     return item;
+}
+
+
+- (NSUInteger)visibleIndexForItemAtPoint:(NSPoint)p {
+    NSUInteger visibleIndex = 0;
+    NSUInteger i = 0;
+    for (TDListItem *item in items) {
+        if (NSPointInRect(p, [item frame])) {
+            visibleIndex = i;
+            break;
+        }
+        i++;
+    }
+    return visibleIndex;
 }
 
 
@@ -148,6 +165,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (TDListItem *)itemAtIndex:(NSUInteger)i {
+    return [dataSource listView:self itemAtIndex:i]; //[self itemAtVisibleIndex:i];
+}
+
+
+- (TDListItem *)itemAtVisibleIndex:(NSUInteger)i {
     if (i < 0 || i >= [items count]) return nil;
     
     return [items objectAtIndex:i];
@@ -269,19 +291,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)mouseDown:(NSEvent *)evt {
     NSPoint locInWin = [evt locationInWindow];
     NSPoint p = [self convertPoint:locInWin fromView:nil];
-    NSInteger i = [self indexForItemAtPoint:p];
+    NSUInteger i = [self indexForItemAtPoint:p];
+    //NSUInteger visibleIndex = [self visibleIndexForItemAtPoint:p];
 
     // handle double click
     if ([evt clickCount] % 2 == 0) {
-        if (NSNotFound == i) {
-            if (delegate && [delegate respondsToSelector:@selector(listViewEmptyAreaWasDoubleClicked:)]) {
-                [delegate listViewEmptyAreaWasDoubleClicked:self];
-            }
-        } else {
-            if (delegate && [delegate respondsToSelector:@selector(listView:itemWasDoubleClickedAtIndex:)]) {
-                [delegate listView:self itemWasDoubleClickedAtIndex:i];
-            }
-        }
+        [self handleDoubleClickAtIndex:i];
         return;
     }
     
@@ -290,6 +305,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     if (NSNotFound != i) {
         self.selectedItemIndex = i;
     }
+    
+    //NSLog(@"selcted index: %d", i);
     
     // this adds support for click-to-select-and-drag all in one click. 
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
@@ -307,7 +324,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
                     // still within drag radius tolerance. dont drag yet
                     break;
                 }
-                draggingIndex = i;
+                draggingVisibleIndex = i;
                 [self mouseDragged:evt];
                 withinDragRadius = NO;
                 break;
@@ -323,20 +340,33 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 }
 
 
+- (void)handleDoubleClickAtIndex:(NSUInteger)i {
+    if (NSNotFound == i) {
+        if (delegate && [delegate respondsToSelector:@selector(listViewEmptyAreaWasDoubleClicked:)]) {
+            [delegate listViewEmptyAreaWasDoubleClicked:self];
+        }
+    } else {
+        if (delegate && [delegate respondsToSelector:@selector(listView:itemWasDoubleClickedAtIndex:)]) {
+            [delegate listView:self itemWasDoubleClickedAtIndex:i];
+        }
+    }    
+}
+
+
 - (void)mouseDragged:(NSEvent *)evt {
     // have to get the image before calling any delegate methods... they may rearrange or remove views which would cause us to have the wrong image
     self.dragOffset = NSZeroPoint;
     NSImage *dragImg = nil;
     if (delegate && [delegate respondsToSelector:@selector(listView:draggingImageForItemAtIndex:withEvent:offset:)]) {
-        dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingIndex withEvent:lastMouseDownEvent offset:&dragOffset];
+        dragImg = [delegate listView:self draggingImageForItemAtIndex:draggingVisibleIndex withEvent:lastMouseDownEvent offset:&dragOffset];
     } else {
-        dragImg = [self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
+        dragImg = [self draggingImageForItemAtIndex:draggingVisibleIndex withEvent:evt offset:&dragOffset];
     }
     
     BOOL canDrag = YES;
     BOOL slideBack = YES;
     if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:slideBack:)]) {
-        canDrag = [delegate listView:self canDragItemAtIndex:draggingIndex withEvent:evt slideBack:&slideBack];
+        canDrag = [delegate listView:self canDragItemAtIndex:draggingVisibleIndex withEvent:evt slideBack:&slideBack];
     }
     if (!canDrag) return;
     
@@ -344,8 +374,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [pboard declareTypes:[NSArray arrayWithObject:TDListItemPboardType] owner:self];
     
     canDrag = NO;
-    if (NSNotFound != draggingIndex && delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
-        canDrag = [delegate listView:self writeItemAtIndex:draggingIndex toPasteboard:pboard];
+    if (NSNotFound != draggingVisibleIndex && delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
+        canDrag = [delegate listView:self writeItemAtIndex:draggingVisibleIndex toPasteboard:pboard];
     }
     if (!canDrag) return;
     
@@ -387,7 +417,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
-    TDListItem *item = [self itemAtIndex:i];
+    TDListItem *item = [self itemAtVisibleIndex:i];
     
     if (dragImageOffset) {
         NSPoint p = [item convertPoint:[evt locationInWindow] fromView:nil];
@@ -411,7 +441,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     if (!NSPointInRect(endPointInWin, dropZone)) {
         if (delegate && [delegate respondsToSelector:@selector(listView:shouldRunPoofAt:forRemovedItemAtIndex:)]) {
-            if ([delegate listView:self shouldRunPoofAt:endPointInScreen forRemovedItemAtIndex:draggingIndex]) {
+            if ([delegate listView:self shouldRunPoofAt:endPointInScreen forRemovedItemAtIndex:draggingVisibleIndex]) {
                 [NSToolbarPoofAnimator runPoofAtPoint:endPointInScreen];
             }
         }
@@ -456,7 +486,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     }
     
     NSDragOperation dragOp = NSDragOperationNone;
-    BOOL isDraggingListItem = (draggingIndex != NSNotFound || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
+    BOOL isDraggingListItem = (draggingVisibleIndex != NSNotFound || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
     
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
@@ -466,7 +496,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     } else {
         dropIndex = [self indexForItemAtPoint:locInList];
     }
-    
+        
     NSUInteger itemCount = [items count];
     if (dropIndex < 0 || dropIndex > itemCount) {
         dropIndex = itemCount;
@@ -501,6 +531,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         }    
     }
 
+    //NSLog(@"dropIndex: %d", dropIndex);
     dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
     
     //NSLog(@"over: %@. Drop %@ : %d", item, dropOp == TDListViewDropOn ? @"On" : @"Before", dropIndex);
@@ -514,13 +545,15 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
-    if (dropIndex > draggingIndex) {
+    if (dropIndex > draggingVisibleIndex) {
         dropIndex--;
     }
     self.itemFrames = nil;
     
     suppressLayout = YES;
     [self performSelector:@selector(unsuppressLayout) withObject:nil afterDelay:.15];
+
+    NSLog(@"acceptDrop index: %d", dropIndex);
 
     if (delegate && [delegate respondsToSelector:@selector(listView:acceptDrop:index:dropOperation:)]) {
         return [delegate listView:self acceptDrop:dragInfo index:dropIndex dropOperation:dropOp];
@@ -574,10 +607,10 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     BOOL respondsToExtentForItem = (delegate && [delegate respondsToSelector:@selector(listView:extentForItemAtIndex:)]);
     BOOL respondsToWillDisplay = (delegate && [delegate respondsToSelector:@selector(listView:willDisplayItem:atIndex:)]);
     
-    NSInteger i = 0;
+    NSUInteger i = 0;
     for ( ; i < c; i++) {
         // determine item frame
-        NSInteger extent = respondsToExtentForItem ? [delegate listView:self extentForItemAtIndex:i] : itemExtent;
+        CGFloat extent = respondsToExtentForItem ? [delegate listView:self extentForItemAtIndex:i] : itemExtent;
         if (isPortrait) {
             h = extent;
         } else {
@@ -648,7 +681,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
-    TDListItem *draggingItem = [self itemAtIndex:draggingIndex];
+    TDListItem *draggingItem = [self itemAtVisibleIndex:draggingVisibleIndex];
     CGFloat draggingExtent = 0;
     if (draggingItem) {
         draggingExtent = self.isPortrait ? NSHeight([draggingItem frame]) : NSWidth([draggingItem frame]);
@@ -662,7 +695,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     CGFloat extent = 0;
     NSUInteger i = 0;
     for ( ; i <= itemCount; i++) {
-        item = [self itemAtIndex:i];
+        item = [self itemAtVisibleIndex:i];
         NSRect frame = [item frame];
         if (self.isLandscape) {
             frame.origin.x = extent;
@@ -670,7 +703,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             frame.origin.y = extent;
         }
         
-        [item setHidden:i == draggingIndex];
+        [item setHidden:i == draggingVisibleIndex];
         
         if (i >= dropIndex) {
             if (self.isPortrait) {
@@ -681,7 +714,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         }
         
         [[item animator] setFrame:frame];
-        if (i != draggingIndex) {
+        if (i != draggingVisibleIndex) {
             extent += self.isPortrait ? frame.size.height : frame.size.width;
         }
     }
@@ -694,7 +727,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSInteger i = 0;
     for (NSValue *v in itemFrames) {
         if (NSPointInRect(p, [v rectValue])) {
-            if (i >= draggingIndex) {
+            if (i >= draggingVisibleIndex) {
                 return i + 1;
             } else {
                 return i;
@@ -707,11 +740,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i {
-    TDListItem *item = [self itemAtIndex:i];
-    TDListItem *draggingItem = [self itemAtIndex:draggingIndex];
+    TDListItem *item = [self itemAtVisibleIndex:i];
+    TDListItem *draggingItem = [self itemAtVisibleIndex:draggingVisibleIndex];
                                 
     if (item == draggingItem) {
-        TDListItem *nextItem = [self itemAtIndex:i + 1];
+        TDListItem *nextItem = [self itemAtVisibleIndex:i + 1];
         item = nextItem ? nextItem : item;
     }
     if (!item) {
@@ -722,7 +755,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)draggingSourceDragDidEnd {
-    draggingIndex = NSNotFound;
+    draggingVisibleIndex = NSNotFound;
     self.lastMouseDownEvent = nil;
 }
 

@@ -48,7 +48,7 @@ extern NSString *const TDListItemPboardType;
     
     // drag and drop
     NSEvent *lastMouseDownEvent;
-    NSUInteger draggingIndex;
+    NSUInteger draggingVisibleIndex;
     NSPoint dragOffset;
     NSDragOperation localDragOperationMask;
     NSDragOperation nonLocalDragOperationMask;
