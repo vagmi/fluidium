@@ -504,12 +504,15 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     }
         
     NSUInteger itemCount = [items count];
-    if (dropIndex < 0) {// || dropIndex > itemCount) {
+    if (dropIndex < 0 || NSNotFound == dropIndex) {// || dropIndex > itemCount) {
         dropIndex = itemCount;
     }
     
     TDListItem *item = [self itemAtIndex:dropIndex];
-    NSUInteger firstIndex = [[items objectAtIndex:0] index];
+    NSUInteger firstIndex = 0;
+    if ([items count]) {
+        firstIndex =  [[items objectAtIndex:0] index];
+    }
     if (item) {
         dropVisibleIndex = [items indexOfObject:item];
         dropVisibleIndex += firstIndex;
@@ -517,7 +520,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         dropVisibleIndex = firstIndex - (firstIndex - dropIndex);
     }
 
-    dropIndex += [[items objectAtIndex:0] index];
+    dropIndex += firstIndex;
     item = [self itemWhileDraggingAtIndex:dropIndex];
     NSPoint locInItem = [item convertPoint:locInWin fromView:nil];
 

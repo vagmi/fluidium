@@ -498,7 +498,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* TabsPlugIn */;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = TabsPlugIn;
 		};
 		D31CC0C910EFCB590013347D /* PBXContainerItemProxy */ = {
