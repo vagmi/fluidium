@@ -498,6 +498,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         return NSDragOperationNone;
     }
     
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSDragOperation dragOp = NSDragOperationNone;
     BOOL isDraggingListItem = (draggingVisibleIndex != NSNotFound || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
     
@@ -518,11 +519,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     }
     
     TDListItem *item = [self itemAtIndex:dropIndex];
+    NSUInteger firstIndex = [[items objectAtIndex:0] index];
     if (item) {
         dropVisibleIndex = [items indexOfObject:item];
-        dropVisibleIndex += [[items objectAtIndex:0] index];
+        dropVisibleIndex += firstIndex;
     } else {
-        dropVisibleIndex = NSNotFound;
+        dropVisibleIndex = firstIndex - (firstIndex - dropIndex);
     }
 
     dropIndex += [[items objectAtIndex:0] index];
@@ -571,7 +573,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
     if (dropIndex > draggingIndex) {
         dropIndex--;
-        dropVisibleIndex--;
+        //dropVisibleIndex--;
     }
     self.itemFrames = nil;
     
@@ -727,7 +729,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     if (!scrolled) {
         extent = extent > 0 ? 0 : extent;
     }
-    NSUInteger i = 0;
+    NSInteger i = 0;
     for ( ; i <= itemCount; i++) {
         item = [self itemAtVisibleIndex:i];
         NSRect frame = [item frame];
@@ -739,6 +741,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         
         [item setHidden:i == draggingVisibleIndex];
         
+        NSLog(@"dropVisibleIndex: %d", dropVisibleIndex);
         if (i >= dropVisibleIndex) {
 //        if (i >= dropIndex) {
             if (self.isPortrait) {
@@ -767,9 +770,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         }
         
         NSUInteger offset = [[items objectAtIndex:0] index];
+        //CGFloat d = NSMinY([self visibleRect]);
         NSUInteger i = 0;
         for (NSValue *v in itemFrames) {
-            if (NSPointInRect(p, [v rectValue])) {
+            NSRect r = [v rectValue];
+            //r.origin.y -= d;
+            if (NSPointInRect(p, r)) {
                 if (i >= draggingVisibleIndex) {
                     //return i + 1;
                     return [[items objectAtIndex:i] index] + 1 - offset;
