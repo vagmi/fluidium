@@ -314,8 +314,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         self.selectedItemIndex = i;
     }
     
-    //NSLog(@"selcted index: %d", i);
-    
     // this adds support for click-to-select-and-drag all in one click. 
     // otherwise you have to click once to select and then click again to begin a drag, which sux.
     BOOL withinDragRadius = YES;
@@ -334,7 +332,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
                 }
                 draggingIndex = i;
                 draggingVisibleIndex = visibleIndex;
-                //draggingVisibleIndex -= [[items objectAtIndex:0] index];
                 [self mouseDragged:evt];
                 withinDragRadius = NO;
                 break;
@@ -428,7 +425,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (NSImage *)draggingImageForItemAtIndex:(NSInteger)i withEvent:(NSEvent *)evt offset:(NSPointPointer)dragImageOffset {
     TDListItem *item = [self itemAtIndex:i];
-    NSLog(@"item: %@", item);
     if (dragImageOffset) {
         NSPoint p = [item convertPoint:[evt locationInWindow] fromView:nil];
         *dragImageOffset = NSMakePoint(p.x, p.y - NSHeight([item frame]));
@@ -501,8 +497,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSPoint locInWin = [dragInfo draggingLocation];
     NSPoint locInList = [self convertPoint:locInWin fromView:nil];
 
-    //locInList.y += NSMinY([self visibleRect]);
-    
     if (isDraggingListItem) {
         dropIndex = [self indexForItemWhileDraggingAtPoint:locInList];
     } else {
@@ -576,8 +570,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     suppressLayout = YES;
     [self performSelector:@selector(unsuppressLayout) withObject:nil afterDelay:.15];
 
-    NSLog(@"acceptDrop index: %d", dropIndex);
-
     if (delegate && [delegate respondsToSelector:@selector(listView:acceptDrop:index:dropOperation:)]) {
         return [delegate listView:self acceptDrop:dragInfo index:dropIndex dropOperation:dropOp];
     } else {
@@ -594,12 +586,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 #pragma mark -
 #pragma mark Private
-
-// TODO remove
-//- (NSRect)visibleRect {
-//    return [[self superview] bounds];
-//}
-
 
 - (void)layoutItems {
     if (suppressLayout) return;
@@ -705,7 +691,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSUInteger itemCount = [items count];
     TDListItem *item = nil;
     
-    //draggingVisibleIndex - [[items objectAtIndex:0] index];
     TDListItem *draggingItem = [self itemAtVisibleIndex:draggingVisibleIndex];
     CGFloat draggingExtent = 0;
     if (draggingItem) {
@@ -738,7 +723,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         [item setHidden:i == draggingVisibleIndex];
         
         if (i >= dropVisibleIndex) {
-//        if (i >= dropIndex) {
             if (self.isPortrait) {
                 frame.origin.y += draggingExtent;
             } else {
@@ -757,25 +741,15 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (NSUInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
-    if ([itemFrames count]) {
-        if (self.isPortrait) {
-            //p.y += NSMinY([self visibleRect]); // - NSMinY([[itemFrames objectAtIndex:0] rectValue]);
-        } else {
-            p.x += NSMinX([self visibleRect]); // - NSMinY([[itemFrames objectAtIndex:0] rectValue]);
-        }
-        
+    if ([itemFrames count]) {        
         NSUInteger offset = [[items objectAtIndex:0] index];
-        //CGFloat d = NSMinY([self visibleRect]);
         NSUInteger i = 0;
         for (NSValue *v in itemFrames) {
             NSRect r = [v rectValue];
-            //r.origin.y -= d;
             if (NSPointInRect(p, r)) {
                 if (i >= draggingVisibleIndex) {
-                    //return i + 1;
                     return [[items objectAtIndex:i] index] + 1 - offset;
                 } else {
-                    //return i;
                     return [[items objectAtIndex:i] index] - offset;
                 }
             }
