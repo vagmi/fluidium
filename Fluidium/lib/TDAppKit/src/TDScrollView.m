@@ -8,6 +8,7 @@
 
 #import "TDScrollView.h"
 #import "TDScroller.h"
+#import "TDClipView.h"
 
 @implementation TDScrollView
 
@@ -20,8 +21,24 @@
 }
 
 
+- (void)dealloc {
+//    self.contentView = nil;
+    [super dealloc];
+}
+
+
+
 + (Class)_verticalScrollerClass {
 	return [TDScroller class];
 }
 
+
+//- (NSClipView *)contentView {
+//    if (!contentView) {
+//        self.contentView = [[[TDClipView alloc] initWithFrame:NSZeroRect] autorelease];
+//    }
+//    return contentView;
+//}
+
+//@synthesize contentView;
 @end

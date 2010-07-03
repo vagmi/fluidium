@@ -9,9 +9,12 @@
 #import <Cocoa/Cocoa.h>
 //#import "WebDynamicScrollBarsView.h"
 
+//@class TDClipView;
+
 //@interface TDScrollView : WebDynamicScrollBarsView {
 @interface TDScrollView : NSScrollView {
-
+//    TDClipView *contentView;
 }
 
+//@property (nonatomic, retain) TDClipView *contentView;
 @end

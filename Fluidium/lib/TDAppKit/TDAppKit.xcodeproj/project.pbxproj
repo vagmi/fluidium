@@ -62,6 +62,8 @@
 		D371DBEF11C1B14700D5434C /* combo_field_progress_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D371DBEE11C1B14700D5434C /* combo_field_progress_indicator.png */; };
 		D392B08C1179594400823791 /* TDShadowView.h in Headers */ = {isa = PBXBuildFile; fileRef = D392B08A1179594400823791 /* TDShadowView.h */; };
 		D392B08D1179594400823791 /* TDShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D392B08B1179594400823791 /* TDShadowView.m */; };
+		D3A356BA11DFFB2A00EFEE29 /* TDClipView.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A356B811DFFB2A00EFEE29 /* TDClipView.h */; };
+		D3A356BB11DFFB2A00EFEE29 /* TDClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A356B911DFFB2A00EFEE29 /* TDClipView.m */; };
 		D3C9140111BD9742002A95CF /* TDComboFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C913FF11BD9742002A95CF /* TDComboFieldCell.h */; };
 		D3C9140211BD9742002A95CF /* TDComboFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C9140011BD9742002A95CF /* TDComboFieldCell.m */; };
 		D3D8023E111E2D810025650C /* NSURLRequest+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8023C111E2D810025650C /* NSURLRequest+TDAdditions.m */; };
@@ -164,6 +166,8 @@
 		D371DBEE11C1B14700D5434C /* combo_field_progress_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combo_field_progress_indicator.png; path = res/img/combo_field_progress_indicator.png; sourceTree = "<group>"; };
 		D392B08A1179594400823791 /* TDShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDShadowView.h; path = src/TDShadowView.h; sourceTree = "<group>"; };
 		D392B08B1179594400823791 /* TDShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDShadowView.m; path = src/TDShadowView.m; sourceTree = "<group>"; };
+		D3A356B811DFFB2A00EFEE29 /* TDClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDClipView.h; path = src/TDClipView.h; sourceTree = "<group>"; };
+		D3A356B911DFFB2A00EFEE29 /* TDClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDClipView.m; path = src/TDClipView.m; sourceTree = "<group>"; };
 		D3C913FF11BD9742002A95CF /* TDComboFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDComboFieldCell.h; path = src/TDComboFieldCell.h; sourceTree = "<group>"; };
 		D3C9140011BD9742002A95CF /* TDComboFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDComboFieldCell.m; path = src/TDComboFieldCell.m; sourceTree = "<group>"; };
 		D3D8023C111E2D810025650C /* NSURLRequest+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+TDAdditions.m"; path = "src/NSURLRequest+TDAdditions.m"; sourceTree = "<group>"; };
@@ -354,6 +358,8 @@
 				D33B19F411168A3A00F754AD /* TDScrollView.m */,
 				D33B19EF11168A3300F754AD /* TDScroller.h */,
 				D33B19F311168A3A00F754AD /* TDScroller.m */,
+				D3A356B811DFFB2A00EFEE29 /* TDClipView.h */,
+				D3A356B911DFFB2A00EFEE29 /* TDClipView.m */,
 			);
 			name = ScrollView;
 			sourceTree = "<group>";
@@ -469,6 +475,7 @@
 				D36E21C71170DA0700110DBA /* TDComboFieldTextView.h in Headers */,
 				D392B08C1179594400823791 /* TDShadowView.h in Headers */,
 				D3C9140111BD9742002A95CF /* TDComboFieldCell.h in Headers */,
+				D3A356BA11DFFB2A00EFEE29 /* TDClipView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +619,7 @@
 				D36E21C81170DA0700110DBA /* TDComboFieldTextView.m in Sources */,
 				D392B08D1179594400823791 /* TDShadowView.m in Sources */,
 				D3C9140211BD9742002A95CF /* TDComboFieldCell.m in Sources */,
+				D3A356BB11DFFB2A00EFEE29 /* TDClipView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
