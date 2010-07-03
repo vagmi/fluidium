@@ -716,7 +716,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     
     NSRect startFrame = [[self itemAtVisibleIndex:0] frame];
     CGFloat extent = self.isLandscape ? NSMinX(startFrame) : NSMinY(startFrame);
-    extent = extent > 0 ? 0 : extent;
+    
+    CGFloat offset = self.isLandscape ? NSMinX([self visibleRect]) : NSMinY([self visibleRect]);
+    BOOL scrolled = (offset > 0);
+    if (!scrolled) {
+        extent = extent > 0 ? 0 : extent;
+    }
     NSUInteger i = 0;
     for ( ; i <= itemCount; i++) {
         item = [self itemAtVisibleIndex:i];
