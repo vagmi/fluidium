@@ -135,7 +135,7 @@
 
 
 - (void)viewWillDisappear {
-    self.tabModels = nil;
+    //self.tabModels = nil;
 }
 
 

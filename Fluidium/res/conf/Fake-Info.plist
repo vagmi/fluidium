@@ -249,6 +249,6 @@
 	<key>OSAScriptingDefinition</key>
 	<string>Fluidium.sdef</string>
 	<key>SUFeedURL</key>
-	<string>????</string>
+	<string>http://fakeapp.com/appcast/fake.rss</string>
 </dict>
 </plist>
