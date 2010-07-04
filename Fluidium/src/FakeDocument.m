@@ -80,6 +80,46 @@
 }
 
 
+- (IBAction)moveSelectedIndexUp:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveSelectedIndexUp:sender];
+}
+
+
+- (IBAction)moveSelectedIndexDown:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveSelectedIndexDown:sender];
+}
+
+
+- (IBAction)moveSelectedIndexToBeginning:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveSelectedIndexToBeginning:sender];
+}
+
+
+- (IBAction)moveSelectedIndexToEnd:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveSelectedIndexToEnd:sender];
+}
+
+
+- (IBAction)moveActionUp:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveActionUp:sender];
+}
+
+
+- (IBAction)moveActionDown:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveActionDown:sender];
+}
+
+
+- (IBAction)moveActionToBeginning:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveActionToBeginning:sender];
+}
+
+
+- (IBAction)moveActionToEnd:(id)sender {
+    [[[self fakePlugInViewController] workflowController] moveActionToEnd:sender];
+}
+
+
 - (id)fakePlugInViewController {
     id /*FakeViewController **/vc = /*(FakeViewController *)*/[[self windowController] plugInViewControllerForPlugInIdentifier:FAKE_PLUGIN_ID];
     return vc;

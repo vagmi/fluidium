@@ -20,6 +20,16 @@
 - (IBAction)runWorkflow:(id)sender;
 - (IBAction)stopWorkflow:(id)sender;
 
+- (IBAction)moveSelectedIndexUp:(id)sender;
+- (IBAction)moveSelectedIndexDown:(id)sender;
+- (IBAction)moveSelectedIndexToBeginning:(id)sender;
+- (IBAction)moveSelectedIndexToEnd:(id)sender;
+
+- (IBAction)moveActionUp:(id)sender;
+- (IBAction)moveActionDown:(id)sender;
+- (IBAction)moveActionToBeginning:(id)sender;
+- (IBAction)moveActionToEnd:(id)sender;
+
 - (void)windowControllerDidShowVisiblePlugIns:(FUWindowController *)wc;
 
 - (id)fakePlugInViewController;
