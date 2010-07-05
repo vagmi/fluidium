@@ -330,6 +330,18 @@
     
     DOMHTMLFormElement *formEl = nil;
     if ([formName length]) {
+//        DOMHTMLCollection *formsCol = [doc forms];
+//        NSUInteger formCount = [formsCol length];
+//        NSMutableArray *a = [NSMutableArray arrayWithCapacity:formCount];
+//        NSUInteger k = 0;
+//        for ( ; k < formCount; k++) {
+//            DOMHTMLFormElement *fe = (id)[formsCol item:k];
+//            NSLog(@"form %@", fe);
+//            NSLog(@"name %@", [fe name]);
+//            NSLog(@"id %@", [fe getAttribute:@"id"]);
+//            NSLog(@"meth %@", [fe method]);
+//            [a addObject:fe];
+//        }
         formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:formName];
     } else if ([formID length]) {
         NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
