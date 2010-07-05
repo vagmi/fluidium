@@ -14,7 +14,8 @@
 
 #import "FUActivation.h"
 #import "FUUtils.h"
-#import "NSEvent+FUAdditions.h"
+#import <TDAppKit/NSEvent+TDAdditions.h>
+#import <TDAppKit/TDUtils.h>
 #import <WebKit/WebKit.h>
 
 @interface FUActivation ()
@@ -39,9 +40,9 @@
 + (id)activationFromModifierFlags:(NSUInteger)flags {
     FUActivation *a = [[[self alloc] init] autorelease];
     
-    a.commandKeyPressed = FUIsCommandKeyPressed(flags);
-    a.shiftKeyPressed   = FUIsShiftKeyPressed(flags);
-    a.optionKeyPressed  = FUIsOptionKeyPressed(flags);
+    a.commandKeyPressed = TDIsCommandKeyPressed(flags);
+    a.shiftKeyPressed   = TDIsShiftKeyPressed(flags);
+    a.optionKeyPressed  = TDIsOptionKeyPressed(flags);
     
     return a;
 }
@@ -53,9 +54,9 @@
     NSUInteger flags = [[info objectForKey:WebActionModifierFlagsKey] unsignedIntegerValue];
     BOOL isMiddleClick = (1 == [[info objectForKey:WebActionButtonKey] integerValue]);
     
-    a.commandKeyPressed = FUIsCommandKeyPressed(flags) || isMiddleClick;
-    a.shiftKeyPressed   = FUIsShiftKeyPressed(flags);
-    a.optionKeyPressed  = FUIsOptionKeyPressed(flags);
+    a.commandKeyPressed = TDIsCommandKeyPressed(flags) || isMiddleClick;
+    a.shiftKeyPressed   = TDIsShiftKeyPressed(flags);
+    a.optionKeyPressed  = TDIsOptionKeyPressed(flags);
 
     return a;
 }

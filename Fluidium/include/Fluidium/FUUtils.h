@@ -34,10 +34,6 @@ extern NSInteger const kFUScriptErrorNumberElementNotFound;
 extern NSInteger const kFUScriptErrorNumberLoadFailed;
 extern NSInteger const kFUScriptErrorNumberNotHTMLDocument;
 
-BOOL FUIsCommandKeyPressed(NSInteger modifierFlags);
-BOOL FUIsShiftKeyPressed(NSInteger modifierFlags);
-BOOL FUIsOptionKeyPressed(NSInteger modifierFlags);
-
 NSColor *FUMainTabBackgroundColor();
 NSColor *FUNonMainTabBackgroundColor();
 NSColor *FUMainTabBorderColor();

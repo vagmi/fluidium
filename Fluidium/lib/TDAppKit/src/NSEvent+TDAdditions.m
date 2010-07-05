@@ -12,14 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "NSEvent+FUAdditions.h"
-#import "FUUtils.h"
+#import <TDAppKit/NSEvent+TDAdditions.h>
+#import <TDAppKit/TDUtils.h>
 
 #define ESC 53
 #define RETURN 36
 #define ENTER 76
 
-@implementation NSEvent (FUAdditions)
+@implementation NSEvent (TDAdditions)
 
 - (BOOL)isMouseDown {
     return (NSLeftMouseDown == [self type] || NSRightMouseDown == [self type]);
@@ -42,17 +42,22 @@
 
 
 - (BOOL)isCommandKeyPressed {
-    return FUIsCommandKeyPressed([self modifierFlags]);
+    return TDIsCommandKeyPressed([self modifierFlags]);
+}
+
+
+- (BOOL)isControlKeyPressed {
+    return TDIsControlKeyPressed([self modifierFlags]);
 }
 
 
 - (BOOL)isShiftKeyPressed {
-    return FUIsShiftKeyPressed([self modifierFlags]);
+    return TDIsShiftKeyPressed([self modifierFlags]);
 }
 
 
 - (BOOL)isOptionKeyPressed {
-    return FUIsOptionKeyPressed([self modifierFlags]);
+    return TDIsOptionKeyPressed([self modifierFlags]);
 }
 
 

@@ -80,6 +80,8 @@
 		D3EB2344110163F700633715 /* TDUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EB2342110163F700633715 /* TDUtils.m */; };
 		D3EB23C61101686900633715 /* NSBezierPath+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EB23C41101686900633715 /* NSBezierPath+TDAdditions.m */; };
 		D3EB23CC110168AD00633715 /* NSBezierPath+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3EB23CB110168AD00633715 /* NSBezierPath+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FD53E911E28174009CFDA3 /* NSEvent+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FD53E811E28174009CFDA3 /* NSEvent+TDAdditions.m */; };
+		D3FD53EB11E2817E009CFDA3 /* NSEvent+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FD53EA11E2817E009CFDA3 /* NSEvent+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +185,8 @@
 		D3EB2342110163F700633715 /* TDUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtils.m; path = src/TDUtils.m; sourceTree = "<group>"; };
 		D3EB23C41101686900633715 /* NSBezierPath+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath+TDAdditions.m"; path = "src/NSBezierPath+TDAdditions.m"; sourceTree = "<group>"; };
 		D3EB23CB110168AD00633715 /* NSBezierPath+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+TDAdditions.h"; path = "include/TDAppKit/NSBezierPath+TDAdditions.h"; sourceTree = "<group>"; };
+		D3FD53E811E28174009CFDA3 /* NSEvent+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSEvent+TDAdditions.m"; path = "src/NSEvent+TDAdditions.m"; sourceTree = "<group>"; };
+		D3FD53EA11E2817E009CFDA3 /* NSEvent+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSEvent+TDAdditions.h"; path = "include/TDAppKit/NSEvent+TDAdditions.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +441,8 @@
 				D3EB23C41101686900633715 /* NSBezierPath+TDAdditions.m */,
 				D3D80240111E2E890025650C /* NSURLRequest+TDAdditions.h */,
 				D3D8023C111E2D810025650C /* NSURLRequest+TDAdditions.m */,
+				D3FD53EA11E2817E009CFDA3 /* NSEvent+TDAdditions.h */,
+				D3FD53E811E28174009CFDA3 /* NSEvent+TDAdditions.m */,
 			);
 			name = "AppKit Categories";
 			sourceTree = "<group>";
@@ -476,6 +482,7 @@
 				D392B08C1179594400823791 /* TDShadowView.h in Headers */,
 				D3C9140111BD9742002A95CF /* TDComboFieldCell.h in Headers */,
 				D3A356BA11DFFB2A00EFEE29 /* TDClipView.h in Headers */,
+				D3FD53EB11E2817E009CFDA3 /* NSEvent+TDAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +627,7 @@
 				D392B08D1179594400823791 /* TDShadowView.m in Sources */,
 				D3C9140211BD9742002A95CF /* TDComboFieldCell.m in Sources */,
 				D3A356BB11DFFB2A00EFEE29 /* TDClipView.m in Sources */,
+				D3FD53E911E28174009CFDA3 /* NSEvent+TDAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

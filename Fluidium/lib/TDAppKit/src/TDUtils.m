@@ -68,3 +68,29 @@ NSBezierPath *TDDrawRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth, NSGra
     //    CGContextClosePath(c);
     //    CGContextDrawPath(c, kCGPathFillStroke);
 }
+
+
+BOOL TDIsCommandKeyPressed(NSInteger modifierFlags) {
+    NSInteger commandKeyWasPressed = (NSCommandKeyMask & modifierFlags);
+    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
+}
+
+
+BOOL TDIsControlKeyPressed(NSInteger modifierFlags) {
+    NSInteger controlKeyWasPressed = (NSControlKeyMask & modifierFlags);
+    return [[NSNumber numberWithInteger:controlKeyWasPressed] boolValue];
+}
+
+
+BOOL TDIsShiftKeyPressed(NSInteger modifierFlags) {
+    NSInteger commandKeyWasPressed = (NSShiftKeyMask & modifierFlags);
+    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
+}
+
+
+BOOL TDIsOptionKeyPressed(NSInteger modifierFlags) {
+    NSInteger commandKeyWasPressed = (NSAlternateKeyMask & modifierFlags);
+    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];         
+}
+
+

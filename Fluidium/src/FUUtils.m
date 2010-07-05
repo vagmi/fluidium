@@ -35,24 +35,6 @@ NSInteger const kFUScriptErrorNumberElementNotFound = 1007;
 NSInteger const kFUScriptErrorNumberLoadFailed = 1008;
 NSInteger const kFUScriptErrorNumberNotHTMLDocument = 1009;
 
-BOOL FUIsCommandKeyPressed(NSInteger modifierFlags) {
-    NSInteger commandKeyWasPressed = (NSCommandKeyMask & modifierFlags);
-    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
-}
-
-
-BOOL FUIsShiftKeyPressed(NSInteger modifierFlags) {
-    NSInteger commandKeyWasPressed = (NSShiftKeyMask & modifierFlags);
-    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];
-}
-
-
-BOOL FUIsOptionKeyPressed(NSInteger modifierFlags) {
-    NSInteger commandKeyWasPressed = (NSAlternateKeyMask & modifierFlags);
-    return [[NSNumber numberWithInteger:commandKeyWasPressed] boolValue];         
-}
-
-
 NSColor *FUMainTabBackgroundColor() {
     static NSColor *color = nil;
     if (!color) {

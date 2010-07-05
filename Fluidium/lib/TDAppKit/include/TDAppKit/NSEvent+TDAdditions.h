@@ -14,12 +14,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSEvent (FUAdditions)
+@interface NSEvent (TDAdditions)
 - (BOOL)isMouseDown;
 - (BOOL)isMouseMoved;
 - (BOOL)isKeyUpOrDown;
 - (BOOL)is3rdButtonClick;
 - (BOOL)isCommandKeyPressed;
+- (BOOL)isControlKeyPressed;
 - (BOOL)isShiftKeyPressed;
 - (BOOL)isOptionKeyPressed;
 - (BOOL)isEscKeyPressed;

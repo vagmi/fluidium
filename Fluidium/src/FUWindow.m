@@ -19,7 +19,7 @@
 #import "FUUserDefaults.h"
 #import "FUNotifications.h"
 #import "FUApplication.h"
-#import "NSEvent+FUAdditions.h"
+#import <TDAppKit/NSEvent+TDAdditions.h>
 
 #define CLOSE_CURLY 30
 #define OPEN_CURLY 33

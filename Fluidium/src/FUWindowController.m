@@ -34,7 +34,6 @@
 #import "FUPlugInWrapper.h"
 #import "FUNotifications.h"
 #import "NSString+FUAdditions.h"
-#import "NSEvent+FUAdditions.h"
 #import "WebURLsWithTitles.h"
 #import "WebViewPrivate.h"
 #import <WebKit/WebKit.h>
@@ -42,6 +41,7 @@
 #import <TDAppKit/TDUberView.h>
 #import <TDAppKit/TDLine.h>
 #import <TDAppKit/TDComboField.h>
+#import <TDAppKit/NSEvent+TDAdditions.h>
 
 #define MIN_COMBOBOX_WIDTH 60
 #define TOOLBAR_HEIGHT 36

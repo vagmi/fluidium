@@ -194,7 +194,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D34ACBD411C1C48E00D8A417 /* TDAppKit.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* TDAppKit */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = TDAppKit;
 		};
 /* End PBXContainerItemProxy section */
