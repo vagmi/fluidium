@@ -31,6 +31,11 @@
 }
 
 
+- (BOOL)isMouseDragged {
+    return (NSLeftMouseDragged == [self type] || NSRightMouseDragged == [self type]);
+}
+
+
 - (BOOL)isMouseUp {
     return (NSLeftMouseUp == [self type] || NSRightMouseUp == [self type]);
 }

@@ -18,6 +18,7 @@
 - (BOOL)isMouseDown;
 - (BOOL)isMouseMoved;
 - (BOOL)isMouseUp;
+- (BOOL)isMouseDragged;
 - (BOOL)isKeyUpOrDown;
 - (BOOL)is3rdButtonClick;
 - (BOOL)isCommandKeyPressed;
