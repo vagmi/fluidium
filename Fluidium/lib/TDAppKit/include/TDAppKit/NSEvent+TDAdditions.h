@@ -17,6 +17,7 @@
 @interface NSEvent (TDAdditions)
 - (BOOL)isMouseDown;
 - (BOOL)isMouseMoved;
+- (BOOL)isMouseUp;
 - (BOOL)isKeyUpOrDown;
 - (BOOL)is3rdButtonClick;
 - (BOOL)isCommandKeyPressed;

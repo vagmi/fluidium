@@ -31,6 +31,11 @@
 }
 
 
+- (BOOL)isMouseUp {
+    return (NSLeftMouseUp == [self type] || NSRightMouseUp == [self type]);
+}
+
+
 - (BOOL)isKeyUpOrDown {
     return (NSKeyUp == [self type] || NSKeyDown == [self type]);
 }
