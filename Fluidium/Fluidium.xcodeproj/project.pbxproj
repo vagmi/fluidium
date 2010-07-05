@@ -444,12 +444,12 @@
 		D3D3732110E3D32300203EB2 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D3D0081112D8CF000585EB /* prefpane_icon_handlers.png */; };
 		D3D4853B11E289E50030A659 /* FakeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D4853A11E289E50030A659 /* FakeWindow.m */; };
-		D3D4856F11E28B8A0030A659 /* FakeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D4856D11E28B8A0030A659 /* FakeWindow.xib */; };
 		D3D4857211E28BA80030A659 /* FakeMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D4857011E28BA80030A659 /* FakeMainMenu.xib */; };
 		D3D4857511E28BCB0030A659 /* FakeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D4857411E28BCB0030A659 /* FakeDocument.m */; };
-		D3D485A311E28D100030A659 /* FakeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D485A211E28D100030A659 /* FakeWindowController.m */; };
 		D3D4860C11E291730030A659 /* FakeLinkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D4860B11E291730030A659 /* FakeLinkWindow.m */; };
 		D3D486BC11E298180030A659 /* FakeLinkContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D486BB11E298180030A659 /* FakeLinkContentView.m */; };
+		D3D4885211E2A6150030A659 /* FUWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* FUWindow.xib */; };
+		D3D4885311E2A6420030A659 /* FakeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D4856D11E28B8A0030A659 /* FakeWindow.xib */; };
 		D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */; };
 		D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
@@ -1101,8 +1101,6 @@
 		D3D4857111E28BA80030A659 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../../fake/English.lproj/FakeMainMenu.xib; sourceTree = SOURCE_ROOT; };
 		D3D4857311E28BCB0030A659 /* FakeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeDocument.h; path = ../../fake/src/FakeDocument.h; sourceTree = SOURCE_ROOT; };
 		D3D4857411E28BCB0030A659 /* FakeDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeDocument.m; path = ../../fake/src/FakeDocument.m; sourceTree = SOURCE_ROOT; };
-		D3D485A111E28D100030A659 /* FakeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeWindowController.h; path = ../../fake/src/FakeWindowController.h; sourceTree = SOURCE_ROOT; };
-		D3D485A211E28D100030A659 /* FakeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeWindowController.m; path = ../../fake/src/FakeWindowController.m; sourceTree = SOURCE_ROOT; };
 		D3D4860A11E291730030A659 /* FakeLinkWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeLinkWindow.h; path = ../../fake/src/FakeLinkWindow.h; sourceTree = SOURCE_ROOT; };
 		D3D4860B11E291730030A659 /* FakeLinkWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeLinkWindow.m; path = ../../fake/src/FakeLinkWindow.m; sourceTree = SOURCE_ROOT; };
 		D3D486BA11E298180030A659 /* FakeLinkContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeLinkContentView.h; path = ../../fake/src/FakeLinkContentView.h; sourceTree = SOURCE_ROOT; };
@@ -1781,8 +1779,6 @@
 			children = (
 				D3D4857311E28BCB0030A659 /* FakeDocument.h */,
 				D3D4857411E28BCB0030A659 /* FakeDocument.m */,
-				D3D485A111E28D100030A659 /* FakeWindowController.h */,
-				D3D485A211E28D100030A659 /* FakeWindowController.m */,
 				D3D4853911E289E50030A659 /* FakeWindow.h */,
 				D3D4853A11E289E50030A659 /* FakeWindow.m */,
 				D3D4860A11E291730030A659 /* FakeLinkWindow.h */,
@@ -2365,8 +2361,9 @@
 				D3C2E44711D7E9C600106E86 /* OAHelpDownIcon.png in Resources */,
 				D3C2E44811D7E9C600106E86 /* OAHelpIcon.png in Resources */,
 				D3C2E44B11D7E9C600106E86 /* combo_field_progress_indicator.png in Resources */,
-				D3D4856F11E28B8A0030A659 /* FakeWindow.xib in Resources */,
 				D3D4857211E28BA80030A659 /* FakeMainMenu.xib in Resources */,
+				D3D4885211E2A6150030A659 /* FUWindow.xib in Resources */,
+				D3D4885311E2A6420030A659 /* FakeWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2728,7 +2725,6 @@
 				D3C2E41B11D7E9C600106E86 /* FUAssertCommand.m in Sources */,
 				D3D4853B11E289E50030A659 /* FakeWindow.m in Sources */,
 				D3D4857511E28BCB0030A659 /* FakeDocument.m in Sources */,
-				D3D485A311E28D100030A659 /* FakeWindowController.m in Sources */,
 				D3D4860C11E291730030A659 /* FakeLinkWindow.m in Sources */,
 				D3D486BC11E298180030A659 /* FakeLinkContentView.m in Sources */,
 			);
