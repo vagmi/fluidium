@@ -146,23 +146,6 @@
 				<key>title</key>
 				<string>General</string>
 			</dict>
-			<key>FUHandlerPreferences</key>
-			<dict>
-				<key>category</key>
-				<string>Application</string>
-				<key>defaultsDictionary</key>
-				<dict/>
-				<key>icon</key>
-				<string>prefpane_icon_handlers</string>
-				<key>nib</key>
-				<string>FUHandlerPreferences</string>
-				<key>ordering</key>
-				<integer>52</integer>
-				<key>shortTitle</key>
-				<string>Handlers</string>
-				<key>title</key>
-				<string>URL Handler</string>
-			</dict>
 			<key>FUSecurityPreferences</key>
 			<dict>
 				<key>category</key>
@@ -250,5 +233,7 @@
 	<string>Fluidium.sdef</string>
 	<key>SUFeedURL</key>
 	<string>http://fakeapp.com/appcast/fake.rss</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>fake_dsa_pub.pem</string>
 </dict>
 </plist>
