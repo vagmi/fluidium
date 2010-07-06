@@ -19,9 +19,13 @@
 - (DOMElement *)firstAncestorOrSelfByTagName:(NSString *)tagName {
     DOMNode *curr = self;
     BOOL isStar = [tagName isEqualToString:@"*"];
+    NSArray *tagNames = nil;
+    if (!isStar) {
+        tagNames = [tagName componentsSeparatedByString:@","];
+    }
     do {
         if (DOM_ELEMENT_NODE == [curr nodeType]) {
-            if ((isStar && [curr isKindOfClass:[DOMElement class]]) || [[[curr nodeName] lowercaseString] isEqualToString:tagName]) {
+            if ((isStar && [curr isKindOfClass:[DOMElement class]]) || [tagNames containsObject:[[curr nodeName] lowercaseString]]) {
                 return (DOMElement *)curr;
             }
         }
