@@ -59,7 +59,7 @@
     NSParameterAssert([viewControllers containsObject:vc]);
     
     NSWindow *win = [vc.view window];
-    if ([win isMemberOfClass:[FUWindow class]]) {
+    if ([win isKindOfClass:[FUWindow class]]) {
         return [win windowController];
     } else {
         return [[FUDocumentController instance] frontWindowController];

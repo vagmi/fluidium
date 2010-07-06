@@ -101,11 +101,7 @@
 @implementation FUWindowController
 
 - (id)init {
-#ifdef FAKE
-    return [self initWithWindowNibName:@"FakeWindow"];
-#else
     return [self initWithWindowNibName:@"FUWindow"];
-#endif
 }
 
 

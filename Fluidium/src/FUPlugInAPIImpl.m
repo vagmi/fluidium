@@ -91,7 +91,7 @@
 
 
 - (WebView *)selectedWebViewForWindow:(NSWindow *)win {
-    if (![win isMemberOfClass:[FUWindow class]]) {
+    if (![win isKindOfClass:[FUWindow class]]) {
         return nil;
     }
     
@@ -101,7 +101,7 @@
 
 
 - (NSArray *)webViewsForWindow:(NSWindow *)win {
-    if (![win isMemberOfClass:[FUWindow class]]) {
+    if (![win isKindOfClass:[FUWindow class]]) {
         return nil;
     }
 
@@ -189,7 +189,7 @@
 #pragma mark Private
 
 - (FUWindowController *)windowControllerForWindow:(NSWindow *)win {
-    if ([win isMemberOfClass:[FUWindow class]]) {
+    if ([win isKindOfClass:[FUWindow class]]) {
         return [win windowController];
     } else {
         return [[FUDocumentController instance] frontWindowController];
