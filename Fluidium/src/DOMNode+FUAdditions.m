@@ -18,9 +18,12 @@
 
 - (DOMElement *)firstAncestorOrSelfByTagName:(NSString *)tagName {
     DOMNode *curr = self;
+    BOOL isStar = [tagName isEqualToString:@"*"];
     do {
-        if (DOM_ELEMENT_NODE == [curr nodeType] && [[[curr nodeName] lowercaseString] isEqualToString:tagName]) {
-            return (DOMElement *)curr;
+        if (DOM_ELEMENT_NODE == [curr nodeType]) {
+            if ((isStar && [curr isKindOfClass:[DOMElement class]]) || [[[curr nodeName] lowercaseString] isEqualToString:tagName]) {
+                return (DOMElement *)curr;
+            }
         }
     } while (curr = [curr parentNode]);
     
@@ -33,7 +36,7 @@
     CGFloat result = 0;
     do {
         result += [curr offsetTop];
-    } while ((curr = (DOMElement *)[curr parentNode]) && ![[[curr nodeName] lowercaseString] isEqualToString:@"html"]);
+    } while ((curr = (DOMElement *)[curr offsetParent]) && [curr isKindOfClass:[DOMElement class]]);
     
     return result;
 }
@@ -44,7 +47,7 @@
     CGFloat result = 0;
     do {
         result += [curr offsetLeft];
-    } while ((curr = (DOMElement *)[curr parentNode]) && ![[[curr nodeName] lowercaseString] isEqualToString:@"html"]);
+    } while ((curr = (DOMElement *)[curr offsetParent]) && [curr isKindOfClass:[DOMElement class]]);
     
     return result;
 }

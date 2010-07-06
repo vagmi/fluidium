@@ -446,7 +446,6 @@
 		D3D4853B11E289E50030A659 /* FakeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D4853A11E289E50030A659 /* FakeWindow.m */; };
 		D3D4857211E28BA80030A659 /* FakeMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D4857011E28BA80030A659 /* FakeMainMenu.xib */; };
 		D3D4857511E28BCB0030A659 /* FakeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D4857411E28BCB0030A659 /* FakeDocument.m */; };
-		D3D4860C11E291730030A659 /* FakeLinkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D4860B11E291730030A659 /* FakeLinkWindow.m */; };
 		D3D486BC11E298180030A659 /* FakeLinkContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D486BB11E298180030A659 /* FakeLinkContentView.m */; };
 		D3D4885311E2A6420030A659 /* FakeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D4856D11E28B8A0030A659 /* FakeWindow.xib */; };
 		D3D488B711E2C64B0030A659 /* FakeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D488B611E2C64B0030A659 /* FakeWindowController.m */; };
@@ -1101,8 +1100,6 @@
 		D3D4857111E28BA80030A659 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = ../../fake/English.lproj/FakeMainMenu.xib; sourceTree = SOURCE_ROOT; };
 		D3D4857311E28BCB0030A659 /* FakeDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeDocument.h; path = ../../fake/src/FakeDocument.h; sourceTree = SOURCE_ROOT; };
 		D3D4857411E28BCB0030A659 /* FakeDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeDocument.m; path = ../../fake/src/FakeDocument.m; sourceTree = SOURCE_ROOT; };
-		D3D4860A11E291730030A659 /* FakeLinkWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeLinkWindow.h; path = ../../fake/src/FakeLinkWindow.h; sourceTree = SOURCE_ROOT; };
-		D3D4860B11E291730030A659 /* FakeLinkWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeLinkWindow.m; path = ../../fake/src/FakeLinkWindow.m; sourceTree = SOURCE_ROOT; };
 		D3D486BA11E298180030A659 /* FakeLinkContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeLinkContentView.h; path = ../../fake/src/FakeLinkContentView.h; sourceTree = SOURCE_ROOT; };
 		D3D486BB11E298180030A659 /* FakeLinkContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeLinkContentView.m; path = ../../fake/src/FakeLinkContentView.m; sourceTree = SOURCE_ROOT; };
 		D3D488B511E2C64B0030A659 /* FakeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeWindowController.h; path = ../../fake/src/FakeWindowController.h; sourceTree = SOURCE_ROOT; };
@@ -1785,8 +1782,6 @@
 				D3D488B611E2C64B0030A659 /* FakeWindowController.m */,
 				D3D4853911E289E50030A659 /* FakeWindow.h */,
 				D3D4853A11E289E50030A659 /* FakeWindow.m */,
-				D3D4860A11E291730030A659 /* FakeLinkWindow.h */,
-				D3D4860B11E291730030A659 /* FakeLinkWindow.m */,
 				D3D486BA11E298180030A659 /* FakeLinkContentView.h */,
 				D3D486BB11E298180030A659 /* FakeLinkContentView.m */,
 				D3D4857011E28BA80030A659 /* FakeMainMenu.xib */,
@@ -2728,7 +2723,6 @@
 				D3C2E41B11D7E9C600106E86 /* FUAssertCommand.m in Sources */,
 				D3D4853B11E289E50030A659 /* FakeWindow.m in Sources */,
 				D3D4857511E28BCB0030A659 /* FakeDocument.m in Sources */,
-				D3D4860C11E291730030A659 /* FakeLinkWindow.m in Sources */,
 				D3D486BC11E298180030A659 /* FakeLinkContentView.m in Sources */,
 				D3D488B711E2C64B0030A659 /* FakeWindowController.m in Sources */,
 			);
