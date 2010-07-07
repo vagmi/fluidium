@@ -448,7 +448,7 @@
 		D3D4857511E28BCB0030A659 /* FakeDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D4857411E28BCB0030A659 /* FakeDocument.m */; };
 		D3D486BC11E298180030A659 /* FakeLinkContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D486BB11E298180030A659 /* FakeLinkContentView.m */; };
 		D3D4885311E2A6420030A659 /* FakeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D4856D11E28B8A0030A659 /* FakeWindow.xib */; };
-		D3D488B711E2C64B0030A659 /* FakeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D488B611E2C64B0030A659 /* FakeWindowController.m */; };
+		D3D6452F11E4169B00BCB75A /* FakeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D488B611E2C64B0030A659 /* FakeWindowController.m */; };
 		D3D800EB111E187D0025650C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */; };
 		D3D80323111E3BDA0025650C /* FUSubmitFormCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */; };
 		D3DB01FB10D6141E0057D70C /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
@@ -2724,7 +2724,7 @@
 				D3D4853B11E289E50030A659 /* FakeWindow.m in Sources */,
 				D3D4857511E28BCB0030A659 /* FakeDocument.m in Sources */,
 				D3D486BC11E298180030A659 /* FakeLinkContentView.m in Sources */,
-				D3D488B711E2C64B0030A659 /* FakeWindowController.m in Sources */,
+				D3D6452F11E4169B00BCB75A /* FakeWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

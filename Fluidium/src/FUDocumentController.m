@@ -301,7 +301,7 @@
 
     for (NSWindow *win in [NSApp orderedWindows]) {
         NSDocument *doc = [self documentForWindow:win];
-        if (doc && [doc isMemberOfClass:[FUDocument class]]) {
+        if (doc && [doc isKindOfClass:[FUDocument class]]) {
             return (FUDocument *)doc;
         }
     }

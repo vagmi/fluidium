@@ -148,7 +148,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<FUWindowController %p %@>", self, [[self selectedTabController] URLString]];
+    return [NSString stringWithFormat:@"<%@ %p %@>", NSStringFromClass([self class]), self, [[self selectedTabController] URLString]];
 }
 
 
