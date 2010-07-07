@@ -43,6 +43,7 @@
 - (NSMutableArray *)elementsForXPath:(NSString *)xpath;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
+- (NSArray *)arrayFromHTMLOptionsCollection:(DOMHTMLOptionsCollection *)collection;
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
 - (BOOL)boolForValue:(NSString *)value;
 - (BOOL)isRadio:(DOMHTMLElement *)el;
@@ -402,11 +403,20 @@
                     [self setValue:value forElement:el];
                 }
             } else if ([self isMultiSelect:el]) {
-                NSArray *values = [value componentsSeparatedByString:@","];
-                for (NSString *v in values) {
+                NSArray *dirtyVals = [value componentsSeparatedByString:@","];
+                NSMutableArray *cleanVals = [NSMutableArray arrayWithCapacity:[dirtyVals count]];
+                for (NSString *v in dirtyVals) {
                     v = [v stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    [self setValue:v forElement:el];
+                    if ([v length]) {
+                        [cleanVals addObject:v];
+                    }
                 }
+                
+                DOMHTMLSelectElement *selectEl = (DOMHTMLSelectElement *)el;
+                for (DOMHTMLOptionElement *optEl in [self arrayFromHTMLOptionsCollection:[selectEl options]]) {
+                    optEl.selected = [cleanVals containsObject:[optEl getAttribute:@"value"]];
+                }
+                
             } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
                 [self setValue:value forElement:el];
             }
@@ -881,7 +891,20 @@
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection {
     NSUInteger count = [collection length];
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
+    
+    NSUInteger i = 0;
+    for ( ; i < count; i++) {
+        [result addObject:[collection item:i]];
+    }
+    
+    return result;
+}
 
+
+- (NSArray *)arrayFromHTMLOptionsCollection:(DOMHTMLOptionsCollection *)collection {
+    NSUInteger count = [collection length];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
+    
     NSUInteger i = 0;
     for ( ; i < count; i++) {
         [result addObject:[collection item:i]];
