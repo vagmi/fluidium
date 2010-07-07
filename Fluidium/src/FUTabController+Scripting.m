@@ -45,8 +45,8 @@
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
 - (BOOL)boolForValue:(NSString *)value;
-- (BOOL)isRadioOrCheckbox:(DOMHTMLElement *)el;
 - (BOOL)isRadio:(DOMHTMLElement *)el;
+- (BOOL)isMultiSelect:(DOMHTMLElement *)el;
 - (BOOL)isCheckbox:(DOMHTMLElement *)el;
     
 - (BOOL)titleEquals:(NSString *)cmd;
@@ -397,9 +397,15 @@
     
     if ([foundEls count]) {
         for (DOMHTMLElement *el in foundEls) {
-            if ([self isRadioOrCheckbox:el]) {
+            if ([self isRadio:el]) {
                 if ([[el getAttribute:@"value"] isEqualToString:value]) {
                     [self setValue:value forElement:el];
+                }
+            } else if ([self isMultiSelect:el]) {
+                NSArray *values = [value componentsSeparatedByString:@","];
+                for (NSString *v in values) {
+                    v = [v stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    [self setValue:v forElement:el];
                 }
             } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
                 [self setValue:value forElement:el];
@@ -905,11 +911,6 @@
 }
 
 
-- (BOOL)isRadioOrCheckbox:(DOMHTMLElement *)el {
-    return [self isRadio:el] || [self isCheckbox:el];
-}
-
-
 - (BOOL)isRadio:(DOMHTMLElement *)el {
     return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"radio" isEqualToString:[el getAttribute:@"type"]];
 }
@@ -917,6 +918,15 @@
 
 - (BOOL)isCheckbox:(DOMHTMLElement *)el {
     return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"checkbox" isEqualToString:[el getAttribute:@"type"]];
+}
+
+
+- (BOOL)isMultiSelect:(DOMHTMLElement *)el {
+    if ([el isKindOfClass:[DOMHTMLSelectElement class]]) {
+        DOMHTMLSelectElement *selEl = (DOMHTMLSelectElement *)el;
+        return selEl.multiple;
+    }
+    return NO;
 }
 
 
