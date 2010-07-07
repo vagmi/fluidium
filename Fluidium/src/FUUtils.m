@@ -30,10 +30,12 @@ NSInteger const kFUScriptErrorNumberCantGoBack = 1002;
 NSInteger const kFUScriptErrorNumberCantGoForward = 1003;
 NSInteger const kFUScriptErrorNumberCantReload = 1004;
 NSInteger const kFUScriptErrorNumberJavaScriptError = 1005;
-NSInteger const kFUScriptErrorNumberAssertionFailed = 1006;
-NSInteger const kFUScriptErrorNumberElementNotFound = 1007;
-NSInteger const kFUScriptErrorNumberLoadFailed = 1008;
-NSInteger const kFUScriptErrorNumberNotHTMLDocument = 1009;
+NSInteger const kFUScriptErrorNumberUnixScriptError = 1006;
+NSInteger const kFUScriptErrorNumberAppleScriptError = 1007;
+NSInteger const kFUScriptErrorNumberAssertionFailed = 1008;
+NSInteger const kFUScriptErrorNumberElementNotFound = 1009;
+NSInteger const kFUScriptErrorNumberLoadFailed = 1010;
+NSInteger const kFUScriptErrorNumberNotHTMLDocument = 1011;
 
 NSColor *FUMainTabBackgroundColor() {
     static NSColor *color = nil;
