@@ -45,7 +45,10 @@
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
 - (BOOL)boolForValue:(NSString *)value;
-
+- (BOOL)isRadioOrCheckbox:(DOMHTMLElement *)el;
+- (BOOL)isRadio:(DOMHTMLElement *)el;
+- (BOOL)isCheckbox:(DOMHTMLElement *)el;
+    
 - (BOOL)titleEquals:(NSString *)cmd;
 - (BOOL)hasElementWithId:(NSString *)cmd;
 - (BOOL)containsText:(NSString *)cmd;
@@ -356,15 +359,19 @@
         }
     }
     
+    NSMutableArray *foundEls = nil;
     DOMElement *foundEl = nil;
     if ([name length]) {
         if (formEl) {
-            foundEl = (DOMElement *)[[formEl elements] namedItem:name];
-        } else {
-            NSArray *els = [self elementsForXPath:[NSString stringWithFormat:@"(//*[@name='%@'])[1]", name]];
-            if ([els count]) {
-                foundEl = [els objectAtIndex:0];
+            NSArray *els = [self arrayFromHTMLCollection:[formEl elements]];
+            foundEls = [NSMutableArray array];
+            for (DOMHTMLElement *el in els) {
+                if ([name isEqualToString:[el getAttribute:@"name"]]) {
+                    [foundEls addObject:el];
+                }
             }
+        } else {
+            foundEls = [self elementsForXPath:[NSString stringWithFormat:@"(//*[@name='%@'])[1]", name]];
         }
     } else if ([identifier length]) {
         NSArray *els = nil;
@@ -388,7 +395,17 @@
         return nil;
     }
     
-    if (foundEl && [foundEl isKindOfClass:[DOMHTMLElement class]]) {
+    if ([foundEls count]) {
+        for (DOMHTMLElement *el in foundEls) {
+            if ([self isRadioOrCheckbox:el]) {
+                if ([[el getAttribute:@"value"] isEqualToString:value]) {
+                    [self setValue:value forElement:el];
+                }
+            } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
+                [self setValue:value forElement:el];
+            }
+        }
+    } else if (foundEl && [foundEl isKindOfClass:[DOMHTMLElement class]]) {
         [self setValue:value forElement:foundEl];
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
@@ -873,12 +890,11 @@
         DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
         
         BOOL boolValue = [self boolForValue:value];
-        NSString *type = [inputEl type];
-        if ([@"checkbox" isEqualToString:type]) {
+        if ([self isCheckbox:inputEl]) {
             [inputEl setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
             [inputEl setValue:(boolValue ? value : @"")];
             return;
-        } else if ([@"radio" isEqualToString:type]) {
+        } else if ([self isRadio:inputEl]) {
             [inputEl setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
             [inputEl setValue:(boolValue ? value : @"")];
             return;
@@ -886,6 +902,21 @@
     }
     [el setValue:value];
     
+}
+
+
+- (BOOL)isRadioOrCheckbox:(DOMHTMLElement *)el {
+    return [self isRadio:el] || [self isCheckbox:el];
+}
+
+
+- (BOOL)isRadio:(DOMHTMLElement *)el {
+    return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"radio" isEqualToString:[el getAttribute:@"type"]];
+}
+
+
+- (BOOL)isCheckbox:(DOMHTMLElement *)el {
+    return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"checkbox" isEqualToString:[el getAttribute:@"type"]];
 }
 
 
