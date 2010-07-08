@@ -295,6 +295,9 @@
         <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the link to click.">
             <cocoa key="xpath"/>
         </parameter>
+        <parameter type="text" name="for CSS selector" code="CSSs" optional="yes" description="The CSS selector of the link to click.">
+            <cocoa key="cssSelector"/>
+        </parameter>
         <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to click the link. If not specified, the selected tab in the frontmost window is used.">
             <cocoa key="tabController"/>
         </parameter>
@@ -313,6 +316,9 @@
         </parameter>
         <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the button to click.">
             <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="for CSS selector" code="CSSs" optional="yes" description="The CSS selector of the button to click.">
+            <cocoa key="cssSelector"/>
         </parameter>
         <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to click the button. If not specified, the selected tab in the frontmost window is used.">
             <cocoa key="tabController"/>
@@ -336,8 +342,14 @@
         <parameter type="text" name="in form for XPath" code="FmXP" optional="yes" description="The XPath of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
             <cocoa key="formXPath"/>
         </parameter>
+        <parameter type="text" name="in form for CSS selector" code="FmCS" optional="yes" description="The CSS selector of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formCSSSelector"/>
+        </parameter>
         <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the element.">
             <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="for CSS selector" code="CSSs" optional="yes" description="The CSS selector of the element.">
+            <cocoa key="cssSelector"/>
         </parameter>
         <parameter type="text" name="to" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
             <cocoa key="value"/>
@@ -355,8 +367,11 @@
         <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id attribute of the form to submit.">
             <cocoa key="identifier"/>
         </parameter>
-        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the form to submit.">
+        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath for the form to submit.">
             <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="for CSS selector" code="CSSs" optional="yes" description="The CSS selector for the form to submit.">
+            <cocoa key="cssSelector"/>
         </parameter>
         <parameter type="record" name="with values" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
             <cocoa key="values"/>

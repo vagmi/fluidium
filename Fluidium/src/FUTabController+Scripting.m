@@ -17,6 +17,7 @@
 #import "FUWindowController.h"
 #import "FUNotifications.h"
 #import "FUUtils.h"
+#import "DOMDocumentPrivate.h"
 #import <WebKit/WebKit.h>
 
 #define DEFAULT_DELAY 1.0
@@ -41,7 +42,10 @@
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
 - (NSMutableArray *)elementsForXPath:(NSString *)xpath;
+- (DOMElement *)elementForCSSSelector:(NSString *)cssSelector;
+- (NSMutableArray *)elementsForCSSSelector:(NSString *)cssSelector;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
+- (NSMutableArray *)arrayFromNodeList:(DOMNodeList *)list;
 - (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
 - (NSArray *)arrayFromHTMLOptionsCollection:(DOMHTMLOptionsCollection *)collection;
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
@@ -327,9 +331,11 @@
     NSString *formName = [args objectForKey:@"formName"];
     NSString *formID = [args objectForKey:@"formID"];
     NSString *formXPath = [args objectForKey:@"formXPath"];
+    NSString *formCSSSelector = [args objectForKey:@"formCSSSelector"];
     NSString *name = [args objectForKey:@"name"];
     NSString *identifier = [args objectForKey:@"identifier"];
     NSString *xpath = [args objectForKey:@"xpath"];
+    NSString *cssSelector = [args objectForKey:@"cssSelector"];
     NSString *value = [args objectForKey:@"value"];
     
     DOMHTMLFormElement *formEl = nil;
@@ -353,10 +359,15 @@
     } else if ([formXPath length]) {
         NSArray *els = [self elementsForXPath:formXPath];
         if ([els count]) {
-            formEl = [els objectAtIndex:0];
-            if (![formEl isKindOfClass:[DOMHTMLFormElement class]]) {
-                formEl = nil;
+            DOMElement *el = [els objectAtIndex:0];
+            if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+                formEl = (DOMHTMLFormElement *)el;
             }
+        }
+    } else if ([formCSSSelector length]) {
+        DOMElement *el = [self elementForCSSSelector:cssSelector];
+        if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+            formEl = (DOMHTMLFormElement *)el;
         }
     }
     
@@ -390,6 +401,8 @@
     } else if ([xpath length]) {
         NSArray *els = [self elementsForXPath:xpath];
         if ([els count]) foundEl = [els objectAtIndex:0];
+    } else if ([cssSelector length]) {
+        foundEl = [self elementForCSSSelector:cssSelector];
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
         [cmd setScriptErrorString:NSLocalizedString(@"The Set HTML Element Value Command requires an element specifier.", @"")];
@@ -445,6 +458,7 @@
     NSString *name = [args objectForKey:@"name"];
     NSString *identifier = [args objectForKey:@"identifier"];
     NSString *xpath = [args objectForKey:@"xpath"];
+    NSString *cssSelector = [args objectForKey:@"cssSelector"];
     NSDictionary *values = [args objectForKey:@"values"];
     
     DOMHTMLFormElement *formEl = nil;
@@ -460,6 +474,11 @@
                 formEl = (DOMHTMLFormElement *)el;
                 break;
             }
+        }
+    } else if (cssSelector) {
+        DOMElement *el = [self elementForCSSSelector:cssSelector];
+        if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+            formEl = (DOMHTMLFormElement *)el;
         }
     }
     
@@ -733,11 +752,13 @@
 
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args {
     NSString *xpath = [args objectForKey:@"xpath"];
+    NSString *cssSelector = [args objectForKey:@"cssSelector"];
     NSString *identifier = [args objectForKey:@"identifier"];
     NSString *name = [args objectForKey:@"name"];
     NSString *text = [[args objectForKey:@"text"] lowercaseString];
     
     BOOL hasXPath = [xpath length];
+    BOOL hasCSSSelector = [cssSelector length];
     BOOL hasIdentifier = [identifier length];
     BOOL hasName = [name length];
     BOOL hasText = [text length];
@@ -745,6 +766,8 @@
     NSMutableArray *els = nil;
     if (hasXPath) {
         els = [self elementsForXPath:xpath];
+    } else if (hasCSSSelector) {
+        els = [self elementsForCSSSelector:cssSelector];
     } else if (hasIdentifier && hasText) {
         els = [self elementsWithTagName:tagName andValue:identifier forAttribute:@"id"];
         els = [self elementsFromArray:els withText:text];
@@ -825,16 +848,50 @@
 }
 
 
+- (DOMElement *)elementForCSSSelector:(NSString *)cssSelector {
+    DOMElement *result = nil;
+    
+    if ([cssSelector length]) {
+        @try {
+            DOMDocument *doc = [webView mainFrameDocument];
+            result = [doc querySelector:cssSelector];
+            
+        } @catch (NSException *e) {
+            NSLog(@"error evaling CSS selector: %@", [e reason]);
+            return nil;
+        }
+    }
+    
+    return result;
+}
+
+
+- (NSMutableArray *)elementsForCSSSelector:(NSString *)cssSelector {
+    NSMutableArray *result = nil;
+    
+    if ([cssSelector length]) {
+        @try {
+            DOMDocument *doc = [webView mainFrameDocument];
+            DOMNodeList *list = [doc querySelectorAll:cssSelector];
+            result = [self arrayFromNodeList:list];
+            
+        } @catch (NSException *e) {
+            NSLog(@"error evaling CSS selector: %@", [e reason]);
+            return nil;
+        }
+    }
+    
+    return result;
+}
+
+
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName {
     NSMutableArray *result = [NSMutableArray array];
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    DOMNodeList *els = [doc getElementsByTagName:tagName];
+    NSArray *els = [self arrayFromNodeList:[doc getElementsByTagName:tagName]];
     
-    NSUInteger i = 0;
-    NSUInteger count = [els length];
-    for ( ; i < count; i++) {
-        DOMHTMLElement *el = (DOMHTMLElement *)[els item:i];
+    for (DOMHTMLElement *el in els) {
         NSString *val = [el getAttribute:attrName];
         if (val && [val isEqualToString:attrVal]) {
             [result addObject:el];
@@ -849,17 +906,8 @@
     text = [text lowercaseString];
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    DOMNodeList *nodeList = [doc getElementsByTagName:tagName];
-    
-    NSUInteger count = [nodeList length];
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
-
-    NSUInteger i = 0;
-    for ( ; i < count; i++) {
-        [result addObject:[nodeList item:i]];
-    }
-
-    result = [self elementsFromArray:result withText:text];
+    NSMutableArray *els = [self arrayFromNodeList:[doc getElementsByTagName:tagName]];
+    NSMutableArray *result = [self elementsFromArray:els withText:text];
 
     return result;
 }
@@ -882,6 +930,19 @@
         if ([[ms lowercaseString] isEqualToString:text]) {
             [result addObject:el];
         }
+    }
+    
+    return result;
+}
+
+
+- (NSArray *)arrayFromNodeList:(DOMNodeList *)list {
+    NSUInteger count = [list length];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
+    
+    NSUInteger i = 0;
+    for ( ; i < count; i++) {
+        [result addObject:[list item:i]];
     }
     
     return result;

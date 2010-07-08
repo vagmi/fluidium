@@ -1104,6 +1104,7 @@
 		D3D486BB11E298180030A659 /* FakeLinkContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeLinkContentView.m; path = ../../fake/src/FakeLinkContentView.m; sourceTree = SOURCE_ROOT; };
 		D3D488B511E2C64B0030A659 /* FakeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeWindowController.h; path = ../../fake/src/FakeWindowController.h; sourceTree = SOURCE_ROOT; };
 		D3D488B611E2C64B0030A659 /* FakeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeWindowController.m; path = ../../fake/src/FakeWindowController.m; sourceTree = SOURCE_ROOT; };
+		D3D647D111E584F100BCB75A /* DOMDocumentPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMDocumentPrivate.h; path = src/DOMDocumentPrivate.h; sourceTree = "<group>"; };
 		D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSubmitFormCommand.h; path = src/FUSubmitFormCommand.h; sourceTree = "<group>"; };
 		D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSubmitFormCommand.m; path = src/FUSubmitFormCommand.m; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
@@ -1958,6 +1959,7 @@
 				D30BC47E10E18D0F0019816B /* WebInspector.h */,
 				D33B1A6C11168E6B00F754AD /* WebDynamicScrollBarsView.h */,
 				D372A2FB115C168100516A0B /* WebSecurityOriginPrivate.h */,
+				D3D647D111E584F100BCB75A /* DOMDocumentPrivate.h */,
 			);
 			name = WebKit;
 			sourceTree = "<group>";
