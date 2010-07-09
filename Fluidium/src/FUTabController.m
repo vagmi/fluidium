@@ -469,7 +469,11 @@ typedef enum {
 
     // set window.fluid object
     DOMAbstractView *window = (DOMAbstractView *)[webView windowScriptObject];
+#ifdef FAKE
+    [window setValue:javaScriptBridge forKey:@"fake"];
+#else
     [window setValue:javaScriptBridge forKey:@"fluid"];
+#endif
     
     [self postNotificationName:FUTabControllerDidClearWindowObjectNotification];
 
