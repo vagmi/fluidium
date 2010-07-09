@@ -23,7 +23,6 @@
 #import "FUActivation.h"
 #import "FUView.h"
 #import "FUWebView.h"
-#import "FUJavaScriptBridge.h"
 #import "FURecentURLController.h"
 #import "FUDownloadWindowController.h"
 #import "FUNotifications.h"
@@ -34,6 +33,12 @@
 #import "WebUIDelegatePrivate.h"
 #import "WebInspector.h"
 #import "WebSecurityOriginPrivate.h"
+
+#ifdef Fake
+#import "FakeJavaScriptBridge.h"
+#else
+#import "FUJavaScriptBridge.h"
+#endif
 
 typedef enum {
     WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1
@@ -86,7 +91,11 @@ typedef enum {
 - (id)initWithWindowController:(FUWindowController *)wc {
     if (self = [super init]) {
         self.windowController = wc;
+#ifdef FAKE
+        self.javaScriptBridge = [[[NSClassFromString(@"FakeJavaScriptBridge") alloc] init] autorelease];
+#else
         self.javaScriptBridge = [[[FUJavaScriptBridge alloc] init] autorelease];
+#endif
 
         // necessary to prevent bindings exceptions
         self.URLString = @"";
