@@ -571,6 +571,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)draggingExited:(id <NSDraggingInfo>)dragInfo {
     [super draggingExited:dragInfo];
     [(id)scrollView setSuppressScrolling:NO];
+    [self performSelector:@selector(reloadData) withObject:nil afterDelay:.3];
 }
 
 
