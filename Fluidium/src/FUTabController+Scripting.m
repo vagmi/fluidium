@@ -15,6 +15,7 @@
 #import "FUTabController+Scripting.h"
 #import "FUDocument.h"
 #import "FUWindowController.h"
+#import "FUWildcardPattern.h"
 #import "FUNotifications.h"
 #import "FUUtils.h"
 #import "DOMDocumentPrivate.h"
@@ -946,6 +947,7 @@
 
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text {
     NSMutableArray *result = [NSMutableArray array];
+    FUWildcardPattern *pattern = [FUWildcardPattern patternWithString:[text lowercaseString]];
     
     for (DOMHTMLElement *el in els) {
         NSString *currText = nil;
@@ -958,9 +960,11 @@
         NSMutableString *ms = [[currText mutableCopy] autorelease];
         CFStringTrimWhitespace((CFMutableStringRef)ms);
         
-        if ([[ms lowercaseString] isEqualToString:text]) {
+//        if ([[ms lowercaseString] isEqualToString:text]) {
+        if ([pattern isMatch:[ms lowercaseString]]) {
             [result addObject:el];
         }
+        
     }
     
     return result;
@@ -1057,8 +1061,13 @@
 
 #pragma mark -
 
-- (BOOL)titleEquals:(NSString *)aTitle {
-    BOOL result = [[webView mainFrameTitle] isEqualToString:aTitle];
+- (BOOL)titleEquals:(NSString *)aTitle {    
+    //BOOL result = [[webView mainFrameTitle] isEqualToString:aTitle];
+
+    //aTitle = [NSString stringWithFormat:@"*%@*", aTitle];
+    FUWildcardPattern *pattern = [FUWildcardPattern patternWithString:aTitle];
+    BOOL result = [pattern isMatch:[webView mainFrameTitle]];
+
     return result;
 }
 
@@ -1084,12 +1093,16 @@
 }
 
 
-- (BOOL)containsText:(NSString *)text {
+- (BOOL)containsText:(NSString *)text {    
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     NSString *allText = [[doc body] textContent];
     
-    NSRange r = [allText rangeOfString:text];
-    BOOL containsText = NSNotFound != r.location;
+//    NSRange r = [allText rangeOfString:text];
+//    BOOL containsText = NSNotFound != r.location;
+    
+    text = [NSString stringWithFormat:@"*%@*", text];
+    FUWildcardPattern *pattern = [FUWildcardPattern patternWithString:text];
+    BOOL containsText = [pattern isMatch:allText];
     
     return containsText;
 }
