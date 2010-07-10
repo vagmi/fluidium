@@ -11,6 +11,8 @@
 			<array>
 				<string>fakeworkflow</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>fdoc</string>
 			<key>CFBundleTypeName</key>
 			<string>Fake Workflow</string>
 			<key>CFBundleTypeRole</key>
