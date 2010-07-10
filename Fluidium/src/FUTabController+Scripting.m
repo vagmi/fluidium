@@ -498,7 +498,7 @@
         DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
         if (!el) {
             [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-            [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find input element with name: %@ in form named : %@", @""), name, elName]];
+            [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find input element with name: «%@» in form named : «%@»", @""), name, elName]];
             return nil;
         }
         [self setValue:value forElement:el];
