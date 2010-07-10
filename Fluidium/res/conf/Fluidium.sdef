@@ -386,6 +386,12 @@
         <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Asserts the value of the title of the web page loaded in this tab.">
             <cocoa key="titleEquals"/>
         </parameter>
+        <parameter type="text" name="HTTP status code equals" code="ScEq" optional="yes" description="Asserts the value of the HTTP response status code (e.g. 200) for the last page load.">
+            <cocoa key="statusCodeEquals"/>
+        </parameter>
+        <parameter type="text" name="HTTP status code is not equal" code="ScNe" optional="yes" description="Asserts the value of the HTTP response status code (e.g. 200) for the last page load was not a given code.">
+            <cocoa key="statusCodeNotEqual"/>
+        </parameter>
         <parameter type="text" name="page has element with id" code="YsID" optional="yes" description="Asserts an element with a given id attribute exists in the web page loaded in this tab.">
             <cocoa key="hasElementWithId"/>
         </parameter>

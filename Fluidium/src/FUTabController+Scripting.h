@@ -46,6 +46,8 @@
 
 - (id)handleAssertCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertTitleEqualsCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertStatusCodeEqualsCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertStatusCodeNotEqualCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd;

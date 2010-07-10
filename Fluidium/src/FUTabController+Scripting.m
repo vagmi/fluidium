@@ -55,6 +55,7 @@
 - (BOOL)isCheckbox:(DOMHTMLElement *)el;
     
 - (BOOL)titleEquals:(NSString *)cmd;
+- (BOOL)statusCodeEquals:(NSInteger)aCode;
 - (BOOL)hasElementWithId:(NSString *)cmd;
 - (BOOL)containsText:(NSString *)cmd;
 - (BOOL)containsHTML:(NSString *)cmd;
@@ -517,6 +518,8 @@
     NSDictionary *args = [cmd arguments];
     
     NSString *titleEquals = [args objectForKey:@"titleEquals"];
+    NSString *statusCodeEquals = [args objectForKey:@"statusCodeEquals"];
+    NSString *statusCodeNotEqual = [args objectForKey:@"statusCodeNotEqual"];
     NSString *hasElementWithId = [args objectForKey:@"hasElementWithId"];
     NSString *doesntHaveElementWithId = [args objectForKey:@"doesntHaveElementWithId"];
     NSString *containsText = [args objectForKey:@"containsText"];
@@ -530,6 +533,10 @@
     
     if (titleEquals) {
         result = [self handleAssertTitleEqualsCommand:cmd];
+    } else if (statusCodeEquals) {
+        result = [self handleAssertStatusCodeEqualsCommand:cmd];
+    } else if (statusCodeNotEqual) {
+        result = [self handleAssertStatusCodeNotEqualCommand:cmd];
     } else if (hasElementWithId) {
         result = [self handleAssertHasElementWithIdCommand:cmd];
     } else if (doesntHaveElementWithId) {
@@ -577,6 +584,30 @@
     if (![self titleEquals:aTitle]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage title does not equal «%@»", @""), [webView mainFrameURL], aTitle]];
+        return nil;
+    }
+    
+    return nil;
+}
+
+
+- (id)handleAssertStatusCodeEqualsCommand:(NSScriptCommand *)cmd {
+    NSInteger aCode = [[[cmd arguments] objectForKey:@"statusCodeEquals"] integerValue];
+    if (![self statusCodeEquals:aCode]) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nHTTP status code does not equal «%d»", @""), [webView mainFrameURL], aCode]];
+        return nil;
+    }
+    
+    return nil;
+}
+
+
+- (id)handleAssertStatusCodeNotEqualCommand:(NSScriptCommand *)cmd {
+    NSInteger aCode = [[[cmd arguments] objectForKey:@"statusCodeNotEqual"] integerValue];
+    if ([self statusCodeEquals:aCode]) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nHTTP status code equals «%d»", @""), [webView mainFrameURL], aCode]];
         return nil;
     }
     
@@ -1029,6 +1060,18 @@
 - (BOOL)titleEquals:(NSString *)aTitle {
     BOOL result = [[webView mainFrameTitle] isEqualToString:aTitle];
     return result;
+}
+
+
+- (BOOL)statusCodeEquals:(NSInteger)aCode {
+    NSURLResponse *res = [[[webView mainFrame] dataSource] response];
+    if ([res isKindOfClass:[NSURLResponse class]]) {
+        NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)res;
+        BOOL result = [httpRes statusCode] == aCode;
+        return result;
+    } else {
+        return NO;
+    }
 }
 
 
