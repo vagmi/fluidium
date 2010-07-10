@@ -71,6 +71,7 @@ typedef enum {
 
 - (void)openPanelDidEnd:(NSSavePanel *)openPanel returnCode:(NSInteger)code contextInfo:(id <WebOpenPanelResultListener>)listener;
 - (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(NSInteger)code contextInfo:(NSURL *)URL;
+//- (void)geolocationAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(id <WebGeolocationPolicyListener>)listener;
 
 @property (nonatomic, assign, readwrite) FUWindowController *windowController; // weak ref
 @property (nonatomic, retain) NSScriptCommand *suspendedCommand;
@@ -614,6 +615,27 @@ typedef enum {
 #pragma mark -
 #pragma mark WebUIDelegate
 
+//- (void)webView:(WebView *)wv decidePolicyForGeolocationRequestFromOrigin:(WebSecurityOrigin *)origin frame:(WebFrame *)frame listener:(id <WebGeolocationPolicyListener>)listener {
+//    NSString *site = [[[[frame dataSource] mainResource] URL] host];
+//    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"The site '%@' would like to use your current location.", @""), site];
+//    NSString *button = NSLocalizedString(@"Allow", @"");
+//    NSString *altButton = NSLocalizedString(@"Don't Allow", @"");
+//    NSWindow *win = [wv window];
+//    NSAlert *alert = [NSAlert alertWithMessageText:text defaultButton:button alternateButton:altButton otherButton:nil informativeTextWithFormat:@""];
+//    [alert beginSheetModalForWindow:win modalDelegate:self didEndSelector:@selector(geolocationAlertDidEnd:returnCode:contextInfo:) contextInfo:[listener retain]]; // retained
+//}
+//
+//
+//- (void)geolocationAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(id <WebGeolocationPolicyListener>)listener {
+//    [listener autorelease]; // released
+//    if (NSAlertDefaultReturn == returnCode) {
+//        [listener allow];
+//    } else {
+//        [listener deny];
+//    }
+//}
+
+
 - (WebView *)webView:(WebView *)wv createWebViewWithRequest:(NSURLRequest *)req {
     FUDestinationType type = [[FUUserDefaults instance] targetedClicksCreateTabs] ? FUDestinationTypeTab : FUDestinationTypeWindow;
     FUTabController *tc = [[FUDocumentController instance] loadURL:[[req URL] absoluteString] destinationType:type inForeground:YES]; // TODO this is supposed to be created offscreen in the background according to webkit docs
@@ -807,7 +829,7 @@ typedef enum {
         [items insertObject:[NSMenuItem separatorItem] atIndex:2];
         
         NSMenuItem *downloadAsItem = [[[NSMenuItem alloc] init] autorelease];
-        [downloadAsItem setTitle:NSLocalizedString(@"Download Linked File As...", @"")];
+        [downloadAsItem setTitle:NSLocalizedString(@"Download Linked File As…", @"")];
         [downloadAsItem setTarget:self];
         [downloadAsItem setAction:@selector(downloadLinkAsFromMenu:)];
         [downloadAsItem setRepresentedObject:info];

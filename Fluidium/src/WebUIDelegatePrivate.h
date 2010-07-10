@@ -87,8 +87,13 @@ enum {
     WebMenuItemTagChangeBack,
     WebMenuItemTagBaseApplication = 10000
 };
-@class WebGeolocation;
+
 @class WebSecurityOrigin;
+
+@protocol WebGeolocationPolicyListener <NSObject>
+- (void)allow;
+- (void)deny;
+@end
 
 @interface NSObject (WebUIDelegatePrivate)
 
@@ -109,14 +114,14 @@ enum {
 - (void)webView:(WebView *)sender willPopupMenu:(NSMenu *)menu;
 - (void)webView:(WebView *)sender contextMenuItemSelected:(NSMenuItem *)item forElement:(NSDictionary *)element;
 - (void)webView:(WebView *)sender saveFrameView:(WebFrameView *)frameView showingPanel:(BOOL)showingPanel;
-
+- (BOOL)webView:(WebView *)sender shouldHaltPlugin:(DOMNode *)pluginNode isWindowed:(BOOL)isWindowed pluginName:(NSString *)pluginName;
 /*!
-    @method webView:frame:exceededDatabaseQuotaForSecurityOrigin:database:
-    @param sender The WebView sending the delegate method.
-    @param frame The WebFrame whose JavaScript initiated this call.
-    @param origin The security origin that needs a larger quota.
-    @param databaseIdentifier The identifier of the database involved.
-*/
+ @method webView:frame:exceededDatabaseQuotaForSecurityOrigin:database:
+ @param sender The WebView sending the delegate method.
+ @param frame The WebFrame whose JavaScript initiated this call.
+ @param origin The security origin that needs a larger quota.
+ @param databaseIdentifier The identifier of the database involved.
+ */
 - (void)webView:(WebView *)sender frame:(WebFrame *)frame exceededDatabaseQuotaForSecurityOrigin:(WebSecurityOrigin *)origin database:(NSString *)databaseIdentifier;
 
 - (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request windowFeatures:(NSDictionary *)features;
@@ -124,19 +129,29 @@ enum {
 - (BOOL)webView:(WebView *)sender shouldReplaceUploadFile:(NSString *)path usingGeneratedFilename:(NSString **)filename;
 - (NSString *)webView:(WebView *)sender generateReplacementFile:(NSString *)path;
 
-- (BOOL)webView:(WebView *)sender frame:(WebFrame *)frame requestGeolocationPermission:(WebGeolocation *)geolocation securityOrigin:(WebSecurityOrigin *)origin;
+/*!
+ @method webView:decidePolicyForGeolocationRequestFromOrigin:frame:listener:
+ @abstract 
+ @param webView The WebView sending the delegate method.
+ @param origin The security origin that would like to use Geolocation.
+ @param frame The WebFrame whose JavaScript initiated this call.
+ @param listener The object to call when the decision is made
+ */
+- (void)webView:(WebView *)webView decidePolicyForGeolocationRequestFromOrigin:(WebSecurityOrigin *)origin
+          frame:(WebFrame *)frame
+       listener:(id<WebGeolocationPolicyListener>)listener;
 
 - (void)webView:(WebView *)sender formStateDidChangeForNode:(DOMNode *)node;
 - (void)webView:(WebView *)sender formDidFocusNode:(DOMNode *)node;
 - (void)webView:(WebView *)sender formDidBlurNode:(DOMNode *)node;
 
 /*!
-    @method webView:printFrame:
-    @abstract Informs that a WebFrame needs to be printed
-    @param webView The WebView sending the delegate method
-    @param frameView The WebFrame needing to be printed
-    @discussion This method is called when a script or user requests the page to be printed.
-*/
+ @method webView:printFrame:
+ @abstract Informs that a WebFrame needs to be printed
+ @param webView The WebView sending the delegate method
+ @param frameView The WebFrame needing to be printed
+ @discussion This method is called when a script or user requests the page to be printed.
+ */
 - (void)webView:(WebView *)sender printFrame:(WebFrame *)frame;
 
 @end
