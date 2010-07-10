@@ -957,11 +957,10 @@
             currText = [el textContent];
         }
         
-        NSMutableString *ms = [[currText mutableCopy] autorelease];
-        CFStringTrimWhitespace((CFMutableStringRef)ms);
+        currText = [currText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
 //        if ([[ms lowercaseString] isEqualToString:text]) {
-        if ([pattern isMatch:[ms lowercaseString]]) {
+        if ([pattern isMatch:[currText lowercaseString]]) {
             [result addObject:el];
         }
         
