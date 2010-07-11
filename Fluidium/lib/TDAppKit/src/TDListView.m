@@ -463,9 +463,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark -
 #pragma mark NSDraggingDestination
 
-- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {
-    [(id)scrollView setSuppressScrolling:YES];
-    
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)dragInfo {    
     delegateRespondsToValidateDrop = delegate && [delegate respondsToSelector:@selector(listView:validateDrop:proposedIndex:dropOperation:)];
     
     if (!itemFrames) {
@@ -494,8 +492,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         return NSDragOperationNone;
     }
     
-    [(id)scrollView setSuppressScrolling:YES];
-
     NSDragOperation dragOp = NSDragOperationNone;
     BOOL isDraggingListItem = (draggingVisibleIndex != NSNotFound || [[[dragInfo draggingPasteboard] types] containsObject:TDListItemPboardType]);
     
@@ -570,7 +566,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (void)draggingExited:(id <NSDraggingInfo>)dragInfo {
     [super draggingExited:dragInfo];
-    [(id)scrollView setSuppressScrolling:NO];
     [self performSelector:@selector(reloadData) withObject:nil afterDelay:.3];
 }
 
@@ -794,8 +789,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)draggingSourceDragDidEnd {
-    [(id)scrollView setSuppressScrolling:NO];
-
     draggingVisibleIndex = NSNotFound;
     draggingIndex = NSNotFound;
     self.lastMouseDownEvent = nil;
