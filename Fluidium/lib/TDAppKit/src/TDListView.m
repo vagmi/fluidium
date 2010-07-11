@@ -566,7 +566,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (void)draggingExited:(id <NSDraggingInfo>)dragInfo {
     [super draggingExited:dragInfo];
-    [self performSelector:@selector(reloadData) withObject:nil afterDelay:.3];
+    //[self performSelector:@selector(reloadData) withObject:nil afterDelay:.3];
 }
 
 
@@ -652,6 +652,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             }
             item.index = i;
             [item setFrame:NSMakeRect(x, y, w, h)];
+            [item setHidden:NO];
             [self addSubview:item];
             [items addObject:item];
             [unusedItems removeObject:item];
@@ -791,11 +792,10 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     draggingVisibleIndex = NSNotFound;
     draggingIndex = NSNotFound;
     self.lastMouseDownEvent = nil;
-    
-    for (TDListItem *item in items) {
-        [item setHidden:NO];
-    }
-    [self reloadData];
+    //    for (TDListItem *item in items) {
+    //        [item setHidden:NO];
+    //    }
+    //    [self reloadData];
 }
 
 @synthesize scrollView;
