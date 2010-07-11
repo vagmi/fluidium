@@ -50,10 +50,10 @@
 - (id)handleAssertStatusCodeNotEqualCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertHasElementWithIdCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertDoesntHaveElementWithIdCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertHasElementForXPathCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertDoesntHaveElementForXPathCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertDoesntContainTextCommand:(NSScriptCommand *)cmd;
-- (id)handleAssertContainsHTMLCommand:(NSScriptCommand *)cmd;
-- (id)handleAssertDoesntContainHTMLCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd;
 

@@ -58,6 +58,7 @@
 - (BOOL)titleEquals:(NSString *)cmd;
 - (BOOL)statusCodeEquals:(NSInteger)aCode;
 - (BOOL)hasElementWithId:(NSString *)cmd;
+- (BOOL)hasElementForXPath:(NSString *)xpath;
 - (BOOL)containsText:(NSString *)cmd;
 - (BOOL)containsHTML:(NSString *)cmd;
 - (BOOL)javaScriptEvalsTrue:(NSString *)cmd;
@@ -324,9 +325,6 @@
 - (id)handleSetElementValueCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
-    // just put in a little delay for good measure
-    [self suspendCommand:cmd];
-
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
     NSDictionary *args = [cmd arguments];
@@ -411,10 +409,16 @@
         return nil;
     }
     
+    if (![foundEls count] && foundEl) {
+        foundEls = [NSArray arrayWithObject:foundEl];
+    }
+    
+    BOOL setAVal = NO;
     if ([foundEls count]) {
         for (DOMHTMLElement *el in foundEls) {
             if ([self isRadio:el]) {
                 if ([[el getAttribute:@"value"] isEqualToString:value]) {
+                    setAVal = YES;
                     [self setValue:value forElement:el];
                 }
             } else if ([self isMultiSelect:el]) {
@@ -429,24 +433,27 @@
                 
                 DOMHTMLSelectElement *selectEl = (DOMHTMLSelectElement *)el;
                 for (DOMHTMLOptionElement *optEl in [self arrayFromHTMLOptionsCollection:[selectEl options]]) {
+                    setAVal = YES;
                     optEl.selected = [cleanVals containsObject:[optEl getAttribute:@"value"]];
                 }
                 
             } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
+                setAVal = YES;
                 [self setValue:value forElement:el];
             }
         }
-    } else if (foundEl && [foundEl isKindOfClass:[DOMHTMLElement class]]) {
-        [self setValue:value forElement:foundEl];
+    }
+    
+    if (setAVal) {
+        // just put in a little delay for good measure
+        [self suspendCommand:cmd];
+        // resume execution
+        [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+        
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
         [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find element with args: %@", @""), args]];
-        return nil;
     }
-
-    // resume execution
-    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
-    
     return nil;
 }
 
@@ -523,10 +530,10 @@
     NSString *statusCodeNotEqual = [args objectForKey:@"statusCodeNotEqual"];
     NSString *hasElementWithId = [args objectForKey:@"hasElementWithId"];
     NSString *doesntHaveElementWithId = [args objectForKey:@"doesntHaveElementWithId"];
+    NSString *hasElementForXPath = [args objectForKey:@"hasElementForXPath"];
+    NSString *doesntHaveElementForXPath = [args objectForKey:@"doesntHaveElementForXPath"];
     NSString *containsText = [args objectForKey:@"containsText"];
     NSString *doesntContainText = [args objectForKey:@"doesntContainText"];
-    NSString *containsHTML = [args objectForKey:@"containsHTML"];
-    NSString *doesntContainHTML = [args objectForKey:@"doesntContainHTML"];
     NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
     NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
     
@@ -542,14 +549,14 @@
         result = [self handleAssertHasElementWithIdCommand:cmd];
     } else if (doesntHaveElementWithId) {
         result = [self handleAssertDoesntHaveElementWithIdCommand:cmd];
+    } else if (hasElementForXPath) {
+        result = [self handleAssertHasElementForXPathCommand:cmd];
+    } else if (doesntHaveElementForXPath) {
+        result = [self handleAssertDoesntHaveElementForXPathCommand:cmd];
     } else if (containsText) {
         result = [self handleAssertContainsTextCommand:cmd];
     } else if (doesntContainText) {
         result = [self handleAssertDoesntContainTextCommand:cmd];
-    } else if (containsHTML) {
-        result = [self handleAssertContainsHTMLCommand:cmd];
-    } else if (doesntContainHTML) {
-        result = [self handleAssertDoesntContainHTMLCommand:cmd];
     } else if (javaScriptEvalsTrue) {
         result = [self handleAssertJavaScriptEvalsTrueCommand:cmd];
     } else if (javaScriptEvalsFalse) {
@@ -636,6 +643,30 @@
         return nil;
     }
 
+    return nil;
+}
+
+
+- (id)handleAssertHasElementForXPathCommand:(NSScriptCommand *)cmd {
+    NSString *xpath = [[cmd arguments] objectForKey:@"hasElementForXPath"];
+    if (![self hasElementForXPath:xpath]) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage does not have element for XPath «%@»", @""), [webView mainFrameURL], xpath]];
+        return nil;
+    }
+    
+    return nil;
+}
+
+
+- (id)handleAssertDoesntHaveElementForXPathCommand:(NSScriptCommand *)cmd {
+    NSString *xpath = [[cmd arguments] objectForKey:@"doesntHaveElementForXPath"];
+    if ([self hasElementForXPath:xpath]) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nPage has element for XPath «%@»", @""), [webView mainFrameURL], xpath]];
+        return nil;
+    }
+    
     return nil;
 }
 
@@ -1086,8 +1117,15 @@
 - (BOOL)hasElementWithId:(NSString *)identifier {
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     DOMElement *el = [doc getElementById:identifier];
-
+    
     BOOL result = (el != nil);
+    return result;
+}
+
+
+- (BOOL)hasElementForXPath:(NSString *)xpath {
+    NSArray *els = [self elementsForXPath:xpath];
+    BOOL result = ([els count] > 0);
     return result;
 }
 
@@ -1144,21 +1182,21 @@
         
         NSString *titleEquals = [args objectForKey:@"titleEquals"];
         NSString *hasElementWithId = [args objectForKey:@"hasElementWithId"];
-        NSString *doesntHaveElementWithId = [args objectForKey:@"doesntHaveElementWithId"];
+        NSString *doesntHaveElementWithId = [args objectForKey:@"doesntHaveElementForXPath"];
+        NSString *hasElementForXPath = [args objectForKey:@"hasElementWithId"];
+        NSString *doesntHaveElementForXPath = [args objectForKey:@"doesntHaveElementForXPath"];
         NSString *containsText = [args objectForKey:@"containsText"];
         NSString *doesntContainText = [args objectForKey:@"doesntContainText"];
-        NSString *containsHTML = [args objectForKey:@"containsHTML"];
-        NSString *doesntContainHTML = [args objectForKey:@"doesntContainHTML"];
         NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
         NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
         
         BOOL titleEqualsDone = YES;
         BOOL hasElementWithIdDone = YES;
         BOOL doesntHaveElementWithIdDone = YES;
+        BOOL hasElementForXPathDone = YES;
+        BOOL doesntHaveElementForXPathDone = YES;
         BOOL containsTextDone = YES;
         BOOL doesntContainTextDone = YES;
-        BOOL containsHTMLDone = YES;
-        BOOL doesntContainHTMLDone = YES;
         BOOL javaScriptEvalsTrueDone = YES;
         BOOL javaScriptEvalsFalseDone = YES;
         
@@ -1171,17 +1209,17 @@
         if (doesntHaveElementWithId) {
             doesntHaveElementWithIdDone = ![self hasElementWithId:doesntHaveElementWithId];
         }
+        if (hasElementForXPath) {
+            hasElementForXPathDone = [self hasElementForXPath:hasElementForXPath];
+        }
+        if (doesntHaveElementForXPath) {
+            doesntHaveElementForXPathDone = ![self hasElementForXPath:doesntHaveElementForXPath];
+        }
         if (containsText) {
             containsTextDone = [self containsText:containsText];
         }
         if (doesntContainText) {
             doesntContainTextDone = ![self containsText:doesntContainText];
-        }
-        if (containsHTML) {
-            containsHTMLDone = [self containsHTML:containsHTML];
-        }
-        if (doesntContainHTML) {
-            doesntContainHTMLDone = ![self containsHTML:doesntContainHTML];
         }
         if (javaScriptEvalsTrue) {
             javaScriptEvalsTrueDone = [self javaScriptEvalsTrue:javaScriptEvalsTrue];
@@ -1191,8 +1229,8 @@
         }
         
         done = (titleEqualsDone && hasElementWithIdDone && doesntHaveElementWithIdDone &&
-                containsTextDone && doesntContainTextDone && containsHTMLDone && 
-                doesntContainHTMLDone && javaScriptEvalsTrueDone && javaScriptEvalsFalseDone);
+                hasElementForXPathDone && doesntHaveElementForXPathDone && containsTextDone && 
+                doesntContainTextDone && javaScriptEvalsTrueDone && javaScriptEvalsFalseDone);
     }
     
     if (!done) {

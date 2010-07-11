@@ -398,17 +398,17 @@
         <parameter type="text" name="page does not have element with id" code="NoID" optional="yes" description="Asserts an element with a given id attribute does not exist in the web page loaded in this tab.">
             <cocoa key="doesntHaveElementWithId"/>
         </parameter>
+        <parameter type="text" name="page has element for XPath" code="YsXp" optional="yes" description="Asserts an element for a given XPath exists in the web page loaded in this tab.">
+            <cocoa key="hasElementForXPath"/>
+        </parameter>
+        <parameter type="text" name="page does not have element for XPath" code="NoXp" optional="yes" description="Asserts an element for a given XPath does not exist in the web page loaded in this tab.">
+            <cocoa key="doesntHaveElementForXPath"/>
+        </parameter>
         <parameter type="text" name="page contains text" code="YsTx" optional="yes" description="Asserts the given text exists in the web page loaded in this tab.">
             <cocoa key="containsText"/>
         </parameter>
         <parameter type="text" name="page does not contain text" code="NoTx" optional="yes" description="Asserts the given text does not exist in the web page loaded in this tab.">
             <cocoa key="doesntContainText"/>
-        </parameter>
-        <parameter type="text" name="page contains HTML" code="YsHT" optional="yes" description="Asserts the given HTML exists in the web page loaded in this tab.">
-            <cocoa key="containsHTML"/>
-        </parameter>
-        <parameter type="text" name="page does not contain HTML" code="NoHT" optional="yes" description="Asserts the given HTML does not exist in the web page loaded in this tab.">
-            <cocoa key="doesntContainHTML"/>
         </parameter>
         <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Asserts the given JavaScript evaluates to true in the web page loaded in this tab.">
             <cocoa key="javaScriptEvalsTrue"/>
@@ -431,17 +431,17 @@
         <parameter type="text" name="page does not have element with id" code="NoID" optional="yes" description="Waits for element with a given id attribute to not exist in the web page loaded in this tab.">
             <cocoa key="doesntHaveElementWithId"/>
         </parameter>
+        <parameter type="text" name="page has element for XPath" code="YsXp" optional="yes" description="Asserts an element for a given XPath exists in the web page loaded in this tab.">
+            <cocoa key="hasElementForXPath"/>
+        </parameter>
+        <parameter type="text" name="page does not have element for XPath" code="NoXp" optional="yes" description="Asserts an element for a given XPath does not exist in the web page loaded in this tab.">
+            <cocoa key="doesntHaveElementForXPath"/>
+        </parameter>
         <parameter type="text" name="page contains text" code="YsTx" optional="yes" description="Waits for the given text to exist in the web page loaded in this tab.">
             <cocoa key="containsText"/>
         </parameter>
         <parameter type="text" name="page does not contain text" code="NoTx" optional="yes" description="Waits for the given text to not exist in the web page loaded in this tab.">
             <cocoa key="doesntContainText"/>
-        </parameter>
-        <parameter type="text" name="page contains HTML" code="YsHT" optional="yes" description="Waits for the given HTML to exist in the web page loaded in this tab.">
-            <cocoa key="containsHTML"/>
-        </parameter>
-        <parameter type="text" name="page does not contain HTML" code="NoHT" optional="yes" description="Waits for the given HTML to not exist in the web page loaded in this tab.">
-            <cocoa key="doesntContainHTML"/>
         </parameter>
         <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Waits for the given JavaScript to evaluate true in the web page loaded in this tab.">
             <cocoa key="javaScriptEvalsTrue"/>
