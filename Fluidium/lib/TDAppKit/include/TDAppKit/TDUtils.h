@@ -16,6 +16,7 @@
 
 NSBezierPath *TDGetRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth);
 NSBezierPath *TDDrawRoundRect(NSRect r, CGFloat radius, CGFloat lineWidth, NSGradient *fillGradient, NSColor *strokeColor);
+void TDAddRoundRect(CGContextRef ctx, CGRect rect, CGFloat radius);
 
 BOOL TDIsCommandKeyPressed(NSInteger modifierFlags);
 BOOL TDIsControlKeyPressed(NSInteger modifierFlags);
