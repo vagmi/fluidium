@@ -279,7 +279,7 @@
         if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
             DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
             NSString *type = [[el getAttribute:@"type"] lowercaseString];
-            if ([type isEqualToString:@"button"] || [type isEqualToString:@"submit"]) {
+            if ([type isEqualToString:@"button"] || [type isEqualToString:@"image"] || [type isEqualToString:@"submit"]) {
                 
                 [self suspendCommand:cmd];
                 [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
