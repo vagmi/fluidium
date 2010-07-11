@@ -643,6 +643,13 @@
 			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = TwitterPlugIn;
 		};
+		D361101711EA6F7100DB7EFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D15AC270486D014006FF6A4 /* Fluidium */;
+			remoteInfo = Fluidium;
+		};
 		D36E1F6911703EA200110DBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */;
@@ -2063,6 +2070,7 @@
 				D3C2E39411D7E9C600106E86 /* PBXTargetDependency */,
 				D3C2E39611D7E9C600106E86 /* PBXTargetDependency */,
 				D3C2E39811D7E9C600106E86 /* PBXTargetDependency */,
+				D361101811EA6F7100DB7EFD /* PBXTargetDependency */,
 			);
 			name = Fake;
 			productInstallPath = "$(HOME)/Applications";
@@ -2764,6 +2772,11 @@
 			isa = PBXTargetDependency;
 			name = ParseKit;
 			targetProxy = D346E58E10CE437800BA0B15 /* PBXContainerItemProxy */;
+		};
+		D361101811EA6F7100DB7EFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D15AC270486D014006FF6A4 /* Fluidium */;
+			targetProxy = D361101711EA6F7100DB7EFD /* PBXContainerItemProxy */;
 		};
 		D38422F01102D39200605809 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

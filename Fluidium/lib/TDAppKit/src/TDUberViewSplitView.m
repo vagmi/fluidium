@@ -154,7 +154,7 @@ static NSGradient *sDivotGradient = nil;
     CGFloat x = divRect.origin.x + divRect.size.width / 2 - DIVOT_SIDE / 2;
     CGFloat y = divRect.size.height / 2 - DIVOT_SIDE / 2;
     
-    CGRect divotRect = NSMakeRect(x, y, DIVOT_SIDE, DIVOT_SIDE);
+    NSRect divotRect = NSMakeRect(x, y, DIVOT_SIDE, DIVOT_SIDE);
     
     //    NSLog(@"divRect %@", NSStringFromRect(divRect));
     //    NSLog(@"divotRect %@", NSStringFromRect(divotRect));
@@ -168,7 +168,7 @@ static NSGradient *sDivotGradient = nil;
     CGFloat x = divRect.size.width / 2 - DIVOT_SIDE / 2;
     CGFloat y = divRect.origin.y + divRect.size.height / 2 - DIVOT_SIDE / 2;
     
-    CGRect divotRect = NSMakeRect(x, y, DIVOT_SIDE, DIVOT_SIDE);
+    NSRect divotRect = NSMakeRect(x, y, DIVOT_SIDE, DIVOT_SIDE);
     
     //    NSLog(@"divRect %@", NSStringFromRect(divRect));
     //    NSLog(@"divotRect %@", NSStringFromRect(divotRect));
