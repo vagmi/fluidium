@@ -652,7 +652,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
             }
             item.index = i;
             [item setFrame:NSMakeRect(x, y, w, h)];
-            [item setHidden:NO];
             [self addSubview:item];
             [items addObject:item];
             [unusedItems removeObject:item];
@@ -792,6 +791,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     draggingVisibleIndex = NSNotFound;
     draggingIndex = NSNotFound;
     self.lastMouseDownEvent = nil;
+    
+    for (TDListItem *item in items) {
+        [item setHidden:NO];
+    }
+    [self reloadData];
 }
 
 @synthesize scrollView;

@@ -59,6 +59,7 @@ extern NSString *const TDListItemPboardType;
     NSMutableArray *itemFrames;
     BOOL suppressLayout;
     BOOL delegateRespondsToValidateDrop;
+    BOOL isDragSource;
 }
 
 - (void)reloadData;
