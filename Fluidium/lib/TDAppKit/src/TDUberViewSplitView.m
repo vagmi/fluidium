@@ -14,6 +14,11 @@
 
 #import "TDUberViewSplitView.h"
 #import "TDUberView.h"
+#import <TDAppKit/NSBezierPath+TDAdditions.h>
+
+#define DIVOT_SIDE 4.5
+
+static NSGradient *sDivotGradient = nil;
 
 @interface TDUberView ()
 @property (nonatomic, retain) NSView *midSuperview;
@@ -22,9 +27,22 @@
 @interface TDUberViewSplitView ()
 - (void)drawLeftDividerInRect:(NSRect)divRect;
 - (void)drawRightDividerInRect:(NSRect)divRect;
+- (void)drawVertDivotInRect:(NSRect)divRect;
+- (void)drawHorizDivotInRect:(NSRect)divRect;
 @end
 
 @implementation TDUberViewSplitView
+
++ (void)initialize {
+    if ([TDUberViewSplitView class] == self) {
+
+        NSColor *black = [NSColor colorWithDeviceWhite:.3 alpha:1];
+        NSColor *gray = [NSColor colorWithDeviceWhite:.85 alpha:1];
+        NSColor *white = [NSColor colorWithDeviceWhite:1 alpha:1];
+        sDivotGradient = [[NSGradient alloc] initWithColors:[NSArray arrayWithObjects:black, gray, white, nil]];
+    }
+}
+
 
 - (id)initWithFrame:(NSRect)frame uberView:(TDUberView *)uv {
     if (self = [super initWithFrame:frame]) {
@@ -76,14 +94,15 @@
         if (isLeft && uberView.isLeftViewOpen) {
             [self.gradient drawInRect:divRect angle:0];
             [self drawLeftDividerInRect:divRect];
+            [self drawVertDivotInRect:divRect];
         } else if (uberView.isRightViewOpen) {
             [self.gradient drawInRect:divRect angle:180];
             [self drawRightDividerInRect:divRect];
+            [self drawVertDivotInRect:divRect];
         }
     } else {        
         BOOL isTop = NSMinY(divRect) <= NSMidY([uberView.midSuperview frame]);
         if ((isTop && uberView.isTopViewOpen) || (!isTop && uberView.isBottomViewOpen)) {
-
             [self.gradient drawInRect:divRect angle:90];
             [borderColor set];
             
@@ -103,6 +122,8 @@
 //            [NSBezierPath strokeRect:borderRect];
             cgrect = NSRectToCGRect(borderRect);
             CGContextStrokeRectWithWidth(ctx, cgrect, 1.0);
+            
+            //[self drawHorizDivotInRect:borderRect];
         }
     }
 }
@@ -128,6 +149,34 @@
 
 #pragma mark -
 #pragma mark Private
+
+- (void)drawVertDivotInRect:(NSRect)divRect {
+    CGFloat x = divRect.origin.x + divRect.size.width / 2 - DIVOT_SIDE / 2;
+    CGFloat y = divRect.size.height / 2 - DIVOT_SIDE / 2;
+    
+    CGRect divotRect = NSMakeRect(x, y, DIVOT_SIDE, DIVOT_SIDE);
+    
+    //    NSLog(@"divRect %@", NSStringFromRect(divRect));
+    //    NSLog(@"divotRect %@", NSStringFromRect(divotRect));
+    
+    NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:divotRect radius:DIVOT_SIDE / 2];
+    [sDivotGradient drawInBezierPath:path angle:70];
+}
+
+
+- (void)drawHorizDivotInRect:(NSRect)divRect {
+    CGFloat x = divRect.size.width / 2 - DIVOT_SIDE / 2;
+    CGFloat y = divRect.origin.y + divRect.size.height / 2 - DIVOT_SIDE / 2;
+    
+    CGRect divotRect = NSMakeRect(x, y, DIVOT_SIDE, DIVOT_SIDE);
+    
+    //    NSLog(@"divRect %@", NSStringFromRect(divRect));
+    //    NSLog(@"divotRect %@", NSStringFromRect(divotRect));
+    
+    NSBezierPath *path = [NSBezierPath bezierPathWithRoundRect:divotRect radius:DIVOT_SIDE / 2];
+    [sDivotGradient drawInBezierPath:path angle:70];
+}
+
 
 - (void)drawLeftDividerInRect:(NSRect)divRect {
     CGFloat divThickness = [self dividerThickness];
