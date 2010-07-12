@@ -15,7 +15,9 @@
     
     NSMutableString *ms = [NSMutableString stringWithCapacity:[self length]];
     for (NSString *s in comps) {
-        [ms appendFormat:@"%@ ", s];
+        if ([s length]) {
+            [ms appendFormat:@"%@ ", s];
+        }
     }
     
     if ([ms hasSuffix:@" "]) {
@@ -31,7 +33,9 @@
     
     NSMutableString *ms = [NSMutableString stringWithCapacity:[self length]];
     for (NSString *s in comps) {
-        [ms appendFormat:@"%@*", s];
+        if ([s length]) {
+            [ms appendFormat:@"%@*", s];
+        }
     }
     
     if ([ms hasSuffix:@"*"]) {
