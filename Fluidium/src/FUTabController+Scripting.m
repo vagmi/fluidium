@@ -20,6 +20,7 @@
 #import "FUUtils.h"
 #import "DOMDocumentPrivate.h"
 #import <WebKit/WebKit.h>
+#import <TDAppKit/NSString+TDAdditions.h>
 
 #define DEFAULT_DELAY 1.0
 
@@ -978,7 +979,9 @@
 
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text {
     NSMutableArray *result = [NSMutableArray array];
-    FUWildcardPattern *pattern = [FUWildcardPattern patternWithString:[text lowercaseString]];
+
+    text = [[text lowercaseString] stringByReplacingWhitespaceWithStars];
+    FUWildcardPattern *pattern = [FUWildcardPattern patternWithString:text];
     
     for (DOMHTMLElement *el in els) {
         NSString *currText = nil;
@@ -988,10 +991,11 @@
             currText = [el textContent];
         }
         
-        currText = [currText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        currText = [currText stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+        currText = [[currText lowercaseString] stringByReplacingWhitespaceWithStars];
         
 //        if ([[ms lowercaseString] isEqualToString:text]) {
-        if ([pattern isMatch:[currText lowercaseString]]) {
+        if ([pattern isMatch:currText]) {
             [result addObject:el];
         }
         

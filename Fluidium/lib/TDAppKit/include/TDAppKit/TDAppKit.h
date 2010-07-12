@@ -19,6 +19,7 @@
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 #import <TDAppKit/NSURLRequest+TDAdditions.h>
 #import <TDAppKit/NSEvent+TDAdditions.h>
+#import <TDAppKit/NSString+TDAdditions.h>
 #import <TDAppKit/TDGutterView.h>
 #import <TDAppKit/TDSourceCodeTextView.h>
 #import <TDAppKit/TDUberView.h>
