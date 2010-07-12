@@ -333,6 +333,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
                 }
                 draggingIndex = i;
                 draggingVisibleIndex = visibleIndex;
+                isDragSource = YES;
                 [self mouseDragged:evt];
                 withinDragRadius = NO;
                 break;
@@ -566,7 +567,9 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (void)draggingExited:(id <NSDraggingInfo>)dragInfo {
     [super draggingExited:dragInfo];
-    //[self performSelector:@selector(reloadData) withObject:nil afterDelay:.3];
+    if (!isDragSource) {
+        [self performSelector:@selector(reloadData) withObject:nil afterDelay:.3];
+    }
 }
 
 
@@ -791,11 +794,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (void)draggingSourceDragDidEnd {
     draggingVisibleIndex = NSNotFound;
     draggingIndex = NSNotFound;
+    isDragSource = NO;
     self.lastMouseDownEvent = nil;
-    //    for (TDListItem *item in items) {
-    //        [item setHidden:NO];
-    //    }
-    //    [self reloadData];
 }
 
 @synthesize scrollView;
