@@ -359,6 +359,40 @@
         </parameter>
     </command>
 
+    <command name="focus element" code="FuSSFocu" description="Gives focus to an HTML input element in this tab's web page.">
+        <cocoa class="FUFocusElementCommand"/>
+        <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the element.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id attribute of the element.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="in form with name" code="FNam" optional="yes" description="The HTML name of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formName"/>
+        </parameter>
+        <parameter type="text" name="in form with id" code="FmID" optional="yes" description="The HTML id of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formID"/>
+        </parameter>
+        <parameter type="text" name="in form for XPath" code="FmXP" optional="yes" description="The XPath of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formXPath"/>
+        </parameter>
+        <parameter type="text" name="in form for CSS selector" code="FmCS" optional="yes" description="The CSS selector of the form element in which the element resides. This may be combined with the 'with name' or 'with id' params.">
+            <cocoa key="formCSSSelector"/>
+        </parameter>
+        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath of the element.">
+            <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="for CSS selector" code="CSSs" optional="yes" description="The CSS selector of the element.">
+            <cocoa key="cssSelector"/>
+        </parameter>
+        <parameter type="text" name="to" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
+            <cocoa key="value"/>
+        </parameter>
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to set the element value. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
     <command name="submit form" code="FuSSSbmt" description="Submits an HTML form in this tab's web page.">
         <cocoa class="FUSubmitFormCommand"/>
         <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the form to submit.">
@@ -614,6 +648,9 @@
         </responds-to>
         <responds-to command="set value of element">
             <cocoa method="handleSetElementValueCommand:"/>
+        </responds-to>
+        <responds-to command="focus element">
+            <cocoa method="handleFocusElementCommand:"/>
         </responds-to>
         <responds-to command="submit form">
             <cocoa method="handleSubmitFormCommand:"/>

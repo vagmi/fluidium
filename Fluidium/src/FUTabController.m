@@ -33,8 +33,8 @@
 #import "WebUIDelegatePrivate.h"
 #import "WebInspector.h"
 #import "WebSecurityOriginPrivate.h"
-#import <Security/Security.h>
-#import <SecurityInterface/SFCertificateTrustPanel.h>
+//#import <Security/Security.h>
+//#import <SecurityInterface/SFCertificateTrustPanel.h>
 
 #ifdef Fake
 #import "FakeJavaScriptBridge.h"
@@ -47,29 +47,29 @@
  * Purpose:
  *   Returns a copy of the SSL policy.
  */
-static OSStatus SSLSecPolicyCopy(SecPolicyRef *ret_policy) {
-    SecPolicyRef policy;
-    SecPolicySearchRef policy_search;
-    OSStatus status;
-    
-    *ret_policy = NULL;
-    status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_TP_SSL, NULL, &policy_search);
-    //status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_X509_BASIC, NULL, &policy_search);
-    require_noerr(status, SecPolicySearchCreate);
-    
-    status = SecPolicySearchCopyNext(policy_search, &policy);
-    require_noerr(status, SecPolicySearchCopyNext);
-    
-    *ret_policy = policy;
-    
-SecPolicySearchCopyNext:
-    
-    CFRelease(policy_search);
-    
-SecPolicySearchCreate:
-    
-    return (status);
-}
+//static OSStatus SSLSecPolicyCopy(SecPolicyRef *ret_policy) {
+//    SecPolicyRef policy;
+//    SecPolicySearchRef policy_search;
+//    OSStatus status;
+//    
+//    *ret_policy = NULL;
+//    status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_TP_SSL, NULL, &policy_search);
+//    //status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_X509_BASIC, NULL, &policy_search);
+//    require_noerr(status, SecPolicySearchCreate);
+//    
+//    status = SecPolicySearchCopyNext(policy_search, &policy);
+//    require_noerr(status, SecPolicySearchCopyNext);
+//    
+//    *ret_policy = policy;
+//    
+//SecPolicySearchCopyNext:
+//    
+//    CFRelease(policy_search);
+//    
+//SecPolicySearchCreate:
+//    
+//    return (status);
+//}
 
 typedef enum {
     WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1
@@ -436,34 +436,41 @@ typedef enum {
 //    Error Domain=NSURLErrorDomain 
 //    Code=-1202 
 //    UserInfo=0x115267790 "The certificate for this server is invalid. You might be connecting to a server that is pretending to be “fa.keyes.ie” which could put your confidential information at risk." Underlying Error=(Error Domain=kCFErrorDomainCFNetwork Code=-1202 UserInfo=0x115264c40 "The certificate for this server is invalid. You might be connecting to a server that is pretending to be “fa.keyes.ie” which could put your confidential information at risk."
-    
-    // NSURLErrorServerCertificateUntrusted = -1202
-    if ([err code] == NSURLErrorServerCertificateUntrusted) {
-        
-        NSWindow *win = [webView window];
-        SEL sel = @selector(trustPanelDidEnd:returnCode:contextInfo:);
-        NSString *msg = @"msg";
-        
-        OSStatus err;
-        
-        SecCertificateRef cert = NULL;
-        SecIdentityRef identity = NULL;
-        err = SecIdentityCopyCertificate(identity, &cert);
-
-        SecPolicyRef sslPolicy = NULL;
-        err = SSLSecPolicyCopy(&sslPolicy);
-        
-        NSArray *certs = [NSArray arrayWithObject:(id)cert];
-        
-        SecTrustRef trust = NULL;
-        err = SecTrustCreateWithCertificates((CFArrayRef)certs, sslPolicy, &trust);
-
-        [[SFCertificateTrustPanel sharedCertificateTrustPanel] beginSheetForWindow:win modalDelegate:self didEndSelector:sel contextInfo:NULL trust:trust message:msg];
-    } else {
+//    
+//    // NSURLErrorServerCertificateUntrusted = -1202
+//    if ([err code] == NSURLErrorServerCertificateUntrusted) {
+//        
+//        NSWindow *win = [webView window];
+//        SEL sel = @selector(trustPanelDidEnd:returnCode:contextInfo:);
+//        NSString *msg = @"msg";
+//        
+//        OSStatus status;
+//        
+//        SecCertificateRef cert = NULL;
+//        
+//        status = SecCertificateCreateFromData(const CSSM_DATA *data, CSSM_CERT_TYPE type, CSSM_CERT_ENCODING encoding, SecCertificateRef *certificate);
+//        
+//        // SecIdentityRef identity = NULL;
+//        // status = SecIdentityCopyCertificate(identity, &cert);
+//        
+//        SecPolicyRef sslPolicy = NULL;
+//        status = SSLSecPolicyCopy(&sslPolicy);
+//        
+//        NSArray *certs = [NSArray arrayWithObject:(id)cert];
+//        
+//        SecTrustRef trust = NULL;
+//        status = SecTrustCreateWithCertificates((CFArrayRef)certs, sslPolicy, &trust);
+//        
+//        [[SFCertificateTrustPanel sharedCertificateTrustPanel] beginSheetForWindow:win modalDelegate:self didEndSelector:sel contextInfo:NULL trust:trust message:msg];
+//        
+//        [[SFCertificateTrustPanel sharedCertificateTrustPanel] beginSheetForWindow:win modalDelegate:self didEndSelector:sel contextInfo:NULL trust:trust message:msg];
+//        
+//        
+//    } else {
         if (![self willRetryWithTLDAdded:wv]) {
             [self handleLoadFail:err];
         }
-    }
+//    }
 }
 
 

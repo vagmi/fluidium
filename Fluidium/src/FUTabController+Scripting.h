@@ -42,6 +42,7 @@
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd;
 - (id)handleClickButtonCommand:(NSScriptCommand *)cmd;
 - (id)handleSetElementValueCommand:(NSScriptCommand *)cmd;
+- (id)handleFocusElementCommand:(NSScriptCommand *)cmd;
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd;
 
 - (id)handleAssertCommand:(NSScriptCommand *)cmd;

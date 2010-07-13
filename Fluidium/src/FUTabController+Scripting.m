@@ -40,6 +40,7 @@
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
+- (NSArray *)elementsForCommand:(NSScriptCommand *)cmd;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
@@ -325,7 +326,96 @@
 
 - (id)handleSetElementValueCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
+
+    NSDictionary *args = [cmd arguments];
+    NSString *value = [args objectForKey:@"value"];
     
+    NSArray *foundEls = [self elementsForCommand:cmd];
+    BOOL setAVal = NO;
+    if ([foundEls count]) {
+        for (DOMHTMLElement *el in foundEls) {
+            if ([self isRadio:el]) {
+                if ([[el getAttribute:@"value"] isEqualToString:value]) {
+                    setAVal = YES;
+                    [self setValue:value forElement:el];
+                }
+            } else if ([self isMultiSelect:el]) {
+                NSArray *dirtyVals = [value componentsSeparatedByString:@","];
+                NSMutableArray *cleanVals = [NSMutableArray arrayWithCapacity:[dirtyVals count]];
+                for (NSString *v in dirtyVals) {
+                    v = [v stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    if ([v length]) {
+                        [cleanVals addObject:v];
+                    }
+                }
+                
+                DOMHTMLSelectElement *selectEl = (DOMHTMLSelectElement *)el;
+                for (DOMHTMLOptionElement *optEl in [self arrayFromHTMLOptionsCollection:[selectEl options]]) {
+                    setAVal = YES;
+                    optEl.selected = [cleanVals containsObject:[optEl getAttribute:@"value"]];
+                }
+                
+            } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
+                setAVal = YES;
+                [self setValue:value forElement:el];
+            }
+        }
+    }
+    
+    if (setAVal) {
+        // just put in a little delay for good measure
+        [self suspendCommand:cmd];
+        // resume execution
+        [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+        
+    } else {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find element with args: %@", @""), args]];
+    }
+    return nil;
+}
+
+
+- (id)handleFocusElementCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    NSDictionary *args = [cmd arguments];
+    NSString *value = [args objectForKey:@"value"];
+
+    NSArray *foundEls = [self elementsForCommand:cmd];
+    BOOL didFocus = NO;
+
+    if ([foundEls count]) {
+        for (DOMHTMLElement *el in foundEls) {
+            if ([self isRadio:el]) {
+                if ([[el getAttribute:@"value"] isEqualToString:value]) {
+                    didFocus = YES;
+                    [el focus];
+                }
+            } else if ([self isMultiSelect:el]) {
+                [el focus];
+            } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
+                didFocus = YES;
+                [el focus];
+            }
+        }
+    }
+    
+    if (didFocus) {
+        // just put in a little delay for good measure
+        [self suspendCommand:cmd];
+        // resume execution
+        [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+        
+    } else {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find element with args: %@", @""), args]];
+    }
+    return nil;
+}
+
+
+- (NSArray *)elementsForCommand:(NSScriptCommand *)cmd {
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
     NSDictionary *args = [cmd arguments];
@@ -337,7 +427,6 @@
     NSString *identifier = [args objectForKey:@"identifier"];
     NSString *xpath = [args objectForKey:@"xpath"];
     NSString *cssSelector = [args objectForKey:@"cssSelector"];
-    NSString *value = [args objectForKey:@"value"];
     
     DOMHTMLFormElement *formEl = nil;
     if ([formName length]) {
@@ -414,48 +503,7 @@
         foundEls = [NSArray arrayWithObject:foundEl];
     }
     
-    BOOL setAVal = NO;
-    if ([foundEls count]) {
-        for (DOMHTMLElement *el in foundEls) {
-            if ([self isRadio:el]) {
-                if ([[el getAttribute:@"value"] isEqualToString:value]) {
-                    setAVal = YES;
-                    [self setValue:value forElement:el];
-                }
-            } else if ([self isMultiSelect:el]) {
-                NSArray *dirtyVals = [value componentsSeparatedByString:@","];
-                NSMutableArray *cleanVals = [NSMutableArray arrayWithCapacity:[dirtyVals count]];
-                for (NSString *v in dirtyVals) {
-                    v = [v stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    if ([v length]) {
-                        [cleanVals addObject:v];
-                    }
-                }
-                
-                DOMHTMLSelectElement *selectEl = (DOMHTMLSelectElement *)el;
-                for (DOMHTMLOptionElement *optEl in [self arrayFromHTMLOptionsCollection:[selectEl options]]) {
-                    setAVal = YES;
-                    optEl.selected = [cleanVals containsObject:[optEl getAttribute:@"value"]];
-                }
-                
-            } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
-                setAVal = YES;
-                [self setValue:value forElement:el];
-            }
-        }
-    }
-    
-    if (setAVal) {
-        // just put in a little delay for good measure
-        [self suspendCommand:cmd];
-        // resume execution
-        [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
-        
-    } else {
-        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find element with args: %@", @""), args]];
-    }
-    return nil;
+    return foundEls;
 }
 
 
