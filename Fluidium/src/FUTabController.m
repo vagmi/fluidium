@@ -33,12 +33,43 @@
 #import "WebUIDelegatePrivate.h"
 #import "WebInspector.h"
 #import "WebSecurityOriginPrivate.h"
+#import <Security/Security.h>
+#import <SecurityInterface/SFCertificateTrustPanel.h>
 
 #ifdef Fake
 #import "FakeJavaScriptBridge.h"
 #else
 #import "FUJavaScriptBridge.h"
 #endif
+
+/*
+ * Function: SSLSecPolicyCopy
+ * Purpose:
+ *   Returns a copy of the SSL policy.
+ */
+static OSStatus SSLSecPolicyCopy(SecPolicyRef *ret_policy) {
+    SecPolicyRef policy;
+    SecPolicySearchRef policy_search;
+    OSStatus status;
+    
+    *ret_policy = NULL;
+    status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_TP_SSL, NULL, &policy_search);
+    //status = SecPolicySearchCreate(CSSM_CERT_X_509v3, &CSSMOID_APPLE_X509_BASIC, NULL, &policy_search);
+    require_noerr(status, SecPolicySearchCreate);
+    
+    status = SecPolicySearchCopyNext(policy_search, &policy);
+    require_noerr(status, SecPolicySearchCopyNext);
+    
+    *ret_policy = policy;
+    
+SecPolicySearchCopyNext:
+    
+    CFRelease(policy_search);
+    
+SecPolicySearchCreate:
+    
+    return (status);
+}
 
 typedef enum {
     WebNavigationTypePlugInRequest = WebNavigationTypeOther + 1
@@ -388,17 +419,50 @@ typedef enum {
     if (frame != [webView mainFrame]) return;
     
     self.URLString = [[[[frame provisionalDataSource] request] URL] absoluteString];
-    self.title = NSLocalizedString(@"Loading...", @"");
+    self.title = NSLocalizedString(@"Loading…", @"");
 
     [self postNotificationName:FUTabControllerDidStartProvisionalLoadNotification];
+}
+
+
+- (void)trustPanelDidEnd:(NSWindow *)sheet returnCode:(int)code contextInfo:(void *)ctx {
+    
 }
 
 
 - (void)webView:(WebView *)wv didFailProvisionalLoadWithError:(NSError *)err forFrame:(WebFrame *)frame {
     if (frame != [webView mainFrame]) return;
     
-    if (![self willRetryWithTLDAdded:wv]) {
-        [self handleLoadFail:err];
+//    Error Domain=NSURLErrorDomain 
+//    Code=-1202 
+//    UserInfo=0x115267790 "The certificate for this server is invalid. You might be connecting to a server that is pretending to be “fa.keyes.ie” which could put your confidential information at risk." Underlying Error=(Error Domain=kCFErrorDomainCFNetwork Code=-1202 UserInfo=0x115264c40 "The certificate for this server is invalid. You might be connecting to a server that is pretending to be “fa.keyes.ie” which could put your confidential information at risk."
+    
+    // NSURLErrorServerCertificateUntrusted = -1202
+    if ([err code] == NSURLErrorServerCertificateUntrusted) {
+        
+        NSWindow *win = [webView window];
+        SEL sel = @selector(trustPanelDidEnd:returnCode:contextInfo:);
+        NSString *msg = @"msg";
+        
+        OSStatus err;
+        
+        SecCertificateRef cert = NULL;
+        SecIdentityRef identity = NULL;
+        err = SecIdentityCopyCertificate(identity, &cert);
+
+        SecPolicyRef sslPolicy = NULL;
+        err = SSLSecPolicyCopy(&sslPolicy);
+        
+        NSArray *certs = [NSArray arrayWithObject:(id)cert];
+        
+        SecTrustRef trust = NULL;
+        err = SecTrustCreateWithCertificates((CFArrayRef)certs, sslPolicy, &trust);
+
+        [[SFCertificateTrustPanel sharedCertificateTrustPanel] beginSheetForWindow:win modalDelegate:self didEndSelector:sel contextInfo:NULL trust:trust message:msg];
+    } else {
+        if (![self willRetryWithTLDAdded:wv]) {
+            [self handleLoadFail:err];
+        }
     }
 }
 

@@ -51,6 +51,11 @@
 }
 
 
+- (BOOL)isScrollWheel {
+    return (NSScrollWheel == [self type]);
+}
+
+
 - (BOOL)isCommandKeyPressed {
     return TDIsCommandKeyPressed([self modifierFlags]);
 }
