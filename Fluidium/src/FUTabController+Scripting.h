@@ -28,6 +28,9 @@
 // Commands
 - (id)handleCloseCommand:(NSCloseCommand *)cmd;
 
+- (id)handleDispatchMouseEventCommand:(NSScriptCommand *)cmd;
+- (id)handleDispatchKeyboardEventCommand:(NSScriptCommand *)cmd;
+
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd;
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd;
 - (id)handleGoHomeCommand:(NSScriptCommand *)cmd;

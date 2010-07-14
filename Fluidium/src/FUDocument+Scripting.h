@@ -31,6 +31,7 @@
 // Commands
 - (id)handleCreateCommand:(NSCreateCommand *)cmd;
 
+- (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd;
 - (id)handleGoBackCommand:(NSScriptCommand *)cmd;
 - (id)handleGoForwardCommand:(NSScriptCommand *)cmd;
 - (id)handleReloadCommand:(NSScriptCommand *)cmd;

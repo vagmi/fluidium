@@ -18,7 +18,9 @@
 #import "FUWildcardPattern.h"
 #import "FUNotifications.h"
 #import "FUUtils.h"
+#import "WebFrameViewPrivate.h"
 #import "DOMDocumentPrivate.h"
+#import "DOMNode+FUAdditions.h"
 #import <WebKit/WebKit.h>
 #import <TDAppKit/NSString+TDAdditions.h>
 
@@ -31,6 +33,8 @@
 
 @interface NSObject (FUScripting)
 - (void)script_loadURL:(NSString *)s;
+- (id)getSelection;
+- (DOMNode *)focusNode;
 @end
 
 @interface FUTabController (ScriptingPrivate)
@@ -111,6 +115,84 @@
 
 - (id)handleCloseCommand:(NSCloseCommand *)cmd {
     [windowController removeTabController:self];
+    return nil;
+}
+
+
+- (id)handleDispatchMouseEventCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    NSDictionary *args = [cmd arguments];
+
+    NSArray *foundEls = [self elementsForCommand:cmd];
+    if (![foundEls count]) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find link element with args: %@", @""), args]];
+        return nil;
+    }
+    
+    DOMElement *el = (DOMElement *)[foundEls objectAtIndex:0];
+    
+    id relatedTarget = nil;
+
+    NSString *type = [args objectForKey:@"type"];
+    NSInteger clickCount = [[args objectForKey:@"clickCount"] integerValue];
+    NSInteger button = [[args objectForKey:@"button"] integerValue];
+    BOOL ctrlKeyPressed = [[args objectForKey:@"ctrlKeyPressed"] boolValue];
+    BOOL altKeyPressed = [[args objectForKey:@"altKeyPressed"] boolValue];
+    BOOL shiftKeyPressed = [[args objectForKey:@"shiftKeyPressed"] boolValue];
+    BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
+    
+    // create DOM click event
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMAbstractView *window = [doc defaultView];
+//    DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
+//    [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+    
+    CGFloat x = [el totalOffsetLeft];
+    CGFloat y = [el totalOffsetTop];
+    CGFloat width = [el offsetWidth];
+    CGFloat height = [el offsetHeight];
+    
+    CGFloat clientX = x + (width / 2);
+    CGFloat clientY = y + (height / 2);
+    
+    WebFrameView *frameView = [[webView mainFrame] frameView];
+    NSClipView *clipView = [frameView _contentView];
+//    NSView <WebDocumentView> *docView = [frameView documentView];
+
+    NSPoint screenPoint = [[webView window] convertBaseToScreen:[clipView convertPointToBase:NSMakePoint(clientX, clientY)]];
+    CGFloat screenX = screenPoint.x;
+    CGFloat screenY = screenPoint.y;
+    
+    DOMMouseEvent *evt = (DOMMouseEvent *)[doc createEvent:@"MouseEvents"];
+    [evt initMouseEvent:type 
+              canBubble:YES 
+             cancelable:YES 
+                   view:window 
+                 detail:clickCount 
+                screenX:screenX 
+                screenY:screenY 
+                clientX:clientX 
+                clientY:clientY 
+                ctrlKey:ctrlKeyPressed 
+                 altKey:altKeyPressed 
+               shiftKey:shiftKeyPressed 
+                metaKey:metaKeyPressed 
+                 button:button 
+          relatedTarget:relatedTarget];
+    
+    // register for next page load
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+    
+    // send event to the anchor
+    [el dispatchEvent:evt];
+    
+    return nil;
+}
+
+
+- (id)handleDispatchKeyboardEventCommand:(NSScriptCommand *)cmd {
     return nil;
 }
 
@@ -399,6 +481,7 @@
                 [el focus];
             }
         }
+        
     }
     
     if (didFocus) {
@@ -413,6 +496,30 @@
     }
     return nil;
 }
+
+
+//DOMAbstractView *window = (DOMAbstractView *)[webView windowScriptObject];
+//
+//id selection = nil;
+//if (window) {
+//    selection = [window getSelection];
+//}
+//
+//DOMNode *focusNode = nil;
+//if (selection) {
+//    focusNode = [selection focusNode];
+//}
+//
+//if (selection && focusNode && [focusNode isKindOfClass:[DOMHTMLInputElement class]]) {
+//    DOMHTMLInputElement *el = (DOMHTMLInputElement *)focusNode;
+//    [el setValue:value];
+//} else {
+//    [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+//    [cmd setScriptErrorString:NSLocalizedString(@"Could not find focused input element.", @"")];
+//}
+//
+//return nil;
+
 
 
 - (NSArray *)elementsForCommand:(NSScriptCommand *)cmd {

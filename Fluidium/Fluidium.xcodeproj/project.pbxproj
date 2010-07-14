@@ -169,6 +169,10 @@
 		D34B604C10CF7E4B006E17C4 /* FUIconController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34B604B10CF7E4B006E17C4 /* FUIconController.m */; };
 		D34B610110CF92B7006E17C4 /* prefpane_icon_appearance.png in Resources */ = {isa = PBXBuildFile; fileRef = D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */; };
 		D34B610910CF92DD006E17C4 /* FUAppearancePreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D34B610710CF92DD006E17C4 /* FUAppearancePreferences.xib */; };
+		D3587F8C11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3587F8B11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m */; };
+		D3587F8D11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3587F8B11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m */; };
+		D3587F9011ED760700F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3587F8F11ED760700F904A7 /* FUDispatchKeyboardEventCommand.m */; };
+		D3587F9111ED760700F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3587F8F11ED760700F904A7 /* FUDispatchKeyboardEventCommand.m */; };
 		D35CBD2110D35CCB00DA1898 /* FUUserscriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */; };
 		D35CBD7A10D3652600DA1898 /* FUUserscriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD7910D3652600DA1898 /* FUUserscriptViewController.m */; };
 		D35CBD8B10D3664000DA1898 /* FUUserthingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD8A10D3664000DA1898 /* FUUserthingViewController.m */; };
@@ -991,6 +995,10 @@
 		D34B604B10CF7E4B006E17C4 /* FUIconController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUIconController.m; path = src/FUIconController.m; sourceTree = SOURCE_ROOT; };
 		D34B610010CF92B7006E17C4 /* prefpane_icon_appearance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_appearance.png; path = res/img/prefpanes/prefpane_icon_appearance.png; sourceTree = "<group>"; };
 		D34B610810CF92DD006E17C4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUAppearancePreferences.xib; sourceTree = "<group>"; };
+		D3587F8A11ED75FA00F904A7 /* FUDispatchMouseEventCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDispatchMouseEventCommand.h; path = src/FUDispatchMouseEventCommand.h; sourceTree = "<group>"; };
+		D3587F8B11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDispatchMouseEventCommand.m; path = src/FUDispatchMouseEventCommand.m; sourceTree = "<group>"; };
+		D3587F8E11ED760700F904A7 /* FUDispatchKeyboardEventCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDispatchKeyboardEventCommand.h; path = src/FUDispatchKeyboardEventCommand.h; sourceTree = "<group>"; };
+		D3587F8F11ED760700F904A7 /* FUDispatchKeyboardEventCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDispatchKeyboardEventCommand.m; path = src/FUDispatchKeyboardEventCommand.m; sourceTree = "<group>"; };
 		D35CBD1F10D35CCB00DA1898 /* FUUserscriptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptController.h; path = src/FUUserscriptController.h; sourceTree = "<group>"; };
 		D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserscriptController.m; path = src/FUUserscriptController.m; sourceTree = "<group>"; };
 		D35CBD7810D3652600DA1898 /* FUUserscriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptViewController.h; path = src/FUUserscriptViewController.h; sourceTree = "<group>"; };
@@ -1798,6 +1806,10 @@
 				D3ADFB0F1104E25C0064C070 /* FUZoomInCommand.m */,
 				D3ADFB111104E2640064C070 /* FUZoomOutCommand.h */,
 				D3ADFB121104E2640064C070 /* FUZoomOutCommand.m */,
+				D3587F8A11ED75FA00F904A7 /* FUDispatchMouseEventCommand.h */,
+				D3587F8B11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m */,
+				D3587F8E11ED760700F904A7 /* FUDispatchKeyboardEventCommand.h */,
+				D3587F8F11ED760700F904A7 /* FUDispatchKeyboardEventCommand.m */,
 			);
 			name = "Script Action Commands";
 			sourceTree = "<group>";
@@ -2619,6 +2631,8 @@
 				D34ACCD611C2AC0E00D8A417 /* TDComboField+FUAdditions.m in Sources */,
 				D3B4B8C311CEC752000D7AD1 /* FUAssertCommand.m in Sources */,
 				D362A42511EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */,
+				D3587F8D11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
+				D3587F9111ED760700F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2757,6 +2771,8 @@
 				D3B448CD11E774EF00B51ECC /* FakeJavaScriptBridge.m in Sources */,
 				D3F156D211E9113E008F1626 /* FakeTabController.m in Sources */,
 				D362A42411EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */,
+				D3587F8C11ED75FA00F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
+				D3587F9011ED760700F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
