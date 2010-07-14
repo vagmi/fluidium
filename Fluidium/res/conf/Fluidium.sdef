@@ -37,7 +37,7 @@
             <parameter name="in" code="kfil" type="file" optional="yes" description="The file in which to save the document.">
                 <cocoa key="File"/>
             </parameter>
-            <parameter name="as" code="fltp" type="webarchive" optional="yes" description="The file format to use.">
+            <parameter name="as" code="fltp" type="Fake Workflow" optional="yes" description="The file format to use.">
                 <cocoa key="FileType"/>
             </parameter>
         </command>
@@ -491,6 +491,81 @@
         </parameter>
     </command>
 
+    <command name="dispatch mouse event" code="FuSSMEvt" description="Dispatches a mouse event to a given element in this tab's web page.">
+        <cocoa class="FUDispatchMouseEventCommand"/>
+        <parameter type="text" name="with type" code="Type" optional="no" description="The type of mouse event: 'click', 'mousedown', 'mouseup', 'mousemove', 'mouseover', or 'mouseout'">
+            <cocoa key="type"/>
+        </parameter>
+        <parameter type="text" name="to element with id" code="IDen" optional="yes" description="The HTML id attribute of the element upon which the event will be dispatched.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="to element with name" code="Name" optional="yes" description="The HTML name attribute of the element upon which the event will be dispatched.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="to element for XPath" code="XPth" optional="yes" description="The XPath for the element upon which the event will be dispatched.">
+            <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="to element for CSS selector" code="CSSs" optional="yes" description="The CSS selector for the element upon which the event will be dispatched.">
+            <cocoa key="cssSelector"/>
+        </parameter>
+
+        <parameter type="text" name="related target with id" code="RtID" optional="yes" description="The HTML id attribute of the related target of the event.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="related target with name" code="RtNa" optional="yes" description="The HTML name attribute of the related target of the event.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="related target for XPath" code="RtXP" optional="yes" description="The XPath for the related target of the event.">
+            <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="related target for CSS selector" code="RtCS" optional="yes" description="The CSS selector for the related target of the event.">
+            <cocoa key="cssSelector"/>
+        </parameter>
+
+        <parameter type="integer" name="click count" code="ClCt" optional="yes" description="The number of clicks. Send 2 for a double click.">
+            <cocoa key="clickCount"/>
+        </parameter>
+        <parameter type="integer" name="button" code="Butn" optional="yes" description="Send 0 for left button (default), 1 for middle button, 2 for right button.">
+            <cocoa key="button"/>
+        </parameter>
+        <parameter type="boolean" name="control key pressed" code="Ctrl" optional="yes" description="The control key is pressed during mouse event.">
+            <cocoa key="ctrlKeyPressed"/>
+        </parameter>
+        <parameter type="boolean" name="option key pressed" code="Alt " optional="yes" description="The option key is pressed during mouse event.">
+            <cocoa key="altKeyPressed"/>
+        </parameter>
+        <parameter type="boolean" name="shift key pressed" code="Shft" optional="yes" description="The shift key is pressed during mouse event.">
+            <cocoa key="shiftKeyPressed"/>
+        </parameter>
+        <parameter type="boolean" name="command key pressed" code="Meta" optional="yes" description="The command key is pressed during mouse event.">
+            <cocoa key="metaKeyPressed"/>
+        </parameter>
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to dispatch the event. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
+    <enumeration name="capture options" code="Capo">
+        <enumerator name="screenshot" code="Scrn" description="Capture the web page as a screenshot."/>
+        <enumerator name="Web Archive" code="WbAr" description="Capture the web page as a Web Archive document."/>
+        <enumerator name="screenshot" code="Src " description="Capture the web page as a raw source."/>
+    </enumeration>
+
+    <command name="capture web page" code="FuSSCapt" description="Capture this tab's web page as a screenshot, Web Archive or raw source.">
+        <cocoa class="FUCaptureWebPageCommand"/>
+
+        <parameter name="as" code="Capo" type="capture options" optional="no" description="How to capture the web page?">
+            <cocoa key="saveOptions"/>
+        </parameter>
+        <parameter name="saving in" code="kFil" type="file" optional="no" description="The file in which to save the document, if so.">
+            <cocoa key="path"/>
+        </parameter>
+
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to capture the web page. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
     <command name="go back" code="FuSSBack" description="Go back.">
         <cocoa class="FUGoBackCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A tab in which to go back. If not specified, the selected tab in the frontmost window is used."/>
@@ -503,7 +578,7 @@
 
     <command name="go home" code="FuSSHome" description="Go home.">
         <cocoa class="FUGoHomeCommand"/>
-        <direct-parameter type="specifier" optional="yes" description="reference to the object sending the action"/>
+        <direct-parameter type="specifier" optional="yes" description="A tab in which to go home. If not specified, the selected tab in the frontmost window is used."/>
     </command>
 
     <command name="reload" code="FuSSReld" description="Reload a web page.">
@@ -660,6 +735,15 @@
         </responds-to>
         <responds-to command="wait for condition">
             <cocoa method="handleWaitForConditionCommand:"/>
+        </responds-to>
+        <responds-to command="dispatch mouse event">
+            <cocoa method="handleDispatchMouseEventCommand:"/>
+        </responds-to>
+        <!-- <responds-to command="dispatch keyboard event">
+            <cocoa method="handleDispatchKeyboardEventCommand:"/>
+        </responds-to> -->
+        <responds-to command="capture web page">
+            <cocoa method="handleCaptureWebPageEventCommand:"/>
         </responds-to>
 
         <responds-to command="close">

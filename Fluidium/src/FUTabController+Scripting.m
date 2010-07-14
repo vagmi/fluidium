@@ -136,7 +136,11 @@
     id relatedTarget = nil;
 
     NSString *type = [args objectForKey:@"type"];
-    NSInteger clickCount = [[args objectForKey:@"clickCount"] integerValue];
+
+    NSInteger clickCount = 1;
+    NSNumber *clickCountObj = [args objectForKey:@"clickCount"];
+    clickCount = [clickCountObj integerValue];
+    
     NSInteger button = [[args objectForKey:@"button"] integerValue];
     BOOL ctrlKeyPressed = [[args objectForKey:@"ctrlKeyPressed"] boolValue];
     BOOL altKeyPressed = [[args objectForKey:@"altKeyPressed"] boolValue];
@@ -158,10 +162,10 @@
     CGFloat clientY = y + (height / 2);
     
     WebFrameView *frameView = [[webView mainFrame] frameView];
-    NSClipView *clipView = [frameView _contentView];
-//    NSView <WebDocumentView> *docView = [frameView documentView];
+//    NSClipView *clipView = [frameView _contentView];
+    NSView <WebDocumentView> *docView = [frameView documentView];
 
-    NSPoint screenPoint = [[webView window] convertBaseToScreen:[clipView convertPointToBase:NSMakePoint(clientX, clientY)]];
+    NSPoint screenPoint = [[webView window] convertBaseToScreen:[docView convertPointToBase:NSMakePoint(clientX, clientY)]];
     CGFloat screenX = screenPoint.x;
     CGFloat screenY = screenPoint.y;
     
@@ -676,6 +680,42 @@
 }
 
 
+- (id)handleCaptureWebPageCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    NSDictionary *args = [cmd arguments];
+    args;
+    
+//    NSString *saveOptions = [args objectForKey:@"saveOptions"];
+//    NSString *path = [args objectForKey:@"path"];
+
+//    FUWebView *wv = (FUWebView *)[self webView];
+//    NSData *data = nil;
+//    
+//    switch (captureType) {
+//        case FakeCaptureTypeScreenshot:
+//            data = [[wv entireDocumentImage] TIFFRepresentation];
+//            break;
+//        case FakeCaptureTypeWebArchive:
+//            data = [[[[wv mainFrame] dataSource] webArchive] data];
+//            break;
+//        case FakeCaptureTypeRawSource:
+//            data = [[[[[wv mainFrame] dataSource] representation] documentSource] dataUsingEncoding:NSUTF8StringEncoding];
+//            break;
+//        default:
+//            NSAssert(0, @"unknown type");
+//            break;
+//    }
+//    
+//    NSError *err = nil;
+//    if (![data writeToFile:path options:NSAtomicWrite error:&err]) {
+//        errInfo = [self errorInfoWithNumber:47 message:[err localizedDescription]];
+//    }
+    
+    return nil;
+}
+
+    
 - (id)handleAssertCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     

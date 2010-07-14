@@ -14,7 +14,7 @@
 
 #import "FUBaseScriptCommand.h"
 
-@interface FUDispatchKeyboardEventCommand : FUBaseScriptCommand {
+@interface FUCaptureWebPageCommand : FUBaseScriptCommand {
     
 }
 

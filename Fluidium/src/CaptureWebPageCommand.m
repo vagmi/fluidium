@@ -1,27 +1,25 @@
 //
-//  FUDispatchMouseEventCommand.m
+//  CaptureWebPageCommand.m
 //  Fluidium
 //
-//  Created by Todd Ditchendorf on 7/13/10.
+//  Created by Todd Ditchendorf on 7/14/10.
 //  Copyright 2010 Todd Ditchendorf. All rights reserved.
 //
 
-#import "FUDispatchMouseEventCommand.h"
-#import "FUTabController.h"
+#import "CaptureWebPageCommand.h"
 #import "FUTabController+Scripting.h"
 
-@implementation FUDispatchMouseEventCommand
+@implementation FUCaptureWebPageCommand
 
 - (id)performDefaultImplementation {
-    return [[self targetTabController] handleDispatchMouseEventCommand:self];
-
+    return [[self targetTabController] handleCaptureWebPageCommand:self];
 //    NSDictionary *args = [self evaluatedArguments];
 //    
 //    FUTabController *tc = [args objectForKey:@"tabController"]; // may be nil
 //    if (!tc) {
 //        tc = [[FUDocumentController instance] frontTabController];
 //    }
-//    [tc handleDispatchMouseEventCommand:self];
+//    [tc handleCaptureWebPageCommand:self];
 //    
 //    return nil;
 }
