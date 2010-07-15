@@ -37,9 +37,9 @@
             <parameter name="in" code="kfil" type="file" optional="yes" description="The file in which to save the document.">
                 <cocoa key="File"/>
             </parameter>
-            <parameter name="as" code="fltp" type="Fake Workflow" optional="yes" description="The file format to use.">
+            <!-- <parameter name="as" code="fltp" type="Fake Workflow" optional="yes" description="The file format to use.">
                 <cocoa key="FileType"/>
-            </parameter>
+            </parameter> -->
         </command>
 
         <enumeration name="printing error handling" code="enum">
@@ -555,10 +555,10 @@
         <cocoa class="FUCaptureWebPageCommand"/>
 
         <parameter name="as" code="Capo" type="capture options" optional="no" description="How to capture the web page?">
-            <cocoa key="saveOptions"/>
+            <cocoa key="captureType"/>
         </parameter>
-        <parameter name="saving in" code="kFil" type="file" optional="no" description="The file in which to save the document, if so.">
-            <cocoa key="path"/>
+        <parameter name="saving in" code="kFil" type="file" optional="yes" description="The file in which to save the document, if so.">
+            <cocoa key="file"/>
         </parameter>
 
         <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to capture the web page. If not specified, the selected tab in the frontmost window is used.">
@@ -739,11 +739,8 @@
         <responds-to command="dispatch mouse event">
             <cocoa method="handleDispatchMouseEventCommand:"/>
         </responds-to>
-        <!-- <responds-to command="dispatch keyboard event">
-            <cocoa method="handleDispatchKeyboardEventCommand:"/>
-        </responds-to> -->
         <responds-to command="capture web page">
-            <cocoa method="handleCaptureWebPageEventCommand:"/>
+            <cocoa method="handleCaptureWebPageCommand:"/>
         </responds-to>
 
         <responds-to command="close">

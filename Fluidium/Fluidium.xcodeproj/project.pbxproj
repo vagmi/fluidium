@@ -173,8 +173,8 @@
 		D358801C11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D358801A11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m */; };
 		D358801D11ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D358801811ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m */; };
 		D358801E11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D358801A11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m */; };
-		D358807B11EE147500F904A7 /* CaptureWebPageCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D358807A11EE147500F904A7 /* CaptureWebPageCommand.m */; };
-		D358807C11EE147500F904A7 /* CaptureWebPageCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D358807A11EE147500F904A7 /* CaptureWebPageCommand.m */; };
+		D358807B11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D358807A11EE147500F904A7 /* FUCaptureWebPageCommand.m */; };
+		D358807C11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D358807A11EE147500F904A7 /* FUCaptureWebPageCommand.m */; };
 		D35CBD2110D35CCB00DA1898 /* FUUserscriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */; };
 		D35CBD7A10D3652600DA1898 /* FUUserscriptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD7910D3652600DA1898 /* FUUserscriptViewController.m */; };
 		D35CBD8B10D3664000DA1898 /* FUUserthingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CBD8A10D3664000DA1898 /* FUUserthingViewController.m */; };
@@ -1001,8 +1001,8 @@
 		D358801811ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDispatchKeyboardEventCommand.m; path = src/FUDispatchKeyboardEventCommand.m; sourceTree = "<group>"; };
 		D358801911ED8AF300F904A7 /* FUDispatchMouseEventCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDispatchMouseEventCommand.h; path = src/FUDispatchMouseEventCommand.h; sourceTree = "<group>"; };
 		D358801A11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDispatchMouseEventCommand.m; path = src/FUDispatchMouseEventCommand.m; sourceTree = "<group>"; };
-		D358807911EE147500F904A7 /* CaptureWebPageCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaptureWebPageCommand.h; path = src/CaptureWebPageCommand.h; sourceTree = "<group>"; };
-		D358807A11EE147500F904A7 /* CaptureWebPageCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CaptureWebPageCommand.m; path = src/CaptureWebPageCommand.m; sourceTree = "<group>"; };
+		D358807911EE147500F904A7 /* FUCaptureWebPageCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCaptureWebPageCommand.h; path = src/FUCaptureWebPageCommand.h; sourceTree = "<group>"; };
+		D358807A11EE147500F904A7 /* FUCaptureWebPageCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCaptureWebPageCommand.m; path = src/FUCaptureWebPageCommand.m; sourceTree = "<group>"; };
 		D35CBD1F10D35CCB00DA1898 /* FUUserscriptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptController.h; path = src/FUUserscriptController.h; sourceTree = "<group>"; };
 		D35CBD2010D35CCB00DA1898 /* FUUserscriptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUUserscriptController.m; path = src/FUUserscriptController.m; sourceTree = "<group>"; };
 		D35CBD7810D3652600DA1898 /* FUUserscriptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUUserscriptViewController.h; path = src/FUUserscriptViewController.h; sourceTree = "<group>"; };
@@ -1789,8 +1789,8 @@
 				D358801A11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m */,
 				D358801711ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.h */,
 				D358801811ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m */,
-				D358807911EE147500F904A7 /* CaptureWebPageCommand.h */,
-				D358807A11EE147500F904A7 /* CaptureWebPageCommand.m */,
+				D358807911EE147500F904A7 /* FUCaptureWebPageCommand.h */,
+				D358807A11EE147500F904A7 /* FUCaptureWebPageCommand.m */,
 			);
 			name = "Script Only Script Commands";
 			sourceTree = "<group>";
@@ -2639,7 +2639,7 @@
 				D362A42511EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */,
 				D358801D11ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */,
 				D358801E11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
-				D358807C11EE147500F904A7 /* CaptureWebPageCommand.m in Sources */,
+				D358807C11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2780,7 +2780,7 @@
 				D362A42411EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */,
 				D358801B11ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */,
 				D358801C11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
-				D358807B11EE147500F904A7 /* CaptureWebPageCommand.m in Sources */,
+				D358807B11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

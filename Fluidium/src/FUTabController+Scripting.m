@@ -15,6 +15,7 @@
 #import "FUTabController+Scripting.h"
 #import "FUDocument.h"
 #import "FUWindowController.h"
+#import "FUWebView.h"
 #import "FUWildcardPattern.h"
 #import "FUNotifications.h"
 #import "FUUtils.h"
@@ -683,35 +684,48 @@
 - (id)handleCaptureWebPageCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
+#define FakeCaptureTypeScreenshot 'Scrn'
+#define FakeCaptureTypeWebArchive 'WbAr'
+#define FakeCaptureTypeRawSource 'Src '
+    
     NSDictionary *args = [cmd arguments];
-    args;
     
-//    NSString *saveOptions = [args objectForKey:@"saveOptions"];
-//    NSString *path = [args objectForKey:@"path"];
+    FourCharCode captureType = [[args objectForKey:@"captureType"] integerValue];
+    NSURL *furl = [args objectForKey:@"file"];
+    NSString *path =  [args objectForKey:@"unixPath"];
+    if (!furl) {
+        furl = [NSURL fileURLWithPath:path];
+    }
 
-//    FUWebView *wv = (FUWebView *)[self webView];
-//    NSData *data = nil;
-//    
-//    switch (captureType) {
-//        case FakeCaptureTypeScreenshot:
-//            data = [[wv entireDocumentImage] TIFFRepresentation];
-//            break;
-//        case FakeCaptureTypeWebArchive:
-//            data = [[[[wv mainFrame] dataSource] webArchive] data];
-//            break;
-//        case FakeCaptureTypeRawSource:
-//            data = [[[[[wv mainFrame] dataSource] representation] documentSource] dataUsingEncoding:NSUTF8StringEncoding];
-//            break;
-//        default:
-//            NSAssert(0, @"unknown type");
-//            break;
-//    }
-//    
-//    NSError *err = nil;
-//    if (![data writeToFile:path options:NSAtomicWrite error:&err]) {
-//        errInfo = [self errorInfoWithNumber:47 message:[err localizedDescription]];
-//    }
+    FUWebView *wv = (FUWebView *)[self webView];
+    NSData *data = nil;
     
+    switch (captureType) {
+        case FakeCaptureTypeScreenshot:
+            data = [[wv entireDocumentImage] TIFFRepresentation];
+            break;
+        case FakeCaptureTypeWebArchive:
+            data = [[[[wv mainFrame] dataSource] webArchive] data];
+            break;
+        case FakeCaptureTypeRawSource:
+            data = [[[[[wv mainFrame] dataSource] representation] documentSource] dataUsingEncoding:NSUTF8StringEncoding];
+            break;
+        default:
+            NSAssert(0, @"unknown type");
+            break;
+    }
+    
+    NSError *err = nil;
+    if (![data writeToURL:furl options:NSAtomicWrite error:&err]) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not capture web page to file path «%@»\n\n%@", @""), [furl absoluteString], [err localizedDescription]]];
+        return nil;
+    }
+
+    // suspend
+    [self suspendCommand:cmd];
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+
     return nil;
 }
 
