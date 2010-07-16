@@ -506,7 +506,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     }
         
     NSUInteger itemCount = [items count];
-    if (dropIndex < 0 || NSNotFound == dropIndex) {// || dropIndex > itemCount) {
+    //if (dropIndex < 0 || NSNotFound == dropIndex) {// || dropIndex > itemCount) {
+    if (dropIndex < 0 || NSNotFound == dropIndex || dropIndex > itemCount) {
         dropIndex = itemCount;
     }
     
