@@ -38,6 +38,10 @@
 - (DOMNode *)focusNode;
 @end
 
+@interface DOMKeyboardEvent (FUAdditions)
+- (void)initKeyboardEvent:(NSString *)type canBubble:(BOOL)canBubble cancelable:(BOOL)cancelable view:(DOMAbstractView *)view keyIdentifier:(NSString *)keyIdentifier keyLocation:(unsigned)keyLocation ctrlKey:(BOOL)ctrlKey altKey:(BOOL)altKey shiftKey:(BOOL)shiftKey metaKey:(BOOL)metaKey;
+@end
+
 @interface FUTabController (ScriptingPrivate)
 - (void)resumeSuspendedCommandAfterTabControllerDidFailLoad:(NSNotification *)n;
 - (void)resumeSuspendedCommandAfterTabControllerDidFinishLoad:(NSNotification *)n;
@@ -208,6 +212,52 @@
 
 
 - (id)handleDispatchKeyboardEventCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    NSDictionary *args = [cmd arguments];
+    
+    NSArray *foundEls = [self elementsForArgs:args inCommand:cmd];
+    if (![foundEls count]) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not element with args: %@", @""), args]];
+        return nil;
+    }
+    
+    // find target
+    DOMElement *el = (DOMElement *)[foundEls objectAtIndex:0];
+    
+    NSString *type = [args objectForKey:@"type"];
+
+    NSUInteger keyCode = [[args objectForKey:@"keyCode"] unsignedLongLongValue];
+    NSUInteger charCode = [[args objectForKey:@"charCode"] unsignedLongLongValue];
+
+    BOOL ctrlKeyPressed = [[args objectForKey:@"ctrlKeyPressed"] boolValue];
+    BOOL altKeyPressed = [[args objectForKey:@"altKeyPressed"] boolValue];
+    BOOL shiftKeyPressed = [[args objectForKey:@"shiftKeyPressed"] boolValue];
+    BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
+    
+    // create DOM click event
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMAbstractView *window = [doc defaultView];
+        
+    DOMKeyboardEvent *evt = (DOMKeyboardEvent *)[doc createEvent:@"KeyboardEvents"];
+    [evt initKeyboardEvent:type
+                 canBubble:YES
+                cancelable:YES
+                      view:window
+             keyIdentifier:[NSString stringWithFormat:@"%C", charCode]
+               keyLocation:keyCode
+                   ctrlKey:ctrlKeyPressed
+                    altKey:altKeyPressed
+                  shiftKey:shiftKeyPressed
+                   metaKey:metaKeyPressed]; 
+    
+    // register for next page load
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+    
+    // send event to the anchor
+    [el dispatchEvent:evt];
+    
     return nil;
 }
 

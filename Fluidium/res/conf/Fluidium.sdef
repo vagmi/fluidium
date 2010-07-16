@@ -545,6 +545,47 @@
         </parameter>
     </command>
 
+    <command name="dispatch keyboard event" code="FuSSKEvt" description="Dispatches a keyboard event to a given element in this tab's web page.">
+        <cocoa class="FUDispatchKeyboardEventCommand"/>
+        <parameter type="text" name="with type" code="Type" optional="no" description="The type of keyboard event: 'keypress', 'keydown', or 'keyup'">
+            <cocoa key="type"/>
+        </parameter>
+        <parameter type="text" name="to element with id" code="IDen" optional="yes" description="The HTML id attribute of the element upon which the event will be dispatched.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="to element with name" code="Name" optional="yes" description="The HTML name attribute of the element upon which the event will be dispatched.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="to element for XPath" code="XPth" optional="yes" description="The XPath for the element upon which the event will be dispatched.">
+            <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="to element for CSS selector" code="CSSs" optional="yes" description="The CSS selector for the element upon which the event will be dispatched.">
+            <cocoa key="cssSelector"/>
+        </parameter>
+
+        <parameter type="integer" name="keyCode" code="KeyC" optional="yes" description="The key code.">
+            <cocoa key="keyCode"/>
+        </parameter>
+        <parameter type="integer" name="charCode" code="ChrC" optional="yes" description="The char code.">
+            <cocoa key="charCode"/>
+        </parameter>
+        <parameter type="boolean" name="control key pressed" code="Ctrl" optional="yes" description="The control key is pressed during mouse event.">
+            <cocoa key="ctrlKeyPressed"/>
+        </parameter>
+        <parameter type="boolean" name="option key pressed" code="Alt " optional="yes" description="The option key is pressed during mouse event.">
+            <cocoa key="altKeyPressed"/>
+        </parameter>
+        <parameter type="boolean" name="shift key pressed" code="Shft" optional="yes" description="The shift key is pressed during mouse event.">
+            <cocoa key="shiftKeyPressed"/>
+        </parameter>
+        <parameter type="boolean" name="command key pressed" code="Meta" optional="yes" description="The command key is pressed during mouse event.">
+            <cocoa key="metaKeyPressed"/>
+        </parameter>
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to dispatch the event. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
     <enumeration name="capture options" code="Capo">
         <enumerator name="screenshot" code="Scrn" description="Capture the web page as a screenshot."/>
         <enumerator name="Web Archive" code="WbAr" description="Capture the web page as a Web Archive document."/>
