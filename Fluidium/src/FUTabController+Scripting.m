@@ -45,7 +45,8 @@
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
 
-- (NSArray *)elementsForCommand:(NSScriptCommand *)cmd;
+- (NSDictionary *)targetArgsForRelatedTargetArgs:(NSDictionary *)args;
+- (NSArray *)elementsForArgs:(NSDictionary *)args inCommand:(NSScriptCommand *)cmd;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
@@ -125,16 +126,22 @@
     
     NSDictionary *args = [cmd arguments];
 
-    NSArray *foundEls = [self elementsForCommand:cmd];
+    NSArray *foundEls = [self elementsForArgs:args inCommand:cmd];
     if (![foundEls count]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find link element with args: %@", @""), args]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not element with args: %@", @""), args]];
         return nil;
     }
-    
+
+    // find target
     DOMElement *el = (DOMElement *)[foundEls objectAtIndex:0];
-    
-    id relatedTarget = nil;
+
+    // find relatedTarget
+    DOMElement *relatedTarget = nil;
+    NSArray *foundRelatedTargets = [self elementsForArgs:[self targetArgsForRelatedTargetArgs:args] inCommand:nil];
+    if ([foundRelatedTargets count]) {
+        relatedTarget = [foundRelatedTargets objectAtIndex:0];
+    }
 
     NSString *type = [args objectForKey:@"type"];
 
@@ -151,8 +158,6 @@
     // create DOM click event
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     DOMAbstractView *window = [doc defaultView];
-//    DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
-//    [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
     
     CGFloat x = [el totalOffsetLeft];
     CGFloat y = [el totalOffsetTop];
@@ -163,12 +168,17 @@
     CGFloat clientY = y + (height / 2);
     
     WebFrameView *frameView = [[webView mainFrame] frameView];
-//    NSClipView *clipView = [frameView _contentView];
     NSView <WebDocumentView> *docView = [frameView documentView];
 
     NSPoint screenPoint = [[webView window] convertBaseToScreen:[docView convertPointToBase:NSMakePoint(clientX, clientY)]];
-    CGFloat screenX = screenPoint.x;
-    CGFloat screenY = screenPoint.y;
+    CGFloat screenX = fabs(screenPoint.x);
+    CGFloat screenY = fabs(screenPoint.y);
+    
+    NSRect screenRect = [[[webView window] screen] frame];
+
+    if (screenRect.origin.y >= 0) {
+        screenY = screenRect.size.height - screenY;
+    }
     
     DOMMouseEvent *evt = (DOMMouseEvent *)[doc createEvent:@"MouseEvents"];
     [evt initMouseEvent:type 
@@ -417,7 +427,7 @@
     NSDictionary *args = [cmd arguments];
     NSString *value = [args objectForKey:@"value"];
     
-    NSArray *foundEls = [self elementsForCommand:cmd];
+    NSArray *foundEls = [self elementsForArgs:args inCommand:cmd];
     BOOL setAVal = NO;
     if ([foundEls count]) {
         for (DOMHTMLElement *el in foundEls) {
@@ -469,7 +479,7 @@
     NSDictionary *args = [cmd arguments];
     NSString *value = [args objectForKey:@"value"];
 
-    NSArray *foundEls = [self elementsForCommand:cmd];
+    NSArray *foundEls = [self elementsForArgs:args inCommand:cmd];
     BOOL didFocus = NO;
 
     if ([foundEls count]) {
@@ -526,11 +536,28 @@
 //return nil;
 
 
+- (NSDictionary *)targetArgsForRelatedTargetArgs:(NSDictionary *)args {
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:4];
+    
+    NSString *name = [args objectForKey:@"relatedName"];
+    if ([name length]) [result setObject:name forKey:@"name"];
+    
+    NSString *identifier = [args objectForKey:@"relatedIdentifier"];
+    if ([identifier length]) [result setObject:identifier forKey:@"identifier"];
+    
+    NSString *cssSelector = [args objectForKey:@"relatedCSSSelector"];
+    if ([cssSelector length]) [result setObject:cssSelector forKey:@"cssSelector"];
 
-- (NSArray *)elementsForCommand:(NSScriptCommand *)cmd {
+    NSString *xpath = [args objectForKey:@"relatedXPath"];
+    if ([xpath length]) [result setObject:xpath forKey:@"xpath"];
+    
+    return result;
+}
+
+
+- (NSArray *)elementsForArgs:(NSDictionary *)args inCommand:(NSScriptCommand *)cmd {
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
-    NSDictionary *args = [cmd arguments];
     NSString *formName = [args objectForKey:@"formName"];
     NSString *formID = [args objectForKey:@"formID"];
     NSString *formXPath = [args objectForKey:@"formXPath"];
@@ -606,9 +633,11 @@
     } else if ([cssSelector length]) {
         foundEl = [self elementForCSSSelector:cssSelector];
     } else {
-        [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
-        [cmd setScriptErrorString:NSLocalizedString(@"The Set HTML Element Value Command requires an element specifier.", @"")];
-        return nil;
+        if (cmd) {
+            [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
+            [cmd setScriptErrorString:NSLocalizedString(@"This command requires an element specifier.", @"")];
+            return nil;
+        }
     }
     
     if (![foundEls count] && foundEl) {

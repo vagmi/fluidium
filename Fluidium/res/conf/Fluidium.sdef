@@ -510,16 +510,16 @@
         </parameter>
 
         <parameter type="text" name="related target with id" code="RtID" optional="yes" description="The HTML id attribute of the related target of the event.">
-            <cocoa key="identifier"/>
+            <cocoa key="relatedIdentifier"/>
         </parameter>
         <parameter type="text" name="related target with name" code="RtNa" optional="yes" description="The HTML name attribute of the related target of the event.">
-            <cocoa key="name"/>
+            <cocoa key="relatedName"/>
         </parameter>
         <parameter type="text" name="related target for XPath" code="RtXP" optional="yes" description="The XPath for the related target of the event.">
-            <cocoa key="xpath"/>
+            <cocoa key="relatedXPath"/>
         </parameter>
         <parameter type="text" name="related target for CSS selector" code="RtCS" optional="yes" description="The CSS selector for the related target of the event.">
-            <cocoa key="cssSelector"/>
+            <cocoa key="relatedCSSSelector"/>
         </parameter>
 
         <parameter type="integer" name="click count" code="ClCt" optional="yes" description="The number of clicks. Send 2 for a double click.">
