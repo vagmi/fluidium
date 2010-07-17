@@ -15,6 +15,7 @@
 #import <TDAppKit/TDListView.h>
 #import <TDAppKit/TDListItem.h>
 #import <TDAppKit/TDScrollView.h>
+#import <TDAppKit/NSEvent+TDAdditions.h>
 #import "TDListItemQueue.h"
 
 #define EXCEPTION_NAME @"TDListViewDataSourceException"
@@ -328,7 +329,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
                     break;
                 }
                 draggingIndex = i;
-                draggingVisibleIndex = visibleIndex;
+                BOOL isCopy = [evt isOptionKeyPressed] && (NSDragOperationCopy & [self draggingSourceOperationMaskForLocal:YES]);
+                if (isCopy) {
+                    draggingVisibleIndex = NSNotFound;
+                } else {
+                    draggingVisibleIndex = visibleIndex;
+                }
                 isDragSource = YES;
                 [self mouseDragged:evt];
                 withinDragRadius = NO;
@@ -367,7 +373,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     } else {
         dragImg = [self draggingImageForItemAtIndex:draggingIndex withEvent:evt offset:&dragOffset];
     }
-    
+ 
     BOOL canDrag = YES;
     BOOL slideBack = YES;
     if (delegate && [delegate respondsToSelector:@selector(listView:canDragItemAtIndex:withEvent:slideBack:)]) {
@@ -379,7 +385,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     [pboard declareTypes:[NSArray arrayWithObject:TDListItemPboardType] owner:self];
     
     canDrag = NO;
-    if (NSNotFound != draggingVisibleIndex && delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
+    if (/*NSNotFound != draggingVisibleIndex && */delegate && [delegate respondsToSelector:@selector(listView:writeItemAtIndex:toPasteboard:)]) {
         canDrag = [delegate listView:self writeItemAtIndex:draggingIndex toPasteboard:pboard];
     }
     if (!canDrag) return;
@@ -473,8 +479,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
     NSPasteboard *pboard = [dragInfo draggingPasteboard];
     NSDragOperation srcMask = [dragInfo draggingSourceOperationMask];
     
-    if ([[pboard types] containsObject:NSColorPboardType]) {
-        if (srcMask & NSDragOperationMove) {
+    if ([[pboard types] containsObject:TDListItemPboardType]) {
+        BOOL optPressed = [[[dragInfo draggingDestinationWindow] currentEvent] isOptionKeyPressed];
+        
+        if (optPressed && (srcMask & NSDragOperationCopy)) {
+            return NSDragOperationCopy;
+        } else if ((srcMask & NSDragOperationMove)) {
             return NSDragOperationMove;
         }
     }
@@ -548,6 +558,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         } else {
             // if p is in the middle 1/3 of the item view leave as DropOn
         }    
+    }
+    
+    // if copying...
+    if (NSNotFound == draggingVisibleIndex && dropIndex > draggingIndex) {
+        dropIndex++;
     }
 
     dragOp = [delegate listView:self validateDrop:dragInfo proposedIndex:&dropIndex dropOperation:&dropOp];
