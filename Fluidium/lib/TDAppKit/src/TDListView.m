@@ -186,10 +186,6 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (NSRect)frameForItemAtIndex:(NSUInteger)i {
-//    TDListItem *item = [self itemAtIndex:i];
-//    NSRect r = [item frame];
-//    return r;
-    
     CGFloat extent = 0;
 
     NSUInteger j = 0;

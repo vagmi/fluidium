@@ -230,7 +230,7 @@
     
     NSString *type = [args objectForKey:@"type"];
 
-    NSUInteger keyCode = [[args objectForKey:@"keyCode"] unsignedLongLongValue];
+    //NSUInteger keyCode = [[args objectForKey:@"keyCode"] unsignedLongLongValue];
     NSUInteger charCode = [[args objectForKey:@"charCode"] unsignedLongLongValue];
 
     BOOL ctrlKeyPressed = [[args objectForKey:@"ctrlKeyPressed"] boolValue];
@@ -248,7 +248,7 @@
                 cancelable:YES
                       view:window
              keyIdentifier:[NSString stringWithFormat:@"%C", charCode]
-               keyLocation:keyCode
+               keyLocation:0
                    ctrlKey:ctrlKeyPressed
                     altKey:altKeyPressed
                   shiftKey:shiftKeyPressed
@@ -812,7 +812,7 @@
         NSArray *foundEls = [self elementsForArgs:args inCommand:cmd];
         if (![foundEls count]) {
             [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
-            [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not element with args: %@", @""), args]];
+            [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find element with args: %@", @""), args]];
             return nil;
         }
         
