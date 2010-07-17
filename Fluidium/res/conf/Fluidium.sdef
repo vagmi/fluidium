@@ -607,6 +607,34 @@
         </parameter>
     </command>
 
+    <command name="set variable" code="FuSSSVar" description="Set the value of a Fake variable.">
+        <cocoa class="FUSetVariableValueCommand"/>
+
+        <parameter type="text" name="with name" code="VarN" optional="yes" description="The name of the variable.">
+            <cocoa key="varName"/>
+        </parameter>
+
+        <parameter type="text" name="to value of XPath" code="XPEx" optional="yes" description="An XPath expression whose result will be used .">
+            <cocoa key="xpathExpr"/>
+        </parameter>
+        <parameter type="text" name="to value of element with id" code="IDen" optional="yes" description="The HTML id attribute of the element whose value will be used.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="to value of element with name" code="Name" optional="yes" description="The HTML name attribute of the element whose value will be used.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="to value of element for XPath" code="XPth" optional="yes" description="The XPath for the element whose value will be used.">
+            <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="to value of element for CSS selector" code="CSSs" optional="yes" description="The CSS selector for the element whose value will be used.">
+            <cocoa key="cssSelector"/>
+        </parameter>
+
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to capture the web page. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
     <command name="go back" code="FuSSBack" description="Go back.">
         <cocoa class="FUGoBackCommand"/>
         <direct-parameter type="specifier" optional="yes" description="A tab in which to go back. If not specified, the selected tab in the frontmost window is used."/>

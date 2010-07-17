@@ -187,6 +187,8 @@
 		D362A29011EC138A004FC3B0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D362A24C11EC1379004FC3B0 /* Security.framework */; };
 		D362A42411EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D362A42311EC352C004FC3B0 /* FUFocusElementCommand.m */; };
 		D362A42511EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D362A42311EC352C004FC3B0 /* FUFocusElementCommand.m */; };
+		D36FDDB511F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */; };
+		D36FDDB611F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
 		D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */; };
 		D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */; };
@@ -1019,6 +1021,8 @@
 		D362A24C11EC1379004FC3B0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D362A42211EC352C004FC3B0 /* FUFocusElementCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUFocusElementCommand.h; path = src/FUFocusElementCommand.h; sourceTree = "<group>"; };
 		D362A42311EC352C004FC3B0 /* FUFocusElementCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUFocusElementCommand.m; path = src/FUFocusElementCommand.m; sourceTree = "<group>"; };
+		D36FDDB311F1270E005BB0AC /* FUSetVariableValueCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSetVariableValueCommand.h; path = src/FUSetVariableValueCommand.h; sourceTree = "<group>"; };
+		D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSetVariableValueCommand.m; path = src/FUSetVariableValueCommand.m; sourceTree = "<group>"; };
 		D372A2F8115C146900516A0B /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebPreferencesPrivate.h; path = src/WebPreferencesPrivate.h; sourceTree = "<group>"; };
 		D372A2FB115C168100516A0B /* WebSecurityOriginPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebSecurityOriginPrivate.h; path = src/WebSecurityOriginPrivate.h; sourceTree = "<group>"; };
 		D3730F3610D2D7D200995375 /* NSFileManager+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+FUAdditions.h"; path = "src/NSFileManager+FUAdditions.h"; sourceTree = "<group>"; };
@@ -1791,6 +1795,8 @@
 				D358801811ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m */,
 				D358807911EE147500F904A7 /* FUCaptureWebPageCommand.h */,
 				D358807A11EE147500F904A7 /* FUCaptureWebPageCommand.m */,
+				D36FDDB311F1270E005BB0AC /* FUSetVariableValueCommand.h */,
+				D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */,
 			);
 			name = "Script Only Script Commands";
 			sourceTree = "<group>";
@@ -2640,6 +2646,7 @@
 				D358801D11ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */,
 				D358801E11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
 				D358807C11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */,
+				D36FDDB611F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2781,6 +2788,7 @@
 				D358801B11ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */,
 				D358801C11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
 				D358807B11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */,
+				D36FDDB511F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

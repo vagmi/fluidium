@@ -36,6 +36,7 @@
 - (void)script_loadURL:(NSString *)s;
 - (id)getSelection;
 - (DOMNode *)focusNode;
+- (void)setKey:(NSString *)key value:(id)value;
 @end
 
 @interface DOMKeyboardEvent (FUAdditions)
@@ -54,6 +55,7 @@
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName forArguments:(NSDictionary *)args;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName;
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text;
+- (NSString *)stringValueForXPath:(NSString *)xpath;
 - (NSMutableArray *)elementsForXPath:(NSString *)xpath;
 - (DOMElement *)elementForCSSSelector:(NSString *)cssSelector;
 - (NSMutableArray *)elementsForCSSSelector:(NSString *)cssSelector;
@@ -796,7 +798,43 @@
     return nil;
 }
 
+
+- (id)handleSetVariableValueCommand:(NSScriptCommand *)cmd {
+    NSDictionary *args = [cmd arguments];
     
+    NSString *name = [args objectForKey:@"varName"];
+    NSString *value = nil;
+    
+    NSString *xpathExpr = [args objectForKey:@"xpathExpr"];
+    if ([xpathExpr length]) {
+        value = [self stringValueForXPath:xpathExpr];
+    } else {
+        NSArray *foundEls = [self elementsForArgs:args inCommand:cmd];
+        if (![foundEls count]) {
+            [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+            [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not element with args: %@", @""), args]];
+            return nil;
+        }
+        
+        // find target
+        DOMElement *el = (DOMElement *)[foundEls objectAtIndex:0];
+        if ([el respondsToSelector:@selector(value)]) {
+            value = [el value];
+        } else {
+            value = [el getAttribute:@"value"];
+        }
+    }
+    
+    if (![value length]) {
+        value = @"";
+    } 
+    
+    [self.javaScriptBridge setKey:name value:value];
+
+    return nil;
+}
+
+
 - (id)handleAssertCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     
@@ -1124,6 +1162,25 @@
     }
     
     return els;
+}
+
+
+- (NSString *)stringValueForXPath:(NSString *)xpath {
+    NSString *stringValue = @"";
+    
+    if ([xpath length]) {
+        @try {
+            DOMDocument *doc = [webView mainFrameDocument];
+            DOMXPathResult *result = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_STRING_TYPE inResult:nil];
+            stringValue = [result stringValue];
+            
+        } @catch (NSException *e) {
+            NSLog(@"error evaling XPath: %@", [e reason]);
+            return nil;
+        }
+    }
+    
+    return stringValue;
 }
 
 
