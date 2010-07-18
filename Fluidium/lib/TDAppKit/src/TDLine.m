@@ -35,8 +35,31 @@
 - (void)drawRect:(NSRect)dirtyRect {
     NSColor *color = [[self window] isMainWindow] ? mainColor : nonMainColor;
     [color set];
+    //[[NSColor redColor] set];
     
-    NSRectFill(dirtyRect);
+    NSRect bounds = [self bounds];
+    //NSPoint origin = bounds.origin;
+    
+    CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+    CGPoint p1 = CGPointMake(0, 1);
+    CGPoint p2 = CGPointMake(bounds.size.width, 1);
+    //    CGPoint p1 = FakeAlignCGPointToUserSpace(ctx, CGPointMake(0, 1));
+    //    CGPoint p2 = FakeAlignCGPointToUserSpace(ctx, CGPointMake(bounds.size.width, 1));
+    
+    CGContextSetLineWidth(ctx, 1.0);
+    CGContextMoveToPoint(ctx, p1.x, p1.y);
+    CGContextAddLineToPoint(ctx, p2.x, p2.y);
+    CGContextClosePath(ctx);
+    CGContextStrokePath(ctx);
+    
+    //    NSPoint p1 = FakeAlignNSPointToUserSpace(ctx, NSMakePoint(origin.x, origin.y + 1));
+    //    NSPoint p2 = FakeAlignNSPointToUserSpace(ctx, NSMakePoint(origin.x + bounds.size.width, origin.y + 1));
+    
+    //    NSPoint p1 = NSMakePoint(0, 1);
+    //    NSPoint p2 = NSMakePoint(bounds.size.width, 1);
+    
+    //    [NSBezierPath setDefaultLineWidth:.5];
+    //    [NSBezierPath strokeLineFromPoint:p1 toPoint:p2];
 }
 
 
