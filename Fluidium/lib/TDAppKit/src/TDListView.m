@@ -42,6 +42,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 - (TDListItem *)itemWhileDraggingAtIndex:(NSInteger)i;
 - (void)draggingSourceDragDidEnd;
 - (void)unsuppressLayout;
+- (void)handleRightClickEvent:(NSEvent *)evt;
+- (void)displayContextMenu:(NSTimer *)t;
 - (void)handleDoubleClickAtIndex:(NSUInteger)i;
 
 @property (nonatomic, retain) NSMutableArray *items;
@@ -294,18 +296,27 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 #pragma mark -
 #pragma mark NSResponder
 
+- (void)rightMouseUp:(NSEvent *)evt {
+    [self handleRightClickEvent:evt];
+}
+
+
 - (void)mouseDown:(NSEvent *)evt {
     NSPoint locInWin = [evt locationInWindow];
     NSPoint p = [self convertPoint:locInWin fromView:nil];
     NSUInteger i = [self indexForItemAtPoint:p];
     NSUInteger visibleIndex = [self visibleIndexForItemAtPoint:p];
 
-    // handle double click
-    if ([evt clickCount] % 2 == 0) {
+    // handle right click
+    if ([evt isControlKeyPressed] && 1 == [evt clickCount]) {
+        [self handleRightClickEvent:evt];
+        return;
+    } else if ([evt isDoubleClick]) {
         [self handleDoubleClickAtIndex:i];
         return;
     }
     
+    BOOL isCopy = [evt isOptionKeyPressed] && (NSDragOperationCopy & [self draggingSourceOperationMaskForLocal:YES]);
     self.lastMouseDownEvent = evt;
     
     if (NSNotFound != i) {
@@ -329,12 +340,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
                     break;
                 }
                 draggingIndex = i;
-                BOOL isCopy = [evt isOptionKeyPressed] && (NSDragOperationCopy & [self draggingSourceOperationMaskForLocal:YES]);
-                if (isCopy) {
-                    draggingVisibleIndex = NSNotFound;
-                } else {
-                    draggingVisibleIndex = visibleIndex;
-                }
+                draggingVisibleIndex = isCopy ? NSNotFound : visibleIndex;
                 isDragSource = YES;
                 [self mouseDragged:evt];
                 withinDragRadius = NO;
@@ -348,6 +354,46 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
                 break;
         }
     }
+}
+
+
+- (void)handleRightClickEvent:(NSEvent *)evt {
+    NSTimer *timer = [NSTimer timerWithTimeInterval:0 
+                                             target:self 
+                                           selector:@selector(displayContextMenu:) 
+                                           userInfo:evt 
+                                            repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];    
+}
+
+
+- (void)displayContextMenu:(NSTimer *)timer {
+    NSEvent *evt = [timer userInfo];
+    
+    NSPoint locInWin = [evt locationInWindow];
+    NSPoint p = [self convertPoint:locInWin fromView:nil];
+    NSUInteger i = [self indexForItemAtPoint:p];
+    
+    if (NSNotFound == i || i >= [dataSource numberOfItemsInListView:self]) return;
+    
+    if (delegate && [delegate respondsToSelector:@selector(listView:contextMenuForItemAtIndex:)]) {
+        NSMenu *menu = [delegate listView:self contextMenuForItemAtIndex:i];
+        if (menu) {
+            NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
+                                                location:[evt locationInWindow]
+                                           modifierFlags:[evt modifierFlags] 
+                                               timestamp:[evt timestamp] 
+                                            windowNumber:[evt windowNumber] 
+                                                 context:[evt context]
+                                             eventNumber:[evt eventNumber] 
+                                              clickCount:[evt clickCount] 
+                                                pressure:[evt pressure]];
+            
+            [NSMenu popUpContextMenu:menu withEvent:click forView:self];
+        }
+    }
+    
+    [timer invalidate];
 }
 
 

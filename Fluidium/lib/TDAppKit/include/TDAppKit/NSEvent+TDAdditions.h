@@ -22,6 +22,7 @@
 - (BOOL)isKeyUpOrDown;
 - (BOOL)is3rdButtonClick;
 - (BOOL)isScrollWheel;
+- (BOOL)isDoubleClick;
 - (BOOL)isCommandKeyPressed;
 - (BOOL)isControlKeyPressed;
 - (BOOL)isShiftKeyPressed;

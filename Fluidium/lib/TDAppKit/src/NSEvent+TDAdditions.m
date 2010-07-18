@@ -22,7 +22,7 @@
 @implementation NSEvent (TDAdditions)
 
 - (BOOL)isMouseDown {
-    return (NSLeftMouseDown == [self type] || NSRightMouseDown == [self type]);
+    return (NSLeftMouseDown == [self type]);
 }
 
 
@@ -32,12 +32,12 @@
 
 
 - (BOOL)isMouseDragged {
-    return (NSLeftMouseDragged == [self type] || NSRightMouseDragged == [self type]);
+    return (NSLeftMouseDragged == [self type]);
 }
 
 
 - (BOOL)isMouseUp {
-    return (NSLeftMouseUp == [self type] || NSRightMouseUp == [self type]);
+    return (NSLeftMouseUp == [self type]);
 }
 
 
@@ -53,6 +53,11 @@
 
 - (BOOL)isScrollWheel {
     return (NSScrollWheel == [self type]);
+}
+
+
+- (BOOL)isDoubleClick {
+    return ([self clickCount] % 2 == 0);
 }
 
 
