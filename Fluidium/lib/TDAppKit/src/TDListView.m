@@ -358,25 +358,27 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (void)handleRightClickEvent:(NSEvent *)evt {
-    NSTimer *timer = [NSTimer timerWithTimeInterval:0 
-                                             target:self 
-                                           selector:@selector(displayContextMenu:) 
-                                           userInfo:evt 
-                                            repeats:NO];
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];    
+    if (delegate && [delegate respondsToSelector:@selector(listView:contextMenuForItemAtIndex:)]) {
+        NSTimer *timer = [NSTimer timerWithTimeInterval:0 
+                                                 target:self 
+                                               selector:@selector(displayContextMenu:) 
+                                               userInfo:evt 
+                                                repeats:NO];
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    }
 }
 
 
 - (void)displayContextMenu:(NSTimer *)timer {
-    NSEvent *evt = [timer userInfo];
-    
-    NSPoint locInWin = [evt locationInWindow];
-    NSPoint p = [self convertPoint:locInWin fromView:nil];
-    NSUInteger i = [self indexForItemAtPoint:p];
-    
-    if (NSNotFound == i || i >= [dataSource numberOfItemsInListView:self]) return;
-    
     if (delegate && [delegate respondsToSelector:@selector(listView:contextMenuForItemAtIndex:)]) {
+        NSEvent *evt = [timer userInfo];
+        
+        NSPoint locInWin = [evt locationInWindow];
+        NSPoint p = [self convertPoint:locInWin fromView:nil];
+        NSUInteger i = [self indexForItemAtPoint:p];
+        
+        if (NSNotFound == i || i >= [dataSource numberOfItemsInListView:self]) return;
+        
         NSMenu *menu = [delegate listView:self contextMenuForItemAtIndex:i];
         if (menu) {
             NSEvent *click = [NSEvent mouseEventWithType:[evt type] 
