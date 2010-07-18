@@ -187,6 +187,8 @@
 		D362A29011EC138A004FC3B0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D362A24C11EC1379004FC3B0 /* Security.framework */; };
 		D362A42411EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D362A42311EC352C004FC3B0 /* FUFocusElementCommand.m */; };
 		D362A42511EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D362A42311EC352C004FC3B0 /* FUFocusElementCommand.m */; };
+		D364ECD911F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364ECD811F3A74B008AC15E /* FUSetFormValuesCommand.m */; };
+		D364ECDA11F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364ECD811F3A74B008AC15E /* FUSetFormValuesCommand.m */; };
 		D36FDDB511F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */; };
 		D36FDDB611F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
@@ -1021,6 +1023,8 @@
 		D362A24C11EC1379004FC3B0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D362A42211EC352C004FC3B0 /* FUFocusElementCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUFocusElementCommand.h; path = src/FUFocusElementCommand.h; sourceTree = "<group>"; };
 		D362A42311EC352C004FC3B0 /* FUFocusElementCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUFocusElementCommand.m; path = src/FUFocusElementCommand.m; sourceTree = "<group>"; };
+		D364ECD711F3A74B008AC15E /* FUSetFormValuesCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSetFormValuesCommand.h; path = src/FUSetFormValuesCommand.h; sourceTree = "<group>"; };
+		D364ECD811F3A74B008AC15E /* FUSetFormValuesCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSetFormValuesCommand.m; path = src/FUSetFormValuesCommand.m; sourceTree = "<group>"; };
 		D36FDDB311F1270E005BB0AC /* FUSetVariableValueCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUSetVariableValueCommand.h; path = src/FUSetVariableValueCommand.h; sourceTree = "<group>"; };
 		D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSetVariableValueCommand.m; path = src/FUSetVariableValueCommand.m; sourceTree = "<group>"; };
 		D372A2F8115C146900516A0B /* WebPreferencesPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebPreferencesPrivate.h; path = src/WebPreferencesPrivate.h; sourceTree = "<group>"; };
@@ -1787,6 +1791,8 @@
 				D362A42311EC352C004FC3B0 /* FUFocusElementCommand.m */,
 				D3D80321111E3BDA0025650C /* FUSubmitFormCommand.h */,
 				D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */,
+				D364ECD711F3A74B008AC15E /* FUSetFormValuesCommand.h */,
+				D364ECD811F3A74B008AC15E /* FUSetFormValuesCommand.m */,
 				D3B4B8C111CEC752000D7AD1 /* FUAssertCommand.h */,
 				D3B4B8C211CEC752000D7AD1 /* FUAssertCommand.m */,
 				D358801911ED8AF300F904A7 /* FUDispatchMouseEventCommand.h */,
@@ -2647,6 +2653,7 @@
 				D358801E11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
 				D358807C11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */,
 				D36FDDB611F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */,
+				D364ECDA11F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2789,6 +2796,7 @@
 				D358801C11ED8AF300F904A7 /* FUDispatchMouseEventCommand.m in Sources */,
 				D358807B11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */,
 				D36FDDB511F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */,
+				D364ECD911F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

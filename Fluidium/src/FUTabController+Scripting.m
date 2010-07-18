@@ -750,6 +750,65 @@
 }
 
 
+- (id)handleSetFormValuesCommand:(NSScriptCommand *)cmd {
+    if (![self isHTMLDocument:cmd]) return nil;
+    
+    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    
+    NSDictionary *args = [cmd arguments];
+    NSString *name = [args objectForKey:@"name"];
+    NSString *identifier = [args objectForKey:@"identifier"];
+    NSString *xpath = [args objectForKey:@"xpath"];
+    NSString *cssSelector = [args objectForKey:@"cssSelector"];
+    NSDictionary *values = [args objectForKey:@"values"];
+    
+    DOMHTMLFormElement *formEl = nil;
+    if (name) {
+        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+    } else if (identifier) {
+        NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
+        if ([els count]) formEl = [els objectAtIndex:0];
+    } else if (xpath) {
+        NSArray *els = [self elementsForXPath:xpath];
+        for (DOMHTMLElement *el in els) {
+            if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+                formEl = (DOMHTMLFormElement *)el;
+                break;
+            }
+        }
+    } else if (cssSelector) {
+        DOMElement *el = [self elementForCSSSelector:cssSelector];
+        if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+            formEl = (DOMHTMLFormElement *)el;
+        }
+    }
+    
+    if (!formEl) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find form element with specifier: %@", @""), name]];
+        return nil;
+    }
+    
+    DOMHTMLCollection *els = [formEl elements];
+    
+    for (NSString *elName in values) {
+        NSString *value = [values objectForKey:elName];
+        
+        DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
+        if (!el) {
+            [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+            [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find input element with name: «%@» in form named : «%@»", @""), name, elName]];
+            return nil;
+        }
+        [self setValue:value forElement:el];
+    }
+    
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+    
+    return nil;
+}
+
+
 - (id)handleCaptureWebPageCommand:(NSScriptCommand *)cmd {
     if (![self isHTMLDocument:cmd]) return nil;
     

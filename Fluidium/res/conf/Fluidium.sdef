@@ -415,6 +415,28 @@
         </parameter>
     </command>
 
+    <command name="set form values" code="FuSSFmVl" description="Sets multiple values in the specified HTML form in this tab's web page.">
+        <cocoa class="FUSetFormValuesCommand"/>
+        <parameter type="text" name="with name" code="Name" optional="yes" description="The HTML name attribute of the form to submit.">
+            <cocoa key="name"/>
+        </parameter>
+        <parameter type="text" name="with id" code="IDen" optional="yes" description="The HTML id attribute of the form to submit.">
+            <cocoa key="identifier"/>
+        </parameter>
+        <parameter type="text" name="for XPath" code="XPth" optional="yes" description="The XPath for the form to submit.">
+            <cocoa key="xpath"/>
+        </parameter>
+        <parameter type="text" name="for CSS selector" code="CSSs" optional="yes" description="The CSS selector for the form to submit.">
+            <cocoa key="cssSelector"/>
+        </parameter>
+        <parameter type="record" name="with values" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
+            <cocoa key="values"/>
+        </parameter>
+        <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used.">
+            <cocoa key="tabController"/>
+        </parameter>
+    </command>
+
     <command name="assert" code="FuSSAsrt" description="Asserts a condition in this tab's web page is true. Throws an AppleScript error if false.">
         <cocoa class="FUAssertCommand"/>
         <parameter type="text" name="page title equals" code="TiEq" optional="yes" description="Asserts the value of the title of the web page loaded in this tab.">
@@ -798,6 +820,9 @@
         </responds-to>
         <responds-to command="submit form">
             <cocoa method="handleSubmitFormCommand:"/>
+        </responds-to>
+        <responds-to command="set form values">
+            <cocoa method="handleSetFormValuesCommand:"/>
         </responds-to>
         <responds-to command="assert">
             <cocoa method="handleAssertCommand:"/>

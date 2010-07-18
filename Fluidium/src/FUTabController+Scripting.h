@@ -47,6 +47,7 @@
 - (id)handleSetElementValueCommand:(NSScriptCommand *)cmd;
 - (id)handleFocusElementCommand:(NSScriptCommand *)cmd;
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd;
+- (id)handleSetFormValuesCommand:(NSScriptCommand *)cmd;
 - (id)handleCaptureWebPageCommand:(NSScriptCommand *)cmd;
 - (id)handleSetVariableValueCommand:(NSScriptCommand *)cmd;
 
