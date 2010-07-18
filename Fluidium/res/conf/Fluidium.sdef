@@ -407,9 +407,6 @@
         <parameter type="text" name="for CSS selector" code="CSSs" optional="yes" description="The CSS selector for the form to submit.">
             <cocoa key="cssSelector"/>
         </parameter>
-        <parameter type="record" name="with values" code="Vals" optional="yes" description="The HTML name/value pairs to submit with the form.">
-            <cocoa key="values"/>
-        </parameter>
         <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to submit the form. If not specified, the selected tab in the frontmost window is used.">
             <cocoa key="tabController"/>
         </parameter>
