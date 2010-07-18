@@ -38,6 +38,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D364EC3711F37FD7008AC15E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D3C2E47011D7E9C600106E86 /* Fake.app */;
+			remoteInfo = Fake;
+		};
 		D3C2500510E7C63D0059B788 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3C2500010E7C63D0059B788 /* Fluidium.xcodeproj */;
@@ -294,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				D3C2500610E7C63D0059B788 /* Fluidium.app */,
+				D364EC3811F37FD7008AC15E /* Fake.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -352,6 +360,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D364EC3811F37FD7008AC15E /* Fake.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Fake.app;
+			remoteRef = D364EC3711F37FD7008AC15E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D3C2500610E7C63D0059B788 /* Fluidium.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -469,6 +484,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = src/BrowsaPlugIn_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = NS_BLOCK_ASSERTIONS;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../Fluidium/include\"";
 				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
