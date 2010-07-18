@@ -191,6 +191,12 @@
 }
 
 
+- (NSMenu *)listView:(TDListView *)lv contextMenuForItemAtIndex:(NSUInteger)i {
+    NSMenu *menu = [[self windowController] contextMenuForTabAtIndex:i];
+    return menu;
+}
+
+
 #pragma mark -
 #pragma mark TDListViewDelegate Drag
 
