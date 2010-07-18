@@ -17,7 +17,6 @@
 #import "FUBrowsaPreferencesViewController.h"
 #import "FUBrowsaComboBox.h"
 #import "NSString+FUAdditions.h"
-#import "NSEvent+FUAdditions.h"
 #import "DOMNode+FUAdditions.h"
 #import "WebIconDatabase.h"
 #import "WebIconDatabase+FUAdditions.h"
@@ -28,6 +27,7 @@
 #import <Fluidium/FUNotifications.h>
 #import <Fluidium/FUWindowController.h>
 #import <Fluidium/FUActivation.h>
+#import <TDAppKit/NSEvent+TDAdditions.h>
 
 NSString *const kFUZoomTextOnlyKey = @"FUZoomTextOnly";
 NSString *const kFUTargetedClicksCreateTabsKey = @"FUTargetedClicksCreateTabs";
