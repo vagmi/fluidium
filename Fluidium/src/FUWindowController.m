@@ -1402,6 +1402,9 @@
     [[tabBar addTabButton] setAction:@selector(newTab:)];
     
     uberView.midView = tabView;
+    
+    emptyTabBarLine.mainColor = [NSColor colorWithDeviceWhite:.2 alpha:1];
+    emptyTabBarLine.nonMainColor = [NSColor darkGrayColor];
 }
 
 

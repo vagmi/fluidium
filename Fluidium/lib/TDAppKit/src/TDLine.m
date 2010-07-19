@@ -41,8 +41,8 @@
     //NSPoint origin = bounds.origin;
     
     CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
-    CGPoint p1 = CGPointMake(0, 1);
-    CGPoint p2 = CGPointMake(bounds.size.width, 1);
+    CGPoint p1 = CGPointMake(0, 1.0);
+    CGPoint p2 = CGPointMake(bounds.size.width, 1.0);
     //    CGPoint p1 = FakeAlignCGPointToUserSpace(ctx, CGPointMake(0, 1));
     //    CGPoint p2 = FakeAlignCGPointToUserSpace(ctx, CGPointMake(bounds.size.width, 1));
     
