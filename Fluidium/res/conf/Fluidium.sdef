@@ -264,6 +264,16 @@
     <!-- 
     ************ FLUIDIUM COMMANDS *****************
     -->
+    <command name="run workflow" code="FuSSRun " description="Run this document's workflow.">
+        <cocoa class="FURunWorkflowCommand"/>
+        <direct-parameter type="specifier" description="The document or window whose workflow to run."/>
+    </command>
+
+    <command name="stop workflow" code="FuSSStpW" description="Stop this document's workflow.">
+        <cocoa class="FUStopWorkflowCommand"/>
+        <direct-parameter type="specifier" description="The document or window whose workflow to stop."/>
+    </command>
+
     <command name="load URL" code="FuSSLoad" description="Load a URL.">
         <cocoa class="FULoadURLCommand"/>
         <direct-parameter type="text" description="The URL to load."/>
@@ -732,6 +742,12 @@
 
         <responds-to command="make">
             <cocoa method="handleCreateCommand:"/>
+        </responds-to>
+        <responds-to command="run workflow">
+            <cocoa method="handleRunWorkflowCommand:"/>
+        </responds-to>
+        <responds-to command="stop workflow">
+            <cocoa method="handleStopWorkflowCommand:"/>
         </responds-to>
         <responds-to command="load URL">
             <cocoa method="handleLoadURLCommand:"/>
