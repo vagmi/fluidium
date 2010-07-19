@@ -1403,7 +1403,7 @@
     
     uberView.midView = tabView;
     
-    emptyTabBarLine.mainColor = [NSColor colorWithDeviceWhite:.2 alpha:1];
+    emptyTabBarLine.mainColor = [NSColor colorWithDeviceWhite:.1 alpha:1];
     emptyTabBarLine.nonMainColor = [NSColor darkGrayColor];
 }
 
