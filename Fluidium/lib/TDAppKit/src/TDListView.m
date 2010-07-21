@@ -377,7 +377,7 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         NSPoint p = [self convertPoint:locInWin fromView:nil];
         NSUInteger i = [self indexForItemAtPoint:p];
         
-        if (NSNotFound == i || i >= [dataSource numberOfItemsInListView:self]) return;
+        //if (NSNotFound == i || i >= [dataSource numberOfItemsInListView:self]) return;
         
         NSMenu *menu = [delegate listView:self contextMenuForItemAtIndex:i];
         if (menu) {
