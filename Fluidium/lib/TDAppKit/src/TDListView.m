@@ -817,10 +817,12 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 
 - (NSUInteger)indexForItemWhileDraggingAtPoint:(NSPoint)p {
-    if ([itemFrames count]) {        
+    if ([itemFrames count] && [items count]) {
         NSUInteger offset = [[items objectAtIndex:0] index];
         NSUInteger i = 0;
         for (NSValue *v in itemFrames) {
+            if (i > [items count] - 1) break;
+            
             NSRect r = [v rectValue];
             if (NSPointInRect(p, r)) {
                 if (i >= draggingVisibleIndex) {
