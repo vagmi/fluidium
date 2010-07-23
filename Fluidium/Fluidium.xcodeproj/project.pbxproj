@@ -209,6 +209,10 @@
 		D38420D11102BEE600605809 /* FUActivation.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D346E32710CD7C6600BA0B15 /* FUActivation.h */; };
 		D38420D21102BF0100605809 /* FUBookmarkController.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D32803F210CC7BFA00BB363B /* FUBookmarkController.h */; };
 		D38420D31102BF0C00605809 /* FUBookmark.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3E4345B10CB8D4C00A5BDEF /* FUBookmark.h */; };
+		D386702D11F96CEA00248091 /* PKJSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D386702C11F96CEA00248091 /* PKJSUtils.m */; };
+		D386702E11F96CEA00248091 /* PKJSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D386702C11F96CEA00248091 /* PKJSUtils.m */; };
+		D386705311F96D9E00248091 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D386705011F96D9100248091 /* JavaScriptCore.framework */; };
+		D386705E11F96DA900248091 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D386705011F96D9100248091 /* JavaScriptCore.framework */; };
 		D39A36751126A0E100DC5176 /* FUCreateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A36741126A0E100DC5176 /* FUCreateCommand.m */; };
 		D3A3269510FEFF6E00032B66 /* OAPreferenceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */; };
 		D3A3269610FEFF6E00032B66 /* OAPreferenceClientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268A10FEFF6E00032B66 /* OAPreferenceClientRecord.m */; };
@@ -1045,6 +1049,9 @@
 		D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBaseScriptCommand.m; path = src/FUBaseScriptCommand.m; sourceTree = "<group>"; };
 		D3778DFD10FF1F4900EEA25F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/OAPreferencesWindow.xib; sourceTree = "<group>"; };
 		D38421491102C95900605809 /* FUDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocumentController.h; path = include/Fluidium/FUDocumentController.h; sourceTree = "<group>"; };
+		D386702B11F96CEA00248091 /* PKJSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSUtils.h; path = lib/ParseKit/jssrc/PKJSUtils.h; sourceTree = "<group>"; };
+		D386702C11F96CEA00248091 /* PKJSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSUtils.m; path = lib/ParseKit/jssrc/PKJSUtils.m; sourceTree = "<group>"; };
+		D386705011F96D9100248091 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		D39A36731126A0E100DC5176 /* FUCreateCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCreateCommand.h; path = src/FUCreateCommand.h; sourceTree = "<group>"; };
 		D39A36741126A0E100DC5176 /* FUCreateCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCreateCommand.m; path = src/FUCreateCommand.m; sourceTree = "<group>"; };
 		D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClient.h; sourceTree = "<group>"; };
@@ -1255,6 +1262,7 @@
 				D3F4C3D410C8C7A300E0B474 /* WebKit.framework in Frameworks */,
 				D362A29011EC138A004FC3B0 /* Security.framework in Frameworks */,
 				D3F0C97311EBC176002E2BA9 /* SecurityInterface.framework in Frameworks */,
+				D386705311F96D9E00248091 /* JavaScriptCore.framework in Frameworks */,
 				D30BC44F10E187A40019816B /* Growl.framework in Frameworks */,
 				D3189E8F10F6FFFA00B6AA21 /* Sparkle.framework in Frameworks */,
 				D3F9415E1102F3A500267DA0 /* ShortcutRecorder.framework in Frameworks */,
@@ -1275,6 +1283,7 @@
 				D3C2E45811D7E9C600106E86 /* WebKit.framework in Frameworks */,
 				D362A24D11EC1379004FC3B0 /* Security.framework in Frameworks */,
 				D3F0C95E11EBC143002E2BA9 /* SecurityInterface.framework in Frameworks */,
+				D386705E11F96DA900248091 /* JavaScriptCore.framework in Frameworks */,
 				D3C2E45911D7E9C600106E86 /* Growl.framework in Frameworks */,
 				D3C2E45A11D7E9C600106E86 /* Sparkle.framework in Frameworks */,
 				D3C2E45B11D7E9C600106E86 /* ShortcutRecorder.framework in Frameworks */,
@@ -1300,6 +1309,7 @@
 				D30BC44E10E187A40019816B /* Growl.framework */,
 				D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */,
 				D3F9415D1102F3A500267DA0 /* ShortcutRecorder.framework */,
+				D386705011F96D9100248091 /* JavaScriptCore.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1770,6 +1780,8 @@
 				D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */,
 				D3ACEC551106CE2B005A3CF6 /* FUWindowController+Scripting.h */,
 				D3ACEC561106CE2B005A3CF6 /* FUWindowController+Scripting.m */,
+				D386702B11F96CEA00248091 /* PKJSUtils.h */,
+				D386702C11F96CEA00248091 /* PKJSUtils.m */,
 				D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */,
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
 				D373ECCB110B945600ECE3BE /* NSDictionary+FUScripting.h */,
@@ -2668,6 +2680,7 @@
 				D364ECDA11F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */,
 				D364EDD012306E99008AC15E /* FURunWorkflowCommand.m in Sources */,
 				D364EDD412306E99008AC15E /* FUStopWorkflowCommand.m in Sources */,
+				D386702E11F96CEA00248091 /* PKJSUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2813,6 +2826,7 @@
 				D364ECD911F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */,
 				D364EDCF12306E99008AC15E /* FURunWorkflowCommand.m in Sources */,
 				D364EDD312306E99008AC15E /* FUStopWorkflowCommand.m in Sources */,
+				D386702D11F96CEA00248091 /* PKJSUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

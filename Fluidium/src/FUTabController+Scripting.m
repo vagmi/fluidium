@@ -24,6 +24,8 @@
 #import "DOMNode+FUAdditions.h"
 #import <WebKit/WebKit.h>
 #import <TDAppKit/NSString+TDAdditions.h>
+#import <JavaScriptCore/JavaScriptCore.h>
+#import "PKJSUtils.h"
 
 #define DEFAULT_DELAY 1.0
 
@@ -351,21 +353,43 @@
 
 - (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
     NSString *script = [cmd directParameter];
-    NSString *prefix = @"__FU__";
-    script = [NSString stringWithFormat:@"try{\n%@\n}catch(__e){return '%@'+__e;}", script, prefix];
-    NSString *result = [webView stringByEvaluatingJavaScriptFromString:script];
+
+    JSStringRef sourceURLStr = NULL;
+    NSString *sourceURLString = [webView mainFrameURL];
+    if ([sourceURLString length]) {
+        sourceURLStr = JSStringCreateWithCFString((CFStringRef)sourceURLString);
+    }
+
+    JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
+
+    JSStringRef scriptStr = JSStringCreateWithCFString((CFStringRef)script);
+    JSValueRef e = NULL;
+    JSCheckScriptSyntax(ctx, scriptStr, sourceURLStr, 0, &e);
+    if (scriptStr) JSStringRelease(scriptStr);
+    if (sourceURLStr) JSStringRelease(sourceURLStr);
     
-    BOOL hasPrefix = [result hasPrefix:prefix];
-    if (!result || hasPrefix) {
-        if (hasPrefix) {
-            result = [result substringFromIndex:[prefix length]];
-        }
+    if (e) {
+        NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
         [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
-        NSString *msg = NSLocalizedString(@"JavaScript encountered a fatal error", @"");
-        if (result) {
-            msg = [msg stringByAppendingFormat:@":\n\n'%@'", result];
-        }
-        [cmd setScriptErrorString:msg];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"JavaScript syntax error:\n\n%@", @""), msg]];
+        return nil;
+    }
+    
+    //NSString *result = [webView stringByEvaluatingJavaScriptFromString:script];
+    
+    JSValueRef res = JSEvaluateScript(ctx, scriptStr, JSContextGetGlobalObject(ctx), sourceURLStr, 0, &e);
+    if (e) {
+        NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg]];
+        return nil;
+    }
+    
+    id result = PKJSValueGetId(ctx, res, &e);
+    if (e) {
+        NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg]];
         return nil;
     }
 
@@ -373,7 +397,16 @@
     [self suspendCommand:cmd];
     [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY/2];
     
-    return [NSAppleEventDescriptor descriptorWithString:result];
+    NSString *s = nil;
+    if ([result isKindOfClass:[NSString class]]) {
+        s = result;
+    } else if ([result respondsToSelector:@selector(stringValue)]) {
+        s = [result stringValue];
+    } else {
+        s = [result description];
+    }
+    
+    return [NSAppleEventDescriptor descriptorWithString:s];
 }
 
 
@@ -1518,7 +1551,9 @@
 
 
 - (BOOL)javaScriptEvalsTrue:(NSString *)script {
-    BOOL result = [[webView stringByEvaluatingJavaScriptFromString:script] boolValue];
+    //JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
+    NSString *s = [webView stringByEvaluatingJavaScriptFromString:script];
+    BOOL result = [s boolValue];
     return result;
 }
 
