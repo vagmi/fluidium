@@ -635,9 +635,11 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)dragInfo {
     if (dropIndex > draggingIndex) {
-        NSUInteger diff = dropIndex - draggingIndex;
-        dropIndex -= diff;
-        dropVisibleIndex -= diff;
+//        NSUInteger diff = dropIndex - draggingIndex;
+//        dropIndex -= diff;
+//        dropVisibleIndex -= diff;
+        dropIndex--;
+        dropVisibleIndex--;
     }
     self.itemFrames = nil;
     

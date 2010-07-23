@@ -78,7 +78,7 @@
 - (BOOL)hasElementForXPath:(NSString *)xpath;
 - (BOOL)containsText:(NSString *)cmd;
 - (BOOL)containsHTML:(NSString *)cmd;
-- (BOOL)javaScriptEvalsTrue:(NSString *)cmd;
+- (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg;
 
 - (BOOL)pageContainsText:(NSString *)text;
 - (BOOL)pageContainsHTML:(NSString *)HTML;
@@ -375,38 +375,46 @@
         return nil;
     }
     
-    //NSString *result = [webView stringByEvaluatingJavaScriptFromString:script];
+    NSString *result = [webView stringByEvaluatingJavaScriptFromString:script];
     
-    JSValueRef res = JSEvaluateScript(ctx, scriptStr, JSContextGetGlobalObject(ctx), sourceURLStr, 0, &e);
-    if (e) {
-        NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
-        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
-        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg]];
-        return nil;
-    }
-    
-    id result = PKJSValueGetId(ctx, res, &e);
-    if (e) {
-        NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
-        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
-        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg]];
-        return nil;
-    }
+    //JSValueRef res = JSEvaluateScript(ctx, scriptStr, NULL, sourceURLStr, 0, &e);
+//    if (e) {
+//        NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
+//        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
+//        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg]];
+//        return nil;
+//    }
+//    
+//    id result = PKJSValueGetId(ctx, res, &e);
+//    if (e) {
+//        NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
+//        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
+//        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg]];
+//        return nil;
+//    }
 
     // just put in a little delay for good measure
     [self suspendCommand:cmd];
     [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY/2];
     
-    NSString *s = nil;
-    if ([result isKindOfClass:[NSString class]]) {
-        s = result;
-    } else if ([result respondsToSelector:@selector(stringValue)]) {
-        s = [result stringValue];
-    } else {
-        s = [result description];
+//    NSString *s = nil;
+//    if ([result isKindOfClass:[NSString class]]) {
+//        s = result;
+//    } else if ([result respondsToSelector:@selector(stringValue)]) {
+//        s = [result stringValue];
+//    } else {
+//        s = [result description];
+//    }
+//    
+//    if (!s) {
+//        s = @"";
+//    }
+    
+    if (!result) {
+        result = @"";
     }
     
-    return [NSAppleEventDescriptor descriptorWithString:s];
+    return [NSAppleEventDescriptor descriptorWithString:result];
 }
 
 
@@ -862,7 +870,7 @@
 
 
 - (id)handleAssertCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    //if (![self isHTMLDocument:cmd]) return nil;
     
     NSDictionary *args = [cmd arguments];
     
@@ -1062,10 +1070,16 @@
 
 - (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd {
     NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsTrue"];
-    if (![self javaScriptEvalsTrue:script]) {
+    NSString *outErrMsg = nil;
+    
+    BOOL result = [self javaScriptEvalsTrue:script error:&outErrMsg];
+
+    if (outErrMsg) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorString:outErrMsg];
+    } else if (!result) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nJavaScript doesn't evaluate true \n\n«%@»", @""), [webView mainFrameURL], script]];
-        return nil;
     }
     
     return nil;
@@ -1074,10 +1088,16 @@
 
 - (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd {
     NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsFalse"];
-    if ([self javaScriptEvalsTrue:script]) {
+    NSString *outErrMsg = nil;
+    
+    BOOL result = ![self javaScriptEvalsTrue:script error:&outErrMsg];
+
+    if (outErrMsg) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorString:outErrMsg];
+    } else if (!result) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
         [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nJavaScript doesn't evaluate false \n\n«%@»", @""), [webView mainFrameURL], script]];
-        return nil;
     }
     
     return nil;
@@ -1550,10 +1570,55 @@
 }
 
 
-- (BOOL)javaScriptEvalsTrue:(NSString *)script {
-    //JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
-    NSString *s = [webView stringByEvaluatingJavaScriptFromString:script];
-    BOOL result = [s boolValue];
+- (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg {
+    JSStringRef sourceURLStr = NULL;
+    NSString *sourceURLString = [webView mainFrameURL];
+    if ([sourceURLString length]) {
+        sourceURLStr = JSStringCreateWithCFString((CFStringRef)sourceURLString);
+    }
+    
+    JSGlobalContextRef ctx = NULL;
+    if ([webView mainFrameDocument]) {
+        ctx = [[webView mainFrame] globalContext];
+    } else {
+        ctx = JSGlobalContextCreate(NULL);
+    }
+    
+    JSStringRef scriptStr = JSStringCreateWithCFString((CFStringRef)script);
+    JSValueRef e = NULL;
+    JSCheckScriptSyntax(ctx, scriptStr, sourceURLStr, 0, &e);
+    if (scriptStr) JSStringRelease(scriptStr);
+    if (sourceURLStr) JSStringRelease(sourceURLStr);
+    
+    if (e) {
+        if (outErrMsg) {
+            NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
+            *outErrMsg = [NSString stringWithFormat:NSLocalizedString(@"JavaScript syntax error:\n\n%@", @""), msg];
+        }
+        return NO;
+    }
+    
+    NSString *fmt = @"(function(){return Boolean(%@)?'true':'false'})();";
+    script = [NSString stringWithFormat:fmt, script];
+    //NSLog(@"script: %@", script);
+    NSString *resultStr = [webView stringByEvaluatingJavaScriptFromString:script];
+    //NSLog(@"resultStr: %@", resultStr);
+    BOOL result = [resultStr isEqualToString:@"true"];
+    
+//    JSValueRef res = JSEvaluateScript(ctx, scriptStr, NULL, sourceURLStr, 0, &e);
+//    if (res) {
+//        NSLog(@"res %@", PKJSValueGetNSString(ctx, res, NULL));
+//    }
+//    if (e) {
+//        if (outErrMsg) {
+//            NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
+//            NSLog(@"msg %@", msg);
+//            *outErrMsg = [NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg];
+//        }
+//        return NO;
+//    }
+//    
+//    BOOL result = JSValueToBoolean(ctx, res);
     return result;
 }
 
@@ -1619,10 +1684,10 @@
             doesntContainTextDone = ![self containsText:doesntContainText];
         }
         if (javaScriptEvalsTrue) {
-            javaScriptEvalsTrueDone = [self javaScriptEvalsTrue:javaScriptEvalsTrue];
+            javaScriptEvalsTrueDone = [self javaScriptEvalsTrue:javaScriptEvalsTrue error:nil];
         }
         if (javaScriptEvalsFalse) {
-            javaScriptEvalsFalseDone = ![self javaScriptEvalsTrue:javaScriptEvalsFalse];
+            javaScriptEvalsFalseDone = ![self javaScriptEvalsTrue:javaScriptEvalsFalse error:nil];
         }
         
         done = (titleEqualsDone && hasElementWithIdDone && doesntHaveElementWithIdDone &&

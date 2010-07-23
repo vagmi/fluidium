@@ -8,6 +8,11 @@
 
 #import "PKJSUtils.h"
 
+NSString *PKJSStringGetNSString(JSStringRef str) {
+    return [(id)JSStringCopyCFString(NULL, str) autorelease];
+}
+
+
 JSValueRef PKCFTypeToJSValue(JSContextRef ctx, CFTypeRef value, JSValueRef *ex) {
     JSValueRef result = NULL;
     CFTypeID typeID = CFGetTypeID(value);
