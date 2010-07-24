@@ -476,8 +476,8 @@
         <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Asserts the given JavaScript evaluates to true in the web page loaded in this tab.">
             <cocoa key="javaScriptEvalsTrue"/>
         </parameter>
-        <parameter type="text" name="JavaScript evaluates false" code="JSFa" optional="yes" description="Asserts the given JavaScript evaluates to false in the web page loaded in this tab.">
-            <cocoa key="javaScriptEvalsFalse"/>
+        <parameter type="text" name="XPath evaluates true" code="XpTr" optional="yes" description="Asserts the given XPath expression evaluates to true in the web page loaded in this tab.">
+            <cocoa key="xpathEvalsTrue"/>
         </parameter>
         <parameter type="tab" name="in" code="tPrm" optional="yes" description="A tab in which to assert the condition. If not specified, the selected tab in the frontmost window is used.">
             <cocoa key="tabController"/>
@@ -509,8 +509,8 @@
         <parameter type="text" name="JavaScript evaluates true" code="JSTr" optional="yes" description="Waits for the given JavaScript to evaluate true in the web page loaded in this tab.">
             <cocoa key="javaScriptEvalsTrue"/>
         </parameter>
-        <parameter type="text" name="JavaScript evaluates false" code="JSFa" optional="yes" description="Waits for the given JavaScript to evaluate to false in the web page loaded in this tab.">
-            <cocoa key="javaScriptEvalsFalse"/>
+        <parameter type="text" name="XPath evaluates true" code="XpTr" optional="yes" description="Asserts the given XPath expression evaluates to true in the web page loaded in this tab.">
+            <cocoa key="xpathEvalsTrue"/>
         </parameter>
         <parameter type="real" name="with timeout" code="TOut" optional="yes" description="Timeout in seconds. If not specified, defaults to 60 seconds.">
             <cocoa key="timeout"/>

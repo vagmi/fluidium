@@ -29,6 +29,7 @@ extern NSInteger const kFUScriptErrorNumberCantGoBack;
 extern NSInteger const kFUScriptErrorNumberCantGoForward;
 extern NSInteger const kFUScriptErrorNumberCantReload;
 extern NSInteger const kFUScriptErrorNumberJavaScriptError;
+extern NSInteger const kFUScriptErrorNumberXPathError;
 extern NSInteger const kFUScriptErrorNumberUnixScriptError;
 extern NSInteger const kFUScriptErrorNumberAppleScriptError;
 extern NSInteger const kFUScriptErrorNumberAssertionFailed;

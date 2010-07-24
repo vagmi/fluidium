@@ -62,7 +62,7 @@
 - (id)handleAssertContainsTextCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertDoesntContainTextCommand:(NSScriptCommand *)cmd;
 - (id)handleAssertJavaScriptEvalsTrueCommand:(NSScriptCommand *)cmd;
-- (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd;
+- (id)handleAssertXPathEvalsTrueCommand:(NSScriptCommand *)cmd;
 
 - (id)handleWaitForConditionCommand:(NSScriptCommand *)cmd;
 //- (id)handleWaitForConditionPageTitleEquals:(NSScriptCommand *)cmd;

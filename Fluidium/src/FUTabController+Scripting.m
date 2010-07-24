@@ -78,8 +78,10 @@
 - (BOOL)hasElementForXPath:(NSString *)xpath;
 - (BOOL)containsText:(NSString *)cmd;
 - (BOOL)containsHTML:(NSString *)cmd;
-- (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg;
+
 - (JSValueRef)valueForEvaluatingScript:(NSString *)script inContext:(JSGlobalContextRef)ctx error:(NSString **)outErrMsg;
+- (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg;
+- (BOOL)xpathEvalsTrue:(NSString *)xpathExpr error:(NSString **)outErrMsg;
 
 - (BOOL)pageContainsText:(NSString *)text;
 - (BOOL)pageContainsHTML:(NSString *)HTML;
@@ -844,7 +846,7 @@
     NSString *containsText = [args objectForKey:@"containsText"];
     NSString *doesntContainText = [args objectForKey:@"doesntContainText"];
     NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
-    NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
+    NSString *xpathEvalsTrue = [args objectForKey:@"xpathEvalsTrue"];
     
     id result = nil;
     
@@ -868,8 +870,8 @@
         result = [self handleAssertDoesntContainTextCommand:cmd];
     } else if (javaScriptEvalsTrue) {
         result = [self handleAssertJavaScriptEvalsTrueCommand:cmd];
-    } else if (javaScriptEvalsFalse) {
-        result = [self handleAssertJavaScriptEvalsFalseCommand:cmd];
+    } else if (xpathEvalsTrue) {
+        result = [self handleAssertXPathEvalsTrueCommand:cmd];
     }
 
 //    // just put in a little delay for good measure
@@ -1046,20 +1048,20 @@
 }
 
 
-- (id)handleAssertJavaScriptEvalsFalseCommand:(NSScriptCommand *)cmd {
-    NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsFalse"];
-    NSString *outErrMsg = nil;
-    
-    BOOL result = ![self javaScriptEvalsTrue:script error:&outErrMsg];
+- (id)handleAssertXPathEvalsTrueCommand:(NSScriptCommand *)cmd {
+    NSString *xpathExpr = [[cmd arguments] objectForKey:@"xpathEvalsTrue"];
 
+    NSString *outErrMsg = nil;
+    BOOL result = [self xpathEvalsTrue:xpathExpr error:&outErrMsg];
+    
     if (outErrMsg) {
-        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberXPathError];
         [cmd setScriptErrorString:outErrMsg];
     } else if (!result) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
-        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nJavaScript doesn't evaluate false \n\n«%@»", @""), [webView mainFrameURL], script]];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Assertion failed in page «%@» \n\nXPath expression doesn't evaluate true \n\n«%@»", @""), [webView mainFrameURL], xpathExpr]];
     }
-    
+
     return nil;
 }
 
@@ -1598,6 +1600,40 @@ done:
 }
 
 
+- (BOOL)xpathEvalsTrue:(NSString *)xpath error:(NSString **)outErrMsg {
+    BOOL boolValue = NO;
+    
+    if ([xpath length]) {
+        
+        // get doc
+        DOMDocument *doc = [webView mainFrameDocument];
+        if (!doc) {
+            if (outErrMsg) {
+                NSString *msg = @"Error evaling XPath expression: No DOM Document";
+                NSLog(@"%@", msg);
+                *outErrMsg = msg;
+            }
+            return NO;
+        }
+
+        @try {
+            DOMXPathResult *result = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_BOOLEAN_TYPE inResult:nil];
+            boolValue = [result booleanValue];
+            
+        } @catch (NSException *e) {
+            if (outErrMsg) {
+                NSString *msg = [NSString stringWithFormat:@"Error evaling XPath expression: %@", [e reason]];
+                NSLog(@"%@", msg);
+                *outErrMsg = msg;
+            }
+            return NO;
+        }
+    }
+    
+    return boolValue;
+}
+
+
 - (id)checkWaitForCondition:(NSDictionary *)info {
     NSScriptCommand *cmd = [info objectForKey:KEY_COMMAND];
     NSDictionary *args = [cmd arguments];
@@ -1625,7 +1661,7 @@ done:
         NSString *containsText = [args objectForKey:@"containsText"];
         NSString *doesntContainText = [args objectForKey:@"doesntContainText"];
         NSString *javaScriptEvalsTrue = [args objectForKey:@"javaScriptEvalsTrue"];
-        NSString *javaScriptEvalsFalse = [args objectForKey:@"javaScriptEvalsFalse"];
+        NSString *xpathEvalsTrue = [args objectForKey:@"xpathEvalsTrue"];
         
         BOOL titleEqualsDone = YES;
         BOOL hasElementWithIdDone = YES;
@@ -1635,7 +1671,7 @@ done:
         BOOL containsTextDone = YES;
         BOOL doesntContainTextDone = YES;
         BOOL javaScriptEvalsTrueDone = YES;
-        BOOL javaScriptEvalsFalseDone = YES;
+        BOOL xpathEvalsTrueDone = YES;
         
         if (titleEquals) {
             titleEqualsDone = [self titleEquals:titleEquals];
@@ -1661,13 +1697,13 @@ done:
         if (javaScriptEvalsTrue) {
             javaScriptEvalsTrueDone = [self javaScriptEvalsTrue:javaScriptEvalsTrue error:nil];
         }
-        if (javaScriptEvalsFalse) {
-            javaScriptEvalsFalseDone = ![self javaScriptEvalsTrue:javaScriptEvalsFalse error:nil];
+        if (xpathEvalsTrue) {
+            xpathEvalsTrueDone = [self xpathEvalsTrue:xpathEvalsTrue error:nil];
         }
         
         done = (titleEqualsDone && hasElementWithIdDone && doesntHaveElementWithIdDone &&
                 hasElementForXPathDone && doesntHaveElementForXPathDone && containsTextDone && 
-                doesntContainTextDone && javaScriptEvalsTrueDone && javaScriptEvalsFalseDone);
+                doesntContainTextDone && javaScriptEvalsTrueDone && xpathEvalsTrueDone);
     }
     
     if (!done) {
