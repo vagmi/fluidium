@@ -1584,10 +1584,8 @@
     }
     
     // get context
-    JSGlobalContextRef ctx = NULL;
-    if ([webView mainFrameDocument]) {
-        ctx = [[webView mainFrame] globalContext];
-    } else {
+    JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
+    if (!ctx) {
         ctx = JSGlobalContextCreate(NULL);
     }
     
