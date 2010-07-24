@@ -1497,7 +1497,6 @@
 			isa = PBXGroup;
 			children = (
 				D332221810C8C1FB00151693 /* Info.plist */,
-				D3C2E35711D7E32E00106E86 /* Fake-Info.plist */,
 				D3F4C6B610C8E51200E0B474 /* DefaultValues.plist */,
 				D3C2E56311D7F27600106E86 /* Fake-DefaultValues.plist */,
 				D346E8C810CEC1BC00BA0B15 /* PlugInClientRecord.plist */,
@@ -1859,6 +1858,7 @@
 		D3C2E36311D7E41B00106E86 /* Fake Source */ = {
 			isa = PBXGroup;
 			children = (
+				D3C2E35711D7E32E00106E86 /* Fake-Info.plist */,
 				D3D4857311E28BCB0030A659 /* FakeDocument.h */,
 				D3D4857411E28BCB0030A659 /* FakeDocument.m */,
 				D3D488B511E2C64B0030A659 /* FakeWindowController.h */,

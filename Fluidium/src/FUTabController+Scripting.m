@@ -656,7 +656,8 @@
                 }
             }
         } else {
-            foundEls = [self elementsForXPath:[NSString stringWithFormat:@"(//*[@name='%@'])[1]", name]];
+//            foundEls = [self elementsForXPath:[NSString stringWithFormat:@"(//*[@name='%@'])[1]", name]];
+            foundEls = [self elementsForXPath:[NSString stringWithFormat:@"//*[@name='%@']", name]];
         }
     } else if ([identifier length]) {
         NSArray *els = nil;
