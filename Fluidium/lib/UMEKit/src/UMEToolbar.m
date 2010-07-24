@@ -36,6 +36,7 @@
 - (void)dealloc {
     self.items = nil;
     self.tintColor = nil;
+    self.flexibleItems = nil;
     [super dealloc];
 }
 
