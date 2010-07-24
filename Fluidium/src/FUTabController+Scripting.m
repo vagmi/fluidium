@@ -1590,7 +1590,10 @@ done:
     JSValueRef res = [self valueForEvaluatingScript:script inContext:ctx error:outErrMsg];
     
     // convert result to boolean
-    BOOL result = JSValueToBoolean(ctx, res);
+    BOOL result = NO;
+    if (res) {
+        result = JSValueToBoolean(ctx, res);
+    }
     return result;
 }
 
