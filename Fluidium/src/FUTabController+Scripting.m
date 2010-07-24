@@ -1571,12 +1571,19 @@
 
 
 - (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg {
+    // wrap source in boolean cast
+    NSString *fmt = @"(function(){return Boolean(%@)})();";
+    script = [NSString stringWithFormat:fmt, script];
+    JSStringRef scriptStr = JSStringCreateWithCFString((CFStringRef)script);
+    
+    // setup source url string
     JSStringRef sourceURLStr = NULL;
     NSString *sourceURLString = [webView mainFrameURL];
     if ([sourceURLString length]) {
         sourceURLStr = JSStringCreateWithCFString((CFStringRef)sourceURLString);
     }
     
+    // get context
     JSGlobalContextRef ctx = NULL;
     if ([webView mainFrameDocument]) {
         ctx = [[webView mainFrame] globalContext];
@@ -1584,41 +1591,42 @@
         ctx = JSGlobalContextCreate(NULL);
     }
     
-    JSStringRef scriptStr = JSStringCreateWithCFString((CFStringRef)script);
+    // check syntax
     JSValueRef e = NULL;
     JSCheckScriptSyntax(ctx, scriptStr, sourceURLStr, 0, &e);
-    if (scriptStr) JSStringRelease(scriptStr);
-    if (sourceURLStr) JSStringRelease(sourceURLStr);
     
+    // if syntax error...
+    BOOL result = NO;
     if (e) {
         if (outErrMsg) {
             NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
             *outErrMsg = [NSString stringWithFormat:NSLocalizedString(@"JavaScript syntax error:\n\n%@", @""), msg];
+            NSLog(@"%@", *outErrMsg);
         }
-        return NO;
+        result = NO;
+        goto done;
     }
     
-    NSString *fmt = @"(function(){return Boolean(%@)?'true':'false'})();";
-    script = [NSString stringWithFormat:fmt, script];
-    //NSLog(@"script: %@", script);
-    NSString *resultStr = [webView stringByEvaluatingJavaScriptFromString:script];
-    //NSLog(@"resultStr: %@", resultStr);
-    BOOL result = [resultStr isEqualToString:@"true"];
+    // eval the script
+    JSValueRef res = JSEvaluateScript(ctx, scriptStr, NULL, sourceURLStr, 0, &e);
+    if (e) {
+        if (outErrMsg) {
+            NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
+            *outErrMsg = [NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg];
+            NSLog(@"%@", *outErrMsg);
+        }
+        result = NO;
+        goto done;
+    }
     
-//    JSValueRef res = JSEvaluateScript(ctx, scriptStr, NULL, sourceURLStr, 0, &e);
-//    if (res) {
-//        NSLog(@"res %@", PKJSValueGetNSString(ctx, res, NULL));
-//    }
-//    if (e) {
-//        if (outErrMsg) {
-//            NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
-//            NSLog(@"msg %@", msg);
-//            *outErrMsg = [NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg];
-//        }
-//        return NO;
-//    }
-//    
-//    BOOL result = JSValueToBoolean(ctx, res);
+    // convert result to boolean
+    result = JSValueToBoolean(ctx, res);
+
+    // memory management
+done:
+    if (scriptStr) JSStringRelease(scriptStr);
+    if (sourceURLStr) JSStringRelease(sourceURLStr);
+
     return result;
 }
 
