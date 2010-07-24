@@ -1035,7 +1035,7 @@
     BOOL result = [self javaScriptEvalsTrue:script error:&outErrMsg];
 
     if (outErrMsg) {
-        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
         [cmd setScriptErrorString:outErrMsg];
     } else if (!result) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
@@ -1053,7 +1053,7 @@
     BOOL result = ![self javaScriptEvalsTrue:script error:&outErrMsg];
 
     if (outErrMsg) {
-        [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
         [cmd setScriptErrorString:outErrMsg];
     } else if (!result) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberAssertionFailed];
