@@ -199,6 +199,9 @@
 		D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */; };
 		D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */; };
 		D3778DFE10FF1F4900EEA25F /* OAPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3778DFC10FF1F4900EEA25F /* OAPreferencesWindow.xib */; };
+		D37E9A4F11FB997300147399 /* FakeDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E9A4E11FB997300147399 /* FakeDocumentController.m */; };
+		D37E9AB611FBA15C00147399 /* AquaticPrime.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D37E9AA311FBA13600147399 /* AquaticPrime.framework */; };
+		D37E9AB711FBA16E00147399 /* AquaticPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E9AA311FBA13600147399 /* AquaticPrime.framework */; };
 		D38420C81102BECD00605809 /* FUApplication.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3F4C55210C8D1D300E0B474 /* FUApplication.h */; };
 		D38420C91102BECD00605809 /* FUUserDefaults.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3F4C6AD10C8E28E00E0B474 /* FUUserDefaults.h */; };
 		D38420CA1102BECD00605809 /* FUNotifications.h in Copy Public Headers */ = {isa = PBXBuildFile; fileRef = D3D3731F10E3D32300203EB2 /* FUNotifications.h */; };
@@ -681,6 +684,27 @@
 			remoteGlobalIDString = D36E1F5B11703E8300110DBA;
 			remoteInfo = FooBarDemoApp;
 		};
+		D37E9AA211FBA13600147399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = AquaticPrime;
+		};
+		D37E9AA411FBA13600147399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D9B64D7086DCB44006322F1;
+			remoteInfo = libAquaticPrime;
+		};
+		D37E9ABA11FBA19700147399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = AquaticPrime;
+		};
 		D38422EF1102D39200605809 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -834,6 +858,7 @@
 				D3C2E45111D7E9C600106E86 /* TDAppKit.framework in Copy Frameworks */,
 				D3C2E45211D7E9C600106E86 /* ParseKit.framework in Copy Frameworks */,
 				D3C2E45311D7E9C600106E86 /* UMEKit.framework in Copy Frameworks */,
+				D37E9AB611FBA15C00147399 /* AquaticPrime.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1048,6 +1073,10 @@
 		D373ED70110BF68300ECE3BE /* FUBaseScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBaseScriptCommand.h; path = src/FUBaseScriptCommand.h; sourceTree = "<group>"; };
 		D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBaseScriptCommand.m; path = src/FUBaseScriptCommand.m; sourceTree = "<group>"; };
 		D3778DFD10FF1F4900EEA25F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/OAPreferencesWindow.xib; sourceTree = "<group>"; };
+		D37E9A4D11FB997300147399 /* FakeDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeDocumentController.h; path = ../../fake/src/FakeDocumentController.h; sourceTree = SOURCE_ROOT; };
+		D37E9A4E11FB997300147399 /* FakeDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeDocumentController.m; path = ../../fake/src/FakeDocumentController.m; sourceTree = SOURCE_ROOT; };
+		D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AquaticPrime.xcodeproj; path = ../../fake/lib/AquaticPrime/AquaticPrime.xcodeproj; sourceTree = SOURCE_ROOT; };
+		D37E9AC011FBA21800147399 /* AquaticPrime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AquaticPrime.h; path = ../../fake/lib/AquaticPrime/AquaticPrime.h; sourceTree = SOURCE_ROOT; };
 		D38421491102C95900605809 /* FUDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocumentController.h; path = include/Fluidium/FUDocumentController.h; sourceTree = "<group>"; };
 		D386702B11F96CEA00248091 /* PKJSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSUtils.h; path = lib/ParseKit/jssrc/PKJSUtils.h; sourceTree = "<group>"; };
 		D386702C11F96CEA00248091 /* PKJSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSUtils.m; path = lib/ParseKit/jssrc/PKJSUtils.m; sourceTree = "<group>"; };
@@ -1291,6 +1320,7 @@
 				D3C2E45D11D7E9C600106E86 /* TDAppKit.framework in Frameworks */,
 				D3C2E45E11D7E9C600106E86 /* ParseKit.framework in Frameworks */,
 				D3C2E45F11D7E9C600106E86 /* UMEKit.framework in Frameworks */,
+				D37E9AB711FBA16E00147399 /* AquaticPrime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1345,6 +1375,7 @@
 				D346E5CC10CE452000BA0B15 /* TwitterPlugIn.xcodeproj */,
 				D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */,
 				D3C2E4DE11D7EF0B00106E86 /* Fake.xcodeproj */,
+				D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Fluidium Source */,
 				D3C2E36311D7E41B00106E86 /* Fake Source */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
@@ -1596,7 +1627,7 @@
 			children = (
 				D346E48F10CE434A00BA0B15 /* ParseKit.framework */,
 				D346E49110CE434A00BA0B15 /* JSParseKit.framework */,
-				D346E49310CE434A00BA0B15 /* libparsekit.a */,
+				D346E49310CE434A00BA0B15 /* parsekit.a */,
 				D346E49510CE434A00BA0B15 /* Tests.octest */,
 				D346E49710CE434A00BA0B15 /* DemoApp.app */,
 				D346E49910CE434A00BA0B15 /* DebugApp.app */,
@@ -1711,6 +1742,15 @@
 				D35CC20110D411FA00DA1898 /* FUUserAgentWindowController.m */,
 			);
 			name = UserAgent;
+			sourceTree = "<group>";
+		};
+		D37E9A9B11FBA13600147399 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D37E9AA311FBA13600147399 /* AquaticPrime.framework */,
+				D37E9AA511FBA13600147399 /* libAquaticPrime.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D3A3268610FEFF6E00032B66 /* OAPreferences */ = {
@@ -1859,6 +1899,9 @@
 			isa = PBXGroup;
 			children = (
 				D3C2E35711D7E32E00106E86 /* Fake-Info.plist */,
+				D37E9AC011FBA21800147399 /* AquaticPrime.h */,
+				D37E9A4D11FB997300147399 /* FakeDocumentController.h */,
+				D37E9A4E11FB997300147399 /* FakeDocumentController.m */,
 				D3D4857311E28BCB0030A659 /* FakeDocument.h */,
 				D3D4857411E28BCB0030A659 /* FakeDocument.m */,
 				D3D488B511E2C64B0030A659 /* FakeWindowController.h */,
@@ -2142,6 +2185,7 @@
 				D3C2E39411D7E9C600106E86 /* PBXTargetDependency */,
 				D3C2E39611D7E9C600106E86 /* PBXTargetDependency */,
 				D3C2E39811D7E9C600106E86 /* PBXTargetDependency */,
+				D37E9ABB11FBA19700147399 /* PBXTargetDependency */,
 				D361101811EA6F7100DB7EFD /* PBXTargetDependency */,
 			);
 			name = Fake;
@@ -2161,6 +2205,10 @@
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* FluidApp */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = D37E9A9B11FBA13600147399 /* Products */;
+					ProjectRef = D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */;
+				},
 				{
 					ProductGroup = D3D3766110E4091800203EB2 /* Products */;
 					ProjectRef = D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */;
@@ -2264,10 +2312,10 @@
 			remoteRef = D346E49010CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D346E49310CE434A00BA0B15 /* libparsekit.a */ = {
+		D346E49310CE434A00BA0B15 /* parsekit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libparsekit.a;
+			path = parsekit.a;
 			remoteRef = D346E49210CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2325,6 +2373,20 @@
 			fileType = wrapper.application;
 			path = FooBarDemoApp.app;
 			remoteRef = D36E1F6911703EA200110DBA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D37E9AA311FBA13600147399 /* AquaticPrime.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AquaticPrime.framework;
+			remoteRef = D37E9AA211FBA13600147399 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D37E9AA511FBA13600147399 /* libAquaticPrime.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAquaticPrime.a;
+			remoteRef = D37E9AA411FBA13600147399 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D3C2E4EE11D7EF0B00106E86 /* Fake.fluidplugin */ = {
@@ -2827,6 +2889,7 @@
 				D364EDCF12306E99008AC15E /* FURunWorkflowCommand.m in Sources */,
 				D364EDD312306E99008AC15E /* FUStopWorkflowCommand.m in Sources */,
 				D386702D11F96CEA00248091 /* PKJSUtils.m in Sources */,
+				D37E9A4F11FB997300147399 /* FakeDocumentController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2867,6 +2930,11 @@
 			isa = PBXTargetDependency;
 			target = 8D15AC270486D014006FF6A4 /* Fluidium */;
 			targetProxy = D361101711EA6F7100DB7EFD /* PBXContainerItemProxy */;
+		};
+		D37E9ABB11FBA19700147399 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AquaticPrime;
+			targetProxy = D37E9ABA11FBA19700147399 /* PBXContainerItemProxy */;
 		};
 		D38422F01102D39200605809 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3308,6 +3376,7 @@
 				);
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../fake/lib/AquaticPrime\"/**",
 					"\"$(SRCROOT)/lib/ShortcutRecorder\"",
 					"\"$(SRCROOT)/lib/PSMTabBarControl/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/TDAppKit/build/$(CONFIGURATION)\"",
@@ -3330,6 +3399,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../fake/src\"";
 				INFOPLIST_FILE = "res/conf/Fake-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = Fake;
 				SDKROOT = macosx10.5;
 			};
@@ -3347,6 +3417,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../fake/lib/AquaticPrime\"/**",
 					"\"$(SRCROOT)/lib/ShortcutRecorder\"",
 					"\"$(SRCROOT)/lib/PSMTabBarControl/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/lib/TDAppKit/build/$(CONFIGURATION)\"",
@@ -3369,6 +3440,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../fake/src\"";
 				INFOPLIST_FILE = "res/conf/Fake-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = Fake;
 				SDKROOT = macosx10.5;
 				STRIP_STYLE = all;
@@ -3404,7 +3476,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "Fluidium+PlugIns";
+				PRODUCT_NAME = "Fake+PlugIns";
 				SDKROOT = macosx10.5;
 			};
 			name = Debug;
@@ -3415,7 +3487,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Fluidium+PlugIns";
+				PRODUCT_NAME = "Fake+PlugIns";
 				SDKROOT = macosx10.5;
 				ZERO_LINK = NO;
 			};
