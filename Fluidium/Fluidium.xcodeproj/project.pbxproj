@@ -1376,8 +1376,6 @@
 				D3D3766010E4091800203EB2 /* BrowsaPlugIn.xcodeproj */,
 				D346E5CC10CE452000BA0B15 /* TwitterPlugIn.xcodeproj */,
 				D32E8C2310E593AB00445B4C /* TabsPlugIn.xcodeproj */,
-				D3C2E4DE11D7EF0B00106E86 /* Fake.xcodeproj */,
-				D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Fluidium Source */,
 				D3C2E36311D7E41B00106E86 /* Fake Source */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
@@ -1900,6 +1898,8 @@
 		D3C2E36311D7E41B00106E86 /* Fake Source */ = {
 			isa = PBXGroup;
 			children = (
+				D3C2E4DE11D7EF0B00106E86 /* Fake.xcodeproj */,
+				D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */,
 				D3C2E35711D7E32E00106E86 /* Fake-Info.plist */,
 				D37E9AC011FBA21800147399 /* AquaticPrime.h */,
 				D37E9A4D11FB997300147399 /* FakeDocumentController.h */,

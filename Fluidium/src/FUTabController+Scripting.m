@@ -802,8 +802,11 @@
     NSString *name = [args objectForKey:@"varName"];
     NSString *value = nil;
     
+    NSString *literalValue = [args objectForKey:@"literalValue"];
     NSString *xpathExpr = [args objectForKey:@"xpathExpr"];
-    if ([xpathExpr length]) {
+    if ([literalValue length]) {
+        value = literalValue;
+    } else if ([xpathExpr length]) {
         value = [self stringValueForXPath:xpathExpr];
     } else {
         NSArray *foundEls = [self elementsForArgs:args inCommand:cmd];

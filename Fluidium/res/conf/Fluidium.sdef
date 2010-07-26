@@ -643,7 +643,10 @@
             <cocoa key="varName"/>
         </parameter>
 
-        <parameter type="text" name="to value of XPath" code="XPEx" optional="yes" description="An XPath expression whose result will be used .">
+        <parameter type="text" name="to literal value" code="Litr" optional="yes" description="A literal string value to be used.">
+            <cocoa key="literalValue"/>
+        </parameter>
+        <parameter type="text" name="to value of XPath" code="XPEx" optional="yes" description="An XPath expression whose result will be used.">
             <cocoa key="xpathExpr"/>
         </parameter>
         <parameter type="text" name="to value of element with id" code="IDen" optional="yes" description="The HTML id attribute of the element whose value will be used.">
