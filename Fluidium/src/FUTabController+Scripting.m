@@ -1129,7 +1129,7 @@
 
 - (BOOL)isHTMLDocument:(NSScriptCommand *)cmd {
     DOMDocument *d = [webView mainFrameDocument];
-    if (![d isKindOfClass:[DOMHTMLDocument class]]) {
+    if (![d isKindOfClass:[DOMDocument class]]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberNotHTMLDocument];
         NSString *s = [NSString stringWithFormat:NSLocalizedString(@"Can only run script on HTML documents. This document is %@.", @""), d ? [d description] : NSLocalizedString(@"empty", @"")];
         [cmd setScriptErrorString:s];
