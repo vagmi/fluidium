@@ -123,11 +123,7 @@ typedef enum {
 - (id)initWithWindowController:(FUWindowController *)wc {
     if (self = [super init]) {
         self.windowController = wc;
-#ifdef FAKE
-        self.javaScriptBridge = [[[NSClassFromString(@"FakeJavaScriptBridge") alloc] init] autorelease];
-#else
         self.javaScriptBridge = [[[FUJavaScriptBridge alloc] init] autorelease];
-#endif
 
         // necessary to prevent bindings exceptions
         self.URLString = @"";
@@ -541,11 +537,7 @@ typedef enum {
 
     // set window.fluid object
     DOMAbstractView *window = (DOMAbstractView *)[webView windowScriptObject];
-#ifdef FAKE
-    [window setValue:javaScriptBridge forKey:@"fake"];
-#else
     [window setValue:javaScriptBridge forKey:@"fluid"];
-#endif
     
     [self postNotificationName:FUTabControllerDidClearWindowObjectNotification];
 

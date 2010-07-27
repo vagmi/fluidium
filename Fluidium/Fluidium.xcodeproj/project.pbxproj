@@ -94,6 +94,9 @@
 		D30BC47510E188840019816B /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
 		D30BC4F910E1A2260019816B /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
 		D30BC56B10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
+		D30E6B1211FE5D220093695A /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
+		D30E6B1311FE5D280093695A /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
+		D30E6B1411FE5D2E0093695A /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
 		D3189D6C10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3189D6B10F5A9F700B6AA21 /* FUWindowController+NSToolbarDelegate.m */; };
 		D3189E8F10F6FFFA00B6AA21 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
 		D3189E9810F7000F00B6AA21 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D3189E8E10F6FFFA00B6AA21 /* Sparkle.framework */; };
@@ -256,7 +259,6 @@
 		D3AF875F10CFA01E00C601A3 /* FUBehaviorPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */; };
 		D3AF877F10CFA31400C601A3 /* prefpane_icon_behavior.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */; };
 		D3AF878510CFA34300C601A3 /* FUBehaviorPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */; };
-		D3B448CD11E774EF00B51ECC /* FakeJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B448CC11E774EF00B51ECC /* FakeJavaScriptBridge.m */; };
 		D3B4B8C311CEC752000D7AD1 /* FUAssertCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B4B8C211CEC752000D7AD1 /* FUAssertCommand.m */; };
 		D3B538C5111F7ABE0056D586 /* FUTabController+Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */; };
 		D3B8BC0310E837E400271454 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FB10C8D90C00E0B474 /* HMAppKitEx.m */; };
@@ -331,9 +333,6 @@
 		D3C2E3DD11D7E9C600106E86 /* DOMNode+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D35CC54710D4829400DA1898 /* DOMNode+FUAdditions.m */; };
 		D3C2E3DE11D7E9C600106E86 /* FUView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB01FA10D6141E0057D70C /* FUView.m */; };
 		D3C2E3DF11D7E9C600106E86 /* NSPasteboard+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC3AF10E11D920019816B /* NSPasteboard+FUAdditions.m */; };
-		D3C2E3E011D7E9C600106E86 /* FUJavaScriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC47410E188840019816B /* FUJavaScriptBridge.m */; };
-		D3C2E3E111D7E9C600106E86 /* FUJavaScriptMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */; };
-		D3C2E3E211D7E9C600106E86 /* FUJavaScriptGrowlNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */; };
 		D3C2E3E311D7E9C600106E86 /* FUNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D3732010E3D32300203EB2 /* FUNotifications.m */; };
 		D3C2E3E411D7E9C600106E86 /* HMAppKitEx.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FB10C8D90C00E0B474 /* HMAppKitEx.m */; };
 		D3C2E3E511D7E9C600106E86 /* HMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C5FD10C8D90C00E0B474 /* HMButton.m */; };
@@ -1156,8 +1155,6 @@
 		D3AF875E10CFA01E00C601A3 /* FUBehaviorPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBehaviorPreferences.m; path = src/FUBehaviorPreferences.m; sourceTree = "<group>"; };
 		D3AF877E10CFA31400C601A3 /* prefpane_icon_behavior.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prefpane_icon_behavior.png; path = res/img/prefpanes/prefpane_icon_behavior.png; sourceTree = "<group>"; };
 		D3AF878410CFA34300C601A3 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBehaviorPreferences.xib; sourceTree = "<group>"; };
-		D3B448CB11E774EF00B51ECC /* FakeJavaScriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeJavaScriptBridge.h; path = ../../fake/src/FakeJavaScriptBridge.h; sourceTree = SOURCE_ROOT; };
-		D3B448CC11E774EF00B51ECC /* FakeJavaScriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeJavaScriptBridge.m; path = ../../fake/src/FakeJavaScriptBridge.m; sourceTree = SOURCE_ROOT; };
 		D3B4B8C111CEC752000D7AD1 /* FUAssertCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUAssertCommand.h; path = src/FUAssertCommand.h; sourceTree = "<group>"; };
 		D3B4B8C211CEC752000D7AD1 /* FUAssertCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUAssertCommand.m; path = src/FUAssertCommand.m; sourceTree = "<group>"; };
 		D3B538C3111F7ABE0056D586 /* FUTabController+Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUTabController+Recording.h"; path = "src/FUTabController+Recording.h"; sourceTree = "<group>"; };
@@ -1462,8 +1459,6 @@
 				D30BC4F810E1A2260019816B /* FUJavaScriptMenuItem.m */,
 				D30BC56910E1AC0E0019816B /* FUJavaScriptGrowlNotification.h */,
 				D30BC56A10E1AC0E0019816B /* FUJavaScriptGrowlNotification.m */,
-				D3B448CB11E774EF00B51ECC /* FakeJavaScriptBridge.h */,
-				D3B448CC11E774EF00B51ECC /* FakeJavaScriptBridge.m */,
 			);
 			name = "JavaScript Bridge";
 			sourceTree = "<group>";
@@ -2817,9 +2812,6 @@
 				D3C2E3DD11D7E9C600106E86 /* DOMNode+FUAdditions.m in Sources */,
 				D3C2E3DE11D7E9C600106E86 /* FUView.m in Sources */,
 				D3C2E3DF11D7E9C600106E86 /* NSPasteboard+FUAdditions.m in Sources */,
-				D3C2E3E011D7E9C600106E86 /* FUJavaScriptBridge.m in Sources */,
-				D3C2E3E111D7E9C600106E86 /* FUJavaScriptMenuItem.m in Sources */,
-				D3C2E3E211D7E9C600106E86 /* FUJavaScriptGrowlNotification.m in Sources */,
 				D3C2E3E311D7E9C600106E86 /* FUNotifications.m in Sources */,
 				D3C2E3E411D7E9C600106E86 /* HMAppKitEx.m in Sources */,
 				D3C2E3E511D7E9C600106E86 /* HMButton.m in Sources */,
@@ -2880,7 +2872,6 @@
 				D3D4857511E28BCB0030A659 /* FakeDocument.m in Sources */,
 				D3D486BC11E298180030A659 /* FakeLinkContentView.m in Sources */,
 				D3D6452F11E4169B00BCB75A /* FakeWindowController.m in Sources */,
-				D3B448CD11E774EF00B51ECC /* FakeJavaScriptBridge.m in Sources */,
 				D3F156D211E9113E008F1626 /* FakeTabController.m in Sources */,
 				D362A42411EC352C004FC3B0 /* FUFocusElementCommand.m in Sources */,
 				D358801B11ED8AF300F904A7 /* FUDispatchKeyboardEventCommand.m in Sources */,
@@ -2892,6 +2883,9 @@
 				D364EDD312306E99008AC15E /* FUStopWorkflowCommand.m in Sources */,
 				D386702D11F96CEA00248091 /* PKJSUtils.m in Sources */,
 				D37E9A4F11FB997300147399 /* FakeDocumentController.m in Sources */,
+				D30E6B1211FE5D220093695A /* FUJavaScriptBridge.m in Sources */,
+				D30E6B1311FE5D280093695A /* FUJavaScriptMenuItem.m in Sources */,
+				D30E6B1411FE5D2E0093695A /* FUJavaScriptGrowlNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
