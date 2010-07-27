@@ -152,9 +152,6 @@
         return nil;
     }
 
-    // find target
-    DOMElement *el = (DOMElement *)[foundEls objectAtIndex:0];
-
     // find relatedTarget
     DOMElement *relatedTarget = nil;
     NSArray *foundRelatedTargets = [self elementsForArgs:[self targetArgsForRelatedTargetArgs:args] inCommand:nil];
@@ -173,54 +170,56 @@
     BOOL altKeyPressed = [[args objectForKey:@"altKeyPressed"] boolValue];
     BOOL shiftKeyPressed = [[args objectForKey:@"shiftKeyPressed"] boolValue];
     BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
-    
+
     // create DOM click event
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     DOMAbstractView *window = [doc defaultView];
-    
-    CGFloat x = [el totalOffsetLeft];
-    CGFloat y = [el totalOffsetTop];
-    CGFloat width = [el offsetWidth];
-    CGFloat height = [el offsetHeight];
-    
-    CGFloat clientX = x + (width / 2);
-    CGFloat clientY = y + (height / 2);
-    
     WebFrameView *frameView = [[webView mainFrame] frameView];
     NSView <WebDocumentView> *docView = [frameView documentView];
-
-    NSPoint screenPoint = [[webView window] convertBaseToScreen:[docView convertPointToBase:NSMakePoint(clientX, clientY)]];
-    CGFloat screenX = fabs(screenPoint.x);
-    CGFloat screenY = fabs(screenPoint.y);
     
-    NSRect screenRect = [[[webView window] screen] frame];
-
-    if (screenRect.origin.y >= 0) {
-        screenY = screenRect.size.height - screenY;
+    for (DOMElement *el in foundEls) {
+        CGFloat x = [el totalOffsetLeft];
+        CGFloat y = [el totalOffsetTop];
+        CGFloat width = [el offsetWidth];
+        CGFloat height = [el offsetHeight];
+        
+        CGFloat clientX = x + (width / 2);
+        CGFloat clientY = y + (height / 2);
+        
+        
+        NSPoint screenPoint = [[webView window] convertBaseToScreen:[docView convertPointToBase:NSMakePoint(clientX, clientY)]];
+        CGFloat screenX = fabs(screenPoint.x);
+        CGFloat screenY = fabs(screenPoint.y);
+        
+        NSRect screenRect = [[[webView window] screen] frame];
+        
+        if (screenRect.origin.y >= 0) {
+            screenY = screenRect.size.height - screenY;
+        }
+        
+        DOMMouseEvent *evt = (DOMMouseEvent *)[doc createEvent:@"MouseEvents"];
+        [evt initMouseEvent:type 
+                  canBubble:YES 
+                 cancelable:YES 
+                       view:window 
+                     detail:clickCount 
+                    screenX:screenX 
+                    screenY:screenY 
+                    clientX:clientX 
+                    clientY:clientY 
+                    ctrlKey:ctrlKeyPressed 
+                     altKey:altKeyPressed 
+                   shiftKey:shiftKeyPressed 
+                    metaKey:metaKeyPressed 
+                     button:button 
+              relatedTarget:relatedTarget];
+        
+        // register for next page load
+        [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+        
+        // send event to the anchor
+        [el dispatchEvent:evt];
     }
-    
-    DOMMouseEvent *evt = (DOMMouseEvent *)[doc createEvent:@"MouseEvents"];
-    [evt initMouseEvent:type 
-              canBubble:YES 
-             cancelable:YES 
-                   view:window 
-                 detail:clickCount 
-                screenX:screenX 
-                screenY:screenY 
-                clientX:clientX 
-                clientY:clientY 
-                ctrlKey:ctrlKeyPressed 
-                 altKey:altKeyPressed 
-               shiftKey:shiftKeyPressed 
-                metaKey:metaKeyPressed 
-                 button:button 
-          relatedTarget:relatedTarget];
-    
-    // register for next page load
-    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
-    
-    // send event to the anchor
-    [el dispatchEvent:evt];
     
     return nil;
 }
@@ -680,8 +679,8 @@
             foundEl = [doc getElementById:identifier]; // use getElementById: here cuz we have no tagName
         }
     } else if ([xpath length]) {
-        NSArray *els = [self elementsForXPath:xpath];
-        if ([els count]) foundEl = [els objectAtIndex:0];
+        foundEls = [self elementsForXPath:xpath];
+        //if ([els count]) foundEl = [els objectAtIndex:0];
     } else if ([cssSelector length]) {
         foundEl = [self elementForCSSSelector:cssSelector];
     } else {
