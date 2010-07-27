@@ -680,7 +680,6 @@
         }
     } else if ([xpath length]) {
         foundEls = [self elementsForXPath:xpath];
-        //if ([els count]) foundEl = [els objectAtIndex:0];
     } else if ([cssSelector length]) {
         foundEls = [self elementsForCSSSelector:cssSelector];
     } else {
