@@ -7,10 +7,12 @@
     <key>AllNotifications</key>
     <array>
         <string>JavaScript Notification</string>
+        <string>Fake Comment Notification</string>
     </array>
     <key>DefaultNotifications</key>
     <array>
         <string>JavaScript Notification</string>
+        <string>Fake Comment Notification</string>
     </array>
 </dict>
 </plist>
