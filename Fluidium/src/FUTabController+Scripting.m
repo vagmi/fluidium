@@ -682,7 +682,7 @@
         foundEls = [self elementsForXPath:xpath];
         //if ([els count]) foundEl = [els objectAtIndex:0];
     } else if ([cssSelector length]) {
-        foundEl = [self elementForCSSSelector:cssSelector];
+        foundEls = [self elementsForCSSSelector:cssSelector];
     } else {
         if (cmd) {
             [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
