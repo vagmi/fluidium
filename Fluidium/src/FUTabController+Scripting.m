@@ -34,6 +34,13 @@
 #define KEY_COMMAND @"FUCommand"
 #define DEFAULT_TIMEOUT 60.0
 
+@interface NSObject ()
+- (id)fakePlugInViewController;
+- (id)workflowController;
+- (id)workflow;
+- (BOOL)setValue:(id)value forVariableWithName:(NSString *)name;
+@end
+
 @interface NSObject (FUScripting)
 - (void)script_loadURL:(NSString *)s;
 - (id)getSelection;
@@ -829,7 +836,7 @@
         value = @"";
     } 
     
-    [self.javaScriptBridge setKey:name value:value];
+    [[[[[[self windowController] document] fakePlugInViewController] workflowController] workflow] setValue:value forVariableWithName:name];
 
     return nil;
 }
