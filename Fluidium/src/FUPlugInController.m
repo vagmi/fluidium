@@ -138,7 +138,7 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     }
     
     FUWindowController *wc = [win windowController];
-    [[wc document] windowControllerDidShowVisiblePlugIns:wc];
+    [[wc document] performSelector:@selector(windowControllerDidShowVisiblePlugIns:) withObject:wc afterDelay:0];
 }
 
 
