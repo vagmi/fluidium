@@ -837,6 +837,8 @@ typedef enum {
                                        otherButton:nil
                          informativeTextWithFormat:prompt];
 
+    [promptTextView setFont:[NSFont systemFontOfSize:[NSFont systemFontSize]]];
+
     [alert setAccessoryView:promptView];
     [[alert window] makeFirstResponder:promptTextView];
     [promptTextView selectAll:nil];

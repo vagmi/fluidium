@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="6"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -79,7 +79,7 @@
 												<string>public.url</string>
 											</object>
 										</object>
-										<string key="NSFrameSize">{368, 14}</string>
+										<string key="NSFrameSize">{383, 14}</string>
 										<reference key="NSSuperview" ref="487744939"/>
 										<object class="NSTextContainer" key="NSTextContainer" id="888918181">
 											<object class="NSLayoutManager" key="NSLayoutManager">
@@ -97,7 +97,7 @@
 												<nil key="NSDelegate"/>
 											</object>
 											<reference key="NSTextView" ref="690562645"/>
-											<double key="NSWidth">368</double>
+											<double key="NSWidth">383</double>
 											<int key="NSTCFlags">1</int>
 										</object>
 										<object class="NSTextViewSharedData" key="NSSharedData">
@@ -167,7 +167,7 @@
 										<nil key="NSDelegate"/>
 									</object>
 								</object>
-								<string key="NSFrame">{{1, 1}, {368, 37}}</string>
+								<string key="NSFrame">{{1, 1}, {383, 37}}</string>
 								<reference key="NSSuperview" ref="1065795437"/>
 								<reference key="NSNextKeyView" ref="690562645"/>
 								<reference key="NSDocView" ref="690562645"/>
@@ -180,8 +180,8 @@
 							</object>
 							<object class="NSScroller" id="564937396">
 								<reference key="NSNextResponder" ref="1065795437"/>
-								<int key="NSvFlags">256</int>
-								<string key="NSFrame">{{369, 1}, {15, 23}}</string>
+								<int key="NSvFlags">-2147483392</int>
+								<string key="NSFrame">{{-100, -100}, {15, 23}}</string>
 								<reference key="NSSuperview" ref="1065795437"/>
 								<reference key="NSTarget" ref="1065795437"/>
 								<string key="NSAction">_doScroller:</string>
@@ -203,7 +203,7 @@
 						<string key="NSFrameSize">{385, 39}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSNextKeyView" ref="487744939"/>
-						<int key="NSsFlags">18</int>
+						<int key="NSsFlags">530</int>
 						<reference key="NSVScroller" ref="564937396"/>
 						<reference key="NSHScroller" ref="561153934"/>
 						<reference key="NSContentView" ref="487744939"/>
@@ -959,6 +959,27 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">SecurityInterface.framework/Headers/SFChooseIdentityPanel.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">ShortcutRecorder.framework/Headers/SRRecorderCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">ShortcutRecorder.framework/Headers/SRRecorderControl.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">ShortcutRecorder.framework/Headers/SRValidator.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
