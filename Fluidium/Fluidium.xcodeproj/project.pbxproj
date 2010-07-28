@@ -219,6 +219,8 @@
 		D386702E11F96CEA00248091 /* PKJSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D386702C11F96CEA00248091 /* PKJSUtils.m */; };
 		D386705311F96D9E00248091 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D386705011F96D9100248091 /* JavaScriptCore.framework */; };
 		D386705E11F96DA900248091 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D386705011F96D9100248091 /* JavaScriptCore.framework */; };
+		D3902A5211FFBB340040422F /* FUPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3902A5011FFBB340040422F /* FUPromptView.xib */; };
+		D3902A5311FFBB340040422F /* FUPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3902A5011FFBB340040422F /* FUPromptView.xib */; };
 		D39A36751126A0E100DC5176 /* FUCreateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A36741126A0E100DC5176 /* FUCreateCommand.m */; };
 		D3A3269510FEFF6E00032B66 /* OAPreferenceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */; };
 		D3A3269610FEFF6E00032B66 /* OAPreferenceClientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268A10FEFF6E00032B66 /* OAPreferenceClientRecord.m */; };
@@ -1082,6 +1084,7 @@
 		D386702B11F96CEA00248091 /* PKJSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSUtils.h; path = lib/ParseKit/jssrc/PKJSUtils.h; sourceTree = "<group>"; };
 		D386702C11F96CEA00248091 /* PKJSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSUtils.m; path = lib/ParseKit/jssrc/PKJSUtils.m; sourceTree = "<group>"; };
 		D386705011F96D9100248091 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		D3902A5111FFBB340040422F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUPromptView.xib; sourceTree = "<group>"; };
 		D39A36731126A0E100DC5176 /* FUCreateCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCreateCommand.h; path = src/FUCreateCommand.h; sourceTree = "<group>"; };
 		D39A36741126A0E100DC5176 /* FUCreateCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCreateCommand.m; path = src/FUCreateCommand.m; sourceTree = "<group>"; };
 		D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClient.h; sourceTree = "<group>"; };
@@ -1547,6 +1550,7 @@
 				D35CC25D10D41DD900DA1898 /* FUUserAgentWindow.xib */,
 				D3189FA210F83DF100B6AA21 /* FUUserthingWindow.xib */,
 				D35CBDB710D36A9B00DA1898 /* FUUserthingView.xib */,
+				D3902A5011FFBB340040422F /* FUPromptView.xib */,
 				D346E80610CE557700BA0B15 /* Prefs */,
 			);
 			name = Nib;
@@ -1622,7 +1626,7 @@
 			children = (
 				D346E48F10CE434A00BA0B15 /* ParseKit.framework */,
 				D346E49110CE434A00BA0B15 /* JSParseKit.framework */,
-				D346E49310CE434A00BA0B15 /* parsekit.a */,
+				D346E49310CE434A00BA0B15 /* libparsekit.a */,
 				D346E49510CE434A00BA0B15 /* Tests.octest */,
 				D346E49710CE434A00BA0B15 /* DemoApp.app */,
 				D346E49910CE434A00BA0B15 /* DebugApp.app */,
@@ -2309,10 +2313,10 @@
 			remoteRef = D346E49010CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D346E49310CE434A00BA0B15 /* parsekit.a */ = {
+		D346E49310CE434A00BA0B15 /* libparsekit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = parsekit.a;
+			path = libparsekit.a;
 			remoteRef = D346E49210CE434A00BA0B15 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2454,6 +2458,7 @@
 				D31C7B2811129C0E00563A4D /* FUHandlerPreferences.xib in Resources */,
 				D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */,
 				D34ACB8C11C1C2D300D8A417 /* combo_field_progress_indicator.png in Resources */,
+				D3902A5311FFBB340040422F /* FUPromptView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2506,6 +2511,7 @@
 				D3C2E44711D7E9C600106E86 /* OAHelpDownIcon.png in Resources */,
 				D3C2E44811D7E9C600106E86 /* OAHelpIcon.png in Resources */,
 				D3C2E44B11D7E9C600106E86 /* combo_field_progress_indicator.png in Resources */,
+				D3902A5211FFBB340040422F /* FUPromptView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3145,6 +3151,14 @@
 				D3778DFD10FF1F4900EEA25F /* English */,
 			);
 			name = OAPreferencesWindow.xib;
+			sourceTree = "<group>";
+		};
+		D3902A5011FFBB340040422F /* FUPromptView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3902A5111FFBB340040422F /* English */,
+			);
+			name = FUPromptView.xib;
 			sourceTree = "<group>";
 		};
 		D3AF878310CFA34300C601A3 /* FUBehaviorPreferences.xib */ = {

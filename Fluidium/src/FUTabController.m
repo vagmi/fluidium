@@ -169,6 +169,9 @@ typedef enum {
     self.title = nil;
     self.favicon = nil;
     self.statusText = nil;
+    self.promptResultText = nil;
+    self.promptView = nil;
+    self.promptTextView = nil;
     self.inspector = nil;
     
     // be paranoid. resume the command JIC it has been suspended.
@@ -816,9 +819,36 @@ typedef enum {
 }
 
 
-- (NSString *)webView:(WebView *)wv runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)text initiatedByFrame:(WebFrame *)frame {
-    // TODO
-    return nil;
+- (NSString *)webView:(WebView *)wv runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WebFrame *)frame {
+    if (wv != webView) return nil;
+    
+    NSString *nibName = @"FUPromptView";
+    NSNib *nib = [[[NSNib alloc] initWithNibNamed:nibName bundle:[NSBundle mainBundle]] autorelease];
+    if (![nib instantiateNibWithOwner:self topLevelObjects:nil]) {
+        NSLog(@"Could not load nib named %@ in %s", nibName, __PRETTY_FUNCTION__);
+        return nil;
+    }
+    
+    self.promptResultText = defaultText;
+    
+    NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"JavaScript", @"")
+                                     defaultButton:NSLocalizedString(@"OK", @"")
+                                   alternateButton:NSLocalizedString(@"Cancel", @"")
+                                       otherButton:nil
+                         informativeTextWithFormat:prompt];
+
+    [alert setAccessoryView:promptView];
+    [[alert window] makeFirstResponder:promptTextView];
+    [promptTextView selectAll:nil];
+
+    // run
+    NSInteger result = [alert runModal];
+    
+    if (NSAlertDefaultReturn == result) {
+        return promptResultText;
+    } else {
+        return nil;
+    }
 }
 
 
@@ -1127,6 +1157,9 @@ typedef enum {
 @synthesize favicon;
 @synthesize inspector;
 @synthesize statusText;
+@synthesize promptResultText;
+@synthesize promptView;
+@synthesize promptTextView;
 @synthesize lastLoadFailed;
 @synthesize isProcessing;
 @synthesize canReload;

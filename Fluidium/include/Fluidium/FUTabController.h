@@ -30,6 +30,11 @@
     NSString *title;
     NSImage *favicon;
     NSString *statusText;
+    
+    NSString *promptResultText;
+    NSView *promptView;
+    NSTextView *promptTextView;
+    
     WebInspector *inspector;
 
     BOOL lastLoadFailed;
@@ -83,6 +88,9 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSImage *favicon;
 @property (nonatomic, copy) NSString *statusText;
+@property (nonatomic, copy) NSString *promptResultText;
+@property (nonatomic, retain) IBOutlet NSView *promptView;
+@property (nonatomic, retain) IBOutlet NSTextView *promptTextView;
 @property (nonatomic, retain) WebInspector *inspector;
 @property (nonatomic) BOOL lastLoadFailed;
 

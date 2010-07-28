@@ -177,6 +177,8 @@
     WebFrameView *frameView = [[webView mainFrame] frameView];
     NSView <WebDocumentView> *docView = [frameView documentView];
     
+    NSRect screenRect = [[[webView window] screen] frame];
+    
     for (DOMElement *el in foundEls) {
         CGFloat x = [el totalOffsetLeft];
         CGFloat y = [el totalOffsetTop];
@@ -186,12 +188,9 @@
         CGFloat clientX = x + (width / 2);
         CGFloat clientY = y + (height / 2);
         
-        
         NSPoint screenPoint = [[webView window] convertBaseToScreen:[docView convertPointToBase:NSMakePoint(clientX, clientY)]];
         CGFloat screenX = fabs(screenPoint.x);
         CGFloat screenY = fabs(screenPoint.y);
-        
-        NSRect screenRect = [[[webView window] screen] frame];
         
         if (screenRect.origin.y >= 0) {
             screenY = screenRect.size.height - screenY;
@@ -809,7 +808,7 @@
     
     NSString *literalValue = [args objectForKey:@"literalValue"];
     NSString *xpathExpr = [args objectForKey:@"xpathExpr"];
-    if ([literalValue length]) {
+    if (literalValue) {
         value = literalValue;
     } else if ([xpathExpr length]) {
         value = [self stringValueForXPath:xpathExpr];
