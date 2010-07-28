@@ -62,4 +62,14 @@
     return err;
 }
 
+
+- (NSAppleEventDescriptor *)replyEventForSendingToOwnProcess {
+    AppleEvent aeReply = {0, nil};
+    [self sendToOwnProcessWaitReply:&aeReply];
+    
+    NSAppleEventDescriptor *reply = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&aeReply] autorelease];
+    return reply;
+}
+
+
 @end

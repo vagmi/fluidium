@@ -361,6 +361,7 @@
 
 - (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
     NSString *script = [cmd directParameter];
+    NSString *assertMessage = [[cmd arguments] objectForKey:@"assertMessage"];
 
     // get context
     JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
@@ -373,6 +374,9 @@
 
     if (outErrMsg) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
+        if (assertMessage) {
+            outErrMsg = assertMessage;
+        }
         [cmd setScriptErrorString:outErrMsg];
         return nil;
     }
@@ -1543,67 +1547,20 @@
 - (JSValueRef)valueForEvaluatingScript:(NSString *)script inContext:(JSGlobalContextRef)ctx error:(NSString **)outErrMsg {
     JSValueRef result = NULL;
     
-    JSStringRef scriptStr = JSStringCreateWithCFString((CFStringRef)script);
-    
-    // setup source url string
-    JSStringRef sourceURLStr = NULL;
     NSString *sourceURLString = [webView mainFrameURL];
-    if ([sourceURLString length]) {
-        sourceURLStr = JSStringCreateWithCFString((CFStringRef)sourceURLString);
-    }
-    
-    // check syntax
-    JSValueRef e = NULL;
-    JSCheckScriptSyntax(ctx, scriptStr, sourceURLStr, 0, &e);
-    
-    // if syntax error...
-    if (e) {
-        if (outErrMsg) {
-            NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
-            *outErrMsg = [NSString stringWithFormat:NSLocalizedString(@"JavaScript syntax error:\n\n%@", @""), msg];
-            NSLog(@"%@", *outErrMsg);
-        }
-        goto done;
-    }
-    
-    // eval the script
-    result = JSEvaluateScript(ctx, scriptStr, NULL, sourceURLStr, 0, &e);
-    if (e) {
-        if (outErrMsg) {
-            NSString *msg = PKJSValueGetNSString(ctx, e, NULL);
-            *outErrMsg = [NSString stringWithFormat:NSLocalizedString(@"JavaScript runtime error:\n\n%@", @""), msg];
-            NSLog(@"%@", *outErrMsg);
-        }
-        goto done;
-    }
-    
-    // memory management
-done:
-    if (scriptStr) JSStringRelease(scriptStr);
-    if (sourceURLStr) JSStringRelease(sourceURLStr);
-    
+
+    result = PKEvaluateScript(ctx, script, sourceURLString, outErrMsg);
     return result;
 }
 
 
 - (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg {
-    // wrap source in boolean cast
-    NSString *fmt = @"(function(){return Boolean(%@)})();";
-    script = [NSString stringWithFormat:fmt, script];
-    
     // get context
     JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
-    if (!ctx) {
-        ctx = JSGlobalContextCreate(NULL);
-    }
-    
-    JSValueRef res = [self valueForEvaluatingScript:script inContext:ctx error:outErrMsg];
-    
-    // convert result to boolean
-    BOOL result = NO;
-    if (res) {
-        result = JSValueToBoolean(ctx, res);
-    }
+
+    NSString *sourceURLString = [webView mainFrameURL];
+
+    BOOL result = PKBooleanForScript(ctx, script, sourceURLString, outErrMsg);
     return result;
 }
 

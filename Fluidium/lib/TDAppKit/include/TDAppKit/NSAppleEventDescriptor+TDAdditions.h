@@ -25,4 +25,6 @@
 
 - (OSErr)sendToOwnProcessNoReply;
 - (OSErr)sendToOwnProcessWaitReply:(AppleEvent *)replyEvt;
+
+- (NSAppleEventDescriptor *)replyEventForSendingToOwnProcess;
 @end
