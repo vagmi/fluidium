@@ -33,14 +33,10 @@
 #import "WebUIDelegatePrivate.h"
 #import "WebInspector.h"
 #import "WebSecurityOriginPrivate.h"
+#import "FUJavaScriptBridge.h"
+
 //#import <Security/Security.h>
 //#import <SecurityInterface/SFCertificateTrustPanel.h>
-
-#ifdef Fake
-#import "FakeJavaScriptBridge.h"
-#else
-#import "FUJavaScriptBridge.h"
-#endif
 
 /*
  * Function: SSLSecPolicyCopy
