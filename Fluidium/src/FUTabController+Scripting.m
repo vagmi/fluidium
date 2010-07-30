@@ -621,7 +621,7 @@
 
 
 - (NSArray *)elementsForArgs:(NSDictionary *)args inCommand:(NSScriptCommand *)cmd {
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMDocument *doc = (DOMDocument *)[webView mainFrameDocument];
     
     NSString *formName = [args objectForKey:@"formName"];
     NSString *formID = [args objectForKey:@"formID"];
@@ -633,8 +633,8 @@
     NSString *cssSelector = [args objectForKey:@"cssSelector"];
     
     DOMHTMLFormElement *formEl = nil;
-    if ([formName length]) {
-        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:formName];
+    if ([formName length] && [doc isKindOfClass:[DOMHTMLDocument class]]) {
+        formEl = (DOMHTMLFormElement *)[[(DOMHTMLDocument *)doc forms] namedItem:formName];
     } else if ([formID length]) {
         NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
         if ([els count]) formEl = [els objectAtIndex:0];

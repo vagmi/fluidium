@@ -820,8 +820,6 @@ typedef enum {
 
 
 - (NSString *)webView:(WebView *)wv runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WebFrame *)frame {
-    if (wv != webView) return nil;
-    
     NSString *nibName = @"FUPromptView";
     NSNib *nib = [[[NSNib alloc] initWithNibNamed:nibName bundle:[NSBundle mainBundle]] autorelease];
     if (![nib instantiateNibWithOwner:self topLevelObjects:nil]) {
