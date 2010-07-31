@@ -52,7 +52,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.7</string>
+	<string>0.7.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -70,7 +70,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>0.7</string>
+	<string>0.7.2</string>
 	<key>LSArchitecturePriority</key>
 	<array>
 		<string>x86_64</string>
@@ -234,5 +234,7 @@
 	<string>http://fakeapp.com/appcast/fake.rss</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>fake_dsa_pub.pem</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 </dict>
 </plist>

@@ -25,6 +25,7 @@
 
 #import <WebKit/WebKit.h>
 #import <Growl/Growl.h>
+#import <Sparkle/Sparkle.h>
 
 #define OPEN_NEW_TAB 0
 
@@ -35,6 +36,7 @@
 - (void)handleOpenContentsAppleEventWithURL:(NSString *)URLString;
 
 - (void)restoreSession;
+- (void)checkForUpdates;
 @end
 
 @implementation FUDocumentController
@@ -132,6 +134,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)n {
     [self registerForAppleEventHandling];
     [self restoreSession];
+    [self checkForUpdates];
 }
 
 
@@ -415,6 +418,14 @@
         }
         
         wc.selectedTabIndex = [[d objectForKey:@"selectedTabIndex"] integerValue];
+    }
+}
+
+
+- (void)checkForUpdates {
+    SUUpdater *updater = [SUUpdater sharedUpdater];
+    if ([updater automaticallyChecksForUpdates]) {
+        [updater checkForUpdatesInBackground];
     }
 }
 

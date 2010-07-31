@@ -57,7 +57,7 @@
 - (void)resumeSuspendedCommandAfterTabControllerDidFinishLoad:(NSNotification *)n;
 - (void)stopObservingLoad;
 
-- (BOOL)isHTMLDocument:(NSScriptCommand *)cmd;
+- (BOOL)isDOMDocument:(NSScriptCommand *)cmd;
 
 - (NSDictionary *)targetArgsForRelatedTargetArgs:(NSDictionary *)args;
 - (NSArray *)elementsForArgs:(NSDictionary *)args inCommand:(NSScriptCommand *)cmd;
@@ -141,7 +141,7 @@
 
 
 - (id)handleDispatchMouseEventCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
     NSDictionary *args = [cmd arguments];
 
@@ -225,7 +225,7 @@
 
 
 - (id)handleDispatchKeyboardEventCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
     NSDictionary *args = [cmd arguments];
     
@@ -249,7 +249,7 @@
     BOOL shiftKeyPressed = [[args objectForKey:@"shiftKeyPressed"] boolValue];
     BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
     
-    // create DOM click event
+    // create DOM key event
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     DOMAbstractView *window = [doc defaultView];
         
@@ -390,7 +390,7 @@
 
 
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
@@ -428,7 +428,7 @@
 
 
 - (id)handleClickButtonCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
@@ -487,7 +487,7 @@
 
 
 - (id)handleSetElementValueCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
 
     NSDictionary *args = [cmd arguments];
     NSString *value = [args objectForKey:@"value"];
@@ -539,7 +539,7 @@
 
 
 - (id)handleFocusElementCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
     NSDictionary *args = [cmd arguments];
     NSString *value = [args objectForKey:@"value"];
@@ -702,7 +702,7 @@
 
 
 - (id)handleSubmitFormCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
     NSDictionary *args = [cmd arguments];
     DOMHTMLFormElement *formEl = [self formElementForArguments:args];
@@ -723,7 +723,7 @@
 
 
 - (id)handleSetFormValuesCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
     NSDictionary *args = [cmd arguments];
     DOMHTMLFormElement *formEl = [self formElementForArguments:args];    
@@ -756,7 +756,7 @@
 
 
 - (id)handleCaptureWebPageCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
     
 #define FakeCaptureTypeScreenshot 'Scrn'
 #define FakeCaptureTypeWebArchive 'WbAr'
@@ -895,7 +895,7 @@
 
 
 - (id)handleWaitForConditionCommand:(NSScriptCommand *)cmd {
-    if (![self isHTMLDocument:cmd]) return nil;
+    if (![self isDOMDocument:cmd]) return nil;
 
     // suspend
     [self suspendCommand:cmd];
@@ -1135,11 +1135,11 @@
 #pragma mark - 
 #pragma mark ScriptingPrivate
 
-- (BOOL)isHTMLDocument:(NSScriptCommand *)cmd {
+- (BOOL)isDOMDocument:(NSScriptCommand *)cmd {
     DOMDocument *d = [webView mainFrameDocument];
     if (![d isKindOfClass:[DOMDocument class]]) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberNotHTMLDocument];
-        NSString *s = [NSString stringWithFormat:NSLocalizedString(@"Can only run script on HTML documents. This document is %@.", @""), d ? [d description] : NSLocalizedString(@"empty", @"")];
+        NSString *s = [NSString stringWithFormat:NSLocalizedString(@"Can only run script on DOM documents. This document is %@.", @""), d ? [d description] : NSLocalizedString(@"empty", @"")];
         [cmd setScriptErrorString:s];
         return NO;
     } else {
@@ -1430,6 +1430,8 @@
 
 
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el {
+    //if ([el hasAttribute:@"disabled"]) return; // dont set values of disabled elements
+
     if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
         DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
         
