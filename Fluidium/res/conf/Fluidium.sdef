@@ -267,6 +267,9 @@
     <command name="run workflow" code="FuSSRun " description="Run this document's workflow.">
         <cocoa class="FURunWorkflowCommand"/>
         <direct-parameter type="specifier" description="The document or window whose workflow to run."/>
+        <parameter type="record" name="with variables" code="Vars" optional="yes" description="Name/Value pairs to populate variables in the Workflow when run.">
+            <cocoa key="variables"/>
+        </parameter>
     </command>
 
     <command name="stop workflow" code="FuSSStpW" description="Stop this document's workflow.">
