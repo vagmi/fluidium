@@ -84,6 +84,22 @@
 		D3F0C84211EAADC2002E2BA9 /* NSString+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F0C84111EAADC2002E2BA9 /* NSString+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3FD53E911E28174009CFDA3 /* NSEvent+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FD53E811E28174009CFDA3 /* NSEvent+TDAdditions.m */; };
 		D3FD53EB11E2817E009CFDA3 /* NSEvent+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FD53EA11E2817E009CFDA3 /* NSEvent+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FFC3981204B3B6008E4948 /* DOMElement+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FFC3961204B3B6008E4948 /* DOMElement+TDAdditions.m */; };
+		D3FFC39E1204B3D7008E4948 /* DOMElement+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FFC39D1204B3D7008E4948 /* DOMElement+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FFC3A21204B3E7008E4948 /* DOMNodeList+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FFC3A01204B3E7008E4948 /* DOMNodeList+TDAdditions.m */; };
+		D3FFC3A41204B3F6008E4948 /* DOMNodeList+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FFC3A31204B3F6008E4948 /* DOMNodeList+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FFC3A81204B401008E4948 /* DOMHTMLCollection+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FFC3A61204B401008E4948 /* DOMHTMLCollection+TDAdditions.m */; };
+		D3FFC3AA1204B40E008E4948 /* DOMHTMLCollection+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FFC3A91204B40E008E4948 /* DOMHTMLCollection+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FFC3AE1204B43B008E4948 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FFC3AD1204B43B008E4948 /* WebKit.framework */; };
+		D3FFC3B41204B444008E4948 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FFC3AD1204B43B008E4948 /* WebKit.framework */; };
+		D3FFC48E1204B697008E4948 /* DOMHTMLOptionsCollection+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FFC48C1204B697008E4948 /* DOMHTMLOptionsCollection+TDAdditions.m */; };
+		D3FFC4901204B6CA008E4948 /* DOMHTMLOptionsCollection+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FFC48F1204B6CA008E4948 /* DOMHTMLOptionsCollection+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FFC4BA1204B8C1008E4948 /* WebView+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FFC4B81204B8C1008E4948 /* WebView+TDAdditions.m */; };
+		D3FFC4C61204B902008E4948 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FFC4C51204B902008E4948 /* JavaScriptCore.framework */; };
+		D3FFC4CE1204B92C008E4948 /* WebView+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FFC4CD1204B92C008E4948 /* WebView+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FFC4D81204B9C8008E4948 /* TDJSUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D3FFC4D71204B9C8008E4948 /* TDJSUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3FFC4DA1204B9CF008E4948 /* TDJSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FFC4D91204B9CF008E4948 /* TDJSUtils.m */; };
+		D3FFC4F01204BA58008E4948 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FFC4C51204B902008E4948 /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +207,20 @@
 		D3F0C84111EAADC2002E2BA9 /* NSString+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+TDAdditions.h"; path = "include/TDAppKit/NSString+TDAdditions.h"; sourceTree = "<group>"; };
 		D3FD53E811E28174009CFDA3 /* NSEvent+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSEvent+TDAdditions.m"; path = "src/NSEvent+TDAdditions.m"; sourceTree = "<group>"; };
 		D3FD53EA11E2817E009CFDA3 /* NSEvent+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSEvent+TDAdditions.h"; path = "include/TDAppKit/NSEvent+TDAdditions.h"; sourceTree = "<group>"; };
+		D3FFC3961204B3B6008E4948 /* DOMElement+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMElement+TDAdditions.m"; path = "src/DOMElement+TDAdditions.m"; sourceTree = "<group>"; };
+		D3FFC39D1204B3D7008E4948 /* DOMElement+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMElement+TDAdditions.h"; path = "include/TDAppKit/DOMElement+TDAdditions.h"; sourceTree = "<group>"; };
+		D3FFC3A01204B3E7008E4948 /* DOMNodeList+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMNodeList+TDAdditions.m"; path = "src/DOMNodeList+TDAdditions.m"; sourceTree = "<group>"; };
+		D3FFC3A31204B3F6008E4948 /* DOMNodeList+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMNodeList+TDAdditions.h"; path = "include/TDAppKit/DOMNodeList+TDAdditions.h"; sourceTree = "<group>"; };
+		D3FFC3A61204B401008E4948 /* DOMHTMLCollection+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMHTMLCollection+TDAdditions.m"; path = "src/DOMHTMLCollection+TDAdditions.m"; sourceTree = "<group>"; };
+		D3FFC3A91204B40E008E4948 /* DOMHTMLCollection+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMHTMLCollection+TDAdditions.h"; path = "include/TDAppKit/DOMHTMLCollection+TDAdditions.h"; sourceTree = "<group>"; };
+		D3FFC3AD1204B43B008E4948 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D3FFC48C1204B697008E4948 /* DOMHTMLOptionsCollection+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DOMHTMLOptionsCollection+TDAdditions.m"; path = "src/DOMHTMLOptionsCollection+TDAdditions.m"; sourceTree = "<group>"; };
+		D3FFC48F1204B6CA008E4948 /* DOMHTMLOptionsCollection+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DOMHTMLOptionsCollection+TDAdditions.h"; path = "include/TDAppKit/DOMHTMLOptionsCollection+TDAdditions.h"; sourceTree = "<group>"; };
+		D3FFC4B81204B8C1008E4948 /* WebView+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WebView+TDAdditions.m"; path = "src/WebView+TDAdditions.m"; sourceTree = "<group>"; };
+		D3FFC4C51204B902008E4948 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		D3FFC4CD1204B92C008E4948 /* WebView+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebView+TDAdditions.h"; path = "include/TDAppKit/WebView+TDAdditions.h"; sourceTree = "<group>"; };
+		D3FFC4D71204B9C8008E4948 /* TDJSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJSUtils.h; path = include/TDAppKit/TDJSUtils.h; sourceTree = "<group>"; };
+		D3FFC4D91204B9CF008E4948 /* TDJSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJSUtils.m; path = src/TDJSUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,8 +228,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3FFC3B41204B444008E4948 /* WebKit.framework in Frameworks */,
 				D3EB212D11013C5300633715 /* QuartzCore.framework in Frameworks */,
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				D3FFC4F01204BA58008E4948 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +249,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D30FD7F611C1B5E3005A2437 /* TDAppKit.framework in Frameworks */,
+				D3FFC3AE1204B43B008E4948 /* WebKit.framework in Frameworks */,
+				D3FFC4C61204B902008E4948 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +309,7 @@
 				D36E1E8C11702E2700110DBA /* ComboField */,
 				D366C1AD1128FEE900547FD6 /* AppleEvents */,
 				D3EB233A1101631300633715 /* AppKit Categories */,
+				D3FFC3941204B392008E4948 /* WebKit Categories */,
 				D318A04A10F856FA00B6AA21 /* SourceCodeTextView */,
 				D31CBFBA10EFB7E90013347D /* UberView */,
 				D31CBFA810EFB6F80013347D /* ListView */,
@@ -289,6 +324,8 @@
 			children = (
 				D3EB212911013C4E00633715 /* QuartzCore.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				D3FFC3AD1204B43B008E4948 /* WebKit.framework */,
+				D3FFC4C51204B902008E4948 /* JavaScriptCore.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -453,6 +490,25 @@
 			name = "AppKit Categories";
 			sourceTree = "<group>";
 		};
+		D3FFC3941204B392008E4948 /* WebKit Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D3FFC4D71204B9C8008E4948 /* TDJSUtils.h */,
+				D3FFC4D91204B9CF008E4948 /* TDJSUtils.m */,
+				D3FFC39D1204B3D7008E4948 /* DOMElement+TDAdditions.h */,
+				D3FFC3961204B3B6008E4948 /* DOMElement+TDAdditions.m */,
+				D3FFC3A31204B3F6008E4948 /* DOMNodeList+TDAdditions.h */,
+				D3FFC3A01204B3E7008E4948 /* DOMNodeList+TDAdditions.m */,
+				D3FFC3A91204B40E008E4948 /* DOMHTMLCollection+TDAdditions.h */,
+				D3FFC3A61204B401008E4948 /* DOMHTMLCollection+TDAdditions.m */,
+				D3FFC48F1204B6CA008E4948 /* DOMHTMLOptionsCollection+TDAdditions.h */,
+				D3FFC48C1204B697008E4948 /* DOMHTMLOptionsCollection+TDAdditions.m */,
+				D3FFC4CD1204B92C008E4948 /* WebView+TDAdditions.h */,
+				D3FFC4B81204B8C1008E4948 /* WebView+TDAdditions.m */,
+			);
+			name = "WebKit Categories";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -490,6 +546,12 @@
 				D3A356BA11DFFB2A00EFEE29 /* TDClipView.h in Headers */,
 				D3FD53EB11E2817E009CFDA3 /* NSEvent+TDAdditions.h in Headers */,
 				D3F0C84211EAADC2002E2BA9 /* NSString+TDAdditions.h in Headers */,
+				D3FFC39E1204B3D7008E4948 /* DOMElement+TDAdditions.h in Headers */,
+				D3FFC3A41204B3F6008E4948 /* DOMNodeList+TDAdditions.h in Headers */,
+				D3FFC3AA1204B40E008E4948 /* DOMHTMLCollection+TDAdditions.h in Headers */,
+				D3FFC4901204B6CA008E4948 /* DOMHTMLOptionsCollection+TDAdditions.h in Headers */,
+				D3FFC4CE1204B92C008E4948 /* WebView+TDAdditions.h in Headers */,
+				D3FFC4D81204B9C8008E4948 /* TDJSUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +698,12 @@
 				D3A356BB11DFFB2A00EFEE29 /* TDClipView.m in Sources */,
 				D3FD53E911E28174009CFDA3 /* NSEvent+TDAdditions.m in Sources */,
 				D3F0C84011EAADB1002E2BA9 /* NSString+TDAdditions.m in Sources */,
+				D3FFC3981204B3B6008E4948 /* DOMElement+TDAdditions.m in Sources */,
+				D3FFC3A21204B3E7008E4948 /* DOMNodeList+TDAdditions.m in Sources */,
+				D3FFC3A81204B401008E4948 /* DOMHTMLCollection+TDAdditions.m in Sources */,
+				D3FFC48E1204B697008E4948 /* DOMHTMLOptionsCollection+TDAdditions.m in Sources */,
+				D3FFC4BA1204B8C1008E4948 /* WebView+TDAdditions.m in Sources */,
+				D3FFC4DA1204B9CF008E4948 /* TDJSUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

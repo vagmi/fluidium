@@ -23,9 +23,8 @@
 #import "DOMDocumentPrivate.h"
 #import "DOMNode+FUAdditions.h"
 #import <WebKit/WebKit.h>
-#import <TDAppKit/NSString+TDAdditions.h>
+#import <TDAppKit/TDAppKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
-#import "PKJSUtils.h"
 
 #define DEFAULT_DELAY 1.0
 
@@ -48,10 +47,6 @@
 - (void)setKey:(NSString *)key value:(id)value;
 @end
 
-@interface DOMKeyboardEvent (FUAdditions)
-- (void)initKeyboardEvent:(NSString *)type canBubble:(BOOL)canBubble cancelable:(BOOL)cancelable view:(DOMAbstractView *)view keyIdentifier:(NSString *)keyIdentifier keyLocation:(unsigned)keyLocation ctrlKey:(BOOL)ctrlKey altKey:(BOOL)altKey shiftKey:(BOOL)shiftKey metaKey:(BOOL)metaKey;
-@end
-
 @interface FUTabController (ScriptingPrivate)
 - (void)resumeSuspendedCommandAfterTabControllerDidFailLoad:(NSNotification *)n;
 - (void)resumeSuspendedCommandAfterTabControllerDidFinishLoad:(NSNotification *)n;
@@ -70,9 +65,6 @@
 - (NSMutableArray *)elementsForCSSSelector:(NSString *)cssSelector;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
 - (DOMHTMLFormElement *)formElementForArguments:(NSDictionary *)args;
-- (NSMutableArray *)arrayFromNodeList:(DOMNodeList *)list;
-- (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection;
-- (NSArray *)arrayFromHTMLOptionsCollection:(DOMHTMLOptionsCollection *)collection;
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
 - (BOOL)boolForValue:(NSString *)value;
 - (BOOL)isRadio:(DOMHTMLElement *)el;
@@ -86,14 +78,11 @@
 - (BOOL)containsText:(NSString *)cmd;
 - (BOOL)containsHTML:(NSString *)cmd;
 
-- (JSValueRef)valueForEvaluatingScript:(NSString *)script inContext:(JSGlobalContextRef)ctx error:(NSString **)outErrMsg;
-- (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg;
-- (BOOL)xpathEvalsTrue:(NSString *)xpathExpr error:(NSString **)outErrMsg;
-
 - (BOOL)pageContainsText:(NSString *)text;
 - (BOOL)pageContainsHTML:(NSString *)HTML;
 
 - (id)checkWaitForCondition:(NSDictionary *)info;
+- (void)dispatchKeyEventToElement:(DOMElement *)el withArgs:(NSDictionary *)args error:(NSString **)outErrMsg;
 
 @property (nonatomic, retain) NSScriptCommand *suspendedCommand;
 @end
@@ -239,38 +228,32 @@
     // find target
     DOMElement *el = (DOMElement *)[foundEls objectAtIndex:0];
     
-    NSString *type = [args objectForKey:@"type"];
-
-    //NSUInteger keyCode = [[args objectForKey:@"keyCode"] unsignedLongLongValue];
-    NSUInteger charCode = [[args objectForKey:@"charCode"] unsignedLongLongValue];
-
-    BOOL ctrlKeyPressed = [[args objectForKey:@"ctrlKeyPressed"] boolValue];
-    BOOL altKeyPressed = [[args objectForKey:@"altKeyPressed"] boolValue];
-    BOOL shiftKeyPressed = [[args objectForKey:@"shiftKeyPressed"] boolValue];
-    BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
-    
-    // create DOM key event
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    DOMAbstractView *window = [doc defaultView];
-        
-    DOMKeyboardEvent *evt = (DOMKeyboardEvent *)[doc createEvent:@"KeyboardEvents"];
-    [evt initKeyboardEvent:type
-                 canBubble:YES
-                cancelable:YES
-                      view:window
-             keyIdentifier:[NSString stringWithFormat:@"%C", charCode]
-               keyLocation:0
-                   ctrlKey:ctrlKeyPressed
-                    altKey:altKeyPressed
-                  shiftKey:shiftKeyPressed
-                   metaKey:metaKeyPressed]; 
+    NSString *errMsg = nil;
+    [self dispatchKeyEventToElement:el withArgs:args error:&errMsg];
+    if (errMsg) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
+        [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not dispatch keyboard event: %@", @""), errMsg]];
+        return nil;
+    }
     
     // register for next page load
-    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
+    [self suspendExecutionUntilProgressFinishedWithCommand:cmd];    
+    
+    //    DOMKeyboardEvent *evt = (DOMKeyboardEvent *)[doc createEvent:@"KeyboardEvents"];
+    //    [evt initKeyboardEvent:type
+    //                 canBubble:YES
+    //                cancelable:YES
+    //                      view:window
+    //             keyIdentifier:[NSString stringWithFormat:@"%C", charCode]
+    //               keyLocation:0
+    //                   ctrlKey:ctrlKeyPressed
+    //                    altKey:altKeyPressed
+    //                  shiftKey:shiftKeyPressed
+    //                   metaKey:metaKeyPressed]; 
+    
     
     // send event to the anchor
-    [el dispatchEvent:evt];
-    
+    //[el dispatchEvent:evt];
     return nil;
 }
 
@@ -362,15 +345,9 @@
 - (id)handleDoJavaScriptCommand:(NSScriptCommand *)cmd {
     NSString *script = [cmd directParameter];
     NSString *assertMessage = [[cmd arguments] objectForKey:@"assertMessage"];
-
-    // get context
-    JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
-    if (!ctx) {
-        ctx = JSGlobalContextCreate(NULL);
-    }
         
     NSString *outErrMsg = nil;
-    /*JSValueRef res = */[self valueForEvaluatingScript:script inContext:ctx error:&outErrMsg];
+    /*JSValueRef res = */[webView valueForEvaluatingScript:script error:&outErrMsg];
 
     if (outErrMsg) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
@@ -512,7 +489,7 @@
                 }
                 
                 DOMHTMLSelectElement *selectEl = (DOMHTMLSelectElement *)el;
-                for (DOMHTMLOptionElement *optEl in [self arrayFromHTMLOptionsCollection:[selectEl options]]) {
+                for (DOMHTMLOptionElement *optEl in [[selectEl options] asArray]) {
                     setAVal = YES;
                     optEl.selected = [cleanVals containsObject:[optEl getAttribute:@"value"]];
                 }
@@ -657,7 +634,7 @@
     DOMElement *foundEl = nil;
     if ([name length]) {
         if (formEl) {
-            NSArray *els = [self arrayFromHTMLCollection:[formEl elements]];
+            NSArray *els = [[formEl elements] asArray];
             foundEls = [NSMutableArray array];
             for (DOMHTMLElement *el in els) {
                 if ([name isEqualToString:[el getAttribute:@"name"]]) {
@@ -671,7 +648,7 @@
     } else if ([identifier length]) {
         NSArray *els = nil;
         if (formEl) {
-            els = [self arrayFromHTMLCollection:[formEl elements]];
+            els = [[formEl elements] asArray];
             for (DOMElement *el in els) {
                 if ([[el getAttribute:@"id"] isEqualToString:identifier]) {
                     foundEl = el;
@@ -1046,7 +1023,7 @@
     NSString *script = [[cmd arguments] objectForKey:@"javaScriptEvalsTrue"];
     NSString *outErrMsg = nil;
     
-    BOOL result = [self javaScriptEvalsTrue:script error:&outErrMsg];
+    BOOL result = [webView javaScriptEvalsTrue:script error:&outErrMsg];
 
     if (outErrMsg) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberJavaScriptError];
@@ -1064,7 +1041,7 @@
     NSString *xpathExpr = [[cmd arguments] objectForKey:@"xpathEvalsTrue"];
 
     NSString *outErrMsg = nil;
-    BOOL result = [self xpathEvalsTrue:xpathExpr error:&outErrMsg];
+    BOOL result = [webView xpathEvalsTrue:xpathExpr error:&outErrMsg];
     
     if (outErrMsg) {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberXPathError];
@@ -1290,7 +1267,7 @@
         @try {
             DOMDocument *doc = [webView mainFrameDocument];
             DOMNodeList *list = [doc querySelectorAll:cssSelector];
-            result = [self arrayFromNodeList:list];
+            result = [list asMutableArray];
             
         } @catch (NSException *e) {
             NSLog(@"error evaling CSS selector: %@", [e reason]);
@@ -1306,7 +1283,7 @@
     NSMutableArray *result = [NSMutableArray array];
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    NSArray *els = [self arrayFromNodeList:[doc getElementsByTagName:tagName]];
+    NSArray *els = [[doc getElementsByTagName:tagName] asArray];
     
     for (DOMHTMLElement *el in els) {
         NSString *val = [el getAttribute:attrName];
@@ -1323,7 +1300,7 @@
     text = [text lowercaseString];
     
     DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    NSMutableArray *els = [self arrayFromNodeList:[doc getElementsByTagName:tagName]];
+    NSMutableArray *els = [[doc getElementsByTagName:tagName] asMutableArray];
     NSMutableArray *result = [self elementsFromArray:els withText:text];
 
     return result;
@@ -1387,45 +1364,6 @@
         }
     }
     return formEl;
-}
-
-
-- (NSArray *)arrayFromNodeList:(DOMNodeList *)list {
-    NSUInteger count = [list length];
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
-    
-    NSUInteger i = 0;
-    for ( ; i < count; i++) {
-        [result addObject:[list item:i]];
-    }
-    
-    return result;
-}
-
-
-- (NSArray *)arrayFromHTMLCollection:(DOMHTMLCollection *)collection {
-    NSUInteger count = [collection length];
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
-    
-    NSUInteger i = 0;
-    for ( ; i < count; i++) {
-        [result addObject:[collection item:i]];
-    }
-    
-    return result;
-}
-
-
-- (NSArray *)arrayFromHTMLOptionsCollection:(DOMHTMLOptionsCollection *)collection {
-    NSUInteger count = [collection length];
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
-    
-    NSUInteger i = 0;
-    for ( ; i < count; i++) {
-        [result addObject:[collection item:i]];
-    }
-    
-    return result;
 }
 
 
@@ -1546,58 +1484,36 @@
 }
 
 
-- (JSValueRef)valueForEvaluatingScript:(NSString *)script inContext:(JSGlobalContextRef)ctx error:(NSString **)outErrMsg {
-    JSValueRef result = NULL;
+- (void)dispatchKeyEventToElement:(DOMElement *)el withArgs:(NSDictionary *)args error:(NSString **)outErrMsg {
+    NSString *xpath = [el defaultXPath];
     
-    NSString *sourceURLString = [webView mainFrameURL];
-
-    result = PKEvaluateScript(ctx, script, sourceURLString, outErrMsg);
-    return result;
-}
-
-
-- (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg {
-    // get context
-    JSGlobalContextRef ctx = [[webView mainFrame] globalContext];
-
-    NSString *sourceURLString = [webView mainFrameURL];
-
-    BOOL result = PKBooleanForScript(ctx, script, sourceURLString, outErrMsg);
-    return result;
-}
-
-
-- (BOOL)xpathEvalsTrue:(NSString *)xpath error:(NSString **)outErrMsg {
-    BOOL boolValue = NO;
+    NSString *type = [args objectForKey:@"type"];
     
-    if ([xpath length]) {
-        
-        // get doc
-        DOMDocument *doc = [webView mainFrameDocument];
-        if (!doc) {
-            if (outErrMsg) {
-                NSString *msg = @"Error evaling XPath expression: No DOM Document";
-                NSLog(@"%@", msg);
-                *outErrMsg = msg;
-            }
-            return NO;
-        }
-
-        @try {
-            DOMXPathResult *result = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_BOOLEAN_TYPE inResult:nil];
-            boolValue = [result booleanValue];
-            
-        } @catch (NSException *e) {
-            if (outErrMsg) {
-                NSString *msg = [NSString stringWithFormat:@"Error evaling XPath expression: %@", [e reason]];
-                NSLog(@"%@", msg);
-                *outErrMsg = msg;
-            }
-            return NO;
-        }
-    }
+    NSUInteger keyCode = [[args objectForKey:@"keyCode"] unsignedLongLongValue];
+    NSUInteger charCode = [[args objectForKey:@"charCode"] unsignedLongLongValue];
     
-    return boolValue;
+    BOOL ctrlKeyPressed = [[args objectForKey:@"ctrlKeyPressed"] boolValue];
+    BOOL altKeyPressed = [[args objectForKey:@"altKeyPressed"] boolValue];
+    BOOL shiftKeyPressed = [[args objectForKey:@"shiftKeyPressed"] boolValue];
+    BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
+    
+    NSString *jsFmt =  @"(function(){"
+    @"var xpathResult = document.evaluate('%@', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);"
+    @"var el = xpathResult.singleNodeValue;"
+    @"var evt = document.createEvent('Events');"
+    @"evt.initEvent('%@', true, true);"
+    @"evt.view = window;"
+    @"evt.ctrlKey = %d;"
+    @"evt.altKey = %d;"
+    @"evt.shiftKey = %d;"
+    @"evt.metaKey = %d;"
+    @"evt.keyCode = %d;"
+    @"evt.charCode = %d;"
+    @"el.dispatchEvent(evt);"
+    @"})();";
+    
+    NSString *js = [NSString stringWithFormat:jsFmt, xpath, type, ctrlKeyPressed, altKeyPressed, shiftKeyPressed, metaKeyPressed, keyCode, charCode];
+    [webView valueForEvaluatingScript:js error:outErrMsg];
 }
 
 
@@ -1662,10 +1578,10 @@
             doesntContainTextDone = ![self containsText:doesntContainText];
         }
         if (javaScriptEvalsTrue) {
-            javaScriptEvalsTrueDone = [self javaScriptEvalsTrue:javaScriptEvalsTrue error:nil];
+            javaScriptEvalsTrueDone = [webView javaScriptEvalsTrue:javaScriptEvalsTrue error:nil];
         }
         if (xpathEvalsTrue) {
-            xpathEvalsTrueDone = [self xpathEvalsTrue:xpathEvalsTrue error:nil];
+            xpathEvalsTrueDone = [webView xpathEvalsTrue:xpathEvalsTrue error:nil];
         }
         
         done = (titleEqualsDone && hasElementWithIdDone && doesntHaveElementWithIdDone &&

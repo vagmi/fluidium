@@ -219,8 +219,6 @@
 		D386705E11F96DA900248091 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D386705011F96D9100248091 /* JavaScriptCore.framework */; };
 		D3902A5211FFBB340040422F /* FUPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3902A5011FFBB340040422F /* FUPromptView.xib */; };
 		D3902A5311FFBB340040422F /* FUPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3902A5011FFBB340040422F /* FUPromptView.xib */; };
-		D3902B6411FFDD040040422F /* PKJSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3902B6311FFDD040040422F /* PKJSUtils.m */; };
-		D3902B6511FFDD040040422F /* PKJSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D3902B6311FFDD040040422F /* PKJSUtils.m */; };
 		D39A36751126A0E100DC5176 /* FUCreateCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D39A36741126A0E100DC5176 /* FUCreateCommand.m */; };
 		D3A3269510FEFF6E00032B66 /* OAPreferenceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268810FEFF6E00032B66 /* OAPreferenceClient.m */; };
 		D3A3269610FEFF6E00032B66 /* OAPreferenceClientRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3268A10FEFF6E00032B66 /* OAPreferenceClientRecord.m */; };
@@ -1083,8 +1081,6 @@
 		D38421491102C95900605809 /* FUDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDocumentController.h; path = include/Fluidium/FUDocumentController.h; sourceTree = "<group>"; };
 		D386705011F96D9100248091 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		D3902A5111FFBB340040422F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUPromptView.xib; sourceTree = "<group>"; };
-		D3902B6211FFDD040040422F /* PKJSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKJSUtils.h; path = lib/ParseKit/jssrc/PKJSUtils.h; sourceTree = "<group>"; };
-		D3902B6311FFDD040040422F /* PKJSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKJSUtils.m; path = lib/ParseKit/jssrc/PKJSUtils.m; sourceTree = "<group>"; };
 		D39A36731126A0E100DC5176 /* FUCreateCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUCreateCommand.h; path = src/FUCreateCommand.h; sourceTree = "<group>"; };
 		D39A36741126A0E100DC5176 /* FUCreateCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUCreateCommand.m; path = src/FUCreateCommand.m; sourceTree = "<group>"; };
 		D3A3268710FEFF6E00032B66 /* OAPreferenceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAPreferenceClient.h; sourceTree = "<group>"; };
@@ -1818,8 +1814,6 @@
 				D3ADFA9F110468450064C070 /* FUDocument+Scripting.m */,
 				D3ACEC551106CE2B005A3CF6 /* FUWindowController+Scripting.h */,
 				D3ACEC561106CE2B005A3CF6 /* FUWindowController+Scripting.m */,
-				D3902B6211FFDD040040422F /* PKJSUtils.h */,
-				D3902B6311FFDD040040422F /* PKJSUtils.m */,
 				D3ADFAA11104684F0064C070 /* FUTabController+Scripting.h */,
 				D3ADFAA21104684F0064C070 /* FUTabController+Scripting.m */,
 				D373ECCB110B945600ECE3BE /* NSDictionary+FUScripting.h */,
@@ -2745,7 +2739,6 @@
 				D364ECDA11F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */,
 				D364EDD012306E99008AC15E /* FURunWorkflowCommand.m in Sources */,
 				D364EDD412306E99008AC15E /* FUStopWorkflowCommand.m in Sources */,
-				D3902B6511FFDD040040422F /* PKJSUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2891,7 +2884,6 @@
 				D30E6B1211FE5D220093695A /* FUJavaScriptBridge.m in Sources */,
 				D30E6B1311FE5D280093695A /* FUJavaScriptMenuItem.m in Sources */,
 				D30E6B1411FE5D2E0093695A /* FUJavaScriptGrowlNotification.m in Sources */,
-				D3902B6411FFDD040040422F /* PKJSUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
