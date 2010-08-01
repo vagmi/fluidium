@@ -202,6 +202,8 @@
 		D373ECCD110B945600ECE3BE /* NSDictionary+FUScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ECCC110B945600ECE3BE /* NSDictionary+FUScripting.m */; };
 		D373ED72110BF68300ECE3BE /* FUBaseScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */; };
 		D3778DFE10FF1F4900EEA25F /* OAPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3778DFC10FF1F4900EEA25F /* OAPreferencesWindow.xib */; };
+		D37A816D120637F000E1178C /* AutoTyper.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A816A120637F000E1178C /* AutoTyper.m */; };
+		D37A816E120637F000E1178C /* AutoTypeCode.m in Sources */ = {isa = PBXBuildFile; fileRef = D37A816C120637F000E1178C /* AutoTypeCode.m */; };
 		D37E9A4F11FB997300147399 /* FakeDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E9A4E11FB997300147399 /* FakeDocumentController.m */; };
 		D37E9AB611FBA15C00147399 /* AquaticPrime.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D37E9AA311FBA13600147399 /* AquaticPrime.framework */; };
 		D37E9AB711FBA16E00147399 /* AquaticPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D37E9AA311FBA13600147399 /* AquaticPrime.framework */; };
@@ -1074,6 +1076,10 @@
 		D373ED70110BF68300ECE3BE /* FUBaseScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBaseScriptCommand.h; path = src/FUBaseScriptCommand.h; sourceTree = "<group>"; };
 		D373ED71110BF68300ECE3BE /* FUBaseScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBaseScriptCommand.m; path = src/FUBaseScriptCommand.m; sourceTree = "<group>"; };
 		D3778DFD10FF1F4900EEA25F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/OAPreferencesWindow.xib; sourceTree = "<group>"; };
+		D37A8169120637F000E1178C /* AutoTyper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoTyper.h; path = ../../fake/lib/AutoType/src/AutoTyper.h; sourceTree = SOURCE_ROOT; };
+		D37A816A120637F000E1178C /* AutoTyper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AutoTyper.m; path = ../../fake/lib/AutoType/src/AutoTyper.m; sourceTree = SOURCE_ROOT; };
+		D37A816B120637F000E1178C /* AutoTypeCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoTypeCode.h; path = ../../fake/lib/AutoType/src/AutoTypeCode.h; sourceTree = SOURCE_ROOT; };
+		D37A816C120637F000E1178C /* AutoTypeCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AutoTypeCode.m; path = ../../fake/lib/AutoType/src/AutoTypeCode.m; sourceTree = SOURCE_ROOT; };
 		D37E9A4D11FB997300147399 /* FakeDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeDocumentController.h; path = ../../fake/src/FakeDocumentController.h; sourceTree = SOURCE_ROOT; };
 		D37E9A4E11FB997300147399 /* FakeDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeDocumentController.m; path = ../../fake/src/FakeDocumentController.m; sourceTree = SOURCE_ROOT; };
 		D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AquaticPrime.xcodeproj; path = ../../fake/lib/AquaticPrime/AquaticPrime.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -1739,6 +1745,17 @@
 			name = UserAgent;
 			sourceTree = "<group>";
 		};
+		D37A8170120637F400E1178C /* AutoType */ = {
+			isa = PBXGroup;
+			children = (
+				D37A8169120637F000E1178C /* AutoTyper.h */,
+				D37A816A120637F000E1178C /* AutoTyper.m */,
+				D37A816B120637F000E1178C /* AutoTypeCode.h */,
+				D37A816C120637F000E1178C /* AutoTypeCode.m */,
+			);
+			name = AutoType;
+			sourceTree = "<group>";
+		};
 		D37E9A9B11FBA13600147399 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1893,6 +1910,7 @@
 			children = (
 				D3C2E4DE11D7EF0B00106E86 /* Fake.xcodeproj */,
 				D37E9A9A11FBA13600147399 /* AquaticPrime.xcodeproj */,
+				D37A8170120637F400E1178C /* AutoType */,
 				D3C2E35711D7E32E00106E86 /* Fake-Info.plist */,
 				D37E9AC011FBA21800147399 /* AquaticPrime.h */,
 				D37E9A4D11FB997300147399 /* FakeDocumentController.h */,
@@ -2884,6 +2902,8 @@
 				D30E6B1211FE5D220093695A /* FUJavaScriptBridge.m in Sources */,
 				D30E6B1311FE5D280093695A /* FUJavaScriptMenuItem.m in Sources */,
 				D30E6B1411FE5D2E0093695A /* FUJavaScriptGrowlNotification.m in Sources */,
+				D37A816D120637F000E1178C /* AutoTyper.m in Sources */,
+				D37A816E120637F000E1178C /* AutoTypeCode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

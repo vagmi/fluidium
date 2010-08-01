@@ -15,6 +15,10 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
+#ifdef FAKE
+@class AutoTyper;
+#endif
+
 @class FUWindowController;
 @class FUWebView;
 @class FUJavaScriptBridge;
@@ -45,6 +49,10 @@
     
     NSScriptCommand *suspendedCommand;
     BOOL submittingFromScript;
+    
+#ifdef FAKE
+    AutoTyper *autoTyper;
+#endif    
 }
 
 - (id)initWithWindowController:(FUWindowController *)wc;
@@ -96,4 +104,7 @@
 
 @property (nonatomic) BOOL isProcessing;
 @property (nonatomic) BOOL canReload;
+#ifdef FAKE
+@property (nonatomic, retain) AutoTyper *autoTyper;
+#endif    
 @end

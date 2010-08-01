@@ -26,6 +26,10 @@
 #import <TDAppKit/TDAppKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
+#ifdef FAKE
+#import "AutoTyper.h"
+#endif
+
 #define DEFAULT_DELAY 1.0
 
 // wait for condition
@@ -66,10 +70,12 @@
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
 - (DOMHTMLFormElement *)formElementForArguments:(NSDictionary *)args;
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
+- (void)setSimpleValue:(NSString *)value forElement:(DOMElement *)el;
 - (BOOL)boolForValue:(NSString *)value;
-- (BOOL)isRadio:(DOMHTMLElement *)el;
-- (BOOL)isMultiSelect:(DOMHTMLElement *)el;
-- (BOOL)isCheckbox:(DOMHTMLElement *)el;
+- (BOOL)isTextField:(DOMElement *)el;
+- (BOOL)isRadio:(DOMElement *)el;
+- (BOOL)isMultiSelect:(DOMElement *)el;
+- (BOOL)isCheckbox:(DOMElement *)el;
     
 - (BOOL)titleEquals:(NSString *)cmd;
 - (BOOL)statusCodeEquals:(NSInteger)aCode;
@@ -1370,36 +1376,52 @@
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el {
     //if ([el hasAttribute:@"disabled"]) return; // dont set values of disabled elements
 
-    if ([el isKindOfClass:[DOMHTMLInputElement class]]) {
-        DOMHTMLInputElement *inputEl = (DOMHTMLInputElement *)el;
-        
-        BOOL boolValue = [self boolForValue:value];
-        if ([self isCheckbox:inputEl]) {
-            [inputEl setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
-            [inputEl setValue:(boolValue ? value : @"")];
-            return;
-        } else if ([self isRadio:inputEl]) {
-            [inputEl setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
-            [inputEl setValue:(boolValue ? value : @"")];
-            return;
-        }
+#ifdef FAKE
+    if (autoTyper && [self isTextField:el]) {
+        [autoTyper autoType:value inElement:el];
+    } else {
+        [self setSimpleValue:value forElement:el];
     }
-    [el setValue:value];
-    
+#else
+    [self setSimpleValue:value forElement:el];
+#endif
 }
 
 
-- (BOOL)isRadio:(DOMHTMLElement *)el {
+- (void)setSimpleValue:(NSString *)value forElement:(DOMElement *)el {
+    //if ([el hasAttribute:@"disabled"]) return; // dont set values of disabled elements
+    
+    [el focus];
+    
+    if ([self isCheckbox:el] || [self isRadio:el]) {
+        BOOL boolValue = [self boolForValue:value];
+        [el setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
+        [el setValue:(boolValue ? value : @"")];
+    } else {
+        [el setValue:value];
+    }
+    
+    [el blur];
+}
+
+
+- (BOOL)isTextField:(DOMElement *)el {
+    return [el isKindOfClass:[DOMHTMLInputElement class]] &&
+        ([@"text" isEqualToString:[el getAttribute:@"type"]] || [@"password" isEqualToString:[el getAttribute:@"type"]]);
+}
+
+
+- (BOOL)isRadio:(DOMElement *)el {
     return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"radio" isEqualToString:[el getAttribute:@"type"]];
 }
 
 
-- (BOOL)isCheckbox:(DOMHTMLElement *)el {
+- (BOOL)isCheckbox:(DOMElement *)el {
     return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"checkbox" isEqualToString:[el getAttribute:@"type"]];
 }
 
 
-- (BOOL)isMultiSelect:(DOMHTMLElement *)el {
+- (BOOL)isMultiSelect:(DOMElement *)el {
     if ([el isKindOfClass:[DOMHTMLSelectElement class]]) {
         DOMHTMLSelectElement *selEl = (DOMHTMLSelectElement *)el;
         return selEl.multiple;
@@ -1514,6 +1536,52 @@
     
     NSString *js = [NSString stringWithFormat:jsFmt, xpath, type, ctrlKeyPressed, altKeyPressed, shiftKeyPressed, metaKeyPressed, keyCode, charCode];
     [webView valueForEvaluatingScript:js error:outErrMsg];
+}
+
+
+- (void)dispatchKeyEventsForString:(NSString *)inString toElement:(DOMElement *)el withArgs:(NSDictionary *)args error:(NSString **)outErrMsg {
+    NSString *xpath = [el defaultXPath];
+    
+    BOOL ctrlKeyPressed = [[args objectForKey:@"ctrlKeyPressed"] boolValue];
+    BOOL altKeyPressed = [[args objectForKey:@"altKeyPressed"] boolValue];
+    BOOL shiftKeyPressed = [[args objectForKey:@"shiftKeyPressed"] boolValue];
+    BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
+    
+    NSArray *types = [NSArray arrayWithObjects:@"keydown", @"keyup", @"keypress", nil];
+    
+    NSMutableString *ms = [NSMutableString stringWithString:@"(function(){"];
+    [ms appendFormat:@"var res=document.evaluate('%@',document,null,XPathResult.FIRST_ORDERED_NODE_TYPE,null);var el=res.singleNodeValue;", xpath];
+
+    NSUInteger i = 0;
+    NSUInteger len = [inString length];
+
+    for ( ; i < len; i++) {
+        unichar c = [inString characterAtIndex:i];
+        
+        for (NSString *type in types) {
+            BOOL isKeyPress = [type isEqualToString:@"keypress"];
+            unichar keyCode = isKeyPress ? 0 : c;
+            unichar charCode = isKeyPress ? c : 0;
+
+            NSString *jsFmt = 
+            @"var evt = document.createEvent('Events');"
+            @"evt.initEvent('%@', true, true);"
+            @"evt.view = window;"
+            @"evt.ctrlKey = %d;"
+            @"evt.altKey = %d;"
+            @"evt.shiftKey = %d;"
+            @"evt.metaKey = %d;"
+            @"evt.keyCode = %d;"
+            @"evt.charCode = %d;"
+            @"el.dispatchEvent(evt);";
+            
+            [ms appendFormat:jsFmt, type, ctrlKeyPressed, altKeyPressed, shiftKeyPressed, metaKeyPressed, keyCode, charCode];
+        }
+    }
+    
+    [ms appendString:@"})();"];
+
+    [webView valueForEvaluatingScript:ms error:outErrMsg];
 }
 
 

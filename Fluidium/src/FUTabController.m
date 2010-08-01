@@ -35,6 +35,10 @@
 #import "WebSecurityOriginPrivate.h"
 #import "FUJavaScriptBridge.h"
 
+#ifdef FAKE
+#import "AutoTyper.h"
+#endif    
+
 //#import <Security/Security.h>
 //#import <SecurityInterface/SFCertificateTrustPanel.h>
 
@@ -126,7 +130,7 @@ typedef enum {
         self.title = NSLocalizedString(@"Untitled", @"");
         self.favicon = [self defaultFavicon];
         self.statusText = @"";
-        
+                
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(classDescriptionNeeded:) name:NSClassDescriptionNeededForClassNotification object:[self class]];
     }
@@ -170,6 +174,10 @@ typedef enum {
     self.promptTextView = nil;
     self.inspector = nil;
     
+#ifdef FAKE
+    self.autoTyper = nil;
+#endif    
+
     // be paranoid. resume the command JIC it has been suspended.
     if (suspendedCommand) {
         [suspendedCommand resumeExecutionWithResult:nil];
@@ -372,6 +380,10 @@ typedef enum {
     [self setUpWebView];
     
     [view addSubview:webView];
+    
+#ifdef FAKE
+    self.autoTyper = [AutoTyper autoTyperWithWebView:webView];
+#endif        
 }
 
 
@@ -1160,4 +1172,7 @@ typedef enum {
 @synthesize isProcessing;
 @synthesize canReload;
 @synthesize suspendedCommand;
+#ifdef FAKE
+@synthesize autoTyper;
+#endif    
 @end
