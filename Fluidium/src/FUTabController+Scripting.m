@@ -1406,8 +1406,10 @@
 
 
 - (BOOL)isTextField:(DOMElement *)el {
+    NSString *type = [el getAttribute:@"type"];
+
     return [el isKindOfClass:[DOMHTMLInputElement class]] &&
-        ([@"text" isEqualToString:[el getAttribute:@"type"]] || [@"password" isEqualToString:[el getAttribute:@"type"]]);
+        (![type length] || [@"text" isEqualToString:type] || [@"password" isEqualToString:type]);
 }
 
 
