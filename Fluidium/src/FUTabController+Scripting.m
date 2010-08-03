@@ -72,10 +72,6 @@
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
 - (void)setSimpleValue:(NSString *)value forElement:(DOMElement *)el;
 - (BOOL)boolForValue:(NSString *)value;
-- (BOOL)isTextField:(DOMElement *)el;
-- (BOOL)isRadio:(DOMElement *)el;
-- (BOOL)isMultiSelect:(DOMElement *)el;
-- (BOOL)isCheckbox:(DOMElement *)el;
     
 - (BOOL)titleEquals:(NSString *)cmd;
 - (BOOL)statusCodeEquals:(NSInteger)aCode;
@@ -167,7 +163,7 @@
     BOOL metaKeyPressed = [[args objectForKey:@"metaKeyPressed"] boolValue];
 
     // create DOM click event
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMDocument *doc = [webView mainFrameDocument];
     DOMAbstractView *window = [doc defaultView];
     WebFrameView *frameView = [[webView mainFrame] frameView];
     NSView <WebDocumentView> *docView = [frameView documentView];
@@ -375,8 +371,6 @@
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
     if (![self isDOMDocument:cmd]) return nil;
     
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    
     NSDictionary *args = [cmd arguments];    
     NSMutableArray *els = [self elementsWithTagName:@"a" forArguments:args];
     
@@ -394,17 +388,12 @@
     }
     
     DOMHTMLAnchorElement *anchorEl = (DOMHTMLAnchorElement *)[anchorEls objectAtIndex:0];
-    
-    // create DOM click event
-    DOMAbstractView *window = [doc defaultView];
-    DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
-    [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
-    
+        
     // register for next page load
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
     
     // send event to the anchor
-    [anchorEl dispatchEvent:evt];
+    [anchorEl dispatchClickEvent];
     
     return nil;
 }
@@ -412,8 +401,6 @@
 
 - (id)handleClickButtonCommand:(NSScriptCommand *)cmd {
     if (![self isDOMDocument:cmd]) return nil;
-    
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
     
     NSDictionary *args = [cmd arguments];
     if (![args count]) {
@@ -448,16 +435,11 @@
         if ([el isKindOfClass:[DOMHTMLButtonElement class]]) {
             DOMHTMLButtonElement *buttonEl = (DOMHTMLButtonElement *)el;
             
-            // create DOM click event
-            DOMAbstractView *window = [doc defaultView];
-            DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
-            [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
-            
             // register for next page load
             [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
             
             // send event to the button
-            [buttonEl dispatchEvent:evt];
+            [buttonEl dispatchClickEvent];
             
             return nil;
         }
@@ -479,12 +461,12 @@
     BOOL setAVal = NO;
     if ([foundEls count]) {
         for (DOMHTMLElement *el in foundEls) {
-            if ([self isRadio:el]) {
+            if ([el isRadio]) {
                 if ([[el getAttribute:@"value"] isEqualToString:value]) {
                     setAVal = YES;
                     [self setValue:value forElement:el];
                 }
-            } else if ([self isMultiSelect:el]) {
+            } else if ([el isMultiSelect]) {
                 NSArray *dirtyVals = [value componentsSeparatedByString:@","];
                 NSMutableArray *cleanVals = [NSMutableArray arrayWithCapacity:[dirtyVals count]];
                 for (NSString *v in dirtyVals) {
@@ -532,12 +514,12 @@
 
     if ([foundEls count]) {
         for (DOMHTMLElement *el in foundEls) {
-            if ([self isRadio:el]) {
+            if ([el isRadio]) {
                 if ([[el getAttribute:@"value"] isEqualToString:value]) {
                     didFocus = YES;
                     [el focus];
                 }
-            } else if ([self isMultiSelect:el]) {
+            } else if ([el isMultiSelect]) {
                 [el focus];
             } else if ([el isKindOfClass:[DOMHTMLElement class]]) {
                 didFocus = YES;
@@ -604,7 +586,7 @@
 
 
 - (NSArray *)elementsForArgs:(NSDictionary *)args inCommand:(NSScriptCommand *)cmd {
-    DOMDocument *doc = (DOMDocument *)[webView mainFrameDocument];
+    DOMDocument *doc = [webView mainFrameDocument];
     
     NSString *formName = [args objectForKey:@"formName"];
     NSString *formID = [args objectForKey:@"formID"];
@@ -1288,7 +1270,7 @@
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName {
     NSMutableArray *result = [NSMutableArray array];
     
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMDocument *doc = [webView mainFrameDocument];
     NSArray *els = [[doc getElementsByTagName:tagName] asArray];
     
     for (DOMHTMLElement *el in els) {
@@ -1305,7 +1287,7 @@
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text {
     text = [text lowercaseString];
     
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMDocument *doc = [webView mainFrameDocument];
     NSMutableArray *els = [[doc getElementsByTagName:tagName] asMutableArray];
     NSMutableArray *result = [self elementsFromArray:els withText:text];
 
@@ -1342,8 +1324,11 @@
 
 
 - (DOMHTMLFormElement *)formElementForArguments:(NSDictionary *)args {
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-
+    DOMDocument *doc = [webView mainFrameDocument];
+    if (![doc isKindOfClass:[DOMHTMLDocument class]]) {
+        return NO;
+    }
+    
     NSString *name = [args objectForKey:@"name"];
     NSString *identifier = [args objectForKey:@"identifier"];
     NSString *xpath = [args objectForKey:@"xpath"];
@@ -1351,7 +1336,7 @@
 
     DOMHTMLFormElement *formEl = nil;
     if (name) {
-        formEl = (DOMHTMLFormElement *)[[doc forms] namedItem:name];
+        formEl = (DOMHTMLFormElement *)[[(DOMHTMLDocument *)doc forms] namedItem:name];
     } else if (identifier) {
         NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
         if ([els count]) formEl = [els objectAtIndex:0];
@@ -1377,7 +1362,7 @@
     //if ([el hasAttribute:@"disabled"]) return; // dont set values of disabled elements
 
 #ifdef FAKE
-    if (autoTyper && [self isTextField:el]) {
+    if (autoTyper && [el isTextField]) {
         [autoTyper autoType:value inElement:el];
     } else {
         [self setSimpleValue:value forElement:el];
@@ -1393,7 +1378,14 @@
     
     [el focus];
     
-    if ([self isCheckbox:el] || [self isRadio:el]) {
+#ifdef FAKE
+    if ([el isFileChooser]) {
+        self.fileChooserPath = value;
+        [el dispatchClickEvent];
+    } else 
+#endif
+    
+    if ([el isCheckbox] || [el isRadio]) {
         BOOL boolValue = [self boolForValue:value];
         [el setAttribute:@"checked" value:(boolValue ? @"checked" : nil)];
         [el setValue:(boolValue ? value : @"")];
@@ -1402,33 +1394,6 @@
     }
     
     [el blur];
-}
-
-
-- (BOOL)isTextField:(DOMElement *)el {
-    NSString *type = [el getAttribute:@"type"];
-
-    return [el isKindOfClass:[DOMHTMLInputElement class]] &&
-        (![type length] || [@"text" isEqualToString:type] || [@"password" isEqualToString:type]);
-}
-
-
-- (BOOL)isRadio:(DOMElement *)el {
-    return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"radio" isEqualToString:[el getAttribute:@"type"]];
-}
-
-
-- (BOOL)isCheckbox:(DOMElement *)el {
-    return [el isKindOfClass:[DOMHTMLInputElement class]] && [@"checkbox" isEqualToString:[el getAttribute:@"type"]];
-}
-
-
-- (BOOL)isMultiSelect:(DOMElement *)el {
-    if ([el isKindOfClass:[DOMHTMLSelectElement class]]) {
-        DOMHTMLSelectElement *selEl = (DOMHTMLSelectElement *)el;
-        return selEl.multiple;
-    }
-    return NO;
 }
 
 
@@ -1468,7 +1433,7 @@
 
 
 - (BOOL)hasElementWithId:(NSString *)identifier {
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
+    DOMDocument *doc = [webView mainFrameDocument];
     DOMElement *el = [doc getElementById:identifier];
     
     BOOL result = (el != nil);
@@ -1484,8 +1449,11 @@
 
 
 - (BOOL)containsText:(NSString *)text {    
-    DOMHTMLDocument *doc = (DOMHTMLDocument *)[webView mainFrameDocument];
-    NSString *allText = [[doc body] textContent];
+    DOMDocument *doc = [webView mainFrameDocument];
+    if (![doc isKindOfClass:[DOMHTMLDocument class]]) {
+        return NO;
+    }
+    NSString *allText = [[(DOMHTMLDocument *)doc body] textContent];
     
 //    NSRange r = [allText rangeOfString:text];
 //    BOOL containsText = NSNotFound != r.location;

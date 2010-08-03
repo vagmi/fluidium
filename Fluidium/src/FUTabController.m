@@ -176,6 +176,7 @@ typedef enum {
     
 #ifdef FAKE
     self.autoTyper = nil;
+    self.fileChooserPath = nil;
 #endif    
 
     // be paranoid. resume the command JIC it has been suspended.
@@ -871,6 +872,12 @@ typedef enum {
 
 
 - (void)webView:(WebView *)wv runOpenPanelForFileButtonWithResultListener:(id <WebOpenPanelResultListener>)listener {
+#ifdef FAKE
+    if ([fileChooserPath length]) {
+        [listener chooseFilename:fileChooserPath];
+        return;
+    }
+#endif
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel beginSheetForDirectory:nil 
                                  file:nil 
@@ -1174,5 +1181,6 @@ typedef enum {
 @synthesize suspendedCommand;
 #ifdef FAKE
 @synthesize autoTyper;
+@synthesize fileChooserPath;
 #endif    
 @end

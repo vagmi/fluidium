@@ -52,6 +52,7 @@
     
 #ifdef FAKE
     AutoTyper *autoTyper;
+    NSString *fileChooserPath;
 #endif    
 }
 
@@ -106,5 +107,6 @@
 @property (nonatomic) BOOL canReload;
 #ifdef FAKE
 @property (nonatomic, retain) AutoTyper *autoTyper;
+@property (nonatomic, copy) NSString *fileChooserPath;
 #endif    
 @end

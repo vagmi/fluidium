@@ -44,4 +44,46 @@
     return [[xpath copy] autorelease];
 }
 
+
+- (void)dispatchClickEvent {
+    // create DOM click event
+    DOMDocument *doc = [self ownerDocument];
+    DOMAbstractView *window = [doc defaultView];
+    DOMUIEvent *evt = (DOMUIEvent *)[doc createEvent:@"UIEvents"];
+    [evt initUIEvent:@"click" canBubble:YES cancelable:YES view:window detail:1];
+    [self dispatchEvent:evt];
+}
+
+
+- (BOOL)isTextField {
+    NSString *type = [self getAttribute:@"type"];
+    
+    return [self isKindOfClass:[DOMHTMLInputElement class]] &&
+        (![type length] || [@"text" isEqualToString:type] || [@"password" isEqualToString:type]);
+}
+
+
+- (BOOL)isFileChooser {
+    return [self isKindOfClass:[DOMHTMLInputElement class]] && [@"file" isEqualToString:[self getAttribute:@"type"]];
+}
+
+
+- (BOOL)isRadio {
+    return [self isKindOfClass:[DOMHTMLInputElement class]] && [@"radio" isEqualToString:[self getAttribute:@"type"]];
+}
+
+
+- (BOOL)isCheckbox {
+    return [self isKindOfClass:[DOMHTMLInputElement class]] && [@"checkbox" isEqualToString:[self getAttribute:@"type"]];
+}
+
+
+- (BOOL)isMultiSelect {
+    if ([self isKindOfClass:[DOMHTMLSelectElement class]]) {
+        DOMHTMLSelectElement *selEl = (DOMHTMLSelectElement *)self;
+        return selEl.multiple;
+    }
+    return NO;
+}
+
 @end

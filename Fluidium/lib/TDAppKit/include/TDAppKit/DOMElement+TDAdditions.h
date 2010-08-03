@@ -16,4 +16,11 @@
 
 @interface DOMElement (TDAdditions)
 - (NSString *)defaultXPath;
+- (void)dispatchClickEvent;
+
+- (BOOL)isTextField;
+- (BOOL)isFileChooser;
+- (BOOL)isRadio;
+- (BOOL)isCheckbox;
+- (BOOL)isMultiSelect;
 @end
