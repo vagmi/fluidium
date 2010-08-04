@@ -373,15 +373,31 @@
 - (id)handleDismissDialogCommand:(NSScriptCommand *)cmd {
     //if (![self isDOMDocument:cmd]) return nil;
     
+    NSDictionary *args = [cmd arguments];
+    NSString *buttonTitle = [args objectForKey:@"buttonTitle"];
+    if (![buttonTitle length]) {
+        buttonTitle = NSLocalizedString(@"OK", @"");
+    }
+    
+    BOOL foundButton = NO;
     if (currentJavaScriptAlert) {
         for (NSButton *b in [currentJavaScriptAlert buttons]) {
-            if ([b tag] == NSAlertDefaultReturn) {
+            if ([[b title] isEqualToString:buttonTitle]) {
                 [b sendAction:[b action] to:[b target]];
+                [[currentJavaScriptAlert window] orderOut:nil];
+                foundButton = YES;
+                break;
             }
         }
     } else {
         [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
         [cmd setScriptErrorString:NSLocalizedString(@"There is currently no JavaScript dialog.", @"")];
+        return nil;
+    }
+
+    if (!foundButton) {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:[NSString stringWithFormat:@"%@", NSLocalizedString(@"There is no JavaScript dialog button with title: %@.", @""), buttonTitle]];
         return nil;
     }
 
