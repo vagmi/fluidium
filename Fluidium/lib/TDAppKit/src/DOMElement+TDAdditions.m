@@ -78,6 +78,15 @@
 }
 
 
+- (BOOL)isSelect {
+    if ([self isKindOfClass:[DOMHTMLSelectElement class]]) {
+        DOMHTMLSelectElement *selEl = (DOMHTMLSelectElement *)self;
+        return !selEl.multiple;
+    }
+    return NO;
+}
+
+
 - (BOOL)isMultiSelect {
     if ([self isKindOfClass:[DOMHTMLSelectElement class]]) {
         DOMHTMLSelectElement *selEl = (DOMHTMLSelectElement *)self;

@@ -22,5 +22,6 @@
 - (BOOL)isFileChooser;
 - (BOOL)isRadio;
 - (BOOL)isCheckbox;
+- (BOOL)isSelect;
 - (BOOL)isMultiSelect;
 @end
