@@ -174,6 +174,7 @@ typedef enum {
     self.promptTextView = nil;
     self.inspector = nil;
     
+    self.currentJavaScriptAlert = nil;
 #ifdef FAKE
     self.autoTyper = nil;
     self.fileChooserPath = nil;
@@ -809,12 +810,19 @@ typedef enum {
 }
 
 
+- (void)alertPanelDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)ctx {
+    
+}
+
+
 - (void)webView:(WebView *)wv runJavaScriptAlertPanelWithMessage:(NSString *)msg initiatedByFrame:(WebFrame *)frame {
-    NSRunInformationalAlertPanel(NSLocalizedString(@"JavaScript", @""),  // title
-                                 msg,                                    // message
-                                 NSLocalizedString(@"OK", @""),          // default button
-                                 nil,                                    // alt button
-                                 nil);                                   // other button    
+    NSString *tit = NSLocalizedString(@"JavaScript", @"");
+    NSString *defaultButton = NSLocalizedString(@"OK", @"");
+
+    //NSRunInformationalAlertPanel(title, msg, defaultButton, nil, nil);
+    
+    self.currentJavaScriptAlert = [NSAlert alertWithMessageText:tit defaultButton:defaultButton alternateButton:nil otherButton:nil informativeTextWithFormat:msg];
+    [currentJavaScriptAlert beginSheetModalForWindow:[[frame webView] window] modalDelegate:self didEndSelector:@selector(alertPanelDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 }
 
 
@@ -838,20 +846,20 @@ typedef enum {
     
     self.promptResultText = defaultText;
     
-    NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"JavaScript", @"")
-                                     defaultButton:NSLocalizedString(@"OK", @"")
-                                   alternateButton:NSLocalizedString(@"Cancel", @"")
-                                       otherButton:nil
-                         informativeTextWithFormat:prompt];
+    self.currentJavaScriptAlert = [NSAlert alertWithMessageText:NSLocalizedString(@"JavaScript", @"")
+                                                  defaultButton:NSLocalizedString(@"OK", @"")
+                                                alternateButton:NSLocalizedString(@"Cancel", @"")
+                                                    otherButton:nil
+                                      informativeTextWithFormat:prompt];
 
     [promptTextView setFont:[NSFont systemFontOfSize:[NSFont systemFontSize]]];
 
-    [alert setAccessoryView:promptView];
-    [[alert window] makeFirstResponder:promptTextView];
+    [currentJavaScriptAlert setAccessoryView:promptView];
+    [[currentJavaScriptAlert window] makeFirstResponder:promptTextView];
     [promptTextView selectAll:nil];
 
     // run
-    NSInteger result = [alert runModal];
+    NSInteger result = [currentJavaScriptAlert runModal];
     
     if (NSAlertDefaultReturn == result) {
         return promptResultText;
@@ -1179,6 +1187,7 @@ typedef enum {
 @synthesize isProcessing;
 @synthesize canReload;
 @synthesize suspendedCommand;
+@synthesize currentJavaScriptAlert;
 #ifdef FAKE
 @synthesize autoTyper;
 @synthesize fileChooserPath;

@@ -370,6 +370,28 @@
 }
 
 
+- (id)handleDismissDialogCommand:(NSScriptCommand *)cmd {
+    //if (![self isDOMDocument:cmd]) return nil;
+    
+    if (currentJavaScriptAlert) {
+        for (NSButton *b in [currentJavaScriptAlert buttons]) {
+            if ([b tag] == NSAlertDefaultReturn) {
+                [b sendAction:[b action] to:[b target]];
+            }
+        }
+    } else {
+        [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
+        [cmd setScriptErrorString:NSLocalizedString(@"There is currently no JavaScript dialog.", @"")];
+        return nil;
+    }
+
+    // just put in a little delay for good measure
+    [self suspendCommand:cmd];
+    [self resumeSuspendedCommandAfterDelay:DEFAULT_DELAY];
+    return nil;
+}
+
+
 - (id)handleClickLinkCommand:(NSScriptCommand *)cmd {
     if (![self isDOMDocument:cmd]) return nil;
     

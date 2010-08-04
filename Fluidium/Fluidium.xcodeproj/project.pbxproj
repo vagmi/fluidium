@@ -270,6 +270,8 @@
 		D3B8BC0710E837E400271454 /* HMImageComboBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60310C8D90C00E0B474 /* HMImageComboBox.m */; };
 		D3B8BC0810E837E400271454 /* HMImageComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F4C60510C8D90C00E0B474 /* HMImageComboBoxCell.m */; };
 		D3B8BD3D10E846C700271454 /* prefpane_icon_tabs.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */; };
+		D3BD6EDF1209FEB200BE7395 /* FUDismissDialogCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD6EDE1209FEB200BE7395 /* FUDismissDialogCommand.m */; };
+		D3BD6EE01209FEB200BE7395 /* FUDismissDialogCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD6EDE1209FEB200BE7395 /* FUDismissDialogCommand.m */; };
 		D3C2E39B11D7E9C600106E86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D332221510C8C1A500151693 /* main.m */; };
 		D3C2E39D11D7E9C600106E86 /* FUWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D332222D10C8C2A100151693 /* FUWindowController.m */; };
 		D3C2E39E11D7E9C600106E86 /* FUWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D332223B10C8C34B00151693 /* FUWindow.m */; };
@@ -1165,6 +1167,8 @@
 		D3B538C3111F7ABE0056D586 /* FUTabController+Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FUTabController+Recording.h"; path = "src/FUTabController+Recording.h"; sourceTree = "<group>"; };
 		D3B538C4111F7ABE0056D586 /* FUTabController+Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FUTabController+Recording.m"; path = "src/FUTabController+Recording.m"; sourceTree = "<group>"; };
 		D3B8BD3C10E846C700271454 /* prefpane_icon_tabs.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = prefpane_icon_tabs.tiff; path = res/img/prefpanes/prefpane_icon_tabs.tiff; sourceTree = "<group>"; };
+		D3BD6EDD1209FEB200BE7395 /* FUDismissDialogCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDismissDialogCommand.h; path = src/FUDismissDialogCommand.h; sourceTree = "<group>"; };
+		D3BD6EDE1209FEB200BE7395 /* FUDismissDialogCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDismissDialogCommand.m; path = src/FUDismissDialogCommand.m; sourceTree = "<group>"; };
 		D3C2E35711D7E32E00106E86 /* Fake-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Fake-Info.plist"; path = "res/conf/Fake-Info.plist"; sourceTree = "<group>"; };
 		D3C2E47011D7E9C600106E86 /* Fake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3C2E4DE11D7EF0B00106E86 /* Fake.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Fake.xcodeproj; path = ../../fake/Fake.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -1850,6 +1854,8 @@
 				D3ADF98E11045B870064C070 /* FUDoJavaScriptCommand.m */,
 				D3ADF9D011045FDB0064C070 /* FULoadURLCommand.h */,
 				D3ADF9D111045FDB0064C070 /* FULoadURLCommand.m */,
+				D3BD6EDD1209FEB200BE7395 /* FUDismissDialogCommand.h */,
+				D3BD6EDE1209FEB200BE7395 /* FUDismissDialogCommand.m */,
 				D3E616B81130DEF2006729E9 /* FUClickLinkCommand.h */,
 				D3E616B91130DEF2006729E9 /* FUClickLinkCommand.m */,
 				D3E616BB1130DEFB006729E9 /* FUClickButtonCommand.h */,
@@ -2757,6 +2763,7 @@
 				D364ECDA11F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */,
 				D364EDD012306E99008AC15E /* FURunWorkflowCommand.m in Sources */,
 				D364EDD412306E99008AC15E /* FUStopWorkflowCommand.m in Sources */,
+				D3BD6EE01209FEB200BE7395 /* FUDismissDialogCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2904,6 +2911,7 @@
 				D30E6B1411FE5D2E0093695A /* FUJavaScriptGrowlNotification.m in Sources */,
 				D37A816D120637F000E1178C /* AutoTyper.m in Sources */,
 				D37A816E120637F000E1178C /* AutoTypeCode.m in Sources */,
+				D3BD6EDF1209FEB200BE7395 /* FUDismissDialogCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

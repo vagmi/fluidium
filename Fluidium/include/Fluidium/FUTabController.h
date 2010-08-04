@@ -50,6 +50,7 @@
     NSScriptCommand *suspendedCommand;
     BOOL submittingFromScript;
     
+    NSAlert *currentJavaScriptAlert;
 #ifdef FAKE
     AutoTyper *autoTyper;
     NSString *fileChooserPath;
@@ -105,6 +106,8 @@
 
 @property (nonatomic) BOOL isProcessing;
 @property (nonatomic) BOOL canReload;
+
+@property (nonatomic, retain) NSAlert *currentJavaScriptAlert;
 #ifdef FAKE
 @property (nonatomic, retain) AutoTyper *autoTyper;
 @property (nonatomic, copy) NSString *fileChooserPath;
