@@ -16,7 +16,7 @@
 
 @implementation DOMHTMLCollection (TDAdditions)
 
-- (NSArray *)asMutableArray {
+- (NSMutableArray *)asMutableArray {
     NSUInteger count = [self length];
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
     

@@ -63,6 +63,11 @@
 }
 
 
+- (BOOL)isTextArea {
+    return [self isKindOfClass:[DOMHTMLTextAreaElement class]];
+}
+
+
 - (BOOL)isFileChooser {
     return [self isKindOfClass:[DOMHTMLInputElement class]] && [@"file" isEqualToString:[self getAttribute:@"type"]];
 }

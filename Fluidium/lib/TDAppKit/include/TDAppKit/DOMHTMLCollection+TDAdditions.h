@@ -15,6 +15,6 @@
 #import <WebKit/WebKit.h>
 
 @interface DOMHTMLCollection (TDAdditions)
-- (NSArray *)asMutableArray;
+- (NSMutableArray *)asMutableArray;
 - (NSArray *)asArray;
 @end

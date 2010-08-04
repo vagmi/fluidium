@@ -69,6 +69,8 @@
 - (NSMutableArray *)elementsForCSSSelector:(NSString *)cssSelector;
 - (NSMutableArray *)elementsFromArray:(NSMutableArray *)els withText:(NSString *)text;
 - (DOMHTMLFormElement *)formElementForArguments:(NSDictionary *)args;
+- (NSArray *)radioElementsFromForm:(DOMHTMLFormElement *)formEl withName:(NSString *)elName;
+- (void)setValue:(NSString *)value forRadioElements:(NSArray *)radioEls;
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el;
 - (void)setSimpleValue:(NSString *)value forElement:(DOMElement *)el;
 - (BOOL)boolForValue:(NSString *)value;
@@ -705,13 +707,18 @@
     for (NSString *elName in values) {
         NSString *value = [values objectForKey:elName];
         
-        DOMHTMLElement *el = (DOMHTMLElement *)[els namedItem:elName];
+        DOMElement *el = (DOMElement *)[els namedItem:elName];
         if (!el) {
             [cmd setScriptErrorNumber:kFUScriptErrorNumberElementNotFound];
             [cmd setScriptErrorString:[NSString stringWithFormat:NSLocalizedString(@"Could not find input element with name: «%@»", @""), elName]];
             return nil;
         }
-        [self setValue:value forElement:el];
+        if ([el isRadio]) {
+            NSArray *radioEls = [self radioElementsFromForm:formEl withName:elName];
+            [self setValue:value forRadioElements:radioEls];
+        } else {
+            [self setValue:value forElement:el];
+        }
     }
     
     [self suspendExecutionUntilProgressFinishedWithCommand:cmd];
@@ -1358,11 +1365,33 @@
 }
 
 
+- (NSArray *)radioElementsFromForm:(DOMHTMLFormElement *)formEl withName:(NSString *)elName {
+    NSMutableArray *radioEls = [[formEl elements] asMutableArray];
+
+    for (DOMElement *el in [[radioEls copy] autorelease]) {
+        if (![el isRadio]) {
+            [radioEls removeObject:el];
+        }
+    }
+
+    return [[radioEls copy] autorelease];
+}
+
+
+- (void)setValue:(NSString *)value forRadioElements:(NSArray *)radioEls {
+    for (DOMHTMLInputElement *radioEl in radioEls) {
+        if ([value isEqualToString:[radioEl getAttribute:@"value"]]) {
+            [self setValue:value forElement:radioEl];
+        }
+    }
+}
+
+
 - (void)setValue:(NSString *)value forElement:(DOMElement *)el {
     //if ([el hasAttribute:@"disabled"]) return; // dont set values of disabled elements
 
 #ifdef FAKE
-    if (autoTyper && [el isTextField]) {
+    if (autoTyper && [el isTextField] || [el isTextArea]) {
         [autoTyper autoType:value inElement:el];
     } else {
         [self setSimpleValue:value forElement:el];

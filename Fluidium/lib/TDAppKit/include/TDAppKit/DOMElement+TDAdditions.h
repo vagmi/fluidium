@@ -19,6 +19,7 @@
 - (void)dispatchClickEvent;
 
 - (BOOL)isTextField;
+- (BOOL)isTextArea;
 - (BOOL)isFileChooser;
 - (BOOL)isRadio;
 - (BOOL)isCheckbox;
