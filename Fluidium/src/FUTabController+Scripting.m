@@ -374,7 +374,7 @@
     //if (![self isDOMDocument:cmd]) return nil;
     
     NSDictionary *args = [cmd arguments];
-    NSString *buttonTitle = [args objectForKey:@"buttonTitle"];
+    NSString *buttonTitle = [[args objectForKey:@"buttonTitle"] uppercaseString];
     if (![buttonTitle length]) {
         buttonTitle = NSLocalizedString(@"OK", @"");
     }
@@ -382,7 +382,7 @@
     BOOL foundButton = NO;
     if (currentJavaScriptAlert) {
         for (NSButton *b in [currentJavaScriptAlert buttons]) {
-            if ([[b title] isEqualToString:buttonTitle]) {
+            if ([[[b title] uppercaseString] isEqualToString:buttonTitle]) {
                 [b sendAction:[b action] to:[b target]];
                 [[currentJavaScriptAlert window] orderOut:nil];
                 foundButton = YES;

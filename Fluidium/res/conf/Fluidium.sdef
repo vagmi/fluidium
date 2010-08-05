@@ -631,7 +631,7 @@
     <enumeration name="capture options" code="Capo">
         <enumerator name="screenshot" code="Scrn" description="Capture the web page as a screenshot."/>
         <enumerator name="Web Archive" code="WbAr" description="Capture the web page as a Web Archive document."/>
-        <enumerator name="screenshot" code="Src " description="Capture the web page as a raw source."/>
+        <enumerator name="raw source" code="Src " description="Capture the web page as a raw source."/>
     </enumeration>
 
     <command name="capture web page" code="FuSSCapt" description="Capture this tab's web page as a screenshot, Web Archive or raw source.">
