@@ -294,7 +294,7 @@
         <result type="any"/>
     </command>
 
-    <command name="dismiss JavaScript dialog" code="FuSSDisM" description="Dismisses a JavaScript alert() dialog by clicking a button.">
+    <command name="dismiss JavaScript dialog" code="FuSSDiss" description="Dismisses a JavaScript alert() dialog by clicking a button.">
         <cocoa class="FUDismissDialogCommand"/>
         <parameter type="text" name="with button" code="Butt" optional="yes" description="The title of the button to click.">
             <cocoa key="buttonTitle"/>
