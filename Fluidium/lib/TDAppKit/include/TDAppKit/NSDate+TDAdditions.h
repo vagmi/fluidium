@@ -12,19 +12,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUStopWorkflowCommand.h"
-#import "FUDocumentController.h"
-#import "FakeDocument.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUStopWorkflowCommand
-
-- (id)performDefaultImplementation {
-    FUDocument *doc = [self directParameter];
-    if (!doc) {
-        doc = [[FUDocumentController instance] frontDocument];
-    }
-    [doc handleStopWorkflowCommand:self];
-    return nil;
-}
-
+@interface NSDate (TDAdditions)
+- (BOOL)isInThePast;
+- (BOOL)isInTheFuture;
 @end

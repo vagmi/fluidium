@@ -12,19 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUStopWorkflowCommand.h"
-#import "FUDocumentController.h"
-#import "FakeDocument.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation FUStopWorkflowCommand
+@interface FUWaitUntilDoneCommand : NSScriptCommand {
 
-- (id)performDefaultImplementation {
-    FUDocument *doc = [self directParameter];
-    if (!doc) {
-        doc = [[FUDocumentController instance] frontDocument];
-    }
-    [doc handleStopWorkflowCommand:self];
-    return nil;
 }
 
 @end

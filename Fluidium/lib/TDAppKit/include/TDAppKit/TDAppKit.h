@@ -15,6 +15,7 @@
 #import <TDAppKit/TDUtils.h>
 #import <TDAppKit/NSAppleEventDescriptor+TDAdditions.h>
 #import <TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h>
+#import <TDAppKit/NSDate+TDAdditions.h>
 #import <TDAppKit/NSImage+TDAdditions.h>
 #import <TDAppKit/NSBezierPath+TDAdditions.h>
 #import <TDAppKit/NSURLRequest+TDAdditions.h>

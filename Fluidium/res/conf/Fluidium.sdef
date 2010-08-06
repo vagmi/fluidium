@@ -272,6 +272,14 @@
         </parameter>
     </command>
 
+    <command name="wait until done" code="FuSSTil " description="Wait until this document is done running a workflow. If a workflow is not running, returns immediately.">
+        <cocoa class="FUWaitUntilDoneCommand"/>
+        <direct-parameter type="specifier" description="The document or window whose workflow to wait for completion."/>
+        <parameter type="real" name="with timeout" code="TOut" optional="yes" description="Timeout in seconds. If not specified, defaults to Infinity.">
+            <cocoa key="timeout"/>
+        </parameter>
+    </command>
+
     <command name="stop workflow" code="FuSSStpW" description="Stop this document's workflow.">
         <cocoa class="FUStopWorkflowCommand"/>
         <direct-parameter type="specifier" description="The document or window whose workflow to stop."/>
@@ -761,6 +769,9 @@
         </responds-to>
         <responds-to command="run workflow">
             <cocoa method="handleRunWorkflowCommand:"/>
+        </responds-to>
+        <responds-to command="wait until done">
+            <cocoa method="handleWaitUntilDoneCommand:"/>
         </responds-to>
         <responds-to command="stop workflow">
             <cocoa method="handleStopWorkflowCommand:"/>

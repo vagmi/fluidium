@@ -32,6 +32,8 @@
 		D33B19F211168A3300F754AD /* TDScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33B19F011168A3300F754AD /* TDScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D33B19F511168A3A00F754AD /* TDScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = D33B19F311168A3A00F754AD /* TDScroller.m */; };
 		D33B19F611168A3A00F754AD /* TDScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D33B19F411168A3A00F754AD /* TDScrollView.m */; };
+		D34A54D3120BBF590059D145 /* NSDate+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34A54D1120BBF590059D145 /* NSDate+TDAdditions.m */; };
+		D34A54D5120BBFD10059D145 /* NSDate+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D34A54D4120BBFD10059D145 /* NSDate+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D366C1B71128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = D366C1B51128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D366C1B81128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D366C1B61128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D366C1BA1128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D366C1B91128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m */; };
@@ -153,6 +155,8 @@
 		D33B19F011168A3300F754AD /* TDScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDScrollView.h; path = include/TDAppKit/TDScrollView.h; sourceTree = "<group>"; };
 		D33B19F311168A3A00F754AD /* TDScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDScroller.m; path = src/TDScroller.m; sourceTree = "<group>"; };
 		D33B19F411168A3A00F754AD /* TDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDScrollView.m; path = src/TDScrollView.m; sourceTree = "<group>"; };
+		D34A54D1120BBF590059D145 /* NSDate+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+TDAdditions.m"; path = "src/NSDate+TDAdditions.m"; sourceTree = "<group>"; };
+		D34A54D4120BBFD10059D145 /* NSDate+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+TDAdditions.h"; path = "include/TDAppKit/NSDate+TDAdditions.h"; sourceTree = "<group>"; };
 		D366C1B51128FF2400547FD6 /* NSAppleEventDescriptor+NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+NDAppleScriptObject.h"; path = "include/TDAppKit/NSAppleEventDescriptor+NDAppleScriptObject.h"; sourceTree = "<group>"; };
 		D366C1B61128FF2400547FD6 /* NSAppleEventDescriptor+TDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAppleEventDescriptor+TDAdditions.h"; path = "include/TDAppKit/NSAppleEventDescriptor+TDAdditions.h"; sourceTree = "<group>"; };
 		D366C1B91128FF3800547FD6 /* NSAppleEventDescriptor+TDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAppleEventDescriptor+TDAdditions.m"; path = "src/NSAppleEventDescriptor+TDAdditions.m"; sourceTree = "<group>"; };
@@ -486,6 +490,8 @@
 				D3FD53E811E28174009CFDA3 /* NSEvent+TDAdditions.m */,
 				D3F0C84111EAADC2002E2BA9 /* NSString+TDAdditions.h */,
 				D3F0C83E11EAADB1002E2BA9 /* NSString+TDAdditions.m */,
+				D34A54D4120BBFD10059D145 /* NSDate+TDAdditions.h */,
+				D34A54D1120BBF590059D145 /* NSDate+TDAdditions.m */,
 			);
 			name = "AppKit Categories";
 			sourceTree = "<group>";
@@ -552,6 +558,7 @@
 				D3FFC4901204B6CA008E4948 /* DOMHTMLOptionsCollection+TDAdditions.h in Headers */,
 				D3FFC4CE1204B92C008E4948 /* WebView+TDAdditions.h in Headers */,
 				D3FFC4D81204B9C8008E4948 /* TDJSUtils.h in Headers */,
+				D34A54D5120BBFD10059D145 /* NSDate+TDAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,6 +711,7 @@
 				D3FFC48E1204B697008E4948 /* DOMHTMLOptionsCollection+TDAdditions.m in Sources */,
 				D3FFC4BA1204B8C1008E4948 /* WebView+TDAdditions.m in Sources */,
 				D3FFC4DA1204B9CF008E4948 /* TDJSUtils.m in Sources */,
+				D34A54D3120BBF590059D145 /* NSDate+TDAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

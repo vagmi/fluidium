@@ -12,18 +12,18 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUStopWorkflowCommand.h"
+#import "FUWaitUntilDoneCommand.h"
 #import "FUDocumentController.h"
 #import "FakeDocument.h"
 
-@implementation FUStopWorkflowCommand
+@implementation FUWaitUntilDoneCommand
 
 - (id)performDefaultImplementation {
     FUDocument *doc = [self directParameter];
     if (!doc) {
         doc = [[FUDocumentController instance] frontDocument];
     }
-    [doc handleStopWorkflowCommand:self];
+    [doc handleWaitUntilDoneCommand:self];
     return nil;
 }
 

@@ -164,6 +164,7 @@
 		D346E8A410CEBE4100BA0B15 /* FUTabsPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D346E8A310CEBE4100BA0B15 /* FUTabsPreferences.m */; };
 		D346E8C010CEC02100BA0B15 /* prefpane_icon_showall.png in Resources */ = {isa = PBXBuildFile; fileRef = D346E8BF10CEC02100BA0B15 /* prefpane_icon_showall.png */; };
 		D346E8C310CEC05300BA0B15 /* FUTabsPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D346E8C110CEC05300BA0B15 /* FUTabsPreferences.xib */; };
+		D34A5443120BB6090059D145 /* FUWaitUntilDoneCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D34A5442120BB6090059D145 /* FUWaitUntilDoneCommand.m */; };
 		D34ACB8C11C1C2D300D8A417 /* combo_field_progress_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = D34ACB8B11C1C2D300D8A417 /* combo_field_progress_indicator.png */; };
 		D34ACCD611C2AC0E00D8A417 /* TDComboField+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D34ACCD511C2AC0E00D8A417 /* TDComboField+FUAdditions.m */; };
 		D34B5E1C10CF6EF3006E17C4 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34B5E1B10CF6EF3006E17C4 /* Carbon.framework */; };
@@ -193,9 +194,7 @@
 		D364ECD911F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364ECD811F3A74B008AC15E /* FUSetFormValuesCommand.m */; };
 		D364ECDA11F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364ECD811F3A74B008AC15E /* FUSetFormValuesCommand.m */; };
 		D364EDCF12306E99008AC15E /* FURunWorkflowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364EDCE12306E99008AC15E /* FURunWorkflowCommand.m */; };
-		D364EDD012306E99008AC15E /* FURunWorkflowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364EDCE12306E99008AC15E /* FURunWorkflowCommand.m */; };
 		D364EDD312306E99008AC15E /* FUStopWorkflowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364EDD212306E99008AC15E /* FUStopWorkflowCommand.m */; };
-		D364EDD412306E99008AC15E /* FUStopWorkflowCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D364EDD212306E99008AC15E /* FUStopWorkflowCommand.m */; };
 		D36FDDB511F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */; };
 		D36FDDB611F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D36FDDB411F1270E005BB0AC /* FUSetVariableValueCommand.m */; };
 		D3730F3810D2D7D200995375 /* NSFileManager+FUAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3730F3710D2D7D200995375 /* NSFileManager+FUAdditions.m */; };
@@ -1026,6 +1025,8 @@
 		D346E8C210CEC05300BA0B15 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUTabsPreferences.xib; sourceTree = "<group>"; };
 		D346E8C810CEC1BC00BA0B15 /* PlugInClientRecord.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PlugInClientRecord.plist; path = res/conf/PlugInClientRecord.plist; sourceTree = "<group>"; };
 		D346EE4E10CF6D6200BA0B15 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		D34A5441120BB6090059D145 /* FUWaitUntilDoneCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUWaitUntilDoneCommand.h; path = src/FUWaitUntilDoneCommand.h; sourceTree = "<group>"; };
+		D34A5442120BB6090059D145 /* FUWaitUntilDoneCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUWaitUntilDoneCommand.m; path = src/FUWaitUntilDoneCommand.m; sourceTree = "<group>"; };
 		D34ACB8B11C1C2D300D8A417 /* combo_field_progress_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = combo_field_progress_indicator.png; path = lib/TDAppKit/res/img/combo_field_progress_indicator.png; sourceTree = "<group>"; };
 		D34ACCD411C2AC0E00D8A417 /* TDComboField+FUAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDComboField+FUAdditions.h"; path = "src/TDComboField+FUAdditions.h"; sourceTree = "<group>"; };
 		D34ACCD511C2AC0E00D8A417 /* TDComboField+FUAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TDComboField+FUAdditions.m"; path = "src/TDComboField+FUAdditions.m"; sourceTree = "<group>"; };
@@ -1889,6 +1890,8 @@
 				D364EDCE12306E99008AC15E /* FURunWorkflowCommand.m */,
 				D364EDD112306E99008AC15E /* FUStopWorkflowCommand.h */,
 				D364EDD212306E99008AC15E /* FUStopWorkflowCommand.m */,
+				D34A5441120BB6090059D145 /* FUWaitUntilDoneCommand.h */,
+				D34A5442120BB6090059D145 /* FUWaitUntilDoneCommand.m */,
 				D39A36731126A0E100DC5176 /* FUCreateCommand.h */,
 				D39A36741126A0E100DC5176 /* FUCreateCommand.m */,
 				D3ADFAFB1104E2210064C070 /* FUGoBackCommand.h */,
@@ -2761,8 +2764,6 @@
 				D358807C11EE147500F904A7 /* FUCaptureWebPageCommand.m in Sources */,
 				D36FDDB611F1270E005BB0AC /* FUSetVariableValueCommand.m in Sources */,
 				D364ECDA11F3A74B008AC15E /* FUSetFormValuesCommand.m in Sources */,
-				D364EDD012306E99008AC15E /* FURunWorkflowCommand.m in Sources */,
-				D364EDD412306E99008AC15E /* FUStopWorkflowCommand.m in Sources */,
 				D3BD6EE01209FEB200BE7395 /* FUDismissDialogCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2912,6 +2913,7 @@
 				D37A816D120637F000E1178C /* AutoTyper.m in Sources */,
 				D37A816E120637F000E1178C /* AutoTypeCode.m in Sources */,
 				D3BD6EDF1209FEB200BE7395 /* FUDismissDialogCommand.m in Sources */,
+				D34A5443120BB6090059D145 /* FUWaitUntilDoneCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

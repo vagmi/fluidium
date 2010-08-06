@@ -1127,6 +1127,7 @@
     [nc removeObserver:self name:FUTabControllerDidFinishLoadNotification object:self];
 }
 
+
 - (void)suspendCommand:(NSScriptCommand *)cmd {
     self.suspendedCommand = cmd;
     [cmd suspendExecution];    

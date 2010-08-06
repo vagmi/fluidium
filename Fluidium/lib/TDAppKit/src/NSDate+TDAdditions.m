@@ -12,19 +12,19 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "FUStopWorkflowCommand.h"
-#import "FUDocumentController.h"
-#import "FakeDocument.h"
+#import <TDAppKit/NSDate+TDAdditions.h>
 
-@implementation FUStopWorkflowCommand
+@implementation NSDate (TDAdditions)
 
-- (id)performDefaultImplementation {
-    FUDocument *doc = [self directParameter];
-    if (!doc) {
-        doc = [[FUDocumentController instance] frontDocument];
-    }
-    [doc handleStopWorkflowCommand:self];
-    return nil;
+- (BOOL)isInThePast {
+    NSTimeInterval interval = [self timeIntervalSinceNow];
+    return interval < 0;
+}
+
+
+- (BOOL)isInTheFuture {
+    NSTimeInterval interval = [self timeIntervalSinceNow];
+    return interval > 0;
 }
 
 @end
