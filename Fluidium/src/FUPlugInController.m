@@ -124,7 +124,8 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     
     if ([[FUUserDefaults instance] showVisiblePlugInsInNewWindows]) {
         // do it in the next run loop. avoids problem where NSWindows have a windowNumber of -1 until the next runloop
-        [self performSelector:@selector(showVisiblePlugInsInWindow:) withObject:win afterDelay:0];
+        //[self performSelector:@selector(showVisiblePlugInsInWindow:) withObject:win afterDelay:0];
+        [self showVisiblePlugInsInWindow:win];
     }
 }
 
@@ -138,7 +139,8 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     }
     
     FUWindowController *wc = [win windowController];
-    [[wc document] performSelector:@selector(windowControllerDidShowVisiblePlugIns:) withObject:wc afterDelay:0];
+//    [[wc document] performSelector:@selector(windowControllerDidShowVisiblePlugIns:) withObject:wc afterDelay:0];
+    [[wc document] windowControllerDidShowVisiblePlugIns:wc];
 }
 
 
