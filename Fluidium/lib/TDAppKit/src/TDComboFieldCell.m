@@ -228,7 +228,7 @@
         rect.size.width += buttonFrame.size.width + 2;
     }
     
-    rect = NSInsetRect(rect, 1.0, 1.0);
+//    rect = NSInsetRect(rect, 1.0, 1.0);
 //    [super _drawFocusRingWithFrame:rect];
 }
 

@@ -205,8 +205,8 @@ NSString *const TDListItemPboardType = @"TDListItemPboardType";
         h = [delegate listView:self extentForItemAtIndex:i];
     } else {
         x = extent; y = 0;
-        x = [delegate listView:self extentForItemAtIndex:i];
-        h = bounds.size.width;
+        w = [delegate listView:self extentForItemAtIndex:i];
+        h = bounds.size.height;
     }
     NSRect r = NSMakeRect(x, y, w, h);
     return r;

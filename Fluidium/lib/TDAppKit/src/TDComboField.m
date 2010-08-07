@@ -568,8 +568,8 @@
 
 - (NSScrollView *)scrollView {
     if (!scrollView) {
-        NSRect r = [self listViewRectForBounds:[self bounds]];
-        self.scrollView = [[[NSScrollView alloc] initWithFrame:r] autorelease];
+        NSRect scrollFrame = [self listViewRectForBounds:[self bounds]];
+        self.scrollView = [[[NSScrollView alloc] initWithFrame:scrollFrame] autorelease];
 //        [[scrollView contentView] setFrameSize:r.size];
         [scrollView setAutoresizingMask:NSViewWidthSizable];
 
@@ -583,7 +583,7 @@
         [scrollView setAutohidesScrollers:NO];
         
         [scrollView setDocumentView:self.listView];
-        NSSize s = [NSScrollView contentSizeForFrameSize:[scrollView frame].size hasHorizontalScroller:NO hasVerticalScroller:YES borderType:NSNoBorder];
+        NSSize s = [NSScrollView contentSizeForFrameSize:scrollFrame.size hasHorizontalScroller:NO hasVerticalScroller:YES borderType:NSNoBorder];
         [self.listView setFrame:NSMakeRect(0, 0, s.width, s.height)]; //[[scrollView contentView] frame]];
     
     }
