@@ -121,6 +121,14 @@
             imgPath = [b pathForImageResource:@"barbutton_system_item_fastforward"];
             imgPos = NSImageOnly;
             break;
+        case UMEBarButtonSystemItemPrev:
+            imgPath = [b pathForImageResource:@"barbutton_system_item_prev"];
+            imgPos = NSImageOnly;
+            break;
+        case UMEBarButtonSystemItemNext:
+            imgPath = [b pathForImageResource:@"barbutton_system_item_next"];
+            imgPos = NSImageOnly;
+            break;
         case UMEBarButtonSystemItemUndo:
             imgPath = [b pathForImageResource:@"barbutton_system_item_reply"];
             imgPos = NSImageOnly;

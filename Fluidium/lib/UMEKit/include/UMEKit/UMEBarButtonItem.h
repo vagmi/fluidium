@@ -43,6 +43,8 @@ typedef enum {
     UMEBarButtonSystemItemPause,
     UMEBarButtonSystemItemRewind,
     UMEBarButtonSystemItemFastForward,
+    UMEBarButtonSystemItemPrev,
+    UMEBarButtonSystemItemNext,
     UMEBarButtonSystemItemUndo,
     UMEBarButtonSystemItemRedo,
     UMEBarButtonSystemItemUser,
