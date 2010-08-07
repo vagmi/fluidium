@@ -16,7 +16,7 @@
 		D328707311D8F3FA0073DE37 /* UMEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = D328707011D8F3FA0073DE37 /* UMEPopoverController.m */; };
 		D328707411D8F3FA0073DE37 /* UMEPopoverView.h in Headers */ = {isa = PBXBuildFile; fileRef = D328707111D8F3FA0073DE37 /* UMEPopoverView.h */; };
 		D328707511D8F3FA0073DE37 /* UMEPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D328707211D8F3FA0073DE37 /* UMEPopoverView.m */; };
-		D328707911D8F4100073DE37 /* UMEPopoverController.h in Headers */ = {isa = PBXBuildFile; fileRef = D328707811D8F4100073DE37 /* UMEPopoverController.h */; };
+		D328707911D8F4100073DE37 /* UMEPopoverController.h in Headers */ = {isa = PBXBuildFile; fileRef = D328707811D8F4100073DE37 /* UMEPopoverController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D32870E911D8F4310073DE37 /* back_button_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = D328707E11D8F4310073DE37 /* back_button_bg.png */; };
 		D32870EA11D8F4310073DE37 /* barbutton_system_item_action.png in Resources */ = {isa = PBXBuildFile; fileRef = D328707F11D8F4310073DE37 /* barbutton_system_item_action.png */; };
 		D32870EB11D8F4310073DE37 /* barbutton_system_item_add.png in Resources */ = {isa = PBXBuildFile; fileRef = D328708011D8F4310073DE37 /* barbutton_system_item_add.png */; };
@@ -138,6 +138,7 @@
 		D343424B1074455900C31EFA /* UMEFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = D34342491074455900C31EFA /* UMEFlippedView.m */; };
 		D35575B810867F000038982C /* MySecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35575B510867EF60038982C /* MySecondViewController.m */; };
 		D35575BC10867F240038982C /* MyThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35575BB10867F240038982C /* MyThirdViewController.m */; };
+		D3677769120DE94C0092E376 /* barbutton_system_item_redo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3677768120DE94C0092E376 /* barbutton_system_item_redo.png */; };
 		D39BF34F1087028800E399F3 /* UMEDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = D39BF34D1087028800E399F3 /* UMEDebugView.m */; };
 		D39BF4621087119400E399F3 /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D39BF4611087119400E399F3 /* FirstView.xib */; };
 		D39BF5B610883FA100E399F3 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D39BF5B510883FA100E399F3 /* SecondView.xib */; };
@@ -331,6 +332,7 @@
 		D35575B510867EF60038982C /* MySecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySecondViewController.m; path = demoapp/MySecondViewController.m; sourceTree = "<group>"; };
 		D35575BA10867F240038982C /* MyThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyThirdViewController.h; path = demoapp/MyThirdViewController.h; sourceTree = "<group>"; };
 		D35575BB10867F240038982C /* MyThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyThirdViewController.m; path = demoapp/MyThirdViewController.m; sourceTree = "<group>"; };
+		D3677768120DE94C0092E376 /* barbutton_system_item_redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = barbutton_system_item_redo.png; path = res/img/barbutton_system_item_redo.png; sourceTree = "<group>"; };
 		D39BF34C1087028800E399F3 /* UMEDebugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UMEDebugView.h; path = src/UMEDebugView.h; sourceTree = "<group>"; };
 		D39BF34D1087028800E399F3 /* UMEDebugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMEDebugView.m; path = src/UMEDebugView.m; sourceTree = "<group>"; };
 		D39BF4611087119400E399F3 /* FirstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstView.xib; path = demoapp/FirstView.xib; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				D328708611D8F4310073DE37 /* barbutton_system_item_organize.png */,
 				D328708711D8F4310073DE37 /* barbutton_system_item_pause.png */,
 				D328708811D8F4310073DE37 /* barbutton_system_item_play.png */,
+				D3677768120DE94C0092E376 /* barbutton_system_item_redo.png */,
 				D328708911D8F4310073DE37 /* barbutton_system_item_refresh.png */,
 				D328708A11D8F4310073DE37 /* barbutton_system_item_reply.png */,
 				D328708B11D8F4310073DE37 /* barbutton_system_item_rewind.png */,
@@ -915,6 +918,7 @@
 				D328715111D8F4310073DE37 /* toolbar_bg_default.png in Resources */,
 				D328715211D8F4310073DE37 /* toolbar_bg_gray.png in Resources */,
 				D328715311D8F4310073DE37 /* toolbar_bg_navy.png in Resources */,
+				D3677769120DE94C0092E376 /* barbutton_system_item_redo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

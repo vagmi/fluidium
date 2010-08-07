@@ -122,10 +122,13 @@
             imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemUndo:
-            aTitle = NSLocalizedString(@"Undo", @"");
+            imgPath = [b pathForImageResource:@"barbutton_system_item_reply"];
+            imgPos = NSImageOnly;
             break;
         case UMEBarButtonSystemItemRedo:
-            aTitle = NSLocalizedString(@"Redo", @"");
+            imgPath = [b pathForImageResource:@"barbutton_system_item_redo"];
+            imgPos = NSImageOnly;
+            break;
         case UMEBarButtonSystemItemUser:
             imgPath = [b pathForImageResource:@"barbutton_system_item_user"];
             imgPos = NSImageOnly;
