@@ -107,6 +107,7 @@
 		D31C7B2811129C0E00563A4D /* FUHandlerPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D31C7B2611129C0E00563A4D /* FUHandlerPreferences.xib */; };
 		D31CC0D410EFCB990013347D /* TDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
 		D31CC10B10EFCCE60013347D /* TDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D31CC0CA10EFCB590013347D /* TDAppKit.framework */; };
+		D323AE76120D017D00FA334F /* FakeConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = D323AE75120D017D00FA334F /* FakeConnector.m */; };
 		D328007F10CC371E00BB363B /* PSMTabBarControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D328FCA310CC339F00BB363B /* PSMTabBarControl.framework */; };
 		D32803F410CC7BFA00BB363B /* FUBookmarkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32803F310CC7BFA00BB363B /* FUBookmarkController.m */; };
 		D328FB1310CB9E2600BB363B /* FUBookmarkWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D328FB1110CB9E2600BB363B /* FUBookmarkWindow.xib */; };
@@ -939,6 +940,8 @@
 		D31C7B0911129A5B00563A4D /* FUHandlerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUHandlerController.m; path = src/FUHandlerController.m; sourceTree = "<group>"; };
 		D31C7B2711129C0E00563A4D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUHandlerPreferences.xib; sourceTree = "<group>"; };
 		D31CC0C010EFCB590013347D /* TDAppKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TDAppKit.xcodeproj; path = lib/TDAppKit/TDAppKit.xcodeproj; sourceTree = "<group>"; };
+		D323AE74120D017D00FA334F /* FakeConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeConnector.h; path = ../../fake/src/FakeConnector.h; sourceTree = SOURCE_ROOT; };
+		D323AE75120D017D00FA334F /* FakeConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeConnector.m; path = ../../fake/src/FakeConnector.m; sourceTree = SOURCE_ROOT; };
 		D32803F210CC7BFA00BB363B /* FUBookmarkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUBookmarkController.h; path = include/Fluidium/FUBookmarkController.h; sourceTree = "<group>"; };
 		D32803F310CC7BFA00BB363B /* FUBookmarkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUBookmarkController.m; path = src/FUBookmarkController.m; sourceTree = "<group>"; };
 		D328FB1210CB9E2600BB363B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FUBookmarkWindow.xib; sourceTree = "<group>"; };
@@ -1932,6 +1935,8 @@
 				D3F156D111E9113E008F1626 /* FakeTabController.m */,
 				D3D4853911E289E50030A659 /* FakeWindow.h */,
 				D3D4853A11E289E50030A659 /* FakeWindow.m */,
+				D323AE74120D017D00FA334F /* FakeConnector.h */,
+				D323AE75120D017D00FA334F /* FakeConnector.m */,
 				D3D486BA11E298180030A659 /* FakeLinkContentView.h */,
 				D3D486BB11E298180030A659 /* FakeLinkContentView.m */,
 				D3D4857011E28BA80030A659 /* FakeMainMenu.xib */,
@@ -2914,6 +2919,7 @@
 				D37A816E120637F000E1178C /* AutoTypeCode.m in Sources */,
 				D3BD6EDF1209FEB200BE7395 /* FUDismissDialogCommand.m in Sources */,
 				D34A5443120BB6090059D145 /* FUWaitUntilDoneCommand.m in Sources */,
+				D323AE76120D017D00FA334F /* FakeConnector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
