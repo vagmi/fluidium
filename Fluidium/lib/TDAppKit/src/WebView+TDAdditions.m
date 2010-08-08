@@ -77,4 +77,23 @@
     return boolValue;
 }
 
+- (NSArray *)allDOMDocumentsFromFrame:(WebFrame *)frame {
+    NSMutableArray *docs = [NSMutableArray array];
+    
+    DOMDocument *doc = [frame DOMDocument];
+    if (doc) [docs addObject:doc];
+    
+    for (WebFrame *childFrame in [frame childFrames]) {
+        [docs addObjectsFromArray:[self allDOMDocumentsFromFrame:childFrame]];
+    }
+    
+    return docs;
+}
+
+
+- (NSArray *)allDOMDocuments {
+    return [self allDOMDocumentsFromFrame:[self mainFrame]];
+}
+
+
 @end

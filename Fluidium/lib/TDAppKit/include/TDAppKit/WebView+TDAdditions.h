@@ -19,4 +19,5 @@
 - (JSValueRef)valueForEvaluatingScript:(NSString *)script error:(NSString **)outErrMsg;
 - (BOOL)javaScriptEvalsTrue:(NSString *)script error:(NSString **)outErrMsg;
 - (BOOL)xpathEvalsTrue:(NSString *)xpath error:(NSString **)outErrMsg;
+- (NSArray *)allDOMDocuments;
 @end

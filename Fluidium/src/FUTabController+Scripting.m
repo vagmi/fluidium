@@ -626,8 +626,6 @@
 
 
 - (NSArray *)elementsForArgs:(NSDictionary *)args inCommand:(NSScriptCommand *)cmd {
-    DOMDocument *doc = [webView mainFrameDocument];
-    
     NSString *formName = [args objectForKey:@"formName"];
     NSString *formID = [args objectForKey:@"formID"];
     NSString *formXPath = [args objectForKey:@"formXPath"];
@@ -637,70 +635,77 @@
     NSString *xpath = [args objectForKey:@"xpath"];
     NSString *cssSelector = [args objectForKey:@"cssSelector"];
     
-    DOMHTMLFormElement *formEl = nil;
-    if ([formName length] && [doc isKindOfClass:[DOMHTMLDocument class]]) {
-        formEl = (DOMHTMLFormElement *)[[(DOMHTMLDocument *)doc forms] namedItem:formName];
-    } else if ([formID length]) {
-        NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
-        if ([els count]) formEl = [els objectAtIndex:0];
-    } else if ([formXPath length]) {
-        NSArray *els = [self elementsForXPath:formXPath];
-        if ([els count]) {
-            DOMElement *el = [els objectAtIndex:0];
+    NSMutableArray *foundEls = nil;
+
+    for (DOMDocument *doc in [webView allDOMDocuments]) {
+        DOMHTMLFormElement *formEl = nil;
+        if ([formName length] && [doc isKindOfClass:[DOMHTMLDocument class]]) {
+            formEl = (DOMHTMLFormElement *)[[(DOMHTMLDocument *)doc forms] namedItem:formName];
+        } else if ([formID length]) {
+            NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
+            if ([els count]) formEl = [els objectAtIndex:0];
+        } else if ([formXPath length]) {
+            NSArray *els = [self elementsForXPath:formXPath];
+            if ([els count]) {
+                DOMElement *el = [els objectAtIndex:0];
+                if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+                    formEl = (DOMHTMLFormElement *)el;
+                }
+            }
+        } else if ([formCSSSelector length]) {
+            DOMElement *el = [self elementForCSSSelector:cssSelector];
             if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
                 formEl = (DOMHTMLFormElement *)el;
             }
         }
-    } else if ([formCSSSelector length]) {
-        DOMElement *el = [self elementForCSSSelector:cssSelector];
-        if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
-            formEl = (DOMHTMLFormElement *)el;
-        }
-    }
-    
-    NSMutableArray *foundEls = nil;
-    DOMElement *foundEl = nil;
-    if ([name length]) {
-        if (formEl) {
-            NSArray *els = [[formEl elements] asArray];
-            foundEls = [NSMutableArray array];
-            for (DOMHTMLElement *el in els) {
-                if ([name isEqualToString:[el getAttribute:@"name"]]) {
-                    [foundEls addObject:el];
+        
+        DOMElement *foundEl = nil;
+        if ([name length]) {
+            if (formEl) {
+                NSArray *els = [[formEl elements] asArray];
+                foundEls = [NSMutableArray array];
+                for (DOMHTMLElement *el in els) {
+                    if ([name isEqualToString:[el getAttribute:@"name"]]) {
+                        [foundEls addObject:el];
+                    }
                 }
+            } else {
+                //            foundEls = [self elementsForXPath:[NSString stringWithFormat:@"(//*[@name='%@'])[1]", name]];
+                foundEls = [self elementsForXPath:[NSString stringWithFormat:@"//*[@name='%@']", name]];
             }
-        } else {
-//            foundEls = [self elementsForXPath:[NSString stringWithFormat:@"(//*[@name='%@'])[1]", name]];
-            foundEls = [self elementsForXPath:[NSString stringWithFormat:@"//*[@name='%@']", name]];
-        }
-    } else if ([identifier length]) {
-        NSArray *els = nil;
-        if (formEl) {
-            els = [[formEl elements] asArray];
-            for (DOMElement *el in els) {
-                if ([[el getAttribute:@"id"] isEqualToString:identifier]) {
-                    foundEl = el;
-                    break;
+        } else if ([identifier length]) {
+            NSArray *els = nil;
+            if (formEl) {
+                els = [[formEl elements] asArray];
+                for (DOMElement *el in els) {
+                    if ([[el getAttribute:@"id"] isEqualToString:identifier]) {
+                        foundEl = el;
+                        break;
+                    }
                 }
+            } else {
+                foundEl = [doc getElementById:identifier]; // use getElementById: here cuz we have no tagName
             }
+        } else if ([xpath length]) {
+            foundEls = [self elementsForXPath:xpath];
+        } else if ([cssSelector length]) {
+            foundEls = [self elementsForCSSSelector:cssSelector];
         } else {
-            foundEl = [doc getElementById:identifier]; // use getElementById: here cuz we have no tagName
+            if (cmd) {
+                [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
+                [cmd setScriptErrorString:NSLocalizedString(@"This command requires an element specifier.", @"")];
+                return nil;
+            }
         }
-    } else if ([xpath length]) {
-        foundEls = [self elementsForXPath:xpath];
-    } else if ([cssSelector length]) {
-        foundEls = [self elementsForCSSSelector:cssSelector];
-    } else {
-        if (cmd) {
-            [cmd setScriptErrorNumber:kFUScriptErrorNumberInvalidArgument];
-            [cmd setScriptErrorString:NSLocalizedString(@"This command requires an element specifier.", @"")];
-            return nil;
+        
+        if (![foundEls count] && foundEl) {
+            foundEls = [NSArray arrayWithObject:foundEl];
         }
-    }
-    
-    if (![foundEls count] && foundEl) {
-        foundEls = [NSArray arrayWithObject:foundEl];
-    }
+        
+        if ([foundEls count]) {
+            break;
+        }
+    }    
     
     return foundEls;
 }

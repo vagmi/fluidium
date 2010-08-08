@@ -207,11 +207,36 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
 
 
 - (void)setUpMenuItemsForPlugIns {
-    plugInMenu = [[[NSApp mainMenu] itemAtIndex:PLUGIN_MENU_INDEX] submenu];
-    
-    for (FUPlugInWrapper *wrap in [self plugInWrappers]) {
-        [self setUpMenuItemsForPlugInWrapper:wrap];
+    NSMenuItem *item = [[NSApp mainMenu] itemWithTitle:NSLocalizedString(@"Plug-ins", @"")];
+    if (item) {
+        self.plugInMenu = [item submenu];
+        
+        for (FUPlugInWrapper *wrap in [self plugInWrappers]) {
+            [self setUpMenuItemsForPlugInWrapper:wrap];
+        }
     }
+}
+
+
+- (void)setUpMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap {
+    NSString *identifier = wrap.identifier;
+    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), wrap.localizedTitle];
+    
+    NSMenuItem *aboutMenuItem = [[[NSMenuItem alloc] initWithTitle:title
+                                                            action:@selector(plugInAboutMenuItemAction:)
+                                                     keyEquivalent:@""] autorelease];
+    [aboutMenuItem setTarget:self];
+    [aboutMenuItem setRepresentedObject:identifier];
+    [[[plugInMenu itemAtIndex:0] submenu] addItem:aboutMenuItem];
+    
+    NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title
+                                                       action:@selector(plugInMenuItemAction:)
+                                                keyEquivalent:wrap.preferredMenuItemKeyEquivalent] autorelease];
+    [menuItem setKeyEquivalentModifierMask:wrap.preferredMenuItemKeyEquivalentModifierFlags];
+    [menuItem setTarget:self];
+    [menuItem setRepresentedObject:identifier];
+    //[menuItem setImage:[NSImage imageNamed:[plugIn iconImageName]]];
+    [plugInMenu addItem:menuItem];
 }
 
 
@@ -262,28 +287,6 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     } else {
         return YES;
     }
-}
-
-
-- (void)setUpMenuItemsForPlugInWrapper:(FUPlugInWrapper *)wrap {
-    NSString *identifier = wrap.identifier;
-    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ Plug-in", @""), wrap.localizedTitle];
-    
-    NSMenuItem *aboutMenuItem = [[[NSMenuItem alloc] initWithTitle:title
-                                                            action:@selector(plugInAboutMenuItemAction:)
-                                                     keyEquivalent:@""] autorelease];
-    [aboutMenuItem setTarget:self];
-    [aboutMenuItem setRepresentedObject:identifier];
-    [[[plugInMenu itemAtIndex:0] submenu] addItem:aboutMenuItem];
-    
-    NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title
-                                                       action:@selector(plugInMenuItemAction:)
-                                                keyEquivalent:wrap.preferredMenuItemKeyEquivalent] autorelease];
-    [menuItem setKeyEquivalentModifierMask:wrap.preferredMenuItemKeyEquivalentModifierFlags];
-    [menuItem setTarget:self];
-    [menuItem setRepresentedObject:identifier];
-    //[menuItem setImage:[NSImage imageNamed:[plugIn iconImageName]]];
-    [plugInMenu addItem:menuItem];
 }
 
 
