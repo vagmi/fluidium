@@ -25,6 +25,8 @@
 #import "WebViewPrivate.h"
 #import <WebKit/WebKit.h>
 
+#define FAKE_PLUGIN_ID @"com.fakeapp.FakePlugIn"
+
 #define BACK_TAG 500
 #define FORWARD_TAG 510
 #define RELOAD_TAG 520
@@ -198,6 +200,10 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
 
 - (NSToolbarItem *)toolbarItemForPlugInWrapper:(FUPlugInWrapper *)wrap {
     if (!wrap) return nil;
+
+#ifdef FAKE
+    if ([wrap.identifier isEqualToString:FAKE_PLUGIN_ID]) return nil;
+#endif
     
     NSBundle *bundle = [NSBundle bundleForClass:[wrap.plugIn class]];
     NSString *imgName = wrap.toolbarIconImageName;
@@ -270,7 +276,15 @@ static NSString *const FUTextLargerItemIdentifier = @"FUTextLargerItemIdentifier
 
 
 - (NSArray *)allPlugInToolbarItemIdentifiers {
-    return [[FUPlugInController instance] allPlugInIdentifiers];
+    NSArray *a = [[FUPlugInController instance] allPlugInIdentifiers];
+#ifdef FAKE
+    if ([a containsObject:FAKE_PLUGIN_ID]) {
+        NSMutableArray *ma = [NSMutableArray arrayWithArray:a];
+        [ma removeObject:FAKE_PLUGIN_ID];
+        a = [[ma copy] autorelease];
+    }
+#endif
+    return a;
 }
 
 @end

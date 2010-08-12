@@ -15,6 +15,8 @@
 #import "FUUserDefaults.h"
 #import "WebIconDatabase.h"
 
+#define FAKE_PLUGIN_ID @"com.fakeapp.FakePlugIn"
+
 // Browser
 NSString *const kFUWebIconDatabaseDirectoryDefaultsKey = @"WebIconDatabaseDirectoryDefaults";
 NSString *const kFURecentURLStringsKey = @"FURecentURLStrings";
@@ -551,7 +553,15 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
 
 
 - (NSArray *)visiblePlugInIdentifiers {
-    return [[NSUserDefaults standardUserDefaults] arrayForKey:kFUVisiblePlugInIdentifiersKey];
+    NSArray *a = [[NSUserDefaults standardUserDefaults] arrayForKey:kFUVisiblePlugInIdentifiersKey];
+#ifdef FAKE
+    if (![a containsObject:FAKE_PLUGIN_ID]) {
+        NSMutableArray *ma = [NSMutableArray arrayWithArray:a];
+        [ma addObject:FAKE_PLUGIN_ID];
+        a = [[ma copy] autorelease];
+    }
+#endif
+    return a;
 }
 - (void)setVisiblePlugInIdentifiers:(NSArray *)a {
     [[NSUserDefaults standardUserDefaults] setObject:a forKey:kFUVisiblePlugInIdentifiersKey];

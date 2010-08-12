@@ -23,11 +23,20 @@
 
 @implementation FUPlugIn
 
+- (id)init {
+    NSAssert1(0, @"%@  must be created with an api", [self class]);
+    [self release];
+    return self;
+}
+
+
 - (id)initWithPlugInAPI:(id <FUPlugInAPI>)api {
     if (self = [super init]) {
         self.preferredHorizontalSplitPosition = 220;
         self.preferredVerticalSplitPosition = 220;
         self.viewControllers = [NSMutableArray array];
+        self.wantsToolbarButton = YES;
+        self.wantsMainMenuItem = YES;
     }
     return self;
 }
@@ -50,7 +59,7 @@
 
 
 - (NSViewController *)newPlugInViewController {
-    NSAssert2(0, @"-[FUPlugIn %s] is abstract and must be overridden in %@", _cmd, [self className]);
+    NSAssert1(0, @"%s is abstract and must be overridden", __PRETTY_FUNCTION__);
     return nil;
 }
 
@@ -81,4 +90,6 @@
 @synthesize preferredVerticalSplitPosition;
 @synthesize preferredHorizontalSplitPosition;
 @synthesize sortOrder;
+@synthesize wantsToolbarButton;
+@synthesize wantsMainMenuItem;
 @end

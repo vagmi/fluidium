@@ -53,4 +53,6 @@
 @property (nonatomic, readonly) CGFloat preferredVerticalSplitPosition;
 @property (nonatomic, readonly) CGFloat preferredHorizontalSplitPosition;
 @property (nonatomic, readonly) NSInteger sortOrder;
+@property (nonatomic, readonly) BOOL wantsToolbarButton;
+@property (nonatomic, readonly) BOOL wantsMainMenuItem;
 @end

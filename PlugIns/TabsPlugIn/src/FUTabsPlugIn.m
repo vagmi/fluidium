@@ -26,7 +26,7 @@
 @implementation FUTabsPlugIn
 
 - (id)initWithPlugInAPI:(id <FUPlugInAPI>)api {
-    if (self = [super init]) {
+    if (self = [super initWithPlugInAPI:api]) {
         self.plugInAPI = api;
         self.identifier = @"com.fluidapp.TabsPlugIn";
         self.localizedTitle = NSLocalizedString(@"Tabs", @"");

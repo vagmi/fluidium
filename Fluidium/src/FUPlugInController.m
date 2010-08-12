@@ -229,14 +229,16 @@ NSString *const FUPlugInViewControllerDrawerKey = @"FUPlugInViewControllerDrawer
     [aboutMenuItem setRepresentedObject:identifier];
     [[[plugInMenu itemAtIndex:0] submenu] addItem:aboutMenuItem];
     
-    NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title
-                                                       action:@selector(plugInMenuItemAction:)
-                                                keyEquivalent:wrap.preferredMenuItemKeyEquivalent] autorelease];
-    [menuItem setKeyEquivalentModifierMask:wrap.preferredMenuItemKeyEquivalentModifierFlags];
-    [menuItem setTarget:self];
-    [menuItem setRepresentedObject:identifier];
-    //[menuItem setImage:[NSImage imageNamed:[plugIn iconImageName]]];
-    [plugInMenu addItem:menuItem];
+    if (wrap.wantsMainMenuItem) {
+        NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:title
+                                                           action:@selector(plugInMenuItemAction:)
+                                                    keyEquivalent:wrap.preferredMenuItemKeyEquivalent] autorelease];
+        [menuItem setKeyEquivalentModifierMask:wrap.preferredMenuItemKeyEquivalentModifierFlags];
+        [menuItem setTarget:self];
+        [menuItem setRepresentedObject:identifier];
+        //[menuItem setImage:[NSImage imageNamed:[plugIn iconImageName]]];
+        [plugInMenu addItem:menuItem];
+    }
 }
 
 

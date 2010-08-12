@@ -273,6 +273,16 @@
     return [plugIn sortOrder];
 }
 
+
+- (BOOL)wantsToolbarButton {
+    return [plugIn wantsToolbarButton];
+}
+
+
+- (BOOL)wantsMainMenuItem {
+    return [plugIn wantsMainMenuItem];
+}
+
 @synthesize plugIn;
 @synthesize viewControllerDict;
 @synthesize viewPlacementMaskKey;

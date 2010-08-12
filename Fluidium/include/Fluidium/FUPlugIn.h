@@ -82,6 +82,8 @@ FU_EXTERN
     CGFloat preferredVerticalSplitPosition;
     CGFloat preferredHorizontalSplitPosition;
     NSInteger sortOrder;
+    BOOL wantsToolbarButton;
+    BOOL wantsMainMenuItem;
 }
 
 // the plugInController is this plugin's API back to the Fluid SSB application.
@@ -143,6 +145,8 @@ FU_EXTERN
 @property (nonatomic, assign) CGFloat preferredHorizontalSplitPosition;
 
 @property (nonatomic, assign) NSInteger sortOrder;
+@property (nonatomic, assign) BOOL wantsToolbarButton;
+@property (nonatomic, assign) BOOL wantsMainMenuItem;
 @end
 
 #pragma GCC visibility pop
