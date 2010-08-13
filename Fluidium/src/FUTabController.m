@@ -528,10 +528,10 @@ typedef enum {
 
 
 - (void)webView:(WebView *)wv didFinishLoadForFrame:(WebFrame *)frame {
-    if (frame != [webView mainFrame]) return;
-
-    if (!didReceiveTitle) {
-        self.title = URLString;
+    if (frame == [webView mainFrame]) {
+        if (!didReceiveTitle) {
+            self.title = URLString;
+        }
     }
 
     [self postNotificationName:FUTabControllerDidFinishLoadNotification];
@@ -539,14 +539,14 @@ typedef enum {
 
 
 - (void)webView:(WebView *)wv didFailLoadWithError:(NSError *)err forFrame:(WebFrame *)frame {
-    if (frame != [webView mainFrame]) return;
+    //if (frame != [webView mainFrame]) return;
 
     [self handleLoadFail:err];
 }
 
 
 - (void)webView:(WebView *)wv didClearWindowObject:(WebScriptObject *)wso forFrame:(WebFrame *)frame {
-    if (frame != [webView mainFrame]) return;
+    //if (frame != [webView mainFrame]) return;
 
     // set window.fluid object
     DOMAbstractView *window = (DOMAbstractView *)[webView windowScriptObject];

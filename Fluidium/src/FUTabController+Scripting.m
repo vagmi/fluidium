@@ -1224,56 +1224,57 @@
     NSMutableArray *result = [NSMutableArray array];
 
     if ([xpath length]) {
-        @try {
-            DOMDocument *doc = [webView mainFrameDocument];
-            DOMXPathResult *nodes = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_ORDERED_NODE_SNAPSHOT_TYPE inResult:nil];
-
-            NSUInteger i = 0;
-            NSUInteger count = [nodes snapshotLength];
-            
-            if (count) {
-                for ( ; i < count; i++) {
-                    DOMNode *node = [nodes snapshotItem:i];
-                    if ([node isKindOfClass:[DOMHTMLElement class]]) {
-                        [result addObject:node];
-                    }
-                }
-            } else {
-                // this is a hack cuz sometimes the xpath `(//form)[1]` doesnt work. dunno why
-                SEL sel = NULL;
-                NSString *formsPrefix = @"(//form)[";
-                NSString *linksPrefix = @"(//*[href])[";
-                //NSString *anchorsPrefix = @"(//a)[";
-                //NSString *imagesPrefix = @"(//img)[";
+        for (DOMDocument *doc in [webView allDOMDocuments]) {
+            @try {
+                DOMXPathResult *nodes = [doc evaluate:xpath contextNode:doc resolver:nil type:DOM_ORDERED_NODE_SNAPSHOT_TYPE inResult:nil];
                 
-                NSString *prefix = nil;
-                if ([xpath hasPrefix:formsPrefix]) {
-                    prefix = formsPrefix;
-                    sel = @selector(forms);
-                } else if ([xpath hasPrefix:linksPrefix]) {
-                    prefix = linksPrefix;
-                    sel = @selector(links);
-//                } else if ([xpath hasPrefix:anchorsPrefix]) {
-//                    prefix = anchorsPrefix;
-//                    sel = @selector(anchors);
-//                } else if ([xpath hasPrefix:imagesPrefix]) {
-//                    prefix = imagesPrefix;
-//                    sel = @selector(images);
-                }
-
-                if (prefix && [xpath hasSuffix:@"]"]) {
-                    NSScanner *scanner = [NSScanner scannerWithString:xpath];
-                    if ([scanner scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:nil]) {
-                        NSInteger idx;
-                        if ([scanner scanInteger:&idx]) {
-                            [result addObject:[[(DOMHTMLDocument *)doc performSelector:sel] item:idx]];
+                NSUInteger i = 0;
+                NSUInteger count = [nodes snapshotLength];
+                
+                if (count) {
+                    for ( ; i < count; i++) {
+                        DOMNode *node = [nodes snapshotItem:i];
+                        if ([node isKindOfClass:[DOMHTMLElement class]]) {
+                            [result addObject:node];
+                        }
+                    }
+                } else {
+                    // this is a hack cuz sometimes the xpath `(//form)[1]` doesnt work. dunno why
+                    SEL sel = NULL;
+                    NSString *formsPrefix = @"(//form)[";
+                    NSString *linksPrefix = @"(//*[href])[";
+                    //NSString *anchorsPrefix = @"(//a)[";
+                    //NSString *imagesPrefix = @"(//img)[";
+                    
+                    NSString *prefix = nil;
+                    if ([xpath hasPrefix:formsPrefix]) {
+                        prefix = formsPrefix;
+                        sel = @selector(forms);
+                    } else if ([xpath hasPrefix:linksPrefix]) {
+                        prefix = linksPrefix;
+                        sel = @selector(links);
+                        //                } else if ([xpath hasPrefix:anchorsPrefix]) {
+                        //                    prefix = anchorsPrefix;
+                        //                    sel = @selector(anchors);
+                        //                } else if ([xpath hasPrefix:imagesPrefix]) {
+                        //                    prefix = imagesPrefix;
+                        //                    sel = @selector(images);
+                    }
+                    
+                    if (prefix && [xpath hasSuffix:@"]"]) {
+                        NSScanner *scanner = [NSScanner scannerWithString:xpath];
+                        if ([scanner scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:nil]) {
+                            NSInteger idx;
+                            if ([scanner scanInteger:&idx]) {
+                                [result addObject:[[(DOMHTMLDocument *)doc performSelector:sel] item:idx]];
+                            }
                         }
                     }
                 }
+            } @catch (NSException *e) {
+                NSLog(@"error evaling XPath: %@", [e reason]);
+                return nil;
             }
-        } @catch (NSException *e) {
-            NSLog(@"error evaling XPath: %@", [e reason]);
-            return nil;
         }
     }
     
@@ -1285,13 +1286,14 @@
     DOMElement *result = nil;
     
     if ([cssSelector length]) {
-        @try {
-            DOMDocument *doc = [webView mainFrameDocument];
-            result = [doc querySelector:cssSelector];
-            
-        } @catch (NSException *e) {
-            NSLog(@"error evaling CSS selector: %@", [e reason]);
-            return nil;
+        for (DOMDocument *doc in [webView allDOMDocuments]) {
+            @try {
+                result = [doc querySelector:cssSelector];
+                if (result) break;
+            } @catch (NSException *e) {
+                NSLog(@"error evaling CSS selector: %@", [e reason]);
+                return nil;
+            }
         }
     }
     
@@ -1300,17 +1302,17 @@
 
 
 - (NSMutableArray *)elementsForCSSSelector:(NSString *)cssSelector {
-    NSMutableArray *result = nil;
+    NSMutableArray *result = [NSMutableArray array];
     
     if ([cssSelector length]) {
-        @try {
-            DOMDocument *doc = [webView mainFrameDocument];
-            DOMNodeList *list = [doc querySelectorAll:cssSelector];
-            result = [list asMutableArray];
-            
-        } @catch (NSException *e) {
-            NSLog(@"error evaling CSS selector: %@", [e reason]);
-            return nil;
+        for (DOMDocument *doc in [webView allDOMDocuments]) {
+            @try {
+                DOMNodeList *list = [doc querySelectorAll:cssSelector];
+                [result addObjectsFromArray:[list asMutableArray]];
+            } @catch (NSException *e) {
+                NSLog(@"error evaling CSS selector: %@", [e reason]);
+                return nil;
+            }
         }
     }
     
@@ -1321,13 +1323,14 @@
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andValue:(NSString *)attrVal forAttribute:(NSString *)attrName {
     NSMutableArray *result = [NSMutableArray array];
     
-    DOMDocument *doc = [webView mainFrameDocument];
-    NSArray *els = [[doc getElementsByTagName:tagName] asArray];
+    for (DOMDocument *doc in [webView allDOMDocuments]) {
+        NSArray *els = [[doc getElementsByTagName:tagName] asArray];
     
-    for (DOMHTMLElement *el in els) {
-        NSString *val = [el getAttribute:attrName];
-        if (val && [val isEqualToString:attrVal]) {
-            [result addObject:el];
+        for (DOMHTMLElement *el in els) {
+            NSString *val = [el getAttribute:attrName];
+            if (val && [val isEqualToString:attrVal]) {
+                [result addObject:el];
+            }
         }
     }
     
@@ -1337,10 +1340,13 @@
 
 - (NSMutableArray *)elementsWithTagName:(NSString *)tagName andText:(NSString *)text {
     text = [text lowercaseString];
+
+    NSMutableArray *result = [NSMutableArray array];
     
-    DOMDocument *doc = [webView mainFrameDocument];
-    NSMutableArray *els = [[doc getElementsByTagName:tagName] asMutableArray];
-    NSMutableArray *result = [self elementsFromArray:els withText:text];
+    for (DOMDocument *doc in [webView allDOMDocuments]) {
+        NSMutableArray *els = [[doc getElementsByTagName:tagName] asMutableArray];
+        [result addObjectsFromArray:[self elementsFromArray:els withText:text]];
+    }
 
     return result;
 }
@@ -1375,10 +1381,6 @@
 
 
 - (DOMHTMLFormElement *)formElementForArguments:(NSDictionary *)args {
-    DOMDocument *doc = [webView mainFrameDocument];
-    if (![doc isKindOfClass:[DOMHTMLDocument class]]) {
-        return NO;
-    }
     
     NSString *name = [args objectForKey:@"name"];
     NSString *identifier = [args objectForKey:@"identifier"];
@@ -1386,23 +1388,29 @@
     NSString *cssSelector = [args objectForKey:@"cssSelector"];
 
     DOMHTMLFormElement *formEl = nil;
-    if (name) {
-        formEl = (DOMHTMLFormElement *)[[(DOMHTMLDocument *)doc forms] namedItem:name];
-    } else if (identifier) {
-        NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
-        if ([els count]) formEl = [els objectAtIndex:0];
-    } else if (xpath) {
-        NSArray *els = [self elementsForXPath:xpath];
-        for (DOMHTMLElement *el in els) {
-            if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
-                formEl = (DOMHTMLFormElement *)el;
-                break;
+    for (DOMDocument *doc in [webView allDOMDocuments]) {
+        if ([doc isKindOfClass:[DOMHTMLDocument class]]) {
+            if (name) {
+                formEl = (DOMHTMLFormElement *)[[(DOMHTMLDocument *)doc forms] namedItem:name];
+            } else if (identifier) {
+                NSArray *els = [self elementsWithTagName:@"form" andValue:identifier forAttribute:@"id"];
+                if ([els count]) formEl = [els objectAtIndex:0];
+            } else if (xpath) {
+                NSArray *els = [self elementsForXPath:xpath];
+                for (DOMHTMLElement *el in els) {
+                    if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+                        formEl = (DOMHTMLFormElement *)el;
+                        break;
+                    }
+                }
+            } else if (cssSelector) {
+                DOMElement *el = [self elementForCSSSelector:cssSelector];
+                if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
+                    formEl = (DOMHTMLFormElement *)el;
+                }
             }
-        }
-    } else if (cssSelector) {
-        DOMElement *el = [self elementForCSSSelector:cssSelector];
-        if ([el isKindOfClass:[DOMHTMLFormElement class]]) {
-            formEl = (DOMHTMLFormElement *)el;
+
+            if (formEl) break;
         }
     }
     return formEl;
