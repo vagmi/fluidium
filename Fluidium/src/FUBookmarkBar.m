@@ -80,8 +80,8 @@
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(bookmarksDidChange:) name:FUBookmarksDidChangeNotification object:nil];
-    [nc addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:[self window]];
-    [nc addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:[self window]];    
+//    [nc addObserver:self selector:@selector(windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:[self window]];
+//    [nc addObserver:self selector:@selector(windowDidResignMain:) name:NSWindowDidResignMainNotification object:[self window]];    
 
     NSColor *bgColor = FUMainTabBackgroundColor();
     self.mainBgGradient = [[[NSGradient alloc] initWithStartingColor:[bgColor colorWithAlphaComponent:.65] endingColor:bgColor] autorelease];
@@ -128,14 +128,14 @@
 #pragma mark -
 #pragma mark Notifications
 
-- (void)windowDidBecomeMain:(NSNotification *)n {
-    [self setNeedsDisplay:YES];
-}
-
-
-- (void)windowDidResignMain:(NSNotification *)n {
-    [self setNeedsDisplay:YES];
-}
+//- (void)windowDidBecomeMain:(NSNotification *)n {
+//    [self setNeedsDisplay:YES];
+//}
+//
+//
+//- (void)windowDidResignMain:(NSNotification *)n {
+//    [self setNeedsDisplay:YES];
+//}
 
 
 #pragma mark -
