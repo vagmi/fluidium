@@ -220,7 +220,12 @@ typedef enum {
 - (IBAction)webStopLoading:(id)sender {
     [webView stopLoading:sender];
 }
+
+- (void) webGoHome {
+    [self loadURL:[[FUUserDefaults instance] homeURLString]];
     
+}
+
 
 - (IBAction)webGoHome:(id)sender {
     [self loadURL:[[FUUserDefaults instance] homeURLString]];

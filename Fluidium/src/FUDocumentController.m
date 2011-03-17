@@ -133,7 +133,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)n {
     [self registerForAppleEventHandling];
-    [self restoreSession];
+	// Mital Vora.
+	// Do not restore session as not to navigate and / or open multiple tabs at all.
+    //[self restoreSession];
     [self checkForUpdates];
 }
 

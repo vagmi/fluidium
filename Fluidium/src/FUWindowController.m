@@ -198,7 +198,8 @@
 
 
 - (void)windowDidLoad {
-    [self setUpToolbar];
+	// Mital Vora: disabling toolbar.
+    // [self setUpToolbar];
     [self setUpTabBar];
     [self toolbarShownDidChange:nil];
     [self bookmarkBarShownDidChange:nil];
@@ -615,6 +616,8 @@
 - (FUTabController *)insertNewTabAtIndex:(NSInteger)i andSelect:(BOOL)select {
     FUTabController *tc = [[[FUTabController alloc] initWithWindowController:self] autorelease];
     [self insertTabController:tc atIndex:i];
+	// Mital Vora: navigate to home page.
+	[tc webGoHome];
     if (select) {
         if ([self selectedTabController] != tc) {
             [self selectTabController:tc]; // !! this is doing nothing currently, cuz NSTabView auto selects added tabs (line above)
