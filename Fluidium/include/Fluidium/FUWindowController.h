@@ -151,6 +151,8 @@
 
 - (NSViewController *)plugInViewControllerForPlugInIdentifier:(NSString *)s;
 
+- (BOOL)windowShouldClose:(id)sender;
+
 @property (nonatomic) NSInteger selectedTabIndex;
 
 @property (nonatomic, retain) IBOutlet NSSplitView *locationSplitView;

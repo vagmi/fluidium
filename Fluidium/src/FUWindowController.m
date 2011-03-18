@@ -1421,6 +1421,11 @@
         [(FUWindow *)[self window] forcePerformClose:self];
     }
 }
+- (BOOL)windowShouldClose:(id)sender {
+	[[FUDocumentController instance] setHiddenWindow:[self window]];
+	[[self window] orderOut:self];
+	return FALSE;
+}
 
 
 - (void)closeTab {

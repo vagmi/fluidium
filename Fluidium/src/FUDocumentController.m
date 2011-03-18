@@ -158,6 +158,15 @@
     }
 }
 
+- (id)openUntitledDocumentAndDisplay:(BOOL)displayDocument error:(NSError **)outError {
+    if (hiddenWindow) {
+        [hiddenWindow makeKeyAndOrderFront:self];
+		NSWindow *orig_hiddenWindow = hiddenWindow;
+		hiddenWindow = nil;
+		return orig_hiddenWindow;
+    }
+	return [super openUntitledDocumentAndDisplay:displayDocument error:outError];
+}
 
 - (NSMenu *)applicationDockMenu:(NSApplication *)app {
     NSArray *jsItems = [[[self frontTabController] javaScriptBridge] dockMenuItems];

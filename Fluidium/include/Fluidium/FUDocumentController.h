@@ -60,6 +60,7 @@ typedef enum {
 - (WebView *)frontWebView;
 
 - (void)saveSession;
+- (id)openUntitledDocumentAndDisplay:(BOOL)displayDocument error:(NSError **)outError;
 
 @property (nonatomic, assign) NSWindow *hiddenWindow; // weak ref
 @end
