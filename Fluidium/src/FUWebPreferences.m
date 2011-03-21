@@ -62,10 +62,12 @@
         [self setShrinksStandaloneImagesToFit:YES];
 
 #if FU_LOCAL_STORAGE_ENABLED
+		// Mital Vora
+		// TODO: change this hardcoded path to app specific path.
+		[self _setLocalStorageDatabasePath:@"~/Library/Application Support/myApp"];
         [self setDatabasesEnabled:YES];
-        
-        // [self setOfflineWebApplicationCacheEnabled:YES]; ??
-        // [self setLocalStorageEnabled:YES]; ??
+		[self setOfflineWebApplicationCacheEnabled:YES];
+		[self setLocalStorageEnabled:YES];
 #endif
     }
     return self;
