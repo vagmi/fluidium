@@ -516,6 +516,7 @@
 		D3F941401102F35B00267DA0 /* PTKeyCombo.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F9413C1102F35B00267DA0 /* PTKeyCombo.m */; };
 		D3F9415E1102F3A500267DA0 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F9415D1102F3A500267DA0 /* ShortcutRecorder.framework */; };
 		D3F941601102F3B900267DA0 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D3F9415D1102F3A500267DA0 /* ShortcutRecorder.framework */; };
+		F12B745013387B93000AA336 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F12B744F13387B93000AA336 /* index.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1287,6 +1288,7 @@
 		D3F9413B1102F35B00267DA0 /* PTKeyCombo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTKeyCombo.h; sourceTree = "<group>"; };
 		D3F9413C1102F35B00267DA0 /* PTKeyCombo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKeyCombo.m; sourceTree = "<group>"; };
 		D3F9415D1102F3A500267DA0 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShortcutRecorder.framework; path = lib/ShortcutRecorder/ShortcutRecorder.framework; sourceTree = "<group>"; };
+		F12B744F13387B93000AA336 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = res/markup/index.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1606,6 +1608,7 @@
 		D33E70BB10D0F1EF00D76BBB /* Markup */ = {
 			isa = PBXGroup;
 			children = (
+				F12B744F13387B93000AA336 /* index.html */,
 				D33E70B710D0F1E800D76BBB /* default.css */,
 				D33E70B810D0F1E800D76BBB /* LoadFailed.html */,
 			);
@@ -2487,6 +2490,7 @@
 				D3D3D0091112D8CF000585EB /* prefpane_icon_handlers.png in Resources */,
 				D34ACB8C11C1C2D300D8A417 /* combo_field_progress_indicator.png in Resources */,
 				D3902A5311FFBB340040422F /* FUPromptView.xib in Resources */,
+				F12B745013387B93000AA336 /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,129 +2,93 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Browser -->
-    <key>FURecentURLs</key>
-    <array/>
-    <key>FUMatchingURLPatterns</key>
-    <array/>
-
-    <!-- WebKit -->
-    <!-- <key>WebIconDatabaseDirectoryDefaults</key>
-    <string>~/Library/Application Support/Fluidium/IconDatabase</string> -->
-    <key>WebKitDeveloperExtras</key>
-    <true/>
-    <key>FUContinuousSpellCheckingEnabled</key>
-    <true/>
-    <key>FUZoomTextOnly</key>
-    <false/>
-
-    <!-- UI -->
-    <key>FUToolbarShown</key>
-    <true/>
-    <key>FUBookmarkBarShown</key>
-    <false/>
-    <key>FUBookmarkBarShowsFavicons</key>
-    <false/>
-    <key>FUStatusBarShown</key>
-    <true/>
-    <key>FUTabBarHiddenAlways</key>
-    <false/>
-    <key>FUWindowFrameString</key>
+	<key>FURecentURLs</key>
+	<array/>
+	<key>FUMatchingURLPatterns</key>
+	<array/>
+	<key>WebKitDeveloperExtras</key>
+	<true/>
+	<key>FUContinuousSpellCheckingEnabled</key>
+	<true/>
+	<key>FUZoomTextOnly</key>
+	<false/>
+	<key>FUToolbarShown</key>
+	<true/>
+	<key>FUBookmarkBarShown</key>
+	<false/>
+	<key>FUBookmarkBarShowsFavicons</key>
+	<false/>
+	<key>FUStatusBarShown</key>
+	<true/>
+	<key>FUTabBarHiddenAlways</key>
+	<false/>
+	<key>FUWindowFrameString</key>
 	<string>{{130, 50}, {1020, 700}}</string>
-    <key>FUWindowScreenIndex</key>
-    <integer>0</integer>
-    <key>FUPlugInDrawerContentSizeString</key>
+	<key>FUWindowScreenIndex</key>
+	<integer>0</integer>
+	<key>FUPlugInDrawerContentSizeString</key>
 	<string>{320, 160}</string>
-
-    <!-- General -->
-    <key>FUNewWindowsOpenWith</key>
-    <integer>0</integer>
-    <key>FUHomeURLString</key>
-    <string>http://google.com</string>
-    <key>FUDownloadDirPath</key>
-    <string>~/Downloads</string>
-    
-    <!-- Appearance -->
-    <key>FUWindowLevel</key>
-    <integer>0</integer>
-    <key>FUWindowOpacity</key>
-    <real>1.0</real>
-    <key>FUWindowsHaveShadow</key>
-    <true/>
-    <key>FULoadsImagesAutomatically</key>
-    <integer>1</integer>
-
-    <!-- Behavior -->
-    <key>FUSpacesBehavior</key>
-    <integer>0</integer>
-    <key>FUTargetedClicksCreateTabs</key>
-    <true/>
-    <key>FULinksSentToOtherApplicationsOpenInBackground</key>
-    <false/>
-    <key>FUOpenLinksFromApplicationsIn</key>
-    <integer>1</integer>
-    <key>FUHideLastClosedWindow</key>
-    <false/>
-    <key>FUSessionsEnabled</key>
-    <true/>
-
-    <!-- Tabs -->
-    <key>FUTabbedBrowsingEnabled</key>
-    <true/>
-    <key>FUSelectNewWindowsOrTabsAsCreated</key>
-    <false/>
-    <key>FUTabBarHiddenForSingleTab</key>
-    <true/>
-    <key>FUSelectPriorSelectedTabOnTabClose</key>
-    <false/>
-    <key>FUTabBarCellOptimumWidth</key>
-    <integer>175</integer>
-    <key>FUConfirmBeforeClosingMultipleTabsOrWindows</key>
-    <true/>
-    
-    <!-- Security -->
-    <key>FUPlugInsEnabled</key>
-    <true/>
-    <key>FUJavaEnabled</key>
-    <true/>
-    <key>FUJavaScriptEnabled</key>
-    <true/>
-    <key>FUJavaScriptCanOpenWindowsAutomatically</key>
-    <false/>
-    <key>FUCookieAcceptPolicy</key>
-    <integer>2</integer>
-    
-    <!-- Handlers -->
-    <key>FUHandlers</key>
-    <array>
-        <!-- 
-        <key>scheme</key>
-        <string>mailto</string>
-        <key>URLString</key>
-        <string>*XXX.com?compose=%@*</string>
-        -->
-    </array>
-    
-    <!-- Whitelist -->
-    <key>FUAllowBrowsingToAnyDomain</key>
-    <true/>
-    <key>FUInvertWhitelist</key>
-    <false/>
-    <key>FUWhitelistURLPatternStrings</key>
-    <array>
-        <!-- 
-        <key>value</key>
-        <string>*XXX.com*</string>
-        -->
-    </array>
-
-    <!-- PlugIns -->
-    <key>FUNumberOfBrowsaPlugIns</key>
-    <integer>2</integer>
-    <key>FUShowVisiblePlugInsInNewWindows</key>
-    <false/>
-    <key>FUVisiblePlugInIdentifiers</key>
-    <array/>
-    
+	<key>FUNewWindowsOpenWith</key>
+	<integer>0</integer>
+	<key>FUHomeURLString</key>
+	<string>index</string>
+	<key>FUDownloadDirPath</key>
+	<string>~/Downloads</string>
+	<key>FUWindowLevel</key>
+	<integer>0</integer>
+	<key>FUWindowOpacity</key>
+	<real>1</real>
+	<key>FUWindowsHaveShadow</key>
+	<true/>
+	<key>FULoadsImagesAutomatically</key>
+	<integer>1</integer>
+	<key>FUSpacesBehavior</key>
+	<integer>0</integer>
+	<key>FUTargetedClicksCreateTabs</key>
+	<true/>
+	<key>FULinksSentToOtherApplicationsOpenInBackground</key>
+	<false/>
+	<key>FUOpenLinksFromApplicationsIn</key>
+	<integer>1</integer>
+	<key>FUHideLastClosedWindow</key>
+	<false/>
+	<key>FUSessionsEnabled</key>
+	<true/>
+	<key>FUTabbedBrowsingEnabled</key>
+	<true/>
+	<key>FUSelectNewWindowsOrTabsAsCreated</key>
+	<false/>
+	<key>FUTabBarHiddenForSingleTab</key>
+	<true/>
+	<key>FUSelectPriorSelectedTabOnTabClose</key>
+	<false/>
+	<key>FUTabBarCellOptimumWidth</key>
+	<integer>175</integer>
+	<key>FUConfirmBeforeClosingMultipleTabsOrWindows</key>
+	<true/>
+	<key>FUPlugInsEnabled</key>
+	<true/>
+	<key>FUJavaEnabled</key>
+	<true/>
+	<key>FUJavaScriptEnabled</key>
+	<true/>
+	<key>FUJavaScriptCanOpenWindowsAutomatically</key>
+	<false/>
+	<key>FUCookieAcceptPolicy</key>
+	<integer>2</integer>
+	<key>FUHandlers</key>
+	<array/>
+	<key>FUAllowBrowsingToAnyDomain</key>
+	<true/>
+	<key>FUInvertWhitelist</key>
+	<false/>
+	<key>FUWhitelistURLPatternStrings</key>
+	<array/>
+	<key>FUNumberOfBrowsaPlugIns</key>
+	<integer>2</integer>
+	<key>FUShowVisiblePlugInsInNewWindows</key>
+	<false/>
+	<key>FUVisiblePlugInIdentifiers</key>
+	<array/>
 </dict>
 </plist>

@@ -148,9 +148,26 @@ NSString *const kFUPlugInDrawerContentSizeStringKey = @"FUPlugInDrawerContentSiz
     [[NSUserDefaults standardUserDefaults] setObject:s forKey:kFUWebIconDatabaseDirectoryDefaultsKey];
 }
 
+- (bool) doesContainSubString: (NSString *)str :(NSString* )subStr {
+	NSRange textRange;
+	textRange = [[str lowercaseString] rangeOfString:[subStr lowercaseString]];
+	
+	if(textRange.location != NSNotFound)
+	{
+		return true;
+	}
+	return false;
+}
 
 - (NSString *)homeURLString {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:kFUHomeURLStringKey];
+
+	NSString * uri = [[NSUserDefaults standardUserDefaults] stringForKey:kFUHomeURLStringKey];
+	if ([self doesContainSubString:uri :@"://"])
+	{
+		return uri;
+	}
+	NSString * path = [[NSBundle mainBundle] pathForResource:uri ofType:@"html"];
+	return [[NSURL fileURLWithPath:path] absoluteString];
 }
 - (void)setHomeURLString:(NSString *)s {
     [[NSUserDefaults standardUserDefaults] setObject:s forKey:kFUHomeURLStringKey];

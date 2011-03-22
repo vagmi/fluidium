@@ -96,6 +96,11 @@ extern NSString *const kFUPlugInDrawerContentSizeStringKey;
 
 + (FUUserDefaults *)instance;
 
+// Mital Vora: 
+// My methods for string functions.
+- (bool) doesContainSubString: (NSString *)str :(NSString* )subStr;
+
+
 // Browser
 @property (nonatomic, copy) NSString *webIconDatabaseDirectoryDefaults;
 @property (nonatomic, copy) NSArray *recentURLStrings;
