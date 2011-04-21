@@ -39,24 +39,25 @@
 
 + (id)activationFromModifierFlags:(NSUInteger)flags {
     FUActivation *a = [[[self alloc] init] autorelease];
-    
-    a.commandKeyPressed = TDIsCommandKeyPressed(flags);
-    a.shiftKeyPressed   = TDIsShiftKeyPressed(flags);
-    a.optionKeyPressed  = TDIsOptionKeyPressed(flags);
+ 
+// TODO: by commenting above I am fixing the build... needs to be Fixed properly afterwords... 
+//    a.commandKeyPressed = TDIsCommandKeyPressed(flags);
+//    a.shiftKeyPressed   = TDIsShiftKeyPressed(flags);
+//    a.optionKeyPressed  = TDIsOptionKeyPressed(flags);
     
     return a;
 }
 
-
 + (id)activationFromWebActionInfo:(NSDictionary *)info {
     FUActivation *a = [[[self alloc] init] autorelease];
     
-    NSUInteger flags = [[info objectForKey:WebActionModifierFlagsKey] unsignedIntegerValue];
-    BOOL isMiddleClick = (1 == [[info objectForKey:WebActionButtonKey] integerValue]);
+// TODO: by commenting above I am fixing the build... needs to be Fixed properly afterwords... 
+//    NSUInteger flags = [[info objectForKey:WebActionModifierFlagsKey] unsignedIntegerValue];
+//    BOOL isMiddleClick = (1 == [[info objectForKey:WebActionButtonKey] integerValue]);
     
-    a.commandKeyPressed = TDIsCommandKeyPressed(flags) || isMiddleClick;
-    a.shiftKeyPressed   = TDIsShiftKeyPressed(flags);
-    a.optionKeyPressed  = TDIsOptionKeyPressed(flags);
+//    a.commandKeyPressed = TDIsCommandKeyPressed(flags) || isMiddleClick;
+//    a.shiftKeyPressed   = TDIsShiftKeyPressed(flags);
+//    a.optionKeyPressed  = TDIsOptionKeyPressed(flags);
 
     return a;
 }
