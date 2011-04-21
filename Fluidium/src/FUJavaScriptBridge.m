@@ -78,6 +78,8 @@
         return @"removeDockMenuItem";
     } else if (@selector(beep) == sel) {
         return @"beep";
+    } else if (@selector(bounceDockIcon) == sel) {
+        return @"bounceDockIcon";
     } else if (@selector(playSoundNamed:) == sel) {
         return @"playSound";
     } else {
@@ -163,6 +165,11 @@
 
 - (void)beep {
     NSBeep();
+}
+
+
+- (void)bounceDockIcon {
+    [NSApp requestUserAttention: NSInformationalRequest];
 }
 
 

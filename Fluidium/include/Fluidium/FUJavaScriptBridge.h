@@ -32,6 +32,7 @@
 - (void)removeDockMenuItemWithTitle:(NSString *)title;
 
 - (void)beep;
+- (void)bounceDockIcon;
 - (void)playSoundNamed:(id)obj;
 
 @property (nonatomic, copy) id dockBadge;
