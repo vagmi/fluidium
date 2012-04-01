@@ -695,7 +695,11 @@
 			isa = PBXProject;
 			buildConfigurationList = C056398B08A954F8003078D8 /* Build configuration list for PBXProject "PSMTabBarControl" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0259C574FE90428111CA0C5A /* PSMTabBarControl */;
 			projectDirPath = "";
 			projectReferences = (
@@ -1038,9 +1042,9 @@
 					0xb0000000,
 				);
 				PRODUCT_NAME = PSMTabBarControl;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
+				SDKROOT_ppc = /Developer/SDKs/MacOSX10.6.sdk;
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -1068,16 +1072,16 @@
 				HEADER_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../src\"";
 				INFOPLIST_FILE = "PSMTabBarControlFramework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.5;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.5;
+				MACOSX_DEPLOYMENT_TARGET_i386 = 10.6;
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.6;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
 					0xb0000000,
 				);
 				PRODUCT_NAME = PSMTabBarControl;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.5.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
+				SDKROOT_ppc = /Developer/SDKs/MacOSX10.6.sdk;
 			};
 			name = Release;
 		};
@@ -1166,8 +1170,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
+				SDKROOT_ppc = /Developer/SDKs/MacOSX10.6.sdk;
 			};
 			name = Debug;
 		};
@@ -1181,10 +1185,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.6;
 				PREBINDING = NO;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
+				SDKROOT_ppc = /Developer/SDKs/MacOSX10.6.sdk;
 			};
 			name = Release;
 		};

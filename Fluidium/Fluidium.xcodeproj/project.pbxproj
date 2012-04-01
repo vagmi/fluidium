@@ -1197,7 +1197,7 @@
 		D3D80322111E3BDA0025650C /* FUSubmitFormCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUSubmitFormCommand.m; path = src/FUSubmitFormCommand.m; sourceTree = "<group>"; };
 		D3DB01F910D6141E0057D70C /* FUView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUView.h; path = src/FUView.h; sourceTree = "<group>"; };
 		D3DB01FA10D6141E0057D70C /* FUView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUView.m; path = src/FUView.m; sourceTree = "<group>"; };
-		D3E13270110420EA007FE89E /* Fluidium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; name = Fluidium.sdef; path = res/conf/Fluidium.sdef; sourceTree = "<group>"; };
+		D3E13270110420EA007FE89E /* Fluidium.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Fluidium.sdef; path = res/conf/Fluidium.sdef; sourceTree = "<group>"; };
 		D3E42F3110CB152000A5BDEF /* FUDownloadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadItem.h; path = src/FUDownloadItem.h; sourceTree = "<group>"; };
 		D3E42F3210CB152000A5BDEF /* FUDownloadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FUDownloadItem.m; path = src/FUDownloadItem.m; sourceTree = "<group>"; };
 		D3E42F3310CB152000A5BDEF /* FUDownloadListBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FUDownloadListBackgroundView.h; path = src/FUDownloadListBackgroundView.h; sourceTree = "<group>"; };
@@ -3270,7 +3270,7 @@
 				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Fluidium;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -3308,7 +3308,7 @@
 				INFOPLIST_FILE = res/conf/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Fluidium;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.6;
 				STRIP_STYLE = all;
 			};
 			name = Release;
